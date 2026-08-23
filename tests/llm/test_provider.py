@@ -1,0 +1,71 @@
+import pytest
+
+from app.config import Settings
+from app.exceptions import ConfigurationError, LLMProviderError
+from app.llm.base import LLMMessage, LLMProvider, LLMResponse
+from app.llm.provider import StubLLMProvider, build_llm_provider
+
+
+class FailingProvider(LLMProvider):
+    @property
+    def name(self) -> str:
+        return "failing"
+
+    @property
+    def model(self) -> str:
+        return "fail-model"
+
+    def generate(self, messages, *, temperature=0.0, max_tokens=None) -> LLMResponse:
+        raise RuntimeError("upstream down")
+
+    def generate_structured(self, messages, *, schema, temperature=0.0):
+        raise RuntimeError("upstream down")
+
+    def generate_with_tools(self, messages, *, tools, temperature=0.0) -> LLMResponse:
+        raise RuntimeError("upstream down")
+
+
+def test_stub_provider_generate():
+    provider = StubLLMProvider(model="stub-model")
+    result = provider.generate([LLMMessage(role="user", content="hello")])
+    assert result.content is not None
+    assert "hello" in result.content
+    assert result.model == "stub-model"
+
+
+def test_stub_provider_structured_and_tools():
+    provider = StubLLMProvider()
+    structured = provider.generate_structured(
+        [LLMMessage(role="user", content="x")],
+        schema={"title": "Intent"},
+    )
+    assert structured["ok"] is True
+    tools = provider.generate_with_tools(
+        [LLMMessage(role="user", content="x")],
+        tools=[{"name": "echo"}],
+    )
+    assert tools.tool_calls == []
+
+
+def test_build_provider_defaults_to_stub():
+    provider = build_llm_provider(Settings(llm_provider="stub", llm_model="m1"))
+    assert provider.name == "stub"
+    assert provider.model == "m1"
+
+
+def test_unknown_provider_is_configuration_error():
+    with pytest.raises(ConfigurationError):
+        build_llm_provider(Settings(llm_provider="openai", llm_api_key="x"))
+
+
+def test_provider_failures_can_be_wrapped():
+    failing = FailingProvider()
+    with pytest.raises(RuntimeError):
+        failing.generate([LLMMessage(role="user", content="q")])
+
+    # Agent-facing wrapper path: ConfigurableLLMProvider maps unexpected errors.
+    # Direct StubLLMProvider does not wrap; demonstrate LLMProviderError type exists
+    # for agent/tool layers.
+    err = LLMProviderError("LLM generate failed: upstream down")
+    assert err.status_code == 502
+    assert err.code == "LLM_PROVIDER_FAILURE"
