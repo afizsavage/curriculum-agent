@@ -75,6 +75,19 @@ def test_openai_requires_api_key():
         build_llm_provider(Settings(llm_provider="openai", llm_api_key=""))
 
 
+def test_deepseek_requires_api_key():
+    with pytest.raises(ConfigurationError):
+        build_llm_provider(Settings(llm_provider="deepseek", llm_api_key=""))
+
+
+def test_deepseek_provider_name():
+    provider = build_llm_provider(
+        Settings(llm_provider="deepseek", llm_api_key="test-key", llm_model="deepseek-chat")
+    )
+    assert provider.name == "deepseek"
+    assert provider.model == "deepseek-chat"
+
+
 def test_provider_failures_can_be_wrapped():
     failing = FailingProvider()
     with pytest.raises(RuntimeError):

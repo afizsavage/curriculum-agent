@@ -72,16 +72,29 @@ class StubLLMProvider(LLMProvider):
         )
 
 
+_OPENAI_COMPATIBLE_DEFAULTS: dict[str, str] = {
+    "openai": "https://api.openai.com/v1",
+    "deepseek": "https://api.deepseek.com",
+}
+
+
 class OpenAICompatibleProvider(LLMProvider):
     """OpenAI Chat Completions API (native tool/function calling)."""
 
-    def __init__(self, settings: Settings) -> None:
+    def __init__(self, settings: Settings, *, provider_name: str = "openai") -> None:
         if not settings.llm_api_key:
-            raise ConfigurationError("LLM_API_KEY is required for OpenAI provider")
+            raise ConfigurationError(
+                f"LLM_API_KEY is required for {provider_name} provider"
+            )
         self._settings = settings
+        self._provider_name = provider_name
         self._model = settings.llm_model
+        base_url = settings.llm_base_url.rstrip("/")
+        default_url = _OPENAI_COMPATIBLE_DEFAULTS.get(provider_name)
+        if default_url and base_url == _OPENAI_COMPATIBLE_DEFAULTS["openai"]:
+            base_url = default_url
         self._client = httpx.Client(
-            base_url=settings.llm_base_url.rstrip("/"),
+            base_url=base_url,
             timeout=httpx.Timeout(settings.llm_timeout_seconds),
             headers={
                 "Authorization": f"Bearer {settings.llm_api_key}",
@@ -91,7 +104,7 @@ class OpenAICompatibleProvider(LLMProvider):
 
     @property
     def name(self) -> str:
-        return "openai"
+        return self._provider_name
 
     @property
     def model(self) -> str:
@@ -106,7 +119,7 @@ class OpenAICompatibleProvider(LLMProvider):
     ) -> LLMResponse:
         body: dict[str, Any] = {
             "model": self._model,
-            "messages": [m.model_dump() for m in messages],
+            "messages": [m.to_api_dict() for m in messages],
             "temperature": temperature,
         }
         if max_tokens is not None:
@@ -129,7 +142,7 @@ class OpenAICompatibleProvider(LLMProvider):
     ) -> dict[str, Any]:
         body = {
             "model": self._model,
-            "messages": [m.model_dump() for m in messages],
+            "messages": [m.to_api_dict() for m in messages],
             "temperature": temperature,
             "response_format": {
                 "type": "json_schema",
@@ -168,7 +181,7 @@ class OpenAICompatibleProvider(LLMProvider):
         ]
         body = {
             "model": self._model,
-            "messages": [m.model_dump() for m in messages],
+            "messages": [m.to_api_dict() for m in messages],
             "tools": openai_tools,
             "tool_choice": "auto",
             "temperature": temperature,
@@ -205,9 +218,13 @@ class OpenAICompatibleProvider(LLMProvider):
         except httpx.RequestError as exc:
             raise LLMProviderError(f"LLM request failed: {exc}") from exc
         if response.status_code >= 400:
-            raise LLMProviderError(
-                f"LLM provider returned HTTP {response.status_code}"
-            )
+            detail = response.text.strip()
+            if len(detail) > 300:
+                detail = detail[:300] + "..."
+            message = f"LLM provider returned HTTP {response.status_code}"
+            if detail:
+                message = f"{message}: {detail}"
+            raise LLMProviderError(message)
         try:
             return response.json()
         except ValueError as exc:
@@ -222,12 +239,13 @@ class ConfigurableLLMProvider(LLMProvider):
         provider = self._settings.llm_provider.strip().lower()
         if provider in {"", "stub", "none", "mock"}:
             self._inner: LLMProvider = StubLLMProvider(model=self._settings.llm_model)
-        elif provider in {"openai", "openai_compatible"}:
-            self._inner = OpenAICompatibleProvider(self._settings)
+        elif provider in {"openai", "openai_compatible", "deepseek"}:
+            name = "openai" if provider == "openai_compatible" else provider
+            self._inner = OpenAICompatibleProvider(self._settings, provider_name=name)
         else:
             raise ConfigurationError(
                 f"LLM provider '{self._settings.llm_provider}' is not supported. "
-                "Use LLM_PROVIDER=stub or openai."
+                "Use LLM_PROVIDER=stub, openai, or deepseek."
             )
 
     @property

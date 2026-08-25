@@ -73,28 +73,17 @@ class RetrievalNode:
             if not response.tool_calls:
                 break
 
+            messages.append(self._assistant_tool_message(response))
+
             for call in response.tool_calls:
                 if state.tool_calls >= self.settings.agent_max_tool_calls:
                     break
                 self._execute_call(state, call, request_id=request_id)
-                # Feed tool result back for multi-step retrieval.
-                messages.append(
-                    LLMMessage(
-                        role="assistant",
-                        content=json.dumps(
-                            {
-                                "tool_call": {
-                                    "name": call.name,
-                                    "arguments": call.arguments,
-                                }
-                            }
-                        ),
-                    )
-                )
                 last = state.retrieval_history[-1] if state.retrieval_history else None
                 messages.append(
                     LLMMessage(
                         role="tool",
+                        tool_call_id=call.id,
                         content=json.dumps(
                             {
                                 "tool": call.name,
@@ -251,6 +240,25 @@ class RetrievalNode:
             curriculum_api_status=record.curriculum_api_status,
             evidence_count=record.evidence_count,
             error=record.error,
+        )
+
+    @staticmethod
+    def _assistant_tool_message(response) -> LLMMessage:
+        tool_calls = [
+            {
+                "id": call.id,
+                "type": "function",
+                "function": {
+                    "name": call.name,
+                    "arguments": json.dumps(call.arguments or {}),
+                },
+            }
+            for call in response.tool_calls
+        ]
+        return LLMMessage(
+            role="assistant",
+            content=response.content,
+            tool_calls=tool_calls,
         )
 
     @staticmethod
