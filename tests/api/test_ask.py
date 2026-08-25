@@ -45,13 +45,15 @@ def test_ask_valid_request(client):
     )
     assert response.status_code == 200, response.text
     body = response.json()
-    assert body["answer"] is None
-    assert body["status"] == "retrieved"
+    assert body["answer"]
+    assert body["status"] == "completed"
     assert body["question"].startswith("What topics")
     assert body["conversation_id"]
     assert body["metadata"]["tool_calls"] >= 1
     assert "get_curriculum_structure" in body["metadata"]["tools_used"]
     assert isinstance(body["evidence"], list)
+    assert body["confidence"] in {"high", "medium", "low"}
+    assert isinstance(body["limitations"], list)
     assert response.headers.get("X-Request-ID")
 
 

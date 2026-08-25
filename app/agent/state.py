@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field
 
 from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus, ToolCallRecord
 from app.enums import AgentStatus
+from app.schemas.answer import AnswerConfidence, AnswerEvidenceRef
 
 
 class PlanStep(BaseModel):
@@ -56,6 +57,10 @@ class CurriculumQAState(BaseModel):
     selected_tools: list[str] = Field(default_factory=list)
 
     draft_answer: Optional[str] = None
+    final_answer: Optional[str] = None
+    answer_evidence: list[AnswerEvidenceRef] = Field(default_factory=list)
+    answer_confidence: Optional[AnswerConfidence] = None
+    answer_limitations: list[str] = Field(default_factory=list)
     verification: Optional[VerificationResult] = None
 
     iteration: int = 0
@@ -85,6 +90,10 @@ class CurriculumQAState(BaseModel):
             selected_tools=[],
             plan=None,
             draft_answer=None,
+            final_answer=None,
+            answer_evidence=[],
+            answer_confidence=None,
+            answer_limitations=[],
             verification=None,
             error=None,
         )

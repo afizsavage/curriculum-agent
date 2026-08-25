@@ -7,7 +7,13 @@ from fastapi import APIRouter, Depends, Request
 from app.agent.orchestrator import CurriculumQAAgent
 from app.deps import get_agent
 from app.logging_utils import get_logger, new_request_id, timed_request
-from app.schemas.agent import AskMetadata, AskRequest, AskResponse, EvidenceSummary
+from app.schemas.agent import (
+    AnswerEvidenceSummary,
+    AskMetadata,
+    AskRequest,
+    AskResponse,
+    EvidenceSummary,
+)
 
 router = APIRouter(prefix="/agent", tags=["agent"])
 logger = get_logger(__name__)
@@ -19,8 +25,8 @@ logger = get_logger(__name__)
     summary="Ask the Curriculum Q&A agent",
     description=(
         "Accept a curriculum question, run understand + retrieve against the "
-        "MBSSE Curriculum Structure API via tools, and return evidence. "
-        "Answer generation arrives in Phase 3 (`answer` remains null)."
+        "MBSSE Curriculum Structure API via tools, generate a grounded answer, "
+        "and return evidence with confidence and limitations."
     ),
     responses={
         422: {"description": "Invalid request (validation error)"},
@@ -56,11 +62,14 @@ def ask(
         ctx["status"] = state.status.value
         ctx["iteration"] = state.iteration
         ctx["tool_calls"] = state.tool_calls
+        ctx["confidence"] = (
+            state.answer_confidence.value if state.answer_confidence else None
+        )
 
         return AskResponse(
             conversation_id=state.conversation_id or "",
             question=state.question,
-            answer=state.draft_answer,
+            answer=state.final_answer or state.draft_answer,
             status=state.status.value,
             evidence=[
                 EvidenceSummary(
@@ -73,6 +82,20 @@ def ask(
                 )
                 for item in state.evidence
             ],
+            answer_evidence=[
+                AnswerEvidenceSummary(
+                    entity_id=ref.entity_id,
+                    entity_type=ref.entity_type,
+                    claim=ref.claim,
+                    name=ref.name,
+                    grade=ref.grade,
+                    subject=ref.subject,
+                    topic=ref.topic,
+                )
+                for ref in state.answer_evidence
+            ],
+            confidence=state.answer_confidence,
+            limitations=state.answer_limitations,
             metadata=AskMetadata(
                 iterations=state.iteration,
                 tool_calls=state.tool_calls,

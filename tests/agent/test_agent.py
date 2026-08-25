@@ -27,14 +27,15 @@ def agent() -> CurriculumQAAgent:
     )
 
 
-def test_agent_accepts_question_and_retrieves(agent):
+def test_agent_accepts_question_and_completes(agent):
     state = agent.ask("What topics are taught in Primary 4 Mathematics?")
     assert state.question.startswith("What topics")
     assert state.conversation_id
-    assert state.status == AgentStatus.RETRIEVED
+    assert state.status == AgentStatus.COMPLETED
     assert state.iteration >= 1
     assert state.tool_calls >= 1
-    assert state.draft_answer is None
+    assert state.final_answer
+    assert state.draft_answer
 
 
 def test_agent_reuses_conversation(agent):

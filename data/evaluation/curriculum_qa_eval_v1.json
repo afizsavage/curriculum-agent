@@ -1,0 +1,299 @@
+[
+  {
+    "id": "eval-001",
+    "category": "curriculum_structure",
+    "question": "What topics are taught in Primary 4 Mathematics?",
+    "expected_intent": "retrieve_curriculum",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "MATHEMATICS",
+    "expected_tools": ["get_curriculum_structure"],
+    "expected_evidence_types": ["subject", "topic"],
+    "expected_answer_traits": ["lists topics or subjects", "references Primary 4 Mathematics"]
+  },
+  {
+    "id": "eval-002",
+    "category": "curriculum_structure",
+    "question": "What subjects are in the MBSSE BEC curriculum for Primary 4?",
+    "expected_intent": "retrieve_curriculum",
+    "expected_grade": "CLASS_4",
+    "expected_tools": ["get_curriculum_structure"],
+    "expected_evidence_types": ["subject"],
+    "expected_answer_traits": ["lists subjects", "grounded in BEC structure"]
+  },
+  {
+    "id": "eval-003",
+    "category": "subject_lookup",
+    "question": "Tell me about Primary 4 Mathematics as a subject.",
+    "expected_intent": "retrieve_curriculum",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "MATHEMATICS",
+    "expected_tools": ["get_subject", "get_curriculum_structure"],
+    "expected_evidence_types": ["subject"],
+    "expected_answer_traits": ["describes Mathematics subject"]
+  },
+  {
+    "id": "eval-004",
+    "category": "topic_lookup",
+    "question": "What does the curriculum cover under fractions in Primary 4?",
+    "expected_intent": "retrieve_curriculum",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "MATHEMATICS",
+    "expected_topic": "fractions",
+    "expected_tools": ["search_curriculum", "get_topic", "get_learning_objectives"],
+    "expected_evidence_types": ["topic", "learning_outcome"],
+    "expected_answer_traits": ["mentions Fractions", "includes objectives if available"]
+  },
+  {
+    "id": "eval-005",
+    "category": "learning_objectives",
+    "question": "What should Primary 4 pupils be able to do after learning fractions?",
+    "expected_intent": "retrieve_curriculum",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "MATHEMATICS",
+    "expected_topic": "fractions",
+    "expected_tools": ["get_learning_objectives", "get_topic", "search_curriculum"],
+    "expected_evidence_types": ["learning_outcome"],
+    "expected_answer_traits": ["lists learning objectives", "uses curriculum wording"]
+  },
+  {
+    "id": "eval-006",
+    "category": "natural_language_search",
+    "question": "Where does the curriculum cover measurement?",
+    "expected_intent": "retrieve_curriculum",
+    "expected_tools": ["search_curriculum"],
+    "expected_evidence_types": ["topic"],
+    "expected_answer_traits": ["summarizes search hits", "does not invent placement"]
+  },
+  {
+    "id": "eval-007",
+    "category": "grade_progression",
+    "question": "What mathematics topics appear in Primary 5?",
+    "expected_intent": "retrieve_curriculum",
+    "expected_grade": "CLASS_5",
+    "expected_subject": "MATHEMATICS",
+    "expected_tools": ["get_curriculum_structure", "search_curriculum"],
+    "expected_evidence_types": ["topic", "subject"],
+    "expected_answer_traits": ["scoped to Primary 5"]
+  },
+  {
+    "id": "eval-008",
+    "category": "follow_up",
+    "question": "Tell me more about fractions.",
+    "conversation_setup": "Prior turn asked about Primary 4 Mathematics topics.",
+    "expected_intent": "retrieve_curriculum",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "MATHEMATICS",
+    "expected_topic": "fractions",
+    "expected_tools": ["get_topic", "get_learning_objectives", "search_curriculum"],
+    "expected_answer_traits": ["inherits grade/subject from context"]
+  },
+  {
+    "id": "eval-009",
+    "category": "follow_up",
+    "question": "What about Primary 5?",
+    "conversation_setup": "Prior turn discussed Primary 4 Mathematics.",
+    "expected_intent": "retrieve_curriculum",
+    "expected_grade": "CLASS_5",
+    "expected_answer_traits": ["updates grade to Primary 5"]
+  },
+  {
+    "id": "eval-010",
+    "category": "ambiguous",
+    "question": "What do pupils learn in math?",
+    "expected_intent": "retrieve_curriculum",
+    "expected_subject": "MATHEMATICS",
+    "expected_tools": ["search_curriculum", "get_curriculum_structure"],
+    "expected_answer_traits": ["asks for grade or uses partial evidence", "limitations if grade missing"]
+  },
+  {
+    "id": "eval-011",
+    "category": "insufficient_evidence",
+    "question": "Does MBSSE teach quantum computing in Primary 1?",
+    "expected_intent": "retrieve_curriculum",
+    "expected_grade": "CLASS_1",
+    "expected_tools": ["search_curriculum"],
+    "expected_evidence_types": [],
+    "expected_answer_traits": ["states insufficient evidence", "low confidence", "no fabricated topic"]
+  },
+  {
+    "id": "eval-012",
+    "category": "curriculum_structure",
+    "question": "List the strands in Primary 4 Mathematics.",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "MATHEMATICS",
+    "expected_tools": ["get_curriculum_structure", "search_curriculum"],
+    "expected_evidence_types": ["topic", "strand"],
+    "expected_answer_traits": ["hierarchical summary"]
+  },
+  {
+    "id": "eval-013",
+    "category": "topic_lookup",
+    "question": "Is equivalent fractions taught in Primary 4?",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "MATHEMATICS",
+    "expected_tools": ["search_curriculum", "get_learning_objectives"],
+    "expected_answer_traits": ["grounded yes/no based on objectives", "limitations if unclear"]
+  },
+  {
+    "id": "eval-014",
+    "category": "learning_objectives",
+    "question": "What are the learning objectives for Primary 4 English Language?",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "ENGLISH",
+    "expected_tools": ["get_learning_objectives", "search_curriculum"],
+    "expected_evidence_types": ["learning_outcome"],
+    "expected_answer_traits": ["objective list or not found message"]
+  },
+  {
+    "id": "eval-015",
+    "category": "subject_lookup",
+    "question": "Which subjects are offered at JSS 1?",
+    "expected_grade": "JSS_1",
+    "expected_tools": ["get_curriculum_structure"],
+    "expected_evidence_types": ["subject"],
+    "expected_answer_traits": ["lists JSS 1 subjects"]
+  },
+  {
+    "id": "eval-016",
+    "category": "natural_language_search",
+    "question": "Find civic education topics for Primary 4.",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "CIVIC_EDUCATION",
+    "expected_tools": ["search_curriculum"],
+    "expected_answer_traits": ["search-based summary"]
+  },
+  {
+    "id": "eval-017",
+    "category": "grade_progression",
+    "question": "How does fractions progress from Primary 4 to Primary 5?",
+    "expected_tools": ["search_curriculum", "get_curriculum_structure"],
+    "expected_answer_traits": ["compares grades if evidence exists", "limitations if partial"]
+  },
+  {
+    "id": "eval-018",
+    "category": "curriculum_structure",
+    "question": "What is the structure of the MBSSE-BEC 2020 curriculum?",
+    "expected_tools": ["get_curriculum_structure"],
+    "expected_evidence_types": ["subject", "grade"],
+    "expected_answer_traits": ["curriculum hierarchy summary"]
+  },
+  {
+    "id": "eval-019",
+    "category": "topic_lookup",
+    "question": "Describe the Numbers strand in Primary 4 Mathematics.",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "MATHEMATICS",
+    "expected_tools": ["search_curriculum", "get_topic"],
+    "expected_answer_traits": ["strand/topic explanation from evidence"]
+  },
+  {
+    "id": "eval-020",
+    "category": "learning_objectives",
+    "question": "What skills should pupils develop in Primary 4 Physical Health Education?",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+    "expected_tools": ["get_learning_objectives", "search_curriculum"],
+    "expected_answer_traits": ["skills/objectives from evidence"]
+  },
+  {
+    "id": "eval-021",
+    "category": "ambiguous",
+    "question": "What should teachers cover this term?",
+    "expected_tools": ["search_curriculum"],
+    "expected_answer_traits": ["limitations due to missing grade/subject", "no fabricated scope"]
+  },
+  {
+    "id": "eval-022",
+    "category": "insufficient_evidence",
+    "question": "Does MBSSE require Python programming in Class 4?",
+    "expected_grade": "CLASS_4",
+    "expected_tools": ["search_curriculum"],
+    "expected_answer_traits": ["not found or insufficient evidence", "low confidence"]
+  },
+  {
+    "id": "eval-023",
+    "category": "follow_up",
+    "question": "Which one introduces fractions?",
+    "conversation_setup": "Prior turn listed Primary 4 Mathematics topics.",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "MATHEMATICS",
+    "expected_topic": "fractions",
+    "expected_answer_traits": ["identifies Fractions topic from context"]
+  },
+  {
+    "id": "eval-024",
+    "category": "natural_language_search",
+    "question": "Search the curriculum for social studies content in Primary 4.",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "SOCIAL_STUDIES",
+    "expected_tools": ["search_curriculum"],
+    "expected_answer_traits": ["search results summary"]
+  },
+  {
+    "id": "eval-025",
+    "category": "subject_lookup",
+    "question": "What is taught in Primary 4 Science?",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "SCIENCE",
+    "expected_tools": ["get_curriculum_structure", "search_curriculum"],
+    "expected_answer_traits": ["science topics or limitations"]
+  },
+  {
+    "id": "eval-026",
+    "category": "topic_lookup",
+    "question": "What learning outcomes are linked to topic C4-U03?",
+    "expected_tools": ["get_topic", "get_learning_objectives"],
+    "expected_answer_traits": ["objectives for coded topic if found"]
+  },
+  {
+    "id": "eval-027",
+    "category": "grade_progression",
+    "question": "What SSS 1 mathematics topics are in the SSC curriculum?",
+    "expected_grade": "SSS_1",
+    "expected_subject": "MATHEMATICS",
+    "expected_tools": ["get_curriculum_structure"],
+    "expected_answer_traits": ["SSS-scoped answer"]
+  },
+  {
+    "id": "eval-028",
+    "category": "curriculum_structure",
+    "question": "Show the education levels in the published MBSSE curriculum.",
+    "expected_tools": ["get_curriculum_structure"],
+    "expected_answer_traits": ["lists levels/grades from structure"]
+  },
+  {
+    "id": "eval-029",
+    "category": "learning_objectives",
+    "question": "After the fractions unit, what should pupils know?",
+    "expected_grade": "CLASS_4",
+    "expected_topic": "fractions",
+    "expected_tools": ["get_learning_objectives"],
+    "expected_answer_traits": ["objectives phrased for teachers"]
+  },
+  {
+    "id": "eval-030",
+    "category": "insufficient_evidence",
+    "question": "Is calculus a Primary 4 requirement in MBSSE?",
+    "expected_grade": "CLASS_4",
+    "expected_tools": ["search_curriculum"],
+    "expected_answer_traits": ["no unsupported claim of calculus in P4"]
+  },
+  {
+    "id": "eval-031",
+    "category": "follow_up",
+    "question": "Switch to English Language instead.",
+    "conversation_setup": "Prior turn discussed Primary 4 Mathematics.",
+    "expected_grade": "CLASS_4",
+    "expected_subject": "ENGLISH",
+    "expected_answer_traits": ["changes subject while keeping grade"]
+  },
+  {
+    "id": "eval-032",
+    "category": "natural_language_search",
+    "question": "Where is agricultural science covered in junior secondary?",
+    "expected_grade": "JSS_1",
+    "expected_subject": "AGRICULTURAL_SCIENCE",
+    "expected_tools": ["search_curriculum", "get_curriculum_structure"],
+    "expected_answer_traits": ["JSS-scoped search summary"]
+  }
+]

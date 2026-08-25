@@ -1,3 +1,6 @@
+import json
+
+import httpx
 import pytest
 
 from app.config import Settings
@@ -86,6 +89,52 @@ def test_deepseek_provider_name():
     )
     assert provider.name == "deepseek"
     assert provider.model == "deepseek-chat"
+
+
+def test_deepseek_structured_uses_json_object():
+    captured: dict = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        captured["body"] = json.loads(request.content)
+        return httpx.Response(
+            200,
+            json={
+                "choices": [
+                    {
+                        "message": {
+                            "content": json.dumps(
+                                {
+                                    "answer": "Test",
+                                    "evidence": [],
+                                    "limitations": [],
+                                    "confidence": "high",
+                                }
+                            )
+                        }
+                    }
+                ],
+                "model": "deepseek-v4-flash",
+            },
+        )
+
+    settings = Settings(
+        llm_provider="deepseek",
+        llm_api_key="test-key",
+        llm_model="deepseek-v4-flash",
+        llm_base_url="https://api.deepseek.com",
+    )
+    provider = build_llm_provider(settings)
+    inner = provider._inner  # type: ignore[attr-defined]
+    inner._client = httpx.Client(
+        base_url="https://api.deepseek.com",
+        transport=httpx.MockTransport(handler),
+    )
+    result = inner.generate_structured(
+        [LLMMessage(role="user", content="Return json please")],
+        schema={"title": "GroundedAnswer", "type": "object", "properties": {}},
+    )
+    assert result["answer"] == "Test"
+    assert captured["body"]["response_format"] == {"type": "json_object"}
 
 
 def test_provider_failures_can_be_wrapped():

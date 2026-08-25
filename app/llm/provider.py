@@ -140,18 +140,23 @@ class OpenAICompatibleProvider(LLMProvider):
         schema: dict[str, Any],
         temperature: float = 0.0,
     ) -> dict[str, Any]:
-        body = {
+        use_json_object = self._provider_name in {"deepseek", "openai_compatible"}
+        body: dict[str, Any] = {
             "model": self._model,
             "messages": [m.to_api_dict() for m in messages],
             "temperature": temperature,
-            "response_format": {
+            "max_tokens": 4096,
+        }
+        if use_json_object:
+            body["response_format"] = {"type": "json_object"}
+        else:
+            body["response_format"] = {
                 "type": "json_schema",
                 "json_schema": {
                     "name": schema.get("title") or "response",
                     "schema": schema,
                 },
-            },
-        }
+            }
         data = self._post("/chat/completions", body)
         content = ((data.get("choices") or [{}])[0].get("message") or {}).get("content")
         if not content:

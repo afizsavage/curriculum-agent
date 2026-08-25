@@ -5,6 +5,8 @@ from uuid import UUID
 
 from pydantic import BaseModel, Field, field_validator
 
+from app.schemas.answer import AnswerConfidence
+
 
 class AskRequest(BaseModel):
     question: str = Field(
@@ -47,19 +49,35 @@ class EvidenceSummary(BaseModel):
     topic: Optional[str] = None
 
 
+class AnswerEvidenceSummary(BaseModel):
+    entity_id: str
+    entity_type: str
+    claim: str
+    name: Optional[str] = None
+    grade: Optional[str] = None
+    subject: Optional[str] = None
+    topic: Optional[str] = None
+
+
 class AskResponse(BaseModel):
     conversation_id: str
     question: str
     answer: Optional[str] = Field(
         default=None,
-        description="Final answer. Null until Phase 3 answer generation.",
+        description="Grounded curriculum answer from retrieved MBSSE evidence.",
     )
     status: str = Field(
         ...,
-        description="Agent turn status. Phase 2 returns `retrieved` after tool use.",
-        examples=["retrieved"],
+        description="Agent turn status. Sprint 3 returns `completed` after answer generation.",
+        examples=["completed"],
     )
     evidence: list[EvidenceSummary] = Field(default_factory=list)
+    answer_evidence: list[AnswerEvidenceSummary] = Field(
+        default_factory=list,
+        description="Curriculum claims linked to retrieved entity IDs.",
+    )
+    confidence: Optional[AnswerConfidence] = None
+    limitations: list[str] = Field(default_factory=list)
     metadata: AskMetadata = Field(default_factory=AskMetadata)
     error: Optional[str] = None
 

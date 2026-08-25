@@ -27,7 +27,7 @@ def test_retrieval_flow_updates_state():
         conversations=ConversationStore(),
     )
     state = agent.ask("What topics are taught in Primary 4 Mathematics?")
-    assert state.status == AgentStatus.RETRIEVED
+    assert state.status == AgentStatus.COMPLETED
     assert state.tool_calls >= 1
     assert "get_curriculum_structure" in state.selected_tools
     assert state.evidence_status.value in {"found", "partial"}
@@ -54,4 +54,5 @@ def test_tool_call_limit_stops():
     )
     state = agent.ask("Find curriculum content related to fractions in Primary 4 Mathematics.")
     assert state.tool_calls <= 1
-    assert state.status == AgentStatus.RETRIEVED
+    assert state.status == AgentStatus.COMPLETED
+    assert state.retrieval_history
