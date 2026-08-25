@@ -7,6 +7,7 @@ from uuid import uuid4
 
 from pydantic import BaseModel, Field
 
+from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus, ToolCallRecord
 from app.enums import AgentStatus
 
 
@@ -19,7 +20,7 @@ class PlanStep(BaseModel):
 
 
 class RetrievedContextItem(BaseModel):
-    """A single piece of curriculum context retrieved by a future tool."""
+    """A single piece of curriculum context retrieved by a tool."""
 
     source: str
     content: str
@@ -49,6 +50,11 @@ class CurriculumQAState(BaseModel):
 
     plan: Optional[list[PlanStep]] = None
     retrieved_context: list[RetrievedContextItem] = Field(default_factory=list)
+    evidence: list[CurriculumEvidence] = Field(default_factory=list)
+    evidence_status: EvidenceStatus = EvidenceStatus.NOT_FOUND
+    retrieval_history: list[ToolCallRecord] = Field(default_factory=list)
+    selected_tools: list[str] = Field(default_factory=list)
+
     draft_answer: Optional[str] = None
     verification: Optional[VerificationResult] = None
 
@@ -73,6 +79,10 @@ class CurriculumQAState(BaseModel):
             tool_calls=0,
             status=AgentStatus.RECEIVED,
             retrieved_context=[],
+            evidence=[],
+            evidence_status=EvidenceStatus.NOT_FOUND,
+            retrieval_history=[],
+            selected_tools=[],
             plan=None,
             draft_answer=None,
             verification=None,

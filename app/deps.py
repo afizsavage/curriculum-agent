@@ -2,7 +2,8 @@ from functools import lru_cache
 
 from app.agent.context import ConversationStore
 from app.agent.orchestrator import CurriculumQAAgent
-from app.config import Settings, get_settings
+from app.config import get_settings
+from app.curriculum.client import CurriculumAPIClient
 from app.llm.base import LLMProvider
 from app.llm.provider import build_llm_provider
 from app.tools.registry import ToolRegistry, build_default_registry
@@ -14,9 +15,17 @@ def get_conversation_store() -> ConversationStore:
 
 
 @lru_cache
+def get_curriculum_client() -> CurriculumAPIClient:
+    return CurriculumAPIClient(settings=get_settings())
+
+
+@lru_cache
 def get_tool_registry() -> ToolRegistry:
-    # Echo mock only — no Curriculum API tools in Sprint 1.
-    return build_default_registry(include_echo=True)
+    return build_default_registry(
+        settings=get_settings(),
+        include_echo=False,
+        client=get_curriculum_client(),
+    )
 
 
 def get_llm_provider() -> LLMProvider:
@@ -36,4 +45,5 @@ def reset_singletons() -> None:
     """Test helper to clear cached deps."""
     get_conversation_store.cache_clear()
     get_tool_registry.cache_clear()
+    get_curriculum_client.cache_clear()
     get_settings.cache_clear()

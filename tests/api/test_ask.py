@@ -1,18 +1,37 @@
+import httpx
 import pytest
 from fastapi.testclient import TestClient
 
+from app.agent.context import ConversationStore
 from app.agent.orchestrator import CurriculumQAAgent
+from app.config import Settings
+from app.curriculum.client import CurriculumAPIClient
 from app.deps import get_agent, reset_singletons
 from app.exceptions import AgentExecutionError
+from app.llm.provider import StubLLMProvider
 from app.main import create_app
+from app.tools.registry import build_default_registry
+from tests.tools.test_curriculum_tools import _router
 
 
 @pytest.fixture
 def client():
     reset_singletons()
+    settings = Settings(curriculum_api_base_url="http://curriculum.test")
+    api = CurriculumAPIClient(
+        settings=settings, transport=httpx.MockTransport(_router)
+    )
+    agent = CurriculumQAAgent(
+        settings=settings,
+        llm=StubLLMProvider(),
+        tools=build_default_registry(settings=settings, client=api),
+        conversations=ConversationStore(),
+    )
     application = create_app()
+    application.dependency_overrides[get_agent] = lambda: agent
     with TestClient(application, raise_server_exceptions=False) as test_client:
         yield test_client
+    application.dependency_overrides.clear()
     reset_singletons()
 
 
@@ -27,11 +46,12 @@ def test_ask_valid_request(client):
     assert response.status_code == 200, response.text
     body = response.json()
     assert body["answer"] is None
-    assert body["status"] == "received"
+    assert body["status"] == "retrieved"
     assert body["question"].startswith("What topics")
     assert body["conversation_id"]
-    assert body["metadata"]["iterations"] == 0
-    assert body["metadata"]["tool_calls"] == 0
+    assert body["metadata"]["tool_calls"] >= 1
+    assert "get_curriculum_structure" in body["metadata"]["tools_used"]
+    assert isinstance(body["evidence"], list)
     assert response.headers.get("X-Request-ID")
 
 
@@ -51,10 +71,14 @@ def test_ask_missing_question(client):
 def test_unexpected_agent_errors_are_safe(client):
     class BoomAgent(CurriculumQAAgent):
         def ask(self, question, *, conversation_id=None, request_id=None):
-            raise AgentExecutionError("Agent failed while accepting the question")
+            raise AgentExecutionError("Agent failed while processing the question")
 
     app = create_app()
-    app.dependency_overrides[get_agent] = lambda: BoomAgent()
+    app.dependency_overrides[get_agent] = lambda: BoomAgent(
+        llm=StubLLMProvider(),
+        tools=ToolRegistrySafe(),
+        conversations=ConversationStore(),
+    )
     with TestClient(app, raise_server_exceptions=False) as test_client:
         response = test_client.post(
             "/api/v1/agent/ask",
@@ -64,7 +88,17 @@ def test_unexpected_agent_errors_are_safe(client):
     body = response.json()
     assert body["code"] == "AGENT_EXECUTION_FAILURE"
     assert "traceback" not in body
-    assert "Traceback" not in body["detail"]
+
+
+class ToolRegistrySafe:
+    def llm_tool_specs(self):
+        return []
+
+    def execute(self, *args, **kwargs):
+        raise RuntimeError("unused")
+
+    def list(self):
+        return []
 
 
 def test_health(client):

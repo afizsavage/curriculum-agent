@@ -7,6 +7,7 @@ class AgentStatus(str, Enum):
     RECEIVED = "received"
     UNDERSTANDING = "understanding"
     RETRIEVING = "retrieving"
+    RETRIEVED = "retrieved"
     ANSWERING = "answering"
     VERIFYING = "verifying"
     COMPLETED = "completed"

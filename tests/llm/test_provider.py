@@ -41,10 +41,22 @@ def test_stub_provider_structured_and_tools():
     )
     assert structured["ok"] is True
     tools = provider.generate_with_tools(
-        [LLMMessage(role="user", content="x")],
-        tools=[{"name": "echo"}],
+        [
+            LLMMessage(
+                role="user",
+                content="Question: What topics are in Primary 4 Mathematics?",
+            )
+        ],
+        tools=[
+            {
+                "name": "get_curriculum_structure",
+                "description": "structure",
+                "parameters": {},
+            }
+        ],
     )
-    assert tools.tool_calls == []
+    assert tools.tool_calls
+    assert tools.tool_calls[0].name == "get_curriculum_structure"
 
 
 def test_build_provider_defaults_to_stub():
@@ -55,17 +67,18 @@ def test_build_provider_defaults_to_stub():
 
 def test_unknown_provider_is_configuration_error():
     with pytest.raises(ConfigurationError):
-        build_llm_provider(Settings(llm_provider="openai", llm_api_key="x"))
+        build_llm_provider(Settings(llm_provider="anthropic", llm_api_key="x"))
+
+
+def test_openai_requires_api_key():
+    with pytest.raises(ConfigurationError):
+        build_llm_provider(Settings(llm_provider="openai", llm_api_key=""))
 
 
 def test_provider_failures_can_be_wrapped():
     failing = FailingProvider()
     with pytest.raises(RuntimeError):
         failing.generate([LLMMessage(role="user", content="q")])
-
-    # Agent-facing wrapper path: ConfigurableLLMProvider maps unexpected errors.
-    # Direct StubLLMProvider does not wrap; demonstrate LLMProviderError type exists
-    # for agent/tool layers.
     err = LLMProviderError("LLM generate failed: upstream down")
     assert err.status_code == 502
     assert err.code == "LLM_PROVIDER_FAILURE"

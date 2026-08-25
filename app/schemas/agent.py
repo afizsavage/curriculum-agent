@@ -31,8 +31,20 @@ class AskRequest(BaseModel):
 class AskMetadata(BaseModel):
     iterations: int = 0
     tool_calls: int = 0
+    tools_used: list[str] = Field(default_factory=list)
+    evidence_status: Optional[str] = None
+    evidence_count: int = 0
     model: Optional[str] = None
     provider: Optional[str] = None
+
+
+class EvidenceSummary(BaseModel):
+    entity_type: str
+    entity_id: Optional[str] = None
+    name: Optional[str] = None
+    grade: Optional[str] = None
+    subject: Optional[str] = None
+    topic: Optional[str] = None
 
 
 class AskResponse(BaseModel):
@@ -40,13 +52,14 @@ class AskResponse(BaseModel):
     question: str
     answer: Optional[str] = Field(
         default=None,
-        description="Final answer. Null in Sprint 1 until retrieve/answer are implemented.",
+        description="Final answer. Null until Phase 3 answer generation.",
     )
     status: str = Field(
         ...,
-        description="Agent turn status. Sprint 1 returns `received`.",
-        examples=["received"],
+        description="Agent turn status. Phase 2 returns `retrieved` after tool use.",
+        examples=["retrieved"],
     )
+    evidence: list[EvidenceSummary] = Field(default_factory=list)
     metadata: AskMetadata = Field(default_factory=AskMetadata)
     error: Optional[str] = None
 

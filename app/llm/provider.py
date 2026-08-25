@@ -2,11 +2,21 @@
 
 from __future__ import annotations
 
+import json
 from typing import Any
+from uuid import uuid4
+
+import httpx
 
 from app.config import Settings, get_settings
-from app.exceptions import AgentError, ConfigurationError, LLMProviderError
-from app.llm.base import LLMMessage, LLMProvider, LLMResponse
+from app.exceptions import (
+    AgentError,
+    ConfigurationError,
+    LLMProviderError,
+    LLMTimeoutError,
+)
+from app.llm.base import LLMMessage, LLMProvider, LLMResponse, ToolCallRequest
+from app.llm.tool_selection import select_tool_calls
 
 
 class StubLLMProvider(LLMProvider):
@@ -53,29 +63,171 @@ class StubLLMProvider(LLMProvider):
         tools: list[dict[str, Any]],
         temperature: float = 0.0,
     ) -> LLMResponse:
+        calls = select_tool_calls(messages, tools)
         return LLMResponse(
-            content=None,
-            tool_calls=[],
+            content=None if calls else "Retrieval complete.",
+            tool_calls=calls,
             model=self._model,
             raw={"provider": "stub", "available_tools": [t.get("name") for t in tools]},
         )
 
 
-class ConfigurableLLMProvider(LLMProvider):
-    """Selects a concrete provider from settings without coupling the agent to an SDK.
+class OpenAICompatibleProvider(LLMProvider):
+    """OpenAI Chat Completions API (native tool/function calling)."""
 
-    Sprint 1 ships a stub. Additional providers plug in here later.
-    """
+    def __init__(self, settings: Settings) -> None:
+        if not settings.llm_api_key:
+            raise ConfigurationError("LLM_API_KEY is required for OpenAI provider")
+        self._settings = settings
+        self._model = settings.llm_model
+        self._client = httpx.Client(
+            base_url=settings.llm_base_url.rstrip("/"),
+            timeout=httpx.Timeout(settings.llm_timeout_seconds),
+            headers={
+                "Authorization": f"Bearer {settings.llm_api_key}",
+                "Content-Type": "application/json",
+            },
+        )
+
+    @property
+    def name(self) -> str:
+        return "openai"
+
+    @property
+    def model(self) -> str:
+        return self._model
+
+    def generate(
+        self,
+        messages: list[LLMMessage],
+        *,
+        temperature: float = 0.0,
+        max_tokens: int | None = None,
+    ) -> LLMResponse:
+        body: dict[str, Any] = {
+            "model": self._model,
+            "messages": [m.model_dump() for m in messages],
+            "temperature": temperature,
+        }
+        if max_tokens is not None:
+            body["max_tokens"] = max_tokens
+        data = self._post("/chat/completions", body)
+        choice = (data.get("choices") or [{}])[0]
+        message = choice.get("message") or {}
+        return LLMResponse(
+            content=message.get("content"),
+            model=data.get("model") or self._model,
+            raw=data,
+        )
+
+    def generate_structured(
+        self,
+        messages: list[LLMMessage],
+        *,
+        schema: dict[str, Any],
+        temperature: float = 0.0,
+    ) -> dict[str, Any]:
+        body = {
+            "model": self._model,
+            "messages": [m.model_dump() for m in messages],
+            "temperature": temperature,
+            "response_format": {
+                "type": "json_schema",
+                "json_schema": {
+                    "name": schema.get("title") or "response",
+                    "schema": schema,
+                },
+            },
+        }
+        data = self._post("/chat/completions", body)
+        content = ((data.get("choices") or [{}])[0].get("message") or {}).get("content")
+        if not content:
+            raise LLMProviderError("Empty structured response from LLM")
+        try:
+            return json.loads(content)
+        except json.JSONDecodeError as exc:
+            raise LLMProviderError("LLM returned invalid JSON") from exc
+
+    def generate_with_tools(
+        self,
+        messages: list[LLMMessage],
+        *,
+        tools: list[dict[str, Any]],
+        temperature: float = 0.0,
+    ) -> LLMResponse:
+        openai_tools = [
+            {
+                "type": "function",
+                "function": {
+                    "name": tool["name"],
+                    "description": tool.get("description") or "",
+                    "parameters": tool.get("parameters") or {"type": "object", "properties": {}},
+                },
+            }
+            for tool in tools
+        ]
+        body = {
+            "model": self._model,
+            "messages": [m.model_dump() for m in messages],
+            "tools": openai_tools,
+            "tool_choice": "auto",
+            "temperature": temperature,
+        }
+        data = self._post("/chat/completions", body)
+        message = ((data.get("choices") or [{}])[0].get("message") or {})
+        calls: list[ToolCallRequest] = []
+        for raw in message.get("tool_calls") or []:
+            fn = raw.get("function") or {}
+            args_raw = fn.get("arguments") or "{}"
+            try:
+                arguments = json.loads(args_raw) if isinstance(args_raw, str) else dict(args_raw)
+            except json.JSONDecodeError:
+                arguments = {}
+            calls.append(
+                ToolCallRequest(
+                    id=str(raw.get("id") or uuid4()),
+                    name=str(fn.get("name") or ""),
+                    arguments=arguments,
+                )
+            )
+        return LLMResponse(
+            content=message.get("content"),
+            tool_calls=calls,
+            model=data.get("model") or self._model,
+            raw=data,
+        )
+
+    def _post(self, path: str, body: dict[str, Any]) -> dict[str, Any]:
+        try:
+            response = self._client.post(path, json=body)
+        except httpx.TimeoutException as exc:
+            raise LLMTimeoutError("LLM request timed out") from exc
+        except httpx.RequestError as exc:
+            raise LLMProviderError(f"LLM request failed: {exc}") from exc
+        if response.status_code >= 400:
+            raise LLMProviderError(
+                f"LLM provider returned HTTP {response.status_code}"
+            )
+        try:
+            return response.json()
+        except ValueError as exc:
+            raise LLMProviderError("LLM provider returned non-JSON") from exc
+
+
+class ConfigurableLLMProvider(LLMProvider):
+    """Selects a concrete provider from settings without coupling the agent to an SDK."""
 
     def __init__(self, settings: Settings | None = None) -> None:
         self._settings = settings or get_settings()
         provider = self._settings.llm_provider.strip().lower()
         if provider in {"", "stub", "none", "mock"}:
             self._inner: LLMProvider = StubLLMProvider(model=self._settings.llm_model)
+        elif provider in {"openai", "openai_compatible"}:
+            self._inner = OpenAICompatibleProvider(self._settings)
         else:
             raise ConfigurationError(
-                f"LLM provider '{self._settings.llm_provider}' is not configured in "
-                "Sprint 1. Use LLM_PROVIDER=stub or implement a concrete provider."
+                f"LLM provider '{self._settings.llm_provider}' is not supported. "
+                "Use LLM_PROVIDER=stub or openai."
             )
 
     @property

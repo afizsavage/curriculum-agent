@@ -4,8 +4,11 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.config import Settings, get_settings
+from app.curriculum.client import CurriculumAPIClient
 from app.exceptions import ToolFailureError
 from app.tools.base import Tool, ToolResult
+from app.tools.curriculum import build_curriculum_tools
 
 
 class ToolRegistry:
@@ -42,9 +45,18 @@ class ToolRegistry:
         return [tool.as_llm_tool() for tool in self.list()]
 
 
-def build_default_registry(*, include_echo: bool = True) -> ToolRegistry:
-    """Sprint 1 registry is empty of curriculum tools; optional echo for tests."""
+def build_default_registry(
+    *,
+    settings: Settings | None = None,
+    include_echo: bool = False,
+    client: CurriculumAPIClient | None = None,
+) -> ToolRegistry:
+    """Register Phase 2 curriculum tools (read-only Curriculum API)."""
     registry = ToolRegistry()
+    settings = settings or get_settings()
+    api_client = client or CurriculumAPIClient(settings=settings)
+    for tool in build_curriculum_tools(api_client):
+        registry.register(tool)
     if include_echo:
         from app.tools.base import EchoTool
 

@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, Request
 from app.agent.orchestrator import CurriculumQAAgent
 from app.deps import get_agent
 from app.logging_utils import get_logger, new_request_id, timed_request
-from app.schemas.agent import AskMetadata, AskRequest, AskResponse
+from app.schemas.agent import AskMetadata, AskRequest, AskResponse, EvidenceSummary
 
 router = APIRouter(prefix="/agent", tags=["agent"])
 logger = get_logger(__name__)
@@ -18,15 +18,16 @@ logger = get_logger(__name__)
     response_model=AskResponse,
     summary="Ask the Curriculum Q&A agent",
     description=(
-        "Accept a curriculum question and return an agent turn. "
-        "Sprint 1 acknowledges the question with status `received` and "
-        "`answer: null`. Retrieve / reason / verify arrive in later sprints."
+        "Accept a curriculum question, run understand + retrieve against the "
+        "MBSSE Curriculum Structure API via tools, and return evidence. "
+        "Answer generation arrives in Phase 3 (`answer` remains null)."
     ),
     responses={
         422: {"description": "Invalid request (validation error)"},
         500: {"description": "Agent execution or configuration failure"},
         502: {"description": "LLM provider or tool failure"},
-        504: {"description": "LLM timeout"},
+        503: {"description": "Curriculum API unavailable"},
+        504: {"description": "LLM or Curriculum API timeout"},
     },
 )
 def ask(
@@ -61,9 +62,23 @@ def ask(
             question=state.question,
             answer=state.draft_answer,
             status=state.status.value,
+            evidence=[
+                EvidenceSummary(
+                    entity_type=item.entity_type,
+                    entity_id=item.entity_id,
+                    name=item.name,
+                    grade=item.grade,
+                    subject=item.subject,
+                    topic=item.topic,
+                )
+                for item in state.evidence
+            ],
             metadata=AskMetadata(
                 iterations=state.iteration,
                 tool_calls=state.tool_calls,
+                tools_used=list(state.metadata.get("tools_used") or state.selected_tools),
+                evidence_status=state.evidence_status.value,
+                evidence_count=len(state.evidence),
                 model=agent.llm.model,
                 provider=agent.llm.name,
             ),

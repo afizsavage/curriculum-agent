@@ -18,13 +18,23 @@ class Settings(BaseSettings):
     llm_model: str = "stub-model"
     llm_api_key: str = ""
     llm_timeout_seconds: float = Field(default=30.0, gt=0)
+    llm_base_url: str = "https://api.openai.com/v1"
 
     agent_max_iterations: int = Field(default=3, ge=1)
     agent_max_tool_calls: int = Field(default=10, ge=0)
     agent_request_timeout_seconds: float = Field(default=60.0, gt=0)
 
-    # Reserved for Sprint 2 read-only Curriculum Structure API access.
+    # Prefer CURRICULUM_API_URL; CURRICULUM_API_BASE_URL kept for Phase 1 compatibility.
+    curriculum_api_url: str = ""
     curriculum_api_base_url: str = "http://127.0.0.1:8000"
+    curriculum_api_timeout: float = Field(default=15.0, gt=0)
+
+    @property
+    def curriculum_api_timeout_seconds(self) -> float:
+        return self.curriculum_api_timeout
+
+    def resolved_curriculum_api_url(self) -> str:
+        return (self.curriculum_api_url or self.curriculum_api_base_url).rstrip("/")
 
 
 @lru_cache

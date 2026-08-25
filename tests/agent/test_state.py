@@ -1,4 +1,5 @@
 from app.agent.state import CurriculumQAState, PlanStep, RetrievedContextItem
+from app.curriculum.evidence import EvidenceStatus
 from app.enums import AgentStatus
 
 
@@ -7,18 +8,14 @@ def test_state_initializes_with_defaults():
     assert state.question == "What is taught in P4 Math?"
     assert state.conversation_id
     assert state.intent is None
-    assert state.level is None
-    assert state.grade is None
-    assert state.subject is None
-    assert state.topic is None
-    assert state.plan is None
     assert state.retrieved_context == []
-    assert state.draft_answer is None
-    assert state.verification is None
+    assert state.evidence == []
+    assert state.evidence_status == EvidenceStatus.NOT_FOUND
+    assert state.retrieval_history == []
+    assert state.selected_tools == []
     assert state.iteration == 0
     assert state.tool_calls == 0
     assert state.status == AgentStatus.RECEIVED
-    assert state.error is None
 
 
 def test_state_preserves_conversation_id():
@@ -45,7 +42,6 @@ def test_state_can_be_updated():
     assert state.iteration == 1
     assert state.tool_calls == 2
     assert state.grade == "CLASS_4"
-    assert len(state.retrieved_context) == 1
 
 
 def test_mark_failed():

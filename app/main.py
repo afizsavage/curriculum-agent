@@ -18,11 +18,9 @@ def create_app() -> FastAPI:
         title="Curriculum Q&A Agent",
         description=(
             "Independent MBSSE Curriculum Q&A Agent service. "
-            "Sprint 1 provides the foundation (state, LLM abstraction, tools registry, "
-            "conversation context, observability). Curriculum retrieval tools and the "
-            "full Understand → Retrieve → Answer → Verify loop arrive in later sprints. "
-            "The Curriculum Structure API remains the sole source of truth; this service "
-            "does not store or mutate curriculum data."
+            "Phase 2 retrieves authoritative curriculum evidence from the Curriculum "
+            "Structure API via read-only tools. Answer generation and verification "
+            "arrive in Phase 3. This service does not store or mutate curriculum data."
         ),
         version=__version__,
     )

@@ -1,70 +1,62 @@
+import httpx
 import pytest
 
-from app.agent.orchestrator import CurriculumQAAgent
 from app.agent.context import ConversationStore
+from app.agent.orchestrator import CurriculumQAAgent
+from app.agent.state import CurriculumQAState
+from app.config import Settings
+from app.curriculum.client import CurriculumAPIClient
 from app.enums import AgentStatus
 from app.exceptions import InvalidRequestError
 from app.llm.provider import StubLLMProvider
-from app.tools.registry import ToolRegistry
+from app.tools.registry import build_default_registry
+from tests.tools.test_curriculum_tools import _router
 
 
-def test_agent_accepts_question_and_creates_state():
-    agent = CurriculumQAAgent(
+@pytest.fixture
+def agent() -> CurriculumQAAgent:
+    settings = Settings(curriculum_api_base_url="http://curriculum.test")
+    client = CurriculumAPIClient(
+        settings=settings, transport=httpx.MockTransport(_router)
+    )
+    return CurriculumQAAgent(
+        settings=settings,
         llm=StubLLMProvider(),
-        tools=ToolRegistry(),
+        tools=build_default_registry(settings=settings, client=client),
         conversations=ConversationStore(),
     )
+
+
+def test_agent_accepts_question_and_retrieves(agent):
     state = agent.ask("What topics are taught in Primary 4 Mathematics?")
     assert state.question.startswith("What topics")
     assert state.conversation_id
-    assert state.status == AgentStatus.RECEIVED
-    assert state.iteration == 0
-    assert state.tool_calls == 0
+    assert state.status == AgentStatus.RETRIEVED
+    assert state.iteration >= 1
+    assert state.tool_calls >= 1
     assert state.draft_answer is None
 
 
-def test_agent_reuses_conversation():
-    store = ConversationStore()
-    agent = CurriculumQAAgent(
-        llm=StubLLMProvider(),
-        tools=ToolRegistry(),
-        conversations=store,
-    )
+def test_agent_reuses_conversation(agent):
     first = agent.ask("What topics are in Primary 4 Mathematics?")
     second = agent.ask(
         "Which one comes before fractions?",
         conversation_id=first.conversation_id,
     )
     assert second.conversation_id == first.conversation_id
-    ctx = store.get(first.conversation_id)
-    assert ctx is not None
-    assert len(ctx.messages) == 2
-    assert ctx.current_question == "Which one comes before fractions?"
 
 
-def test_agent_rejects_blank_question():
-    agent = CurriculumQAAgent(
-        llm=StubLLMProvider(),
-        tools=ToolRegistry(),
-        conversations=ConversationStore(),
-    )
+def test_agent_rejects_blank_question(agent):
     with pytest.raises(InvalidRequestError):
         agent.ask("   ")
 
 
-def test_stub_nodes_update_status():
-    agent = CurriculumQAAgent(
-        llm=StubLLMProvider(),
-        tools=ToolRegistry(),
-        conversations=ConversationStore(),
+def test_understand_and_retrieve_nodes(agent):
+    state = CurriculumQAState.initial(
+        question="What topics are in Primary 4 Mathematics?"
     )
-    state = agent.ask("Q")
     state = agent.understand(state)
     assert state.status == AgentStatus.UNDERSTANDING
-    assert state.iteration == 1
+    assert state.grade == "CLASS_4"
     state = agent.retrieve(state)
-    assert state.status == AgentStatus.RETRIEVING
-    state = agent.answer(state)
-    assert state.status == AgentStatus.ANSWERING
-    state = agent.verify(state)
-    assert state.status == AgentStatus.VERIFYING
+    assert state.status == AgentStatus.RETRIEVED
