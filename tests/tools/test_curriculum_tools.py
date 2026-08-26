@@ -199,6 +199,19 @@ def test_search_curriculum_valid(client):
     assert result.data["evidence"]
 
 
+def test_search_curriculum_matches_learning_outcomes(client):
+    tool = SearchCurriculumTool(client)
+    result = tool.execute(
+        query="identify fractions", grade="Primary 4", subject="Mathematics"
+    )
+    assert result.success
+    assert result.data["count"] >= 1
+    assert result.data["results"][0]["id"] == TOPIC_ID
+    assert result.data["results"][0]["metadata"]["matched_learning_outcomes"][0][
+        "description"
+    ] == "Identify fractions"
+
+
 def test_search_curriculum_missing_query(client):
     tool = SearchCurriculumTool(client)
     result = tool.execute(query="")
@@ -239,6 +252,15 @@ def test_get_topic_by_name(client):
     tool = GetTopicTool(client)
     result = tool.execute(
         topic="Fractions", grade="Primary 4", subject="Mathematics"
+    )
+    assert result.success
+    assert result.data["topic"]["id"] == TOPIC_ID
+
+
+def test_get_topic_by_learning_outcome_phrase(client):
+    tool = GetTopicTool(client)
+    result = tool.execute(
+        topic="Identify fractions", grade="Primary 4", subject="Mathematics"
     )
     assert result.success
     assert result.data["topic"]["id"] == TOPIC_ID

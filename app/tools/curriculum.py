@@ -42,6 +42,81 @@ class CurriculumTool(Tool):
     def __init__(self, client: CurriculumAPIClient) -> None:
         self.client = client
 
+    @staticmethod
+    def _outcome_matches(outcome: dict[str, Any], query: str) -> bool:
+        return match_query(
+            {
+                "name": outcome.get("code") or "",
+                "description": outcome.get("description")
+                or outcome.get("text")
+                or outcome.get("statement")
+                or "",
+                "content_type": "LEARNING_OUTCOME",
+            },
+            query,
+        )
+
+    def _search_syllabus_tree(
+        self,
+        *,
+        tree: list[dict[str, Any]] | dict[str, Any],
+        query: str,
+        grade: str | None,
+        subject: str | None,
+        level: str | None,
+    ) -> tuple[list[Any], list[CurriculumEvidence]]:
+        hits_by_id: dict[str, Any] = {}
+        evidence: list[CurriculumEvidence] = []
+
+        for node, parent_id in iter_content_nodes(tree):
+            node_matched = match_query(node, query)
+            matched_outcomes = [
+                outcome
+                for outcome in (node.get("learning_outcomes") or [])
+                if isinstance(outcome, dict) and self._outcome_matches(outcome, query)
+            ]
+            if not node_matched and not matched_outcomes:
+                continue
+
+            hit = node_to_search_hit(
+                node,
+                parent_id=parent_id,
+                grade=grade,
+                subject=subject,
+                level=level,
+            )
+            if matched_outcomes:
+                hit.metadata["matched_learning_outcomes"] = [
+                    {
+                        "id": outcome.get("id"),
+                        "code": outcome.get("code"),
+                        "description": outcome.get("description")
+                        or outcome.get("text")
+                        or outcome.get("statement"),
+                        "syllabus_content_id": str(node.get("id"))
+                        if node.get("id") is not None
+                        else None,
+                    }
+                    for outcome in matched_outcomes
+                ]
+                for outcome in matched_outcomes:
+                    evidence.append(
+                        evidence_from_outcome(
+                            outcome,
+                            topic_id=str(node.get("id")) if node.get("id") else None,
+                            grade=grade,
+                            subject=subject,
+                        )
+                    )
+
+            hit_id = str(hit.id)
+            if hit_id not in hits_by_id:
+                hits_by_id[hit_id] = hit
+
+        hits = list(hits_by_id.values())
+        evidence = [evidence_from_hit(h) for h in hits] + evidence
+        return hits, evidence
+
     def _resolve_curriculum(
         self, *, grade_code: str | None, curriculum_code: str | None = None
     ) -> tuple[str, str, str]:
@@ -132,19 +207,13 @@ class SearchCurriculumTool(CurriculumTool):
             tree = self.client.get_syllabus_content_tree(
                 str(syllabus["id"]), grade_code=grade_code
             )
-            hits = []
-            for node, parent_id in iter_content_nodes(tree):
-                if match_query(node, query):
-                    hits.append(
-                        node_to_search_hit(
-                            node,
-                            parent_id=parent_id,
-                            grade=grade_code or kwargs.get("grade"),
-                            subject=subject_code or kwargs.get("subject"),
-                            level=level,
-                        )
-                    )
-            evidence = [evidence_from_hit(h) for h in hits]
+            hits, evidence = self._search_syllabus_tree(
+                tree=tree,
+                query=query,
+                grade=grade_code or kwargs.get("grade"),
+                subject=subject_code or kwargs.get("subject"),
+                level=level,
+            )
             return ToolResult(
                 success=True,
                 data={
