@@ -13,6 +13,8 @@ class LLMMessage(BaseModel):
     content: str | None = None
     tool_call_id: str | None = None
     tool_calls: list[dict[str, Any]] | None = None
+    # DeepSeek Responses API thinking items that must be replayed on follow-up turns.
+    reasoning: list[dict[str, Any]] | None = None
 
     def to_api_dict(self) -> dict[str, Any]:
         payload: dict[str, Any] = {"role": self.role}
@@ -34,6 +36,7 @@ class ToolCallRequest(BaseModel):
 class LLMResponse(BaseModel):
     content: Optional[str] = None
     tool_calls: list[ToolCallRequest] = Field(default_factory=list)
+    reasoning: list[dict[str, Any]] = Field(default_factory=list)
     raw: dict[str, Any] = Field(default_factory=dict)
     model: Optional[str] = None
 

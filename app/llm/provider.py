@@ -16,6 +16,7 @@ from app.exceptions import (
     LLMTimeoutError,
 )
 from app.llm.base import LLMMessage, LLMProvider, LLMResponse, ToolCallRequest
+from app.llm.deepseek import DeepSeekResponsesProvider
 from app.llm.tool_selection import select_tool_calls
 
 
@@ -72,12 +73,6 @@ class StubLLMProvider(LLMProvider):
         )
 
 
-_OPENAI_COMPATIBLE_DEFAULTS: dict[str, str] = {
-    "openai": "https://api.openai.com/v1",
-    "deepseek": "https://api.deepseek.com",
-}
-
-
 class OpenAICompatibleProvider(LLMProvider):
     """OpenAI Chat Completions API (native tool/function calling)."""
 
@@ -89,10 +84,7 @@ class OpenAICompatibleProvider(LLMProvider):
         self._settings = settings
         self._provider_name = provider_name
         self._model = settings.llm_model
-        base_url = settings.llm_base_url.rstrip("/")
-        default_url = _OPENAI_COMPATIBLE_DEFAULTS.get(provider_name)
-        if default_url and base_url == _OPENAI_COMPATIBLE_DEFAULTS["openai"]:
-            base_url = default_url
+        base_url = settings.llm_base_url.rstrip("/") or "https://api.openai.com/v1"
         self._client = httpx.Client(
             base_url=base_url,
             timeout=httpx.Timeout(settings.llm_timeout_seconds),
@@ -140,23 +132,19 @@ class OpenAICompatibleProvider(LLMProvider):
         schema: dict[str, Any],
         temperature: float = 0.0,
     ) -> dict[str, Any]:
-        use_json_object = self._provider_name in {"deepseek", "openai_compatible"}
         body: dict[str, Any] = {
             "model": self._model,
             "messages": [m.to_api_dict() for m in messages],
             "temperature": temperature,
             "max_tokens": 4096,
-        }
-        if use_json_object:
-            body["response_format"] = {"type": "json_object"}
-        else:
-            body["response_format"] = {
+            "response_format": {
                 "type": "json_schema",
                 "json_schema": {
                     "name": schema.get("title") or "response",
                     "schema": schema,
                 },
-            }
+            },
+        }
         data = self._post("/chat/completions", body)
         content = ((data.get("choices") or [{}])[0].get("message") or {}).get("content")
         if not content:
@@ -179,7 +167,8 @@ class OpenAICompatibleProvider(LLMProvider):
                 "function": {
                     "name": tool["name"],
                     "description": tool.get("description") or "",
-                    "parameters": tool.get("parameters") or {"type": "object", "properties": {}},
+                    "parameters": tool.get("parameters")
+                    or {"type": "object", "properties": {}},
                 },
             }
             for tool in tools
@@ -198,7 +187,9 @@ class OpenAICompatibleProvider(LLMProvider):
             fn = raw.get("function") or {}
             args_raw = fn.get("arguments") or "{}"
             try:
-                arguments = json.loads(args_raw) if isinstance(args_raw, str) else dict(args_raw)
+                arguments = (
+                    json.loads(args_raw) if isinstance(args_raw, str) else dict(args_raw)
+                )
             except json.JSONDecodeError:
                 arguments = {}
             calls.append(
@@ -244,7 +235,9 @@ class ConfigurableLLMProvider(LLMProvider):
         provider = self._settings.llm_provider.strip().lower()
         if provider in {"", "stub", "none", "mock"}:
             self._inner: LLMProvider = StubLLMProvider(model=self._settings.llm_model)
-        elif provider in {"openai", "openai_compatible", "deepseek"}:
+        elif provider == "deepseek":
+            self._inner = DeepSeekResponsesProvider(self._settings)
+        elif provider in {"openai", "openai_compatible"}:
             name = "openai" if provider == "openai_compatible" else provider
             self._inner = OpenAICompatibleProvider(self._settings, provider_name=name)
         else:

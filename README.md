@@ -106,7 +106,7 @@ There is no full-text search endpoint; `search_curriculum` filters syllabus tree
 | --- | --- |
 | `CURRICULUM_API_URL` | Curriculum Structure API base URL |
 | `CURRICULUM_API_TIMEOUT` | HTTP timeout seconds |
-| `LLM_PROVIDER` | `stub` or `openai` |
+| `LLM_PROVIDER` | `stub`, `openai` (Chat Completions), or `deepseek` (Responses API) |
 | `LLM_MODEL` / `LLM_API_KEY` / `LLM_BASE_URL` | Provider settings |
 | `AGENT_MAX_ITERATIONS` | Retrieval loop iteration cap |
 | `AGENT_MAX_TOOL_CALLS` | Hard tool-call cap |

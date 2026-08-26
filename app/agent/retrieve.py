@@ -73,14 +73,17 @@ class RetrievalNode:
             if not response.tool_calls:
                 break
 
-            messages.append(self._assistant_tool_message(response))
-
+            # Responses API requires a function_call_output for every function_call
+            # included in the next request. Only record calls we actually execute.
+            executed_calls: list[ToolCallRequest] = []
+            tool_messages: list[LLMMessage] = []
             for call in response.tool_calls:
                 if state.tool_calls >= self.settings.agent_max_tool_calls:
                     break
                 self._execute_call(state, call, request_id=request_id)
+                executed_calls.append(call)
                 last = state.retrieval_history[-1] if state.retrieval_history else None
-                messages.append(
+                tool_messages.append(
                     LLMMessage(
                         role="tool",
                         tool_call_id=call.id,
@@ -97,6 +100,14 @@ class RetrievalNode:
                         ),
                     )
                 )
+
+            if not executed_calls:
+                break
+
+            messages.append(
+                self._assistant_tool_message(response, tool_calls=executed_calls)
+            )
+            messages.extend(tool_messages)
 
             # Heuristic stop: if we already have structure/topic evidence, allow one more round max
             if state.evidence and state.tool_calls >= 1:
@@ -243,8 +254,13 @@ class RetrievalNode:
         )
 
     @staticmethod
-    def _assistant_tool_message(response) -> LLMMessage:
-        tool_calls = [
+    def _assistant_tool_message(
+        response,
+        *,
+        tool_calls: list[ToolCallRequest] | None = None,
+    ) -> LLMMessage:
+        calls = tool_calls if tool_calls is not None else response.tool_calls
+        formatted = [
             {
                 "id": call.id,
                 "type": "function",
@@ -253,12 +269,13 @@ class RetrievalNode:
                     "arguments": json.dumps(call.arguments or {}),
                 },
             }
-            for call in response.tool_calls
+            for call in calls
         ]
         return LLMMessage(
             role="assistant",
             content=response.content,
-            tool_calls=tool_calls,
+            tool_calls=formatted,
+            reasoning=list(response.reasoning) if response.reasoning else None,
         )
 
     @staticmethod
