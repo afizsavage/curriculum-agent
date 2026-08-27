@@ -6,17 +6,10 @@ from fastapi import APIRouter, Depends, Request
 
 from app.agent.metrics import get_metrics
 from app.agent.orchestrator import CurriculumQAAgent
+from app.agent.response_mapper import map_graph_result_to_response
 from app.deps import get_agent
-from app.enums import AgentStatus
 from app.logging_utils import get_logger, new_request_id, timed_request
-from app.schemas.agent import (
-    AnswerEvidenceSummary,
-    AskMetadata,
-    AskRequest,
-    AskResponse,
-    EvidenceSummary,
-    VerificationSummary,
-)
+from app.schemas.agent import AskRequest, AskResponse
 
 router = APIRouter(prefix="/agent", tags=["agent"])
 logger = get_logger(__name__)
@@ -27,9 +20,9 @@ logger = get_logger(__name__)
     response_model=AskResponse,
     summary="Ask the Curriculum Q&A agent",
     description=(
-        "Accept a curriculum question, run understand → retrieve → generate → "
-        "verify with a bounded loop, and return a grounded answer, clarification, "
-        "or insufficient-evidence fallback."
+        "Accept a curriculum question, run the LangGraph Curriculum Q&A workflow "
+        "(understand → retrieve → generate → verify with a bounded loop), and "
+        "return a grounded answer, clarification, or insufficient-evidence fallback."
     ),
     responses={
         422: {"description": "Invalid request (validation error)"},
@@ -69,66 +62,18 @@ def ask(
             state.answer_confidence.value if state.answer_confidence else None
         )
 
-        verification_summary = None
-        if state.verification is not None:
-            verification_summary = VerificationSummary(
-                passed=state.verification.passed,
-                score=state.verification.score,
-                recommendation=state.verification.recommendation.value,
-                issues=list(state.verification.issues[:5]),
-            )
-
-        return AskResponse(
-            conversation_id=state.conversation_id or "",
-            question=state.question,
-            answer=(
-                None
-                if state.status == AgentStatus.NEEDS_CLARIFICATION
-                else (state.final_answer or state.draft_answer)
-            ),
-            status=state.status.value,
-            clarification=state.clarification,
-            evidence=[
-                EvidenceSummary(
-                    entity_type=item.entity_type,
-                    entity_id=item.entity_id,
-                    name=item.name,
-                    grade=item.grade,
-                    subject=item.subject,
-                    topic=item.topic,
-                )
-                for item in state.evidence
-            ],
-            answer_evidence=[
-                AnswerEvidenceSummary(
-                    entity_id=ref.entity_id,
-                    entity_type=ref.entity_type,
-                    claim=ref.claim,
-                    name=ref.name,
-                    grade=ref.grade,
-                    subject=ref.subject,
-                    topic=ref.topic,
-                )
-                for ref in state.answer_evidence
-            ],
-            confidence=state.answer_confidence,
-            limitations=state.answer_limitations,
-            verification=verification_summary,
-            metadata=AskMetadata(
-                iterations=state.iteration,
-                tool_calls=state.tool_calls,
-                tools_used=list(
-                    state.metadata.get("tools_used") or state.selected_tools
+        return map_graph_result_to_response(
+            qa=state,
+            llm=agent.llm,
+            graph_state={
+                "qa": state,
+                "graph_run_id": state.metadata.get("graph_run_id"),
+                "visited_nodes": list(state.metadata.get("visited_nodes") or []),
+                "route": state.metadata.get("route"),
+                "max_iterations_hit": bool(
+                    state.metadata.get("max_iterations_hit")
                 ),
-                evidence_status=state.evidence_status.value,
-                evidence_count=len(state.evidence),
-                model=agent.llm.model,
-                provider=agent.llm.name,
-                retrieval_rounds=state.retrieval_rounds,
-                verification_attempts=state.verification_attempts,
-                verification_status=state.verification_status.value,
-            ),
-            error=state.error,
+            },
         )
 
 
@@ -139,3 +84,17 @@ def ask(
 )
 def metrics() -> dict:
     return get_metrics().snapshot()
+
+
+@router.get(
+    "/graph",
+    summary="Inspect compiled LangGraph topology (development)",
+    description="Returns ASCII and Mermaid representations of the Curriculum Q&A graph.",
+)
+def inspect_graph(agent: CurriculumQAAgent = Depends(get_agent)) -> dict:
+    inspection = agent.inspect_graph()
+    parts = inspection.split("\n\n", 1)
+    return {
+        "ascii": parts[0],
+        "mermaid": parts[1] if len(parts) > 1 else "",
+    }

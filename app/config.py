@@ -27,6 +27,11 @@ class Settings(BaseSettings):
     agent_max_retrieval_rounds: int = Field(default=3, ge=1)
     agent_request_timeout_seconds: float = Field(default=60.0, gt=0)
 
+    # LangGraph short-term memory / checkpointing
+    agent_checkpointing_enabled: bool = True
+    agent_checkpoint_backend: str = "sqlite"  # memory | sqlite
+    agent_checkpoint_sqlite_path: str = "data/checkpoints.sqlite"
+
     # Prefer CURRICULUM_API_URL; CURRICULUM_API_BASE_URL kept for Phase 1 compatibility.
     curriculum_api_url: str = ""
     curriculum_api_base_url: str = "http://127.0.0.1:8000"

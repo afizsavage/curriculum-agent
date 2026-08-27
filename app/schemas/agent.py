@@ -41,6 +41,8 @@ class AskMetadata(BaseModel):
     retrieval_rounds: int = 0
     verification_attempts: int = 0
     verification_status: Optional[str] = None
+    graph_run_id: Optional[str] = None
+    visited_nodes: list[str] = Field(default_factory=list)
 
 
 class EvidenceSummary(BaseModel):

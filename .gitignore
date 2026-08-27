@@ -9,3 +9,9 @@ __pycache__/
 htmlcov/
 dist/
 build/
+data/checkpoints.sqlite
+data/checkpoints.sqlite-*
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm

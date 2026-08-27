@@ -11,11 +11,17 @@ read-only and does not duplicate or write curriculum data.
 | --- | --- |
 | 1 Foundation (state, LLM, tools, ask API) | Done |
 | 2 Curriculum retrieval & tools | Done |
-| 3 Answer generation + verification | Next |
+| 3 Grounded answer generation | Done |
+| 4 Verification & bounded loops | Done |
+| 5 LangGraph orchestration & checkpointing | Done |
 
 ```text
-User Question → Understand → Retrieve (tools → Curriculum API) → Evidence
-Answer / Verify arrive in Phase 3 (`answer` remains null).
+User Question
+  → LangGraph: UNDERSTAND → RETRIEVE → GENERATE → VERIFY
+      ├── PASS → END
+      ├── RETRIEVE_MORE ↺
+      ├── CLARIFY → END
+      └── FALLBACK → END
 ```
 
 ## Requirements
@@ -41,6 +47,7 @@ uvicorn app.main:app --reload --port 8001
 
 - Health: http://127.0.0.1:8001/health
 - OpenAPI: http://127.0.0.1:8001/docs
+- Graph inspection: http://127.0.0.1:8001/api/v1/agent/graph
 
 ## Ask
 
@@ -53,30 +60,6 @@ curl -s -X POST http://127.0.0.1:8001/api/v1/agent/ask \
   }'
 ```
 
-Phase 2 response shape:
-
-```json
-{
-  "conversation_id": "...",
-  "question": "What topics are taught in Primary 4 Mathematics?",
-  "answer": null,
-  "status": "retrieved",
-  "evidence": [
-    {"entity_type": "topic", "entity_id": "...", "name": "Fractions"}
-  ],
-  "metadata": {
-    "iterations": 2,
-    "tool_calls": 1,
-    "tools_used": ["get_curriculum_structure"],
-    "evidence_status": "found",
-    "evidence_count": 1,
-    "model": "stub-model",
-    "provider": "stub"
-  },
-  "error": null
-}
-```
-
 ## Curriculum tools
 
 | Tool | Use when |
@@ -86,19 +69,6 @@ Phase 2 response shape:
 | `get_subject` | Subject identity/metadata for a grade |
 | `get_topic` | Canonical topic by `topic_id` or name |
 | `get_learning_objectives` | Authoritative outcomes for a topic |
-
-Primary Curriculum API routes used:
-
-- `GET /api/v1/curricula`
-- `GET /api/v1/curricula/{id}/structure`
-- `GET /api/v1/curricula/{id}/subjects`
-- `GET /api/v1/subjects/{id}`
-- `GET /api/v1/syllabuses`
-- `GET /api/v1/syllabuses/{id}/content/tree`
-- `GET /api/v1/curriculum-context`
-- `GET /api/v1/topics/{id}` (+ learning-outcomes)
-
-There is no full-text search endpoint; `search_curriculum` filters syllabus trees client-side.
 
 ## Configuration
 
@@ -110,6 +80,10 @@ There is no full-text search endpoint; `search_curriculum` filters syllabus tree
 | `LLM_MODEL` / `LLM_API_KEY` / `LLM_BASE_URL` | Provider settings |
 | `AGENT_MAX_ITERATIONS` | Retrieval loop iteration cap |
 | `AGENT_MAX_TOOL_CALLS` | Hard tool-call cap |
+| `AGENT_MAX_RETRIEVAL_ROUNDS` | Max retrieve→generate→verify cycles |
+| `AGENT_CHECKPOINTING_ENABLED` | LangGraph short-term thread checkpoints |
+| `AGENT_CHECKPOINT_BACKEND` | `sqlite` (default, survives restart) or `memory` |
+| `AGENT_CHECKPOINT_SQLITE_PATH` | SQLite file path (default `data/checkpoints.sqlite`) |
 
 ## Tests
 
@@ -123,9 +97,19 @@ Uses mocked Curriculum API responses. No real LLM key required for `stub`.
 
 ```text
 app/
-├── api/v1/agent.py
-├── agent/          # state, context, orchestrator, retrieve
-├── curriculum/     # API client, evidence, code normalization
-├── llm/            # providers + stub tool selection
-└── tools/          # registry + curriculum tools
+├── api/v1/agent.py          # HTTP → graph invoke → response mapper
+├── agent/
+│   ├── graph.py             # build_curriculum_qa_graph
+│   ├── graph_nodes.py       # thin adapters over domain services
+│   ├── graph_routing.py     # constrained conditional edges
+│   ├── graph_state.py       # GraphState envelope around CurriculumQAState
+│   ├── memory.py            # checkpointer factory
+│   ├── orchestrator.py      # CurriculumQAAgent facade
+│   ├── retrieve / answer / verify  # domain nodes (unchanged)
+│   └── context.py           # conversation message store
+├── curriculum/              # API client, evidence, codes
+├── llm/                     # providers
+└── tools/                   # registry + curriculum tools
 ```
+
+LangGraph **orchestrates**; tools, answer generation, and verification remain domain services.

@@ -57,15 +57,18 @@ def test_ask_valid_request(client):
     assert body["verification"] is not None
     assert body["verification"]["passed"] is True
     assert body["metadata"]["verification_attempts"] >= 1
+    assert body["metadata"]["graph_run_id"]
+    assert "understand" in body["metadata"]["visited_nodes"]
+    assert body["metadata"]["visited_nodes"][-1] == "finish"
     assert response.headers.get("X-Request-ID")
 
 
-def test_metrics_endpoint(client):
-    response = client.get("/api/v1/agent/metrics")
+def test_graph_inspection_endpoint(client):
+    response = client.get("/api/v1/agent/graph")
     assert response.status_code == 200
     body = response.json()
-    assert "total_requests" in body
-    assert "verification_pass_rate" in body
+    assert "understand" in body["ascii"]
+    assert "verify_answer" in body["ascii"]
 
 
 def test_ask_invalid_request(client):
