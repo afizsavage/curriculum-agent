@@ -92,6 +92,9 @@ def map_graph_result_to_response(
             verification_status=qa.verification_status.value,
             graph_run_id=graph_meta["graph_run_id"],
             visited_nodes=visited,
+            agent_run_id=qa.metadata.get("agent_run_id"),
+            termination_reason=qa.metadata.get("termination_reason")
+            or (graph_state or {}).get("fallback_reason"),
         ),
         error=qa.error,
     )
@@ -105,6 +108,7 @@ def attach_graph_metadata(qa: CurriculumQAState, graph_state: GraphState) -> Cur
     qa.metadata["max_iterations_hit"] = bool(graph_state.get("max_iterations_hit"))
     if graph_state.get("fallback_reason"):
         qa.metadata["fallback_reason"] = graph_state.get("fallback_reason")
+        qa.metadata["termination_reason"] = graph_state.get("fallback_reason")
     return qa
 
 

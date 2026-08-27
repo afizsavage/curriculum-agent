@@ -68,12 +68,25 @@ def log_agent_event(
     model: str | None = None,
     latency_ms: float | None = None,
     error: str | None = None,
+    agent_run_id: str | None = None,
     **extra: Any,
 ) -> None:
     """Emit a structured agent log line for later step-level tracing."""
+    if agent_run_id is None:
+        try:
+            from app.agent.trace import get_current_trace
+
+            current = get_current_trace()
+            if current is not None:
+                agent_run_id = current.agent_run_id
+                request_id = request_id or current.request_id
+                conversation_id = conversation_id or current.conversation_id
+        except Exception:
+            pass
     payload = _safe_extra(
         {
             "event": event,
+            "agent_run_id": agent_run_id,
             "request_id": request_id,
             "conversation_id": conversation_id,
             "agent_name": agent_name,

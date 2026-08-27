@@ -11,6 +11,7 @@ dist/
 build/
 data/checkpoints.sqlite
 data/checkpoints.sqlite-*
+data/traces/
 *.sqlite
 *.sqlite-journal
 *.sqlite-wal

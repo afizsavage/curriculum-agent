@@ -22,12 +22,18 @@ from app.agent.metrics import get_metrics
 from app.agent.response_mapper import attach_graph_metadata
 from app.agent.retrieve import RetrievalNode
 from app.agent.state import CurriculumQAState
+from app.agent.trace import (
+    bind_conversation_id,
+    finish_agent_run,
+    start_agent_run,
+)
 from app.agent.verify import VerificationNode
 from app.config import Settings, get_settings
 from app.curriculum.evidence import EvidenceStatus
 from app.exceptions import AgentError, AgentExecutionError, InvalidRequestError
 from app.llm.base import LLMProvider
 from app.llm.provider import build_llm_provider
+from app.llm.tracing import wrap_llm
 from app.logging_utils import get_logger, log_agent_event
 from app.tools.registry import ToolRegistry, build_default_registry
 
@@ -54,8 +60,18 @@ class CurriculumQAAgent:
         compiled_graph: Any | None = None,
     ) -> None:
         self.settings = settings or get_settings()
-        self.llm = llm or build_llm_provider(self.settings)
-        self.verifier_llm = verifier_llm or self._build_verifier_llm()
+        base_llm = llm or build_llm_provider(self.settings)
+        self.llm = wrap_llm(base_llm)
+
+        verifier_model = (self.settings.verifier_llm_model or "").strip()
+        if verifier_llm is not None:
+            self.verifier_llm = wrap_llm(verifier_llm)
+        elif not verifier_model or verifier_model == self.settings.llm_model:
+            self.verifier_llm = self.llm
+        else:
+            override = self.settings.model_copy(update={"llm_model": verifier_model})
+            self.verifier_llm = wrap_llm(build_llm_provider(override))
+
         self.tools = (
             tools
             if tools is not None
@@ -86,12 +102,12 @@ class CurriculumQAAgent:
         )
 
     def _build_verifier_llm(self) -> LLMProvider:
-        """Use VERIFIER_LLM_MODEL when set; otherwise reuse the main provider."""
+        """Legacy helper — prefers VERIFIER_LLM_MODEL when set."""
         verifier_model = (self.settings.verifier_llm_model or "").strip()
         if not verifier_model or verifier_model == self.settings.llm_model:
             return self.llm
         override = self.settings.model_copy(update={"llm_model": verifier_model})
-        return build_llm_provider(override)
+        return wrap_llm(build_llm_provider(override))
 
     def ask(
         self,
@@ -106,100 +122,143 @@ class CurriculumQAAgent:
 
         started = time.perf_counter()
         max_iterations_hit = False
-        try:
-            context = self.conversations.get_or_create(conversation_id)
-            prior_state = context.current_state
-            prior_filters = filters_from_state(prior_state) if prior_state else {}
-            # Prefer checkpoint prior_filters when available for the same thread.
-            if self.checkpointer is not None and context.conversation_id:
-                prior_filters = self._prior_filters_from_checkpoint(
-                    context.conversation_id, fallback=prior_filters
+        with start_agent_run(
+            question=cleaned,
+            request_id=request_id,
+            conversation_id=conversation_id,
+            agent_name=self.name,
+        ) as trace:
+            try:
+                context = self.conversations.get_or_create(conversation_id)
+                bind_conversation_id(trace, context.conversation_id)
+                prior_state = context.current_state
+                prior_filters = filters_from_state(prior_state) if prior_state else {}
+                if self.checkpointer is not None and context.conversation_id:
+                    prior_filters = self._prior_filters_from_checkpoint(
+                        context.conversation_id, fallback=prior_filters
+                    )
+
+                state = CurriculumQAState.initial(
+                    question=cleaned,
+                    conversation_id=context.conversation_id,
+                )
+                context.append_user(cleaned)
+                self.nodes.bind_conversation(context)
+
+                graph_input = initial_graph_input(
+                    qa=state,
+                    request_id=request_id,
+                    prior_filters=prior_filters,
+                )
+                invoke_kwargs: dict[str, Any] = {}
+                if self.checkpointer is not None:
+                    invoke_kwargs["config"] = thread_config(
+                        context.conversation_id, request_id=request_id
+                    )
+
+                result: GraphState = self.graph.invoke(graph_input, **invoke_kwargs)
+                state = attach_graph_metadata(result["qa"], result)
+                max_iterations_hit = bool(result.get("max_iterations_hit"))
+                state.metadata["agent_run_id"] = trace.agent_run_id
+
+                context.set_state(state)
+                if state.final_answer:
+                    context.append_assistant(state.final_answer)
+                elif state.clarification:
+                    context.append_assistant(state.clarification)
+                self.conversations.save(context)
+
+                latency_ms = (time.perf_counter() - started) * 1000
+                verification_passed = (
+                    state.verification.passed if state.verification else None
+                )
+                get_metrics().record_request(
+                    status=state.status.value,
+                    iterations=state.iteration,
+                    tool_calls=state.tool_calls,
+                    latency_ms=latency_ms,
+                    verification_passed=verification_passed,
+                    max_iterations=max_iterations_hit,
+                    retrieval_failed=state.evidence_status == EvidenceStatus.ERROR,
                 )
 
-            state = CurriculumQAState.initial(
-                question=cleaned,
-                conversation_id=context.conversation_id,
-            )
-            context.append_user(cleaned)
-            self.nodes.bind_conversation(context)
-
-            graph_input = initial_graph_input(
-                qa=state,
-                request_id=request_id,
-                prior_filters=prior_filters,
-            )
-            invoke_kwargs: dict[str, Any] = {}
-            if self.checkpointer is not None:
-                invoke_kwargs["config"] = thread_config(
-                    context.conversation_id, request_id=request_id
+                visited = list(state.metadata.get("visited_nodes") or [])
+                termination_reason = _termination_reason(
+                    state=state,
+                    result=result,
+                    max_iterations_hit=max_iterations_hit,
+                    settings=self.settings,
+                )
+                state.metadata["termination_reason"] = termination_reason
+                finish_agent_run(
+                    trace,
+                    status=state.status.value,
+                    final_node=visited[-1] if visited else None,
+                    iteration=state.iteration,
+                    tool_calls=state.tool_calls,
+                    retrieval_rounds=state.retrieval_rounds,
+                    verification_attempts=state.verification_attempts,
+                    evidence_count=len(state.evidence),
+                    latency_ms=latency_ms,
+                    termination_reason=termination_reason,
+                    verification_score=(
+                        state.verification.score if state.verification else None
+                    ),
+                    visited_nodes=visited,
+                    max_iterations=self.settings.agent_max_iterations,
+                    max_tool_calls=self.settings.agent_max_tool_calls,
+                    max_retrieval_rounds=self.settings.agent_max_retrieval_rounds,
                 )
 
-            result: GraphState = self.graph.invoke(graph_input, **invoke_kwargs)
-            state = attach_graph_metadata(result["qa"], result)
-            max_iterations_hit = bool(result.get("max_iterations_hit"))
-
-            context.set_state(state)
-            if state.final_answer:
-                context.append_assistant(state.final_answer)
-            elif state.clarification:
-                context.append_assistant(state.clarification)
-            self.conversations.save(context)
-
-            latency_ms = (time.perf_counter() - started) * 1000
-            verification_passed = (
-                state.verification.passed if state.verification else None
-            )
-            get_metrics().record_request(
-                status=state.status.value,
-                iterations=state.iteration,
-                tool_calls=state.tool_calls,
-                latency_ms=latency_ms,
-                verification_passed=verification_passed,
-                max_iterations=max_iterations_hit,
-                retrieval_failed=state.evidence_status == EvidenceStatus.ERROR,
-            )
-
-            log_agent_event(
-                logger,
-                "agent.turn.complete",
-                request_id=request_id,
-                conversation_id=state.conversation_id,
-                question=state.question,
-                status=state.status.value,
-                iteration=state.iteration,
-                tool_calls=state.tool_calls,
-                model=self.llm.model,
-                evidence_count=len(state.evidence),
-                evidence_status=state.evidence_status.value,
-                confidence=(
-                    state.answer_confidence.value if state.answer_confidence else None
-                ),
-                verification_status=state.verification_status.value,
-                verification_attempts=state.verification_attempts,
-                retrieval_rounds=state.retrieval_rounds,
-                visited_nodes=state.metadata.get("visited_nodes"),
-                graph_run_id=state.metadata.get("graph_run_id"),
-                latency_ms=round(latency_ms, 2),
-            )
-            return state
-        except AgentError:
-            get_metrics().record_request(
-                status="error",
-                iterations=0,
-                tool_calls=0,
-                latency_ms=(time.perf_counter() - started) * 1000,
-            )
-            raise
-        except Exception as exc:
-            get_metrics().record_request(
-                status="error",
-                iterations=0,
-                tool_calls=0,
-                latency_ms=(time.perf_counter() - started) * 1000,
-            )
-            raise AgentExecutionError(
-                "Agent failed while processing the question"
-            ) from exc
+                log_agent_event(
+                    logger,
+                    "agent.turn.complete",
+                    request_id=request_id,
+                    conversation_id=state.conversation_id,
+                    question=state.question,
+                    status=state.status.value,
+                    iteration=state.iteration,
+                    tool_calls=state.tool_calls,
+                    model=self.llm.model,
+                    evidence_count=len(state.evidence),
+                    evidence_status=state.evidence_status.value,
+                    confidence=(
+                        state.answer_confidence.value
+                        if state.answer_confidence
+                        else None
+                    ),
+                    verification_status=state.verification_status.value,
+                    verification_attempts=state.verification_attempts,
+                    retrieval_rounds=state.retrieval_rounds,
+                    visited_nodes=visited,
+                    graph_run_id=state.metadata.get("graph_run_id"),
+                    agent_run_id=trace.agent_run_id,
+                    termination_reason=termination_reason,
+                    llm_counts=trace.llm_counts,
+                    phase_timings_ms=trace.phase_timings_ms,
+                    latency_ms=round(latency_ms, 2),
+                )
+                return state
+            except AgentError as exc:
+                get_metrics().record_request(
+                    status="error",
+                    iterations=0,
+                    tool_calls=0,
+                    latency_ms=(time.perf_counter() - started) * 1000,
+                )
+                trace.emit("agent.error", error=str(exc), error_type=type(exc).__name__)
+                raise
+            except Exception as exc:
+                get_metrics().record_request(
+                    status="error",
+                    iterations=0,
+                    tool_calls=0,
+                    latency_ms=(time.perf_counter() - started) * 1000,
+                )
+                trace.emit("agent.error", error=str(exc), error_type=type(exc).__name__)
+                raise AgentExecutionError(
+                    "Agent failed while processing the question"
+                ) from exc
 
     def _prior_filters_from_checkpoint(
         self, conversation_id: str, *, fallback: dict
@@ -299,3 +358,26 @@ class CurriculumQAAgent:
     def inspect_graph(self) -> str:
         """ASCII + Mermaid inspection for development."""
         return f"{graph_ascii(self.graph)}\n\n{graph_mermaid(self.graph)}"
+
+
+def _termination_reason(
+    *,
+    state: CurriculumQAState,
+    result: GraphState,
+    max_iterations_hit: bool,
+    settings: Settings,
+) -> str:
+    if state.status.value == "completed":
+        return "verification_passed"
+    if state.status.value == "needs_clarification":
+        return "clarify"
+    reason = result.get("fallback_reason") or state.metadata.get("fallback_reason")
+    if reason:
+        return str(reason)
+    if max_iterations_hit:
+        if state.tool_calls >= settings.agent_max_tool_calls:
+            return "max_tool_calls"
+        if state.retrieval_rounds >= settings.agent_max_retrieval_rounds:
+            return "max_retrieval_rounds"
+        return "max_iterations"
+    return "insufficient_evidence"

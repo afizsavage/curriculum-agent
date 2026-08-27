@@ -111,9 +111,26 @@ class AnswerGenerator:
     ) -> list[LLMMessage]:
         history = self._format_conversation_history(conversation)
         filters = self._format_filters(state)
+        ranked, generation_ids = select_evidence_for_prompt(
+            state.evidence, question=state.question
+        )
         evidence_block = format_evidence_for_prompt(
             state.evidence, question=state.question
         )
+        state.metadata["retrieved_evidence_count"] = len(state.evidence)
+        state.metadata["generation_evidence_count"] = len(ranked)
+        state.metadata["generation_evidence_ids"] = generation_ids
+        from app.agent.trace import get_current_trace
+
+        trace = get_current_trace()
+        if trace is not None:
+            trace.emit(
+                "agent.evidence.rank",
+                iteration=state.iteration,
+                retrieved_evidence_count=len(state.evidence),
+                generation_evidence_count=len(ranked),
+                generation_evidence_ids=generation_ids,
+            )
 
         user_content = (
             f"USER QUESTION\n{state.question}\n\n"
@@ -435,10 +452,12 @@ def format_evidence_for_prompt(
     max_records: int = 24,
 ) -> str:
     """Render retrieved evidence with hierarchy for the LLM prompt."""
-    if not evidence:
+    ranked, _ids = select_evidence_for_prompt(
+        evidence, question=question, max_records=max_records
+    )
+    if not ranked:
         return "(no curriculum evidence retrieved)"
 
-    ranked = _rank_evidence(evidence, question=question)[:max_records]
     blocks: list[str] = []
     for index, item in enumerate(ranked, start=1):
         hierarchy = _hierarchy_path(item)
@@ -469,6 +488,20 @@ def format_evidence_for_prompt(
             "prefer the most relevant records above)"
         )
     return "\n\n".join(blocks)
+
+
+def select_evidence_for_prompt(
+    evidence: list[CurriculumEvidence],
+    *,
+    question: str | None = None,
+    max_records: int = 24,
+) -> tuple[list[CurriculumEvidence], list[str]]:
+    """Return ranked evidence rows supplied to the generator (and their ids)."""
+    if not evidence:
+        return [], []
+    ranked = _rank_evidence(evidence, question=question)[:max_records]
+    ids = [item.entity_id for item in ranked if item.entity_id]
+    return ranked, ids
 
 
 def _rank_evidence(

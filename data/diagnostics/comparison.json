@@ -1,0 +1,259 @@
+[
+  {
+    "run": 1,
+    "agent_run_id": "run-ed19de4bcebd4a2f",
+    "status": "insufficient_evidence",
+    "latency_ms": 92162.61,
+    "iterations": 3,
+    "tool_calls": 10,
+    "evidence_count": 42,
+    "verification_score": 0.85,
+    "recommendation": "retrieve_more",
+    "termination_reason": "max_retrieval_rounds",
+    "llm_counts": {
+      "total": 11,
+      "understand": 0,
+      "retrieval": 5,
+      "generation": 3,
+      "verification": 3,
+      "other": 0
+    },
+    "phase_timings_ms": {
+      "understand": 1.88,
+      "routing": 17.15,
+      "retrieval": 22779.86,
+      "generation": 36456.24,
+      "verification": 32756.71
+    },
+    "tool_seq": [
+      "1. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\"}",
+      "2. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"subject\": \"Mathematics\"}",
+      "3. search_curriculum args={\"grade\": \"CLASS_4\", \"query\": \"fractions\", \"subject\": \"Mathematics\"}",
+      "4. get_topic args={\"grade\": \"CLASS_4\", \"subject\": \"Mathematics\", \"topic\": \"fractions\"}",
+      "5. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\", \"subject\": \"Mathematics\"}",
+      "6. get_topic args={\"topic_id\": \"0f90b316-6be5-4b60-a2b1-2ac91a603d49\"}",
+      "7. get_topic args={\"topic_id\": \"c148074c-fac8-4771-94de-01de1805f585\"}",
+      "8. get_learning_objectives args={\"topic_id\": \"0f90b316-6be5-4b60-a2b1-2ac91a603d49\"}",
+      "9. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\"}",
+      "10. get_topic args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"fractions\"}"
+    ],
+    "understand": {
+      "intent": "retrieve_curriculum",
+      "grade": "CLASS_4",
+      "subject": null,
+      "topic": "fractions",
+      "level": "primary",
+      "requested_information": {
+        "grade": "CLASS_4",
+        "subject": null,
+        "level": "primary",
+        "topic": "fractions"
+      }
+    },
+    "iteration_growth": null
+  },
+  {
+    "run": 2,
+    "agent_run_id": "run-fbb36688ba17480f",
+    "status": "insufficient_evidence",
+    "latency_ms": 75223.81,
+    "iterations": 3,
+    "tool_calls": 10,
+    "evidence_count": 51,
+    "verification_score": 0.6,
+    "recommendation": "retrieve_more",
+    "termination_reason": "max_retrieval_rounds",
+    "llm_counts": {
+      "total": 12,
+      "understand": 0,
+      "retrieval": 6,
+      "generation": 3,
+      "verification": 3,
+      "other": 0
+    },
+    "phase_timings_ms": {
+      "understand": 0.64,
+      "routing": 7.41,
+      "retrieval": 21982.83,
+      "generation": 25458.66,
+      "verification": 27649.79
+    },
+    "tool_seq": [
+      "1. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\"}",
+      "2. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"level\": \"primary\"}",
+      "3. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"subject\": \"Mathematics\"}",
+      "4. get_subject args={\"grade\": \"CLASS_4\", \"subject\": \"Mathematics\"}",
+      "5. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\"}",
+      "6. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\", \"subject\": \"MATHEMATICS\"}",
+      "7. get_learning_objectives args={\"topic_id\": \"6b0d1465-d397-4b27-ba73-2696eeb5d3c5\"}",
+      "8. get_learning_objectives args={\"topic_id\": \"c148074c-fac8-4771-94de-01de1805f585\"}",
+      "9. get_topic args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"fractions\"}",
+      "10. get_learning_objectives args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"fractions\"}"
+    ],
+    "understand": {
+      "intent": "retrieve_curriculum",
+      "grade": "CLASS_4",
+      "subject": null,
+      "topic": "fractions",
+      "level": "primary",
+      "requested_information": {
+        "grade": "CLASS_4",
+        "subject": null,
+        "level": "primary",
+        "topic": "fractions"
+      }
+    },
+    "iteration_growth": null
+  },
+  {
+    "run": 3,
+    "agent_run_id": "run-df4cdd1da0bb45e8",
+    "status": "insufficient_evidence",
+    "latency_ms": 82278.71,
+    "iterations": 3,
+    "tool_calls": 10,
+    "evidence_count": 51,
+    "verification_score": 0.7,
+    "recommendation": "retrieve_more",
+    "termination_reason": "max_retrieval_rounds",
+    "llm_counts": {
+      "total": 12,
+      "understand": 0,
+      "retrieval": 6,
+      "generation": 3,
+      "verification": 3,
+      "other": 0
+    },
+    "phase_timings_ms": {
+      "understand": 0.64,
+      "routing": 3.2,
+      "retrieval": 21526.74,
+      "generation": 35770.14,
+      "verification": 24861.52
+    },
+    "tool_seq": [
+      "1. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\"}",
+      "2. get_curriculum_structure args={\"grade\": \"CLASS_4\"}",
+      "3. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\"}",
+      "4. get_subject args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\"}",
+      "5. search_curriculum args={\"grade\": \"CLASS_4\", \"query\": \"fractions\", \"subject\": \"MATHEMATICS\"}",
+      "6. get_learning_objectives args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"fractions\"}",
+      "7. get_topic args={\"topic_id\": \"6b0d1465-d397-4b27-ba73-2696eeb5d3c5\"}",
+      "8. get_topic args={\"topic_id\": \"c148074c-fac8-4771-94de-01de1805f585\"}",
+      "9. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\", \"subject\": \"MATHEMATICS\"}",
+      "10. get_topic args={\"topic_id\": \"0f90b316-6be5-4b60-a2b1-2ac91a603d49\"}"
+    ],
+    "understand": {
+      "intent": "retrieve_curriculum",
+      "grade": "CLASS_4",
+      "subject": null,
+      "topic": "fractions",
+      "level": "primary",
+      "requested_information": {
+        "grade": "CLASS_4",
+        "subject": null,
+        "level": "primary",
+        "topic": "fractions"
+      }
+    },
+    "iteration_growth": null
+  },
+  {
+    "run": 4,
+    "agent_run_id": "run-5df89dbf77e74152",
+    "status": "completed",
+    "latency_ms": 27098.83,
+    "iterations": 1,
+    "tool_calls": 4,
+    "evidence_count": 47,
+    "verification_score": 0.95,
+    "recommendation": "accept",
+    "termination_reason": "verification_passed",
+    "llm_counts": {
+      "total": 4,
+      "understand": 0,
+      "retrieval": 2,
+      "generation": 1,
+      "verification": 1,
+      "other": 0
+    },
+    "phase_timings_ms": {
+      "understand": 1.07,
+      "routing": 4.29,
+      "retrieval": 8559.41,
+      "generation": 10119.21,
+      "verification": 8311.22
+    },
+    "tool_seq": [
+      "1. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\"}",
+      "2. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"level\": \"primary\"}",
+      "3. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"subject\": \"MATHEMATICS\"}",
+      "4. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\", \"subject\": \"MATHEMATICS\"}"
+    ],
+    "understand": {
+      "intent": "retrieve_curriculum",
+      "grade": "CLASS_4",
+      "subject": null,
+      "topic": "fractions",
+      "level": "primary",
+      "requested_information": {
+        "grade": "CLASS_4",
+        "subject": null,
+        "level": "primary",
+        "topic": "fractions"
+      }
+    },
+    "iteration_growth": null
+  },
+  {
+    "run": 5,
+    "agent_run_id": "run-68f2aa1ce8734ae2",
+    "status": "completed",
+    "latency_ms": 56862.54,
+    "iterations": 2,
+    "tool_calls": 8,
+    "evidence_count": 57,
+    "verification_score": 0.95,
+    "recommendation": "accept",
+    "termination_reason": "verification_passed",
+    "llm_counts": {
+      "total": 8,
+      "understand": 0,
+      "retrieval": 4,
+      "generation": 2,
+      "verification": 2,
+      "other": 0
+    },
+    "phase_timings_ms": {
+      "understand": 0.63,
+      "routing": 2.08,
+      "retrieval": 18042.73,
+      "generation": 19457.05,
+      "verification": 19254.98
+    },
+    "tool_seq": [
+      "1. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\"}",
+      "2. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"level\": \"primary\"}",
+      "3. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"subject\": \"Mathematics\"}",
+      "4. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\", \"subject\": \"Mathematics\"}",
+      "5. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\"}",
+      "6. get_learning_objectives args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"fractions\"}",
+      "7. get_topic args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"C4-U09\"}",
+      "8. get_topic args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"C4-U10\"}"
+    ],
+    "understand": {
+      "intent": "retrieve_curriculum",
+      "grade": "CLASS_4",
+      "subject": null,
+      "topic": "fractions",
+      "level": "primary",
+      "requested_information": {
+        "grade": "CLASS_4",
+        "subject": null,
+        "level": "primary",
+        "topic": "fractions"
+      }
+    },
+    "iteration_growth": null
+  }
+]

@@ -8,6 +8,12 @@ import time
 from typing import Any
 
 from app.agent.state import CurriculumQAState, RetrievedContextItem
+from app.agent.trace import (
+    evidence_preview,
+    get_current_trace,
+    summarize_evidence_bag,
+    timed_ms,
+)
 from app.config import Settings
 from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus, ToolCallRecord
 from app.curriculum.errors import CurriculumAPIError
@@ -58,6 +64,13 @@ class RetrievalNode:
         request_id: str | None = None,
     ) -> CurriculumQAState:
         state.status = AgentStatus.RETRIEVING
+        trace = get_current_trace()
+        evidence_before = len(state.evidence)
+        new_evidence = 0
+        duplicate_evidence = 0
+        if hasattr(self.llm, "set_active_node"):
+            self.llm.set_active_node("retrieve")
+
         curriculum_tools = [
             t for t in self.tools.llm_tool_specs() if t.get("name") != "echo"
         ]
@@ -67,6 +80,34 @@ class RetrievalNode:
             state.status = AgentStatus.FAILED
             return state
 
+        retrieval_hints = {
+            "intent": state.intent,
+            "level": state.level,
+            "grade": state.grade,
+            "subject": state.subject,
+            "topic": state.topic,
+            "pending_missing_evidence": [
+                item.model_dump() if hasattr(item, "model_dump") else item
+                for item in (state.pending_missing_evidence or [])
+            ],
+            "retrieval_rounds": state.retrieval_rounds,
+            "user_prompt": self._user_prompt(state),
+        }
+        if trace is not None:
+            trace.emit(
+                "agent.retrieval.start",
+                iteration=state.iteration,
+                node="retrieve",
+                evidence_before=evidence_before,
+                retrieval_hints=retrieval_hints,
+            )
+            # No separate planner object yet — log current selection inputs.
+            trace.emit(
+                "agent.retrieval.plan",
+                iteration=state.iteration,
+                plan=retrieval_hints,
+            )
+
         messages = [
             LLMMessage(role="system", content=SYSTEM_PROMPT),
             LLMMessage(
@@ -75,7 +116,6 @@ class RetrievalNode:
             ),
         ]
 
-        # Cap tool work per retrieval round while respecting global tool budget.
         remaining = self.settings.agent_max_tool_calls - state.tool_calls
         if remaining <= 0:
             self._finalize_evidence_status(state)
@@ -106,6 +146,29 @@ class RetrievalNode:
                     break
                 key = tool_call_key(call.name, call.arguments)
                 if key in state.executed_tool_keys:
+                    if trace is not None:
+                        trace.emit(
+                            "agent.tool.start",
+                            iteration=state.iteration,
+                            tool_call_number=state.tool_calls + 1,
+                            node="retrieve",
+                            tool_name=call.name,
+                            arguments=call.arguments or {},
+                            duplicate_tool_call=True,
+                            skipped=True,
+                        )
+                        trace.emit(
+                            "agent.tool.end",
+                            iteration=state.iteration,
+                            tool_call_number=state.tool_calls + 1,
+                            tool_name=call.name,
+                            duration_ms=0,
+                            success=False,
+                            error="skipped_duplicate",
+                            result_count=0,
+                            duplicate_tool_call=True,
+                            skipped=True,
+                        )
                     tool_messages.append(
                         LLMMessage(
                             role="tool",
@@ -126,7 +189,9 @@ class RetrievalNode:
                     executed_calls.append(call)
                     continue
 
-                self._execute_call(state, call, request_id=request_id)
+                added, dupes = self._execute_call(state, call, request_id=request_id)
+                new_evidence += added
+                duplicate_evidence += dupes
                 state.executed_tool_keys.append(key)
                 tools_this_round += 1
                 executed_calls.append(call)
@@ -165,6 +230,31 @@ class RetrievalNode:
         state.metadata["evidence_count"] = len(state.evidence)
         state.metadata["evidence_status"] = state.evidence_status.value
         state.metadata["retrieval_rounds"] = state.retrieval_rounds
+
+        bag = summarize_evidence_bag(state.evidence)
+        if trace is not None:
+            it = trace.ensure_iteration(state.iteration)
+            ev = it["evidence"]
+            ev["new"] = new_evidence
+            ev["duplicate"] = duplicate_evidence
+            ev["total_after"] = len(state.evidence)
+            ev["by_type"] = bag["by_type"]
+            ev["by_grade"] = bag["by_grade"]
+            ev["by_subject"] = bag["by_subject"]
+            trace.emit(
+                "agent.retrieval.end",
+                iteration=state.iteration,
+                node="retrieve",
+                total_evidence=len(state.evidence),
+                new_evidence=new_evidence,
+                duplicate_evidence=duplicate_evidence,
+                evidence_by_type=bag["by_type"],
+                evidence_by_grade=bag["by_grade"],
+                evidence_by_subject=bag["by_subject"],
+                tools_this_round=tools_this_round,
+                evidence_status=state.evidence_status.value,
+            )
+
         log_agent_event(
             logger,
             "agent.retrieve.end",
@@ -178,6 +268,8 @@ class RetrievalNode:
             evidence_count=len(state.evidence),
             evidence_status=state.evidence_status.value,
             retrieval_rounds=state.retrieval_rounds,
+            new_evidence=new_evidence,
+            duplicate_evidence=duplicate_evidence,
         )
         return state
 
@@ -223,22 +315,64 @@ class RetrievalNode:
         call: ToolCallRequest,
         *,
         request_id: str | None,
-    ) -> None:
+    ) -> tuple[int, int]:
         if call.name not in state.selected_tools:
             state.selected_tools.append(call.name)
         started = time.perf_counter()
         api_status = None
+        trace = get_current_trace()
+        tool_call_number = state.tool_calls + 1
+        key = tool_call_key(call.name, call.arguments)
+        duplicate_seen = bool(trace and key in trace.seen_tool_keys)
+        if trace is not None:
+            trace.seen_tool_keys.add(key)
+            trace.emit(
+                "agent.tool.start",
+                iteration=state.iteration,
+                tool_call_number=tool_call_number,
+                node="retrieve",
+                tool_name=call.name,
+                arguments=call.arguments or {},
+                duplicate_tool_call=duplicate_seen,
+            )
+
+        new_count = 0
+        dup_count = 0
+        result_previews: list[dict[str, Any]] = []
         try:
             result = self.tools.execute(call.name, **(call.arguments or {}))
-            latency = (time.perf_counter() - started) * 1000
+            latency = timed_ms(started)
             state.bump_tool_calls()
             if result.success:
                 evidence_rows = (result.data or {}).get("evidence") or []
                 for row in evidence_rows:
                     item = CurriculumEvidence.model_validate(row)
-                    if item.entity_id and any(
-                        e.entity_id == item.entity_id for e in state.evidence
-                    ):
+                    preview = evidence_preview(item)
+                    is_dup = bool(
+                        item.entity_id
+                        and any(e.entity_id == item.entity_id for e in state.evidence)
+                    )
+                    if is_dup:
+                        dup_count += 1
+                        if trace is not None:
+                            trace.emit(
+                                "agent.evidence.add",
+                                iteration=state.iteration,
+                                tool_call_number=tool_call_number,
+                                source_tool=call.name,
+                                duplicate=True,
+                                disposition="duplicate",
+                                **preview,
+                            )
+                            trace.evidence_adds.append(
+                                {
+                                    **preview,
+                                    "duplicate": True,
+                                    "iteration": state.iteration,
+                                    "tool_call_number": tool_call_number,
+                                    "source_tool": call.name,
+                                }
+                            )
                         continue
                     state.evidence.append(item)
                     state.retrieved_context.append(
@@ -248,6 +382,29 @@ class RetrievalNode:
                             metadata=item.model_dump(),
                         )
                     )
+                    new_count += 1
+                    result_previews.append(preview)
+                    if trace is not None:
+                        trace.emit(
+                            "agent.evidence.add",
+                            iteration=state.iteration,
+                            tool_call_number=tool_call_number,
+                            source_tool=call.name,
+                            duplicate=False,
+                            disposition="new",
+                            **preview,
+                        )
+                        trace.evidence_adds.append(
+                            {
+                                **preview,
+                                "duplicate": False,
+                                "iteration": state.iteration,
+                                "tool_call_number": tool_call_number,
+                                "source_tool": call.name,
+                            }
+                        )
+                        it = trace.ensure_iteration(state.iteration)
+                        it["evidence"]["items"].append(preview)
                 record = ToolCallRecord(
                     tool=call.name,
                     arguments=call.arguments or {},
@@ -277,7 +434,7 @@ class RetrievalNode:
                     curriculum_api_status=api_status,
                 )
         except CurriculumAPIError as exc:
-            latency = (time.perf_counter() - started) * 1000
+            latency = timed_ms(started)
             state.bump_tool_calls()
             record = ToolCallRecord(
                 tool=call.name,
@@ -289,7 +446,7 @@ class RetrievalNode:
                 curriculum_api_status=exc.status_code,
             )
         except Exception as exc:
-            latency = (time.perf_counter() - started) * 1000
+            latency = timed_ms(started)
             state.bump_tool_calls()
             record = ToolCallRecord(
                 tool=call.name,
@@ -301,6 +458,40 @@ class RetrievalNode:
             )
 
         state.retrieval_history.append(record)
+        tool_row = {
+            "tool_call_number": tool_call_number,
+            "iteration": state.iteration,
+            "tool_name": record.tool,
+            "arguments": record.arguments,
+            "duration_ms": record.latency_ms,
+            "success": record.status == "success",
+            "error": record.error,
+            "result_count": record.evidence_count,
+            "new_evidence": new_count,
+            "duplicate_evidence": dup_count,
+            "results": result_previews[:12],
+            "duplicate_tool_call": duplicate_seen,
+            "curriculum_api_status": record.curriculum_api_status,
+        }
+        if trace is not None:
+            trace.tool_calls.append(tool_row)
+            it = trace.ensure_iteration(state.iteration)
+            it["tool_calls"].append(tool_row)
+            trace.emit(
+                "agent.tool.end",
+                iteration=state.iteration,
+                tool_call_number=tool_call_number,
+                tool_name=record.tool,
+                duration_ms=record.latency_ms,
+                success=record.status == "success",
+                error=record.error,
+                result_count=record.evidence_count,
+                new_evidence=new_count,
+                duplicate_evidence=dup_count,
+                results=result_previews[:12],
+                duplicate_tool_call=duplicate_seen,
+                curriculum_api_status=record.curriculum_api_status,
+            )
         log_agent_event(
             logger,
             "agent.tool.execute",
@@ -316,7 +507,10 @@ class RetrievalNode:
             error=record.error,
             iteration=state.iteration,
             retrieval_rounds=state.retrieval_rounds,
+            tool_call_number=tool_call_number,
+            duplicate_tool_call=duplicate_seen,
         )
+        return new_count, dup_count
 
     @staticmethod
     def _assistant_tool_message(

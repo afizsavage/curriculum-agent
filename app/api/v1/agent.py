@@ -98,3 +98,33 @@ def inspect_graph(agent: CurriculumQAAgent = Depends(get_agent)) -> dict:
         "ascii": parts[0],
         "mermaid": parts[1] if len(parts) > 1 else "",
     }
+
+
+@router.get(
+    "/debug/runs/{agent_run_id}",
+    summary="Fetch a diagnostic execution trace (development only)",
+)
+def get_debug_run(agent_run_id: str) -> dict:
+    from fastapi import HTTPException
+
+    from app.agent.trace import get_trace_store
+    from app.config import get_settings
+
+    if get_settings().environment.strip().lower() == "production":
+        raise HTTPException(status_code=404, detail="Not found")
+    trace = get_trace_store().get(agent_run_id)
+    if trace is None:
+        # Fall back to on-disk persistence.
+        from pathlib import Path
+        import json
+
+        path = (
+            Path(__file__).resolve().parents[3]
+            / "data"
+            / "traces"
+            / f"{agent_run_id}.json"
+        )
+        if path.is_file():
+            return json.loads(path.read_text())
+        raise HTTPException(status_code=404, detail="Trace not found")
+    return trace.to_dict()
