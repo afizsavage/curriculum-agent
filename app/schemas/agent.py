@@ -38,6 +38,9 @@ class AskMetadata(BaseModel):
     evidence_count: int = 0
     model: Optional[str] = None
     provider: Optional[str] = None
+    retrieval_rounds: int = 0
+    verification_attempts: int = 0
+    verification_status: Optional[str] = None
 
 
 class EvidenceSummary(BaseModel):
@@ -59,6 +62,15 @@ class AnswerEvidenceSummary(BaseModel):
     topic: Optional[str] = None
 
 
+class VerificationSummary(BaseModel):
+    """Concise verification metadata — no private chain-of-thought."""
+
+    passed: bool = False
+    score: float = 0.0
+    recommendation: Optional[str] = None
+    issues: list[str] = Field(default_factory=list)
+
+
 class AskResponse(BaseModel):
     conversation_id: str
     question: str
@@ -68,8 +80,15 @@ class AskResponse(BaseModel):
     )
     status: str = Field(
         ...,
-        description="Agent turn status. Sprint 3 returns `completed` after answer generation.",
-        examples=["completed"],
+        description=(
+            "Agent turn status: completed | needs_clarification | "
+            "insufficient_evidence | error | failed."
+        ),
+        examples=["completed", "needs_clarification", "insufficient_evidence"],
+    )
+    clarification: Optional[str] = Field(
+        default=None,
+        description="Clarification question when status is needs_clarification.",
     )
     evidence: list[EvidenceSummary] = Field(default_factory=list)
     answer_evidence: list[AnswerEvidenceSummary] = Field(
@@ -78,6 +97,7 @@ class AskResponse(BaseModel):
     )
     confidence: Optional[AnswerConfidence] = None
     limitations: list[str] = Field(default_factory=list)
+    verification: Optional[VerificationSummary] = None
     metadata: AskMetadata = Field(default_factory=AskMetadata)
     error: Optional[str] = None
 

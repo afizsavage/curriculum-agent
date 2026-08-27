@@ -16,6 +16,7 @@ CURRICULUM_ID = "11111111-1111-1111-1111-111111111111"
 SUBJECT_ID = "22222222-2222-2222-2222-222222222222"
 SYLLABUS_ID = "33333333-3333-3333-3333-333333333333"
 TOPIC_ID = "44444444-4444-4444-4444-444444444444"
+GRADE_CURRICULUM_ID = "55555555-5555-5555-5555-555555555555"
 
 
 def _router(request: httpx.Request) -> httpx.Response:
@@ -63,6 +64,100 @@ def _router(request: httpx.Request) -> httpx.Response:
                         ],
                     }
                 ],
+            },
+        )
+    if path.endswith(f"/api/v1/curricula/{CURRICULUM_ID}/grade-curricula"):
+        return httpx.Response(
+            200,
+            json={
+                "items": [
+                    {
+                        "id": GRADE_CURRICULUM_ID,
+                        "curriculum_id": CURRICULUM_ID,
+                        "grade_id": "g4",
+                        "subject_id": SUBJECT_ID,
+                        "status": "ACTIVE",
+                        "grade": {
+                            "id": "g4",
+                            "code": "CLASS_4",
+                            "name": "Class 4",
+                        },
+                        "subject": {
+                            "id": SUBJECT_ID,
+                            "code": "MATHEMATICS",
+                            "name": "Mathematics",
+                        },
+                    }
+                ],
+                "total": 1,
+                "limit": 200,
+                "offset": 0,
+            },
+        )
+    if path.endswith(f"/api/v1/grade-curricula/{GRADE_CURRICULUM_ID}/content"):
+        return httpx.Response(
+            200,
+            json=[
+                {
+                    "id": "unit-numbers",
+                    "content_type": "UNIT",
+                    "name": "Number and Numeration",
+                    "code": "C4-U01",
+                    "children": [],
+                    "learning_outcomes": [],
+                },
+                {
+                    "id": TOPIC_ID,
+                    "content_type": "UNIT",
+                    "name": "Number and Numeration FRACTION",
+                    "code": "C4-U04",
+                    "description": "Fractions topic",
+                    "children": [],
+                    "learning_outcomes": [
+                        {
+                            "id": "lo-1",
+                            "code": "LO1",
+                            "description": "Identify fractions",
+                            "display_order": 1,
+                        }
+                    ],
+                },
+            ],
+        )
+    if path.endswith(f"/api/v1/curriculum-content/{TOPIC_ID}"):
+        return httpx.Response(
+            200,
+            json={
+                "id": TOPIC_ID,
+                "name": "Number and Numeration FRACTION",
+                "code": "C4-U04",
+                "content_type": "UNIT",
+                "description": "Fractions topic",
+                "learning_outcomes": [
+                    {
+                        "id": "lo-1",
+                        "code": "LO1",
+                        "description": "Identify fractions",
+                        "display_order": 1,
+                    }
+                ],
+                "children": [],
+            },
+        )
+    if path.endswith(
+        f"/api/v1/curriculum-content/{TOPIC_ID}/learning-outcomes"
+    ):
+        return httpx.Response(
+            200,
+            json={
+                "items": [
+                    {
+                        "id": "lo-1",
+                        "description": "Identify fractions",
+                        "display_order": 1,
+                    }
+                ],
+                "total": 1,
             },
         )
     if path.endswith(f"/api/v1/curricula/{CURRICULUM_ID}/subjects"):
@@ -135,14 +230,18 @@ def _router(request: httpx.Request) -> httpx.Response:
             ],
         )
     if "curriculum-context" in path:
+        params = dict(request.url.params)
+        content_id = params.get("curriculum_content_id") or params.get(
+            "syllabus_content_id"
+        )
         return httpx.Response(
             200,
             json={
                 "authoritative": {
                     "topic": {
-                        "id": TOPIC_ID,
-                        "name": "Fractions",
-                        "code": "C4-U03",
+                        "id": content_id or TOPIC_ID,
+                        "name": "Number and Numeration FRACTION",
+                        "code": "C4-U04",
                         "description": "Fractions topic",
                     },
                     "learning_outcomes": [
@@ -195,7 +294,8 @@ def test_search_curriculum_valid(client):
     )
     assert result.success
     assert result.data["count"] >= 1
-    assert result.data["results"][0]["name"] == "Fractions"
+    assert "FRACTION" in result.data["results"][0]["name"].upper()
+    assert result.data["content_source"]["source"] == "grade_curriculum"
     assert result.data["evidence"]
 
 
@@ -224,7 +324,8 @@ def test_get_curriculum_structure_topics(client):
     result = tool.execute(grade="Primary 4", subject="Mathematics")
     assert result.success
     names = [n["name"] for n in result.data["nodes"]]
-    assert "Fractions" in names
+    assert any("FRACTION" in name.upper() for name in names)
+    assert result.data["grade_curriculum_id"] == GRADE_CURRICULUM_ID
 
 
 def test_get_curriculum_structure_subjects_only(client):
@@ -245,7 +346,7 @@ def test_get_topic_by_id(client):
     tool = GetTopicTool(client)
     result = tool.execute(topic_id=TOPIC_ID)
     assert result.success
-    assert result.data["topic"]["name"] == "Fractions"
+    assert "FRACTION" in result.data["topic"]["name"].upper()
 
 
 def test_get_topic_by_name(client):

@@ -11,7 +11,10 @@ class AgentStatus(str, Enum):
     ANSWERING = "answering"
     VERIFYING = "verifying"
     COMPLETED = "completed"
+    NEEDS_CLARIFICATION = "needs_clarification"
+    INSUFFICIENT_EVIDENCE = "insufficient_evidence"
     FAILED = "failed"
+    ERROR = "error"
 
 
 class MessageRole(str, Enum):

@@ -139,14 +139,28 @@ class StructuredLLMStub(LLMProvider):
         return LLMResponse(content="unused")
 
 
-def test_malformed_structured_output_raises():
+def test_empty_structured_answer_falls_back_to_evidence_summary():
     evidence = [
         CurriculumEvidence(entity_type="topic", entity_id="t1", name="Fractions")
     ]
     state = _state_with_evidence(evidence=evidence)
     generator = AnswerGenerator(StructuredLLMStub({"answer": ""}))
-    with pytest.raises(LLMProviderError):
-        generator.generate(state)
+    result = generator.generate(state)
+    assert result.answer
+    assert "Fractions" in result.answer
+    assert any("empty answer" in note.lower() for note in result.limitations)
+
+
+def test_empty_structured_answer_without_evidence_raises():
+    state = _state_with_evidence(evidence=[], evidence_status=EvidenceStatus.NOT_FOUND)
+
+    class EmptyThenEmpty(StructuredLLMStub):
+        def generate_structured(self, messages, *, schema, temperature=0.0) -> dict:
+            raise LLMProviderError("LLM returned empty answer")
+
+    # No evidence path uses insufficient-evidence helper before LLM.
+    result = AnswerGenerator(EmptyThenEmpty({"answer": ""})).generate(state)
+    assert "couldn't find sufficient" in result.answer.lower()
 
 
 def test_structured_output_parsed_and_sanitized():

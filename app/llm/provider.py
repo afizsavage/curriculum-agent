@@ -17,6 +17,7 @@ from app.exceptions import (
 )
 from app.llm.base import LLMMessage, LLMProvider, LLMResponse, ToolCallRequest
 from app.llm.deepseek import DeepSeekResponsesProvider
+from app.llm.json_utils import parse_llm_json
 from app.llm.tool_selection import select_tool_calls
 
 
@@ -55,7 +56,28 @@ class StubLLMProvider(LLMProvider):
         schema: dict[str, Any],
         temperature: float = 0.0,
     ) -> dict[str, Any]:
-        return {"provider": "stub", "schema_title": schema.get("title"), "ok": True}
+        title = str(schema.get("title") or "")
+        if title == "VerificationResult":
+            return {
+                "passed": True,
+                "score": 0.9,
+                "issues": [],
+                "unsupported_claims": [],
+                "missing_evidence": [],
+                "incorrect_claims": [],
+                "recommendation": "accept",
+                "claims": [],
+                "notes": "Stub verifier default accept.",
+            }
+        if title == "GroundedAnswer":
+            return {
+                "answer": "[stub] Grounded curriculum answer.",
+                "summary": "Stub summary",
+                "evidence": [],
+                "limitations": [],
+                "confidence": "medium",
+            }
+        return {"provider": "stub", "schema_title": title, "ok": True}
 
     def generate_with_tools(
         self,
@@ -150,7 +172,7 @@ class OpenAICompatibleProvider(LLMProvider):
         if not content:
             raise LLMProviderError("Empty structured response from LLM")
         try:
-            return json.loads(content)
+            return parse_llm_json(content)
         except json.JSONDecodeError as exc:
             raise LLMProviderError("LLM returned invalid JSON") from exc
 

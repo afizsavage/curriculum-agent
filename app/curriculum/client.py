@@ -146,6 +146,35 @@ class CurriculumAPIClient:
     def list_syllabuses(self, **params: Any) -> dict[str, Any]:
         return self.get("api/v1/syllabuses", params=params)
 
+    def list_curriculum_grade_curricula(
+        self, curriculum_id: str, **params: Any
+    ) -> dict[str, Any]:
+        return self.get(
+            f"api/v1/curricula/{curriculum_id}/grade-curricula", params=params
+        )
+
+    def get_grade_curriculum(self, grade_curriculum_id: str) -> dict[str, Any]:
+        return self.get(f"api/v1/grade-curricula/{grade_curriculum_id}")
+
+    def get_grade_curriculum_content(self, grade_curriculum_id: str) -> list[Any]:
+        data = self.get(f"api/v1/grade-curricula/{grade_curriculum_id}/content")
+        if not isinstance(data, list):
+            raise CurriculumUnexpectedResponseError(
+                "Expected grade-curriculum content list"
+            )
+        return data
+
+    def get_curriculum_content(self, content_id: str) -> dict[str, Any]:
+        return self.get(f"api/v1/curriculum-content/{content_id}")
+
+    def get_curriculum_content_learning_outcomes(
+        self, content_id: str, **params: Any
+    ) -> dict[str, Any]:
+        return self.get(
+            f"api/v1/curriculum-content/{content_id}/learning-outcomes",
+            params=params,
+        )
+
     def get_syllabus_content_tree(
         self, syllabus_id: str, *, grade_code: str | None = None
     ) -> list[Any]:

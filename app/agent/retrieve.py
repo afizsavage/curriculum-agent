@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import time
 from typing import Any
@@ -23,7 +24,17 @@ Only use the provided tools. Prefer precise tools (get_curriculum_structure, get
 get_learning_objectives) when grade/subject/topic are known. Use search_curriculum for
 concept discovery. Do not invent curriculum facts. When enough evidence exists, stop
 requesting tools and reply with a short note that retrieval is complete.
+
+When verification feedback lists missing evidence, prioritize targeted tools that
+satisfy those gaps rather than repeating broad searches already executed.
 """
+
+
+def tool_call_key(name: str, arguments: dict[str, Any] | None) -> str:
+    """Stable key for duplicate tool-call suppression."""
+    normalized = json.dumps(arguments or {}, sort_keys=True, default=str)
+    digest = hashlib.sha256(f"{name}:{normalized}".encode()).hexdigest()[:16]
+    return f"{name}:{digest}"
 
 
 class RetrievalNode:
@@ -64,23 +75,60 @@ class RetrievalNode:
             ),
         ]
 
+        # Cap tool work per retrieval round while respecting global tool budget.
+        remaining = self.settings.agent_max_tool_calls - state.tool_calls
+        if remaining <= 0:
+            self._finalize_evidence_status(state)
+            state.status = AgentStatus.RETRIEVED
+            return state
+        round_tool_budget = max(1, min(4, remaining))
+        tools_this_round = 0
+
+        planning_steps = 0
+        max_planning_steps = 4
         while (
             state.tool_calls < self.settings.agent_max_tool_calls
-            and state.iteration < self.settings.agent_max_iterations
+            and tools_this_round < round_tool_budget
+            and planning_steps < max_planning_steps
         ):
-            state.bump_iteration()
+            planning_steps += 1
             response = self.llm.generate_with_tools(messages, tools=curriculum_tools)
             if not response.tool_calls:
                 break
 
-            # Responses API requires a function_call_output for every function_call
-            # included in the next request. Only record calls we actually execute.
             executed_calls: list[ToolCallRequest] = []
             tool_messages: list[LLMMessage] = []
             for call in response.tool_calls:
-                if state.tool_calls >= self.settings.agent_max_tool_calls:
+                if (
+                    state.tool_calls >= self.settings.agent_max_tool_calls
+                    or tools_this_round >= round_tool_budget
+                ):
                     break
+                key = tool_call_key(call.name, call.arguments)
+                if key in state.executed_tool_keys:
+                    tool_messages.append(
+                        LLMMessage(
+                            role="tool",
+                            tool_call_id=call.id,
+                            content=json.dumps(
+                                {
+                                    "tool": call.name,
+                                    "status": "skipped_duplicate",
+                                    "evidence_count": 0,
+                                    "error": (
+                                        "Identical tool call already executed; "
+                                        "use a different tool or arguments."
+                                    ),
+                                }
+                            ),
+                        )
+                    )
+                    executed_calls.append(call)
+                    continue
+
                 self._execute_call(state, call, request_id=request_id)
+                state.executed_tool_keys.append(key)
+                tools_this_round += 1
                 executed_calls.append(call)
                 last = state.retrieval_history[-1] if state.retrieval_history else None
                 tool_messages.append(
@@ -109,20 +157,6 @@ class RetrievalNode:
             )
             messages.extend(tool_messages)
 
-            # Heuristic stop: if we already have structure/topic evidence, allow one more round max
-            if state.evidence and state.tool_calls >= 1:
-                # Continue only if last call was search and found topics without details
-                last = state.retrieval_history[-1]
-                if last.tool != "search_curriculum" or last.evidence_count == 0:
-                    if last.tool in {
-                        "get_curriculum_structure",
-                        "get_topic",
-                        "get_learning_objectives",
-                        "get_subject",
-                    }:
-                        # Optionally follow search → get_topic for first hit
-                        pass
-
         self._finalize_evidence_status(state)
         state.status = AgentStatus.RETRIEVED
         state.metadata["tools_used"] = list(
@@ -130,6 +164,7 @@ class RetrievalNode:
         )
         state.metadata["evidence_count"] = len(state.evidence)
         state.metadata["evidence_status"] = state.evidence_status.value
+        state.metadata["retrieval_rounds"] = state.retrieval_rounds
         log_agent_event(
             logger,
             "agent.retrieve.end",
@@ -142,6 +177,7 @@ class RetrievalNode:
             model=self.llm.model,
             evidence_count=len(state.evidence),
             evidence_status=state.evidence_status.value,
+            retrieval_rounds=state.retrieval_rounds,
         )
         return state
 
@@ -153,11 +189,33 @@ class RetrievalNode:
             "subject": state.subject,
             "topic": state.topic,
         }
-        return (
-            f"Question: {state.question}\n"
-            f"Known filters: {json.dumps(filters)}\n"
-            "Select and call the appropriate curriculum tool(s)."
-        )
+        parts = [
+            f"Question: {state.question}",
+            f"Known filters: {json.dumps(filters)}",
+        ]
+        if state.pending_missing_evidence:
+            parts.append(
+                "Verification feedback — missing evidence to retrieve next:\n"
+                + json.dumps(
+                    [
+                        item.model_dump() if hasattr(item, "model_dump") else item
+                        for item in state.pending_missing_evidence
+                    ],
+                    indent=2,
+                )
+            )
+            parts.append(
+                "Prefer targeted tools (get_topic, get_learning_objectives, "
+                "get_curriculum_structure) that address the missing evidence."
+            )
+        elif state.retrieval_rounds > 1:
+            parts.append(
+                "Prior retrieval was insufficient. Expand with more targeted "
+                "curriculum tools; avoid repeating identical tool calls."
+            )
+        else:
+            parts.append("Select and call the appropriate curriculum tool(s).")
+        return "\n".join(parts)
 
     def _execute_call(
         self,
@@ -178,6 +236,10 @@ class RetrievalNode:
                 evidence_rows = (result.data or {}).get("evidence") or []
                 for row in evidence_rows:
                     item = CurriculumEvidence.model_validate(row)
+                    if item.entity_id and any(
+                        e.entity_id == item.entity_id for e in state.evidence
+                    ):
+                        continue
                     state.evidence.append(item)
                     state.retrieved_context.append(
                         RetrievedContextItem(
@@ -195,9 +257,9 @@ class RetrievalNode:
                     curriculum_api_status=200,
                 )
             else:
-                error_code = ((result.data or {}) if isinstance(result.data, dict) else {}).get(
-                    "error_code"
-                )
+                error_code = (
+                    (result.data or {}) if isinstance(result.data, dict) else {}
+                ).get("error_code")
                 status = "not_found" if error_code == "CURRICULUM_NOT_FOUND" else "error"
                 if error_code == "CURRICULUM_NOT_FOUND":
                     api_status = 404
@@ -246,11 +308,14 @@ class RetrievalNode:
             conversation_id=state.conversation_id,
             tool_name=record.tool,
             tool_arguments=record.arguments,
+            tool_arguments_hash=tool_call_key(record.tool, record.arguments),
             tool_status=record.status,
             tool_execution_time=record.latency_ms,
             curriculum_api_status=record.curriculum_api_status,
             evidence_count=record.evidence_count,
             error=record.error,
+            iteration=state.iteration,
+            retrieval_rounds=state.retrieval_rounds,
         )
 
     @staticmethod

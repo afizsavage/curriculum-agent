@@ -4,8 +4,10 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Depends, Request
 
+from app.agent.metrics import get_metrics
 from app.agent.orchestrator import CurriculumQAAgent
 from app.deps import get_agent
+from app.enums import AgentStatus
 from app.logging_utils import get_logger, new_request_id, timed_request
 from app.schemas.agent import (
     AnswerEvidenceSummary,
@@ -13,6 +15,7 @@ from app.schemas.agent import (
     AskRequest,
     AskResponse,
     EvidenceSummary,
+    VerificationSummary,
 )
 
 router = APIRouter(prefix="/agent", tags=["agent"])
@@ -24,9 +27,9 @@ logger = get_logger(__name__)
     response_model=AskResponse,
     summary="Ask the Curriculum Q&A agent",
     description=(
-        "Accept a curriculum question, run understand + retrieve against the "
-        "MBSSE Curriculum Structure API via tools, generate a grounded answer, "
-        "and return evidence with confidence and limitations."
+        "Accept a curriculum question, run understand → retrieve → generate → "
+        "verify with a bounded loop, and return a grounded answer, clarification, "
+        "or insufficient-evidence fallback."
     ),
     responses={
         422: {"description": "Invalid request (validation error)"},
@@ -66,11 +69,25 @@ def ask(
             state.answer_confidence.value if state.answer_confidence else None
         )
 
+        verification_summary = None
+        if state.verification is not None:
+            verification_summary = VerificationSummary(
+                passed=state.verification.passed,
+                score=state.verification.score,
+                recommendation=state.verification.recommendation.value,
+                issues=list(state.verification.issues[:5]),
+            )
+
         return AskResponse(
             conversation_id=state.conversation_id or "",
             question=state.question,
-            answer=state.final_answer or state.draft_answer,
+            answer=(
+                None
+                if state.status == AgentStatus.NEEDS_CLARIFICATION
+                else (state.final_answer or state.draft_answer)
+            ),
             status=state.status.value,
+            clarification=state.clarification,
             evidence=[
                 EvidenceSummary(
                     entity_type=item.entity_type,
@@ -96,14 +113,29 @@ def ask(
             ],
             confidence=state.answer_confidence,
             limitations=state.answer_limitations,
+            verification=verification_summary,
             metadata=AskMetadata(
                 iterations=state.iteration,
                 tool_calls=state.tool_calls,
-                tools_used=list(state.metadata.get("tools_used") or state.selected_tools),
+                tools_used=list(
+                    state.metadata.get("tools_used") or state.selected_tools
+                ),
                 evidence_status=state.evidence_status.value,
                 evidence_count=len(state.evidence),
                 model=agent.llm.model,
                 provider=agent.llm.name,
+                retrieval_rounds=state.retrieval_rounds,
+                verification_attempts=state.verification_attempts,
+                verification_status=state.verification_status.value,
             ),
             error=state.error,
         )
+
+
+@router.get(
+    "/metrics",
+    summary="Agent metrics snapshot",
+    description="In-process counters for verification loop observability.",
+)
+def metrics() -> dict:
+    return get_metrics().snapshot()

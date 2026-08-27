@@ -19,9 +19,12 @@ class Settings(BaseSettings):
     llm_api_key: str = ""
     llm_timeout_seconds: float = Field(default=30.0, gt=0)
     llm_base_url: str = "https://api.openai.com/v1"
+    # Optional separate model for verification; empty → reuse llm_model.
+    verifier_llm_model: str = ""
 
     agent_max_iterations: int = Field(default=3, ge=1)
     agent_max_tool_calls: int = Field(default=10, ge=0)
+    agent_max_retrieval_rounds: int = Field(default=3, ge=1)
     agent_request_timeout_seconds: float = Field(default=60.0, gt=0)
 
     # Prefer CURRICULUM_API_URL; CURRICULUM_API_BASE_URL kept for Phase 1 compatibility.

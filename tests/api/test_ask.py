@@ -54,7 +54,18 @@ def test_ask_valid_request(client):
     assert isinstance(body["evidence"], list)
     assert body["confidence"] in {"high", "medium", "low"}
     assert isinstance(body["limitations"], list)
+    assert body["verification"] is not None
+    assert body["verification"]["passed"] is True
+    assert body["metadata"]["verification_attempts"] >= 1
     assert response.headers.get("X-Request-ID")
+
+
+def test_metrics_endpoint(client):
+    response = client.get("/api/v1/agent/metrics")
+    assert response.status_code == 200
+    body = response.json()
+    assert "total_requests" in body
+    assert "verification_pass_rate" in body
 
 
 def test_ask_invalid_request(client):

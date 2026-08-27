@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import time
 from typing import Any, Optional
 
@@ -110,7 +111,9 @@ class AnswerGenerator:
     ) -> list[LLMMessage]:
         history = self._format_conversation_history(conversation)
         filters = self._format_filters(state)
-        evidence_block = format_evidence_for_prompt(state.evidence)
+        evidence_block = format_evidence_for_prompt(
+            state.evidence, question=state.question
+        )
 
         user_content = (
             f"USER QUESTION\n{state.question}\n\n"
@@ -146,11 +149,43 @@ class AnswerGenerator:
             raw = self.llm.generate_structured(
                 messages, schema=GROUNDED_ANSWER_JSON_SCHEMA, temperature=0.0
             )
-        except LLMProviderError:
-            raise
+            return self._parse_structured(raw, state.evidence, state=state)
+        except LLMProviderError as first_exc:
+            detail = str(first_exc).lower()
+            # Compact retry: large evidence / empty answers often need a second pass.
+            if not any(
+                token in detail
+                for token in (
+                    "invalid json",
+                    "empty structured",
+                    "empty answer",
+                )
+            ):
+                raise
+            compact = list(messages)
+            compact.append(
+                LLMMessage(
+                    role="user",
+                    content=(
+                        "Your previous response was unusable (invalid JSON or empty "
+                        "`answer`). Reply with ONE compact JSON object only — no "
+                        "markdown fences, no prose. The `answer` field MUST be a "
+                        "non-empty markdown string grounded in the evidence. Keep "
+                        "`answer` under 1200 characters, at most 8 evidence refs, "
+                        "and short limitations."
+                    ),
+                )
+            )
+            try:
+                raw = self.llm.generate_structured(
+                    compact, schema=GROUNDED_ANSWER_JSON_SCHEMA, temperature=0.0
+                )
+                return self._parse_structured(raw, state.evidence, state=state)
+            except LLMProviderError:
+                # Last resort: deterministic grounded summary from evidence.
+                return self._stub_generate(state)
         except Exception as exc:
             raise LLMProviderError(f"Answer generation failed: {exc}") from exc
-        return self._parse_structured(raw, state.evidence)
 
     def _stub_generate(self, state: CurriculumQAState) -> GroundedAnswer:
         """Deterministic grounded answers for tests without network calls."""
@@ -177,15 +212,32 @@ class AnswerGenerator:
             lines.append(f"### {grade_label}")
 
         if topics:
-            topic = topics[0]
             lines.append("")
-            lines.append(
-                f"The MBSSE curriculum includes **{topic.name}**"
-                + (f" under {subject_label}." if subject_label else ".")
-            )
-            if topic.content and topic.content != topic.name:
-                lines.append("")
-                lines.append(topic.content)
+            # For structure/topic-list questions, enumerate units/topics.
+            q = (state.question or "").lower()
+            list_mode = any(
+                token in q for token in ("topics", "units", "what is taught", "structure")
+            ) or len(topics) > 1
+            if list_mode:
+                lines.append("The MBSSE curriculum includes these units/topics:")
+                seen: set[str] = set()
+                for topic in topics[:40]:
+                    name = (topic.name or "").strip()
+                    if not name or name in seen:
+                        continue
+                    seen.add(name)
+                    code = (topic.metadata or {}).get("code")
+                    suffix = f" ({code})" if code else ""
+                    lines.append(f"- {name}{suffix}")
+            else:
+                topic = topics[0]
+                lines.append(
+                    f"The MBSSE curriculum includes **{topic.name}**"
+                    + (f" under {subject_label}." if subject_label else ".")
+                )
+                if topic.content and topic.content != topic.name:
+                    lines.append("")
+                    lines.append(topic.content)
         elif subjects:
             names = sorted({s.name for s in subjects if s.name})
             if names:
@@ -247,6 +299,8 @@ class AnswerGenerator:
         self,
         raw: dict[str, Any],
         evidence: list[CurriculumEvidence],
+        *,
+        state: CurriculumQAState | None = None,
     ) -> GroundedAnswer:
         if not isinstance(raw, dict):
             raise LLMProviderError("LLM returned non-object structured answer")
@@ -258,8 +312,17 @@ class AnswerGenerator:
             confidence = AnswerConfidence.MEDIUM
 
         refs = self._validate_evidence_refs(raw.get("evidence") or [], evidence)
-        answer = str(raw.get("answer") or "").strip()
+        answer = _extract_answer_text(raw)
         if not answer:
+            if evidence and state is not None:
+                fallback = self._stub_generate(state)
+                limitations = list(
+                    dict.fromkeys(
+                        fallback.limitations
+                        + ["Model returned an empty answer; used evidence summary."]
+                    )
+                )
+                return fallback.model_copy(update={"limitations": limitations})
             raise LLMProviderError("LLM returned empty answer")
 
         limitations = [str(x) for x in (raw.get("limitations") or []) if x]
@@ -365,13 +428,19 @@ class AnswerGenerator:
         return "\n".join(lines)
 
 
-def format_evidence_for_prompt(evidence: list[CurriculumEvidence]) -> str:
+def format_evidence_for_prompt(
+    evidence: list[CurriculumEvidence],
+    *,
+    question: str | None = None,
+    max_records: int = 24,
+) -> str:
     """Render retrieved evidence with hierarchy for the LLM prompt."""
     if not evidence:
         return "(no curriculum evidence retrieved)"
 
+    ranked = _rank_evidence(evidence, question=question)[:max_records]
     blocks: list[str] = []
-    for index, item in enumerate(evidence, start=1):
+    for index, item in enumerate(ranked, start=1):
         hierarchy = _hierarchy_path(item)
         lines = [
             f"--- Record {index} ---",
@@ -383,14 +452,70 @@ def format_evidence_for_prompt(evidence: list[CurriculumEvidence]) -> str:
         if hierarchy:
             lines.append(f"Hierarchy: {' → '.join(hierarchy)}")
         if item.content and item.content != item.name:
-            lines.append(f"Content: {item.content}")
+            content = str(item.content)
+            if len(content) > 500:
+                content = content[:500] + "…"
+            lines.append(f"Content: {content}")
         if item.source_reference:
             lines.append(f"Source: {item.source_reference}")
         code = item.metadata.get("code") if item.metadata else None
         if code:
             lines.append(f"Code: {code}")
         blocks.append("\n".join(lines))
+    omitted = len(evidence) - len(ranked)
+    if omitted > 0:
+        blocks.append(
+            f"(omitted {omitted} additional evidence records; "
+            "prefer the most relevant records above)"
+        )
     return "\n\n".join(blocks)
+
+
+def _rank_evidence(
+    evidence: list[CurriculumEvidence],
+    *,
+    question: str | None,
+) -> list[CurriculumEvidence]:
+    if not question:
+        return list(evidence)
+    tokens = {
+        token
+        for token in re.findall(r"[a-z0-9]+", question.lower())
+        if len(token) > 2 and token not in {"the", "and", "for", "what", "are"}
+    }
+    if not tokens:
+        return list(evidence)
+
+    def score(item: CurriculumEvidence) -> tuple[int, int]:
+        hay = " ".join(
+            [
+                str(item.name or ""),
+                str(item.content or ""),
+                str(item.topic or ""),
+                str(item.entity_type or ""),
+                str((item.metadata or {}).get("code") or ""),
+            ]
+        ).lower()
+        hits = sum(1 for token in tokens if token in hay)
+        # Prefer learning outcomes / units when present.
+        type_bonus = 1 if (item.entity_type or "").lower() in {
+            "learning_outcome",
+            "unit",
+            "topic",
+            "subtopic",
+        } else 0
+        return (hits, type_bonus)
+
+    return sorted(evidence, key=score, reverse=True)
+
+
+def _extract_answer_text(raw: dict[str, Any]) -> str:
+    """Pull a non-empty answer from common structured-output field names."""
+    for key in ("answer", "summary", "text", "content", "response"):
+        value = raw.get(key)
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    return ""
 
 
 def _hierarchy_path(item: CurriculumEvidence) -> list[str]:

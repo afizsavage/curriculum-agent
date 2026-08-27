@@ -35,5 +35,23 @@ def test_evaluation_categories_are_diverse(eval_records):
         "follow_up",
         "ambiguous",
         "insufficient_evidence",
+        "verification_pass",
+        "verification_hallucination",
+        "verification_wrong_grade",
+        "verification_wrong_subject",
+        "verification_missing_evidence",
+        "verification_ambiguous",
+        "verification_fallback",
+        "verification_multistep",
+        "verification_contradiction",
     }
     assert expected.issubset(categories)
+
+
+def test_evaluation_includes_verification_expectations(eval_records):
+    verification_rows = [
+        r for r in eval_records if r["category"].startswith("verification_")
+    ]
+    assert len(verification_rows) >= 8
+    for row in verification_rows:
+        assert "expected_verification" in row

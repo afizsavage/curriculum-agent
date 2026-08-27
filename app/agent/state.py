@@ -10,6 +10,11 @@ from pydantic import BaseModel, Field
 from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus, ToolCallRecord
 from app.enums import AgentStatus
 from app.schemas.answer import AnswerConfidence, AnswerEvidenceRef
+from app.schemas.verification import (
+    MissingEvidenceRequest,
+    VerificationResult,
+    VerificationStatus,
+)
 
 
 class PlanStep(BaseModel):
@@ -25,15 +30,6 @@ class RetrievedContextItem(BaseModel):
 
     source: str
     content: str
-    metadata: dict[str, Any] = Field(default_factory=dict)
-
-
-class VerificationResult(BaseModel):
-    """Outcome of a future verify() step."""
-
-    passed: bool = False
-    notes: Optional[str] = None
-    issues: list[str] = Field(default_factory=list)
     metadata: dict[str, Any] = Field(default_factory=dict)
 
 
@@ -55,13 +51,23 @@ class CurriculumQAState(BaseModel):
     evidence_status: EvidenceStatus = EvidenceStatus.NOT_FOUND
     retrieval_history: list[ToolCallRecord] = Field(default_factory=list)
     selected_tools: list[str] = Field(default_factory=list)
+    executed_tool_keys: list[str] = Field(default_factory=list)
 
     draft_answer: Optional[str] = None
     final_answer: Optional[str] = None
     answer_evidence: list[AnswerEvidenceRef] = Field(default_factory=list)
     answer_confidence: Optional[AnswerConfidence] = None
     answer_limitations: list[str] = Field(default_factory=list)
+    clarification: Optional[str] = None
+
     verification: Optional[VerificationResult] = None
+    verification_attempts: int = 0
+    verification_status: VerificationStatus = VerificationStatus.PENDING
+    verification_history: list[VerificationResult] = Field(default_factory=list)
+    retrieval_rounds: int = 0
+    pending_missing_evidence: list[MissingEvidenceRequest | str] = Field(
+        default_factory=list
+    )
 
     iteration: int = 0
     tool_calls: int = 0
@@ -88,13 +94,20 @@ class CurriculumQAState(BaseModel):
             evidence_status=EvidenceStatus.NOT_FOUND,
             retrieval_history=[],
             selected_tools=[],
+            executed_tool_keys=[],
             plan=None,
             draft_answer=None,
             final_answer=None,
             answer_evidence=[],
             answer_confidence=None,
             answer_limitations=[],
+            clarification=None,
             verification=None,
+            verification_attempts=0,
+            verification_status=VerificationStatus.PENDING,
+            verification_history=[],
+            retrieval_rounds=0,
+            pending_missing_evidence=[],
             error=None,
         )
 

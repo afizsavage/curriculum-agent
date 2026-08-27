@@ -417,6 +417,47 @@ def test_deepseek_structured_disables_thinking():
     assert captured["body"]["reasoning"] == {"effort": "none"}
 
 
+def test_deepseek_structured_accepts_markdown_fenced_json():
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(
+            200,
+            json={
+                "id": "resp_fence",
+                "model": "deepseek-v4-flash",
+                "output": [
+                    {
+                        "type": "message",
+                        "role": "assistant",
+                        "content": [
+                            {
+                                "type": "output_text",
+                                "text": "```json\n{\"answer\":\"ok\",\"evidence\":[],\"limitations\":[],\"confidence\":\"high\"}\n```",
+                            }
+                        ],
+                    }
+                ],
+            },
+        )
+
+    provider = DeepSeekResponsesProvider(
+        Settings(
+            llm_provider="deepseek",
+            llm_api_key="test-key",
+            llm_model="deepseek-v4-flash",
+            llm_base_url="https://api.deepseek.com",
+        )
+    )
+    provider._client = httpx.Client(
+        base_url="https://api.deepseek.com",
+        transport=httpx.MockTransport(handler),
+    )
+    result = provider.generate_structured(
+        [LLMMessage(role="user", content="Return json")],
+        schema={"title": "GroundedAnswer", "type": "object", "properties": {}},
+    )
+    assert result["answer"] == "ok"
+
+
 def test_provider_failures_can_be_wrapped():
     failing = FailingProvider()
     with pytest.raises(RuntimeError):

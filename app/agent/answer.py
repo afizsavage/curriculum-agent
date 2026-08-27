@@ -52,7 +52,8 @@ class AnswerGenerationNode:
         if grounded.summary:
             state.metadata["answer_summary"] = grounded.summary
 
-        state.status = AgentStatus.COMPLETED
+        # Final status is decided by the orchestrator after verification.
+        state.status = AgentStatus.ANSWERING
 
         log_agent_event(
             logger,

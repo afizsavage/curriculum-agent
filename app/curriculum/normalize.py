@@ -62,7 +62,9 @@ def match_query(node: dict[str, Any], query: str) -> bool:
     return all(token in text for token in q.split())
 
 
-def evidence_from_hit(hit: SearchHit) -> CurriculumEvidence:
+def evidence_from_hit(
+    hit: SearchHit, *, source_reference: str = "syllabus.content.tree"
+) -> CurriculumEvidence:
     return CurriculumEvidence(
         entity_type=hit.type,
         entity_id=hit.id,
@@ -73,7 +75,7 @@ def evidence_from_hit(hit: SearchHit) -> CurriculumEvidence:
         topic=hit.name if hit.type in {"topic", "subtopic", "unit"} else None,
         content=hit.name,
         metadata=hit.metadata,
-        source_reference="syllabus.content.tree",
+        source_reference=source_reference,
     )
 
 

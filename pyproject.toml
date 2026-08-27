@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "curriculum-agent"
-version = "0.2.0"
-description = "MBSSE Curriculum Q&A Agent service (Phase 2 retrieval)."
+version = "0.4.0"
+description = "MBSSE Curriculum Q&A Agent service (Sprint 4 verification loops)."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

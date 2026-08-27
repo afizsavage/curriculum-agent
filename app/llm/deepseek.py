@@ -11,6 +11,10 @@ import httpx
 from app.config import Settings
 from app.exceptions import ConfigurationError, LLMProviderError, LLMTimeoutError
 from app.llm.base import LLMMessage, LLMProvider, LLMResponse, ToolCallRequest
+from app.llm.json_utils import parse_llm_json
+from app.logging_utils import get_logger
+
+logger = get_logger(__name__)
 
 
 class DeepSeekResponsesProvider(LLMProvider):
@@ -94,7 +98,7 @@ class DeepSeekResponsesProvider(LLMProvider):
                 data = self._create_response(
                     messages,
                     temperature=temperature,
-                    max_output_tokens=4096,
+                    max_output_tokens=8192,
                     text={"format": text_format},
                     # Disable thinking so multi-step agents don't need reasoning replay.
                     reasoning={"effort": "none"},
@@ -102,17 +106,26 @@ class DeepSeekResponsesProvider(LLMProvider):
                 content = self._extract_output_text(data)
                 if not content:
                     raise LLMProviderError("Empty structured response from LLM")
-                return json.loads(content)
+                try:
+                    return parse_llm_json(content)
+                except json.JSONDecodeError as exc:
+                    logger.warning(
+                        "deepseek.structured_json_parse_failed preview=%r",
+                        content[:240],
+                    )
+                    # Fall through to the next text format / raise below.
+                    last_error = LLMProviderError("LLM returned invalid JSON")
+                    last_error.__cause__ = exc
+                    continue
             except LLMProviderError as exc:
                 last_error = exc
                 detail = str(exc).lower()
                 if "format" not in detail and "json" not in detail and "400" not in detail:
                     raise
                 continue
-            except json.JSONDecodeError as exc:
-                raise LLMProviderError("LLM returned invalid JSON") from exc
-        assert last_error is not None
-        raise last_error
+        if last_error is not None:
+            raise last_error
+        raise LLMProviderError("LLM returned invalid JSON")
 
     def generate_with_tools(
         self,
@@ -216,13 +229,24 @@ class DeepSeekResponsesProvider(LLMProvider):
         for item in data.get("output") or []:
             if not isinstance(item, dict):
                 continue
-            if item.get("type") != "message":
+            item_type = item.get("type")
+            # Some Responses payloads put text directly on output items.
+            if item_type in {"output_text", "text"} and item.get("text"):
+                chunks.append(str(item["text"]))
                 continue
-            for part in item.get("content") or []:
+            if item_type not in {None, "message"}:
+                continue
+            content = item.get("content")
+            if isinstance(content, str) and content.strip():
+                chunks.append(content)
+                continue
+            for part in content or []:
                 if not isinstance(part, dict):
                     continue
                 if part.get("type") in {"output_text", "text"} and part.get("text"):
                     chunks.append(str(part["text"]))
+                elif isinstance(part.get("content"), str) and part["content"].strip():
+                    chunks.append(str(part["content"]))
         return "".join(chunks) if chunks else None
 
     @staticmethod
