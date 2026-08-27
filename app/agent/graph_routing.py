@@ -154,6 +154,7 @@ def _can_retrieve_more(qa, settings: Settings) -> bool:
 def _has_retrieval_path(qa) -> bool:
     """Whether retrieve_more can execute a non-duplicate, goal-directed call."""
     available = set(qa.selected_tools or []) | {
+        "resolve_curriculum_context",
         "search_curriculum",
         "get_curriculum_structure",
         "get_topic",

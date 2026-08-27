@@ -215,6 +215,10 @@ class CurriculumAPIClient:
     def get_curriculum_context(self, **params: Any) -> dict[str, Any]:
         return self.get("api/v1/curriculum-context", params=params)
 
+    def resolve_curriculum_context(self, **params: Any) -> dict[str, Any]:
+        """V2.1 read-only GradeCurriculum context resolve (additive; not V1)."""
+        return self.get("api/v2/curriculum/context/resolve", params=params)
+
     def resolve_curriculum_id(
         self, *, code: str, version: str | None = None
     ) -> Optional[str]:

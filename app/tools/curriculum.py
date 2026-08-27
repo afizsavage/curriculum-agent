@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import time
 from typing import Any, Optional
 
 from app.curriculum.client import CurriculumAPIClient
@@ -717,6 +718,201 @@ class GetTopicTool(CurriculumTool):
             return _tool_error(exc)
 
 
+class ResolveCurriculumContextTool(CurriculumTool):
+    """Preferred structured lookup via V2 GradeCurriculum context resolve."""
+
+    @property
+    def name(self) -> str:
+        return "resolve_curriculum_context"
+
+    @property
+    def description(self) -> str:
+        return (
+            "Resolve authoritative curriculum context (grade → subject → topic/units "
+            "→ learning outcomes) in one call using existing GradeCurriculum "
+            "relationships. Prefer this over exploratory search_curriculum / "
+            "get_curriculum_structure when grade and subject (and ideally topic) "
+            "are known. Does not search syllabus or instructional references. "
+            "Returns resolution status resolved|ambiguous|not_found|needs_context."
+        )
+
+    @property
+    def input_schema(self) -> dict[str, Any]:
+        return {
+            "type": "object",
+            "properties": {
+                "grade": {
+                    "type": "string",
+                    "description": "Grade code or name, e.g. CLASS_4 or Primary 4",
+                },
+                "subject": {
+                    "type": "string",
+                    "description": "Subject code or name, e.g. MATHEMATICS",
+                },
+                "topic": {
+                    "type": "string",
+                    "description": "Optional topic/unit keyword, e.g. fractions",
+                },
+                "unit": {
+                    "type": "string",
+                    "description": "Optional unit code/name to narrow matches",
+                },
+                "curriculum_code": {
+                    "type": "string",
+                    "description": "Optional curriculum code, e.g. MBSSE-BEC",
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Exact curriculum version, e.g. 2020",
+                },
+            },
+            "required": ["grade"],
+        }
+
+    def execute(self, **kwargs: Any) -> ToolResult:
+        started = time.perf_counter()
+        try:
+            grade_raw = kwargs.get("grade")
+            if not grade_raw:
+                raise CurriculumInvalidQueryError("grade is required")
+            grade_code = normalize_grade_code(grade_raw) or str(grade_raw).strip()
+            subject_code = normalize_subject_code(kwargs.get("subject"))
+            topic = (kwargs.get("topic") or "").strip() or None
+            unit = (kwargs.get("unit") or "").strip() or None
+            curriculum_code = (kwargs.get("curriculum_code") or "").strip() or None
+            version = (kwargs.get("version") or "").strip() or None
+
+            if not curriculum_code:
+                curriculum_code, inferred_version = default_curriculum_for_grade(
+                    grade_code
+                )
+                if not version:
+                    version = inferred_version
+
+            params: dict[str, Any] = {
+                "grade": grade_code,
+                "subject": subject_code or kwargs.get("subject"),
+                "topic": topic,
+                "unit": unit,
+                "curriculum_code": curriculum_code,
+                "version": version,
+            }
+            payload = self.client.resolve_curriculum_context(**params)
+            if not isinstance(payload, dict):
+                raise CurriculumAPIError("Unexpected resolve_curriculum_context payload")
+
+            resolution = payload.get("resolution") or {}
+            status = resolution.get("status") or "not_found"
+            curriculum = payload.get("curriculum") or {}
+            grade = payload.get("grade") or {}
+            subject = payload.get("subject") or {}
+            topics = payload.get("topics") or []
+            units = payload.get("units") or []
+            outcomes = payload.get("learning_outcomes") or []
+            candidates = payload.get("candidates") or []
+
+            grade_label = grade.get("code") or grade_code
+            subject_label = subject.get("code") or subject_code
+
+            evidence: list[CurriculumEvidence] = []
+            for node in list(units) + list(topics):
+                if not isinstance(node, dict):
+                    continue
+                evidence.append(
+                    CurriculumEvidence(
+                        entity_type=str(
+                            node.get("content_type") or "curriculum_content"
+                        ).lower(),
+                        entity_id=str(node["id"]) if node.get("id") else None,
+                        name=node.get("name"),
+                        grade=grade_label,
+                        subject=subject_label,
+                        topic=node.get("name"),
+                        content=node.get("name"),
+                        metadata={
+                            "code": node.get("code"),
+                            "content_type": node.get("content_type"),
+                            "grade_curriculum_id": payload.get("grade_curriculum_id"),
+                            "authority": resolution.get("authority")
+                            or "grade_curriculum",
+                        },
+                        source_reference="v2.curriculum.context.resolve",
+                    )
+                )
+            for outcome in outcomes:
+                if not isinstance(outcome, dict):
+                    continue
+                parent_id = outcome.get("parent_content_id")
+                ev = evidence_from_outcome(
+                    outcome,
+                    topic_id=str(parent_id) if parent_id else None,
+                    grade=grade_label,
+                    subject=subject_label,
+                )
+                provenance = outcome.get("provenance") or {}
+                if isinstance(provenance, dict) and any(provenance.values()):
+                    ev.metadata = {
+                        **ev.metadata,
+                        "provenance": provenance,
+                        "parent_content_code": outcome.get("parent_content_code"),
+                        "parent_content_name": outcome.get("parent_content_name"),
+                        "evidence_quality": outcome.get("evidence_quality"),
+                    }
+                    if provenance.get("source_reference"):
+                        ev.source_reference = str(provenance["source_reference"])
+                else:
+                    ev.source_reference = "v2.curriculum.context.resolve"
+                evidence.append(ev)
+
+            total_ms = round((time.perf_counter() - started) * 1000, 2)
+            observability = {
+                "tool": self.name,
+                "resolution_status": status,
+                "curriculum_id": curriculum.get("id"),
+                "grade_id": grade.get("id"),
+                "subject_id": subject.get("id"),
+                "topic_ids": [t.get("id") for t in topics if isinstance(t, dict)],
+                "unit_ids": [u.get("id") for u in units if isinstance(u, dict)],
+                "learning_outcome_count": len(outcomes),
+                "candidate_count": len(candidates),
+                "query_timing_ms": resolution.get("query_timing_ms"),
+                "total_tool_latency_ms": total_ms,
+                "authority": resolution.get("authority") or "grade_curriculum",
+            }
+
+            # Ambiguous / needs_context / not_found remain successful tool calls
+            # with structured status so the agent can follow up (no silent pick).
+            return ToolResult(
+                success=True,
+                data={
+                    "resolution": resolution,
+                    "curriculum": curriculum,
+                    "education_level": payload.get("education_level"),
+                    "grade": grade,
+                    "subject": subject,
+                    "grade_curriculum_id": payload.get("grade_curriculum_id"),
+                    "topics": topics,
+                    "units": units,
+                    "learning_outcomes": outcomes,
+                    "candidates": candidates,
+                    "objectives": [
+                        {
+                            "id": o.get("id"),
+                            "text": o.get("description"),
+                            "code": o.get("code"),
+                            "parent_content_id": o.get("parent_content_id"),
+                        }
+                        for o in outcomes
+                        if isinstance(o, dict)
+                    ],
+                    "evidence": [e.model_dump() for e in evidence],
+                    "observability": observability,
+                },
+            )
+        except CurriculumAPIError as exc:
+            return _tool_error(exc)
+
+
 class GetLearningObjectivesTool(CurriculumTool):
     @property
     def name(self) -> str:
@@ -853,6 +1049,7 @@ class GetLearningObjectivesTool(CurriculumTool):
 
 def build_curriculum_tools(client: CurriculumAPIClient) -> list[Tool]:
     return [
+        ResolveCurriculumContextTool(client),
         SearchCurriculumTool(client),
         GetCurriculumStructureTool(client),
         GetSubjectTool(client),

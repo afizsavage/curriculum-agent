@@ -35,10 +35,13 @@ logger = get_logger(__name__)
 
 SYSTEM_PROMPT = """You are a curriculum retrieval planner for the MBSSE Curriculum Q&A agent.
 Select curriculum tools to gather authoritative evidence for the user's question.
-Only use the provided tools. Prefer precise tools (get_curriculum_structure, get_topic,
-get_learning_objectives) when grade/subject/topic are known. Use search_curriculum for
-concept discovery. Do not invent curriculum facts. When enough evidence exists, stop
-requesting tools and reply with a short note that retrieval is complete.
+Only use the provided tools. Prefer resolve_curriculum_context when grade and
+subject (and ideally topic) are known — it resolves GradeCurriculum units and
+learning outcomes in one structured call. Fall back to get_curriculum_structure,
+get_topic, get_learning_objectives, and search_curriculum when needed. Use
+search_curriculum for concept discovery. Do not invent curriculum facts. When
+enough evidence exists, stop requesting tools and reply with a short note that
+retrieval is complete.
 
 When verification feedback lists missing evidence, prioritize targeted tools that
 satisfy those gaps rather than repeating broad searches already executed.
@@ -582,7 +585,8 @@ class RetrievalNode:
                 )
             )
             parts.append(
-                "Prefer targeted tools (get_topic, get_learning_objectives) "
+                "Prefer targeted tools (resolve_curriculum_context, "
+                "get_topic, get_learning_objectives) "
                 "that address the missing evidence. Do not repeat identical "
                 "or broad structure searches already executed."
             )
@@ -627,12 +631,18 @@ class RetrievalNode:
         new_count = 0
         dup_count = 0
         result_previews: list[dict[str, Any]] = []
+        observability: dict[str, Any] | None = None
         try:
             result = self.tools.execute(call.name, **(call.arguments or {}))
             latency = timed_ms(started)
             state.bump_tool_calls()
             if result.success:
                 evidence_rows = (result.data or {}).get("evidence") or []
+                observability = (
+                    (result.data or {}).get("observability")
+                    if isinstance(result.data, dict)
+                    else None
+                )
                 for row in evidence_rows:
                     item = CurriculumEvidence.model_validate(row)
                     preview = evidence_preview(item)
@@ -763,26 +773,30 @@ class RetrievalNode:
             "duplicate_tool_call": duplicate_seen,
             "curriculum_api_status": record.curriculum_api_status,
         }
+        if observability:
+            tool_row["observability"] = observability
         if trace is not None:
             trace.tool_calls.append(tool_row)
             it = trace.ensure_iteration(state.iteration)
             it["tool_calls"].append(tool_row)
-            trace.emit(
-                "agent.tool.end",
-                iteration=state.iteration,
-                tool_call_number=tool_call_number,
-                tool_name=record.tool,
-                duration_ms=record.latency_ms,
-                success=record.status == "success",
-                error=record.error,
-                result_count=record.evidence_count,
-                new_evidence=new_count,
-                duplicate_evidence=dup_count,
-                results=result_previews[:12],
-                duplicate_tool_call=duplicate_seen,
-                fingerprint=fp,
-                curriculum_api_status=record.curriculum_api_status,
-            )
+            emit_kwargs: dict[str, Any] = {
+                "iteration": state.iteration,
+                "tool_call_number": tool_call_number,
+                "tool_name": record.tool,
+                "duration_ms": record.latency_ms,
+                "success": record.status == "success",
+                "error": record.error,
+                "result_count": record.evidence_count,
+                "new_evidence": new_count,
+                "duplicate_evidence": dup_count,
+                "results": result_previews[:12],
+                "duplicate_tool_call": duplicate_seen,
+                "fingerprint": fp,
+                "curriculum_api_status": record.curriculum_api_status,
+            }
+            if observability:
+                emit_kwargs["observability"] = observability
+            trace.emit("agent.tool.end", **emit_kwargs)
         log_agent_event(
             logger,
             "agent.tool.execute",

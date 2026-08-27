@@ -59,8 +59,15 @@ def select_tool_calls(
         return ToolCallRequest(id=str(uuid4()), name=name, arguments=arguments)
 
     if "learning objective" in lower or "objectives" in lower or "what should" in lower:
+        if "resolve_curriculum_context" in available and grade:
+            args: dict[str, Any] = {"grade": grade}
+            if subject:
+                args["subject"] = subject
+            if topic:
+                args["topic"] = topic
+            return [make("resolve_curriculum_context", args)]
         if "get_learning_objectives" in available:
-            args: dict[str, Any] = {}
+            args = {}
             if topic:
                 args["topic"] = topic
             if grade:
@@ -77,6 +84,19 @@ def select_tool_calls(
                     {"grade": grade, "level": level},
                 )
             ]
+
+    if topic and grade and ("resolve_curriculum_context" in available) and subject and (
+        "topic" in lower
+        or "fractions" in lower
+        or "what is the" in lower
+        or re.search(r"\babout\b", lower)
+    ) and not re.search(r"\bfind\b|\brelated to\b|\bsearch\b", lower):
+        return [
+            make(
+                "resolve_curriculum_context",
+                {"grade": grade, "subject": subject, "topic": topic},
+            )
+        ]
 
     if re.search(r"\btopics\b", lower) and grade and subject:
         if "get_curriculum_structure" in available:
@@ -180,6 +200,13 @@ def _from_missing_evidence(
         return ToolCallRequest(id=str(uuid4()), name=name, arguments=arguments)
 
     if "learning_objective" in evidence_type or "objective" in lower:
+        if "resolve_curriculum_context" in available and (topic or grade):
+            return [
+                make(
+                    "resolve_curriculum_context",
+                    {"topic": topic, "grade": grade, "subject": subject},
+                )
+            ]
         if "get_learning_objectives" in available and (topic or grade):
             return [
                 make(

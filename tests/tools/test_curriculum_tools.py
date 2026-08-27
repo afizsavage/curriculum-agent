@@ -8,6 +8,7 @@ from app.tools.curriculum import (
     GetLearningObjectivesTool,
     GetSubjectTool,
     GetTopicTool,
+    ResolveCurriculumContextTool,
     SearchCurriculumTool,
 )
 
@@ -276,6 +277,78 @@ def _router(request: httpx.Request) -> httpx.Response:
                 "total": 1,
             },
         )
+    if path.endswith("/api/v2/curriculum/context/resolve"):
+        return httpx.Response(
+            200,
+            json={
+                "curriculum": {
+                    "id": CURRICULUM_ID,
+                    "code": "MBSSE-BEC",
+                    "name": "BEC",
+                    "version": "2020",
+                },
+                "education_level": {
+                    "id": "lvl",
+                    "code": "PRIMARY",
+                    "name": "Primary",
+                },
+                "grade": {
+                    "id": "g4",
+                    "code": "CLASS_4",
+                    "name": "Class 4",
+                },
+                "subject": {
+                    "id": SUBJECT_ID,
+                    "code": "MATHEMATICS",
+                    "name": "Mathematics",
+                },
+                "grade_curriculum_id": GRADE_CURRICULUM_ID,
+                "topics": [],
+                "units": [
+                    {
+                        "id": TOPIC_ID,
+                        "code": "C4-U06",
+                        "name": "Number and Numeration FRACTION",
+                        "content_type": "UNIT",
+                        "parent_id": None,
+                        "grade_curriculum_id": GRADE_CURRICULUM_ID,
+                        "subject_id": SUBJECT_ID,
+                        "subject_code": "MATHEMATICS",
+                        "subject_name": "Mathematics",
+                    }
+                ],
+                "learning_outcomes": [
+                    {
+                        "id": "lo-1",
+                        "code": "C4U06-LO01",
+                        "description": "Identify fractions as part of a whole.",
+                        "parent_content_id": TOPIC_ID,
+                        "parent_content_type": "UNIT",
+                        "parent_content_code": "C4-U06",
+                        "parent_content_name": "Number and Numeration FRACTION",
+                        "provenance": {
+                            "source_page": 42,
+                            "source_section": "Fractions",
+                            "source_reference": "demo-fixture",
+                        },
+                        "evidence_quality": None,
+                    }
+                ],
+                "candidates": [],
+                "resolution": {
+                    "status": "resolved",
+                    "matched_by": {
+                        "curriculum": "code+version",
+                        "grade": "code",
+                        "subject": "code",
+                        "topic": "name_or_code",
+                    },
+                    "message": None,
+                    "authority": "grade_curriculum",
+                    "query_timing_ms": 12.5,
+                },
+            },
+        )
     return httpx.Response(404, json={"detail": f"unhandled {path}"})
 
 
@@ -372,6 +445,29 @@ def test_get_learning_objectives(client):
     result = tool.execute(topic_id=TOPIC_ID)
     assert result.success
     assert result.data["objectives"][0]["text"] == "Identify fractions"
+
+
+def test_resolve_curriculum_context(client):
+    tool = ResolveCurriculumContextTool(client)
+    result = tool.execute(
+        grade="Primary 4",
+        subject="Mathematics",
+        topic="fractions",
+    )
+    assert result.success
+    assert result.data["resolution"]["status"] == "resolved"
+    assert result.data["curriculum"]["id"] == CURRICULUM_ID
+    assert result.data["grade"]["code"] == "CLASS_4"
+    assert result.data["subject"]["code"] == "MATHEMATICS"
+    assert result.data["units"]
+    assert result.data["learning_outcomes"]
+    assert result.data["objectives"][0]["code"] == "C4U06-LO01"
+    assert result.data["evidence"]
+    obs = result.data["observability"]
+    assert obs["resolution_status"] == "resolved"
+    assert obs["curriculum_id"] == CURRICULUM_ID
+    assert obs["learning_outcome_count"] == 1
+    assert obs["total_tool_latency_ms"] is not None
 
 
 def test_invalid_topic_id(client):

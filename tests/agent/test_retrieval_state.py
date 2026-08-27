@@ -203,13 +203,21 @@ def test_d_targeted_verifier_retrieval():
 def test_e_no_progress_when_all_candidates_duplicates(settings, tools):
     """Test E — all candidates duplicates → no new retrieval executed."""
     rs = RetrievalState()
-    args = {
+    legacy_args = {
         "topic": "C4U09",
         "grade": "CLASS_4",
         "subject": "MATHEMATICS",
     }
+    resolve_args = {
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "C4U09",
+    }
     rs.remember_fingerprint(
-        tool_fingerprint("get_learning_objectives", args), 2
+        tool_fingerprint("get_learning_objectives", legacy_args), 2
+    )
+    rs.remember_fingerprint(
+        tool_fingerprint("resolve_curriculum_context", resolve_args), 3
     )
     missing = [
         MissingEvidenceRequest(
@@ -222,6 +230,7 @@ def test_e_no_progress_when_all_candidates_duplicates(settings, tools):
         retrieval_state=rs,
         pending_missing=missing,
         available_tools={
+            "resolve_curriculum_context",
             "get_learning_objectives",
             "search_curriculum",
             "get_topic",
@@ -273,7 +282,9 @@ def test_f_new_evidence_available_runs_targeted(settings, tools):
     ]
     state = node.run(state)
     assert any(
-        r.tool == "get_learning_objectives" for r in state.retrieval_history
+        r.tool
+        in {"resolve_curriculum_context", "get_learning_objectives"}
+        for r in state.retrieval_history
     )
     assert state.retrieval_state.targeted_retrievals >= 1
 

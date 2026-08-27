@@ -64,11 +64,14 @@ curl -s -X POST http://127.0.0.1:8001/api/v1/agent/ask \
 
 | Tool | Use when |
 | --- | --- |
+| `resolve_curriculum_context` | Preferred structured GradeCurriculum resolve (grade/subject/topic → units + LOs) |
 | `search_curriculum` | Find content by concept/keyword |
 | `get_curriculum_structure` | List topics (or subjects if subject omitted) for a grade |
 | `get_subject` | Subject identity/metadata for a grade |
 | `get_topic` | Canonical topic by `topic_id` or name |
 | `get_learning_objectives` | Authoritative outcomes for a topic |
+
+V2.1 note: `resolve_curriculum_context` calls `GET /api/v2/curriculum/context/resolve` on the Curriculum Structure API. It does not replace V1 tools; they remain as fallbacks. See `curriculum-structure/docs/V2_CONTEXT_RESOLVE.md`.
 
 ## Configuration
 

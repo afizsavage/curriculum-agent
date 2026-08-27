@@ -407,6 +407,29 @@ def targeted_tool_calls_from_missing(
             topic_id = str(miss_topic).strip()
 
         added_before = len(calls)
+        if wants_lo and "resolve_curriculum_context" in available_tools and (
+            miss_grade or grade
+        ):
+            # Preferred structured path — avoid exploratory LO fan-out when possible.
+            resolve_topic = None
+            if unit_codes:
+                resolve_topic = unit_codes[0]
+            elif miss_topic and not topic_id:
+                resolve_topic = str(miss_topic)
+            elif topic:
+                resolve_topic = topic
+            add(
+                "resolve_curriculum_context",
+                {
+                    "grade": miss_grade or grade,
+                    "subject": miss_subject,
+                    "topic": resolve_topic,
+                },
+            )
+            if len(calls) > added_before:
+                continue
+            # resolve already executed / duplicate — fall through to legacy LO tools
+
         if wants_lo and "get_learning_objectives" in available_tools:
             if topic_id:
                 add("get_learning_objectives", {"topic_id": topic_id})

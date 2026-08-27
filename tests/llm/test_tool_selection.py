@@ -3,6 +3,7 @@ from app.llm.tool_selection import select_tool_calls
 
 
 TOOLS = [
+    {"name": "resolve_curriculum_context", "description": "", "parameters": {}},
     {"name": "search_curriculum", "description": "", "parameters": {}},
     {"name": "get_curriculum_structure", "description": "", "parameters": {}},
     {"name": "get_subject", "description": "", "parameters": {}},
@@ -10,15 +11,17 @@ TOOLS = [
     {"name": "get_learning_objectives", "description": "", "parameters": {}},
 ]
 
+LEGACY_TOOLS = [t for t in TOOLS if t["name"] != "resolve_curriculum_context"]
 
-def _calls(question: str):
+
+def _calls(question: str, tools=None):
     messages = [
         LLMMessage(
             role="user",
             content=f"Question: {question}\nKnown filters: {{}}",
         )
     ]
-    return select_tool_calls(messages, TOOLS)
+    return select_tool_calls(messages, tools or TOOLS)
 
 
 def test_select_structure_for_topics():
@@ -36,12 +39,23 @@ def test_select_structure_for_subjects_available():
 
 def test_select_topic():
     calls = _calls("What is the fractions topic in Primary 4 Mathematics?")
-    assert calls[0].name == "get_topic"
+    assert calls[0].name == "resolve_curriculum_context"
+    assert calls[0].arguments["topic"] == "fractions"
 
 
 def test_select_learning_objectives():
     calls = _calls(
         "What are the learning objectives for fractions in Primary 4 Mathematics?"
+    )
+    assert calls[0].name == "resolve_curriculum_context"
+    assert calls[0].arguments["grade"] == "CLASS_4"
+    assert calls[0].arguments["topic"] == "fractions"
+
+
+def test_select_learning_objectives_legacy_fallback():
+    calls = _calls(
+        "What are the learning objectives for fractions in Primary 4 Mathematics?",
+        tools=LEGACY_TOOLS,
     )
     assert calls[0].name == "get_learning_objectives"
 

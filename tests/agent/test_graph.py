@@ -110,10 +110,22 @@ def test_route_after_verification_no_progress_stops(settings):
         )
     ]
     qa.pending_missing_evidence = missing
-    # Same targeted call already executed → no new path.
+    # Same targeted calls already executed → no new path.
     args = {"topic": "C4U09", "grade": "CLASS_4", "subject": "MATHEMATICS"}
-    fp = tool_fingerprint("get_learning_objectives", args)
-    qa.retrieval_state.remember_fingerprint(fp, 3)
+    qa.retrieval_state.remember_fingerprint(
+        tool_fingerprint("get_learning_objectives", args), 3
+    )
+    qa.retrieval_state.remember_fingerprint(
+        tool_fingerprint(
+            "resolve_curriculum_context",
+            {
+                "grade": "CLASS_4",
+                "subject": "MATHEMATICS",
+                "topic": "C4U09",
+            },
+        ),
+        4,
+    )
     qa.subject = "MATHEMATICS"
     qa.verification = VerificationResult(
         passed=False,
