@@ -1,0 +1,311 @@
+{"run": 1, "agent_run_id": "run-1f45544c67b746b4", "status": "insufficient_evidence", "latency_ms": 73206.2, "tool_calls": 7, "retrieval_rounds": 2, "verification_attempts": 2, "verification_status": "insufficient_evidence", "termination_reason": "no_retrieval_progress", "evidence_count": 46, "verification_score": null, "duplicate_tool_skips": 0, "tool_starts": 7, "tools": [["search_curriculum", 1], ["get_curriculum_structure", 1], ["get_curriculum_structure", 1], ["get_subject", 1], ["get_learning_objectives", 2], ["get_learning_objectives", 2], ["get_learning_objectives", 2]], "targeted_plan_events": 4, "retrieval_metrics": null, "visited_nodes": ["understand", "prepare_cycle", "retrieve", "generate_answer", "verify_answer", "prepare_cycle", "retrieve", "generate_answer", "verify_answer", "fallback"]}
+{"run": 2, "agent_run_id": "run-cdd03493ddf2400e", "status": "insufficient_evidence", "latency_ms": 47157.0, "tool_calls": 7, "retrieval_rounds": 2, "verification_attempts": 2, "verification_status": "insufficient_evidence", "termination_reason": "no_retrieval_progress", "evidence_count": 46, "verification_score": null, "duplicate_tool_skips": 0, "tool_starts": 7, "tools": [["search_curriculum", 1], ["get_curriculum_structure", 1], ["get_curriculum_structure", 1], ["get_subject", 1], ["get_learning_objectives", 2], ["get_learning_objectives", 2], ["get_learning_objectives", 2]], "targeted_plan_events": 4, "retrieval_metrics": null, "visited_nodes": ["understand", "prepare_cycle", "retrieve", "generate_answer", "verify_answer", "prepare_cycle", "retrieve", "generate_answer", "verify_answer", "fallback"]}
+{"run": 3, "agent_run_id": "run-dfa64e46549c465b", "status": "insufficient_evidence", "latency_ms": 41873.9, "tool_calls": 7, "retrieval_rounds": 2, "verification_attempts": 2, "verification_status": "insufficient_evidence", "termination_reason": "no_retrieval_progress", "evidence_count": 46, "verification_score": null, "duplicate_tool_skips": 0, "tool_starts": 7, "tools": [["search_curriculum", 1], ["get_curriculum_structure", 1], ["get_curriculum_structure", 1], ["get_subject", 1], ["get_learning_objectives", 2], ["get_learning_objectives", 2], ["get_learning_objectives", 2]], "targeted_plan_events": 4, "retrieval_metrics": null, "visited_nodes": ["understand", "prepare_cycle", "retrieve", "generate_answer", "verify_answer", "prepare_cycle", "retrieve", "generate_answer", "verify_answer", "fallback"]}
+{"run": 4, "agent_run_id": "run-158036dd2d434d87", "status": "completed", "latency_ms": 38996.8, "tool_calls": 7, "retrieval_rounds": 2, "verification_attempts": 2, "verification_status": "passed", "termination_reason": "verification_passed", "evidence_count": 46, "verification_score": null, "duplicate_tool_skips": 0, "tool_starts": 7, "tools": [["search_curriculum", 1], ["get_curriculum_structure", 1], ["get_curriculum_structure", 1], ["get_subject", 1], ["get_learning_objectives", 2], ["get_learning_objectives", 2], ["get_learning_objectives", 2]], "targeted_plan_events": 4, "retrieval_metrics": null, "visited_nodes": ["understand", "prepare_cycle", "retrieve", "generate_answer", "verify_answer", "prepare_cycle", "retrieve", "generate_answer", "verify_answer", "finish"]}
+{"run": 5, "agent_run_id": "run-06007d5e15bc483c", "status": "insufficient_evidence", "latency_ms": 37893.4, "tool_calls": 7, "retrieval_rounds": 2, "verification_attempts": 2, "verification_status": "insufficient_evidence", "termination_reason": "no_retrieval_progress", "evidence_count": 46, "verification_score": null, "duplicate_tool_skips": 0, "tool_starts": 7, "tools": [["search_curriculum", 1], ["get_curriculum_structure", 1], ["get_curriculum_structure", 1], ["get_subject", 1], ["get_learning_objectives", 2], ["get_learning_objectives", 2], ["get_learning_objectives", 2]], "targeted_plan_events": 4, "retrieval_metrics": null, "visited_nodes": ["understand", "prepare_cycle", "retrieve", "generate_answer", "verify_answer", "prepare_cycle", "retrieve", "generate_answer", "verify_answer", "fallback"]}
+---
+{
+  "question": "What are the learning objectives for fractions in Primary 4?",
+  "runs": [
+    {
+      "run": 1,
+      "agent_run_id": "run-1f45544c67b746b4",
+      "status": "insufficient_evidence",
+      "latency_ms": 73206.2,
+      "tool_calls": 7,
+      "retrieval_rounds": 2,
+      "verification_attempts": 2,
+      "verification_status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "evidence_count": 46,
+      "verification_score": null,
+      "duplicate_tool_skips": 0,
+      "tool_starts": 7,
+      "tools": [
+        [
+          "search_curriculum",
+          1
+        ],
+        [
+          "get_curriculum_structure",
+          1
+        ],
+        [
+          "get_curriculum_structure",
+          1
+        ],
+        [
+          "get_subject",
+          1
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ]
+      ],
+      "targeted_plan_events": 4,
+      "retrieval_metrics": null,
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "fallback"
+      ]
+    },
+    {
+      "run": 2,
+      "agent_run_id": "run-cdd03493ddf2400e",
+      "status": "insufficient_evidence",
+      "latency_ms": 47157.0,
+      "tool_calls": 7,
+      "retrieval_rounds": 2,
+      "verification_attempts": 2,
+      "verification_status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "evidence_count": 46,
+      "verification_score": null,
+      "duplicate_tool_skips": 0,
+      "tool_starts": 7,
+      "tools": [
+        [
+          "search_curriculum",
+          1
+        ],
+        [
+          "get_curriculum_structure",
+          1
+        ],
+        [
+          "get_curriculum_structure",
+          1
+        ],
+        [
+          "get_subject",
+          1
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ]
+      ],
+      "targeted_plan_events": 4,
+      "retrieval_metrics": null,
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "fallback"
+      ]
+    },
+    {
+      "run": 3,
+      "agent_run_id": "run-dfa64e46549c465b",
+      "status": "insufficient_evidence",
+      "latency_ms": 41873.9,
+      "tool_calls": 7,
+      "retrieval_rounds": 2,
+      "verification_attempts": 2,
+      "verification_status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "evidence_count": 46,
+      "verification_score": null,
+      "duplicate_tool_skips": 0,
+      "tool_starts": 7,
+      "tools": [
+        [
+          "search_curriculum",
+          1
+        ],
+        [
+          "get_curriculum_structure",
+          1
+        ],
+        [
+          "get_curriculum_structure",
+          1
+        ],
+        [
+          "get_subject",
+          1
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ]
+      ],
+      "targeted_plan_events": 4,
+      "retrieval_metrics": null,
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "fallback"
+      ]
+    },
+    {
+      "run": 4,
+      "agent_run_id": "run-158036dd2d434d87",
+      "status": "completed",
+      "latency_ms": 38996.8,
+      "tool_calls": 7,
+      "retrieval_rounds": 2,
+      "verification_attempts": 2,
+      "verification_status": "passed",
+      "termination_reason": "verification_passed",
+      "evidence_count": 46,
+      "verification_score": null,
+      "duplicate_tool_skips": 0,
+      "tool_starts": 7,
+      "tools": [
+        [
+          "search_curriculum",
+          1
+        ],
+        [
+          "get_curriculum_structure",
+          1
+        ],
+        [
+          "get_curriculum_structure",
+          1
+        ],
+        [
+          "get_subject",
+          1
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ]
+      ],
+      "targeted_plan_events": 4,
+      "retrieval_metrics": null,
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "finish"
+      ]
+    },
+    {
+      "run": 5,
+      "agent_run_id": "run-06007d5e15bc483c",
+      "status": "insufficient_evidence",
+      "latency_ms": 37893.4,
+      "tool_calls": 7,
+      "retrieval_rounds": 2,
+      "verification_attempts": 2,
+      "verification_status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "evidence_count": 46,
+      "verification_score": null,
+      "duplicate_tool_skips": 0,
+      "tool_starts": 7,
+      "tools": [
+        [
+          "search_curriculum",
+          1
+        ],
+        [
+          "get_curriculum_structure",
+          1
+        ],
+        [
+          "get_curriculum_structure",
+          1
+        ],
+        [
+          "get_subject",
+          1
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ],
+        [
+          "get_learning_objectives",
+          2
+        ]
+      ],
+      "targeted_plan_events": 4,
+      "retrieval_metrics": null,
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "fallback"
+      ]
+    }
+  ],
+  "success_count": 1,
+  "avg_latency_ms": 47825.5,
+  "avg_tool_calls": 7.0,
+  "avg_duplicate_skips": 0.0,
+  "avg_retrieval_rounds": 2.0
+}

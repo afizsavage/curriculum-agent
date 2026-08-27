@@ -123,7 +123,11 @@ class GraphNodes:
         hit = False
         reason: str | None = None
 
-        if qa.retrieval_rounds >= settings.agent_max_retrieval_rounds:
+        if qa.metadata.get("no_retrieval_progress") or qa.retrieval_state.no_progress:
+            # Prior retrieve/route already determined no credible new path.
+            hit = True
+            reason = "no_retrieval_progress"
+        elif qa.retrieval_rounds >= settings.agent_max_retrieval_rounds:
             hit = True
             reason = "max_retrieval_rounds"
         elif qa.iteration >= settings.agent_max_iterations:
@@ -369,6 +373,8 @@ class GraphNodes:
             "max_iterations",
             "max_retrieval_rounds",
             "max_tool_calls",
+            "no_retrieval_progress",
+            "no_retrieval_progress_incomplete_source",
         )
         if trace is not None:
             duration_ms = timed_ms(started)
@@ -419,6 +425,13 @@ class GraphNodes:
 
 
 def _infer_fallback_reason(qa: CurriculumQAState, settings: Settings) -> str:
+    meta_reason = qa.metadata.get("fallback_reason") or qa.metadata.get(
+        "termination_reason"
+    )
+    if meta_reason:
+        return str(meta_reason)
+    if qa.metadata.get("no_retrieval_progress") or qa.retrieval_state.no_progress:
+        return "no_retrieval_progress"
     if qa.retrieval_rounds >= settings.agent_max_retrieval_rounds:
         return "max_retrieval_rounds"
     if qa.iteration >= settings.agent_max_iterations:
@@ -464,20 +477,38 @@ def apply_fallback(
                 limitations.append(item)
             elif item.detail:
                 limitations.append(item.detail)
-    limitations.append(
-        "Available MBSSE curriculum records were insufficient for a reliable answer."
-    )
+    if reason in (
+        "no_retrieval_progress",
+        "no_retrieval_progress_incomplete_source",
+    ):
+        limitations.append(
+            "Further retrieval would only repeat known or incomplete curriculum "
+            "records; no new targeted evidence path remained."
+        )
+    else:
+        limitations.append(
+            "Available MBSSE curriculum records were insufficient for a reliable answer."
+        )
     limitations = list(dict.fromkeys(x for x in limitations if x))
 
-    found_hint = ""
-    names = [e.name for e in state.evidence if e.name][:5]
-    if names:
-        found_hint = (
-            f" I found related records ({', '.join(names)}), but they did not "
-            "clearly establish the specific placement or claim requested."
+    draft = (state.draft_answer or state.final_answer or "").strip()
+    if reason.startswith("no_retrieval_progress") and draft:
+        # Evidence-aware finalize: keep grounded draft + limitations.
+        limitation_note = (
+            "\n\nNote: Some curriculum source records appear incomplete or "
+            "truncated in the available evidence, so parts of this answer may "
+            "be limited to what those records explicitly contain."
         )
-
-    state.final_answer = FALLBACK_ANSWER + found_hint
+        state.final_answer = draft + limitation_note
+    else:
+        found_hint = ""
+        names = [e.name for e in state.evidence if e.name][:5]
+        if names:
+            found_hint = (
+                f" I found related records ({', '.join(names)}), but they did not "
+                "clearly establish the specific placement or claim requested."
+            )
+        state.final_answer = FALLBACK_ANSWER + found_hint
     state.draft_answer = state.draft_answer or state.final_answer
     state.answer_confidence = AnswerConfidence.LOW
     state.answer_limitations = limitations
@@ -487,6 +518,8 @@ def apply_fallback(
     else:
         state.verification_status = VerificationStatus.INSUFFICIENT_EVIDENCE
     state.metadata["fallback_reason"] = reason
+    if reason.startswith("no_retrieval_progress"):
+        state.metadata["termination_reason"] = reason
 
     if state.verification is None:
         state.verification = VerificationResult(

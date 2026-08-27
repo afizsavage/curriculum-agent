@@ -71,15 +71,59 @@ def test_route_after_verification_accept(settings):
 
 
 def test_route_after_verification_retrieve_more(settings):
+    from app.schemas.verification import MissingEvidenceRequest
+
     qa = CurriculumQAState.initial(question="q")
+    qa.grade = "CLASS_4"
+    qa.topic = "fractions"
+    missing = [
+        MissingEvidenceRequest(
+            type="learning_outcome",
+            topic="C4U09",
+            query="C4U09 learning objectives",
+        )
+    ]
+    qa.pending_missing_evidence = missing
     qa.verification = VerificationResult(
         passed=False,
         score=0.2,
         recommendation=VerificationRecommendation.RETRIEVE_MORE,
+        missing_evidence=missing,
     )
     assert (
         route_after_verification({"qa": qa}, settings=settings) == "retrieve_more"
     )
+
+
+def test_route_after_verification_no_progress_stops(settings):
+    from app.agent.retrieval_state import tool_fingerprint
+    from app.schemas.verification import MissingEvidenceRequest
+
+    qa = CurriculumQAState.initial(question="q")
+    qa.grade = "CLASS_4"
+    qa.draft_answer = "Partial fractions answer grounded in evidence."
+    missing = [
+        MissingEvidenceRequest(
+            type="learning_outcome",
+            topic="C4U09",
+            query="C4U09 learning objectives truncated source",
+        )
+    ]
+    qa.pending_missing_evidence = missing
+    # Same targeted call already executed → no new path.
+    args = {"topic": "C4U09", "grade": "CLASS_4", "subject": "MATHEMATICS"}
+    fp = tool_fingerprint("get_learning_objectives", args)
+    qa.retrieval_state.remember_fingerprint(fp, 3)
+    qa.subject = "MATHEMATICS"
+    qa.verification = VerificationResult(
+        passed=False,
+        score=0.7,
+        recommendation=VerificationRecommendation.RETRIEVE_MORE,
+        missing_evidence=missing,
+        issues=["source record appears incomplete / truncated"],
+    )
+    assert route_after_verification({"qa": qa}, settings=settings) == "fallback"
+    assert qa.metadata.get("fallback_reason") == "no_retrieval_progress"
 
 
 def test_route_after_verification_retrieve_more_hits_limit(settings):
@@ -210,7 +254,11 @@ def test_graph_max_iterations_goes_to_fallback(settings):
     path = state.metadata.get("visited_nodes") or []
     assert "fallback" in path
     assert path.count("retrieve") >= 1
-    assert state.verification_status == VerificationStatus.MAX_ITERATIONS
+    # May stop via max rounds OR no-progress guard (preferred when duplicates).
+    assert state.verification_status in {
+        VerificationStatus.MAX_ITERATIONS,
+        VerificationStatus.INSUFFICIENT_EVIDENCE,
+    }
 
 
 class _ClarifyVerifier(VerificationNode):

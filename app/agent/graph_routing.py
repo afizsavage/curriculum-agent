@@ -8,6 +8,10 @@ from __future__ import annotations
 from typing import Literal
 
 from app.agent.graph_state import ALLOWED_ROUTES, GraphState
+from app.agent.retrieval_state import (
+    has_credible_retrieval_path,
+    is_incomplete_source_gap,
+)
 from app.config import Settings
 from app.logging_utils import get_logger, log_agent_event
 from app.schemas.verification import VerificationRecommendation
@@ -49,12 +53,30 @@ def route_after_verification(
         route = "fallback"
         reason = "verification_fallback"
     elif result.recommendation == VerificationRecommendation.RETRIEVE_MORE:
-        if _can_retrieve_more(qa, settings):
-            route = "retrieve_more"
-            reason = "missing_evidence"
-        else:
+        if not _can_retrieve_more(qa, settings):
             route = "fallback"
             reason = "retrieve_more_limits_exhausted"
+        elif not _has_retrieval_path(qa):
+            # Do not burn another round on duplicates / incomplete re-fetch.
+            qa.retrieval_state.no_progress = True
+            qa.retrieval_state.no_progress_reason = (
+                qa.retrieval_state.no_progress_reason or "no_credible_retrieval_path"
+            )
+            qa.metadata["no_retrieval_progress"] = True
+            qa.metadata["fallback_reason"] = "no_retrieval_progress"
+            if is_incomplete_source_gap(
+                result.missing_evidence or qa.pending_missing_evidence,
+                verification_issues=list(result.issues or []),
+            ) and (qa.draft_answer or qa.final_answer):
+                # Evidence-aware finalize with limitations (not max_rounds).
+                route = "fallback"
+                reason = "no_retrieval_progress_incomplete_source"
+            else:
+                route = "fallback"
+                reason = "no_retrieval_progress"
+        else:
+            route = "retrieve_more"
+            reason = "missing_evidence"
     else:
         route = "fallback"
         reason = "unknown_recommendation"
@@ -62,6 +84,10 @@ def route_after_verification(
     if route not in ALLOWED_ROUTES:
         route = "fallback"
         reason = "invalid_route"
+
+    if reason and reason.startswith("no_retrieval_progress"):
+        qa.metadata["fallback_reason"] = "no_retrieval_progress"
+        qa.metadata["termination_reason"] = reason
 
     next_node = {
         "finish": "finish",
@@ -85,6 +111,7 @@ def route_after_verification(
                 m.model_dump() if hasattr(m, "model_dump") else m
                 for m in ((result.missing_evidence if result else []) or [])
             ][:10],
+            "retrieval_metrics": qa.retrieval_state.metrics_snapshot(),
         }
         it["route"] = route_row
         trace.routes.append(route_row)
@@ -122,6 +149,33 @@ def _can_retrieve_more(qa, settings: Settings) -> bool:
     if qa.tool_calls >= settings.agent_max_tool_calls:
         return False
     return True
+
+
+def _has_retrieval_path(qa) -> bool:
+    """Whether retrieve_more can execute a non-duplicate, goal-directed call."""
+    available = set(qa.selected_tools or []) | {
+        "search_curriculum",
+        "get_curriculum_structure",
+        "get_topic",
+        "get_learning_objectives",
+        "get_subject",
+    }
+    pending = qa.pending_missing_evidence or (
+        qa.verification.missing_evidence if qa.verification else []
+    )
+    issues = list(qa.verification.issues) if qa.verification else []
+    # Without a structured gap, do not burn another LLM-planned round.
+    if not pending:
+        return False
+    return has_credible_retrieval_path(
+        retrieval_state=qa.retrieval_state,
+        pending_missing=pending,
+        available_tools=available,
+        grade=qa.grade,
+        subject=qa.subject or qa.retrieval_state.resolved_subject,
+        topic=qa.topic,
+        verification_issues=issues,
+    )
 
 
 def validate_route(route: str) -> RouteName:

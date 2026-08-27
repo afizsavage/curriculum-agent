@@ -7,6 +7,7 @@ from uuid import uuid4
 
 from pydantic import BaseModel, Field
 
+from app.agent.retrieval_state import RetrievalState
 from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus, ToolCallRecord
 from app.enums import AgentStatus
 from app.schemas.answer import AnswerConfidence, AnswerEvidenceRef
@@ -52,6 +53,7 @@ class CurriculumQAState(BaseModel):
     retrieval_history: list[ToolCallRecord] = Field(default_factory=list)
     selected_tools: list[str] = Field(default_factory=list)
     executed_tool_keys: list[str] = Field(default_factory=list)
+    retrieval_state: RetrievalState = Field(default_factory=RetrievalState)
 
     draft_answer: Optional[str] = None
     final_answer: Optional[str] = None
@@ -95,6 +97,7 @@ class CurriculumQAState(BaseModel):
             retrieval_history=[],
             selected_tools=[],
             executed_tool_keys=[],
+            retrieval_state=RetrievalState(),
             plan=None,
             draft_answer=None,
             final_answer=None,
