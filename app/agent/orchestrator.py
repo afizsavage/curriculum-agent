@@ -115,6 +115,7 @@ class CurriculumQAAgent:
         *,
         conversation_id: str | None = None,
         request_id: str | None = None,
+        context_boundary_experiment: bool | None = None,
     ) -> CurriculumQAState:
         cleaned = (question or "").strip()
         if not cleaned:
@@ -142,6 +143,10 @@ class CurriculumQAAgent:
                     question=cleaned,
                     conversation_id=context.conversation_id,
                 )
+                if context_boundary_experiment is not None:
+                    state.metadata["context_boundary_experiment"] = (
+                        context_boundary_experiment
+                    )
                 context.append_user(cleaned)
                 self.nodes.bind_conversation(context)
 

@@ -8,6 +8,11 @@ from __future__ import annotations
 from typing import Literal
 
 from app.agent.graph_state import ALLOWED_ROUTES, GraphState
+from app.agent.context_boundary import (
+    context_boundary_experiment_enabled,
+    get_boundary,
+    missing_evidence_covered_by_boundary,
+)
 from app.agent.retrieval_state import (
     has_credible_retrieval_path,
     is_incomplete_source_gap,
@@ -18,7 +23,7 @@ from app.schemas.verification import VerificationRecommendation
 
 logger = get_logger(__name__)
 
-RouteName = Literal["finish", "retrieve_more", "clarify", "fallback"]
+RouteName = Literal["finish", "retrieve_more", "regenerate", "clarify", "fallback"]
 AfterPrepare = Literal["retrieve", "fallback"]
 
 
@@ -56,6 +61,18 @@ def route_after_verification(
         if not _can_retrieve_more(qa, settings):
             route = "fallback"
             reason = "retrieve_more_limits_exhausted"
+        elif _should_regenerate_with_boundary(qa, settings):
+            route = "regenerate"
+            reason = "evidence_already_present"
+            qa.metadata["regeneration_without_retrieval"] = True
+            qa.metadata["conservative_regeneration"] = True
+            qa.metadata["evidence_already_present"] = True
+            qa.metadata["retrieve_more_reason"] = (
+                (result.issues or [None])[0]
+                if result.issues
+                else "verifier_requested_more"
+            )
+            qa.pending_missing_evidence = []
         elif not _has_retrieval_path(qa):
             # Do not burn another round on duplicates / incomplete re-fetch.
             qa.retrieval_state.no_progress = True
@@ -92,6 +109,7 @@ def route_after_verification(
     next_node = {
         "finish": "finish",
         "retrieve_more": "prepare_cycle",
+        "regenerate": "generate_answer",
         "clarify": "clarify",
         "fallback": "fallback",
     }[route]
@@ -139,6 +157,22 @@ def route_after_verification(
         tool_calls=qa.tool_calls,
     )
     return route
+
+
+def _should_regenerate_with_boundary(qa, settings: Settings) -> bool:
+    if not context_boundary_experiment_enabled(settings, qa):
+        return False
+    boundary = get_boundary(qa.retrieval_state)
+    pending = qa.pending_missing_evidence or (
+        qa.verification.missing_evidence if qa.verification else []
+    )
+    if not missing_evidence_covered_by_boundary(
+        pending,
+        boundary=boundary,
+        evidence=qa.evidence,
+    ):
+        return False
+    return bool(boundary and boundary.context_resolved)
 
 
 def _can_retrieve_more(qa, settings: Settings) -> bool:

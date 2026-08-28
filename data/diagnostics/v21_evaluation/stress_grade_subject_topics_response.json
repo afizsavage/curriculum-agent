@@ -1,0 +1,534 @@
+{
+  "conversation_id": "89d56662-7645-4bf8-b474-27cd2602e9eb",
+  "question": "What topics are covered in Primary 4 Mathematics?",
+  "answer": "## Primary 4 Mathematics Topics\n\nBased on the retrieved curriculum evidence, the Primary 4 Mathematics curriculum is organized into the following units:\n\n### Number and Numeration\n- **Number and Numeration** (C4-U01, C4-U07, C4-U08, C4-U09, C4-U10)\n- **Reading and Writing** (C4-U02)\n- **Approximation** (C4-U03)\n- **Fractions** (C4-U04)\n- **Operations on Fractions** (C4-U05)\n- **Multiplication of Fractions** (C4-U06)\n\n### Everyday Arithmetic\n- **Addition and Subtraction** (C4-U11, C4-U16)\n- **Multiplication** (C4-U13)\n- **Division** (C4-U14)\n- **General Everyday Arithmetic** (C4-U15, C4-U17)\n- **Money** (C4-U18)\n- **Multiplication and Decimals** (C4-U19)\n\n### Measurement and Estimation\n- **Length** (C4-U20, C4-U21)\n- **General Measurement and Estimation** (C4-U22, C4-U23, C4-U24)\n- **Geometry: Lines and Angles** (C4-U25)\n\n**Note:** The evidence provided does not include detailed learning objectives or specific sub-topics within each unit. For a complete breakdown of topics and objectives, please refer to the official MBSSE Primary 4 Mathematics curriculum document.\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+  "status": "insufficient_evidence",
+  "clarification": null,
+  "evidence": [
+    {
+      "entity_type": "unit",
+      "entity_id": "f293e00a-bae7-44db-ad55-3c1263e20387",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+      "name": "Number and Numeration Reading And Writing",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration Reading And Writing"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+      "name": "Number and Numeration. Approximation.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration. Approximation."
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "name": "Number and Numeration FRACTION",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration FRACTION"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+      "name": "Number and Numeration OPERATION ON FRACTIONS.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration OPERATION ON FRACTIONS."
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+      "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration Operation on Fraction. (Multiplication)"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "c148074c-fac8-4771-94de-01de1805f585",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "a06e3216-dd97-4d5f-af49-f1afec6def85",
+      "name": "Everyday Arithmetic Addition and Subtraction",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Addition and Subtraction"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+      "name": "Everyday Arithmetic Multiplication",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Multiplication"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "152b4a5a-c080-403c-a780-9940c818bc4b",
+      "name": "Everyday Arithmetic DIVISION",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic DIVISION"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+      "name": "Everyday Arithmetic",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "13202e14-75a9-455e-9f58-baad27d672b4",
+      "name": "Everyday Arithmetic Addition and Subtraction.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Addition and Subtraction."
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+      "name": "Everyday Arithmetic",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "name": "Everyday Arithmetic Money",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Money"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+      "name": "Everyday Arithmetic Multiplication and Decimal.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Multiplication and Decimal."
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "6252f434-14ed-42cc-8415-ea870de24273",
+      "name": "Measurement And Estimation LENGTH",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement And Estimation LENGTH"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "6ec53325-5983-421a-8b3e-9690e6da159f",
+      "name": "Measurement And Estimation LENGTH",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement And Estimation LENGTH"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+      "name": "Measurement and Estimation.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation."
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+      "name": "Measurement and Estimation",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+      "name": "Measurement and Estimation",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+      "name": "Measurement and Estimation GEOMETRY Lines and Angles",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation GEOMETRY Lines and Angles"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "36924334-8856-4c53-8f48-d4e6eed8cf12",
+      "name": "Measurement and Estimation Time",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation Time"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "00d27bae-413d-4841-9a1b-23020b50567d",
+      "name": "STATISTICS Data Collection Plan",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "STATISTICS Data Collection Plan"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "b1587bd8-a2da-493e-8872-4b404108c235",
+      "name": "Unit 28",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Unit 28"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "a28da8ec-ad58-466b-84fe-152e7a3affcd",
+      "name": "C4U26-LO01",
+      "grade": null,
+      "subject": null,
+      "topic": "36924334-8856-4c53-8f48-d4e6eed8cf12"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "1a44d9e9-4e7b-463b-aea5-d58429466b99",
+      "name": "C4U26-LO02",
+      "grade": null,
+      "subject": null,
+      "topic": "36924334-8856-4c53-8f48-d4e6eed8cf12"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "eae4e74f-2324-42ea-8661-c235686e287e",
+      "name": "C4U26-LO03",
+      "grade": null,
+      "subject": null,
+      "topic": "36924334-8856-4c53-8f48-d4e6eed8cf12"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "4f9f24d8-675c-4389-a5b0-4d5c676904f1",
+      "name": "C4U26-LO04",
+      "grade": null,
+      "subject": null,
+      "topic": "36924334-8856-4c53-8f48-d4e6eed8cf12"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "ebdc958d-124b-44e1-8d6e-43bcc8d16c8a",
+      "name": "C4U26-LO05",
+      "grade": null,
+      "subject": null,
+      "topic": "36924334-8856-4c53-8f48-d4e6eed8cf12"
+    }
+  ],
+  "answer_evidence": [
+    {
+      "entity_id": "f293e00a-bae7-44db-ad55-3c1263e20387",
+      "entity_type": "unit",
+      "claim": "Unit 'Number and Numeration' exists in Primary 4 Mathematics.",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_id": "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+      "entity_type": "unit",
+      "claim": "Unit 'Number and Numeration Reading And Writing' exists in Primary 4 Mathematics.",
+      "name": "Number and Numeration Reading And Writing",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration Reading And Writing"
+    },
+    {
+      "entity_id": "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+      "entity_type": "unit",
+      "claim": "Unit 'Number and Numeration. Approximation.' exists in Primary 4 Mathematics.",
+      "name": "Number and Numeration. Approximation.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration. Approximation."
+    },
+    {
+      "entity_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "entity_type": "unit",
+      "claim": "Unit 'Number and Numeration FRACTION' exists in Primary 4 Mathematics.",
+      "name": "Number and Numeration FRACTION",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration FRACTION"
+    },
+    {
+      "entity_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+      "entity_type": "unit",
+      "claim": "Unit 'Number and Numeration OPERATION ON FRACTIONS.' exists in Primary 4 Mathematics.",
+      "name": "Number and Numeration OPERATION ON FRACTIONS.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration OPERATION ON FRACTIONS."
+    },
+    {
+      "entity_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+      "entity_type": "unit",
+      "claim": "Unit 'Number and Numeration Operation on Fraction. (Multiplication)' exists in Primary 4 Mathematics.",
+      "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration Operation on Fraction. (Multiplication)"
+    },
+    {
+      "entity_id": "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+      "entity_type": "unit",
+      "claim": "Unit 'Number and Numeration' exists in Primary 4 Mathematics.",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_id": "c148074c-fac8-4771-94de-01de1805f585",
+      "entity_type": "unit",
+      "claim": "Unit 'Number and Numeration' exists in Primary 4 Mathematics.",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_id": "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+      "entity_type": "unit",
+      "claim": "Unit 'Number and Numeration' exists in Primary 4 Mathematics.",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_id": "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+      "entity_type": "unit",
+      "claim": "Unit 'Number and Numeration' exists in Primary 4 Mathematics.",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_id": "a06e3216-dd97-4d5f-af49-f1afec6def85",
+      "entity_type": "unit",
+      "claim": "Unit 'Everyday Arithmetic Addition and Subtraction' exists in Primary 4 Mathematics.",
+      "name": "Everyday Arithmetic Addition and Subtraction",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Addition and Subtraction"
+    },
+    {
+      "entity_id": "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+      "entity_type": "unit",
+      "claim": "Unit 'Everyday Arithmetic Multiplication' exists in Primary 4 Mathematics.",
+      "name": "Everyday Arithmetic Multiplication",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Multiplication"
+    },
+    {
+      "entity_id": "152b4a5a-c080-403c-a780-9940c818bc4b",
+      "entity_type": "unit",
+      "claim": "Unit 'Everyday Arithmetic DIVISION' exists in Primary 4 Mathematics.",
+      "name": "Everyday Arithmetic DIVISION",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic DIVISION"
+    },
+    {
+      "entity_id": "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+      "entity_type": "unit",
+      "claim": "Unit 'Everyday Arithmetic' exists in Primary 4 Mathematics.",
+      "name": "Everyday Arithmetic",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic"
+    },
+    {
+      "entity_id": "13202e14-75a9-455e-9f58-baad27d672b4",
+      "entity_type": "unit",
+      "claim": "Unit 'Everyday Arithmetic Addition and Subtraction.' exists in Primary 4 Mathematics.",
+      "name": "Everyday Arithmetic Addition and Subtraction.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Addition and Subtraction."
+    },
+    {
+      "entity_id": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+      "entity_type": "unit",
+      "claim": "Unit 'Everyday Arithmetic' exists in Primary 4 Mathematics.",
+      "name": "Everyday Arithmetic",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic"
+    },
+    {
+      "entity_id": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "entity_type": "unit",
+      "claim": "Unit 'Everyday Arithmetic Money' exists in Primary 4 Mathematics.",
+      "name": "Everyday Arithmetic Money",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Money"
+    },
+    {
+      "entity_id": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+      "entity_type": "unit",
+      "claim": "Unit 'Everyday Arithmetic Multiplication and Decimal.' exists in Primary 4 Mathematics.",
+      "name": "Everyday Arithmetic Multiplication and Decimal.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Multiplication and Decimal."
+    },
+    {
+      "entity_id": "6252f434-14ed-42cc-8415-ea870de24273",
+      "entity_type": "unit",
+      "claim": "Unit 'Measurement And Estimation LENGTH' exists in Primary 4 Mathematics.",
+      "name": "Measurement And Estimation LENGTH",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement And Estimation LENGTH"
+    },
+    {
+      "entity_id": "6ec53325-5983-421a-8b3e-9690e6da159f",
+      "entity_type": "unit",
+      "claim": "Unit 'Measurement And Estimation LENGTH' exists in Primary 4 Mathematics.",
+      "name": "Measurement And Estimation LENGTH",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement And Estimation LENGTH"
+    },
+    {
+      "entity_id": "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+      "entity_type": "unit",
+      "claim": "Unit 'Measurement and Estimation.' exists in Primary 4 Mathematics.",
+      "name": "Measurement and Estimation.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation."
+    },
+    {
+      "entity_id": "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+      "entity_type": "unit",
+      "claim": "Unit 'Measurement and Estimation' exists in Primary 4 Mathematics.",
+      "name": "Measurement and Estimation",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation"
+    },
+    {
+      "entity_id": "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+      "entity_type": "unit",
+      "claim": "Unit 'Measurement and Estimation' exists in Primary 4 Mathematics.",
+      "name": "Measurement and Estimation",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation"
+    },
+    {
+      "entity_id": "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+      "entity_type": "unit",
+      "claim": "Unit 'Measurement and Estimation GEOMETRY Lines and Angles' exists in Primary 4 Mathematics.",
+      "name": "Measurement and Estimation GEOMETRY Lines and Angles",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation GEOMETRY Lines and Angles"
+    }
+  ],
+  "confidence": "low",
+  "limitations": [
+    "The evidence provides unit names only; detailed learning objectives and sub-topics are not included.",
+    "Some units have identical names (e.g., 'Number and Numeration', 'Everyday Arithmetic', 'Measurement and Estimation') which may represent different sub-topics or lessons, but the evidence does not specify their content.",
+    "The evidence is partial; 8 additional records were omitted and may contain further units or details.",
+    "The generated answer includes a claim about 'General Everyday Arithmetic' (C4-U15, C4-U17) which is not explicitly supported by the evidence; the evidence shows units named 'Everyday Arithmetic' without the 'General' qualifier.",
+    "The generated answer includes a claim about 'General Measurement and Estimation' (C4-U22, C4-U23, C4-U24) which is not explicitly supported; the evidence shows units named 'Measurement and Estimation' without the 'General' qualifier.",
+    "The generated answer omits the unit 'Everyday Arithmetic Multiplication and Decimal' (C4-U19) from the 'Everyday Arithmetic' section, though it is present in the evidence.",
+    "The generated answer includes a note that detailed learning objectives are not provided, which is accurate based on the evidence, but the answer could be more complete by listing all units explicitly.",
+    "Further retrieval would only repeat known or incomplete curriculum records; no new targeted evidence path remained."
+  ],
+  "verification": {
+    "passed": false,
+    "score": 0.9,
+    "recommendation": "retrieve_more",
+    "issues": [
+      "The generated answer includes a claim about 'General Everyday Arithmetic' (C4-U15, C4-U17) which is not explicitly supported by the evidence; the evidence shows units named 'Everyday Arithmetic' without the 'General' qualifier.",
+      "The generated answer includes a claim about 'General Measurement and Estimation' (C4-U22, C4-U23, C4-U24) which is not explicitly supported; the evidence shows units named 'Measurement and Estimation' without the 'General' qualifier.",
+      "The generated answer omits the unit 'Everyday Arithmetic Multiplication and Decimal' (C4-U19) from the 'Everyday Arithmetic' section, though it is present in the evidence.",
+      "The generated answer includes a note that detailed learning objectives are not provided, which is accurate based on the evidence, but the answer could be more complete by listing all units explicitly."
+    ]
+  },
+  "metadata": {
+    "iterations": 1,
+    "tool_calls": 4,
+    "tools_used": [
+      "get_curriculum_structure",
+      "resolve_curriculum_context",
+      "search_curriculum",
+      "get_learning_objectives"
+    ],
+    "evidence_status": "found",
+    "evidence_count": 32,
+    "model": "deepseek-v4-flash",
+    "provider": "deepseek",
+    "retrieval_rounds": 1,
+    "verification_attempts": 1,
+    "verification_status": "insufficient_evidence",
+    "graph_run_id": "ecd41cd8-4d99-4da3-9add-d684d42d6652",
+    "visited_nodes": [
+      "understand",
+      "prepare_cycle",
+      "retrieve",
+      "generate_answer",
+      "verify_answer",
+      "fallback"
+    ],
+    "agent_run_id": "run-84d70a71283e4e72",
+    "termination_reason": "no_retrieval_progress"
+  },
+  "error": null
+}

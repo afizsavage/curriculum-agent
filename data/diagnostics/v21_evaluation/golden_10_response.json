@@ -1,0 +1,478 @@
+{
+  "conversation_id": "8c9b1872-3273-44f2-8155-2715bfaac363",
+  "question": "What are the learning objectives for fractions in Primary 4?",
+  "answer": "## Learning Objectives for Fractions in Primary 4 (Mathematics)\n\nThe Primary 4 Mathematics curriculum addresses fractions across three units. The learning outcomes are organized as follows:\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators.\n- **C4U04-LO02**: Compare and order like fractions.\n- **C4U04-LO03**: Identify equivalent fractions.\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than (the outcome text is partially truncated).\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions.\n- **C4U05-LO02**: Subtract equivalent fractions.\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions.\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions.\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions.\n- **C4U06-LO02**: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to (the outcome text is duplicated/truncated).\n\n### Summary for Teachers\n- **Foundation (C4-U04)**: Focus on simplifying, comparing, ordering, identifying, and relating fractions.\n- **Operations (C4-U05)**: Addition and subtraction of equivalent fractions, including word problems.\n- **Multiplication (C4-U06)**: Multiplying equivalent fractions and related/like fractions.\n\nNote: The exact denominator limits for some outcomes (e.g., C4U04-LO04, C4U06-LO02) are not fully specified in the evidence due to truncation.\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+  "status": "insufficient_evidence",
+  "clarification": null,
+  "evidence": [
+    {
+      "entity_type": "unit",
+      "entity_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "name": "Number and Numeration FRACTION",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration FRACTION"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+      "name": "Number and Numeration OPERATION ON FRACTIONS.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration OPERATION ON FRACTIONS."
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+      "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration Operation on Fraction. (Multiplication)"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+      "name": "C4U05-LO01",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "ee43f087-3372-411e-9495-21859368099e",
+      "name": "C4U06-LO01",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+      "name": "C4U04-LO01",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+      "name": "C4U04-LO02",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+      "name": "C4U06-LO02",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+      "name": "C4U05-LO02",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "6926032f-39b7-4ad6-8278-085bae23318b",
+      "name": "C4U04-LO03",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+      "name": "C4U05-LO03",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+      "name": "C4U04-LO04",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+      "name": "C4U05-LO04",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "f293e00a-bae7-44db-ad55-3c1263e20387",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+      "name": "Number and Numeration Reading And Writing",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration Reading And Writing"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+      "name": "Number and Numeration. Approximation.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration. Approximation."
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "c148074c-fac8-4771-94de-01de1805f585",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+      "name": "Number and Numeration",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "a06e3216-dd97-4d5f-af49-f1afec6def85",
+      "name": "Everyday Arithmetic Addition and Subtraction",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Addition and Subtraction"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+      "name": "Everyday Arithmetic Multiplication",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Multiplication"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "152b4a5a-c080-403c-a780-9940c818bc4b",
+      "name": "Everyday Arithmetic DIVISION",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic DIVISION"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+      "name": "Everyday Arithmetic",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "13202e14-75a9-455e-9f58-baad27d672b4",
+      "name": "Everyday Arithmetic Addition and Subtraction.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Addition and Subtraction."
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+      "name": "Everyday Arithmetic",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "name": "Everyday Arithmetic Money",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Money"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+      "name": "Everyday Arithmetic Multiplication and Decimal.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Everyday Arithmetic Multiplication and Decimal."
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "6252f434-14ed-42cc-8415-ea870de24273",
+      "name": "Measurement And Estimation LENGTH",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement And Estimation LENGTH"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "6ec53325-5983-421a-8b3e-9690e6da159f",
+      "name": "Measurement And Estimation LENGTH",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement And Estimation LENGTH"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+      "name": "Measurement and Estimation.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation."
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+      "name": "Measurement and Estimation",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+      "name": "Measurement and Estimation",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+      "name": "Measurement and Estimation GEOMETRY Lines and Angles",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation GEOMETRY Lines and Angles"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "36924334-8856-4c53-8f48-d4e6eed8cf12",
+      "name": "Measurement and Estimation Time",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Measurement and Estimation Time"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "00d27bae-413d-4841-9a1b-23020b50567d",
+      "name": "STATISTICS Data Collection Plan",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "STATISTICS Data Collection Plan"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "b1587bd8-a2da-493e-8872-4b404108c235",
+      "name": "Unit 28",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Unit 28"
+    }
+  ],
+  "answer_evidence": [
+    {
+      "entity_id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+      "entity_type": "learning_outcome",
+      "claim": "C4U04-LO01: Simplify like fraction with common denominators.",
+      "name": "C4U04-LO01",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+      "entity_type": "learning_outcome",
+      "claim": "C4U04-LO02: Compare and order like fraction.",
+      "name": "C4U04-LO02",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_id": "6926032f-39b7-4ad6-8278-085bae23318b",
+      "entity_type": "learning_outcome",
+      "claim": "C4U04-LO03: Identify Equivalent fractions.",
+      "name": "C4U04-LO03",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+      "entity_type": "learning_outcome",
+      "claim": "C4U04-LO04: Relate fractions with denominators up to compare equivalent fraction greater than (truncated).",
+      "name": "C4U04-LO04",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+      "entity_type": "learning_outcome",
+      "claim": "C4U05-LO01: Add Equivalent fractions.",
+      "name": "C4U05-LO01",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+      "entity_type": "learning_outcome",
+      "claim": "C4U05-LO02: Subtract Equivalent fractions.",
+      "name": "C4U05-LO02",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+      "entity_type": "learning_outcome",
+      "claim": "C4U05-LO03: Solve both Addition and Subtraction of Equivalent fractions.",
+      "name": "C4U05-LO03",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+      "entity_type": "learning_outcome",
+      "claim": "C4U05-LO04: Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+      "name": "C4U05-LO04",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_id": "ee43f087-3372-411e-9495-21859368099e",
+      "entity_type": "learning_outcome",
+      "claim": "C4U06-LO01: Multiply equivalent fractions.",
+      "name": "C4U06-LO01",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+    },
+    {
+      "entity_id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+      "entity_type": "learning_outcome",
+      "claim": "C4U06-LO02: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to (truncated/duplicated).",
+      "name": "C4U06-LO02",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+    },
+    {
+      "entity_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "entity_type": "unit",
+      "claim": "Unit C4-U04: Number and Numeration FRACTION.",
+      "name": "Number and Numeration FRACTION",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration FRACTION"
+    },
+    {
+      "entity_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+      "entity_type": "unit",
+      "claim": "Unit C4-U05: Number and Numeration OPERATION ON FRACTIONS.",
+      "name": "Number and Numeration OPERATION ON FRACTIONS.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration OPERATION ON FRACTIONS."
+    },
+    {
+      "entity_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+      "entity_type": "unit",
+      "claim": "Unit C4-U06: Number and Numeration Operation on Fraction. (Multiplication).",
+      "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration Operation on Fraction. (Multiplication)"
+    }
+  ],
+  "confidence": "low",
+  "limitations": [
+    "Some learning outcome texts are truncated or duplicated in the evidence (e.g., C4U04-LO04 and C4U06-LO02), so the exact denominator limits or full wording are not available.",
+    "The evidence does not specify the exact denominators or the scope of 'related fractions' beyond the truncated text.",
+    "The evidence does not include any assessment criteria or teaching notes for these objectives.",
+    "The generated answer includes a claim about 'Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)' with a duplicated/truncated outcome text for C4U06-LO02, which is accurately reflected from the evidence but the evidence itself is truncated, so the full learning objective is not verifiable.",
+    "The generated answer notes that some outcome texts are truncated, which is accurate but means the full objectives for C4U04-LO04 and C4U06-LO02 are not fully supported by the evidence.",
+    "The evidence for C4U04-LO04 is truncated: 'Relate fractions with denominators up to compare equivalent fraction greater than'. The complete learning objective is not available.",
+    "The evidence for C4U06-LO02 is duplicated and truncated: 'Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to'. The complete learning objective is not available.",
+    "Further retrieval would only repeat known or incomplete curriculum records; no new targeted evidence path remained."
+  ],
+  "verification": {
+    "passed": false,
+    "score": 0.9,
+    "recommendation": "retrieve_more",
+    "issues": [
+      "The generated answer includes a claim about 'Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)' with a duplicated/truncated outcome text for C4U06-LO02, which is accurately reflected from the evidence but the evidence itself is truncated, so the full learning objective is not verifiable.",
+      "The generated answer notes that some outcome texts are truncated, which is accurate but means the full objectives for C4U04-LO04 and C4U06-LO02 are not fully supported by the evidence."
+    ]
+  },
+  "metadata": {
+    "iterations": 2,
+    "tool_calls": 5,
+    "tools_used": [
+      "resolve_curriculum_context",
+      "search_curriculum",
+      "get_curriculum_structure",
+      "get_learning_objectives"
+    ],
+    "evidence_status": "found",
+    "evidence_count": 37,
+    "model": "deepseek-v4-flash",
+    "provider": "deepseek",
+    "retrieval_rounds": 2,
+    "verification_attempts": 2,
+    "verification_status": "insufficient_evidence",
+    "graph_run_id": "b35bad38-838c-44f6-89cd-950a0a112fc7",
+    "visited_nodes": [
+      "understand",
+      "prepare_cycle",
+      "retrieve",
+      "generate_answer",
+      "verify_answer",
+      "prepare_cycle",
+      "retrieve",
+      "generate_answer",
+      "verify_answer",
+      "prepare_cycle",
+      "fallback"
+    ],
+    "agent_run_id": "run-41d9a68b158648a4",
+    "termination_reason": "no_retrieval_progress"
+  },
+  "error": null
+}

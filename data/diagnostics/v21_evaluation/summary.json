@@ -1,0 +1,3014 @@
+{
+  "generated_at": "2026-08-28T01:32:12.618929+00:00",
+  "constraints": {
+    "schema_changes": false,
+    "migrations": false,
+    "verifier_changes": false,
+    "retrieval_limit_changes": false,
+    "graph_redesign": false,
+    "prompt_redesign": false
+  },
+  "golden_question": "What are the learning objectives for fractions in Primary 4?",
+  "baseline_run_ids": [
+    "run-ed19de4bcebd4a2f",
+    "run-fbb36688ba17480f",
+    "run-df4cdd1da0bb45e8",
+    "run-5df89dbf77e74152",
+    "run-68f2aa1ce8734ae2"
+  ],
+  "baseline_rows": [
+    {
+      "run": 1,
+      "agent_run_id": "run-ed19de4bcebd4a2f",
+      "status": "insufficient_evidence",
+      "latency_ms": 92162.61,
+      "iterations": 3,
+      "tool_calls": 10,
+      "evidence_count": 42,
+      "verification_score": 0.85,
+      "recommendation": "retrieve_more",
+      "termination_reason": "max_retrieval_rounds",
+      "llm_counts": {
+        "total": 11,
+        "understand": 0,
+        "retrieval": 5,
+        "generation": 3,
+        "verification": 3,
+        "other": 0
+      },
+      "phase_timings_ms": {
+        "understand": 1.88,
+        "routing": 17.15,
+        "retrieval": 22779.86,
+        "generation": 36456.24,
+        "verification": 32756.71
+      },
+      "tool_seq": [
+        "1. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\"}",
+        "2. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"subject\": \"Mathematics\"}",
+        "3. search_curriculum args={\"grade\": \"CLASS_4\", \"query\": \"fractions\", \"subject\": \"Mathematics\"}",
+        "4. get_topic args={\"grade\": \"CLASS_4\", \"subject\": \"Mathematics\", \"topic\": \"fractions\"}",
+        "5. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\", \"subject\": \"Mathematics\"}",
+        "6. get_topic args={\"topic_id\": \"0f90b316-6be5-4b60-a2b1-2ac91a603d49\"}",
+        "7. get_topic args={\"topic_id\": \"c148074c-fac8-4771-94de-01de1805f585\"}",
+        "8. get_learning_objectives args={\"topic_id\": \"0f90b316-6be5-4b60-a2b1-2ac91a603d49\"}",
+        "9. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\"}",
+        "10. get_topic args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"fractions\"}"
+      ],
+      "understand": {
+        "intent": "retrieve_curriculum",
+        "grade": "CLASS_4",
+        "subject": null,
+        "topic": "fractions",
+        "level": "primary",
+        "requested_information": {
+          "grade": "CLASS_4",
+          "subject": null,
+          "level": "primary",
+          "topic": "fractions"
+        }
+      },
+      "iteration_growth": null
+    },
+    {
+      "run": 2,
+      "agent_run_id": "run-fbb36688ba17480f",
+      "status": "insufficient_evidence",
+      "latency_ms": 75223.81,
+      "iterations": 3,
+      "tool_calls": 10,
+      "evidence_count": 51,
+      "verification_score": 0.6,
+      "recommendation": "retrieve_more",
+      "termination_reason": "max_retrieval_rounds",
+      "llm_counts": {
+        "total": 12,
+        "understand": 0,
+        "retrieval": 6,
+        "generation": 3,
+        "verification": 3,
+        "other": 0
+      },
+      "phase_timings_ms": {
+        "understand": 0.64,
+        "routing": 7.41,
+        "retrieval": 21982.83,
+        "generation": 25458.66,
+        "verification": 27649.79
+      },
+      "tool_seq": [
+        "1. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\"}",
+        "2. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"level\": \"primary\"}",
+        "3. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"subject\": \"Mathematics\"}",
+        "4. get_subject args={\"grade\": \"CLASS_4\", \"subject\": \"Mathematics\"}",
+        "5. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\"}",
+        "6. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\", \"subject\": \"MATHEMATICS\"}",
+        "7. get_learning_objectives args={\"topic_id\": \"6b0d1465-d397-4b27-ba73-2696eeb5d3c5\"}",
+        "8. get_learning_objectives args={\"topic_id\": \"c148074c-fac8-4771-94de-01de1805f585\"}",
+        "9. get_topic args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"fractions\"}",
+        "10. get_learning_objectives args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"fractions\"}"
+      ],
+      "understand": {
+        "intent": "retrieve_curriculum",
+        "grade": "CLASS_4",
+        "subject": null,
+        "topic": "fractions",
+        "level": "primary",
+        "requested_information": {
+          "grade": "CLASS_4",
+          "subject": null,
+          "level": "primary",
+          "topic": "fractions"
+        }
+      },
+      "iteration_growth": null
+    },
+    {
+      "run": 3,
+      "agent_run_id": "run-df4cdd1da0bb45e8",
+      "status": "insufficient_evidence",
+      "latency_ms": 82278.71,
+      "iterations": 3,
+      "tool_calls": 10,
+      "evidence_count": 51,
+      "verification_score": 0.7,
+      "recommendation": "retrieve_more",
+      "termination_reason": "max_retrieval_rounds",
+      "llm_counts": {
+        "total": 12,
+        "understand": 0,
+        "retrieval": 6,
+        "generation": 3,
+        "verification": 3,
+        "other": 0
+      },
+      "phase_timings_ms": {
+        "understand": 0.64,
+        "routing": 3.2,
+        "retrieval": 21526.74,
+        "generation": 35770.14,
+        "verification": 24861.52
+      },
+      "tool_seq": [
+        "1. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\"}",
+        "2. get_curriculum_structure args={\"grade\": \"CLASS_4\"}",
+        "3. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\"}",
+        "4. get_subject args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\"}",
+        "5. search_curriculum args={\"grade\": \"CLASS_4\", \"query\": \"fractions\", \"subject\": \"MATHEMATICS\"}",
+        "6. get_learning_objectives args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"fractions\"}",
+        "7. get_topic args={\"topic_id\": \"6b0d1465-d397-4b27-ba73-2696eeb5d3c5\"}",
+        "8. get_topic args={\"topic_id\": \"c148074c-fac8-4771-94de-01de1805f585\"}",
+        "9. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\", \"subject\": \"MATHEMATICS\"}",
+        "10. get_topic args={\"topic_id\": \"0f90b316-6be5-4b60-a2b1-2ac91a603d49\"}"
+      ],
+      "understand": {
+        "intent": "retrieve_curriculum",
+        "grade": "CLASS_4",
+        "subject": null,
+        "topic": "fractions",
+        "level": "primary",
+        "requested_information": {
+          "grade": "CLASS_4",
+          "subject": null,
+          "level": "primary",
+          "topic": "fractions"
+        }
+      },
+      "iteration_growth": null
+    },
+    {
+      "run": 4,
+      "agent_run_id": "run-5df89dbf77e74152",
+      "status": "completed",
+      "latency_ms": 27098.83,
+      "iterations": 1,
+      "tool_calls": 4,
+      "evidence_count": 47,
+      "verification_score": 0.95,
+      "recommendation": "accept",
+      "termination_reason": "verification_passed",
+      "llm_counts": {
+        "total": 4,
+        "understand": 0,
+        "retrieval": 2,
+        "generation": 1,
+        "verification": 1,
+        "other": 0
+      },
+      "phase_timings_ms": {
+        "understand": 1.07,
+        "routing": 4.29,
+        "retrieval": 8559.41,
+        "generation": 10119.21,
+        "verification": 8311.22
+      },
+      "tool_seq": [
+        "1. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\"}",
+        "2. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"level\": \"primary\"}",
+        "3. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"subject\": \"MATHEMATICS\"}",
+        "4. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\", \"subject\": \"MATHEMATICS\"}"
+      ],
+      "understand": {
+        "intent": "retrieve_curriculum",
+        "grade": "CLASS_4",
+        "subject": null,
+        "topic": "fractions",
+        "level": "primary",
+        "requested_information": {
+          "grade": "CLASS_4",
+          "subject": null,
+          "level": "primary",
+          "topic": "fractions"
+        }
+      },
+      "iteration_growth": null
+    },
+    {
+      "run": 5,
+      "agent_run_id": "run-68f2aa1ce8734ae2",
+      "status": "completed",
+      "latency_ms": 56862.54,
+      "iterations": 2,
+      "tool_calls": 8,
+      "evidence_count": 57,
+      "verification_score": 0.95,
+      "recommendation": "accept",
+      "termination_reason": "verification_passed",
+      "llm_counts": {
+        "total": 8,
+        "understand": 0,
+        "retrieval": 4,
+        "generation": 2,
+        "verification": 2,
+        "other": 0
+      },
+      "phase_timings_ms": {
+        "understand": 0.63,
+        "routing": 2.08,
+        "retrieval": 18042.73,
+        "generation": 19457.05,
+        "verification": 19254.98
+      },
+      "tool_seq": [
+        "1. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\"}",
+        "2. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"level\": \"primary\"}",
+        "3. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"subject\": \"Mathematics\"}",
+        "4. search_curriculum args={\"grade\": \"CLASS_4\", \"level\": \"primary\", \"query\": \"fractions\", \"subject\": \"Mathematics\"}",
+        "5. get_curriculum_structure args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\"}",
+        "6. get_learning_objectives args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"fractions\"}",
+        "7. get_topic args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"C4-U09\"}",
+        "8. get_topic args={\"grade\": \"CLASS_4\", \"subject\": \"MATHEMATICS\", \"topic\": \"C4-U10\"}"
+      ],
+      "understand": {
+        "intent": "retrieve_curriculum",
+        "grade": "CLASS_4",
+        "subject": null,
+        "topic": "fractions",
+        "level": "primary",
+        "requested_information": {
+          "grade": "CLASS_4",
+          "subject": null,
+          "level": "primary",
+          "topic": "fractions"
+        }
+      },
+      "iteration_growth": null
+    }
+  ],
+  "baseline_summary": {
+    "n": 5,
+    "success_rate": 0.4,
+    "success_count": 2,
+    "avg_latency_ms": 66725.3,
+    "median_latency_ms": 75223.8,
+    "avg_tool_calls": 8.4,
+    "max_tool_calls": 10,
+    "retrieve_more_rate": 0.8,
+    "verifier_acceptance_rate": 0.4,
+    "note": "duplicate/zero-new metrics not fully present in baseline comparison.json; inferred from traces where available"
+  },
+  "resolver_probes": {
+    "default_grade_code": {
+      "params": {
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "fractions",
+        "curriculum_code": "MBSSE-BEC",
+        "version": "2020"
+      },
+      "api_latency_ms": 58.28,
+      "resolution": {
+        "status": "resolved",
+        "matched_by": {
+          "curriculum": "code+version",
+          "grade": "curriculum_grade_code+subject",
+          "subject": "code",
+          "topic": "name_or_code",
+          "unit": null
+        },
+        "message": null,
+        "authority": "grade_curriculum",
+        "query_timing_ms": 45.78,
+        "diagnostics": {
+          "requested_grade": "CLASS_4",
+          "requested_grade_id": null,
+          "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "curriculum_grade_code+subject"
+        }
+      },
+      "grade": {
+        "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "code": "CLASS_4",
+        "name": "Class 4"
+      },
+      "subject": {
+        "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+        "code": "MATHEMATICS",
+        "name": "Mathematics"
+      },
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "topics": [],
+      "units": [
+        {
+          "id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "code": "C4-U04",
+          "name": "Number and Numeration FRACTION",
+          "content_type": "UNIT"
+        },
+        {
+          "id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "code": "C4-U05",
+          "name": "Number and Numeration OPERATION ON FRACTIONS.",
+          "content_type": "UNIT"
+        },
+        {
+          "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "code": "C4-U06",
+          "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+          "content_type": "UNIT"
+        }
+      ],
+      "learning_outcomes": [
+        {
+          "id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+          "code": "C4U05-LO01",
+          "description": "Add Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "ee43f087-3372-411e-9495-21859368099e",
+          "code": "C4U06-LO01",
+          "description": "Multiply equivalent fractions.",
+          "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "parent_content_code": "C4-U06",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+          "code": "C4U04-LO01",
+          "description": "Simplify like fraction with common denominators.",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+          "code": "C4U04-LO02",
+          "description": "Compare and order like fraction.",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+          "code": "C4U06-LO02",
+          "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "parent_content_code": "C4-U06",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+          "code": "C4U05-LO02",
+          "description": "Subtract Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "6926032f-39b7-4ad6-8278-085bae23318b",
+          "code": "C4U04-LO03",
+          "description": "Identify Equivalent fractions.",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+          "code": "C4U05-LO03",
+          "description": "Solve both Addition and Subtraction of Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+          "code": "C4U04-LO04",
+          "description": "Relate fractions with denominators up to compare equivalent fraction greater than",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+          "code": "C4U05-LO04",
+          "description": "Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        }
+      ],
+      "candidates": [],
+      "unit_count": 3,
+      "lo_count": 10
+    },
+    "correct_grade_id": {
+      "params": {
+        "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "subject": "MATHEMATICS",
+        "topic": "fractions",
+        "curriculum_code": "MBSSE-BEC",
+        "version": "2020"
+      },
+      "api_latency_ms": 62.18,
+      "resolution": {
+        "status": "resolved",
+        "matched_by": {
+          "curriculum": "code+version",
+          "grade": "id",
+          "subject": "code",
+          "topic": "name_or_code",
+          "unit": null
+        },
+        "message": null,
+        "authority": "grade_curriculum",
+        "query_timing_ms": 49.4,
+        "diagnostics": {
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        }
+      },
+      "grade": {
+        "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "code": "CLASS_4",
+        "name": "Class 4"
+      },
+      "subject": {
+        "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+        "code": "MATHEMATICS",
+        "name": "Mathematics"
+      },
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "topics": [],
+      "units": [
+        {
+          "id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "code": "C4-U04",
+          "name": "Number and Numeration FRACTION",
+          "content_type": "UNIT"
+        },
+        {
+          "id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "code": "C4-U05",
+          "name": "Number and Numeration OPERATION ON FRACTIONS.",
+          "content_type": "UNIT"
+        },
+        {
+          "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "code": "C4-U06",
+          "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+          "content_type": "UNIT"
+        }
+      ],
+      "learning_outcomes": [
+        {
+          "id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+          "code": "C4U05-LO01",
+          "description": "Add Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "ee43f087-3372-411e-9495-21859368099e",
+          "code": "C4U06-LO01",
+          "description": "Multiply equivalent fractions.",
+          "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "parent_content_code": "C4-U06",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+          "code": "C4U04-LO01",
+          "description": "Simplify like fraction with common denominators.",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+          "code": "C4U04-LO02",
+          "description": "Compare and order like fraction.",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+          "code": "C4U06-LO02",
+          "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "parent_content_code": "C4-U06",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+          "code": "C4U05-LO02",
+          "description": "Subtract Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "6926032f-39b7-4ad6-8278-085bae23318b",
+          "code": "C4U04-LO03",
+          "description": "Identify Equivalent fractions.",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+          "code": "C4U05-LO03",
+          "description": "Solve both Addition and Subtraction of Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+          "code": "C4U04-LO04",
+          "description": "Relate fractions with denominators up to compare equivalent fraction greater than",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+          "code": "C4U05-LO04",
+          "description": "Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        }
+      ],
+      "candidates": [],
+      "unit_count": 3,
+      "lo_count": 10
+    },
+    "missing_subject": {
+      "params": {
+        "grade": "CLASS_4",
+        "topic": "fractions",
+        "curriculum_code": "MBSSE-BEC",
+        "version": "2020"
+      },
+      "api_latency_ms": 191.3,
+      "resolution": {
+        "status": "resolved",
+        "matched_by": {
+          "curriculum": "id",
+          "grade": "id",
+          "subject": "id",
+          "topic": "name_or_code",
+          "unit": null
+        },
+        "message": null,
+        "authority": "grade_curriculum",
+        "query_timing_ms": 32.59,
+        "diagnostics": {
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        }
+      },
+      "grade": {
+        "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "code": "CLASS_4",
+        "name": "Class 4"
+      },
+      "subject": {
+        "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+        "code": "MATHEMATICS",
+        "name": "Mathematics"
+      },
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "topics": [],
+      "units": [
+        {
+          "id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "code": "C4-U04",
+          "name": "Number and Numeration FRACTION",
+          "content_type": "UNIT"
+        },
+        {
+          "id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "code": "C4-U05",
+          "name": "Number and Numeration OPERATION ON FRACTIONS.",
+          "content_type": "UNIT"
+        },
+        {
+          "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "code": "C4-U06",
+          "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+          "content_type": "UNIT"
+        }
+      ],
+      "learning_outcomes": [
+        {
+          "id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+          "code": "C4U05-LO01",
+          "description": "Add Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "ee43f087-3372-411e-9495-21859368099e",
+          "code": "C4U06-LO01",
+          "description": "Multiply equivalent fractions.",
+          "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "parent_content_code": "C4-U06",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+          "code": "C4U04-LO01",
+          "description": "Simplify like fraction with common denominators.",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+          "code": "C4U04-LO02",
+          "description": "Compare and order like fraction.",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+          "code": "C4U06-LO02",
+          "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "parent_content_code": "C4-U06",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+          "code": "C4U05-LO02",
+          "description": "Subtract Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "6926032f-39b7-4ad6-8278-085bae23318b",
+          "code": "C4U04-LO03",
+          "description": "Identify Equivalent fractions.",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+          "code": "C4U05-LO03",
+          "description": "Solve both Addition and Subtraction of Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+          "code": "C4U04-LO04",
+          "description": "Relate fractions with denominators up to compare equivalent fraction greater than",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+          "code": "C4U05-LO04",
+          "description": "Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        }
+      ],
+      "candidates": [],
+      "unit_count": 3,
+      "lo_count": 10
+    },
+    "missing_subject_correct_grade_id": {
+      "params": {
+        "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "topic": "fractions",
+        "curriculum_code": "MBSSE-BEC",
+        "version": "2020"
+      },
+      "api_latency_ms": 204.21,
+      "resolution": {
+        "status": "resolved",
+        "matched_by": {
+          "curriculum": "id",
+          "grade": "id",
+          "subject": "id",
+          "topic": "name_or_code",
+          "unit": null
+        },
+        "message": null,
+        "authority": "grade_curriculum",
+        "query_timing_ms": 47.62,
+        "diagnostics": {
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        }
+      },
+      "grade": {
+        "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "code": "CLASS_4",
+        "name": "Class 4"
+      },
+      "subject": {
+        "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+        "code": "MATHEMATICS",
+        "name": "Mathematics"
+      },
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "topics": [],
+      "units": [
+        {
+          "id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "code": "C4-U04",
+          "name": "Number and Numeration FRACTION",
+          "content_type": "UNIT"
+        },
+        {
+          "id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "code": "C4-U05",
+          "name": "Number and Numeration OPERATION ON FRACTIONS.",
+          "content_type": "UNIT"
+        },
+        {
+          "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "code": "C4-U06",
+          "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+          "content_type": "UNIT"
+        }
+      ],
+      "learning_outcomes": [
+        {
+          "id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+          "code": "C4U05-LO01",
+          "description": "Add Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "ee43f087-3372-411e-9495-21859368099e",
+          "code": "C4U06-LO01",
+          "description": "Multiply equivalent fractions.",
+          "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "parent_content_code": "C4-U06",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+          "code": "C4U04-LO01",
+          "description": "Simplify like fraction with common denominators.",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+          "code": "C4U04-LO02",
+          "description": "Compare and order like fraction.",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+          "code": "C4U06-LO02",
+          "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "parent_content_code": "C4-U06",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+          "code": "C4U05-LO02",
+          "description": "Subtract Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "6926032f-39b7-4ad6-8278-085bae23318b",
+          "code": "C4U04-LO03",
+          "description": "Identify Equivalent fractions.",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+          "code": "C4U05-LO03",
+          "description": "Solve both Addition and Subtraction of Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+          "code": "C4U04-LO04",
+          "description": "Relate fractions with denominators up to compare equivalent fraction greater than",
+          "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "parent_content_code": "C4-U04",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+          "code": "C4U05-LO04",
+          "description": "Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "parent_content_code": "C4-U05",
+          "has_provenance": true,
+          "evidence_quality": null
+        }
+      ],
+      "candidates": [],
+      "unit_count": 3,
+      "lo_count": 10
+    },
+    "unknown_topic": {
+      "params": {
+        "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "subject": "MATHEMATICS",
+        "topic": "quantum computing",
+        "curriculum_code": "MBSSE-BEC",
+        "version": "2020"
+      },
+      "api_latency_ms": 80.87,
+      "resolution": {
+        "status": "not_found",
+        "matched_by": {
+          "curriculum": "code+version",
+          "grade": "id",
+          "subject": "code",
+          "topic": "name_or_code",
+          "unit": null
+        },
+        "message": "No curriculum content matched 'quantum computing' under this grade/subject",
+        "authority": "grade_curriculum",
+        "query_timing_ms": 59.97,
+        "diagnostics": {
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        }
+      },
+      "grade": {
+        "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "code": "CLASS_4",
+        "name": "Class 4"
+      },
+      "subject": {
+        "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+        "code": "MATHEMATICS",
+        "name": "Mathematics"
+      },
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "topics": [],
+      "units": [],
+      "learning_outcomes": [],
+      "candidates": [],
+      "unit_count": 0,
+      "lo_count": 0
+    },
+    "c4u06_code": {
+      "params": {
+        "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "subject": "MATHEMATICS",
+        "topic": "C4U06",
+        "curriculum_code": "MBSSE-BEC",
+        "version": "2020"
+      },
+      "api_latency_ms": 103.79,
+      "resolution": {
+        "status": "resolved",
+        "matched_by": {
+          "curriculum": "code+version",
+          "grade": "id",
+          "subject": "code",
+          "topic": "name_or_code",
+          "unit": null
+        },
+        "message": null,
+        "authority": "grade_curriculum",
+        "query_timing_ms": 66.29,
+        "diagnostics": {
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        }
+      },
+      "grade": {
+        "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "code": "CLASS_4",
+        "name": "Class 4"
+      },
+      "subject": {
+        "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+        "code": "MATHEMATICS",
+        "name": "Mathematics"
+      },
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "topics": [],
+      "units": [
+        {
+          "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "code": "C4-U06",
+          "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+          "content_type": "UNIT"
+        }
+      ],
+      "learning_outcomes": [
+        {
+          "id": "ee43f087-3372-411e-9495-21859368099e",
+          "code": "C4U06-LO01",
+          "description": "Multiply equivalent fractions.",
+          "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "parent_content_code": "C4-U06",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+          "code": "C4U06-LO02",
+          "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "parent_content_code": "C4-U06",
+          "has_provenance": true,
+          "evidence_quality": null
+        }
+      ],
+      "candidates": [],
+      "unit_count": 1,
+      "lo_count": 2
+    },
+    "c4-u06_code": {
+      "params": {
+        "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "subject": "MATHEMATICS",
+        "topic": "C4-U06",
+        "curriculum_code": "MBSSE-BEC",
+        "version": "2020"
+      },
+      "api_latency_ms": 98.09,
+      "resolution": {
+        "status": "resolved",
+        "matched_by": {
+          "curriculum": "code+version",
+          "grade": "id",
+          "subject": "code",
+          "topic": "name_or_code",
+          "unit": null
+        },
+        "message": null,
+        "authority": "grade_curriculum",
+        "query_timing_ms": 74.47,
+        "diagnostics": {
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        }
+      },
+      "grade": {
+        "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "code": "CLASS_4",
+        "name": "Class 4"
+      },
+      "subject": {
+        "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+        "code": "MATHEMATICS",
+        "name": "Mathematics"
+      },
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "topics": [],
+      "units": [
+        {
+          "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "code": "C4-U06",
+          "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+          "content_type": "UNIT"
+        }
+      ],
+      "learning_outcomes": [
+        {
+          "id": "ee43f087-3372-411e-9495-21859368099e",
+          "code": "C4U06-LO01",
+          "description": "Multiply equivalent fractions.",
+          "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "parent_content_code": "C4-U06",
+          "has_provenance": true,
+          "evidence_quality": null
+        },
+        {
+          "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+          "code": "C4U06-LO02",
+          "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "parent_content_code": "C4-U06",
+          "has_provenance": true,
+          "evidence_quality": null
+        }
+      ],
+      "candidates": [],
+      "unit_count": 1,
+      "lo_count": 2
+    }
+  },
+  "authoritative_fraction": {
+    "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+    "fraction_units": [
+      {
+        "id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "code": "C4-U04",
+        "name": "Number and Numeration FRACTION",
+        "content_type": "UNIT",
+        "learning_outcomes": [
+          {
+            "id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+            "code": "C4U04-LO01",
+            "description": "Simplify like fraction with common denominators."
+          },
+          {
+            "id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+            "code": "C4U04-LO02",
+            "description": "Compare and order like fraction."
+          },
+          {
+            "id": "6926032f-39b7-4ad6-8278-085bae23318b",
+            "code": "C4U04-LO03",
+            "description": "Identify Equivalent fractions."
+          },
+          {
+            "id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+            "code": "C4U04-LO04",
+            "description": "Relate fractions with denominators up to compare equivalent fraction greater than"
+          }
+        ]
+      },
+      {
+        "id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "code": "C4-U05",
+        "name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "content_type": "UNIT",
+        "learning_outcomes": [
+          {
+            "id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+            "code": "C4U05-LO01",
+            "description": "Add Equivalent fractions."
+          },
+          {
+            "id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+            "code": "C4U05-LO02",
+            "description": "Subtract Equivalent fractions."
+          },
+          {
+            "id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+            "code": "C4U05-LO03",
+            "description": "Solve both Addition and Subtraction of Equivalent fractions."
+          },
+          {
+            "id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+            "code": "C4U05-LO04",
+            "description": "Solve word problems involving Addition and Subtraction of Equivalent fractions."
+          }
+        ]
+      },
+      {
+        "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "code": "C4-U06",
+        "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "content_type": "UNIT",
+        "learning_outcomes": [
+          {
+            "id": "ee43f087-3372-411e-9495-21859368099e",
+            "code": "C4U06-LO01",
+            "description": "Multiply equivalent fractions."
+          },
+          {
+            "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+            "code": "C4U06-LO02",
+            "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to"
+          }
+        ]
+      }
+    ],
+    "unit_count": 3,
+    "lo_count": 10,
+    "lo_codes": [
+      "C4U04-LO01",
+      "C4U04-LO02",
+      "C4U04-LO03",
+      "C4U04-LO04",
+      "C4U05-LO01",
+      "C4U05-LO02",
+      "C4U05-LO03",
+      "C4U05-LO04",
+      "C4U06-LO01",
+      "C4U06-LO02"
+    ]
+  },
+  "false_narrowing": {
+    "authoritative_unit_codes": [
+      "C4-U04",
+      "C4-U05",
+      "C4-U06"
+    ],
+    "resolver_unit_codes_with_correct_grade_id": [
+      "C4-U04",
+      "C4-U05",
+      "C4-U06"
+    ],
+    "missing_from_resolver": [],
+    "extra_in_resolver": [],
+    "default_path_status": "resolved",
+    "verdict": "A_complete",
+    "notes": "Default grade=CLASS_4 resolves to UPPER_PRIMARY grade UUID that is not the GradeCurriculum.grade_id (orphan/inactive Class 4 row holds GC). With the GC grade_id, resolver returns all three fraction units and 10 LOs."
+  },
+  "v21_golden_runs": [
+    {
+      "agent_run_id": "run-4c789d9b684145ae",
+      "status": "completed",
+      "termination_reason": "verification_passed",
+      "iteration_count": 2,
+      "tool_call_count": 5,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "get_learning_objectives",
+        "get_learning_objectives",
+        "get_curriculum_structure",
+        "resolve_curriculum_context"
+      ],
+      "resolver_calls": 2,
+      "legacy_retrieval_calls": 3,
+      "structure_calls": 1,
+      "topic_calls": 0,
+      "search_calls": 0,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 14,
+      "zero_new_evidence_tool_ends": 3,
+      "evidence_count": 37,
+      "generation_evidence_count": 37,
+      "verifier_score": 0.95,
+      "verifier_decision": "passed",
+      "retrieve_more_count": 1,
+      "retrieval_rounds": 2,
+      "answer": "## Learning Objectives for Fractions in Primary 4 (Mathematics)\n\nThe Primary 4 Mathematics curriculum addresses fractions across three units. The learning outcomes are organized as follows:\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators.\n- **C4U04-LO02**: Compare and order like fractions.\n- **C4U04-LO03**: Identify equivalent fractions.\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than (the outcome text is partially truncated in the evidence).\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions.\n- **C4U05-LO02**: Subtract equivalent fractions.\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions.\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions.\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions.\n- **C4U06-LO02**: Multiply like fractions with denominators up to ... (the outcome text is truncated; it appears to involve multiplying like and related fractions with denominators up to a certain value).\n\n### Summary for Teachers\n- **Foundation (C4-U04)**: Students learn to simplify, compare, order, identify, and relate fractions.\n- **Operations (C4-U05)**: Students apply addition and subtraction to equivalent fractions, including word problems.\n- **Multiplication (C4-U06)**: Students extend to multiplying equivalent and like/related fractions.\n\nThese objectives build sequentially from understanding fractions to performing operations and solving problems.",
+      "answer_confidence": "medium",
+      "sequence_class": "acceptable_fallback",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 3672.05,
+        "generation": 18020.57,
+        "verification": 19157.91,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 113.56,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 66.78,
+          "total_tool_latency_ms": 283.91,
+          "authority": "grade_curriculum",
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        },
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 2,
+          "candidate_count": 0,
+          "query_timing_ms": 46.78,
+          "total_tool_latency_ms": 71.25,
+          "authority": "grade_curriculum",
+          "requested_grade": "CLASS_4",
+          "requested_grade_id": null,
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "curriculum_grade_code+subject"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": true
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "finish"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions in Primary 4?",
+      "tag": "golden_01",
+      "latency_ms": 50334.8
+    },
+    {
+      "agent_run_id": "run-812be1a52e2b4753",
+      "status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "iteration_count": 2,
+      "tool_call_count": 5,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives",
+        "resolve_curriculum_context"
+      ],
+      "resolver_calls": 2,
+      "legacy_retrieval_calls": 3,
+      "structure_calls": 0,
+      "topic_calls": 0,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 21,
+      "zero_new_evidence_tool_ends": 4,
+      "evidence_count": 13,
+      "generation_evidence_count": 13,
+      "verifier_score": 0.9,
+      "verifier_decision": "insufficient_evidence",
+      "retrieve_more_count": 1,
+      "retrieval_rounds": 2,
+      "answer": "## Learning Objectives for Fractions in Primary 4\n\nThe Primary 4 Mathematics curriculum includes three units that cover fractions. The learning objectives are organized by unit as follows:\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators. (entity_id: 4cb80e72-796a-4513-ac92-68e14fcb630f)\n- **C4U04-LO02**: Compare and order like fractions. (entity_id: c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f)\n- **C4U04-LO03**: Identify equivalent fractions. (entity_id: 6926032f-39b7-4ad6-8278-085bae23318b)\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than. (entity_id: 686a96c2-6b45-49d2-aeab-2fa1f7b15704)\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions. (entity_id: c9fa3ea4-72dd-442f-bc27-5e7992b72f72)\n- **C4U05-LO02**: Subtract equivalent fractions. (entity_id: 0cc3886d-2320-4795-8c91-e407e3372b5c)\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions. (entity_id: 714546a5-7e71-4888-80cb-cd73ec617d8e)\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions. (entity_id: 5af8401e-1c30-4890-b76b-d507a0f0c8a2)\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions. (entity_id: ee43f087-3372-411e-9495-21859368099e)\n- **C4U06-LO02**: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to. (entity_id: 51c4c17f-6b68-49bb-b025-f377e4e6f8a5)\n\n**Note**: The content for C4U06-LO02 appears truncated in the evidence; the exact denominator limits are not specified.\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+      "answer_confidence": "low",
+      "sequence_class": "failure",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 2712.23,
+        "generation": 17515.4,
+        "verification": 16803.57,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 73.95,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 29.6,
+          "total_tool_latency_ms": 160.65,
+          "authority": "grade_curriculum",
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        },
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 44.35,
+          "total_tool_latency_ms": 60.84,
+          "authority": "grade_curriculum",
+          "requested_grade": "CLASS_4",
+          "requested_grade_id": null,
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "curriculum_grade_code+subject"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": false
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "fallback"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions in Primary 4?",
+      "tag": "golden_02",
+      "latency_ms": 44898.4
+    },
+    {
+      "agent_run_id": "run-5f364e80690e450f",
+      "status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "iteration_count": 1,
+      "tool_call_count": 4,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives"
+      ],
+      "resolver_calls": 1,
+      "legacy_retrieval_calls": 3,
+      "structure_calls": 0,
+      "topic_calls": 0,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 8,
+      "zero_new_evidence_tool_ends": 3,
+      "evidence_count": 13,
+      "generation_evidence_count": 13,
+      "verifier_score": 0.9,
+      "verifier_decision": "insufficient_evidence",
+      "retrieve_more_count": 0,
+      "retrieval_rounds": 1,
+      "answer": "## Learning Objectives for Fractions in Primary 4\n\nThe Primary 4 Mathematics curriculum covers fractions across three units. The learning objectives are organized as follows:\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators.\n- **C4U04-LO02**: Compare and order like fractions.\n- **C4U04-LO03**: Identify equivalent fractions.\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than (objective text is incomplete in the evidence).\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions.\n- **C4U05-LO02**: Subtract equivalent fractions.\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions.\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions.\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions.\n- **C4U06-LO02**: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to (objective text is incomplete in the evidence).\n\n**Note for teachers:** The objectives focus on equivalent fractions, operations (addition, subtraction, multiplication), and word problems. Some objective texts appear truncated in the evidence; please refer to the official curriculum document for complete wording.\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+      "answer_confidence": "low",
+      "sequence_class": "failure",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 2461.99,
+        "generation": 8569.18,
+        "verification": 8911.83,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 29.97,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 29.97,
+          "total_tool_latency_ms": 165.79,
+          "authority": "grade_curriculum",
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": false
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "fallback"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions in Primary 4?",
+      "tag": "golden_03",
+      "latency_ms": 27833.7
+    },
+    {
+      "agent_run_id": "run-0529248870804c58",
+      "status": "completed",
+      "termination_reason": "verification_passed",
+      "iteration_count": 1,
+      "tool_call_count": 4,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives"
+      ],
+      "resolver_calls": 1,
+      "legacy_retrieval_calls": 3,
+      "structure_calls": 0,
+      "topic_calls": 0,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 8,
+      "zero_new_evidence_tool_ends": 3,
+      "evidence_count": 13,
+      "generation_evidence_count": 13,
+      "verifier_score": 0.95,
+      "verifier_decision": "passed",
+      "retrieve_more_count": 0,
+      "retrieval_rounds": 1,
+      "answer": "## Learning Objectives for Fractions in Primary 4\n\nThe Primary 4 Mathematics curriculum includes three units that address fractions. The learning objectives are organized by unit as follows:\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators.\n- **C4U04-LO02**: Compare and order like fractions.\n- **C4U04-LO03**: Identify equivalent fractions.\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than (the objective text is incomplete in the evidence).\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions.\n- **C4U05-LO02**: Subtract equivalent fractions.\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions.\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions.\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions.\n- **C4U06-LO02**: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to (the objective text is incomplete in the evidence).\n\n## Summary for Teachers\n- Fractions are covered in three units: introduction (C4-U04), addition/subtraction (C4-U05), and multiplication (C4-U06).\n- The progression moves from simplifying, comparing, and identifying equivalent fractions, to performing operations (add, subtract, multiply) and solving word problems.\n- Note: Two objectives (C4U04-LO04 and C4U06-LO02) have incomplete text in the evidence, so the full scope of those objectives is not fully clear.",
+      "answer_confidence": "medium",
+      "sequence_class": "acceptable_fallback",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 2582.89,
+        "generation": 9147.15,
+        "verification": 9477.21,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 28.94,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 28.94,
+          "total_tool_latency_ms": 153.25,
+          "authority": "grade_curriculum",
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": true
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "finish"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions in Primary 4?",
+      "tag": "golden_04",
+      "latency_ms": 28935.2
+    },
+    {
+      "agent_run_id": "run-02f25e00a200468b",
+      "status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "iteration_count": 2,
+      "tool_call_count": 6,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives",
+        "resolve_curriculum_context",
+        "get_learning_objectives"
+      ],
+      "resolver_calls": 2,
+      "legacy_retrieval_calls": 4,
+      "structure_calls": 0,
+      "topic_calls": 0,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 25,
+      "zero_new_evidence_tool_ends": 5,
+      "evidence_count": 13,
+      "generation_evidence_count": 13,
+      "verifier_score": 0.9,
+      "verifier_decision": "insufficient_evidence",
+      "retrieve_more_count": 1,
+      "retrieval_rounds": 2,
+      "answer": "## Learning Objectives for Fractions in Primary 4\n\nThe Primary 4 Mathematics curriculum includes three units that cover fractions. The learning objectives are organized by unit as follows:\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators.\n- **C4U04-LO02**: Compare and order like fractions.\n- **C4U04-LO03**: Identify equivalent fractions.\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than (the objective text is incomplete in the evidence).\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions.\n- **C4U05-LO02**: Subtract equivalent fractions.\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions.\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions.\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions.\n- **C4U06-LO02**: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to (the objective text is incomplete in the evidence).\n\n**Note**: The evidence does not include objectives for division of fractions or for operations with unlike fractions (other than equivalent fractions).\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+      "answer_confidence": "low",
+      "sequence_class": "failure",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 4039.38,
+        "generation": 16505.14,
+        "verification": 17662.04,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 76.66,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 28.82,
+          "total_tool_latency_ms": 156.88,
+          "authority": "grade_curriculum",
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        },
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 47.84,
+          "total_tool_latency_ms": 66.88,
+          "authority": "grade_curriculum",
+          "requested_grade": "CLASS_4",
+          "requested_grade_id": null,
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "curriculum_grade_code+subject"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": false
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "fallback"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions in Primary 4?",
+      "tag": "golden_05",
+      "latency_ms": 47323.9
+    },
+    {
+      "agent_run_id": "run-71d6aa3862e9465b",
+      "status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "iteration_count": 2,
+      "tool_call_count": 8,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives",
+        "get_topic",
+        "get_topic",
+        "get_topic",
+        "get_topic"
+      ],
+      "resolver_calls": 1,
+      "legacy_retrieval_calls": 7,
+      "structure_calls": 0,
+      "topic_calls": 4,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 26,
+      "zero_new_evidence_tool_ends": 7,
+      "evidence_count": 13,
+      "generation_evidence_count": 13,
+      "verifier_score": 0.9,
+      "verifier_decision": "insufficient_evidence",
+      "retrieve_more_count": 1,
+      "retrieval_rounds": 2,
+      "answer": "## Learning Objectives for Fractions in Primary 4\n\nThe Primary 4 Mathematics curriculum covers fractions across three units. The learning objectives are organized by unit as follows:\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators.\n- **C4U04-LO02**: Compare and order like fractions.\n- **C4U04-LO03**: Identify equivalent fractions.\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than (the objective text is incomplete in the evidence).\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions.\n- **C4U05-LO02**: Subtract equivalent fractions.\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions.\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions.\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions.\n- **C4U06-LO02**: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to (the objective text is incomplete in the evidence).\n\n**Note**: The objectives for C4U04-LO04 and C4U06-LO02 appear truncated in the source records. Teachers should refer to the official curriculum document for the complete wording.\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+      "answer_confidence": "low",
+      "sequence_class": "failure",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 8656.35,
+        "generation": 19409.5,
+        "verification": 18807.33,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 43.52,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 43.52,
+          "total_tool_latency_ms": 254.97,
+          "authority": "grade_curriculum",
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": false
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "fallback"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions in Primary 4?",
+      "tag": "golden_06",
+      "latency_ms": 54954.5
+    },
+    {
+      "agent_run_id": "run-0ee2f0091d024e18",
+      "status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "iteration_count": 1,
+      "tool_call_count": 4,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives"
+      ],
+      "resolver_calls": 1,
+      "legacy_retrieval_calls": 3,
+      "structure_calls": 0,
+      "topic_calls": 0,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 8,
+      "zero_new_evidence_tool_ends": 3,
+      "evidence_count": 13,
+      "generation_evidence_count": 13,
+      "verifier_score": 0.9,
+      "verifier_decision": "insufficient_evidence",
+      "retrieve_more_count": 0,
+      "retrieval_rounds": 1,
+      "answer": "## Learning Objectives for Fractions in Primary 4\n\nBased on the retrieved curriculum evidence, the learning objectives for fractions in Primary 4 Mathematics are organized across three units. Below is a breakdown by unit.\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators. (entity_id: 4cb80e72-796a-4513-ac92-68e14fcb630f)\n- **C4U04-LO02**: Compare and order like fractions. (entity_id: c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f)\n- **C4U04-LO03**: Identify equivalent fractions. (entity_id: 6926032f-39b7-4ad6-8278-085bae23318b)\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than. (entity_id: 686a96c2-6b45-49d2-aeab-2fa1f7b15704)\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions. (entity_id: c9fa3ea4-72dd-442f-bc27-5e7992b72f72)\n- **C4U05-LO02**: Subtract equivalent fractions. (entity_id: 0cc3886d-2320-4795-8c91-e407e3372b5c)\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions. (entity_id: 714546a5-7e71-4888-80cb-cd73ec617d8e)\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions. (entity_id: 5af8401e-1c30-4890-b76b-d507a0f0c8a2)\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions. (entity_id: ee43f087-3372-411e-9495-21859368099e)\n- **C4U06-LO02**: Multiply like fractions with denominators up to multiply related fractions with denominators up to. (entity_id: 51c4c17f-6b68-49bb-b025-f377e4e6f8a5)\n\nThese objectives cover identifying, simplifying, comparing, ordering, adding, subtracting, and multiplying fractions, with a strong emphasis on equivalent fractions.\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+      "answer_confidence": "low",
+      "sequence_class": "failure",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 2825.25,
+        "generation": 8943.07,
+        "verification": 7563.19,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 34.42,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 34.42,
+          "total_tool_latency_ms": 210.28,
+          "authority": "grade_curriculum",
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": false
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "fallback"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions in Primary 4?",
+      "tag": "golden_07",
+      "latency_ms": 27510.5
+    },
+    {
+      "agent_run_id": "run-30ef8d8afc914a7a",
+      "status": "completed",
+      "termination_reason": "verification_passed",
+      "iteration_count": 1,
+      "tool_call_count": 4,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives"
+      ],
+      "resolver_calls": 1,
+      "legacy_retrieval_calls": 3,
+      "structure_calls": 0,
+      "topic_calls": 0,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 8,
+      "zero_new_evidence_tool_ends": 3,
+      "evidence_count": 13,
+      "generation_evidence_count": 13,
+      "verifier_score": 0.95,
+      "verifier_decision": "passed",
+      "retrieve_more_count": 0,
+      "retrieval_rounds": 1,
+      "answer": "## Learning Objectives for Fractions in Primary 4\n\nThe Primary 4 Mathematics curriculum covers fractions across three units. The learning objectives are organized by unit as follows:\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators.\n- **C4U04-LO02**: Compare and order like fractions.\n- **C4U04-LO03**: Identify equivalent fractions.\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than (the objective text is incomplete in the evidence).\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions.\n- **C4U05-LO02**: Subtract equivalent fractions.\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions.\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions.\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions.\n- **C4U06-LO02**: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to (the objective text is incomplete in the evidence).\n\n**Note:** The evidence does not include objectives for division of fractions or for operations with unlike fractions beyond the multiplication of related fractions mentioned in C4U06-LO02.",
+      "answer_confidence": "medium",
+      "sequence_class": "acceptable_fallback",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 2655.41,
+        "generation": 8536.28,
+        "verification": 7798.37,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 32.49,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 32.49,
+          "total_tool_latency_ms": 170.24,
+          "authority": "grade_curriculum",
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": true
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "finish"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions in Primary 4?",
+      "tag": "golden_08",
+      "latency_ms": 27089.8
+    },
+    {
+      "agent_run_id": "run-77ee2fb278cd47a7",
+      "status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "iteration_count": 1,
+      "tool_call_count": 4,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives"
+      ],
+      "resolver_calls": 1,
+      "legacy_retrieval_calls": 3,
+      "structure_calls": 0,
+      "topic_calls": 0,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 19,
+      "zero_new_evidence_tool_ends": 2,
+      "evidence_count": 18,
+      "generation_evidence_count": 18,
+      "verifier_score": 0.85,
+      "verifier_decision": "insufficient_evidence",
+      "retrieve_more_count": 0,
+      "retrieval_rounds": 1,
+      "answer": "## Learning Objectives for Fractions in Primary 4\n\nBased on the retrieved MBSSE curriculum evidence, the learning outcomes for fractions in Primary 4 Mathematics are organized across several units. Below is a breakdown by unit.\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators. (entity_id: 4cb80e72-796a-4513-ac92-68e14fcb630f)\n- **C4U04-LO02**: Compare and order like fractions. (entity_id: c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f)\n- **C4U04-LO03**: Identify equivalent fractions. (entity_id: 6926032f-39b7-4ad6-8278-085bae23318b)\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than. (entity_id: 686a96c2-6b45-49d2-aeab-2fa1f7b15704)\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions. (entity_id: c9fa3ea4-72dd-442f-bc27-5e7992b72f72)\n- **C4U05-LO02**: Subtract equivalent fractions. (entity_id: 0cc3886d-2320-4795-8c91-e407e3372b5c)\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions. (entity_id: 714546a5-7e71-4888-80cb-cd73ec617d8e)\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions. (entity_id: 5af8401e-1c30-4890-b76b-d507a0f0c8a2)\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions. (entity_id: ee43f087-3372-411e-9495-21859368099e)\n- **C4U06-LO02**: Multiply like fractions with denominators up to multiply related fractions with denominators up to. (Note: The evidence text is truncated/ambiguous.) (entity_id: 51c4c17f-6b68-49bb-b025-f377e4e6f8a5)\n\n### Unit C4-U07: Number and Numeration\n- **C4U07-LO01**: Multiply proper fractions with denominators up to 12. (entity_id: 8f339276-c9f8-4ac0-9434-06bba9a8dbbc)\n- **C4U07-LO02**: Multiply like fractions with denominators up to solve word problems involving proper fractions with denominators up to. (Note: The evidence text is truncated/ambiguous.) (entity_id: c91e7409-4107-4666-99bf-1d1a0e7cfeff)\n\n### Unit C4-U08: Number and Numeration\n- **C4U08-LO03**: Order fractions and decimals. (entity_id: 08108761-5d9f-4c75-bac3-173262789df2)\n\n## Key Points for Teachers\n- The curriculum covers **identifying, simplifying, comparing, ordering, adding, subtracting, and multiplying** fractions, with a strong emphasis on **equivalent fractions**.\n- Multiplication of fractions is introduced, including proper fractions with denominators up to 12.\n- Word problems are included for addition and subtraction of equivalent fractions.\n- Ordering fractions and decimals is also addressed.\n\n## Note on Ambiguity\nSome learning outcome texts (C4U06-LO02 and C4U07-LO02) appear truncated or contain repeated phrases in the evidence. The exact denominator limits or full wording for these outcomes are not fully clear from the provided records.\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+      "answer_confidence": "low",
+      "sequence_class": "failure",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 2549.8,
+        "generation": 12395.89,
+        "verification": 8496.11,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 74.94,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 74.94,
+          "total_tool_latency_ms": 106.21,
+          "authority": "grade_curriculum",
+          "requested_grade": "CLASS_4",
+          "requested_grade_id": null,
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "curriculum_grade_code+subject"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": false
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "fallback"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions in Primary 4?",
+      "tag": "golden_09",
+      "latency_ms": 32297.0
+    },
+    {
+      "agent_run_id": "run-41d9a68b158648a4",
+      "status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "iteration_count": 2,
+      "tool_call_count": 5,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_curriculum_structure",
+        "get_learning_objectives",
+        "resolve_curriculum_context"
+      ],
+      "resolver_calls": 2,
+      "legacy_retrieval_calls": 3,
+      "structure_calls": 1,
+      "topic_calls": 0,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 10,
+      "zero_new_evidence_tool_ends": 3,
+      "evidence_count": 37,
+      "generation_evidence_count": 37,
+      "verifier_score": 0.9,
+      "verifier_decision": "insufficient_evidence",
+      "retrieve_more_count": 1,
+      "retrieval_rounds": 2,
+      "answer": "## Learning Objectives for Fractions in Primary 4 (Mathematics)\n\nThe Primary 4 Mathematics curriculum addresses fractions across three units. The learning outcomes are organized as follows:\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators.\n- **C4U04-LO02**: Compare and order like fractions.\n- **C4U04-LO03**: Identify equivalent fractions.\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than (the outcome text is partially truncated).\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions.\n- **C4U05-LO02**: Subtract equivalent fractions.\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions.\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions.\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions.\n- **C4U06-LO02**: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to (the outcome text is duplicated/truncated).\n\n### Summary for Teachers\n- **Foundation (C4-U04)**: Focus on simplifying, comparing, ordering, identifying, and relating fractions.\n- **Operations (C4-U05)**: Addition and subtraction of equivalent fractions, including word problems.\n- **Multiplication (C4-U06)**: Multiplying equivalent fractions and related/like fractions.\n\nNote: The exact denominator limits for some outcomes (e.g., C4U04-LO04, C4U06-LO02) are not fully specified in the evidence due to truncation.\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+      "answer_confidence": "low",
+      "sequence_class": "failure",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 2176.6,
+        "generation": 18084.37,
+        "verification": 19437.34,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 82.72,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 31.36,
+          "total_tool_latency_ms": 168.51,
+          "authority": "grade_curriculum",
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        },
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 2,
+          "candidate_count": 0,
+          "query_timing_ms": 51.36,
+          "total_tool_latency_ms": 65.66,
+          "authority": "grade_curriculum",
+          "requested_grade": "CLASS_4",
+          "requested_grade_id": null,
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "curriculum_grade_code+subject"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": false
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "fallback"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions in Primary 4?",
+      "tag": "golden_10",
+      "latency_ms": 49811.2
+    }
+  ],
+  "v21_golden_summary": {
+    "n": 10,
+    "success_rate": 0.3,
+    "success_count": 3,
+    "avg_latency_ms": 39098.9,
+    "median_latency_ms": 38597.7,
+    "avg_tool_calls": 4.9,
+    "max_tool_calls": 8,
+    "retrieve_more_rate": 0.5,
+    "avg_duplicate_tool_skips": 0,
+    "avg_duplicate_evidence_adds": 14.7,
+    "avg_zero_new_evidence_calls": 3.6,
+    "avg_resolver_calls": 1.4,
+    "avg_legacy_calls": 3.5,
+    "verifier_acceptance_rate": 0.3,
+    "sequence_class_distribution": {
+      "acceptable_fallback": 3,
+      "failure": 7
+    },
+    "avg_context_resolution_ms": 59.12,
+    "avg_retrieval_phase_ms": 3433.2,
+    "avg_generation_phase_ms": 13712.66,
+    "avg_verification_phase_ms": 13411.49
+  },
+  "stress_runs": [
+    {
+      "agent_run_id": "run-6d5055d0b4f4405b",
+      "status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "iteration_count": 2,
+      "tool_call_count": 5,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives",
+        "resolve_curriculum_context"
+      ],
+      "resolver_calls": 2,
+      "legacy_retrieval_calls": 3,
+      "structure_calls": 0,
+      "topic_calls": 0,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 11,
+      "zero_new_evidence_tool_ends": 4,
+      "evidence_count": 13,
+      "generation_evidence_count": 13,
+      "verifier_score": 0.9,
+      "verifier_decision": "insufficient_evidence",
+      "retrieve_more_count": 1,
+      "retrieval_rounds": 2,
+      "answer": "## Learning Objectives for Fractions in Primary 4\n\nThe Primary 4 Mathematics curriculum covers fractions across three units. The learning objectives are organized by unit as follows:\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators.\n- **C4U04-LO02**: Compare and order like fractions.\n- **C4U04-LO03**: Identify equivalent fractions.\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than (the objective text is incomplete in the evidence).\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions.\n- **C4U05-LO02**: Subtract equivalent fractions.\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions.\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions.\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions.\n- **C4U06-LO02**: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to (the objective text is incomplete in the evidence).\n\n**Note**: The objectives for C4U04-LO04 and C4U06-LO02 appear truncated in the source records. Teachers should refer to the official curriculum document for the complete wording.\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+      "answer_confidence": "low",
+      "sequence_class": "failure",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 2772.06,
+        "generation": 15391.28,
+        "verification": 16695.73,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 77.79,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 32.34,
+          "total_tool_latency_ms": 211.14,
+          "authority": "grade_curriculum",
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        },
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 2,
+          "candidate_count": 0,
+          "query_timing_ms": 45.45,
+          "total_tool_latency_ms": 61.47,
+          "authority": "grade_curriculum",
+          "requested_grade": "CLASS_4",
+          "requested_grade_id": null,
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "curriculum_grade_code+subject"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": false
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "fallback"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions in Primary 4?",
+      "tag": "stress_direct_lo",
+      "latency_ms": 43667.7
+    },
+    {
+      "agent_run_id": "run-603ddd9d24f84178",
+      "status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "iteration_count": 2,
+      "tool_call_count": 6,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_curriculum_structure",
+        "get_learning_objectives",
+        "get_topic",
+        "get_topic"
+      ],
+      "resolver_calls": 1,
+      "legacy_retrieval_calls": 5,
+      "structure_calls": 1,
+      "topic_calls": 2,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 5,
+      "zero_new_evidence_tool_ends": 3,
+      "evidence_count": 11,
+      "generation_evidence_count": 11,
+      "verifier_score": 0.6,
+      "verifier_decision": "insufficient_evidence",
+      "retrieve_more_count": 1,
+      "retrieval_rounds": 2,
+      "answer": "## Learning Outcomes for C4U06 (Seeds)\n\nBased on the retrieved curriculum evidence, the following learning outcome is specified for **C4U06** (Unit: Seeds, Primary 4):\n\n- **C4U06-LO01**: Understand the parts of a plant, practise sounds, look at seeds and answer questions.\n\nThis outcome is part of the **Seeds** unit (code: C4-U06) in the Primary 4 curriculum. The unit is not explicitly linked to a single subject in the evidence provided, but the outcome includes activities related to plant parts, sound practice, and observation of seeds.\n\n### Key Points for Teachers\n- The outcome combines **science** (plant parts, seeds) with **language practice** (sounds, answering questions).\n- Suggested activities: identify and name plant parts, engage in sound/phonics practice, observe seeds, and respond to questions about them.\n- This is the only learning outcome listed for C4U06 in the evidence; no other outcomes for this unit were retrieved.\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+      "answer_confidence": "low",
+      "sequence_class": "failure",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 4616.68,
+        "generation": 8930.74,
+        "verification": 11227.81,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 19.54,
+      "resolve_observability": [],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": false
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "fallback"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning outcomes for C4U06?",
+      "tag": "stress_direct_c4u06",
+      "latency_ms": 33577.9
+    },
+    {
+      "agent_run_id": "run-84d70a71283e4e72",
+      "status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "iteration_count": 1,
+      "tool_call_count": 4,
+      "tool_sequence": [
+        "get_curriculum_structure",
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives"
+      ],
+      "resolver_calls": 1,
+      "legacy_retrieval_calls": 3,
+      "structure_calls": 1,
+      "topic_calls": 0,
+      "search_calls": 1,
+      "duplicate_tool_skips": 1,
+      "duplicate_evidence_adds": 27,
+      "zero_new_evidence_tool_ends": 2,
+      "evidence_count": 32,
+      "generation_evidence_count": 32,
+      "verifier_score": 0.9,
+      "verifier_decision": "insufficient_evidence",
+      "retrieve_more_count": 0,
+      "retrieval_rounds": 1,
+      "answer": "## Primary 4 Mathematics Topics\n\nBased on the retrieved curriculum evidence, the Primary 4 Mathematics curriculum is organized into the following units:\n\n### Number and Numeration\n- **Number and Numeration** (C4-U01, C4-U07, C4-U08, C4-U09, C4-U10)\n- **Reading and Writing** (C4-U02)\n- **Approximation** (C4-U03)\n- **Fractions** (C4-U04)\n- **Operations on Fractions** (C4-U05)\n- **Multiplication of Fractions** (C4-U06)\n\n### Everyday Arithmetic\n- **Addition and Subtraction** (C4-U11, C4-U16)\n- **Multiplication** (C4-U13)\n- **Division** (C4-U14)\n- **General Everyday Arithmetic** (C4-U15, C4-U17)\n- **Money** (C4-U18)\n- **Multiplication and Decimals** (C4-U19)\n\n### Measurement and Estimation\n- **Length** (C4-U20, C4-U21)\n- **General Measurement and Estimation** (C4-U22, C4-U23, C4-U24)\n- **Geometry: Lines and Angles** (C4-U25)\n\n**Note:** The evidence provided does not include detailed learning objectives or specific sub-topics within each unit. For a complete breakdown of topics and objectives, please refer to the official MBSSE Primary 4 Mathematics curriculum document.\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+      "answer_confidence": "low",
+      "sequence_class": "failure",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 2093.23,
+        "generation": 11343.01,
+        "verification": 12009.2,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 37.79,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "f293e00a-bae7-44db-ad55-3c1263e20387",
+            "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+            "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+            "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+            "c148074c-fac8-4771-94de-01de1805f585",
+            "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+            "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+            "a06e3216-dd97-4d5f-af49-f1afec6def85",
+            "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+            "152b4a5a-c080-403c-a780-9940c818bc4b",
+            "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+            "13202e14-75a9-455e-9f58-baad27d672b4",
+            "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+            "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+            "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+            "6252f434-14ed-42cc-8415-ea870de24273",
+            "6ec53325-5983-421a-8b3e-9690e6da159f",
+            "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+            "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+            "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+            "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+            "36924334-8856-4c53-8f48-d4e6eed8cf12",
+            "00d27bae-413d-4841-9a1b-23020b50567d",
+            "b1587bd8-a2da-493e-8872-4b404108c235"
+          ],
+          "learning_outcome_count": 0,
+          "candidate_count": 0,
+          "query_timing_ms": 37.79,
+          "total_tool_latency_ms": 52.36,
+          "authority": "grade_curriculum",
+          "requested_grade": "CLASS_4",
+          "requested_grade_id": null,
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "curriculum_grade_code+subject"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": false
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "fallback"
+      ],
+      "understand_subject": null,
+      "question": "What topics are covered in Primary 4 Mathematics?",
+      "tag": "stress_grade_subject_topics",
+      "latency_ms": 38618.0
+    },
+    {
+      "agent_run_id": "run-b0158f389b04458b",
+      "status": "insufficient_evidence",
+      "termination_reason": "no_retrieval_progress",
+      "iteration_count": 3,
+      "tool_call_count": 10,
+      "tool_sequence": [
+        "search_curriculum",
+        "search_curriculum",
+        "get_curriculum_structure",
+        "get_learning_objectives",
+        "resolve_curriculum_context",
+        "resolve_curriculum_context",
+        "resolve_curriculum_context",
+        "get_topic",
+        "get_topic",
+        "get_topic"
+      ],
+      "resolver_calls": 3,
+      "legacy_retrieval_calls": 7,
+      "structure_calls": 1,
+      "topic_calls": 3,
+      "search_calls": 2,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 15,
+      "zero_new_evidence_tool_ends": 3,
+      "evidence_count": 43,
+      "generation_evidence_count": 43,
+      "verifier_score": 0.8,
+      "verifier_decision": "insufficient_evidence",
+      "retrieve_more_count": 2,
+      "retrieval_rounds": 3,
+      "answer": "## Learning Objectives for Fractions\n\nBased on the retrieved MBSSE curriculum evidence, the learning objectives for fractions are organized by grade and unit. Below is a breakdown.\n\n### Primary 1 \u2013 Unit C1-U07 (Number and Numeration)\n- **Identify Halves Using Pictures** (C1U07-LO01)\n- **Make Stories by Drawing Halves in Pictures** (C1U07-LO02)\n- **Identify Quarters Using Pictures** (C1U07-LO03)\n- **Making Stories by Drawing Quarters in Pictures** (C1U07-LO04)\n- **Share Using Halves and Quarters** (C1U07-LO05)\n\n### Primary 4 \u2013 Unit C4-U04 (Number and Numeration FRACTION)\n- **Simplify like fraction with common denominators** (C4U04-LO01)\n- **Compare and order like fraction** (C4U04-LO02)\n- **Identify Equivalent fractions** (C4U04-LO03)\n- **Relate fractions with denominators up to compare equivalent fraction greater than** (C4U04-LO04)\n\n### Primary 4 \u2013 Unit C4-U05 (Number and Numeration OPERATION ON FRACTIONS)\n- **Add Equivalent fractions** (C4U05-LO01)\n- **Subtract Equivalent fractions** (C4U05-LO02)\n- **Solve both Addition and Subtraction of Equivalent fractions** (C4U05-LO03)\n- **Solve word problems involving Addition and Subtraction of Equivalent fractions** (C4U05-LO04)\n\n### Primary 4 \u2013 Unit C4-U06 (Number and Numeration Operation on Fraction. (Multiplication))\n- **Multiply equivalent fractions** (C4U06-LO01)\n- **Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to** (C4U06-LO02)\n\n**Note:** The evidence does not include objectives for division of fractions or for other grade levels beyond Primary 1 and Primary 4.\n\nNote: Some curriculum source records appear incomplete or truncated in the available evidence, so parts of this answer may be limited to what those records explicitly contain.",
+      "answer_confidence": "low",
+      "sequence_class": "failure",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 5719.78,
+        "generation": 28503.71,
+        "verification": 30232.03,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 149.55,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+          ],
+          "learning_outcome_count": 4,
+          "candidate_count": 0,
+          "query_timing_ms": 44.26,
+          "total_tool_latency_ms": 61.02,
+          "authority": "grade_curriculum",
+          "requested_grade": "CLASS_4",
+          "requested_grade_id": null,
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "curriculum_grade_code+subject"
+        },
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+          ],
+          "learning_outcome_count": 4,
+          "candidate_count": 0,
+          "query_timing_ms": 48.6,
+          "total_tool_latency_ms": 63.03,
+          "authority": "grade_curriculum",
+          "requested_grade": "CLASS_4",
+          "requested_grade_id": null,
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "curriculum_grade_code+subject"
+        },
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 2,
+          "candidate_count": 0,
+          "query_timing_ms": 56.69,
+          "total_tool_latency_ms": 71.04,
+          "authority": "grade_curriculum",
+          "requested_grade": "CLASS_4",
+          "requested_grade_id": null,
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "curriculum_grade_code+subject"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": false
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "fallback"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions?",
+      "tag": "stress_topic_ambiguity_no_grade",
+      "latency_ms": 76187.5
+    },
+    {
+      "agent_run_id": "run-6ad863bcfb1b4c81",
+      "status": "completed",
+      "termination_reason": "verification_passed",
+      "iteration_count": 1,
+      "tool_call_count": 4,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives"
+      ],
+      "resolver_calls": 1,
+      "legacy_retrieval_calls": 3,
+      "structure_calls": 0,
+      "topic_calls": 0,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 8,
+      "zero_new_evidence_tool_ends": 3,
+      "evidence_count": 13,
+      "generation_evidence_count": 13,
+      "verifier_score": 0.95,
+      "verifier_decision": "passed",
+      "retrieve_more_count": 0,
+      "retrieval_rounds": 1,
+      "answer": "## Learning Objectives for Fractions in Primary 4\n\nBased on the retrieved curriculum evidence, the learning objectives for fractions in Primary 4 Mathematics are organized across three units. Below is a breakdown by unit.\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01**: Simplify like fractions with common denominators. (entity_id: 4cb80e72-796a-4513-ac92-68e14fcb630f)\n- **C4U04-LO02**: Compare and order like fractions. (entity_id: c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f)\n- **C4U04-LO03**: Identify equivalent fractions. (entity_id: 6926032f-39b7-4ad6-8278-085bae23318b)\n- **C4U04-LO04**: Relate fractions with denominators up to compare equivalent fractions greater than. (entity_id: 686a96c2-6b45-49d2-aeab-2fa1f7b15704)\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01**: Add equivalent fractions. (entity_id: c9fa3ea4-72dd-442f-bc27-5e7992b72f72)\n- **C4U05-LO02**: Subtract equivalent fractions. (entity_id: 0cc3886d-2320-4795-8c91-e407e3372b5c)\n- **C4U05-LO03**: Solve both addition and subtraction of equivalent fractions. (entity_id: 714546a5-7e71-4888-80cb-cd73ec617d8e)\n- **C4U05-LO04**: Solve word problems involving addition and subtraction of equivalent fractions. (entity_id: 5af8401e-1c30-4890-b76b-d507a0f0c8a2)\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01**: Multiply equivalent fractions. (entity_id: ee43f087-3372-411e-9495-21859368099e)\n- **C4U06-LO02**: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to. (entity_id: 51c4c17f-6b68-49bb-b025-f377e4e6f8a5)\n\n## Summary for Teachers\n- The Primary 4 fraction objectives progress from foundational skills (simplifying, comparing, ordering, identifying) to operations (addition, subtraction, multiplication) and application (word problems).\n- Note that the evidence does not include division of fractions or mixed numbers; these are not part of the retrieved objectives.\n\n## Important Notes\n- The wording of C4U04-LO04 and C4U06-LO02 appears truncated or incomplete in the source records. Teachers should refer to the official curriculum document for the full text of these objectives.\n- The evidence does not specify the exact denominators or the range of fractions; only that they are 'like' or 'equivalent' fractions.",
+      "answer_confidence": "medium",
+      "sequence_class": "acceptable_fallback",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 2589.65,
+        "generation": 10326.77,
+        "verification": 12116.13,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 30.4,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "learning_outcome_count": 10,
+          "candidate_count": 0,
+          "query_timing_ms": 30.4,
+          "total_tool_latency_ms": 158.83,
+          "authority": "grade_curriculum",
+          "requested_grade": null,
+          "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "id"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": true
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "finish"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for fractions in Primary 4?",
+      "tag": "stress_missing_subject_phrasing",
+      "latency_ms": 34450.7
+    },
+    {
+      "agent_run_id": "run-b1509fae855e4da9",
+      "status": "completed",
+      "termination_reason": "verification_passed",
+      "iteration_count": 1,
+      "tool_call_count": 3,
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_curriculum_structure"
+      ],
+      "resolver_calls": 1,
+      "legacy_retrieval_calls": 2,
+      "structure_calls": 1,
+      "topic_calls": 0,
+      "search_calls": 1,
+      "duplicate_tool_skips": 0,
+      "duplicate_evidence_adds": 27,
+      "zero_new_evidence_tool_ends": 2,
+      "evidence_count": 27,
+      "generation_evidence_count": 27,
+      "verifier_score": 1.0,
+      "verifier_decision": "passed",
+      "retrieve_more_count": 0,
+      "retrieval_rounds": 1,
+      "answer": "## Learning Objectives for Quantum Computing in Primary 4 Mathematics\n\nBased on the retrieved curriculum evidence for Primary 4 Mathematics, **there are no learning objectives related to quantum computing**. The curriculum units provided cover topics such as Number and Numeration, Everyday Arithmetic, and Measurement and Estimation, but none mention quantum computing or any related concepts.\n\n### Relevant Curriculum Units (for context)\n- **Number and Numeration** (e.g., C4-U01, C4-U02, C4-U03, C4-U04, C4-U05, C4-U06)\n- **Everyday Arithmetic** (e.g., C4-U11, C4-U13, C4-U14, C4-U15, C4-U16, C4-U17, C4-U18, C4-U19)\n- **Measurement and Estimation** (e.g., C4-U20, C4-U21, C4-U22, C4-U23, C4-U24, C4-U25)\n\nThese units focus on foundational mathematics skills appropriate for Primary 4, not advanced topics like quantum computing.\n\n### Conclusion\nIf you are looking for quantum computing objectives, they are not part of the Primary 4 Mathematics curriculum in the evidence provided. You may need to check other grade levels or subjects, or consult the full curriculum document for any elective or enrichment content.",
+      "answer_confidence": "high",
+      "sequence_class": "acceptable_fallback",
+      "phase_timings_ms": {
+        "understand": 0.0,
+        "retrieval": 973.29,
+        "generation": 4915.64,
+        "verification": 4916.35,
+        "routing": 0.0
+      },
+      "context_resolution_ms": 35.82,
+      "resolve_observability": [
+        {
+          "tool": "resolve_curriculum_context",
+          "resolution_status": "resolved",
+          "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+          "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+          "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "topic_ids": [],
+          "unit_ids": [
+            "f293e00a-bae7-44db-ad55-3c1263e20387",
+            "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+            "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+            "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+            "c148074c-fac8-4771-94de-01de1805f585",
+            "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+            "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+            "a06e3216-dd97-4d5f-af49-f1afec6def85",
+            "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+            "152b4a5a-c080-403c-a780-9940c818bc4b",
+            "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+            "13202e14-75a9-455e-9f58-baad27d672b4",
+            "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+            "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+            "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+            "6252f434-14ed-42cc-8415-ea870de24273",
+            "6ec53325-5983-421a-8b3e-9690e6da159f",
+            "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+            "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+            "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+            "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+            "36924334-8856-4c53-8f48-d4e6eed8cf12",
+            "00d27bae-413d-4841-9a1b-23020b50567d",
+            "b1587bd8-a2da-493e-8872-4b404108c235"
+          ],
+          "learning_outcome_count": 0,
+          "candidate_count": 0,
+          "query_timing_ms": 35.82,
+          "total_tool_latency_ms": 50.13,
+          "authority": "grade_curriculum",
+          "requested_grade": "CLASS_4",
+          "requested_grade_id": null,
+          "resolved_grade_code": "CLASS_4",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "grade_strategy": "curriculum_grade_code+subject"
+        }
+      ],
+      "answer_quality": {
+        "answers_question": true,
+        "speculative_wording": false,
+        "unsupported_elaboration_flags": [],
+        "cites_evidence": true,
+        "verifier_accepts": true
+      },
+      "visited_nodes": [
+        "understand",
+        "prepare_cycle",
+        "retrieve",
+        "generate_answer",
+        "verify_answer",
+        "finish"
+      ],
+      "understand_subject": null,
+      "question": "What are the learning objectives for quantum computing in Primary 4 Mathematics?",
+      "tag": "stress_unknown_topic",
+      "latency_ms": 21453.5
+    }
+  ],
+  "comparison_table": [
+    {
+      "metric": "success rate",
+      "pre_v21": 0.4,
+      "v21": 0.3
+    },
+    {
+      "metric": "avg latency",
+      "pre_v21": 66725.3,
+      "v21": 39098.9
+    },
+    {
+      "metric": "median latency",
+      "pre_v21": 75223.8,
+      "v21": 38597.7
+    },
+    {
+      "metric": "avg tool calls",
+      "pre_v21": 8.4,
+      "v21": 4.9
+    },
+    {
+      "metric": "max tool calls",
+      "pre_v21": 10,
+      "v21": 8
+    },
+    {
+      "metric": "retrieve_more rate",
+      "pre_v21": 0.8,
+      "v21": 0.5
+    },
+    {
+      "metric": "duplicate calls (skips avg)",
+      "pre_v21": "n/a (see traces)",
+      "v21": 0
+    },
+    {
+      "metric": "zero-new-evidence calls (avg)",
+      "pre_v21": "n/a (see traces)",
+      "v21": 3.6
+    },
+    {
+      "metric": "verifier acceptance",
+      "pre_v21": 0.4,
+      "v21": 0.3
+    }
+  ],
+  "failure_classifications": [
+    {
+      "agent_run_id": "run-812be1a52e2b4753",
+      "tag": "golden_02",
+      "status": "insufficient_evidence",
+      "category": "verification",
+      "reason": "no_retrieval_progress",
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives",
+        "resolve_curriculum_context"
+      ]
+    },
+    {
+      "agent_run_id": "run-5f364e80690e450f",
+      "tag": "golden_03",
+      "status": "insufficient_evidence",
+      "category": "verification",
+      "reason": "no_retrieval_progress",
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives"
+      ]
+    },
+    {
+      "agent_run_id": "run-02f25e00a200468b",
+      "tag": "golden_05",
+      "status": "insufficient_evidence",
+      "category": "verification",
+      "reason": "no_retrieval_progress",
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives",
+        "resolve_curriculum_context",
+        "get_learning_objectives"
+      ]
+    },
+    {
+      "agent_run_id": "run-71d6aa3862e9465b",
+      "tag": "golden_06",
+      "status": "insufficient_evidence",
+      "category": "verification",
+      "reason": "no_retrieval_progress",
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives",
+        "get_topic",
+        "get_topic",
+        "get_topic",
+        "get_topic"
+      ]
+    },
+    {
+      "agent_run_id": "run-0ee2f0091d024e18",
+      "tag": "golden_07",
+      "status": "insufficient_evidence",
+      "category": "verification",
+      "reason": "no_retrieval_progress",
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives"
+      ]
+    },
+    {
+      "agent_run_id": "run-77ee2fb278cd47a7",
+      "tag": "golden_09",
+      "status": "insufficient_evidence",
+      "category": "verification",
+      "reason": "no_retrieval_progress",
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives"
+      ]
+    },
+    {
+      "agent_run_id": "run-41d9a68b158648a4",
+      "tag": "golden_10",
+      "status": "insufficient_evidence",
+      "category": "verification",
+      "reason": "no_retrieval_progress",
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_curriculum_structure",
+        "get_learning_objectives",
+        "resolve_curriculum_context"
+      ]
+    },
+    {
+      "agent_run_id": "run-6d5055d0b4f4405b",
+      "tag": "stress_direct_lo",
+      "status": "insufficient_evidence",
+      "category": "verification",
+      "reason": "no_retrieval_progress",
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives",
+        "get_learning_objectives",
+        "resolve_curriculum_context"
+      ]
+    },
+    {
+      "agent_run_id": "run-603ddd9d24f84178",
+      "tag": "stress_direct_c4u06",
+      "status": "insufficient_evidence",
+      "category": "verification",
+      "reason": "no_retrieval_progress",
+      "tool_sequence": [
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_curriculum_structure",
+        "get_learning_objectives",
+        "get_topic",
+        "get_topic"
+      ]
+    },
+    {
+      "agent_run_id": "run-84d70a71283e4e72",
+      "tag": "stress_grade_subject_topics",
+      "status": "insufficient_evidence",
+      "category": "verification",
+      "reason": "no_retrieval_progress",
+      "tool_sequence": [
+        "get_curriculum_structure",
+        "resolve_curriculum_context",
+        "search_curriculum",
+        "get_learning_objectives"
+      ]
+    },
+    {
+      "agent_run_id": "run-b0158f389b04458b",
+      "tag": "stress_topic_ambiguity_no_grade",
+      "status": "insufficient_evidence",
+      "category": "verification",
+      "reason": "no_retrieval_progress",
+      "tool_sequence": [
+        "search_curriculum",
+        "search_curriculum",
+        "get_curriculum_structure",
+        "get_learning_objectives",
+        "resolve_curriculum_context",
+        "resolve_curriculum_context",
+        "resolve_curriculum_context",
+        "get_topic",
+        "get_topic",
+        "get_topic"
+      ]
+    }
+  ],
+  "subject_null_analysis": "Baseline understand left subject=null. V2.1 tool selection for LO questions can still call resolve with grade+topic only; live default resolve then fails GradeCurriculum lookup (and/or missing-subject path). Observed understand subjects in golden runs: [None, None, None, None, None, None, None, None, None, None]. Practical consequence of subject=null is NOT eliminated while grade-code resolution points at a grade row without GradeCurriculum content.",
+  "recommendation": {
+    "code": "4",
+    "text": "V2.1 should not yet be used as the preferred path.",
+    "next_changes": [
+      "Investigate regressions before preferring resolve"
+    ]
+  }
+}

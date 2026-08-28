@@ -27,6 +27,9 @@ class Settings(BaseSettings):
     agent_max_retrieval_rounds: int = Field(default=3, ge=1)
     agent_request_timeout_seconds: float = Field(default=60.0, gt=0)
 
+    # V2.2 experiment: treat resolved curriculum context as authoritative evidence boundary.
+    curriculum_v2_context_boundary_experiment: bool = False
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite

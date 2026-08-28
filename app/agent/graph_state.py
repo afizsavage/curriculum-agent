@@ -27,7 +27,9 @@ class GraphState(TypedDict):
     prior_filters: NotRequired[dict[str, Any]]
 
 
-ALLOWED_ROUTES = frozenset({"finish", "retrieve_more", "clarify", "fallback"})
+ALLOWED_ROUTES = frozenset(
+    {"finish", "retrieve_more", "regenerate", "clarify", "fallback"}
+)
 
 
 def new_graph_run_id() -> str:

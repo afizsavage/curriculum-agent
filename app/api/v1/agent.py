@@ -53,6 +53,7 @@ def ask(
             payload.question,
             conversation_id=conversation_id,
             request_id=request_id,
+            context_boundary_experiment=payload.context_boundary_experiment,
         )
         ctx["conversation_id"] = state.conversation_id
         ctx["status"] = state.status.value

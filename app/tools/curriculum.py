@@ -879,6 +879,17 @@ class ResolveCurriculumContextTool(CurriculumTool):
                 "total_tool_latency_ms": total_ms,
                 "authority": resolution.get("authority") or "grade_curriculum",
             }
+            diag = resolution.get("diagnostics")
+            if isinstance(diag, dict):
+                observability.update(
+                    {
+                        "requested_grade": diag.get("requested_grade"),
+                        "requested_grade_id": diag.get("requested_grade_id"),
+                        "resolved_grade_code": diag.get("resolved_grade_code"),
+                        "grade_curriculum_id": diag.get("grade_curriculum_id"),
+                        "grade_strategy": diag.get("grade_strategy"),
+                    }
+                )
 
             # Ambiguous / needs_context / not_found remain successful tool calls
             # with structured status so the agent can follow up (no silent pick).

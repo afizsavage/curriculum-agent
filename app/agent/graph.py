@@ -55,6 +55,7 @@ def build_curriculum_qa_graph(
         {
             "finish": "finish",
             "retrieve_more": "prepare_cycle",
+            "regenerate": "generate_answer",
             "clarify": "clarify",
             "fallback": "fallback",
         },
@@ -109,6 +110,7 @@ def graph_ascii(compiled_graph) -> str:
             "verify_answer",
             "  ├── finish → END",
             "  ├── retrieve_more → prepare_cycle ↺",
+            "  ├── regenerate → generate_answer ↺ (V2.2 experiment)",
             "  ├── clarify → END",
             "  └── fallback → END",
         ]

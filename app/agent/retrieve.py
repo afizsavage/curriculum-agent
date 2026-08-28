@@ -16,6 +16,13 @@ from app.agent.retrieval_state import (
     tool_call_key,
     tool_fingerprint,
 )
+from app.agent.context_boundary import (
+    capture_context_boundary,
+    context_boundary_experiment_enabled,
+    get_boundary,
+    is_redundant_legacy_retrieval,
+    record_boundary_metrics,
+)
 from app.agent.state import CurriculumQAState, RetrievedContextItem
 from app.agent.trace import (
     evidence_preview,
@@ -450,6 +457,8 @@ class RetrievalNode:
             duplicate_evidence=duplicate_evidence,
             tools_skipped=tools_skipped,
         )
+        if context_boundary_experiment_enabled(self.settings, state):
+            state.metadata.update(record_boundary_metrics(state))
         return state
 
     def _process_call(
@@ -469,7 +478,18 @@ class RetrievalNode:
 
         skip_reason = None
         previous = rs.previous_call_number(fp)
-        if previous is not None or key in state.executed_tool_keys:
+        if (
+            context_boundary_experiment_enabled(self.settings, state)
+            and is_redundant_legacy_retrieval(
+                call.name,
+                call.arguments,
+                boundary=get_boundary(rs),
+                evidence=state.evidence,
+                pending_missing=state.pending_missing_evidence,
+            )
+        ):
+            skip_reason = "context_boundary_covered"
+        elif previous is not None or key in state.executed_tool_keys:
             skip_reason = "duplicate_call"
         elif is_low_value_broad_call(
             call.name,
@@ -704,6 +724,15 @@ class RetrievalNode:
                         )
                         it = trace.ensure_iteration(state.iteration)
                         it["evidence"]["items"].append(preview)
+                if (
+                    call.name == "resolve_curriculum_context"
+                    and context_boundary_experiment_enabled(self.settings, state)
+                    and isinstance(result.data, dict)
+                ):
+                    snap = capture_context_boundary(result.data)
+                    if snap:
+                        state.retrieval_state.context_boundary = snap
+                        state.metadata["context_boundary"] = snap.model_dump()
                 record = ToolCallRecord(
                     tool=call.name,
                     arguments=call.arguments or {},

@@ -1,0 +1,93 @@
+{
+  "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+  "fraction_units": [
+    {
+      "id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "code": "C4-U04",
+      "name": "Number and Numeration FRACTION",
+      "content_type": "UNIT",
+      "learning_outcomes": [
+        {
+          "id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+          "code": "C4U04-LO01",
+          "description": "Simplify like fraction with common denominators."
+        },
+        {
+          "id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+          "code": "C4U04-LO02",
+          "description": "Compare and order like fraction."
+        },
+        {
+          "id": "6926032f-39b7-4ad6-8278-085bae23318b",
+          "code": "C4U04-LO03",
+          "description": "Identify Equivalent fractions."
+        },
+        {
+          "id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+          "code": "C4U04-LO04",
+          "description": "Relate fractions with denominators up to compare equivalent fraction greater than"
+        }
+      ]
+    },
+    {
+      "id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+      "code": "C4-U05",
+      "name": "Number and Numeration OPERATION ON FRACTIONS.",
+      "content_type": "UNIT",
+      "learning_outcomes": [
+        {
+          "id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+          "code": "C4U05-LO01",
+          "description": "Add Equivalent fractions."
+        },
+        {
+          "id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+          "code": "C4U05-LO02",
+          "description": "Subtract Equivalent fractions."
+        },
+        {
+          "id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+          "code": "C4U05-LO03",
+          "description": "Solve both Addition and Subtraction of Equivalent fractions."
+        },
+        {
+          "id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+          "code": "C4U05-LO04",
+          "description": "Solve word problems involving Addition and Subtraction of Equivalent fractions."
+        }
+      ]
+    },
+    {
+      "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+      "code": "C4-U06",
+      "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+      "content_type": "UNIT",
+      "learning_outcomes": [
+        {
+          "id": "ee43f087-3372-411e-9495-21859368099e",
+          "code": "C4U06-LO01",
+          "description": "Multiply equivalent fractions."
+        },
+        {
+          "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+          "code": "C4U06-LO02",
+          "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to"
+        }
+      ]
+    }
+  ],
+  "unit_count": 3,
+  "lo_count": 10,
+  "lo_codes": [
+    "C4U04-LO01",
+    "C4U04-LO02",
+    "C4U04-LO03",
+    "C4U04-LO04",
+    "C4U05-LO01",
+    "C4U05-LO02",
+    "C4U05-LO03",
+    "C4U05-LO04",
+    "C4U06-LO01",
+    "C4U06-LO02"
+  ]
+}

@@ -1,0 +1,828 @@
+{
+  "default_grade_code": {
+    "params": {
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "fractions",
+      "curriculum_code": "MBSSE-BEC",
+      "version": "2020"
+    },
+    "api_latency_ms": 58.28,
+    "resolution": {
+      "status": "resolved",
+      "matched_by": {
+        "curriculum": "code+version",
+        "grade": "curriculum_grade_code+subject",
+        "subject": "code",
+        "topic": "name_or_code",
+        "unit": null
+      },
+      "message": null,
+      "authority": "grade_curriculum",
+      "query_timing_ms": 45.78,
+      "diagnostics": {
+        "requested_grade": "CLASS_4",
+        "requested_grade_id": null,
+        "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_code": "CLASS_4",
+        "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+        "grade_strategy": "curriculum_grade_code+subject"
+      }
+    },
+    "grade": {
+      "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+      "code": "CLASS_4",
+      "name": "Class 4"
+    },
+    "subject": {
+      "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "code": "MATHEMATICS",
+      "name": "Mathematics"
+    },
+    "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+    "topics": [],
+    "units": [
+      {
+        "id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "code": "C4-U04",
+        "name": "Number and Numeration FRACTION",
+        "content_type": "UNIT"
+      },
+      {
+        "id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "code": "C4-U05",
+        "name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "content_type": "UNIT"
+      },
+      {
+        "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "code": "C4-U06",
+        "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "content_type": "UNIT"
+      }
+    ],
+    "learning_outcomes": [
+      {
+        "id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+        "code": "C4U05-LO01",
+        "description": "Add Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "ee43f087-3372-411e-9495-21859368099e",
+        "code": "C4U06-LO01",
+        "description": "Multiply equivalent fractions.",
+        "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "parent_content_code": "C4-U06",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+        "code": "C4U04-LO01",
+        "description": "Simplify like fraction with common denominators.",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+        "code": "C4U04-LO02",
+        "description": "Compare and order like fraction.",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+        "code": "C4U06-LO02",
+        "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+        "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "parent_content_code": "C4-U06",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+        "code": "C4U05-LO02",
+        "description": "Subtract Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "6926032f-39b7-4ad6-8278-085bae23318b",
+        "code": "C4U04-LO03",
+        "description": "Identify Equivalent fractions.",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+        "code": "C4U05-LO03",
+        "description": "Solve both Addition and Subtraction of Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+        "code": "C4U04-LO04",
+        "description": "Relate fractions with denominators up to compare equivalent fraction greater than",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+        "code": "C4U05-LO04",
+        "description": "Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      }
+    ],
+    "candidates": [],
+    "unit_count": 3,
+    "lo_count": 10
+  },
+  "correct_grade_id": {
+    "params": {
+      "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+      "subject": "MATHEMATICS",
+      "topic": "fractions",
+      "curriculum_code": "MBSSE-BEC",
+      "version": "2020"
+    },
+    "api_latency_ms": 62.18,
+    "resolution": {
+      "status": "resolved",
+      "matched_by": {
+        "curriculum": "code+version",
+        "grade": "id",
+        "subject": "code",
+        "topic": "name_or_code",
+        "unit": null
+      },
+      "message": null,
+      "authority": "grade_curriculum",
+      "query_timing_ms": 49.4,
+      "diagnostics": {
+        "requested_grade": null,
+        "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_code": "CLASS_4",
+        "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+        "grade_strategy": "id"
+      }
+    },
+    "grade": {
+      "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+      "code": "CLASS_4",
+      "name": "Class 4"
+    },
+    "subject": {
+      "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "code": "MATHEMATICS",
+      "name": "Mathematics"
+    },
+    "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+    "topics": [],
+    "units": [
+      {
+        "id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "code": "C4-U04",
+        "name": "Number and Numeration FRACTION",
+        "content_type": "UNIT"
+      },
+      {
+        "id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "code": "C4-U05",
+        "name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "content_type": "UNIT"
+      },
+      {
+        "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "code": "C4-U06",
+        "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "content_type": "UNIT"
+      }
+    ],
+    "learning_outcomes": [
+      {
+        "id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+        "code": "C4U05-LO01",
+        "description": "Add Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "ee43f087-3372-411e-9495-21859368099e",
+        "code": "C4U06-LO01",
+        "description": "Multiply equivalent fractions.",
+        "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "parent_content_code": "C4-U06",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+        "code": "C4U04-LO01",
+        "description": "Simplify like fraction with common denominators.",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+        "code": "C4U04-LO02",
+        "description": "Compare and order like fraction.",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+        "code": "C4U06-LO02",
+        "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+        "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "parent_content_code": "C4-U06",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+        "code": "C4U05-LO02",
+        "description": "Subtract Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "6926032f-39b7-4ad6-8278-085bae23318b",
+        "code": "C4U04-LO03",
+        "description": "Identify Equivalent fractions.",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+        "code": "C4U05-LO03",
+        "description": "Solve both Addition and Subtraction of Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+        "code": "C4U04-LO04",
+        "description": "Relate fractions with denominators up to compare equivalent fraction greater than",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+        "code": "C4U05-LO04",
+        "description": "Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      }
+    ],
+    "candidates": [],
+    "unit_count": 3,
+    "lo_count": 10
+  },
+  "missing_subject": {
+    "params": {
+      "grade": "CLASS_4",
+      "topic": "fractions",
+      "curriculum_code": "MBSSE-BEC",
+      "version": "2020"
+    },
+    "api_latency_ms": 191.3,
+    "resolution": {
+      "status": "resolved",
+      "matched_by": {
+        "curriculum": "id",
+        "grade": "id",
+        "subject": "id",
+        "topic": "name_or_code",
+        "unit": null
+      },
+      "message": null,
+      "authority": "grade_curriculum",
+      "query_timing_ms": 32.59,
+      "diagnostics": {
+        "requested_grade": null,
+        "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_code": "CLASS_4",
+        "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+        "grade_strategy": "id"
+      }
+    },
+    "grade": {
+      "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+      "code": "CLASS_4",
+      "name": "Class 4"
+    },
+    "subject": {
+      "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "code": "MATHEMATICS",
+      "name": "Mathematics"
+    },
+    "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+    "topics": [],
+    "units": [
+      {
+        "id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "code": "C4-U04",
+        "name": "Number and Numeration FRACTION",
+        "content_type": "UNIT"
+      },
+      {
+        "id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "code": "C4-U05",
+        "name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "content_type": "UNIT"
+      },
+      {
+        "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "code": "C4-U06",
+        "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "content_type": "UNIT"
+      }
+    ],
+    "learning_outcomes": [
+      {
+        "id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+        "code": "C4U05-LO01",
+        "description": "Add Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "ee43f087-3372-411e-9495-21859368099e",
+        "code": "C4U06-LO01",
+        "description": "Multiply equivalent fractions.",
+        "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "parent_content_code": "C4-U06",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+        "code": "C4U04-LO01",
+        "description": "Simplify like fraction with common denominators.",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+        "code": "C4U04-LO02",
+        "description": "Compare and order like fraction.",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+        "code": "C4U06-LO02",
+        "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+        "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "parent_content_code": "C4-U06",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+        "code": "C4U05-LO02",
+        "description": "Subtract Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "6926032f-39b7-4ad6-8278-085bae23318b",
+        "code": "C4U04-LO03",
+        "description": "Identify Equivalent fractions.",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+        "code": "C4U05-LO03",
+        "description": "Solve both Addition and Subtraction of Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+        "code": "C4U04-LO04",
+        "description": "Relate fractions with denominators up to compare equivalent fraction greater than",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+        "code": "C4U05-LO04",
+        "description": "Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      }
+    ],
+    "candidates": [],
+    "unit_count": 3,
+    "lo_count": 10
+  },
+  "missing_subject_correct_grade_id": {
+    "params": {
+      "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+      "topic": "fractions",
+      "curriculum_code": "MBSSE-BEC",
+      "version": "2020"
+    },
+    "api_latency_ms": 204.21,
+    "resolution": {
+      "status": "resolved",
+      "matched_by": {
+        "curriculum": "id",
+        "grade": "id",
+        "subject": "id",
+        "topic": "name_or_code",
+        "unit": null
+      },
+      "message": null,
+      "authority": "grade_curriculum",
+      "query_timing_ms": 47.62,
+      "diagnostics": {
+        "requested_grade": null,
+        "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_code": "CLASS_4",
+        "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+        "grade_strategy": "id"
+      }
+    },
+    "grade": {
+      "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+      "code": "CLASS_4",
+      "name": "Class 4"
+    },
+    "subject": {
+      "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "code": "MATHEMATICS",
+      "name": "Mathematics"
+    },
+    "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+    "topics": [],
+    "units": [
+      {
+        "id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "code": "C4-U04",
+        "name": "Number and Numeration FRACTION",
+        "content_type": "UNIT"
+      },
+      {
+        "id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "code": "C4-U05",
+        "name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "content_type": "UNIT"
+      },
+      {
+        "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "code": "C4-U06",
+        "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "content_type": "UNIT"
+      }
+    ],
+    "learning_outcomes": [
+      {
+        "id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+        "code": "C4U05-LO01",
+        "description": "Add Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "ee43f087-3372-411e-9495-21859368099e",
+        "code": "C4U06-LO01",
+        "description": "Multiply equivalent fractions.",
+        "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "parent_content_code": "C4-U06",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+        "code": "C4U04-LO01",
+        "description": "Simplify like fraction with common denominators.",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+        "code": "C4U04-LO02",
+        "description": "Compare and order like fraction.",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+        "code": "C4U06-LO02",
+        "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+        "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "parent_content_code": "C4-U06",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+        "code": "C4U05-LO02",
+        "description": "Subtract Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "6926032f-39b7-4ad6-8278-085bae23318b",
+        "code": "C4U04-LO03",
+        "description": "Identify Equivalent fractions.",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+        "code": "C4U05-LO03",
+        "description": "Solve both Addition and Subtraction of Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+        "code": "C4U04-LO04",
+        "description": "Relate fractions with denominators up to compare equivalent fraction greater than",
+        "parent_content_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "parent_content_code": "C4-U04",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+        "code": "C4U05-LO04",
+        "description": "Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+        "parent_content_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "parent_content_code": "C4-U05",
+        "has_provenance": true,
+        "evidence_quality": null
+      }
+    ],
+    "candidates": [],
+    "unit_count": 3,
+    "lo_count": 10
+  },
+  "unknown_topic": {
+    "params": {
+      "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+      "subject": "MATHEMATICS",
+      "topic": "quantum computing",
+      "curriculum_code": "MBSSE-BEC",
+      "version": "2020"
+    },
+    "api_latency_ms": 80.87,
+    "resolution": {
+      "status": "not_found",
+      "matched_by": {
+        "curriculum": "code+version",
+        "grade": "id",
+        "subject": "code",
+        "topic": "name_or_code",
+        "unit": null
+      },
+      "message": "No curriculum content matched 'quantum computing' under this grade/subject",
+      "authority": "grade_curriculum",
+      "query_timing_ms": 59.97,
+      "diagnostics": {
+        "requested_grade": null,
+        "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_code": "CLASS_4",
+        "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+        "grade_strategy": "id"
+      }
+    },
+    "grade": {
+      "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+      "code": "CLASS_4",
+      "name": "Class 4"
+    },
+    "subject": {
+      "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "code": "MATHEMATICS",
+      "name": "Mathematics"
+    },
+    "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+    "topics": [],
+    "units": [],
+    "learning_outcomes": [],
+    "candidates": [],
+    "unit_count": 0,
+    "lo_count": 0
+  },
+  "c4u06_code": {
+    "params": {
+      "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+      "subject": "MATHEMATICS",
+      "topic": "C4U06",
+      "curriculum_code": "MBSSE-BEC",
+      "version": "2020"
+    },
+    "api_latency_ms": 103.79,
+    "resolution": {
+      "status": "resolved",
+      "matched_by": {
+        "curriculum": "code+version",
+        "grade": "id",
+        "subject": "code",
+        "topic": "name_or_code",
+        "unit": null
+      },
+      "message": null,
+      "authority": "grade_curriculum",
+      "query_timing_ms": 66.29,
+      "diagnostics": {
+        "requested_grade": null,
+        "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_code": "CLASS_4",
+        "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+        "grade_strategy": "id"
+      }
+    },
+    "grade": {
+      "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+      "code": "CLASS_4",
+      "name": "Class 4"
+    },
+    "subject": {
+      "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "code": "MATHEMATICS",
+      "name": "Mathematics"
+    },
+    "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+    "topics": [],
+    "units": [
+      {
+        "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "code": "C4-U06",
+        "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "content_type": "UNIT"
+      }
+    ],
+    "learning_outcomes": [
+      {
+        "id": "ee43f087-3372-411e-9495-21859368099e",
+        "code": "C4U06-LO01",
+        "description": "Multiply equivalent fractions.",
+        "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "parent_content_code": "C4-U06",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+        "code": "C4U06-LO02",
+        "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+        "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "parent_content_code": "C4-U06",
+        "has_provenance": true,
+        "evidence_quality": null
+      }
+    ],
+    "candidates": [],
+    "unit_count": 1,
+    "lo_count": 2
+  },
+  "c4-u06_code": {
+    "params": {
+      "grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+      "subject": "MATHEMATICS",
+      "topic": "C4-U06",
+      "curriculum_code": "MBSSE-BEC",
+      "version": "2020"
+    },
+    "api_latency_ms": 98.09,
+    "resolution": {
+      "status": "resolved",
+      "matched_by": {
+        "curriculum": "code+version",
+        "grade": "id",
+        "subject": "code",
+        "topic": "name_or_code",
+        "unit": null
+      },
+      "message": null,
+      "authority": "grade_curriculum",
+      "query_timing_ms": 74.47,
+      "diagnostics": {
+        "requested_grade": null,
+        "requested_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+        "resolved_grade_code": "CLASS_4",
+        "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+        "grade_strategy": "id"
+      }
+    },
+    "grade": {
+      "id": "0f392a75-cf81-4c62-94e4-6041c23baf0b",
+      "code": "CLASS_4",
+      "name": "Class 4"
+    },
+    "subject": {
+      "id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "code": "MATHEMATICS",
+      "name": "Mathematics"
+    },
+    "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+    "topics": [],
+    "units": [
+      {
+        "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "code": "C4-U06",
+        "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "content_type": "UNIT"
+      }
+    ],
+    "learning_outcomes": [
+      {
+        "id": "ee43f087-3372-411e-9495-21859368099e",
+        "code": "C4U06-LO01",
+        "description": "Multiply equivalent fractions.",
+        "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "parent_content_code": "C4-U06",
+        "has_provenance": true,
+        "evidence_quality": null
+      },
+      {
+        "id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+        "code": "C4U06-LO02",
+        "description": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+        "parent_content_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "parent_content_code": "C4-U06",
+        "has_provenance": true,
+        "evidence_quality": null
+      }
+    ],
+    "candidates": [],
+    "unit_count": 1,
+    "lo_count": 2
+  }
+}

@@ -20,6 +20,13 @@ class AskRequest(BaseModel):
         default=None,
         description="Optional existing conversation id for multi-turn context.",
     )
+    context_boundary_experiment: Optional[bool] = Field(
+        default=None,
+        description=(
+            "V2.2 experiment override: when true, treat resolved curriculum context "
+            "as authoritative evidence boundary for this request only."
+        ),
+    )
 
     @field_validator("question")
     @classmethod

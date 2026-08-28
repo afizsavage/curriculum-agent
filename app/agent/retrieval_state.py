@@ -102,6 +102,7 @@ class RetrievalState(BaseModel):
     tools_skipped: int = 0
 
     resolved_subject: Optional[str] = None
+    context_boundary: Optional[Any] = None  # ContextBoundarySnapshot when experiment on
 
     def has_fingerprint(self, fingerprint: str) -> bool:
         return fingerprint in self.fingerprints

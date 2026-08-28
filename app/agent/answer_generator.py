@@ -145,8 +145,20 @@ class AnswerGenerator:
             "Do not invent curriculum information.\n"
             "Reference entity_id values from the evidence records in your evidence array.\n"
             "Set limitations when evidence is partial or ambiguous.\n"
-            "Use markdown headings and bullet points in the answer field where helpful.\n\n"
-            "JSON OUTPUT\n"
+            "Use markdown headings and bullet points in the answer field where helpful.\n"
+        )
+        if state.metadata.get("conservative_regeneration"):
+            user_content += (
+                "\nCONSERVATIVE REGENERATION (authoritative context already resolved)\n"
+                "- Make only claims directly supported by the evidence above.\n"
+                "- Preserve source wording for learning outcomes; do not complete "
+                "truncated or garbled source text.\n"
+                "- If source text is incomplete, state that explicitly in limitations.\n"
+                "- Do not use speculative wording (e.g. 'likely', 'probably') or "
+                "invent objectives not present in the evidence.\n"
+            )
+        user_content += (
+            "\nJSON OUTPUT\n"
             "Respond with a single JSON object (no markdown code fences) matching this schema:\n"
             f"{json.dumps(GROUNDED_ANSWER_JSON_SCHEMA, indent=2)}"
         )
