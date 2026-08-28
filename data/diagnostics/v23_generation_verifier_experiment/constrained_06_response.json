@@ -1,0 +1,277 @@
+{
+  "conversation_id": "01c39fc7-dabb-4c24-852b-b1d374382adc",
+  "question": "What are the learning objectives for fractions in Primary 4?",
+  "answer": "I couldn't find sufficient MBSSE curriculum evidence to answer this reliably. The available curriculum records did not clearly establish the specific information requested. I found related records (Number and Numeration FRACTION, Number and Numeration OPERATION ON FRACTIONS., Number and Numeration Operation on Fraction. (Multiplication), C4U05-LO01, C4U06-LO01), but they did not clearly establish the specific placement or claim requested.",
+  "status": "insufficient_evidence",
+  "clarification": null,
+  "evidence": [
+    {
+      "entity_type": "unit",
+      "entity_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "name": "Number and Numeration FRACTION",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration FRACTION"
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+      "name": "Number and Numeration OPERATION ON FRACTIONS.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration OPERATION ON FRACTIONS."
+    },
+    {
+      "entity_type": "unit",
+      "entity_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+      "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration Operation on Fraction. (Multiplication)"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+      "name": "C4U05-LO01",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "ee43f087-3372-411e-9495-21859368099e",
+      "name": "C4U06-LO01",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+      "name": "C4U04-LO01",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+      "name": "C4U04-LO02",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+      "name": "C4U06-LO02",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+      "name": "C4U05-LO02",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "6926032f-39b7-4ad6-8278-085bae23318b",
+      "name": "C4U04-LO03",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+      "name": "C4U05-LO03",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+      "name": "C4U04-LO04",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_type": "learning_outcome",
+      "entity_id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+      "name": "C4U05-LO04",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    }
+  ],
+  "answer_evidence": [
+    {
+      "entity_id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+      "entity_type": "learning_outcome",
+      "claim": "C4U05-LO01: Add Equivalent fractions.",
+      "name": "C4U05-LO01",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_id": "ee43f087-3372-411e-9495-21859368099e",
+      "entity_type": "learning_outcome",
+      "claim": "C4U06-LO01: Multiply equivalent fractions.",
+      "name": "C4U06-LO01",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+    },
+    {
+      "entity_id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+      "entity_type": "learning_outcome",
+      "claim": "C4U06-LO02: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to (source text incomplete/truncated).",
+      "name": "C4U06-LO02",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+    },
+    {
+      "entity_id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+      "entity_type": "learning_outcome",
+      "claim": "C4U05-LO02: Subtract Equivalent fractions.",
+      "name": "C4U05-LO02",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_id": "6926032f-39b7-4ad6-8278-085bae23318b",
+      "entity_type": "learning_outcome",
+      "claim": "C4U04-LO03: Identify Equivalent fractions.",
+      "name": "C4U04-LO03",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+      "entity_type": "learning_outcome",
+      "claim": "C4U05-LO03: Solve both Addition and Subtraction of Equivalent fractions.",
+      "name": "C4U05-LO03",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+      "entity_type": "learning_outcome",
+      "claim": "C4U04-LO04: Relate fractions with denominators up to compare equivalent fraction greater than (source text incomplete/truncated).",
+      "name": "C4U04-LO04",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+      "entity_type": "learning_outcome",
+      "claim": "C4U05-LO04: Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+      "name": "C4U05-LO04",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+    },
+    {
+      "entity_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+      "entity_type": "unit",
+      "claim": "Unit C4-U05: Number and Numeration OPERATION ON FRACTIONS.",
+      "name": "Number and Numeration OPERATION ON FRACTIONS.",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration OPERATION ON FRACTIONS."
+    },
+    {
+      "entity_id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+      "entity_type": "learning_outcome",
+      "claim": "C4U04-LO01: Simplify like fraction with common denominators.",
+      "name": "C4U04-LO01",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+      "entity_type": "learning_outcome",
+      "claim": "C4U04-LO02: Compare and order like fraction.",
+      "name": "C4U04-LO02",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+    },
+    {
+      "entity_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "entity_type": "unit",
+      "claim": "Unit C4-U04: Number and Numeration FRACTION.",
+      "name": "Number and Numeration FRACTION",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration FRACTION"
+    },
+    {
+      "entity_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+      "entity_type": "unit",
+      "claim": "Unit C4-U06: Number and Numeration Operation on Fraction. (Multiplication)",
+      "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": "Number and Numeration Operation on Fraction. (Multiplication)"
+    }
+  ],
+  "confidence": "low",
+  "limitations": [
+    "Some learning outcome texts are incomplete or truncated in the source evidence (e.g., C4U04-LO04 and C4U06-LO02). The full intended wording is not available, so only the explicit text is reported.",
+    "The evidence does not specify the exact denominators or the full scope of 'related fractions' for C4U06-LO02.",
+    "No other fraction-related objectives beyond those listed were found in the provided evidence.",
+    "The generated answer includes a note about truncated source text, but the evidence shows the content is exactly as retrieved; this is acceptable.",
+    "All learning outcomes listed in the answer are directly supported by the evidence, but the answer does not include any additional learning outcomes that might exist for fractions in Primary 4 beyond those retrieved.",
+    "The evidence provided only covers units C4-U04, C4-U05, and C4-U06. There may be additional fraction-related learning outcomes in other units (e.g., decimals, percentages) that were not retrieved.",
+    "Available MBSSE curriculum records were insufficient for a reliable answer."
+  ],
+  "verification": {
+    "passed": false,
+    "score": 0.9,
+    "recommendation": "retrieve_more",
+    "issues": [
+      "The generated answer includes a note about truncated source text, but the evidence shows the content is exactly as retrieved; this is acceptable.",
+      "All learning outcomes listed in the answer are directly supported by the evidence, but the answer does not include any additional learning outcomes that might exist for fractions in Primary 4 beyond those retrieved."
+    ]
+  },
+  "metadata": {
+    "iterations": 1,
+    "tool_calls": 1,
+    "tools_used": [
+      "resolve_curriculum_context"
+    ],
+    "evidence_status": "found",
+    "evidence_count": 13,
+    "model": "deepseek-v4-flash",
+    "provider": "deepseek",
+    "retrieval_rounds": 1,
+    "verification_attempts": 1,
+    "verification_status": "insufficient_evidence",
+    "graph_run_id": "e26141e6-1626-49c6-9be8-360bbbb98d43",
+    "visited_nodes": [
+      "understand",
+      "prepare_cycle",
+      "retrieve",
+      "generate_answer",
+      "verify_answer",
+      "fallback"
+    ],
+    "agent_run_id": "run-d74fcdbd02314971",
+    "termination_reason": "v23_single_pass"
+  },
+  "error": null
+}

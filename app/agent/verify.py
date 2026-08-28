@@ -5,6 +5,7 @@ from __future__ import annotations
 import time
 
 from app.agent.state import CurriculumQAState
+from app.agent.v23_diagnostics import build_verification_diagnostics
 from app.agent.verifier import AnswerVerifier
 from app.config import Settings
 from app.enums import AgentStatus
@@ -61,6 +62,13 @@ class VerificationNode:
         state.metadata["verification_recommendation"] = result.recommendation.value
         state.metadata["answer_confidence"] = (
             state.answer_confidence.value if state.answer_confidence else None
+        )
+        state.metadata.update(
+            build_verification_diagnostics(
+                state,
+                result=result,
+                verification_latency_ms=round(latency_ms, 2),
+            )
         )
 
         log_agent_event(

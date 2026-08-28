@@ -86,7 +86,7 @@ def test_ask_missing_question(client):
 
 def test_unexpected_agent_errors_are_safe(client):
     class BoomAgent(CurriculumQAAgent):
-        def ask(self, question, *, conversation_id=None, request_id=None):
+        def ask(self, question, *, conversation_id=None, request_id=None, **kwargs):
             raise AgentExecutionError("Agent failed while processing the question")
 
     app = create_app()

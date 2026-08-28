@@ -30,6 +30,9 @@ class Settings(BaseSettings):
     # V2.2 experiment: treat resolved curriculum context as authoritative evidence boundary.
     curriculum_v2_context_boundary_experiment: bool = False
 
+    # V2.3 experiment: frozen resolve-only retrieval + generation/verifier diagnostics.
+    v23_generation_verifier_experiment: bool = False
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite

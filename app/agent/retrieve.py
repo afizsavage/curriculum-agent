@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import time
 from typing import Any
+from uuid import uuid4
 
 from app.agent.retrieval_state import (
     RetrievalState,
@@ -23,6 +24,7 @@ from app.agent.context_boundary import (
     is_redundant_legacy_retrieval,
     record_boundary_metrics,
 )
+from app.agent.evidence_snapshot import record_evidence_snapshot, v23_diagnostic_enabled
 from app.agent.state import CurriculumQAState, RetrievedContextItem
 from app.agent.trace import (
     evidence_preview,
@@ -149,7 +151,55 @@ class RetrievalNode:
         # Follow-up after verify→retrieve_more: goal-directed tools only.
         planned_calls: list[ToolCallRequest] = []
         plan_mode = "llm"
-        if follow_up:
+
+        # V2.3: frozen resolve-only retrieval (no LLM planner, no legacy tools).
+        if v23_diagnostic_enabled(self.settings, state) and not follow_up:
+            plan_mode = "v23_frozen_resolve"
+            resolve_args: dict[str, Any] = {"grade": state.grade or "CLASS_4"}
+            subject = state.subject or rs.resolved_subject
+            if subject:
+                resolve_args["subject"] = subject
+            if state.topic:
+                resolve_args["topic"] = state.topic
+            planned_calls = [
+                ToolCallRequest(
+                    id=str(uuid4()),
+                    name="resolve_curriculum_context",
+                    arguments=resolve_args,
+                )
+            ]
+            if trace is not None:
+                trace.emit(
+                    "agent.retrieval.plan",
+                    iteration=state.iteration,
+                    objective=objective,
+                    candidate_tools=["resolve_curriculum_context"],
+                    selected_tool="resolve_curriculum_context",
+                    reason="V2.3 frozen resolve-only retrieval",
+                    duplicate=False,
+                    expected_information_gain="high",
+                    plan_mode=plan_mode,
+                )
+            for call in planned_calls:
+                if state.tool_calls >= self.settings.agent_max_tool_calls:
+                    break
+                tools_attempted += 1
+                added, rel, dupes, skipped = self._process_call(
+                    state,
+                    call,
+                    request_id=request_id,
+                    follow_up_round=False,
+                    objective=objective,
+                )
+                if skipped:
+                    tools_skipped += 1
+                    continue
+                tools_executed += 1
+                new_evidence += added
+                new_relevant += rel
+                duplicate_evidence += dupes
+            record_evidence_snapshot(state)
+        elif follow_up:
             plan_mode = "targeted"
             planned_calls = targeted_tool_calls_from_missing(
                 state.pending_missing_evidence,

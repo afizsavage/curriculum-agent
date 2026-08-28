@@ -58,7 +58,11 @@ def route_after_verification(
         route = "fallback"
         reason = "verification_fallback"
     elif result.recommendation == VerificationRecommendation.RETRIEVE_MORE:
-        if not _can_retrieve_more(qa, settings):
+        if qa.metadata.get("v23_single_pass"):
+            route = "fallback"
+            reason = "v23_single_pass_complete"
+            qa.metadata["termination_reason"] = "v23_single_pass"
+        elif not _can_retrieve_more(qa, settings):
             route = "fallback"
             reason = "retrieve_more_limits_exhausted"
         elif _should_regenerate_with_boundary(qa, settings):

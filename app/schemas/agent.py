@@ -1,6 +1,6 @@
 """HTTP/API schemas for the Curriculum Q&A agent."""
 
-from typing import Any, Optional
+from typing import Any, Literal, Optional
 from uuid import UUID
 
 from pydantic import BaseModel, Field, field_validator
@@ -26,6 +26,17 @@ class AskRequest(BaseModel):
             "V2.2 experiment override: when true, treat resolved curriculum context "
             "as authoritative evidence boundary for this request only."
         ),
+    )
+    v23_diagnostic_experiment: Optional[bool] = Field(
+        default=None,
+        description=(
+            "V2.3 diagnostic: frozen resolve-only retrieval with generation/verifier "
+            "isolation (single pass)."
+        ),
+    )
+    generation_mode: Optional[Literal["current", "constrained"]] = Field(
+        default=None,
+        description="V2.3 generation arm: current (control) or constrained (treatment).",
     )
 
     @field_validator("question")

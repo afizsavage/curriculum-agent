@@ -4,7 +4,9 @@ from __future__ import annotations
 
 from app.agent.answer_generator import AnswerGenerator
 from app.agent.context import ConversationContext
+from app.agent.evidence_snapshot import generation_to_verifier_overlap
 from app.agent.state import CurriculumQAState
+from app.agent.v23_diagnostics import build_generation_diagnostics
 from app.config import Settings
 from app.enums import AgentStatus
 from app.llm.base import LLMProvider
@@ -51,6 +53,13 @@ class AnswerGenerationNode:
         state.metadata["answer_limitations"] = grounded.limitations
         if grounded.summary:
             state.metadata["answer_summary"] = grounded.summary
+        state.metadata.update(
+            build_generation_diagnostics(
+                state,
+                generation_latency_ms=state.metadata.get("generation_latency_ms"),
+            )
+        )
+        state.metadata.update(generation_to_verifier_overlap(state))
 
         # Final status is decided by the orchestrator after verification.
         state.status = AgentStatus.ANSWERING

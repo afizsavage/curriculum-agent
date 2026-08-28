@@ -116,6 +116,8 @@ class CurriculumQAAgent:
         conversation_id: str | None = None,
         request_id: str | None = None,
         context_boundary_experiment: bool | None = None,
+        v23_diagnostic_experiment: bool | None = None,
+        generation_mode: str | None = None,
     ) -> CurriculumQAState:
         cleaned = (question or "").strip()
         if not cleaned:
@@ -147,6 +149,14 @@ class CurriculumQAAgent:
                     state.metadata["context_boundary_experiment"] = (
                         context_boundary_experiment
                     )
+                from app.agent.v23_diagnostics import configure_v23_experiment
+
+                configure_v23_experiment(
+                    state,
+                    settings=self.settings,
+                    generation_mode=generation_mode,
+                    enabled=v23_diagnostic_experiment,
+                )
                 context.append_user(cleaned)
                 self.nodes.bind_conversation(context)
 

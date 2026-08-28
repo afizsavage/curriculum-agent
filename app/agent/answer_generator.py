@@ -21,14 +21,21 @@ from app.schemas.answer import (
     GroundedAnswer,
 )
 
+from app.agent.generation_policy import (
+    EVIDENCE_CONSERVATIVE_RULES,
+    EVIDENCE_CONSERVATIVE_USER_APPENDIX,
+    GENERATION_POLICY,
+    analyze_answer_quality,
+)
+
 logger = get_logger(__name__)
 
-SYSTEM_PROMPT = """You are the MBSSE Curriculum Q&A Agent answer generator.
+SYSTEM_PROMPT = f"""You are the MBSSE Curriculum Q&A Agent answer generator.
 
 Your role is to produce grounded answers for questions about the MBSSE curriculum
 using ONLY the retrieved curriculum evidence provided in the user message.
 
-Rules:
+Core rules:
 1. CURRICULUM AUTHORITY: Retrieved MBSSE curriculum evidence is authoritative for
    curriculum-specific claims (topics, learning objectives, grade placement,
    subject structure, progression).
@@ -36,16 +43,19 @@ Rules:
    strands, or curriculum terminology not supported by the evidence.
 3. EVIDENCE LIMITATIONS: If evidence is insufficient, state that clearly. Do not
    fill gaps from general knowledge for MBSSE-specific facts.
-4. EXPLANATION VS FACT: You may explain curriculum wording in simpler language,
-   but do not change the underlying requirement or add new requirements.
-5. EVIDENCE REFERENCES: Every curriculum-specific claim in your answer should
+4. EVIDENCE REFERENCES: Every curriculum-specific claim in your answer should
    appear in the evidence array with a valid entity_id from the provided records.
    Never invent entity IDs.
-6. CONFIDENCE: Assign high only when exact topic/objective evidence answers the
+5. CONFIDENCE: Assign high only when exact topic/objective evidence answers the
    question; medium when interpretation is needed; low when evidence is partial.
-7. STYLE: Write for teachers and education officers — concise, clear headings,
+6. STYLE: Write for teachers and education officers — concise, clear headings,
    bullet points, hierarchy, and learning objectives where relevant.
+
+{EVIDENCE_CONSERVATIVE_RULES}
 """
+
+# Backward compatibility for V2.3 diagnostic experiment arm B.
+CONSTRAINED_GENERATION_APPENDIX = EVIDENCE_CONSERVATIVE_USER_APPENDIX
 
 
 class AnswerGenerator:
@@ -87,6 +97,36 @@ class AnswerGenerator:
 
         result = self._apply_evidence_constraints(state, result)
         latency_ms = (time.perf_counter() - started) * 1000
+        quality = analyze_answer_quality(
+            result.answer or "",
+            limitations=result.limitations,
+            evidence=state.evidence,
+        )
+        state.metadata["generation_policy"] = GENERATION_POLICY
+        state.metadata.update(quality)
+        state.metadata["generation_mode"] = state.metadata.get("generation_mode", "current")
+        state.metadata["generation_latency_ms"] = round(latency_ms, 2)
+
+        from app.agent.trace import get_current_trace
+
+        trace = get_current_trace()
+        if trace is not None:
+            trace.emit(
+                "agent.generation.diagnostics",
+                iteration=state.iteration,
+                generation_policy=GENERATION_POLICY,
+                generation_mode=state.metadata.get("generation_mode"),
+                evidence_snapshot_hash=state.metadata.get("evidence_snapshot_hash"),
+                generation_evidence_count=state.metadata.get("generation_evidence_count"),
+                generation_evidence_ids=state.metadata.get("generation_evidence_ids"),
+                answer_length=len(result.answer or ""),
+                generation_confidence=result.confidence.value,
+                generation_latency_ms=round(latency_ms, 2),
+                unsupported_claim_count=quality.get("unsupported_claim_count"),
+                speculative_claim_count=quality.get("speculative_claim_count"),
+                truncation_warning_count=quality.get("truncation_warning_count"),
+                absence_claim_count=quality.get("absence_claim_count"),
+            )
 
         log_agent_event(
             logger,
@@ -144,19 +184,18 @@ class AnswerGenerator:
             "Answer the question using ONLY the curriculum evidence above.\n"
             "Do not invent curriculum information.\n"
             "Reference entity_id values from the evidence records in your evidence array.\n"
-            "Set limitations when evidence is partial or ambiguous.\n"
+            "Set limitations when evidence is partial, ambiguous, or source text is damaged.\n"
             "Use markdown headings and bullet points in the answer field where helpful.\n"
+            f"{EVIDENCE_CONSERVATIVE_USER_APPENDIX}\n"
         )
         if state.metadata.get("conservative_regeneration"):
             user_content += (
                 "\nCONSERVATIVE REGENERATION (authoritative context already resolved)\n"
-                "- Make only claims directly supported by the evidence above.\n"
-                "- Preserve source wording for learning outcomes; do not complete "
-                "truncated or garbled source text.\n"
-                "- If source text is incomplete, state that explicitly in limitations.\n"
-                "- Do not use speculative wording (e.g. 'likely', 'probably') or "
-                "invent objectives not present in the evidence.\n"
+                "- Regenerate using only the evidence above; remove unsupported claims.\n"
+                "- Preserve source LO wording; do not complete truncated text.\n"
             )
+        if state.metadata.get("generation_mode") == "constrained":
+            user_content += CONSTRAINED_GENERATION_APPENDIX
         user_content += (
             "\nJSON OUTPUT\n"
             "Respond with a single JSON object (no markdown code fences) matching this schema:\n"
@@ -234,16 +273,44 @@ class AnswerGenerator:
             e for e in evidence if (e.entity_type or "").lower() == "learning_outcome"
         ]
 
+        q = (state.question or "").lower()
+        lo_question = any(
+            token in q
+            for token in ("learning objective", "learning outcome", "lo ", "los ")
+        )
+
         lines: list[str] = []
         if grade_label and subject_label:
             lines.append(f"### {grade_label} — {subject_label}")
         elif grade_label:
             lines.append(f"### {grade_label}")
 
-        if topics:
+        if lo_question and outcomes:
             lines.append("")
-            # For structure/topic-list questions, enumerate units/topics.
-            q = (state.question or "").lower()
+            lines.append("## Learning objectives/outcomes")
+            for outcome in outcomes[:20]:
+                code = (outcome.metadata or {}).get("code") or outcome.name or ""
+                wording = (outcome.content or "").strip()
+                if code and wording:
+                    lines.append(f"- **{code}** — {wording}")
+                elif code:
+                    lines.append(f"- **{code}**")
+                elif wording:
+                    lines.append(f"- {wording}")
+            garbled = [
+                o
+                for o in outcomes
+                if o.content and _looks_garbled_source_text(o.content)
+            ]
+            if garbled:
+                lines.append("")
+                lines.append("## Source limitations")
+                lines.append(
+                    "Some curriculum records appear incomplete or repetitive; "
+                    "wording above is reported as supplied."
+                )
+        elif topics:
+            lines.append("")
             list_mode = any(
                 token in q for token in ("topics", "units", "what is taught", "structure")
             ) or len(topics) > 1
@@ -275,10 +342,16 @@ class AnswerGenerator:
                 lines.extend(f"- {name}" for name in names)
         elif outcomes:
             lines.append("")
-            lines.append("Relevant learning objectives include:")
-            for outcome in outcomes[:8]:
-                if outcome.content:
-                    lines.append(f"- {outcome.content}")
+            lines.append("## Learning objectives/outcomes")
+            for outcome in outcomes[:20]:
+                code = (outcome.metadata or {}).get("code") or outcome.name or ""
+                wording = (outcome.content or "").strip()
+                if code and wording:
+                    lines.append(f"- **{code}** — {wording}")
+                elif code:
+                    lines.append(f"- **{code}**")
+                elif wording:
+                    lines.append(f"- {wording}")
 
         if not lines:
             names = sorted({e.name for e in evidence if e.name})[:10]
@@ -455,6 +528,15 @@ class AnswerGenerator:
         for msg in prior:
             lines.append(f"{msg.role.value}: {msg.content[:500]}")
         return "\n".join(lines)
+
+
+def _looks_garbled_source_text(text: str) -> bool:
+    lowered = text.lower()
+    if len(text) > 120 and lowered.count("denominators up to") >= 2:
+        return True
+    if text.endswith((" greater than", " up to", " to")):
+        return True
+    return False
 
 
 def format_evidence_for_prompt(
