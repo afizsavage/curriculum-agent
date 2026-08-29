@@ -1,0 +1,74 @@
+[
+  {
+    "threshold": 0.7,
+    "overall_acceptance": 0.133,
+    "faithful_imperfect_acceptance": 0.8,
+    "faithful_imperfect_false_retrieval_rate": 0.8,
+    "overall_false_retrieval_rate": 0.133,
+    "unsupported_rejection": 1.0,
+    "absence_rejection": 1.0,
+    "reconstruction_rejection": 1.0,
+    "missing_evidence_rejection": 1.0,
+    "faithful_complete_acceptance": 0.0
+  },
+  {
+    "threshold": 0.75,
+    "overall_acceptance": 0.133,
+    "faithful_imperfect_acceptance": 0.8,
+    "faithful_imperfect_false_retrieval_rate": 0.8,
+    "overall_false_retrieval_rate": 0.133,
+    "unsupported_rejection": 1.0,
+    "absence_rejection": 1.0,
+    "reconstruction_rejection": 1.0,
+    "missing_evidence_rejection": 1.0,
+    "faithful_complete_acceptance": 0.0
+  },
+  {
+    "threshold": 0.8,
+    "overall_acceptance": 0.133,
+    "faithful_imperfect_acceptance": 0.8,
+    "faithful_imperfect_false_retrieval_rate": 0.8,
+    "overall_false_retrieval_rate": 0.133,
+    "unsupported_rejection": 1.0,
+    "absence_rejection": 1.0,
+    "reconstruction_rejection": 1.0,
+    "missing_evidence_rejection": 1.0,
+    "faithful_complete_acceptance": 0.0
+  },
+  {
+    "threshold": 0.85,
+    "overall_acceptance": 0.133,
+    "faithful_imperfect_acceptance": 0.8,
+    "faithful_imperfect_false_retrieval_rate": 0.8,
+    "overall_false_retrieval_rate": 0.133,
+    "unsupported_rejection": 1.0,
+    "absence_rejection": 1.0,
+    "reconstruction_rejection": 1.0,
+    "missing_evidence_rejection": 1.0,
+    "faithful_complete_acceptance": 0.0
+  },
+  {
+    "threshold": 0.9,
+    "overall_acceptance": 0.133,
+    "faithful_imperfect_acceptance": 0.8,
+    "faithful_imperfect_false_retrieval_rate": 0.8,
+    "overall_false_retrieval_rate": 0.133,
+    "unsupported_rejection": 1.0,
+    "absence_rejection": 1.0,
+    "reconstruction_rejection": 1.0,
+    "missing_evidence_rejection": 1.0,
+    "faithful_complete_acceptance": 0.0
+  },
+  {
+    "threshold": 0.95,
+    "overall_acceptance": 0.0,
+    "faithful_imperfect_acceptance": 0.0,
+    "faithful_imperfect_false_retrieval_rate": 0.8,
+    "overall_false_retrieval_rate": 0.133,
+    "unsupported_rejection": 1.0,
+    "absence_rejection": 1.0,
+    "reconstruction_rejection": 1.0,
+    "missing_evidence_rejection": 1.0,
+    "faithful_complete_acceptance": 0.0
+  }
+]

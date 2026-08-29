@@ -1,0 +1,39 @@
+{
+  "experiment": "v2.7_verifier_decision_boundary",
+  "arm": "A",
+  "fixture_class": "MISSING_EVIDENCE",
+  "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+  "evidence_hash": "977b259fcfb4b282",
+  "transformed_evidence_hash": "b9d15052e5f4db7c",
+  "imperfect_evidence_count": 2,
+  "evidence_present": true,
+  "answer_hash": "b62607d86cf52d07",
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "failure_reason": "fallback",
+  "issue_codes": [
+    "The generated answer cites C4U06-LO02, but no such learning outcome exists in the provided evidence. The evidence contains C4U06-LO01 only.",
+    "The answer claims 'Multiply like and related fractions with denominators up to 12 using visual models' but the evidence for C4U06-LO01 states 'Multiply equivalent fractions.' The claim is not supported and appears to be a hallucination.",
+    "The answer is incomplete: it lists only one objective, while the evidence shows multiple fraction-related learning outcomes across units C4-U04, C4-U05, and C4-U06."
+  ],
+  "unsupported_claims": [
+    "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models.",
+      "verdict": "contradicted",
+      "classification": "TRUNCATION_RECONSTRUCTION"
+    }
+  ],
+  "speculative_claims": false,
+  "truncation_reconstruction": true,
+  "truncation_faithful": false,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "tag": "missing_evidence_04",
+  "run_index": 4
+}

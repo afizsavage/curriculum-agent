@@ -1,0 +1,39 @@
+{
+  "experiment": "v2.7_verifier_decision_boundary",
+  "arm": "A",
+  "fixture_class": "UNSUPPORTED",
+  "fixture_description": "Answer introduces LO not present in evidence",
+  "evidence_hash": "977b259fcfb4b282",
+  "transformed_evidence_hash": "977b259fcfb4b282",
+  "imperfect_evidence_count": 2,
+  "evidence_present": true,
+  "answer_hash": "29e68960889d47da",
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "failure_reason": "fallback",
+  "issue_codes": [
+    "The generated answer claims a learning objective 'C4U99-LO01 \u2014 Divide mixed fractions using long division' that does not exist in the provided curriculum evidence.",
+    "The answer fails to list any of the actual Primary 4 fractions learning objectives found in the evidence (e.g., C4U04-LO01, C4U05-LO01, C4U06-LO01).",
+    "The answer is incomplete and misleading; it provides only one fabricated objective instead of the comprehensive set of fraction objectives."
+  ],
+  "unsupported_claims": [
+    "C4U99-LO01 \u2014 Divide mixed fractions using long division."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U99-LO01 \u2014 Divide mixed fractions using long division.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "speculative_claims": false,
+  "truncation_reconstruction": false,
+  "truncation_faithful": false,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "tag": "unsupported_03",
+  "run_index": 3
+}

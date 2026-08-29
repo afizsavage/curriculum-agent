@@ -1,0 +1,84 @@
+{
+  "experiment": "v2.7_verifier_decision_boundary",
+  "arm": "A",
+  "fixture_class": "FAITHFUL_COMPLETE",
+  "fixture_description": "Complete evidence; answer reports all LOs faithfully",
+  "evidence_hash": "977b259fcfb4b282",
+  "transformed_evidence_hash": "36ecb4b660725c25",
+  "imperfect_evidence_count": 2,
+  "evidence_present": true,
+  "answer_hash": "ba2c6514c1dcb1a0",
+  "verifier_score": 0.7,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": false,
+  "failure_reason": "retrieve_more",
+  "issue_codes": [
+    "Two learning outcomes (C4U04-LO04 and C4U06-LO02) are listed with placeholder content '[CLEAN_EVIDENCE_PLACEHOLDER]' and cannot be verified as actual learning objectives.",
+    "The answer includes learning outcomes from multiple units (C4-U04, C4-U05, C4-U06) but does not clarify that these are from different units, which may mislead the user about the scope of 'fractions' in Primary 4."
+  ],
+  "unsupported_claims": [
+    "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+    "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+      "verdict": "unsupported",
+      "classification": "SUPPORTED_COMPLETE"
+    },
+    {
+      "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+      "verdict": "unsupported",
+      "classification": "SUPPORTED_COMPLETE"
+    }
+  ],
+  "speculative_claims": false,
+  "truncation_reconstruction": false,
+  "truncation_faithful": false,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "tag": "faithful_complete_05",
+  "run_index": 5
+}

@@ -1,0 +1,198 @@
+=== FAITHFUL_COMPLETE run 1/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "run": 1, "score": 0.7, "decision": "retrieve_more", "false_retrieval": false}
+=== FAITHFUL_COMPLETE run 2/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "run": 2, "score": 0.7, "decision": "retrieve_more", "false_retrieval": false}
+=== FAITHFUL_COMPLETE run 3/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "run": 3, "score": 0.7, "decision": "retrieve_more", "false_retrieval": false}
+=== FAITHFUL_COMPLETE run 4/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "run": 4, "score": 0.7, "decision": "retrieve_more", "false_retrieval": false}
+=== FAITHFUL_COMPLETE run 5/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "run": 5, "score": 0.7, "decision": "retrieve_more", "false_retrieval": false}
+=== FAITHFUL_COMPLETE run 6/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "run": 6, "score": 0.7, "decision": "retrieve_more", "false_retrieval": false}
+=== FAITHFUL_COMPLETE run 7/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "run": 7, "score": 0.7, "decision": "retrieve_more", "false_retrieval": false}
+=== FAITHFUL_COMPLETE run 8/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "run": 8, "score": 0.7, "decision": "retrieve_more", "false_retrieval": false}
+=== FAITHFUL_COMPLETE run 9/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "run": 9, "score": 0.7, "decision": "retrieve_more", "false_retrieval": false}
+=== FAITHFUL_COMPLETE run 10/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "run": 10, "score": 0.7, "decision": "retrieve_more", "false_retrieval": false}
+=== FAITHFUL_IMPERFECT run 1/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "run": 1, "score": 0.9, "decision": "retrieve_more", "false_retrieval": true}
+=== FAITHFUL_IMPERFECT run 2/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "run": 2, "score": 0.9, "decision": "retrieve_more", "false_retrieval": true}
+=== FAITHFUL_IMPERFECT run 3/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "run": 3, "score": 0.9, "decision": "retrieve_more", "false_retrieval": true}
+=== FAITHFUL_IMPERFECT run 4/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "run": 4, "score": 0.9, "decision": "retrieve_more", "false_retrieval": true}
+=== FAITHFUL_IMPERFECT run 5/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "run": 5, "score": 0.9, "decision": "retrieve_more", "false_retrieval": true}
+=== FAITHFUL_IMPERFECT run 6/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "run": 6, "score": 0.9, "decision": "retrieve_more", "false_retrieval": true}
+=== FAITHFUL_IMPERFECT run 7/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "run": 7, "score": 0.9, "decision": "retrieve_more", "false_retrieval": true}
+=== FAITHFUL_IMPERFECT run 8/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "run": 8, "score": 0.9, "decision": "retrieve_more", "false_retrieval": true}
+=== FAITHFUL_IMPERFECT run 9/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "run": 9, "score": 0.9, "decision": "retrieve_more", "false_retrieval": false}
+=== FAITHFUL_IMPERFECT run 10/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "run": 10, "score": 0.9, "decision": "retrieve_more", "false_retrieval": false}
+=== RECONSTRUCTED_IMPERFECT run 1/10 ===
+{"fixture": "RECONSTRUCTED_IMPERFECT", "run": 1, "score": 0.4, "decision": "retrieve_more", "false_retrieval": false}
+=== RECONSTRUCTED_IMPERFECT run 2/10 ===
+{"fixture": "RECONSTRUCTED_IMPERFECT", "run": 2, "score": 0.4, "decision": "retrieve_more", "false_retrieval": false}
+=== RECONSTRUCTED_IMPERFECT run 3/10 ===
+{"fixture": "RECONSTRUCTED_IMPERFECT", "run": 3, "score": 0.4, "decision": "retrieve_more", "false_retrieval": false}
+=== RECONSTRUCTED_IMPERFECT run 4/10 ===
+{"fixture": "RECONSTRUCTED_IMPERFECT", "run": 4, "score": 0.4, "decision": "retrieve_more", "false_retrieval": false}
+=== RECONSTRUCTED_IMPERFECT run 5/10 ===
+{"fixture": "RECONSTRUCTED_IMPERFECT", "run": 5, "score": 0.4, "decision": "retrieve_more", "false_retrieval": false}
+=== RECONSTRUCTED_IMPERFECT run 6/10 ===
+{"fixture": "RECONSTRUCTED_IMPERFECT", "run": 6, "score": 0.4, "decision": "retrieve_more", "false_retrieval": false}
+=== RECONSTRUCTED_IMPERFECT run 7/10 ===
+{"fixture": "RECONSTRUCTED_IMPERFECT", "run": 7, "score": 0.4, "decision": "retrieve_more", "false_retrieval": false}
+=== RECONSTRUCTED_IMPERFECT run 8/10 ===
+{"fixture": "RECONSTRUCTED_IMPERFECT", "run": 8, "score": 0.4, "decision": "retrieve_more", "false_retrieval": false}
+=== RECONSTRUCTED_IMPERFECT run 9/10 ===
+{"fixture": "RECONSTRUCTED_IMPERFECT", "run": 9, "score": 0.4, "decision": "retrieve_more", "false_retrieval": false}
+=== RECONSTRUCTED_IMPERFECT run 10/10 ===
+{"fixture": "RECONSTRUCTED_IMPERFECT", "run": 10, "score": 0.4, "decision": "retrieve_more", "false_retrieval": false}
+=== UNSUPPORTED run 1/10 ===
+{"fixture": "UNSUPPORTED", "run": 1, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED run 2/10 ===
+{"fixture": "UNSUPPORTED", "run": 2, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED run 3/10 ===
+{"fixture": "UNSUPPORTED", "run": 3, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED run 4/10 ===
+{"fixture": "UNSUPPORTED", "run": 4, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED run 5/10 ===
+{"fixture": "UNSUPPORTED", "run": 5, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED run 6/10 ===
+{"fixture": "UNSUPPORTED", "run": 6, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED run 7/10 ===
+{"fixture": "UNSUPPORTED", "run": 7, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED run 8/10 ===
+{"fixture": "UNSUPPORTED", "run": 8, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED run 9/10 ===
+{"fixture": "UNSUPPORTED", "run": 9, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED run 10/10 ===
+{"fixture": "UNSUPPORTED", "run": 10, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED_ABSENCE run 1/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "run": 1, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED_ABSENCE run 2/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "run": 2, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED_ABSENCE run 3/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "run": 3, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED_ABSENCE run 4/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "run": 4, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED_ABSENCE run 5/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "run": 5, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED_ABSENCE run 6/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "run": 6, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED_ABSENCE run 7/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "run": 7, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED_ABSENCE run 8/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "run": 8, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED_ABSENCE run 9/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "run": 9, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== UNSUPPORTED_ABSENCE run 10/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "run": 10, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== MISSING_EVIDENCE run 1/10 ===
+{"fixture": "MISSING_EVIDENCE", "run": 1, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== MISSING_EVIDENCE run 2/10 ===
+{"fixture": "MISSING_EVIDENCE", "run": 2, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== MISSING_EVIDENCE run 3/10 ===
+{"fixture": "MISSING_EVIDENCE", "run": 3, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== MISSING_EVIDENCE run 4/10 ===
+{"fixture": "MISSING_EVIDENCE", "run": 4, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== MISSING_EVIDENCE run 5/10 ===
+{"fixture": "MISSING_EVIDENCE", "run": 5, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== MISSING_EVIDENCE run 6/10 ===
+{"fixture": "MISSING_EVIDENCE", "run": 6, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== MISSING_EVIDENCE run 7/10 ===
+{"fixture": "MISSING_EVIDENCE", "run": 7, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== MISSING_EVIDENCE run 8/10 ===
+{"fixture": "MISSING_EVIDENCE", "run": 8, "score": 0.0, "decision": "retrieve_more", "false_retrieval": false}
+=== MISSING_EVIDENCE run 9/10 ===
+{"fixture": "MISSING_EVIDENCE", "run": 9, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+=== MISSING_EVIDENCE run 10/10 ===
+{"fixture": "MISSING_EVIDENCE", "run": 10, "score": 0.0, "decision": "fallback", "false_retrieval": false}
+--- V2.7 EXPERIMENT COMPLETE ---
+{
+  "conclusion": "NOT SUPPORTED",
+  "sweep": [
+    {
+      "threshold": 0.7,
+      "overall_acceptance": 0.133,
+      "faithful_imperfect_acceptance": 0.8,
+      "faithful_imperfect_false_retrieval_rate": 0.8,
+      "overall_false_retrieval_rate": 0.133,
+      "unsupported_rejection": 1.0,
+      "absence_rejection": 1.0,
+      "reconstruction_rejection": 1.0,
+      "missing_evidence_rejection": 1.0,
+      "faithful_complete_acceptance": 0.0
+    },
+    {
+      "threshold": 0.75,
+      "overall_acceptance": 0.133,
+      "faithful_imperfect_acceptance": 0.8,
+      "faithful_imperfect_false_retrieval_rate": 0.8,
+      "overall_false_retrieval_rate": 0.133,
+      "unsupported_rejection": 1.0,
+      "absence_rejection": 1.0,
+      "reconstruction_rejection": 1.0,
+      "missing_evidence_rejection": 1.0,
+      "faithful_complete_acceptance": 0.0
+    },
+    {
+      "threshold": 0.8,
+      "overall_acceptance": 0.133,
+      "faithful_imperfect_acceptance": 0.8,
+      "faithful_imperfect_false_retrieval_rate": 0.8,
+      "overall_false_retrieval_rate": 0.133,
+      "unsupported_rejection": 1.0,
+      "absence_rejection": 1.0,
+      "reconstruction_rejection": 1.0,
+      "missing_evidence_rejection": 1.0,
+      "faithful_complete_acceptance": 0.0
+    },
+    {
+      "threshold": 0.85,
+      "overall_acceptance": 0.133,
+      "faithful_imperfect_acceptance": 0.8,
+      "faithful_imperfect_false_retrieval_rate": 0.8,
+      "overall_false_retrieval_rate": 0.133,
+      "unsupported_rejection": 1.0,
+      "absence_rejection": 1.0,
+      "reconstruction_rejection": 1.0,
+      "missing_evidence_rejection": 1.0,
+      "faithful_complete_acceptance": 0.0
+    },
+    {
+      "threshold": 0.9,
+      "overall_acceptance": 0.133,
+      "faithful_imperfect_acceptance": 0.8,
+      "faithful_imperfect_false_retrieval_rate": 0.8,
+      "overall_false_retrieval_rate": 0.133,
+      "unsupported_rejection": 1.0,
+      "absence_rejection": 1.0,
+      "reconstruction_rejection": 1.0,
+      "missing_evidence_rejection": 1.0,
+      "faithful_complete_acceptance": 0.0
+    },
+    {
+      "threshold": 0.95,
+      "overall_acceptance": 0.0,
+      "faithful_imperfect_acceptance": 0.0,
+      "faithful_imperfect_false_retrieval_rate": 0.8,
+      "overall_false_retrieval_rate": 0.133,
+      "unsupported_rejection": 1.0,
+      "absence_rejection": 1.0,
+      "reconstruction_rejection": 1.0,
+      "missing_evidence_rejection": 1.0,
+      "faithful_complete_acceptance": 0.0
+    }
+  ]
+}

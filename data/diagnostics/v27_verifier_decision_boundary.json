@@ -1,0 +1,3451 @@
+{
+  "generated_at": "2026-08-29T16:39:59.281766+00:00",
+  "hypothesis": "When evidence is present and answers faithfully report imperfect source text, a post-verifier decision boundary can accept instead of retrieve_more without weakening grounding safety.",
+  "golden_question": "What are the learning objectives for fractions in Primary 4?",
+  "baseline_evidence_hash": "977b259fcfb4b282",
+  "authoritative_los": 10,
+  "imperfect_los": [
+    "C4U06-LO02",
+    "C4U04-LO04"
+  ],
+  "configuration": {
+    "runs_per_fixture": 10,
+    "fixture_classes": [
+      "FAITHFUL_COMPLETE",
+      "FAITHFUL_IMPERFECT",
+      "RECONSTRUCTED_IMPERFECT",
+      "UNSUPPORTED",
+      "UNSUPPORTED_ABSENCE",
+      "MISSING_EVIDENCE"
+    ],
+    "threshold_sweep": [
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9,
+      0.95
+    ]
+  },
+  "control_summary": {
+    "n": 60,
+    "verifier_acceptance_rate": 0.0,
+    "retrieve_more_rate": 0.517,
+    "insufficient_evidence_rate": 0.483,
+    "avg_verifier_score": 0.333,
+    "score_min": 0.0,
+    "score_max": 0.9,
+    "faithful_imperfect_acceptance_rate": 0.0,
+    "faithful_imperfect_retrieve_more_rate": 1.0,
+    "faithful_imperfect_false_retrieval_rate": 0.8,
+    "overall_false_retrieval_rate": 0.133
+  },
+  "experimental_summary": {
+    "threshold": 0.85,
+    "n": 60,
+    "experimental_acceptance_rate": 0.133,
+    "retrieve_more_rate": 0.383,
+    "insufficient_evidence_rate": 0.483,
+    "avg_verifier_score": 0.333,
+    "faithful_imperfect_acceptance_rate": 0.8,
+    "faithful_imperfect_false_retrieval_rate": 0.8,
+    "overall_false_retrieval_rate": 0.133
+  },
+  "analytical_threshold": 0.85,
+  "threshold_sweep": [
+    {
+      "threshold": 0.7,
+      "overall_acceptance": 0.133,
+      "faithful_imperfect_acceptance": 0.8,
+      "faithful_imperfect_false_retrieval_rate": 0.8,
+      "overall_false_retrieval_rate": 0.133,
+      "unsupported_rejection": 1.0,
+      "absence_rejection": 1.0,
+      "reconstruction_rejection": 1.0,
+      "missing_evidence_rejection": 1.0,
+      "faithful_complete_acceptance": 0.0
+    },
+    {
+      "threshold": 0.75,
+      "overall_acceptance": 0.133,
+      "faithful_imperfect_acceptance": 0.8,
+      "faithful_imperfect_false_retrieval_rate": 0.8,
+      "overall_false_retrieval_rate": 0.133,
+      "unsupported_rejection": 1.0,
+      "absence_rejection": 1.0,
+      "reconstruction_rejection": 1.0,
+      "missing_evidence_rejection": 1.0,
+      "faithful_complete_acceptance": 0.0
+    },
+    {
+      "threshold": 0.8,
+      "overall_acceptance": 0.133,
+      "faithful_imperfect_acceptance": 0.8,
+      "faithful_imperfect_false_retrieval_rate": 0.8,
+      "overall_false_retrieval_rate": 0.133,
+      "unsupported_rejection": 1.0,
+      "absence_rejection": 1.0,
+      "reconstruction_rejection": 1.0,
+      "missing_evidence_rejection": 1.0,
+      "faithful_complete_acceptance": 0.0
+    },
+    {
+      "threshold": 0.85,
+      "overall_acceptance": 0.133,
+      "faithful_imperfect_acceptance": 0.8,
+      "faithful_imperfect_false_retrieval_rate": 0.8,
+      "overall_false_retrieval_rate": 0.133,
+      "unsupported_rejection": 1.0,
+      "absence_rejection": 1.0,
+      "reconstruction_rejection": 1.0,
+      "missing_evidence_rejection": 1.0,
+      "faithful_complete_acceptance": 0.0
+    },
+    {
+      "threshold": 0.9,
+      "overall_acceptance": 0.133,
+      "faithful_imperfect_acceptance": 0.8,
+      "faithful_imperfect_false_retrieval_rate": 0.8,
+      "overall_false_retrieval_rate": 0.133,
+      "unsupported_rejection": 1.0,
+      "absence_rejection": 1.0,
+      "reconstruction_rejection": 1.0,
+      "missing_evidence_rejection": 1.0,
+      "faithful_complete_acceptance": 0.0
+    },
+    {
+      "threshold": 0.95,
+      "overall_acceptance": 0.0,
+      "faithful_imperfect_acceptance": 0.0,
+      "faithful_imperfect_false_retrieval_rate": 0.8,
+      "overall_false_retrieval_rate": 0.133,
+      "unsupported_rejection": 1.0,
+      "absence_rejection": 1.0,
+      "reconstruction_rejection": 1.0,
+      "missing_evidence_rejection": 1.0,
+      "faithful_complete_acceptance": 0.0
+    }
+  ],
+  "control_runs": [
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_COMPLETE",
+      "fixture_description": "Complete evidence; answer reports all LOs faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "36ecb4b660725c25",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "ba2c6514c1dcb1a0",
+      "verifier_score": 0.7,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "Two learning outcomes (C4U04-LO04 and C4U06-LO02) are listed with placeholder content '[CLEAN_EVIDENCE_PLACEHOLDER]' and cannot be verified as actual learning objectives.",
+        "The answer includes learning outcomes from multiple units (C4-U04, C4-U05, C4-U06) but does not clearly distinguish between them, potentially conflating separate units.",
+        "The answer omits the unit context for each learning outcome, which may be important for clarity."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+        "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "faithful_complete_01",
+      "run_index": 1
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_COMPLETE",
+      "fixture_description": "Complete evidence; answer reports all LOs faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "36ecb4b660725c25",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "ba2c6514c1dcb1a0",
+      "verifier_score": 0.7,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "Two learning outcomes (C4U04-LO04 and C4U06-LO02) are listed with placeholder content '[CLEAN_EVIDENCE_PLACEHOLDER]' and cannot be verified as actual learning objectives.",
+        "The answer includes learning outcomes from units C4-U04, C4-U05, and C4-U06, but the question specifically asks for 'fractions' in Primary 4. While these units are all fraction-related, the answer does not clarify that these are from multiple units.",
+        "The answer omits any learning outcomes from other fraction-related units that may exist in the curriculum (e.g., if there are additional units on fractions not retrieved)."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+        "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "faithful_complete_02",
+      "run_index": 2
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_COMPLETE",
+      "fixture_description": "Complete evidence; answer reports all LOs faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "36ecb4b660725c25",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "ba2c6514c1dcb1a0",
+      "verifier_score": 0.7,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "Two learning outcomes (C4U04-LO04 and C4U06-LO02) are listed with placeholder content '[CLEAN_EVIDENCE_PLACEHOLDER]' and cannot be verified as actual learning objectives.",
+        "The answer includes all relevant learning outcomes from the evidence, but the inclusion of placeholder entries makes it incomplete and potentially misleading."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+        "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "faithful_complete_03",
+      "run_index": 3
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_COMPLETE",
+      "fixture_description": "Complete evidence; answer reports all LOs faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "36ecb4b660725c25",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "ba2c6514c1dcb1a0",
+      "verifier_score": 0.7,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "Two learning outcomes (C4U04-LO04 and C4U06-LO02) are listed with placeholder content '[CLEAN_EVIDENCE_PLACEHOLDER]' and cannot be verified as actual learning objectives.",
+        "The answer includes learning outcomes from three different units (C4-U04, C4-U05, C4-U06) but does not clarify that these are from separate units, which may mislead the user about the scope of 'fractions' in Primary 4."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+        "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "faithful_complete_04",
+      "run_index": 4
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_COMPLETE",
+      "fixture_description": "Complete evidence; answer reports all LOs faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "36ecb4b660725c25",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "ba2c6514c1dcb1a0",
+      "verifier_score": 0.7,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "Two learning outcomes (C4U04-LO04 and C4U06-LO02) are listed with placeholder content '[CLEAN_EVIDENCE_PLACEHOLDER]' and cannot be verified as actual learning objectives.",
+        "The answer includes learning outcomes from multiple units (C4-U04, C4-U05, C4-U06) but does not clarify that these are from different units, which may mislead the user about the scope of 'fractions' in Primary 4."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+        "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "faithful_complete_05",
+      "run_index": 5
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_COMPLETE",
+      "fixture_description": "Complete evidence; answer reports all LOs faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "36ecb4b660725c25",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "ba2c6514c1dcb1a0",
+      "verifier_score": 0.7,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "Two learning outcomes (C4U04-LO04 and C4U06-LO02) are listed with placeholder content '[CLEAN_EVIDENCE_PLACEHOLDER]' instead of actual objectives, making the answer incomplete.",
+        "The answer includes learning outcomes from units C4-U04, C4-U05, and C4-U06, but the question specifically asks for 'fractions' in Primary 4. While these units are all fraction-related, the answer does not clarify that these are from multiple units, which may be acceptable but could be misleading.",
+        "The answer does not include any learning outcomes from other fraction-related units that might exist in the curriculum (e.g., if there are additional units on fractions not retrieved)."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER] is presented as a learning objective but its content is a placeholder, not a real objective.",
+        "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER] is presented as a learning objective but its content is a placeholder, not a real objective."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "faithful_complete_06",
+      "run_index": 6
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_COMPLETE",
+      "fixture_description": "Complete evidence; answer reports all LOs faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "36ecb4b660725c25",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "ba2c6514c1dcb1a0",
+      "verifier_score": 0.7,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "Two learning outcomes (C4U04-LO04 and C4U06-LO02) are listed with placeholder content '[CLEAN_EVIDENCE_PLACEHOLDER]' and cannot be verified as actual learning objectives.",
+        "The answer includes learning outcomes from units C4-U04, C4-U05, and C4-U06, but the question asks specifically for 'fractions' in Primary 4. While these units are all fraction-related, the answer does not clarify that these are from multiple units.",
+        "The answer omits any learning outcomes from other fraction-related units that may exist in the curriculum (e.g., if there are additional units on fractions not retrieved)."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER] is a valid learning objective.",
+        "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER] is a valid learning objective."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "faithful_complete_07",
+      "run_index": 7
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_COMPLETE",
+      "fixture_description": "Complete evidence; answer reports all LOs faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "36ecb4b660725c25",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "ba2c6514c1dcb1a0",
+      "verifier_score": 0.7,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "Two learning outcomes (C4U04-LO04 and C4U06-LO02) are listed with placeholder content '[CLEAN_EVIDENCE_PLACEHOLDER]' and cannot be verified as actual learning objectives.",
+        "The answer includes learning outcomes from multiple units (C4-U04, C4-U05, C4-U06) but does not clearly distinguish between them, potentially conflating separate units.",
+        "The answer omits the unit context for each learning outcome, which may be important for clarity."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+        "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "faithful_complete_08",
+      "run_index": 8
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_COMPLETE",
+      "fixture_description": "Complete evidence; answer reports all LOs faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "36ecb4b660725c25",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "ba2c6514c1dcb1a0",
+      "verifier_score": 0.7,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "Two learning outcomes (C4U04-LO04 and C4U06-LO02) are listed with placeholder content '[CLEAN_EVIDENCE_PLACEHOLDER]' and cannot be verified as actual learning objectives.",
+        "The answer includes all relevant learning outcomes from the evidence, but the inclusion of placeholder entries makes it incomplete and potentially misleading."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+        "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "faithful_complete_09",
+      "run_index": 9
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_COMPLETE",
+      "fixture_description": "Complete evidence; answer reports all LOs faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "36ecb4b660725c25",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "ba2c6514c1dcb1a0",
+      "verifier_score": 0.7,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "Two learning outcomes (C4U04-LO04 and C4U06-LO02) are listed with placeholder content '[CLEAN_EVIDENCE_PLACEHOLDER]' and are not supported by actual curriculum evidence.",
+        "The answer includes learning outcomes from multiple units (C4-U04, C4-U05, C4-U06) but the question asks specifically for 'fractions' in Primary 4; the evidence does not clarify whether all these units are intended to be included under the topic 'fractions'.",
+        "The answer omits any learning outcomes from other potential fraction-related units (e.g., C4-U07 or others) that might exist in the curriculum but were not retrieved."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+        "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+          "verdict": "unsupported",
+          "classification": "SUPPORTED_COMPLETE"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "faithful_complete_10",
+      "run_index": 10
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer quotes garbled/truncated source faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "23cbd34ee850e019",
+      "verifier_score": 0.9,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer includes all learning outcomes from the evidence, but some claims are incomplete or repetitive due to the source data quality.",
+        "The answer correctly notes the incomplete/repetitive nature of C4U06-LO02 and C4U04-LO04, which matches the evidence."
+      ],
+      "unsupported_claims": [],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+          "verdict": "supported",
+          "classification": "UNSUPPORTED"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "verdict": "supported",
+          "classification": "TRUNCATION_FAITHFUL"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": true,
+      "false_retrieval": true,
+      "faithful_imperfect_false_retrieval": true,
+      "tag": "faithful_imperfect_01",
+      "run_index": 1
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer quotes garbled/truncated source faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "23cbd34ee850e019",
+      "verifier_score": 0.9,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer includes all learning outcomes from the evidence, but some claims are incomplete or repetitive due to the source data itself.",
+        "The answer correctly notes the incomplete/repetitive nature of C4U06-LO02 and C4U04-LO04, which matches the evidence."
+      ],
+      "unsupported_claims": [],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+          "verdict": "supported",
+          "classification": "UNSUPPORTED"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "verdict": "supported",
+          "classification": "TRUNCATION_FAITHFUL"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": true,
+      "false_retrieval": true,
+      "faithful_imperfect_false_retrieval": true,
+      "tag": "faithful_imperfect_02",
+      "run_index": 2
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer quotes garbled/truncated source faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "23cbd34ee850e019",
+      "verifier_score": 0.9,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer includes all 11 learning outcomes from the evidence, but two of them (C4U04-LO04 and C4U06-LO02) have incomplete/repetitive content in the source records, which the answer correctly notes.",
+        "The answer's note about incomplete records is accurate and appropriately flags the issue."
+      ],
+      "unsupported_claims": [],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+          "verdict": "supported",
+          "classification": "UNSUPPORTED"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "verdict": "supported",
+          "classification": "TRUNCATION_FAITHFUL"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": true,
+      "false_retrieval": true,
+      "faithful_imperfect_false_retrieval": true,
+      "tag": "faithful_imperfect_03",
+      "run_index": 3
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer quotes garbled/truncated source faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "23cbd34ee850e019",
+      "verifier_score": 0.9,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer includes all learning outcomes from the evidence, but some claims are incomplete or repetitive due to the source data quality.",
+        "The answer correctly notes the incomplete/repetitive nature of C4U06-LO02 and C4U04-LO04, which matches the evidence."
+      ],
+      "unsupported_claims": [],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+          "verdict": "supported",
+          "classification": "UNSUPPORTED"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "verdict": "supported",
+          "classification": "TRUNCATION_FAITHFUL"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": true,
+      "false_retrieval": true,
+      "faithful_imperfect_false_retrieval": true,
+      "tag": "faithful_imperfect_04",
+      "run_index": 4
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer quotes garbled/truncated source faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "23cbd34ee850e019",
+      "verifier_score": 0.9,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer includes all learning outcomes from the evidence, but some claims are incomplete or repetitive due to the source data quality.",
+        "The answer correctly notes the incomplete/repetitive nature of C4U06-LO02 and C4U04-LO04, which matches the evidence."
+      ],
+      "unsupported_claims": [],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+          "verdict": "supported",
+          "classification": "UNSUPPORTED"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "verdict": "supported",
+          "classification": "TRUNCATION_FAITHFUL"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": true,
+      "false_retrieval": true,
+      "faithful_imperfect_false_retrieval": true,
+      "tag": "faithful_imperfect_05",
+      "run_index": 5
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer quotes garbled/truncated source faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "23cbd34ee850e019",
+      "verifier_score": 0.9,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer includes all learning outcomes from the evidence, but some claims are incomplete or repetitive due to the source data quality.",
+        "The answer correctly notes the incomplete/repetitive nature of C4U06-LO02 and C4U04-LO04, which matches the evidence."
+      ],
+      "unsupported_claims": [],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+          "verdict": "supported",
+          "classification": "UNSUPPORTED"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "verdict": "supported",
+          "classification": "TRUNCATION_FAITHFUL"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": true,
+      "false_retrieval": true,
+      "faithful_imperfect_false_retrieval": true,
+      "tag": "faithful_imperfect_06",
+      "run_index": 6
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer quotes garbled/truncated source faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "23cbd34ee850e019",
+      "verifier_score": 0.9,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer includes all learning outcomes from the evidence, but some claims are incomplete or repetitive due to the source data quality.",
+        "The answer correctly notes the incomplete/repetitive nature of C4U06-LO02 and C4U04-LO04, which matches the evidence."
+      ],
+      "unsupported_claims": [],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+          "verdict": "supported",
+          "classification": "UNSUPPORTED"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "verdict": "supported",
+          "classification": "TRUNCATION_FAITHFUL"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": true,
+      "false_retrieval": true,
+      "faithful_imperfect_false_retrieval": true,
+      "tag": "faithful_imperfect_07",
+      "run_index": 7
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer quotes garbled/truncated source faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "23cbd34ee850e019",
+      "verifier_score": 0.9,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer includes all learning outcomes from the evidence, but some claims are incomplete or repetitive due to the source data quality.",
+        "The answer correctly notes the incomplete/repetitive nature of C4U06-LO02 and C4U04-LO04, which matches the evidence."
+      ],
+      "unsupported_claims": [],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+          "verdict": "supported",
+          "classification": "UNSUPPORTED"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "verdict": "supported",
+          "classification": "TRUNCATION_FAITHFUL"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": true,
+      "false_retrieval": true,
+      "faithful_imperfect_false_retrieval": true,
+      "tag": "faithful_imperfect_08",
+      "run_index": 8
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer quotes garbled/truncated source faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "23cbd34ee850e019",
+      "verifier_score": 0.9,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer includes all learning outcomes from the evidence, but some claims are marked as unsupported because the evidence records for C4U04-LO04 and C4U06-LO02 are incomplete or repetitive, and the answer notes this. However, the answer does not fabricate content beyond what is in the evidence.",
+        "The answer correctly lists all 11 learning outcomes from the evidence, but the evidence does not include any learning outcomes for 'fractions' beyond those listed, so the answer is complete for the retrieved evidence."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than (evidence is incomplete, but the answer reports it as supplied)",
+        "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to (evidence is incomplete, but the answer reports it as supplied)"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+          "verdict": "unsupported",
+          "classification": "UNSUPPORTED"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_FAITHFUL"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": true,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "faithful_imperfect_09",
+      "run_index": 9
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "FAITHFUL_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer quotes garbled/truncated source faithfully",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "23cbd34ee850e019",
+      "verifier_score": 0.9,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer includes all learning outcomes from the evidence, but some claims are marked as unsupported because the evidence records for C4U04-LO04 and C4U06-LO02 are incomplete or repetitive, and the answer's wording for these is not fully supported by the evidence.",
+        "The answer correctly notes the incomplete nature of these records, which is appropriate."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+        "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+          "verdict": "unsupported",
+          "classification": "UNSUPPORTED"
+        },
+        {
+          "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+          "verdict": "supported",
+          "classification": "MISSING_EVIDENCE"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_FAITHFUL"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": true,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "faithful_imperfect_10",
+      "run_index": 10
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "RECONSTRUCTED_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer repairs truncated/garbled wording",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "d9526d2e292c01e9",
+      "verifier_score": 0.4,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer lists only two learning objectives for fractions in Primary 4, but the curriculum evidence contains many more relevant objectives (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01).",
+        "The first claim (C4U04-LO04) is partially supported but the wording in the evidence is truncated and does not explicitly mention 'greater than one half' or 'denominators up to 12'.",
+        "The second claim (C4U06-LO02) is supported by evidence, but the evidence content is garbled and does not clearly state 'like and related fractions with denominators up to 12'.",
+        "The answer omits several key fraction learning objectives that are present in the evidence, making it incomplete."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "reconstructed_imperfect_01",
+      "run_index": 1
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "RECONSTRUCTED_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer repairs truncated/garbled wording",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "d9526d2e292c01e9",
+      "verifier_score": 0.4,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer omits several relevant learning outcomes for fractions in Primary 4, including C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, and C4U06-LO01.",
+        "The claim for C4U04-LO04 is partially supported but the wording in the evidence is truncated and ambiguous.",
+        "The claim for C4U06-LO02 is supported but the evidence content is garbled, making full verification difficult."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "reconstructed_imperfect_02",
+      "run_index": 2
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "RECONSTRUCTED_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer repairs truncated/garbled wording",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "d9526d2e292c01e9",
+      "verifier_score": 0.4,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer lists only two learning objectives for fractions in Primary 4, but the evidence shows there are many more relevant objectives across units C4-U04, C4-U05, and C4-U06.",
+        "The first claim (C4U04-LO04) is partially supported but the wording in the evidence is truncated and does not clearly state 'greater than one half'.",
+        "The second claim (C4U06-LO02) is supported by evidence, but the evidence content is garbled and does not clearly specify 'like and related fractions'.",
+        "The answer omits several key fraction objectives such as identifying, simplifying, comparing, adding, subtracting, and solving word problems with equivalent fractions."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half. (Evidence is truncated and does not confirm 'denominators up to 12' or 'greater than one half'.)"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+          "verdict": "supported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "reconstructed_imperfect_03",
+      "run_index": 3
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "RECONSTRUCTED_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer repairs truncated/garbled wording",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "d9526d2e292c01e9",
+      "verifier_score": 0.4,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer lists only two learning objectives for fractions in Primary 4, but the curriculum evidence contains many more relevant objectives (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01).",
+        "The first claim (C4U04-LO04) is partially supported but the wording in the evidence is truncated and does not explicitly mention 'greater than one half' or 'denominators up to 12'.",
+        "The second claim (C4U06-LO02) is supported by evidence, though the evidence content is garbled and does not clearly state 'like and related fractions' or 'denominators up to 12'.",
+        "The answer omits several key fraction learning objectives that are present in the evidence, making it incomplete."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "reconstructed_imperfect_04",
+      "run_index": 4
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "RECONSTRUCTED_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer repairs truncated/garbled wording",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "d9526d2e292c01e9",
+      "verifier_score": 0.4,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer lists only two learning objectives, but the curriculum evidence contains many more fraction-related objectives for Primary 4 Mathematics.",
+        "The first claim (C4U04-LO04) is partially supported but the wording in the evidence is incomplete/truncated, making the exact claim uncertain.",
+        "The second claim (C4U06-LO02) is supported by evidence, though the evidence text is garbled.",
+        "The answer omits several relevant learning outcomes (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01) that are directly related to fractions in Primary 4.",
+        "The answer is incomplete and does not fully address the question 'What are the learning objectives for fractions in Primary 4?'"
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half. (Evidence text is truncated and does not confirm 'denominators up to 12' or 'greater than one half'.)"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+          "verdict": "supported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "reconstructed_imperfect_05",
+      "run_index": 5
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "RECONSTRUCTED_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer repairs truncated/garbled wording",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "d9526d2e292c01e9",
+      "verifier_score": 0.4,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer omits several relevant learning outcomes for fractions in Primary 4, including C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, and C4U06-LO01.",
+        "The claim for C4U04-LO04 is partially supported but the wording in the evidence is truncated and ambiguous.",
+        "The claim for C4U06-LO02 is supported but the evidence content is garbled, making full verification difficult."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "reconstructed_imperfect_06",
+      "run_index": 6
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "RECONSTRUCTED_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer repairs truncated/garbled wording",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "d9526d2e292c01e9",
+      "verifier_score": 0.4,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer lists only two learning objectives, but the evidence shows many more fraction-related objectives for Primary 4 Mathematics.",
+        "The first claim (C4U04-LO04) is partially supported but the wording in the evidence is incomplete/truncated, making the exact claim uncertain.",
+        "The second claim (C4U06-LO02) is supported by evidence, though the evidence text is garbled.",
+        "The answer omits several relevant learning objectives (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01) that are directly related to fractions in Primary 4.",
+        "The answer is incomplete and does not fully address the question about learning objectives for fractions in Primary 4."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half. (Evidence text is truncated and does not confirm 'denominators up to 12' or 'greater than one half'.)"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+          "verdict": "supported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "reconstructed_imperfect_07",
+      "run_index": 7
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "RECONSTRUCTED_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer repairs truncated/garbled wording",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "d9526d2e292c01e9",
+      "verifier_score": 0.4,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer lists only two learning objectives for fractions in Primary 4, but the curriculum evidence contains many more relevant objectives (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01).",
+        "The first claim (C4U04-LO04) is partially supported but the wording in the evidence is truncated and does not explicitly mention 'greater than one half' or 'denominators up to 12'.",
+        "The second claim (C4U06-LO02) is supported by evidence, but the evidence content is garbled and does not clearly state 'like and related fractions with denominators up to 12'.",
+        "The answer omits several key fraction learning objectives that are present in the evidence, making it incomplete."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "reconstructed_imperfect_08",
+      "run_index": 8
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "RECONSTRUCTED_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer repairs truncated/garbled wording",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "d9526d2e292c01e9",
+      "verifier_score": 0.4,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer lists only two learning objectives for fractions in Primary 4, but the curriculum evidence contains many more relevant objectives (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01).",
+        "The first claim (C4U04-LO04) is partially supported but the wording in the evidence is truncated and does not clearly state 'greater than one half'.",
+        "The second claim (C4U06-LO02) is supported by evidence, but the evidence content is garbled and does not clearly specify 'like and related fractions'.",
+        "The answer omits several key fraction learning objectives that are present in the evidence, making it incomplete."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half. (The evidence does not clearly support the 'greater than one half' part.)"
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+          "verdict": "supported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "reconstructed_imperfect_09",
+      "run_index": 9
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "RECONSTRUCTED_IMPERFECT",
+      "fixture_description": "Imperfect evidence; answer repairs truncated/garbled wording",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "d9526d2e292c01e9",
+      "verifier_score": 0.4,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer omits several relevant fraction learning outcomes for Primary 4 Mathematics, including C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, and C4U06-LO01.",
+        "The claim for C4U04-LO04 is partially supported but the wording in the evidence is truncated and ambiguous; the answer adds 'up to 12' and 'greater than one half' which are not explicitly present in the evidence.",
+        "The claim for C4U06-LO02 is supported in part, but the evidence content is garbled and does not clearly state 'like and related fractions with denominators up to 12' as the answer claims."
+      ],
+      "unsupported_claims": [
+        "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        },
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "reconstructed_imperfect_10",
+      "run_index": 10
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED",
+      "fixture_description": "Answer introduces LO not present in evidence",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "29e68960889d47da",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims a learning objective 'C4U99-LO01 \u2014 Divide mixed fractions using long division' that does not exist in the provided curriculum evidence.",
+        "The answer fails to list any of the actual Primary 4 fractions learning objectives found in the evidence (e.g., C4U04-LO01, C4U05-LO01, C4U06-LO01).",
+        "The answer is incomplete and misleading; it provides only one fabricated objective instead of the comprehensive set of fraction objectives."
+      ],
+      "unsupported_claims": [
+        "C4U99-LO01 \u2014 Divide mixed fractions using long division."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U99-LO01 \u2014 Divide mixed fractions using long division.",
+          "verdict": "contradicted",
+          "classification": "UNSUPPORTED"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_01",
+      "run_index": 1
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED",
+      "fixture_description": "Answer introduces LO not present in evidence",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "29e68960889d47da",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims a learning objective 'C4U99-LO01 \u2014 Divide mixed fractions using long division' that does not exist in the provided curriculum evidence.",
+        "The answer fails to list any of the actual Primary 4 fractions learning objectives found in the evidence (e.g., C4U04-LO01, C4U05-LO01, C4U06-LO01).",
+        "The answer is incomplete and misleading; it does not reflect the curriculum content for Primary 4 Mathematics fractions."
+      ],
+      "unsupported_claims": [
+        "C4U99-LO01 \u2014 Divide mixed fractions using long division."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U99-LO01 \u2014 Divide mixed fractions using long division.",
+          "verdict": "contradicted",
+          "classification": "UNSUPPORTED"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_02",
+      "run_index": 2
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED",
+      "fixture_description": "Answer introduces LO not present in evidence",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "29e68960889d47da",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims a learning objective 'C4U99-LO01 \u2014 Divide mixed fractions using long division' that does not exist in the provided curriculum evidence.",
+        "The answer fails to list any of the actual Primary 4 fractions learning objectives found in the evidence (e.g., C4U04-LO01, C4U05-LO01, C4U06-LO01).",
+        "The answer is incomplete and misleading; it provides only one fabricated objective instead of the comprehensive set of fraction objectives."
+      ],
+      "unsupported_claims": [
+        "C4U99-LO01 \u2014 Divide mixed fractions using long division."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U99-LO01 \u2014 Divide mixed fractions using long division.",
+          "verdict": "contradicted",
+          "classification": "UNSUPPORTED"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_03",
+      "run_index": 3
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED",
+      "fixture_description": "Answer introduces LO not present in evidence",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "29e68960889d47da",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims a learning objective 'C4U99-LO01 \u2014 Divide mixed fractions using long division' that does not exist in the provided curriculum evidence.",
+        "The answer fails to list any of the actual Primary 4 fractions learning objectives found in the evidence (e.g., C4U04-LO01 through C4U06-LO02).",
+        "The answer is incomplete and misleading; it does not reflect the retrieved curriculum content."
+      ],
+      "unsupported_claims": [
+        "C4U99-LO01 \u2014 Divide mixed fractions using long division."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U99-LO01 \u2014 Divide mixed fractions using long division.",
+          "verdict": "contradicted",
+          "classification": "UNSUPPORTED"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_04",
+      "run_index": 4
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED",
+      "fixture_description": "Answer introduces LO not present in evidence",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "29e68960889d47da",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims a learning objective 'C4U99-LO01 \u2014 Divide mixed fractions using long division' that does not exist in the provided curriculum evidence.",
+        "The answer fails to list any of the actual Primary 4 fractions learning objectives found in the evidence (e.g., C4U04-LO01, C4U05-LO01, C4U06-LO01).",
+        "The answer is incomplete and misleading; it does not reflect the curriculum content for fractions in Primary 4."
+      ],
+      "unsupported_claims": [
+        "C4U99-LO01 \u2014 Divide mixed fractions using long division."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U99-LO01 \u2014 Divide mixed fractions using long division.",
+          "verdict": "contradicted",
+          "classification": "UNSUPPORTED"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_05",
+      "run_index": 5
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED",
+      "fixture_description": "Answer introduces LO not present in evidence",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "29e68960889d47da",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims a learning objective 'C4U99-LO01 \u2014 Divide mixed fractions using long division' that does not exist in the provided curriculum evidence.",
+        "The answer fails to list any of the actual Primary 4 fractions learning objectives found in the evidence (e.g., C4U04-LO01 through C4U06-LO02).",
+        "The answer is incomplete and misleading; it provides only one fabricated objective instead of the comprehensive set of fraction objectives."
+      ],
+      "unsupported_claims": [
+        "C4U99-LO01 \u2014 Divide mixed fractions using long division."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U99-LO01 \u2014 Divide mixed fractions using long division.",
+          "verdict": "contradicted",
+          "classification": "UNSUPPORTED"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_06",
+      "run_index": 6
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED",
+      "fixture_description": "Answer introduces LO not present in evidence",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "29e68960889d47da",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims a learning objective 'C4U99-LO01 \u2014 Divide mixed fractions using long division' that does not exist in the provided curriculum evidence.",
+        "The answer fails to list any of the actual Primary 4 fractions learning objectives found in the evidence (e.g., C4U04-LO01 through C4U06-LO02).",
+        "The answer is incomplete and misleading; it does not reflect the retrieved curriculum content."
+      ],
+      "unsupported_claims": [
+        "C4U99-LO01 \u2014 Divide mixed fractions using long division."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U99-LO01 \u2014 Divide mixed fractions using long division.",
+          "verdict": "contradicted",
+          "classification": "UNSUPPORTED"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_07",
+      "run_index": 7
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED",
+      "fixture_description": "Answer introduces LO not present in evidence",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "29e68960889d47da",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims a learning objective 'C4U99-LO01 \u2014 Divide mixed fractions using long division' that does not exist in the provided curriculum evidence.",
+        "The answer fails to list any of the actual Primary 4 fractions learning objectives found in the evidence (e.g., C4U04-LO01, C4U05-LO01, C4U06-LO01).",
+        "The answer is incomplete and misleading; it provides only one fabricated objective instead of the full set of fractions objectives."
+      ],
+      "unsupported_claims": [
+        "C4U99-LO01 \u2014 Divide mixed fractions using long division."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U99-LO01 \u2014 Divide mixed fractions using long division.",
+          "verdict": "contradicted",
+          "classification": "UNSUPPORTED"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_08",
+      "run_index": 8
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED",
+      "fixture_description": "Answer introduces LO not present in evidence",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "29e68960889d47da",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims a learning objective 'C4U99-LO01 \u2014 Divide mixed fractions using long division' that does not exist in the provided curriculum evidence.",
+        "The answer fails to list any of the actual Primary 4 fractions learning objectives found in the evidence (e.g., C4U04-LO01 through C4U06-LO02).",
+        "The answer is incomplete and misleading; it does not reflect the curriculum content for fractions in Primary 4."
+      ],
+      "unsupported_claims": [
+        "C4U99-LO01 \u2014 Divide mixed fractions using long division."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U99-LO01 \u2014 Divide mixed fractions using long division.",
+          "verdict": "contradicted",
+          "classification": "UNSUPPORTED"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_09",
+      "run_index": 9
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED",
+      "fixture_description": "Answer introduces LO not present in evidence",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "29e68960889d47da",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims a learning objective 'C4U99-LO01 \u2014 Divide mixed fractions using long division' that does not exist in the provided curriculum evidence.",
+        "The answer fails to list any of the actual Primary 4 fractions learning objectives found in the evidence (e.g., C4U04-LO01, C4U05-LO01, C4U06-LO01).",
+        "The answer is incomplete and misleading; it provides only one fabricated objective instead of the comprehensive set of fraction objectives."
+      ],
+      "unsupported_claims": [
+        "C4U99-LO01 \u2014 Divide mixed fractions using long division."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U99-LO01 \u2014 Divide mixed fractions using long division.",
+          "verdict": "contradicted",
+          "classification": "UNSUPPORTED"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_10",
+      "run_index": 10
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED_ABSENCE",
+      "fixture_description": "Unsupported absence claim",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "3a868cedbad7b519",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims there are no learning outcomes for division of fractions in Primary 4, but the question asks about learning objectives for fractions in general, not specifically division. The answer does not address the actual question.",
+        "The evidence contains multiple learning outcomes for fractions in Primary 4 (e.g., identify, add, subtract, multiply equivalent fractions), so the answer is incomplete and misleading."
+      ],
+      "unsupported_claims": [
+        "There are no learning outcomes for division of fractions in Primary 4."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "There are no learning outcomes for division of fractions in Primary 4.",
+          "verdict": "unsupported",
+          "classification": "ABSENCE_CLAIM"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_absence_01",
+      "run_index": 1
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED_ABSENCE",
+      "fixture_description": "Unsupported absence claim",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "3a868cedbad7b519",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims there are no learning outcomes for division of fractions in Primary 4, but the question asks about learning objectives for fractions in general, not specifically division. The answer does not address the actual question.",
+        "The evidence contains multiple learning outcomes for fractions in Primary 4 (e.g., identify, add, subtract, multiply equivalent fractions), so the answer is incomplete and misleading."
+      ],
+      "unsupported_claims": [
+        "There are no learning outcomes for division of fractions in Primary 4."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "There are no learning outcomes for division of fractions in Primary 4.",
+          "verdict": "unsupported",
+          "classification": "ABSENCE_CLAIM"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_absence_02",
+      "run_index": 2
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED_ABSENCE",
+      "fixture_description": "Unsupported absence claim",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "3a868cedbad7b519",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims there are no learning outcomes for division of fractions in Primary 4, but the question asks about learning objectives for fractions in general, not specifically division. The answer does not address the actual question.",
+        "The evidence contains multiple learning outcomes for fractions in Primary 4 (e.g., identify, add, subtract, multiply equivalent fractions), so the answer is misleading and unsupported."
+      ],
+      "unsupported_claims": [
+        "There are no learning outcomes for division of fractions in Primary 4."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "There are no learning outcomes for division of fractions in Primary 4.",
+          "verdict": "unsupported",
+          "classification": "ABSENCE_CLAIM"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_absence_03",
+      "run_index": 3
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED_ABSENCE",
+      "fixture_description": "Unsupported absence claim",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "3a868cedbad7b519",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims there are no learning outcomes for division of fractions in Primary 4, but the question asks about learning objectives for fractions in general, not specifically division. The answer does not address the actual question.",
+        "The evidence contains multiple learning outcomes for fractions in Primary 4 (e.g., identify, add, subtract, multiply equivalent fractions), so the answer is incomplete and misleading."
+      ],
+      "unsupported_claims": [
+        "There are no learning outcomes for division of fractions in Primary 4."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "There are no learning outcomes for division of fractions in Primary 4.",
+          "verdict": "unsupported",
+          "classification": "ABSENCE_CLAIM"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_absence_04",
+      "run_index": 4
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED_ABSENCE",
+      "fixture_description": "Unsupported absence claim",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "3a868cedbad7b519",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims there are no learning outcomes for division of fractions in Primary 4, but the question asks for learning objectives for fractions in general, not specifically division. The answer does not address the actual question.",
+        "The evidence contains multiple learning outcomes for fractions in Primary 4 (e.g., identify, simplify, compare, add, subtract, multiply equivalent fractions), so the answer is misleading and unsupported."
+      ],
+      "unsupported_claims": [
+        "There are no learning outcomes for division of fractions in Primary 4."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "There are no learning outcomes for division of fractions in Primary 4.",
+          "verdict": "unsupported",
+          "classification": "ABSENCE_CLAIM"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_absence_05",
+      "run_index": 5
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED_ABSENCE",
+      "fixture_description": "Unsupported absence claim",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "3a868cedbad7b519",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims there are no learning outcomes for division of fractions in Primary 4, but the question asks about learning objectives for fractions in general, not specifically division. The answer does not address the actual question.",
+        "The evidence contains multiple learning outcomes for fractions in Primary 4 (e.g., identify, add, subtract, multiply equivalent fractions), so the answer is incomplete and misleading."
+      ],
+      "unsupported_claims": [
+        "There are no learning outcomes for division of fractions in Primary 4."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "There are no learning outcomes for division of fractions in Primary 4.",
+          "verdict": "unsupported",
+          "classification": "ABSENCE_CLAIM"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_absence_06",
+      "run_index": 6
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED_ABSENCE",
+      "fixture_description": "Unsupported absence claim",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "3a868cedbad7b519",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims there are no learning outcomes for division of fractions in Primary 4, but the question asks for learning objectives for fractions in general, not specifically division. The answer does not address the actual question.",
+        "The evidence contains multiple learning outcomes for fractions in Primary 4 (e.g., identify, add, subtract, multiply equivalent fractions), so the answer is incomplete and misleading."
+      ],
+      "unsupported_claims": [
+        "There are no learning outcomes for division of fractions in Primary 4."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "There are no learning outcomes for division of fractions in Primary 4.",
+          "verdict": "unsupported",
+          "classification": "ABSENCE_CLAIM"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_absence_07",
+      "run_index": 7
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED_ABSENCE",
+      "fixture_description": "Unsupported absence claim",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "3a868cedbad7b519",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims there are no learning outcomes for division of fractions in Primary 4, but the question asks about learning objectives for fractions in general, not specifically division. The answer does not address the actual question.",
+        "The evidence contains multiple learning outcomes for fractions in Primary 4 (e.g., identify, simplify, compare, add, subtract, multiply equivalent fractions), so the answer is incorrect and unsupported."
+      ],
+      "unsupported_claims": [
+        "There are no learning outcomes for division of fractions in Primary 4."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "There are no learning outcomes for division of fractions in Primary 4.",
+          "verdict": "contradicted",
+          "classification": "ABSENCE_CLAIM"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_absence_08",
+      "run_index": 8
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED_ABSENCE",
+      "fixture_description": "Unsupported absence claim",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "3a868cedbad7b519",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims there are no learning outcomes for division of fractions in Primary 4, but the question asks about learning objectives for fractions in general, not specifically division. The answer does not address the actual question.",
+        "The evidence contains multiple learning outcomes for fractions in Primary 4 (e.g., identify, add, subtract, multiply equivalent fractions), so the answer is incomplete and misleading."
+      ],
+      "unsupported_claims": [
+        "There are no learning outcomes for division of fractions in Primary 4."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "There are no learning outcomes for division of fractions in Primary 4.",
+          "verdict": "unsupported",
+          "classification": "ABSENCE_CLAIM"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_absence_09",
+      "run_index": 9
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "UNSUPPORTED_ABSENCE",
+      "fixture_description": "Unsupported absence claim",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "977b259fcfb4b282",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "3a868cedbad7b519",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims there are no learning outcomes for division of fractions in Primary 4, but the question asks about learning objectives for fractions in general, not specifically division. The answer does not address the actual question.",
+        "The evidence contains multiple learning outcomes for fractions in Primary 4 (e.g., identify, add, subtract, multiply equivalent fractions), so the answer is incomplete and misleading."
+      ],
+      "unsupported_claims": [
+        "There are no learning outcomes for division of fractions in Primary 4."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "There are no learning outcomes for division of fractions in Primary 4.",
+          "verdict": "unsupported",
+          "classification": "ABSENCE_CLAIM"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": false,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "unsupported_absence_10",
+      "run_index": 10
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "MISSING_EVIDENCE",
+      "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "b9d15052e5f4db7c",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "b62607d86cf52d07",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer cites a learning outcome code (C4U06-LO02) that does not exist in the provided curriculum evidence.",
+        "The generated answer claims a learning objective about multiplying like and related fractions with denominators up to 12 using visual models, but no such objective appears in the evidence.",
+        "The answer is incomplete: it lists only one objective, while the evidence contains multiple fraction-related learning outcomes for Primary 4 Mathematics.",
+        "The answer does not reference any of the actual learning outcomes present in the evidence (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01)."
+      ],
+      "unsupported_claims": [
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "missing_evidence_01",
+      "run_index": 1
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "MISSING_EVIDENCE",
+      "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "b9d15052e5f4db7c",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "b62607d86cf52d07",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims a learning objective 'C4U06-LO02' for multiplying like and related fractions with denominators up to 12 using visual models, but no such learning outcome exists in the provided curriculum evidence. The evidence only contains C4U06-LO01 (Multiply equivalent fractions) and other fraction-related outcomes.",
+        "The answer is incomplete: it lists only one objective, while the evidence shows multiple fraction learning outcomes for Primary 4 (identify, simplify, compare/order, add, subtract, solve word problems, multiply equivalent fractions).",
+        "The answer does not cite any evidence references, and the claimed objective code is not present in the evidence."
+      ],
+      "unsupported_claims": [
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "missing_evidence_02",
+      "run_index": 2
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "MISSING_EVIDENCE",
+      "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "b9d15052e5f4db7c",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "b62607d86cf52d07",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer claims a learning objective 'C4U06-LO02' for multiplying like and related fractions with denominators up to 12 using visual models, but no such learning outcome exists in the provided curriculum evidence.",
+        "The answer is incomplete: it lists only one objective, while the evidence contains multiple fraction-related learning outcomes for Primary 4 Mathematics.",
+        "The answer does not cite any evidence references, and the claimed objective code does not match any evidence record."
+      ],
+      "unsupported_claims": [
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "missing_evidence_03",
+      "run_index": 3
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "MISSING_EVIDENCE",
+      "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "b9d15052e5f4db7c",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "b62607d86cf52d07",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer cites C4U06-LO02, but no such learning outcome exists in the provided evidence. The evidence contains C4U06-LO01 only.",
+        "The answer claims 'Multiply like and related fractions with denominators up to 12 using visual models' but the evidence for C4U06-LO01 states 'Multiply equivalent fractions.' The claim is not supported and appears to be a hallucination.",
+        "The answer is incomplete: it lists only one objective, while the evidence shows multiple fraction-related learning outcomes across units C4-U04, C4-U05, and C4-U06."
+      ],
+      "unsupported_claims": [
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models.",
+          "verdict": "contradicted",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "missing_evidence_04",
+      "run_index": 4
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "MISSING_EVIDENCE",
+      "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "b9d15052e5f4db7c",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "b62607d86cf52d07",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer cites a learning outcome code (C4U06-LO02) that does not exist in the provided curriculum evidence.",
+        "The generated answer's claim about multiplying like and related fractions with denominators up to 12 is not supported by any retrieved evidence.",
+        "The answer is incomplete: it lists only one objective while the evidence shows multiple fraction-related learning outcomes for Primary 4."
+      ],
+      "unsupported_claims": [
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "missing_evidence_05",
+      "run_index": 5
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "MISSING_EVIDENCE",
+      "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "b9d15052e5f4db7c",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "b62607d86cf52d07",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer cites a learning outcome code (C4U06-LO02) that does not exist in the provided curriculum evidence.",
+        "The generated answer claims a learning objective about multiplying like and related fractions with denominators up to 12 using visual models, but no such objective appears in the evidence.",
+        "The answer is incomplete: it lists only one objective, while the evidence contains multiple fraction-related learning outcomes for Primary 4 Mathematics.",
+        "The answer does not reference any of the actual learning outcomes present in the evidence (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01)."
+      ],
+      "unsupported_claims": [
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "missing_evidence_06",
+      "run_index": 6
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "MISSING_EVIDENCE",
+      "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "b9d15052e5f4db7c",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "b62607d86cf52d07",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer cites a learning outcome code (C4U06-LO02) that does not exist in the provided curriculum evidence.",
+        "The generated answer claims a learning objective about multiplying like and related fractions with denominators up to 12 using visual models, but no such objective appears in the evidence.",
+        "The answer is incomplete: it lists only one objective, while the evidence contains multiple fraction-related learning outcomes for Primary 4 Mathematics.",
+        "The answer does not reference any of the actual learning outcomes present in the evidence (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01)."
+      ],
+      "unsupported_claims": [
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "missing_evidence_07",
+      "run_index": 7
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "MISSING_EVIDENCE",
+      "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "b9d15052e5f4db7c",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "b62607d86cf52d07",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "retrieve_more",
+      "retrieve_more_requested": true,
+      "insufficient_evidence": false,
+      "failure_reason": "retrieve_more",
+      "issue_codes": [
+        "The generated answer cites C4U06-LO02, but the evidence contains no such learning outcome. The only multiplication-related outcome is C4U06-LO01 'Multiply equivalent fractions.'",
+        "The answer claims 'Multiply like and related fractions with denominators up to 12 using visual models,' but no evidence supports the specific denominator limit or the use of visual models.",
+        "The answer is incomplete: it lists only one objective, while the evidence shows multiple fraction-related learning outcomes for Primary 4 (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01 through LO04, C4U06-LO01)."
+      ],
+      "unsupported_claims": [
+        "C4U06-LO02 exists as a learning outcome for fractions in Primary 4.",
+        "The learning objective includes 'denominators up to 12'.",
+        "The learning objective includes 'using visual models'."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U06-LO02 is a learning objective for fractions in Primary 4.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        },
+        {
+          "claim": "The objective includes 'denominators up to 12'.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        },
+        {
+          "claim": "The objective includes 'using visual models'.",
+          "verdict": "unsupported",
+          "classification": "MISSING_EVIDENCE"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "missing_evidence_08",
+      "run_index": 8
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "MISSING_EVIDENCE",
+      "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "b9d15052e5f4db7c",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "b62607d86cf52d07",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer cites C4U06-LO02, but no such learning outcome exists in the provided evidence. The evidence contains C4U06-LO01 only.",
+        "The answer claims 'Multiply like and related fractions with denominators up to 12 using visual models' but the evidence for C4U06-LO01 states 'Multiply equivalent fractions' \u2014 the claim is not supported and includes details not present in the curriculum.",
+        "The answer is incomplete: it lists only one learning objective, while the evidence shows multiple fraction-related objectives across units C4-U04, C4-U05, and C4-U06.",
+        "The answer does not reference any of the actual learning outcomes found in the evidence (C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01)."
+      ],
+      "unsupported_claims": [
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "missing_evidence_09",
+      "run_index": 9
+    },
+    {
+      "experiment": "v2.7_verifier_decision_boundary",
+      "arm": "A",
+      "fixture_class": "MISSING_EVIDENCE",
+      "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+      "evidence_hash": "977b259fcfb4b282",
+      "transformed_evidence_hash": "b9d15052e5f4db7c",
+      "imperfect_evidence_count": 2,
+      "evidence_present": true,
+      "answer_hash": "b62607d86cf52d07",
+      "verifier_score": 0.0,
+      "verifier_accepted": false,
+      "verifier_decision": "fallback",
+      "retrieve_more_requested": false,
+      "insufficient_evidence": true,
+      "failure_reason": "fallback",
+      "issue_codes": [
+        "The generated answer cites a learning outcome code (C4U06-LO02) that does not exist in the provided curriculum evidence.",
+        "The generated answer claims a learning objective about multiplying like and related fractions with denominators up to 12 using visual models, but no such objective appears in the evidence.",
+        "The answer is incomplete: it lists only one objective, while the evidence contains multiple fraction-related learning outcomes for Primary 4 Mathematics.",
+        "The answer does not reference any of the actual learning outcomes present in the evidence (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01)."
+      ],
+      "unsupported_claims": [
+        "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models."
+      ],
+      "claim_classifications": [
+        {
+          "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models.",
+          "verdict": "unsupported",
+          "classification": "TRUNCATION_RECONSTRUCTION"
+        }
+      ],
+      "speculative_claims": false,
+      "truncation_reconstruction": true,
+      "truncation_faithful": false,
+      "false_retrieval": false,
+      "faithful_imperfect_false_retrieval": false,
+      "tag": "missing_evidence_10",
+      "run_index": 10
+    }
+  ],
+  "safety": {
+    "unsupported_claims_rejected": true,
+    "absence_claims_rejected": true,
+    "reconstruction_claims_rejected": true,
+    "missing_evidence_rejected": true,
+    "speculative_claims_rejected": true
+  },
+  "v26_baseline": {
+    "faithful_imperfect_acceptance": 0.0,
+    "retrieve_more_rate": 0.9,
+    "avg_score": 0.825
+  },
+  "conclusion": "PARTIALLY SUPPORTED",
+  "interpretation_note": "Faithful-imperfect acceptance improved materially at score-based thresholds with safety preserved, but faithful-complete placeholder handling remains unresolved.",
+  "best_threshold_analysis": 0.85,
+  "next_recommendation": "Refine decision-boundary guards and re-test with larger sample.",
+  "production_unchanged": {
+    "verifier": true,
+    "generator": true,
+    "retrieval": true,
+    "routing": true,
+    "resolver": true,
+    "database": true,
+    "semantic_search": true,
+    "v2_api": true
+  }
+}

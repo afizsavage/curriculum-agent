@@ -1,0 +1,39 @@
+{
+  "experiment": "v2.7_verifier_decision_boundary",
+  "arm": "A",
+  "fixture_class": "MISSING_EVIDENCE",
+  "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+  "evidence_hash": "977b259fcfb4b282",
+  "transformed_evidence_hash": "b9d15052e5f4db7c",
+  "imperfect_evidence_count": 2,
+  "evidence_present": true,
+  "answer_hash": "b62607d86cf52d07",
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "failure_reason": "fallback",
+  "issue_codes": [
+    "The generated answer claims a learning objective 'C4U06-LO02' for multiplying like and related fractions with denominators up to 12 using visual models, but no such learning outcome exists in the provided curriculum evidence.",
+    "The answer is incomplete: it lists only one objective, while the evidence contains multiple fraction-related learning outcomes for Primary 4 Mathematics.",
+    "The answer does not cite any evidence references, and the claimed objective code does not match any evidence record."
+  ],
+  "unsupported_claims": [
+    "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12 using visual models.",
+      "verdict": "unsupported",
+      "classification": "TRUNCATION_RECONSTRUCTION"
+    }
+  ],
+  "speculative_claims": false,
+  "truncation_reconstruction": true,
+  "truncation_faithful": false,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "tag": "missing_evidence_03",
+  "run_index": 3
+}

@@ -1,0 +1,38 @@
+{
+  "experiment": "v2.7_verifier_decision_boundary",
+  "arm": "A",
+  "fixture_class": "UNSUPPORTED_ABSENCE",
+  "fixture_description": "Unsupported absence claim",
+  "evidence_hash": "977b259fcfb4b282",
+  "transformed_evidence_hash": "977b259fcfb4b282",
+  "imperfect_evidence_count": 2,
+  "evidence_present": true,
+  "answer_hash": "3a868cedbad7b519",
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "failure_reason": "fallback",
+  "issue_codes": [
+    "The generated answer claims there are no learning outcomes for division of fractions in Primary 4, but the question asks about learning objectives for fractions in general, not specifically division. The answer does not address the actual question.",
+    "The evidence contains multiple learning outcomes for fractions in Primary 4 (e.g., identify, add, subtract, multiply equivalent fractions), so the answer is incomplete and misleading."
+  ],
+  "unsupported_claims": [
+    "There are no learning outcomes for division of fractions in Primary 4."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "There are no learning outcomes for division of fractions in Primary 4.",
+      "verdict": "unsupported",
+      "classification": "ABSENCE_CLAIM"
+    }
+  ],
+  "speculative_claims": false,
+  "truncation_reconstruction": false,
+  "truncation_faithful": false,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "tag": "unsupported_absence_01",
+  "run_index": 1
+}

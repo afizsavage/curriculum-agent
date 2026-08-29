@@ -1,0 +1,45 @@
+{
+  "experiment": "v2.7_verifier_decision_boundary",
+  "arm": "A",
+  "fixture_class": "RECONSTRUCTED_IMPERFECT",
+  "fixture_description": "Imperfect evidence; answer repairs truncated/garbled wording",
+  "evidence_hash": "977b259fcfb4b282",
+  "transformed_evidence_hash": "977b259fcfb4b282",
+  "imperfect_evidence_count": 2,
+  "evidence_present": true,
+  "answer_hash": "d9526d2e292c01e9",
+  "verifier_score": 0.4,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": false,
+  "failure_reason": "retrieve_more",
+  "issue_codes": [
+    "The generated answer omits several relevant learning outcomes for fractions in Primary 4, including C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, and C4U06-LO01.",
+    "The claim for C4U04-LO04 is partially supported but the wording in the evidence is truncated and ambiguous.",
+    "The claim for C4U06-LO02 is supported but the evidence content is garbled, making full verification difficult."
+  ],
+  "unsupported_claims": [
+    "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+    "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to 12 to compare equivalent fractions greater than one half.",
+      "verdict": "unsupported",
+      "classification": "TRUNCATION_RECONSTRUCTION"
+    },
+    {
+      "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+      "verdict": "unsupported",
+      "classification": "TRUNCATION_RECONSTRUCTION"
+    }
+  ],
+  "speculative_claims": false,
+  "truncation_reconstruction": true,
+  "truncation_faithful": false,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "tag": "reconstructed_imperfect_06",
+  "run_index": 6
+}

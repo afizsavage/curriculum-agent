@@ -1,0 +1,51 @@
+{
+  "experiment": "v2.7_verifier_decision_boundary",
+  "arm": "A",
+  "fixture_class": "MISSING_EVIDENCE",
+  "fixture_description": "Imperfect LO absent from evidence; answer asserts missing fact",
+  "evidence_hash": "977b259fcfb4b282",
+  "transformed_evidence_hash": "b9d15052e5f4db7c",
+  "imperfect_evidence_count": 2,
+  "evidence_present": true,
+  "answer_hash": "b62607d86cf52d07",
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": false,
+  "failure_reason": "retrieve_more",
+  "issue_codes": [
+    "The generated answer cites C4U06-LO02, but the evidence contains no such learning outcome. The only multiplication-related outcome is C4U06-LO01 'Multiply equivalent fractions.'",
+    "The answer claims 'Multiply like and related fractions with denominators up to 12 using visual models,' but no evidence supports the specific denominator limit or the use of visual models.",
+    "The answer is incomplete: it lists only one objective, while the evidence shows multiple fraction-related learning outcomes for Primary 4 (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01 through LO04, C4U06-LO01)."
+  ],
+  "unsupported_claims": [
+    "C4U06-LO02 exists as a learning outcome for fractions in Primary 4.",
+    "The learning objective includes 'denominators up to 12'.",
+    "The learning objective includes 'using visual models'."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U06-LO02 is a learning objective for fractions in Primary 4.",
+      "verdict": "unsupported",
+      "classification": "TRUNCATION_RECONSTRUCTION"
+    },
+    {
+      "claim": "The objective includes 'denominators up to 12'.",
+      "verdict": "unsupported",
+      "classification": "TRUNCATION_RECONSTRUCTION"
+    },
+    {
+      "claim": "The objective includes 'using visual models'.",
+      "verdict": "unsupported",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "speculative_claims": false,
+  "truncation_reconstruction": true,
+  "truncation_faithful": false,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "tag": "missing_evidence_08",
+  "run_index": 8
+}
