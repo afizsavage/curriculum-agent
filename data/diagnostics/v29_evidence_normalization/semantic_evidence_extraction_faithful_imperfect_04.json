@@ -1,0 +1,204 @@
+{
+  "experiment": "v2.9_evidence_normalization",
+  "normalization_variant": "SEMANTIC_EVIDENCE_EXTRACTION",
+  "fixture_class": "FAITHFUL_IMPERFECT",
+  "primary_unit": "C4-U04/U05/U06",
+  "question": "What are the learning objectives for fractions in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Fractions Learning Objectives\n\n- **C4U04-LO01** \u2014 Simplify like fraction with common denominators.\n- **C4U04-LO02** \u2014 Compare and order like fraction.\n- **C4U04-LO03** \u2014 Identify Equivalent fractions.\n- **C4U04-LO04** \u2014 Relate fractions with denominators up to compare equivalent fraction greater than\n- **C4U05-LO01** \u2014 Add Equivalent fractions.\n- **C4U05-LO02** \u2014 Subtract Equivalent fractions.\n- **C4U05-LO03** \u2014 Solve both Addition and Subtraction of Equivalent fractions.\n- **C4U05-LO04** \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.\n- **C4U06-LO01** \u2014 Multiply equivalent fractions.\n- **C4U06-LO02** \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to\n\nNote: C4U06-LO02 and C4U04-LO04 appear incomplete or repetitive; wording reported as supplied.\n",
+  "answer_hash": "4ff66d8217026d9c",
+  "evidence_hash": "977b259fcfb4b282",
+  "raw_evidence_hash": "977b259fcfb4b282",
+  "normalized_evidence_hash": "977b259fcfb4b282",
+  "evidence_source": "fractions",
+  "evidence_present": true,
+  "raw_evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "normalization_diagnostics": {
+    "variant": "SEMANTIC_EVIDENCE_EXTRACTION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort",
+      "classify_substance",
+      "retain_substantive_only"
+    ],
+    "records_in": 13,
+    "records_out": 13,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 13,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "977b259fcfb4b282",
+    "evidence_hash_out": "977b259fcfb4b282"
+  },
+  "verifier_score": 0.9,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": false,
+  "unsupported_claims": [],
+  "issue_codes": [
+    "The generated answer includes all learning outcomes from the evidence, but some claims are incomplete or repetitive due to the source data itself.",
+    "The answer notes the incomplete/repetitive wording, which is accurate and transparent."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+      "verdict": "supported",
+      "classification": "TRUNCATION_FAITHFUL"
+    }
+  ],
+  "placeholder_detected_in_raw": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.9,
+    "issues": [
+      "The generated answer includes all learning outcomes from the evidence, but some claims are incomplete or repetitive due to the source data itself.",
+      "The answer notes the incomplete/repetitive wording, which is accurate and transparent."
+    ],
+    "unsupported_claims": [],
+    "missing_evidence": [],
+    "incorrect_claims": [],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "4cb80e72-796a-4513-ac92-68e14fcb630f"
+        ],
+        "notes": "Exact match with evidence."
+      },
+      {
+        "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f"
+        ],
+        "notes": "Exact match with evidence."
+      },
+      {
+        "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "6926032f-39b7-4ad6-8278-085bae23318b"
+        ],
+        "notes": "Exact match with evidence."
+      },
+      {
+        "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+        "verdict": "supported",
+        "evidence_ids": [
+          "686a96c2-6b45-49d2-aeab-2fa1f7b15704"
+        ],
+        "notes": "Exact match with evidence, including incomplete wording."
+      },
+      {
+        "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "c9fa3ea4-72dd-442f-bc27-5e7992b72f72"
+        ],
+        "notes": "Exact match with evidence."
+      },
+      {
+        "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "0cc3886d-2320-4795-8c91-e407e3372b5c"
+        ],
+        "notes": "Exact match with evidence."
+      },
+      {
+        "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "714546a5-7e71-4888-80cb-cd73ec617d8e"
+        ],
+        "notes": "Exact match with evidence."
+      },
+      {
+        "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5af8401e-1c30-4890-b76b-d507a0f0c8a2"
+        ],
+        "notes": "Exact match with evidence."
+      },
+      {
+        "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "ee43f087-3372-411e-9495-21859368099e"
+        ],
+        "notes": "Exact match with evidence."
+      },
+      {
+        "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+        "verdict": "supported",
+        "evidence_ids": [
+          "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+        ],
+        "notes": "Exact match with evidence, including repetitive wording."
+      }
+    ],
+    "clarification": null,
+    "notes": "All claims in the generated answer are directly supported by the retrieved curriculum evidence. The answer accurately reflects the learning outcomes for Primary 4 Mathematics fractions, including the incomplete/repetitive wording present in the source data. No unsupported or incorrect claims were found.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 5253.13,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "semantic_evidence_extraction_faithful_imperfect_04",
+  "run_index": 4
+}

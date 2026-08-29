@@ -1,0 +1,102 @@
+{
+  "experiment": "v2.9_evidence_normalization",
+  "normalization_variant": "STRUCTURAL_NORMALIZATION",
+  "fixture_class": "RECONSTRUCTION",
+  "primary_unit": "C4-U04/U05/U06",
+  "question": "What are the learning objectives for fractions in Primary 4?",
+  "answer": "## Fractions\n\n- **C4U06-LO02** \u2014 Multiply like and related fractions with denominators up to 12.\n",
+  "answer_hash": "7cfca6c1d830c592",
+  "evidence_hash": "977b259fcfb4b282",
+  "raw_evidence_hash": "977b259fcfb4b282",
+  "normalized_evidence_hash": "977b259fcfb4b282",
+  "evidence_source": "fractions",
+  "evidence_present": true,
+  "raw_evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "normalization_diagnostics": {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "records_in": 13,
+    "records_out": 13,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 26,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "977b259fcfb4b282",
+    "evidence_hash_out": "977b259fcfb4b282"
+  },
+  "verifier_score": 0.1,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+  ],
+  "issue_codes": [
+    "The generated answer is incomplete: it lists only one learning objective (C4U06-LO02) while the curriculum evidence contains multiple fraction-related learning outcomes for Primary 4.",
+    "The cited learning outcome C4U06-LO02 is not clearly supported by the evidence; the evidence content for C4U06-LO02 is garbled and does not explicitly state 'Multiply like and related fractions with denominators up to 12.'",
+    "The answer omits numerous relevant learning objectives from the evidence, such as identifying equivalent fractions, comparing/ordering fractions, adding/subtracting equivalent fractions, and solving word problems.",
+    "The answer does not reference any evidence IDs, making verification difficult."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+      "verdict": "unsupported",
+      "classification": "TRUNCATION_RECONSTRUCTION"
+    }
+  ],
+  "placeholder_detected_in_raw": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.1,
+    "issues": [
+      "The generated answer is incomplete: it lists only one learning objective (C4U06-LO02) while the curriculum evidence contains multiple fraction-related learning outcomes for Primary 4.",
+      "The cited learning outcome C4U06-LO02 is not clearly supported by the evidence; the evidence content for C4U06-LO02 is garbled and does not explicitly state 'Multiply like and related fractions with denominators up to 12.'",
+      "The answer omits numerous relevant learning objectives from the evidence, such as identifying equivalent fractions, comparing/ordering fractions, adding/subtracting equivalent fractions, and solving word problems.",
+      "The answer does not reference any evidence IDs, making verification difficult."
+    ],
+    "unsupported_claims": [
+      "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "fractions",
+        "query": "All learning objectives for fractions in Primary 4",
+        "detail": "The answer only includes one learning outcome; evidence shows multiple fraction-related outcomes (C4U04-LO01 to C4U06-LO02) that should be listed."
+      }
+    ],
+    "incorrect_claims": [
+      "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+    ],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+        "verdict": "unsupported",
+        "evidence_ids": [],
+        "notes": "The evidence for C4U06-LO02 is garbled and does not clearly state this objective. The claim is not directly supported by the provided evidence."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is severely incomplete and contains an unsupported claim. The curriculum evidence provides multiple fraction learning objectives for Primary 4 that should be included. The recommendation is to retrieve more evidence to compile a complete list of fraction objectives.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 4215.26,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "structural_normalization_reconstruction_07",
+  "run_index": 7
+}

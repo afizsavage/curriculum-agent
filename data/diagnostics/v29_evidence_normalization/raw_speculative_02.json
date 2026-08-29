@@ -1,0 +1,99 @@
+{
+  "experiment": "v2.9_evidence_normalization",
+  "normalization_variant": "RAW",
+  "fixture_class": "SPECULATIVE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "Primary 4 money objectives probably include cryptocurrency transactions and may likely cover digital payment apps.",
+  "answer_hash": "19b4c5051cf490e6",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "evidence_present": true,
+  "raw_evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "normalization_diagnostics": {
+    "variant": "RAW",
+    "operations": [
+      "pass_through"
+    ],
+    "records_in": 5,
+    "records_out": 5,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 5,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "be3e342763f1faac",
+    "evidence_hash_out": "be3e342763f1faac"
+  },
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "Primary 4 money objectives include cryptocurrency transactions.",
+    "Primary 4 money objectives may cover digital payment apps."
+  ],
+  "issue_codes": [
+    "Generated answer contains claims about cryptocurrency and digital payment apps that are not present in the curriculum evidence.",
+    "The answer fails to mention the actual learning objectives found in the evidence (word problems with money, BODMAS, estimation, inverse operations)."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "Primary 4 money objectives include cryptocurrency transactions.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "Primary 4 money objectives may cover digital payment apps.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "placeholder_detected_in_raw": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "Generated answer contains claims about cryptocurrency and digital payment apps that are not present in the curriculum evidence.",
+      "The answer fails to mention the actual learning objectives found in the evidence (word problems with money, BODMAS, estimation, inverse operations)."
+    ],
+    "unsupported_claims": [
+      "Primary 4 money objectives include cryptocurrency transactions.",
+      "Primary 4 money objectives may cover digital payment apps."
+    ],
+    "missing_evidence": [],
+    "incorrect_claims": [
+      "Primary 4 money objectives include cryptocurrency transactions.",
+      "Primary 4 money objectives may cover digital payment apps."
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "Primary 4 money objectives include cryptocurrency transactions.",
+        "verdict": "contradicted",
+        "evidence_ids": [],
+        "notes": "No evidence supports cryptocurrency; actual objectives focus on arithmetic with money."
+      },
+      {
+        "claim": "Primary 4 money objectives may cover digital payment apps.",
+        "verdict": "contradicted",
+        "evidence_ids": [],
+        "notes": "No evidence mentions digital payment apps; objectives are about solving word problems and operations."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is entirely unsupported and contradicts the retrieved curriculum evidence. The evidence clearly lists learning outcomes for the 'Everyday Arithmetic Money' unit (C4-U18) in Primary 4 Mathematics: solving word problems with the 4 operations and money (C4U18-LO02), ordering operations using BODMAS (C4U18-LO01), estimating strategies (C4U18-LO03), and inverse operations (C4U18-LO04). The answer should be rejected and replaced with these actual objectives.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 3534.59,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "raw_speculative_02",
+  "run_index": 2
+}

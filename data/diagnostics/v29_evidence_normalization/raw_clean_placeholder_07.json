@@ -1,0 +1,60 @@
+{
+  "experiment": "v2.9_evidence_normalization",
+  "normalization_variant": "RAW",
+  "fixture_class": "CLEAN_PLACEHOLDER",
+  "primary_unit": "C4-U04/U05/U06",
+  "question": "What are the learning objectives for fractions in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Fractions Learning Objectives\n\n- **C4U04-LO04** \u2014 C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]\n- **C4U06-LO02** \u2014 C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]\n",
+  "answer_hash": "fbbc9d0f6e82e823",
+  "evidence_hash": "977b259fcfb4b282",
+  "raw_evidence_hash": "36ecb4b660725c25",
+  "normalized_evidence_hash": "36ecb4b660725c25",
+  "evidence_source": "fractions",
+  "evidence_present": true,
+  "raw_evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "normalization_diagnostics": {
+    "variant": "RAW",
+    "operations": [
+      "pass_through"
+    ],
+    "records_in": 13,
+    "records_out": 13,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 11,
+      "NON_SUBSTANTIVE": 2,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "36ecb4b660725c25",
+    "evidence_hash_out": "36ecb4b660725c25"
+  },
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "unsupported_claims": [],
+  "issue_codes": [],
+  "claim_classifications": [],
+  "placeholder_detected_in_raw": true,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [],
+    "unsupported_claims": [],
+    "missing_evidence": [],
+    "incorrect_claims": [],
+    "recommendation": "fallback",
+    "claims": [],
+    "clarification": null,
+    "notes": null,
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 5245.75,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "raw_clean_placeholder_07",
+  "run_index": 7
+}

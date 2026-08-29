@@ -1,0 +1,101 @@
+{
+  "experiment": "v2.9_evidence_normalization",
+  "normalization_variant": "PLACEHOLDER_FILTER",
+  "fixture_class": "CLEAN_PLACEHOLDER",
+  "primary_unit": "C4-U04/U05/U06",
+  "question": "What are the learning objectives for fractions in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Fractions Learning Objectives\n\n- **C4U04-LO04** \u2014 C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]\n- **C4U06-LO02** \u2014 C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]\n",
+  "answer_hash": "fbbc9d0f6e82e823",
+  "evidence_hash": "977b259fcfb4b282",
+  "raw_evidence_hash": "36ecb4b660725c25",
+  "normalized_evidence_hash": "b9d15052e5f4db7c",
+  "evidence_source": "fractions",
+  "evidence_present": true,
+  "raw_evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "normalization_diagnostics": {
+    "variant": "PLACEHOLDER_FILTER",
+    "operations": [
+      "placeholder_filter"
+    ],
+    "records_in": 13,
+    "records_out": 11,
+    "placeholder_filtered": 2,
+    "substance_counts": {
+      "SUBSTANTIVE": 11,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "36ecb4b660725c25",
+    "evidence_hash_out": "b9d15052e5f4db7c"
+  },
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "C4U04-LO04 is a learning objective for fractions in Primary 4.",
+    "C4U06-LO02 is a learning objective for fractions in Primary 4."
+  ],
+  "issue_codes": [
+    "The generated answer contains only placeholder text and does not provide any actual learning objectives.",
+    "The answer references learning outcome codes (C4U04-LO04, C4U06-LO02) that do not exist in the provided curriculum evidence.",
+    "The answer fails to list any of the actual fractions learning objectives found in the evidence for Primary 4 Mathematics."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U04-LO04 is a learning objective for fractions in Primary 4.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U06-LO02 is a learning objective for fractions in Primary 4.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "placeholder_detected_in_raw": true,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer contains only placeholder text and does not provide any actual learning objectives.",
+      "The answer references learning outcome codes (C4U04-LO04, C4U06-LO02) that do not exist in the provided curriculum evidence.",
+      "The answer fails to list any of the actual fractions learning objectives found in the evidence for Primary 4 Mathematics."
+    ],
+    "unsupported_claims": [
+      "C4U04-LO04 is a learning objective for fractions in Primary 4.",
+      "C4U06-LO02 is a learning objective for fractions in Primary 4."
+    ],
+    "missing_evidence": [],
+    "incorrect_claims": [
+      "C4U04-LO04 is a learning objective for fractions in Primary 4.",
+      "C4U06-LO02 is a learning objective for fractions in Primary 4."
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "C4U04-LO04 is a learning objective for fractions in Primary 4.",
+        "verdict": "contradicted",
+        "evidence_ids": [],
+        "notes": "No learning outcome with code C4U04-LO04 exists in the evidence. The evidence shows C4U04-LO01, C4U04-LO02, and C4U04-LO03."
+      },
+      {
+        "claim": "C4U06-LO02 is a learning objective for fractions in Primary 4.",
+        "verdict": "contradicted",
+        "evidence_ids": [],
+        "notes": "No learning outcome with code C4U06-LO02 exists in the evidence. The evidence shows only C4U06-LO01."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is essentially a placeholder and does not address the question. The evidence contains multiple relevant fractions learning objectives (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01) that should have been included. Since the answer provides no real content, it cannot be accepted or meaningfully verified.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 3704.85,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "placeholder_filter_clean_placeholder_01",
+  "run_index": 1
+}

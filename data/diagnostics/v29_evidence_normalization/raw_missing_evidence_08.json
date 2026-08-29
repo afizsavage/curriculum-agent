@@ -1,0 +1,96 @@
+{
+  "experiment": "v2.9_evidence_normalization",
+  "normalization_variant": "RAW",
+  "fixture_class": "MISSING_EVIDENCE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO04** \u2014 Use inverse operations to verify money word-problem solutions.\n",
+  "answer_hash": "4db54c752c0107cf",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "f04c3a982e51bab8",
+  "normalized_evidence_hash": "f04c3a982e51bab8",
+  "evidence_source": "c4u18",
+  "evidence_present": true,
+  "raw_evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "normalization_diagnostics": {
+    "variant": "RAW",
+    "operations": [
+      "pass_through"
+    ],
+    "records_in": 4,
+    "records_out": 4,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 4,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "f04c3a982e51bab8",
+    "evidence_hash_out": "f04c3a982e51bab8"
+  },
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions."
+  ],
+  "issue_codes": [
+    "The generated answer cites C4U18-LO04, but no such learning outcome exists in the provided evidence. The evidence only contains C4U18-LO01, C4U18-LO02, and C4U18-LO03.",
+    "The answer is incomplete: it lists only one learning objective, while the evidence shows multiple objectives for the 'Everyday Arithmetic Money' unit (C4-U18) in Primary 4 Mathematics.",
+    "The answer does not include the actual learning objectives found in the evidence, such as solving word problems involving money and the four operations (C4U18-LO02)."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions.",
+      "verdict": "unsupported",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "placeholder_detected_in_raw": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer cites C4U18-LO04, but no such learning outcome exists in the provided evidence. The evidence only contains C4U18-LO01, C4U18-LO02, and C4U18-LO03.",
+      "The answer is incomplete: it lists only one learning objective, while the evidence shows multiple objectives for the 'Everyday Arithmetic Money' unit (C4-U18) in Primary 4 Mathematics.",
+      "The answer does not include the actual learning objectives found in the evidence, such as solving word problems involving money and the four operations (C4U18-LO02)."
+    ],
+    "unsupported_claims": [
+      "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "All learning objectives for Primary 4 Mathematics money unit",
+        "detail": "The evidence contains C4U18-LO01, C4U18-LO02, and C4U18-LO03, but the answer only references a non-existent C4U18-LO04. The answer should include the actual objectives from the evidence."
+      }
+    ],
+    "incorrect_claims": [
+      "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions."
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions.",
+        "verdict": "unsupported",
+        "evidence_ids": [],
+        "notes": "No evidence for C4U18-LO04 exists in the provided records. The evidence only lists C4U18-LO01, C4U18-LO02, and C4U18-LO03."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is not supported by the curriculum evidence. It references a non-existent learning outcome and omits the actual objectives. The correct response should include C4U18-LO01 (Order operations using BODMAS), C4U18-LO02 (Solve word problems involving the 4 operations and money), and C4U18-LO03 (Estimate strategies to check answers for reasonableness).",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 3800.25,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "raw_missing_evidence_08",
+  "run_index": 8
+}

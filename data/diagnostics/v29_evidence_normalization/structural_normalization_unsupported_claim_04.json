@@ -1,0 +1,102 @@
+{
+  "experiment": "v2.9_evidence_normalization",
+  "normalization_variant": "STRUCTURAL_NORMALIZATION",
+  "fixture_class": "UNSUPPORTED_CLAIM",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO99** \u2014 Convert foreign currency using blockchain wallets.\n",
+  "answer_hash": "eaeac83f9b53ac02",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "evidence_present": true,
+  "raw_evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "normalization_diagnostics": {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "records_in": 5,
+    "records_out": 5,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 10,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "be3e342763f1faac",
+    "evidence_hash_out": "be3e342763f1faac"
+  },
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "Convert foreign currency using blockchain wallets (C4U18-LO99)"
+  ],
+  "issue_codes": [
+    "The generated answer contains a single claim that is not supported by any retrieved curriculum evidence.",
+    "The claim references a learning outcome code (C4U18-LO99) that does not exist in the evidence; the evidence only contains C4U18-LO01 through C4U18-LO04.",
+    "The content of the claim ('Convert foreign currency using blockchain wallets') is not present in any of the provided curriculum records and appears to be hallucinated.",
+    "The answer fails to mention the actual learning objectives for money in Primary 4 that are present in the evidence (e.g., solving word problems involving money, estimating and using inverse operations to check answers)."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "Convert foreign currency using blockchain wallets (C4U18-LO99)",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "placeholder_detected_in_raw": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer contains a single claim that is not supported by any retrieved curriculum evidence.",
+      "The claim references a learning outcome code (C4U18-LO99) that does not exist in the evidence; the evidence only contains C4U18-LO01 through C4U18-LO04.",
+      "The content of the claim ('Convert foreign currency using blockchain wallets') is not present in any of the provided curriculum records and appears to be hallucinated.",
+      "The answer fails to mention the actual learning objectives for money in Primary 4 that are present in the evidence (e.g., solving word problems involving money, estimating and using inverse operations to check answers)."
+    ],
+    "unsupported_claims": [
+      "Convert foreign currency using blockchain wallets (C4U18-LO99)"
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "Primary 4 Mathematics money learning objectives",
+        "detail": "The evidence contains four learning outcomes (C4U18-LO01 to C4U18-LO04) for the 'Everyday Arithmetic Money' unit, but the generated answer does not reference any of them. The answer should have included these objectives."
+      }
+    ],
+    "incorrect_claims": [
+      "Convert foreign currency using blockchain wallets (C4U18-LO99)"
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "Convert foreign currency using blockchain wallets (C4U18-LO99)",
+        "verdict": "contradicted",
+        "evidence_ids": [],
+        "notes": "No evidence supports this claim. The code C4U18-LO99 does not exist in the provided records, and the content is not found in any curriculum evidence. The actual learning outcomes for the money unit are C4U18-LO01 to C4U18-LO04."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is entirely unsupported and contains a fabricated learning outcome. The correct response should list the actual objectives from the evidence: order operations using BODMAS (C4U18-LO01), solve word problems involving the 4 operations and money (C4U18-LO02), estimate strategies to check answers for reasonableness (C4U18-LO03), and inverse operations to check answers for reasonableness (C4U18-LO04). Since the answer is fundamentally incorrect, a fallback is recommended.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 4603.54,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "structural_normalization_unsupported_claim_04",
+  "run_index": 4
+}

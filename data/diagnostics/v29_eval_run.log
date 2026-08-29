@@ -1,0 +1,682 @@
+=== [1/320] RAW FAITHFUL_COMPLETE 1/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_COMPLETE", "score": 0.75, "decision": "retrieve_more", "accepted": false}
+=== [2/320] RAW FAITHFUL_COMPLETE 2/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [3/320] RAW FAITHFUL_COMPLETE 3/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_COMPLETE", "score": 0.75, "decision": "retrieve_more", "accepted": false}
+=== [4/320] RAW FAITHFUL_COMPLETE 4/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [5/320] RAW FAITHFUL_COMPLETE 5/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [6/320] RAW FAITHFUL_COMPLETE 6/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [7/320] RAW FAITHFUL_COMPLETE 7/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [8/320] RAW FAITHFUL_COMPLETE 8/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [9/320] RAW FAITHFUL_COMPLETE 9/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [10/320] RAW FAITHFUL_COMPLETE 10/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [11/320] RAW FAITHFUL_IMPERFECT 1/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [12/320] RAW FAITHFUL_IMPERFECT 2/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [13/320] RAW FAITHFUL_IMPERFECT 3/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [14/320] RAW FAITHFUL_IMPERFECT 4/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [15/320] RAW FAITHFUL_IMPERFECT 5/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [16/320] RAW FAITHFUL_IMPERFECT 6/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [17/320] RAW FAITHFUL_IMPERFECT 7/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [18/320] RAW FAITHFUL_IMPERFECT 8/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [19/320] RAW FAITHFUL_IMPERFECT 9/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [20/320] RAW FAITHFUL_IMPERFECT 10/10 ===
+{"variant": "RAW", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [21/320] RAW CLEAN_PLACEHOLDER 1/10 ===
+{"variant": "RAW", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [22/320] RAW CLEAN_PLACEHOLDER 2/10 ===
+{"variant": "RAW", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [23/320] RAW CLEAN_PLACEHOLDER 3/10 ===
+{"variant": "RAW", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [24/320] RAW CLEAN_PLACEHOLDER 4/10 ===
+{"variant": "RAW", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [25/320] RAW CLEAN_PLACEHOLDER 5/10 ===
+{"variant": "RAW", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [26/320] RAW CLEAN_PLACEHOLDER 6/10 ===
+{"variant": "RAW", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [27/320] RAW CLEAN_PLACEHOLDER 7/10 ===
+{"variant": "RAW", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [28/320] RAW CLEAN_PLACEHOLDER 8/10 ===
+{"variant": "RAW", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [29/320] RAW CLEAN_PLACEHOLDER 9/10 ===
+{"variant": "RAW", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [30/320] RAW CLEAN_PLACEHOLDER 10/10 ===
+{"variant": "RAW", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [31/320] RAW UNSUPPORTED_CLAIM 1/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [32/320] RAW UNSUPPORTED_CLAIM 2/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [33/320] RAW UNSUPPORTED_CLAIM 3/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [34/320] RAW UNSUPPORTED_CLAIM 4/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [35/320] RAW UNSUPPORTED_CLAIM 5/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [36/320] RAW UNSUPPORTED_CLAIM 6/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [37/320] RAW UNSUPPORTED_CLAIM 7/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [38/320] RAW UNSUPPORTED_CLAIM 8/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [39/320] RAW UNSUPPORTED_CLAIM 9/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [40/320] RAW UNSUPPORTED_CLAIM 10/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [41/320] RAW UNSUPPORTED_ABSENCE 1/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [42/320] RAW UNSUPPORTED_ABSENCE 2/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [43/320] RAW UNSUPPORTED_ABSENCE 3/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [44/320] RAW UNSUPPORTED_ABSENCE 4/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [45/320] RAW UNSUPPORTED_ABSENCE 5/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [46/320] RAW UNSUPPORTED_ABSENCE 6/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [47/320] RAW UNSUPPORTED_ABSENCE 7/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [48/320] RAW UNSUPPORTED_ABSENCE 8/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [49/320] RAW UNSUPPORTED_ABSENCE 9/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [50/320] RAW UNSUPPORTED_ABSENCE 10/10 ===
+{"variant": "RAW", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [51/320] RAW SPECULATIVE 1/10 ===
+{"variant": "RAW", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [52/320] RAW SPECULATIVE 2/10 ===
+{"variant": "RAW", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [53/320] RAW SPECULATIVE 3/10 ===
+{"variant": "RAW", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [54/320] RAW SPECULATIVE 4/10 ===
+{"variant": "RAW", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [55/320] RAW SPECULATIVE 5/10 ===
+{"variant": "RAW", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [56/320] RAW SPECULATIVE 6/10 ===
+{"variant": "RAW", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [57/320] RAW SPECULATIVE 7/10 ===
+{"variant": "RAW", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [58/320] RAW SPECULATIVE 8/10 ===
+{"variant": "RAW", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [59/320] RAW SPECULATIVE 9/10 ===
+{"variant": "RAW", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [60/320] RAW SPECULATIVE 10/10 ===
+{"variant": "RAW", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [61/320] RAW RECONSTRUCTION 1/10 ===
+{"variant": "RAW", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [62/320] RAW RECONSTRUCTION 2/10 ===
+{"variant": "RAW", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [63/320] RAW RECONSTRUCTION 3/10 ===
+{"variant": "RAW", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [64/320] RAW RECONSTRUCTION 4/10 ===
+{"variant": "RAW", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [65/320] RAW RECONSTRUCTION 5/10 ===
+{"variant": "RAW", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [66/320] RAW RECONSTRUCTION 6/10 ===
+{"variant": "RAW", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [67/320] RAW RECONSTRUCTION 7/10 ===
+{"variant": "RAW", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [68/320] RAW RECONSTRUCTION 8/10 ===
+{"variant": "RAW", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [69/320] RAW RECONSTRUCTION 9/10 ===
+{"variant": "RAW", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [70/320] RAW RECONSTRUCTION 10/10 ===
+{"variant": "RAW", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [71/320] RAW MISSING_EVIDENCE 1/10 ===
+{"variant": "RAW", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [72/320] RAW MISSING_EVIDENCE 2/10 ===
+{"variant": "RAW", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [73/320] RAW MISSING_EVIDENCE 3/10 ===
+{"variant": "RAW", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [74/320] RAW MISSING_EVIDENCE 4/10 ===
+{"variant": "RAW", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [75/320] RAW MISSING_EVIDENCE 5/10 ===
+{"variant": "RAW", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [76/320] RAW MISSING_EVIDENCE 6/10 ===
+{"variant": "RAW", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [77/320] RAW MISSING_EVIDENCE 7/10 ===
+{"variant": "RAW", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [78/320] RAW MISSING_EVIDENCE 8/10 ===
+{"variant": "RAW", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [79/320] RAW MISSING_EVIDENCE 9/10 ===
+{"variant": "RAW", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [80/320] RAW MISSING_EVIDENCE 10/10 ===
+{"variant": "RAW", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [81/320] PLACEHOLDER_FILTER FAITHFUL_COMPLETE 1/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_COMPLETE", "score": 0.75, "decision": "retrieve_more", "accepted": false}
+=== [82/320] PLACEHOLDER_FILTER FAITHFUL_COMPLETE 2/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [83/320] PLACEHOLDER_FILTER FAITHFUL_COMPLETE 3/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [84/320] PLACEHOLDER_FILTER FAITHFUL_COMPLETE 4/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [85/320] PLACEHOLDER_FILTER FAITHFUL_COMPLETE 5/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [86/320] PLACEHOLDER_FILTER FAITHFUL_COMPLETE 6/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_COMPLETE", "score": 0.75, "decision": "retrieve_more", "accepted": false}
+=== [87/320] PLACEHOLDER_FILTER FAITHFUL_COMPLETE 7/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_COMPLETE", "score": 0.75, "decision": "retrieve_more", "accepted": false}
+=== [88/320] PLACEHOLDER_FILTER FAITHFUL_COMPLETE 8/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [89/320] PLACEHOLDER_FILTER FAITHFUL_COMPLETE 9/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [90/320] PLACEHOLDER_FILTER FAITHFUL_COMPLETE 10/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [91/320] PLACEHOLDER_FILTER FAITHFUL_IMPERFECT 1/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [92/320] PLACEHOLDER_FILTER FAITHFUL_IMPERFECT 2/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [93/320] PLACEHOLDER_FILTER FAITHFUL_IMPERFECT 3/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [94/320] PLACEHOLDER_FILTER FAITHFUL_IMPERFECT 4/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [95/320] PLACEHOLDER_FILTER FAITHFUL_IMPERFECT 5/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [96/320] PLACEHOLDER_FILTER FAITHFUL_IMPERFECT 6/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [97/320] PLACEHOLDER_FILTER FAITHFUL_IMPERFECT 7/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [98/320] PLACEHOLDER_FILTER FAITHFUL_IMPERFECT 8/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [99/320] PLACEHOLDER_FILTER FAITHFUL_IMPERFECT 9/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [100/320] PLACEHOLDER_FILTER FAITHFUL_IMPERFECT 10/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [101/320] PLACEHOLDER_FILTER CLEAN_PLACEHOLDER 1/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [102/320] PLACEHOLDER_FILTER CLEAN_PLACEHOLDER 2/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [103/320] PLACEHOLDER_FILTER CLEAN_PLACEHOLDER 3/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [104/320] PLACEHOLDER_FILTER CLEAN_PLACEHOLDER 4/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [105/320] PLACEHOLDER_FILTER CLEAN_PLACEHOLDER 5/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [106/320] PLACEHOLDER_FILTER CLEAN_PLACEHOLDER 6/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [107/320] PLACEHOLDER_FILTER CLEAN_PLACEHOLDER 7/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [108/320] PLACEHOLDER_FILTER CLEAN_PLACEHOLDER 8/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [109/320] PLACEHOLDER_FILTER CLEAN_PLACEHOLDER 9/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [110/320] PLACEHOLDER_FILTER CLEAN_PLACEHOLDER 10/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [111/320] PLACEHOLDER_FILTER UNSUPPORTED_CLAIM 1/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [112/320] PLACEHOLDER_FILTER UNSUPPORTED_CLAIM 2/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [113/320] PLACEHOLDER_FILTER UNSUPPORTED_CLAIM 3/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [114/320] PLACEHOLDER_FILTER UNSUPPORTED_CLAIM 4/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [115/320] PLACEHOLDER_FILTER UNSUPPORTED_CLAIM 5/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [116/320] PLACEHOLDER_FILTER UNSUPPORTED_CLAIM 6/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [117/320] PLACEHOLDER_FILTER UNSUPPORTED_CLAIM 7/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [118/320] PLACEHOLDER_FILTER UNSUPPORTED_CLAIM 8/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [119/320] PLACEHOLDER_FILTER UNSUPPORTED_CLAIM 9/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [120/320] PLACEHOLDER_FILTER UNSUPPORTED_CLAIM 10/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [121/320] PLACEHOLDER_FILTER UNSUPPORTED_ABSENCE 1/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [122/320] PLACEHOLDER_FILTER UNSUPPORTED_ABSENCE 2/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [123/320] PLACEHOLDER_FILTER UNSUPPORTED_ABSENCE 3/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [124/320] PLACEHOLDER_FILTER UNSUPPORTED_ABSENCE 4/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [125/320] PLACEHOLDER_FILTER UNSUPPORTED_ABSENCE 5/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [126/320] PLACEHOLDER_FILTER UNSUPPORTED_ABSENCE 6/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [127/320] PLACEHOLDER_FILTER UNSUPPORTED_ABSENCE 7/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [128/320] PLACEHOLDER_FILTER UNSUPPORTED_ABSENCE 8/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [129/320] PLACEHOLDER_FILTER UNSUPPORTED_ABSENCE 9/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [130/320] PLACEHOLDER_FILTER UNSUPPORTED_ABSENCE 10/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [131/320] PLACEHOLDER_FILTER SPECULATIVE 1/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [132/320] PLACEHOLDER_FILTER SPECULATIVE 2/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [133/320] PLACEHOLDER_FILTER SPECULATIVE 3/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [134/320] PLACEHOLDER_FILTER SPECULATIVE 4/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [135/320] PLACEHOLDER_FILTER SPECULATIVE 5/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [136/320] PLACEHOLDER_FILTER SPECULATIVE 6/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [137/320] PLACEHOLDER_FILTER SPECULATIVE 7/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [138/320] PLACEHOLDER_FILTER SPECULATIVE 8/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [139/320] PLACEHOLDER_FILTER SPECULATIVE 9/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [140/320] PLACEHOLDER_FILTER SPECULATIVE 10/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [141/320] PLACEHOLDER_FILTER RECONSTRUCTION 1/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [142/320] PLACEHOLDER_FILTER RECONSTRUCTION 2/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [143/320] PLACEHOLDER_FILTER RECONSTRUCTION 3/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [144/320] PLACEHOLDER_FILTER RECONSTRUCTION 4/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [145/320] PLACEHOLDER_FILTER RECONSTRUCTION 5/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [146/320] PLACEHOLDER_FILTER RECONSTRUCTION 6/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [147/320] PLACEHOLDER_FILTER RECONSTRUCTION 7/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [148/320] PLACEHOLDER_FILTER RECONSTRUCTION 8/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [149/320] PLACEHOLDER_FILTER RECONSTRUCTION 9/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [150/320] PLACEHOLDER_FILTER RECONSTRUCTION 10/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "RECONSTRUCTION", "score": 0.2, "decision": "retrieve_more", "accepted": false}
+=== [151/320] PLACEHOLDER_FILTER MISSING_EVIDENCE 1/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [152/320] PLACEHOLDER_FILTER MISSING_EVIDENCE 2/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [153/320] PLACEHOLDER_FILTER MISSING_EVIDENCE 3/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [154/320] PLACEHOLDER_FILTER MISSING_EVIDENCE 4/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [155/320] PLACEHOLDER_FILTER MISSING_EVIDENCE 5/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [156/320] PLACEHOLDER_FILTER MISSING_EVIDENCE 6/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [157/320] PLACEHOLDER_FILTER MISSING_EVIDENCE 7/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [158/320] PLACEHOLDER_FILTER MISSING_EVIDENCE 8/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [159/320] PLACEHOLDER_FILTER MISSING_EVIDENCE 9/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [160/320] PLACEHOLDER_FILTER MISSING_EVIDENCE 10/10 ===
+{"variant": "PLACEHOLDER_FILTER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [161/320] STRUCTURAL_NORMALIZATION FAITHFUL_COMPLETE 1/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [162/320] STRUCTURAL_NORMALIZATION FAITHFUL_COMPLETE 2/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [163/320] STRUCTURAL_NORMALIZATION FAITHFUL_COMPLETE 3/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [164/320] STRUCTURAL_NORMALIZATION FAITHFUL_COMPLETE 4/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [165/320] STRUCTURAL_NORMALIZATION FAITHFUL_COMPLETE 5/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [166/320] STRUCTURAL_NORMALIZATION FAITHFUL_COMPLETE 6/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [167/320] STRUCTURAL_NORMALIZATION FAITHFUL_COMPLETE 7/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [168/320] STRUCTURAL_NORMALIZATION FAITHFUL_COMPLETE 8/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [169/320] STRUCTURAL_NORMALIZATION FAITHFUL_COMPLETE 9/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [170/320] STRUCTURAL_NORMALIZATION FAITHFUL_COMPLETE 10/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [171/320] STRUCTURAL_NORMALIZATION FAITHFUL_IMPERFECT 1/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [172/320] STRUCTURAL_NORMALIZATION FAITHFUL_IMPERFECT 2/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [173/320] STRUCTURAL_NORMALIZATION FAITHFUL_IMPERFECT 3/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [174/320] STRUCTURAL_NORMALIZATION FAITHFUL_IMPERFECT 4/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [175/320] STRUCTURAL_NORMALIZATION FAITHFUL_IMPERFECT 5/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [176/320] STRUCTURAL_NORMALIZATION FAITHFUL_IMPERFECT 6/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [177/320] STRUCTURAL_NORMALIZATION FAITHFUL_IMPERFECT 7/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [178/320] STRUCTURAL_NORMALIZATION FAITHFUL_IMPERFECT 8/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [179/320] STRUCTURAL_NORMALIZATION FAITHFUL_IMPERFECT 9/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [180/320] STRUCTURAL_NORMALIZATION FAITHFUL_IMPERFECT 10/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [181/320] STRUCTURAL_NORMALIZATION CLEAN_PLACEHOLDER 1/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [182/320] STRUCTURAL_NORMALIZATION CLEAN_PLACEHOLDER 2/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [183/320] STRUCTURAL_NORMALIZATION CLEAN_PLACEHOLDER 3/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [184/320] STRUCTURAL_NORMALIZATION CLEAN_PLACEHOLDER 4/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [185/320] STRUCTURAL_NORMALIZATION CLEAN_PLACEHOLDER 5/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [186/320] STRUCTURAL_NORMALIZATION CLEAN_PLACEHOLDER 6/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [187/320] STRUCTURAL_NORMALIZATION CLEAN_PLACEHOLDER 7/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "decision": "fallback", "accepted": false}
+=== [188/320] STRUCTURAL_NORMALIZATION CLEAN_PLACEHOLDER 8/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [189/320] STRUCTURAL_NORMALIZATION CLEAN_PLACEHOLDER 9/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [190/320] STRUCTURAL_NORMALIZATION CLEAN_PLACEHOLDER 10/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [191/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_CLAIM 1/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [192/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_CLAIM 2/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [193/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_CLAIM 3/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [194/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_CLAIM 4/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [195/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_CLAIM 5/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [196/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_CLAIM 6/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [197/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_CLAIM 7/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [198/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_CLAIM 8/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [199/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_CLAIM 9/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [200/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_CLAIM 10/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [201/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_ABSENCE 1/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [202/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_ABSENCE 2/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [203/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_ABSENCE 3/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [204/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_ABSENCE 4/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [205/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_ABSENCE 5/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [206/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_ABSENCE 6/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [207/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_ABSENCE 7/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [208/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_ABSENCE 8/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [209/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_ABSENCE 9/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [210/320] STRUCTURAL_NORMALIZATION UNSUPPORTED_ABSENCE 10/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [211/320] STRUCTURAL_NORMALIZATION SPECULATIVE 1/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [212/320] STRUCTURAL_NORMALIZATION SPECULATIVE 2/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [213/320] STRUCTURAL_NORMALIZATION SPECULATIVE 3/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [214/320] STRUCTURAL_NORMALIZATION SPECULATIVE 4/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [215/320] STRUCTURAL_NORMALIZATION SPECULATIVE 5/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [216/320] STRUCTURAL_NORMALIZATION SPECULATIVE 6/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [217/320] STRUCTURAL_NORMALIZATION SPECULATIVE 7/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [218/320] STRUCTURAL_NORMALIZATION SPECULATIVE 8/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [219/320] STRUCTURAL_NORMALIZATION SPECULATIVE 9/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [220/320] STRUCTURAL_NORMALIZATION SPECULATIVE 10/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [221/320] STRUCTURAL_NORMALIZATION RECONSTRUCTION 1/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [222/320] STRUCTURAL_NORMALIZATION RECONSTRUCTION 2/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [223/320] STRUCTURAL_NORMALIZATION RECONSTRUCTION 3/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [224/320] STRUCTURAL_NORMALIZATION RECONSTRUCTION 4/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [225/320] STRUCTURAL_NORMALIZATION RECONSTRUCTION 5/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [226/320] STRUCTURAL_NORMALIZATION RECONSTRUCTION 6/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [227/320] STRUCTURAL_NORMALIZATION RECONSTRUCTION 7/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [228/320] STRUCTURAL_NORMALIZATION RECONSTRUCTION 8/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [229/320] STRUCTURAL_NORMALIZATION RECONSTRUCTION 9/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [230/320] STRUCTURAL_NORMALIZATION RECONSTRUCTION 10/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [231/320] STRUCTURAL_NORMALIZATION MISSING_EVIDENCE 1/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [232/320] STRUCTURAL_NORMALIZATION MISSING_EVIDENCE 2/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [233/320] STRUCTURAL_NORMALIZATION MISSING_EVIDENCE 3/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [234/320] STRUCTURAL_NORMALIZATION MISSING_EVIDENCE 4/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [235/320] STRUCTURAL_NORMALIZATION MISSING_EVIDENCE 5/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [236/320] STRUCTURAL_NORMALIZATION MISSING_EVIDENCE 6/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [237/320] STRUCTURAL_NORMALIZATION MISSING_EVIDENCE 7/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [238/320] STRUCTURAL_NORMALIZATION MISSING_EVIDENCE 8/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [239/320] STRUCTURAL_NORMALIZATION MISSING_EVIDENCE 9/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [240/320] STRUCTURAL_NORMALIZATION MISSING_EVIDENCE 10/10 ===
+{"variant": "STRUCTURAL_NORMALIZATION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [241/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_COMPLETE 1/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [242/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_COMPLETE 2/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [243/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_COMPLETE 3/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [244/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_COMPLETE 4/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [245/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_COMPLETE 5/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [246/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_COMPLETE 6/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [247/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_COMPLETE 7/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [248/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_COMPLETE 8/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [249/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_COMPLETE 9/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [250/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_COMPLETE 10/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "decision": "accept", "accepted": true}
+=== [251/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_IMPERFECT 1/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [252/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_IMPERFECT 2/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [253/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_IMPERFECT 3/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [254/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_IMPERFECT 4/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [255/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_IMPERFECT 5/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [256/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_IMPERFECT 6/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [257/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_IMPERFECT 7/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [258/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_IMPERFECT 8/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [259/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_IMPERFECT 9/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [260/320] SEMANTIC_EVIDENCE_EXTRACTION FAITHFUL_IMPERFECT 10/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "decision": "retrieve_more", "accepted": false}
+=== [261/320] SEMANTIC_EVIDENCE_EXTRACTION CLEAN_PLACEHOLDER 1/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [262/320] SEMANTIC_EVIDENCE_EXTRACTION CLEAN_PLACEHOLDER 2/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [263/320] SEMANTIC_EVIDENCE_EXTRACTION CLEAN_PLACEHOLDER 3/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [264/320] SEMANTIC_EVIDENCE_EXTRACTION CLEAN_PLACEHOLDER 4/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [265/320] SEMANTIC_EVIDENCE_EXTRACTION CLEAN_PLACEHOLDER 5/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [266/320] SEMANTIC_EVIDENCE_EXTRACTION CLEAN_PLACEHOLDER 6/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [267/320] SEMANTIC_EVIDENCE_EXTRACTION CLEAN_PLACEHOLDER 7/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [268/320] SEMANTIC_EVIDENCE_EXTRACTION CLEAN_PLACEHOLDER 8/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [269/320] SEMANTIC_EVIDENCE_EXTRACTION CLEAN_PLACEHOLDER 9/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [270/320] SEMANTIC_EVIDENCE_EXTRACTION CLEAN_PLACEHOLDER 10/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [271/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_CLAIM 1/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [272/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_CLAIM 2/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [273/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_CLAIM 3/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [274/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_CLAIM 4/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [275/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_CLAIM 5/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [276/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_CLAIM 6/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [277/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_CLAIM 7/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [278/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_CLAIM 8/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [279/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_CLAIM 9/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [280/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_CLAIM 10/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [281/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_ABSENCE 1/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [282/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_ABSENCE 2/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [283/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_ABSENCE 3/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [284/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_ABSENCE 4/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [285/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_ABSENCE 5/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [286/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_ABSENCE 6/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [287/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_ABSENCE 7/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [288/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_ABSENCE 8/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [289/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_ABSENCE 9/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [290/320] SEMANTIC_EVIDENCE_EXTRACTION UNSUPPORTED_ABSENCE 10/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [291/320] SEMANTIC_EVIDENCE_EXTRACTION SPECULATIVE 1/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [292/320] SEMANTIC_EVIDENCE_EXTRACTION SPECULATIVE 2/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [293/320] SEMANTIC_EVIDENCE_EXTRACTION SPECULATIVE 3/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [294/320] SEMANTIC_EVIDENCE_EXTRACTION SPECULATIVE 4/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [295/320] SEMANTIC_EVIDENCE_EXTRACTION SPECULATIVE 5/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [296/320] SEMANTIC_EVIDENCE_EXTRACTION SPECULATIVE 6/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [297/320] SEMANTIC_EVIDENCE_EXTRACTION SPECULATIVE 7/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [298/320] SEMANTIC_EVIDENCE_EXTRACTION SPECULATIVE 8/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [299/320] SEMANTIC_EVIDENCE_EXTRACTION SPECULATIVE 9/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [300/320] SEMANTIC_EVIDENCE_EXTRACTION SPECULATIVE 10/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "SPECULATIVE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [301/320] SEMANTIC_EVIDENCE_EXTRACTION RECONSTRUCTION 1/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [302/320] SEMANTIC_EVIDENCE_EXTRACTION RECONSTRUCTION 2/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [303/320] SEMANTIC_EVIDENCE_EXTRACTION RECONSTRUCTION 3/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [304/320] SEMANTIC_EVIDENCE_EXTRACTION RECONSTRUCTION 4/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [305/320] SEMANTIC_EVIDENCE_EXTRACTION RECONSTRUCTION 5/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [306/320] SEMANTIC_EVIDENCE_EXTRACTION RECONSTRUCTION 6/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [307/320] SEMANTIC_EVIDENCE_EXTRACTION RECONSTRUCTION 7/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [308/320] SEMANTIC_EVIDENCE_EXTRACTION RECONSTRUCTION 8/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [309/320] SEMANTIC_EVIDENCE_EXTRACTION RECONSTRUCTION 9/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [310/320] SEMANTIC_EVIDENCE_EXTRACTION RECONSTRUCTION 10/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "RECONSTRUCTION", "score": 0.1, "decision": "retrieve_more", "accepted": false}
+=== [311/320] SEMANTIC_EVIDENCE_EXTRACTION MISSING_EVIDENCE 1/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [312/320] SEMANTIC_EVIDENCE_EXTRACTION MISSING_EVIDENCE 2/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [313/320] SEMANTIC_EVIDENCE_EXTRACTION MISSING_EVIDENCE 3/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [314/320] SEMANTIC_EVIDENCE_EXTRACTION MISSING_EVIDENCE 4/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [315/320] SEMANTIC_EVIDENCE_EXTRACTION MISSING_EVIDENCE 5/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [316/320] SEMANTIC_EVIDENCE_EXTRACTION MISSING_EVIDENCE 6/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [317/320] SEMANTIC_EVIDENCE_EXTRACTION MISSING_EVIDENCE 7/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [318/320] SEMANTIC_EVIDENCE_EXTRACTION MISSING_EVIDENCE 8/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+=== [319/320] SEMANTIC_EVIDENCE_EXTRACTION MISSING_EVIDENCE 9/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "retrieve_more", "accepted": false}
+=== [320/320] SEMANTIC_EVIDENCE_EXTRACTION MISSING_EVIDENCE 10/10 ===
+{"variant": "SEMANTIC_EVIDENCE_EXTRACTION", "fixture": "MISSING_EVIDENCE", "score": 0.0, "decision": "fallback", "accepted": false}
+--- V2.9 EXPERIMENT COMPLETE ---
+{
+  "conclusion": "SUPPORTED",
+  "variant_comparison": [
+    {
+      "variant": "RAW",
+      "faithful_complete_acceptance": 0.1,
+      "faithful_imperfect_acceptance": 0.0,
+      "placeholder_acceptance": 0.0,
+      "safety_false_acceptance": 0,
+      "avg_verifier_score": 0.249,
+      "delta_fc_vs_raw": 0.0
+    },
+    {
+      "variant": "PLACEHOLDER_FILTER",
+      "faithful_complete_acceptance": 0.1,
+      "faithful_imperfect_acceptance": 0.0,
+      "placeholder_acceptance": 0.0,
+      "safety_false_acceptance": 0,
+      "avg_verifier_score": 0.246,
+      "delta_fc_vs_raw": 0.0
+    },
+    {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "faithful_complete_acceptance": 1.0,
+      "faithful_imperfect_acceptance": 0.0,
+      "placeholder_acceptance": 0.0,
+      "safety_false_acceptance": 0,
+      "avg_verifier_score": 0.229,
+      "delta_fc_vs_raw": 0.9
+    },
+    {
+      "variant": "SEMANTIC_EVIDENCE_EXTRACTION",
+      "faithful_complete_acceptance": 1.0,
+      "faithful_imperfect_acceptance": 0.0,
+      "placeholder_acceptance": 0.0,
+      "safety_false_acceptance": 0,
+      "avg_verifier_score": 0.228,
+      "delta_fc_vs_raw": 0.9
+    }
+  ]
+}

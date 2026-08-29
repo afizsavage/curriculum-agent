@@ -1,0 +1,38 @@
+[
+  {
+    "variant": "RAW",
+    "faithful_complete_acceptance": 0.1,
+    "faithful_imperfect_acceptance": 0.0,
+    "placeholder_acceptance": 0.0,
+    "safety_false_acceptance": 0,
+    "avg_verifier_score": 0.249,
+    "delta_fc_vs_raw": 0.0
+  },
+  {
+    "variant": "PLACEHOLDER_FILTER",
+    "faithful_complete_acceptance": 0.1,
+    "faithful_imperfect_acceptance": 0.0,
+    "placeholder_acceptance": 0.0,
+    "safety_false_acceptance": 0,
+    "avg_verifier_score": 0.246,
+    "delta_fc_vs_raw": 0.0
+  },
+  {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "faithful_complete_acceptance": 1.0,
+    "faithful_imperfect_acceptance": 0.0,
+    "placeholder_acceptance": 0.0,
+    "safety_false_acceptance": 0,
+    "avg_verifier_score": 0.229,
+    "delta_fc_vs_raw": 0.9
+  },
+  {
+    "variant": "SEMANTIC_EVIDENCE_EXTRACTION",
+    "faithful_complete_acceptance": 1.0,
+    "faithful_imperfect_acceptance": 0.0,
+    "placeholder_acceptance": 0.0,
+    "safety_false_acceptance": 0,
+    "avg_verifier_score": 0.228,
+    "delta_fc_vs_raw": 0.9
+  }
+]

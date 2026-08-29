@@ -1,0 +1,121 @@
+{
+  "experiment": "v2.9_evidence_normalization",
+  "normalization_variant": "RAW",
+  "fixture_class": "CLEAN_PLACEHOLDER",
+  "primary_unit": "C4-U04/U05/U06",
+  "question": "What are the learning objectives for fractions in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Fractions Learning Objectives\n\n- **C4U04-LO04** \u2014 C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]\n- **C4U06-LO02** \u2014 C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]\n",
+  "answer_hash": "fbbc9d0f6e82e823",
+  "evidence_hash": "977b259fcfb4b282",
+  "raw_evidence_hash": "36ecb4b660725c25",
+  "normalized_evidence_hash": "36ecb4b660725c25",
+  "evidence_source": "fractions",
+  "evidence_present": true,
+  "raw_evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "normalization_diagnostics": {
+    "variant": "RAW",
+    "operations": [
+      "pass_through"
+    ],
+    "records_in": 13,
+    "records_out": 13,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 11,
+      "NON_SUBSTANTIVE": 2,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "36ecb4b660725c25",
+    "evidence_hash_out": "36ecb4b660725c25"
+  },
+  "verifier_score": 0.1,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "C4U04-LO04 \u2014 C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+    "C4U06-LO02 \u2014 C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+  ],
+  "issue_codes": [
+    "The generated answer contains placeholder text [CLEAN_EVIDENCE_PLACEHOLDER] instead of actual learning objective content.",
+    "The answer references C4U04-LO04 and C4U06-LO02, but the evidence for these records contains placeholder text, not actual curriculum content.",
+    "The answer omits the actual learning objectives for fractions that are present in the evidence, such as C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01 through C4U05-LO04, and C4U06-LO01.",
+    "The answer is incomplete and does not provide the requested learning objectives for fractions in Primary 4."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U04-LO04 is a learning objective for fractions in Primary 4",
+      "verdict": "unsupported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U06-LO02 is a learning objective for fractions in Primary 4",
+      "verdict": "unsupported",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "placeholder_detected_in_raw": true,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.1,
+    "issues": [
+      "The generated answer contains placeholder text [CLEAN_EVIDENCE_PLACEHOLDER] instead of actual learning objective content.",
+      "The answer references C4U04-LO04 and C4U06-LO02, but the evidence for these records contains placeholder text, not actual curriculum content.",
+      "The answer omits the actual learning objectives for fractions that are present in the evidence, such as C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01 through C4U05-LO04, and C4U06-LO01.",
+      "The answer is incomplete and does not provide the requested learning objectives for fractions in Primary 4."
+    ],
+    "unsupported_claims": [
+      "C4U04-LO04 \u2014 C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+      "C4U06-LO02 \u2014 C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "fractions",
+        "query": "C4U04-LO04 content",
+        "detail": "The evidence record for C4U04-LO04 contains placeholder text instead of actual learning objective content."
+      },
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "fractions",
+        "query": "C4U06-LO02 content",
+        "detail": "The evidence record for C4U06-LO02 contains placeholder text instead of actual learning objective content."
+      }
+    ],
+    "incorrect_claims": [],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U04-LO04 is a learning objective for fractions in Primary 4",
+        "verdict": "unsupported",
+        "evidence_ids": [
+          "686a96c2-6b45-49d2-aeab-2fa1f7b15704"
+        ],
+        "notes": "The evidence record exists but contains placeholder text [CLEAN_EVIDENCE_PLACEHOLDER], not actual curriculum content."
+      },
+      {
+        "claim": "C4U06-LO02 is a learning objective for fractions in Primary 4",
+        "verdict": "unsupported",
+        "evidence_ids": [
+          "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+        ],
+        "notes": "The evidence record exists but contains placeholder text [CLEAN_EVIDENCE_PLACEHOLDER], not actual curriculum content."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is incomplete and contains placeholder text. The evidence contains multiple valid learning objectives for fractions in Primary 4 (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01 through C4U05-LO04, C4U06-LO01) that should have been included. The answer should be regenerated with actual content from the evidence.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 4788.49,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "raw_clean_placeholder_04",
+  "run_index": 4
+}

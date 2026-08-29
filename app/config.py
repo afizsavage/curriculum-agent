@@ -48,6 +48,9 @@ class Settings(BaseSettings):
     # V2.8 experiment: recommendation-mapping isolation (replay harness).
     v28_recommendation_mapping_experiment: bool = False
 
+    # V2.9 experiment: evidence normalization & grounding-boundary (replay harness).
+    v29_evidence_normalization_experiment: bool = False
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite

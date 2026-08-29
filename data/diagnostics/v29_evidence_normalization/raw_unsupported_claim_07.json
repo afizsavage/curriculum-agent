@@ -1,0 +1,96 @@
+{
+  "experiment": "v2.9_evidence_normalization",
+  "normalization_variant": "RAW",
+  "fixture_class": "UNSUPPORTED_CLAIM",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO99** \u2014 Convert foreign currency using blockchain wallets.\n",
+  "answer_hash": "eaeac83f9b53ac02",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "evidence_present": true,
+  "raw_evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "normalization_diagnostics": {
+    "variant": "RAW",
+    "operations": [
+      "pass_through"
+    ],
+    "records_in": 5,
+    "records_out": 5,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 5,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "be3e342763f1faac",
+    "evidence_hash_out": "be3e342763f1faac"
+  },
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets."
+  ],
+  "issue_codes": [
+    "The generated answer claims a learning objective 'C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets' which is not present in the curriculum evidence.",
+    "The answer omits all actual learning objectives for the Money unit (C4U18) that are present in the evidence.",
+    "The answer introduces a fabricated learning outcome code and content that does not exist in the MBSSE curriculum."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "placeholder_detected_in_raw": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer claims a learning objective 'C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets' which is not present in the curriculum evidence.",
+      "The answer omits all actual learning objectives for the Money unit (C4U18) that are present in the evidence.",
+      "The answer introduces a fabricated learning outcome code and content that does not exist in the MBSSE curriculum."
+    ],
+    "unsupported_claims": [
+      "C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "Primary 4 Mathematics money learning objectives",
+        "detail": "The evidence contains learning outcomes C4U18-LO01, C4U18-LO02, C4U18-LO03, and C4U18-LO04 for the Everyday Arithmetic Money unit, but the generated answer does not include any of them."
+      }
+    ],
+    "incorrect_claims": [
+      "C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets."
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets.",
+        "verdict": "contradicted",
+        "evidence_ids": [],
+        "notes": "No such learning outcome exists in the evidence. The evidence lists C4U18-LO01 through C4U18-LO04, none of which mention blockchain or foreign currency conversion."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is entirely fabricated and does not reflect the curriculum evidence. The correct learning objectives for the Money unit (C4U18) are: C4U18-LO01 (Order operations using BODMAS), C4U18-LO02 (Solve word problems involving the 4 operations and money), C4U18-LO03 (Estimate strategies to check answers for reasonableness), and C4U18-LO04 (Inverse operations to check answers for reasonableness).",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 3771.72,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "raw_unsupported_claim_07",
+  "run_index": 7
+}
