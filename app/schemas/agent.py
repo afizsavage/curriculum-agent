@@ -38,6 +38,20 @@ class AskRequest(BaseModel):
         default=None,
         description="V2.3 generation arm: current (control) or constrained (treatment).",
     )
+    v24_experiment_arm: Optional[Literal["A", "B", "C", "D"]] = Field(
+        default=None,
+        description=(
+            "V2.4 routing/verifier isolation arm: A frozen+single-pass, "
+            "B frozen+production graph, C live+single-pass, D live+production."
+        ),
+    )
+    v25_experiment_arm: Optional[Literal["A", "B", "C", "D"]] = Field(
+        default=None,
+        description=(
+            "V2.5 verifier evidence-quality arm: A clean, B original imperfect, "
+            "C clean+annotation, D original+annotation."
+        ),
+    )
 
     @field_validator("question")
     @classmethod

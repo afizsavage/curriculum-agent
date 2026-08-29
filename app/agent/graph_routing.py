@@ -58,7 +58,9 @@ def route_after_verification(
         route = "fallback"
         reason = "verification_fallback"
     elif result.recommendation == VerificationRecommendation.RETRIEVE_MORE:
-        if qa.metadata.get("v23_single_pass"):
+        from app.agent.v24_diagnostics import emit_v24_route_event, single_pass_enabled
+
+        if single_pass_enabled(qa):
             route = "fallback"
             reason = "v23_single_pass_complete"
             qa.metadata["termination_reason"] = "v23_single_pass"
@@ -160,6 +162,10 @@ def route_after_verification(
         iteration=qa.iteration,
         tool_calls=qa.tool_calls,
     )
+    if qa.metadata.get("v24_experiment_arm"):
+        from app.agent.v24_diagnostics import emit_v24_route_event
+
+        emit_v24_route_event(qa, route=route, reason=reason, result=result)
     return route
 
 

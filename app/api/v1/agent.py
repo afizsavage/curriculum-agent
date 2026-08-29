@@ -56,6 +56,8 @@ def ask(
             context_boundary_experiment=payload.context_boundary_experiment,
             v23_diagnostic_experiment=payload.v23_diagnostic_experiment,
             generation_mode=payload.generation_mode,
+            v24_experiment_arm=payload.v24_experiment_arm,
+            v25_experiment_arm=payload.v25_experiment_arm,
         )
         ctx["conversation_id"] = state.conversation_id
         ctx["status"] = state.status.value

@@ -33,6 +33,12 @@ class Settings(BaseSettings):
     # V2.3 experiment: frozen resolve-only retrieval + generation/verifier diagnostics.
     v23_generation_verifier_experiment: bool = False
 
+    # V2.4 experiment: routing / verifier isolation (arms A–D).
+    v24_routing_verifier_experiment: bool = False
+
+    # V2.5 experiment: verifier handling of imperfect-but-present evidence.
+    v25_verifier_evidence_quality_experiment: bool = False
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite

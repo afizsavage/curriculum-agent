@@ -118,6 +118,8 @@ class CurriculumQAAgent:
         context_boundary_experiment: bool | None = None,
         v23_diagnostic_experiment: bool | None = None,
         generation_mode: str | None = None,
+        v24_experiment_arm: str | None = None,
+        v25_experiment_arm: str | None = None,
     ) -> CurriculumQAState:
         cleaned = (question or "").strip()
         if not cleaned:
@@ -157,6 +159,25 @@ class CurriculumQAAgent:
                     generation_mode=generation_mode,
                     enabled=v23_diagnostic_experiment,
                 )
+                from app.agent.v24_diagnostics import configure_v24_experiment, finalize_v24_diagnostics
+
+                if v24_experiment_arm is not None:
+                    configure_v24_experiment(
+                        state,
+                        settings=self.settings,
+                        arm=v24_experiment_arm,  # type: ignore[arg-type]
+                    )
+                if v25_experiment_arm is not None:
+                    from app.agent.v25_experiment import (
+                        configure_v25_experiment,
+                        finalize_v25_diagnostics,
+                    )
+
+                    configure_v25_experiment(
+                        state,
+                        settings=self.settings,
+                        arm=v25_experiment_arm,  # type: ignore[arg-type]
+                    )
                 context.append_user(cleaned)
                 self.nodes.bind_conversation(context)
 
@@ -205,6 +226,12 @@ class CurriculumQAAgent:
                     settings=self.settings,
                 )
                 state.metadata["termination_reason"] = termination_reason
+                if state.metadata.get("v24_experiment_arm"):
+                    finalize_v24_diagnostics(state)
+                if state.metadata.get("v25_experiment_arm"):
+                    from app.agent.v25_experiment import finalize_v25_diagnostics
+
+                    finalize_v25_diagnostics(state)
                 finish_agent_run(
                     trace,
                     status=state.status.value,

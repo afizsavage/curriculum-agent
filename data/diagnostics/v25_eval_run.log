@@ -1,0 +1,184 @@
+Preflight OK {"hash": "977b259fcfb4b282", "imperfect": 2}
+=== ARM A 1/10 ===
+{"arm": "A", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "clean"}
+=== ARM A 2/10 ===
+{"arm": "A", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean"}
+=== ARM A 3/10 ===
+{"arm": "A", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean"}
+=== ARM A 4/10 ===
+{"arm": "A", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean"}
+=== ARM A 5/10 ===
+{"arm": "A", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean"}
+=== ARM A 6/10 ===
+{"arm": "A", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean"}
+=== ARM A 7/10 ===
+{"arm": "A", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "clean"}
+=== ARM A 8/10 ===
+{"arm": "A", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean"}
+=== ARM A 9/10 ===
+{"arm": "A", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean"}
+=== ARM A 10/10 ===
+{"arm": "A", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "clean"}
+=== ARM B 1/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_imperfect"}
+=== ARM B 2/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_imperfect"}
+=== ARM B 3/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_imperfect"}
+=== ARM B 4/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_imperfect"}
+=== ARM B 5/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_imperfect"}
+=== ARM B 6/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_imperfect"}
+=== ARM B 7/10 ===
+{"arm": "B", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "original_imperfect"}
+=== ARM B 8/10 ===
+{"arm": "B", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "original_imperfect"}
+=== ARM B 9/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_imperfect"}
+=== ARM B 10/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_imperfect"}
+=== ARM C 1/10 ===
+{"arm": "C", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "clean_annotated"}
+=== ARM C 2/10 ===
+{"arm": "C", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean_annotated"}
+=== ARM C 3/10 ===
+{"arm": "C", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean_annotated"}
+=== ARM C 4/10 ===
+{"arm": "C", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "clean_annotated"}
+=== ARM C 5/10 ===
+{"arm": "C", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean_annotated"}
+=== ARM C 6/10 ===
+{"arm": "C", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean_annotated"}
+=== ARM C 7/10 ===
+{"arm": "C", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean_annotated"}
+=== ARM C 8/10 ===
+{"arm": "C", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean_annotated"}
+=== ARM C 9/10 ===
+{"arm": "C", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "clean_annotated"}
+=== ARM C 10/10 ===
+{"arm": "C", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "clean_annotated"}
+=== ARM D 1/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_annotated"}
+=== ARM D 2/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_annotated"}
+=== ARM D 3/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_annotated"}
+=== ARM D 4/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_annotated"}
+=== ARM D 5/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_annotated"}
+=== ARM D 6/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_annotated"}
+=== ARM D 7/10 ===
+{"arm": "D", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "original_annotated"}
+=== ARM D 8/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_annotated"}
+=== ARM D 9/10 ===
+{"arm": "D", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "condition": "original_annotated"}
+=== ARM D 10/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "condition": "original_annotated"}
+--- V2.5 EXPERIMENT COMPLETE ---
+{
+  "summaries": {
+    "A": {
+      "n": 10,
+      "verifier_acceptance_rate": 0.7,
+      "verifier_acceptance_count": 7,
+      "success_rate": 0.7,
+      "success_count": 7,
+      "avg_verifier_score": 0.94,
+      "retrieve_more_rate": 0.3,
+      "insufficient_evidence_rate": 0.3,
+      "grounding_failure_count": 2,
+      "truncated_source_count": 2,
+      "imperfect_evidence_failure_count": 3,
+      "unsupported_claims_total": 4,
+      "speculative_claim_count": 0,
+      "absence_claim_count": 0,
+      "avg_latency_ms": 19645.4,
+      "evidence_snapshot_hashes": [
+        "977b259fcfb4b282"
+      ],
+      "failure_class_distribution": {
+        "TRUNCATED_SOURCE": 2,
+        "GROUNDING_FAILURE": 1
+      }
+    },
+    "B": {
+      "n": 10,
+      "verifier_acceptance_rate": 0.2,
+      "verifier_acceptance_count": 2,
+      "success_rate": 0.2,
+      "success_count": 2,
+      "avg_verifier_score": 0.837,
+      "retrieve_more_rate": 0.8,
+      "insufficient_evidence_rate": 0.8,
+      "grounding_failure_count": 4,
+      "truncated_source_count": 3,
+      "imperfect_evidence_failure_count": 8,
+      "unsupported_claims_total": 4,
+      "speculative_claim_count": 0,
+      "absence_claim_count": 1,
+      "avg_latency_ms": 19652.1,
+      "evidence_snapshot_hashes": [
+        "977b259fcfb4b282"
+      ],
+      "failure_class_distribution": {
+        "UNSUPPORTED_CLAIM": 1,
+        "GROUNDING_FAILURE": 4,
+        "TRUNCATED_SOURCE": 3
+      }
+    },
+    "C": {
+      "n": 10,
+      "verifier_acceptance_rate": 0.7,
+      "verifier_acceptance_count": 7,
+      "success_rate": 0.7,
+      "success_count": 7,
+      "avg_verifier_score": 0.94,
+      "retrieve_more_rate": 0.3,
+      "insufficient_evidence_rate": 0.3,
+      "grounding_failure_count": 3,
+      "truncated_source_count": 2,
+      "imperfect_evidence_failure_count": 3,
+      "unsupported_claims_total": 3,
+      "speculative_claim_count": 0,
+      "absence_claim_count": 0,
+      "avg_latency_ms": 18011.0,
+      "evidence_snapshot_hashes": [
+        "977b259fcfb4b282"
+      ],
+      "failure_class_distribution": {
+        "TRUNCATED_SOURCE": 2,
+        "GROUNDING_FAILURE": 1
+      }
+    },
+    "D": {
+      "n": 10,
+      "verifier_acceptance_rate": 0.2,
+      "verifier_acceptance_count": 2,
+      "success_rate": 0.2,
+      "success_count": 2,
+      "avg_verifier_score": 0.82,
+      "retrieve_more_rate": 0.8,
+      "insufficient_evidence_rate": 0.8,
+      "grounding_failure_count": 2,
+      "truncated_source_count": 6,
+      "imperfect_evidence_failure_count": 8,
+      "unsupported_claims_total": 12,
+      "speculative_claim_count": 0,
+      "absence_claim_count": 0,
+      "avg_latency_ms": 22231.6,
+      "evidence_snapshot_hashes": [
+        "977b259fcfb4b282"
+      ],
+      "failure_class_distribution": {
+        "TRUNCATED_SOURCE": 6,
+        "GROUNDING_FAILURE": 2
+      }
+    }
+  },
+  "conclusion": "PARTIALLY SUPPORTED"
+}

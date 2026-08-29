@@ -18,13 +18,15 @@ from app.agent.retrieval_state import (
     tool_fingerprint,
 )
 from app.agent.context_boundary import (
+    LEGACY_EXPLORATORY_TOOLS,
     capture_context_boundary,
     context_boundary_experiment_enabled,
     get_boundary,
     is_redundant_legacy_retrieval,
     record_boundary_metrics,
 )
-from app.agent.evidence_snapshot import record_evidence_snapshot, v23_diagnostic_enabled
+from app.agent.evidence_snapshot import evidence_snapshot_hash, record_evidence_snapshot
+from app.agent.v24_diagnostics import frozen_retrieval_enabled, record_retrieval_delta, v24_experiment_enabled
 from app.agent.state import CurriculumQAState, RetrievedContextItem
 from app.agent.trace import (
     evidence_preview,
@@ -80,6 +82,8 @@ class RetrievalNode:
         state.status = AgentStatus.RETRIEVING
         trace = get_current_trace()
         evidence_before = len(state.evidence)
+        ids_before = {e.entity_id for e in state.evidence if e.entity_id}
+        hash_before = evidence_snapshot_hash(state.evidence)
         rs = state.retrieval_state
         if not isinstance(rs, RetrievalState):
             rs = RetrievalState.model_validate(rs)
@@ -153,7 +157,7 @@ class RetrievalNode:
         plan_mode = "llm"
 
         # V2.3: frozen resolve-only retrieval (no LLM planner, no legacy tools).
-        if v23_diagnostic_enabled(self.settings, state) and not follow_up:
+        if frozen_retrieval_enabled(self.settings, state) and not follow_up:
             plan_mode = "v23_frozen_resolve"
             resolve_args: dict[str, Any] = {"grade": state.grade or "CLASS_4"}
             subject = state.subject or rs.resolved_subject
@@ -199,6 +203,10 @@ class RetrievalNode:
                 new_relevant += rel
                 duplicate_evidence += dupes
             record_evidence_snapshot(state)
+            from app.agent.v25_experiment import apply_v25_evidence_transform, v25_experiment_enabled
+
+            if v25_experiment_enabled(self.settings, state) and not follow_up:
+                apply_v25_evidence_transform(state)
         elif follow_up:
             plan_mode = "targeted"
             planned_calls = targeted_tool_calls_from_missing(
@@ -454,6 +462,26 @@ class RetrievalNode:
         state.metadata["last_retrieval_relevance"] = rs.last_relevant_gain
         if rs.no_progress:
             state.metadata["no_retrieval_progress"] = True
+
+        if v24_experiment_enabled(self.settings, state):
+            ids_after = {e.entity_id for e in state.evidence if e.entity_id}
+            new_ids = sorted(ids_after - ids_before)
+            legacy_attempted = any(
+                r.tool in LEGACY_EXPLORATORY_TOOLS
+                for r in (state.retrieval_history or [])[-max(tools_executed, 1) :]
+            )
+            if legacy_attempted:
+                state.metadata["v24_legacy_retrieval_attempted"] = True
+            if follow_up:
+                record_retrieval_delta(
+                    state,
+                    evidence_before_count=evidence_before,
+                    evidence_hash_before=hash_before,
+                    new_evidence_count=new_evidence,
+                    duplicate_evidence_count=duplicate_evidence,
+                    new_evidence_ids=new_ids,
+                    legacy_retrieval_attempted=legacy_attempted,
+                )
 
         bag = summarize_evidence_bag(state.evidence)
         if trace is not None:

@@ -1,0 +1,202 @@
+=== ARM A 1/10 ===
+{"arm": "A", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM A 2/10 ===
+{"arm": "A", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM A 3/10 ===
+{"arm": "A", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM A 4/10 ===
+{"arm": "A", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "routing": "verification_passed"}
+=== ARM A 5/10 ===
+{"arm": "A", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM A 6/10 ===
+{"arm": "A", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM A 7/10 ===
+{"arm": "A", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM A 8/10 ===
+{"arm": "A", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM A 9/10 ===
+{"arm": "A", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM A 10/10 ===
+{"arm": "A", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM B 1/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "verification_fallback"}
+=== ARM B 2/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM B 3/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM B 4/10 ===
+{"arm": "B", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "routing": "verification_passed"}
+=== ARM B 5/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM B 6/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM B 7/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM B 8/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM B 9/10 ===
+{"arm": "B", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "routing": "verification_passed"}
+=== ARM B 10/10 ===
+{"arm": "B", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM C 1/10 ===
+{"arm": "C", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM C 2/10 ===
+{"arm": "C", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM C 3/10 ===
+{"arm": "C", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM C 4/10 ===
+{"arm": "C", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "routing": "verification_passed"}
+=== ARM C 5/10 ===
+{"arm": "C", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM C 6/10 ===
+{"arm": "C", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM C 7/10 ===
+{"arm": "C", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM C 8/10 ===
+{"arm": "C", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "routing": "verification_passed"}
+=== ARM C 9/10 ===
+{"arm": "C", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "v23_single_pass"}
+=== ARM C 10/10 ===
+{"arm": "C", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "routing": "verification_passed"}
+=== ARM D 1/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM D 2/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM D 3/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM D 4/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM D 5/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM D 6/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM D 7/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+=== ARM D 8/10 ===
+{"arm": "D", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "routing": "verification_passed"}
+=== ARM D 9/10 ===
+{"arm": "D", "accepted": true, "status": "completed", "hash": "977b259fcfb4b282", "routing": "verification_passed"}
+=== ARM D 10/10 ===
+{"arm": "D", "accepted": false, "status": "insufficient_evidence", "hash": "977b259fcfb4b282", "routing": "no_retrieval_progress"}
+--- V2.4 EXPERIMENT COMPLETE ---
+{
+  "summaries": {
+    "A": {
+      "n": 10,
+      "resolver_success_rate": 1.0,
+      "verifier_acceptance_rate": 0.1,
+      "verifier_acceptance_count": 1,
+      "success_rate": 0.1,
+      "success_count": 1,
+      "avg_verifier_score": 0.765,
+      "min_verifier_score": 0.7,
+      "retrieve_more_rate": 0.9,
+      "regeneration_rate": 0.0,
+      "insufficient_evidence_rate": 0.9,
+      "avg_tool_calls": 1,
+      "avg_latency_ms": 18325.8,
+      "avg_evidence_count": 13,
+      "avg_new_evidence_after_retrieve_more": 13,
+      "duplicate_only_retrieval_count": 0,
+      "no_new_evidence_retrieval_count": 0,
+      "already_present_evidence_rejection_count": 10,
+      "garbled_source_rejection_count": 10,
+      "production_routing_intervention_rate": 0.9,
+      "evidence_snapshot_hashes": [
+        "977b259fcfb4b282"
+      ],
+      "failure_class_distribution": {
+        "GROUNDING_FAILURE": 5,
+        "TRUNCATED_SOURCE": 4
+      }
+    },
+    "B": {
+      "n": 10,
+      "resolver_success_rate": 1.0,
+      "verifier_acceptance_rate": 0.2,
+      "verifier_acceptance_count": 2,
+      "success_rate": 0.2,
+      "success_count": 2,
+      "avg_verifier_score": 0.78,
+      "min_verifier_score": 0.7,
+      "retrieve_more_rate": 0.7,
+      "regeneration_rate": 0.4,
+      "insufficient_evidence_rate": 0.8,
+      "avg_tool_calls": 1,
+      "avg_latency_ms": 25717.3,
+      "avg_evidence_count": 13,
+      "avg_new_evidence_after_retrieve_more": 13,
+      "duplicate_only_retrieval_count": 0,
+      "no_new_evidence_retrieval_count": 0,
+      "already_present_evidence_rejection_count": 10,
+      "garbled_source_rejection_count": 8,
+      "production_routing_intervention_rate": 0.7,
+      "evidence_snapshot_hashes": [
+        "977b259fcfb4b282"
+      ],
+      "failure_class_distribution": {
+        "TRUNCATED_SOURCE": 6,
+        "GROUNDING_FAILURE": 2
+      }
+    },
+    "C": {
+      "n": 10,
+      "resolver_success_rate": 1.0,
+      "verifier_acceptance_rate": 0.3,
+      "verifier_acceptance_count": 3,
+      "success_rate": 0.3,
+      "success_count": 3,
+      "avg_verifier_score": 0.79,
+      "min_verifier_score": 0.7,
+      "retrieve_more_rate": 0.7,
+      "regeneration_rate": 0.0,
+      "insufficient_evidence_rate": 0.7,
+      "avg_tool_calls": 1,
+      "avg_latency_ms": 26575.5,
+      "avg_evidence_count": 13,
+      "avg_new_evidence_after_retrieve_more": 13,
+      "duplicate_only_retrieval_count": 0,
+      "no_new_evidence_retrieval_count": 0,
+      "already_present_evidence_rejection_count": 10,
+      "garbled_source_rejection_count": 7,
+      "production_routing_intervention_rate": 0.7,
+      "evidence_snapshot_hashes": [
+        "977b259fcfb4b282"
+      ],
+      "failure_class_distribution": {
+        "TRUNCATED_SOURCE": 5,
+        "GROUNDING_FAILURE": 2
+      }
+    },
+    "D": {
+      "n": 10,
+      "resolver_success_rate": 1.0,
+      "verifier_acceptance_rate": 0.2,
+      "verifier_acceptance_count": 2,
+      "success_rate": 0.2,
+      "success_count": 2,
+      "avg_verifier_score": 0.844,
+      "min_verifier_score": 0.7,
+      "retrieve_more_rate": 0.8,
+      "regeneration_rate": 0.2,
+      "insufficient_evidence_rate": 0.8,
+      "avg_tool_calls": 1,
+      "avg_latency_ms": 36364.0,
+      "avg_evidence_count": 13,
+      "avg_new_evidence_after_retrieve_more": 13,
+      "duplicate_only_retrieval_count": 0,
+      "no_new_evidence_retrieval_count": 0,
+      "already_present_evidence_rejection_count": 10,
+      "garbled_source_rejection_count": 7,
+      "production_routing_intervention_rate": 0.8,
+      "evidence_snapshot_hashes": [
+        "977b259fcfb4b282"
+      ],
+      "failure_class_distribution": {
+        "TRUNCATED_SOURCE": 4,
+        "GROUNDING_FAILURE": 4
+      }
+    }
+  },
+  "recommendation": "VERIFIER FOLLOW-UP"
+}
