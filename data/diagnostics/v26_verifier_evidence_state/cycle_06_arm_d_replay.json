@@ -1,0 +1,80 @@
+{
+  "arm": "D",
+  "arm_description": "explicit MISSING (imperfect LOs removed)",
+  "evidence_state": "EVIDENCE_MISSING",
+  "evidence_hash": "977b259fcfb4b282",
+  "transformed_evidence_hash": "b9d15052e5f4db7c",
+  "imperfect_evidence_count": 2,
+  "answer_hash": "09f795fd68ab649b",
+  "verifier_score": 0.6,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "failure_reason": "retrieve_more",
+  "issue_codes": [
+    "Two learning outcomes in the generated answer are not supported by the evidence: C4U06-LO02 (multiply like fractions with denominators up to...) and C4U04-LO04 (relate fractions with denominators up to compare equivalent fraction greater than). These appear to be reconstructed or hallucinated from incomplete source text.",
+    "The generated answer includes garbled/repetitive text for C4U06-LO02, which is not present in the evidence and should not be reported as a curriculum outcome.",
+    "The generated answer omits the unit context (e.g., 'Number and Numeration OPERATION ON FRACTIONS', 'FRACTION', 'Operation on Fraction (Multiplication)') which would help clarify the scope of the objectives."
+  ],
+  "unsupported_claims": [
+    "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+    "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than"
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+      "verdict": "unsupported",
+      "classification": "TRUNCATION_FAITHFUL"
+    },
+    {
+      "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than",
+      "verdict": "unsupported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "speculative_claims": false,
+  "truncation_reconstruction": false,
+  "truncation_faithful": true,
+  "tag": "cycle_06_arm_d",
+  "answer": "### Primary 4 \u2014 Mathematics\n\n## Learning objectives/outcomes\n- **C4U05-LO01** \u2014 Add Equivalent fractions.\n- **C4U06-LO01** \u2014 Multiply equivalent fractions.\n- **C4U04-LO01** \u2014 Simplify like fraction with common denominators.\n- **C4U04-LO02** \u2014 Compare and order like fraction.\n- **C4U06-LO02** \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to\n- **C4U05-LO02** \u2014 Subtract Equivalent fractions.\n- **C4U04-LO03** \u2014 Identify Equivalent fractions.\n- **C4U05-LO03** \u2014 Solve both Addition and Subtraction of Equivalent fractions.\n- **C4U04-LO04** \u2014 Relate fractions with denominators up to compare equivalent fraction greater than\n- **C4U05-LO04** \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.\n\n## Source limitations\nSome curriculum records appear incomplete or repetitive; wording above is reported as supplied."
+}

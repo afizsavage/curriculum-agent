@@ -39,6 +39,9 @@ class Settings(BaseSettings):
     # V2.5 experiment: verifier handling of imperfect-but-present evidence.
     v25_verifier_evidence_quality_experiment: bool = False
 
+    # V2.6 experiment: verifier evidence-state isolation (replay harness).
+    v26_verifier_evidence_state_experiment: bool = False
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite

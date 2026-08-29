@@ -139,9 +139,19 @@ class AnswerVerifier:
             f"{json.dumps(VERIFICATION_RESULT_JSON_SCHEMA, indent=2)}"
         )
         return [
-            LLMMessage(role="system", content=VERIFIER_SYSTEM_PROMPT),
+            LLMMessage(
+                role="system",
+                content=VERIFIER_SYSTEM_PROMPT
+                + self._experimental_prompt_suffix(state),
+            ),
             LLMMessage(role="user", content=user),
         ]
+
+    def _experimental_prompt_suffix(self, state: CurriculumQAState) -> str:
+        from app.agent.v26_experiment import get_v26_system_prompt_suffix
+
+        suffix = get_v26_system_prompt_suffix(state)
+        return f"\n\n{suffix}" if suffix else ""
 
     def _llm_verify(self, state: CurriculumQAState) -> VerificationResult:
         messages = self.build_messages(state)

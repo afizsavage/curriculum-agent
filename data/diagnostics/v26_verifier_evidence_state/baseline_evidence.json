@@ -1,0 +1,346 @@
+[
+  {
+    "source": "curriculum_api",
+    "entity_type": "unit",
+    "entity_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+    "name": "Number and Numeration FRACTION",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "Number and Numeration FRACTION",
+    "content": "Number and Numeration FRACTION",
+    "metadata": {
+      "code": "C4-U04",
+      "content_type": "UNIT",
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "authority": "grade_curriculum"
+    },
+    "source_reference": "v2.curriculum.context.resolve"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "unit",
+    "entity_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+    "name": "Number and Numeration OPERATION ON FRACTIONS.",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "Number and Numeration OPERATION ON FRACTIONS.",
+    "content": "Number and Numeration OPERATION ON FRACTIONS.",
+    "metadata": {
+      "code": "C4-U05",
+      "content_type": "UNIT",
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "authority": "grade_curriculum"
+    },
+    "source_reference": "v2.curriculum.context.resolve"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "unit",
+    "entity_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+    "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "Number and Numeration Operation on Fraction. (Multiplication)",
+    "content": "Number and Numeration Operation on Fraction. (Multiplication)",
+    "metadata": {
+      "code": "C4-U06",
+      "content_type": "UNIT",
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "authority": "grade_curriculum"
+    },
+    "source_reference": "v2.curriculum.context.resolve"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+    "name": "C4U05-LO01",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+    "content": "Add Equivalent fractions.",
+    "metadata": {
+      "code": "C4U05-LO01",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U05",
+      "parent_content_name": "Number and Numeration OPERATION ON FRACTIONS.",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "ee43f087-3372-411e-9495-21859368099e",
+    "name": "C4U06-LO01",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+    "content": "Multiply equivalent fractions.",
+    "metadata": {
+      "code": "C4U06-LO01",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U06",
+      "parent_content_name": "Number and Numeration Operation on Fraction. (Multiplication)",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+    "name": "C4U04-LO01",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+    "content": "Simplify like fraction with common denominators.",
+    "metadata": {
+      "code": "C4U04-LO01",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U04",
+      "parent_content_name": "Number and Numeration FRACTION",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+    "name": "C4U04-LO02",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+    "content": "Compare and order like fraction.",
+    "metadata": {
+      "code": "C4U04-LO02",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U04",
+      "parent_content_name": "Number and Numeration FRACTION",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+    "name": "C4U06-LO02",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+    "content": "Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to",
+    "metadata": {
+      "code": "C4U06-LO02",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U06",
+      "parent_content_name": "Number and Numeration Operation on Fraction. (Multiplication)",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+    "name": "C4U05-LO02",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+    "content": "Subtract Equivalent fractions.",
+    "metadata": {
+      "code": "C4U05-LO02",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U05",
+      "parent_content_name": "Number and Numeration OPERATION ON FRACTIONS.",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "6926032f-39b7-4ad6-8278-085bae23318b",
+    "name": "C4U04-LO03",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+    "content": "Identify Equivalent fractions.",
+    "metadata": {
+      "code": "C4U04-LO03",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U04",
+      "parent_content_name": "Number and Numeration FRACTION",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+    "name": "C4U05-LO03",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+    "content": "Solve both Addition and Subtraction of Equivalent fractions.",
+    "metadata": {
+      "code": "C4U05-LO03",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U05",
+      "parent_content_name": "Number and Numeration OPERATION ON FRACTIONS.",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+    "name": "C4U04-LO04",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+    "content": "Relate fractions with denominators up to compare equivalent fraction greater than",
+    "metadata": {
+      "code": "C4U04-LO04",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U04",
+      "parent_content_name": "Number and Numeration FRACTION",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+    "name": "C4U05-LO04",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+    "content": "Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+    "metadata": {
+      "code": "C4U05-LO04",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U05",
+      "parent_content_name": "Number and Numeration OPERATION ON FRACTIONS.",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  }
+]

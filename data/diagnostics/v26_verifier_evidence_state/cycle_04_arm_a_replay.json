@@ -1,0 +1,85 @@
+{
+  "arm": "A",
+  "arm_description": "existing verifier + original imperfect evidence",
+  "evidence_state": null,
+  "evidence_hash": "977b259fcfb4b282",
+  "transformed_evidence_hash": "977b259fcfb4b282",
+  "imperfect_evidence_count": 2,
+  "answer_hash": "2f1b0e50e7ab8802",
+  "verifier_score": 0.9,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "failure_reason": "retrieve_more",
+  "issue_codes": [
+    "The generated answer includes a claim about 'Unit C4-U04: Number and Numeration \u2013 FRACTION' and 'Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS' and 'Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)' which are supported by evidence.",
+    "The generated answer includes a claim about 'C4U04-LO04' with content 'Relate fractions with denominators up to compare equivalent fraction greater than' which is supported by evidence, but the answer text appears truncated and may be incomplete.",
+    "The generated answer includes a claim about 'C4U06-LO02' with content 'Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to' which is supported by evidence, but the answer text appears truncated/repetitive.",
+    "The generated answer includes a claim about 'C4U04-LO01' with content 'Simplify like fraction with common denominators.' which is supported by evidence.",
+    "The generated answer includes a claim about 'C4U04-LO02' with content 'Compare and order like fraction.' which is supported by evidence.",
+    "The generated answer includes a claim about 'C4U04-LO03' with content 'Identify Equivalent fractions.' which is supported by evidence.",
+    "The generated answer includes a claim about 'C4U05-LO01' with content 'Add Equivalent fractions.' which is supported by evidence.",
+    "The generated answer includes a claim about 'C4U05-LO02' with content 'Subtract Equivalent fractions.' which is supported by evidence.",
+    "The generated answer includes a claim about 'C4U05-LO03' with content 'Solve both Addition and Subtraction of Equivalent fractions.' which is supported by evidence.",
+    "The generated answer includes a claim about 'C4U05-LO04' with content 'Solve word problems involving Addition and Subtraction of Equivalent fractions.' which is supported by evidence.",
+    "The generated answer includes a claim about 'C4U06-LO01' with content 'Multiply equivalent fractions.' which is supported by evidence."
+  ],
+  "unsupported_claims": [],
+  "claim_classifications": [
+    {
+      "claim": "Unit C4-U04: Number and Numeration \u2013 FRACTION includes C4U04-LO01: Simplify like fraction with common denominators.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "Unit C4-U04: Number and Numeration \u2013 FRACTION includes C4U04-LO02: Compare and order like fraction.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "Unit C4-U04: Number and Numeration \u2013 FRACTION includes C4U04-LO03: Identify Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "Unit C4-U04: Number and Numeration \u2013 FRACTION includes C4U04-LO04: Relate fractions with denominators up to compare equivalent fraction greater than.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS includes C4U05-LO01: Add Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS includes C4U05-LO02: Subtract Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS includes C4U05-LO03: Solve both Addition and Subtraction of Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS includes C4U05-LO04: Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication) includes C4U06-LO01: Multiply equivalent fractions.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication) includes C4U06-LO02: Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to.",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "speculative_claims": false,
+  "truncation_reconstruction": false,
+  "truncation_faithful": false,
+  "tag": "cycle_04_arm_a",
+  "answer": "## Primary 4 Mathematics \u2013 Fractions Learning Objectives\n\nThe Primary 4 Mathematics curriculum includes fractions across three units. The learning objectives are listed below by unit.\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01** \u2014 Simplify like fraction with common denominators.\n- **C4U04-LO02** \u2014 Compare and order like fraction.\n- **C4U04-LO03** \u2014 Identify Equivalent fractions.\n- **C4U04-LO04** \u2014 Relate fractions with denominators up to compare equivalent fraction greater than *(source text appears truncated)*\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01** \u2014 Add Equivalent fractions.\n- **C4U05-LO02** \u2014 Subtract Equivalent fractions.\n- **C4U05-LO03** \u2014 Solve both Addition and Subtraction of Equivalent fractions.\n- **C4U05-LO04** \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01** \u2014 Multiply equivalent fractions.\n- **C4U06-LO02** \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to *(source text appears truncated/repetitive)*"
+}

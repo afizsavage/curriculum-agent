@@ -1,0 +1,94 @@
+{
+  "arm": "B",
+  "arm_description": "explicit PRESENT_IMPERFECT semantics",
+  "evidence_state": "EVIDENCE_PRESENT_IMPERFECT",
+  "evidence_hash": "977b259fcfb4b282",
+  "transformed_evidence_hash": "977b259fcfb4b282",
+  "imperfect_evidence_count": 2,
+  "answer_hash": "f0e77054f41289ee",
+  "verifier_score": 0.85,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "failure_reason": "retrieve_more",
+  "issue_codes": [
+    "The answer includes a claim about 'Unit C4-U04: Number and Numeration \u2013 FRACTION' and 'Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS' and 'Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)' \u2014 these unit names and codes are supported by evidence records 12, 9, and 13 respectively.",
+    "The answer's claim for C4U04-LO04 is marked as truncated/incomplete, which matches the EVIDENCE_PRESENT_IMPERFECT state of record 7. The answer reproduces the text verbatim and acknowledges the limitation, which is acceptable.",
+    "The answer's claim for C4U06-LO02 is marked as garbled/repetitive, which matches the EVIDENCE_PRESENT_IMPERFECT state of record 3. The answer reproduces the text verbatim and acknowledges the limitation, which is acceptable.",
+    "All other learning outcome claims (C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, C4U06-LO01) are directly supported by the evidence records.",
+    "No contradictions or unsupported curriculum facts were found. The answer faithfully represents the available evidence."
+  ],
+  "unsupported_claims": [],
+  "claim_classifications": [
+    {
+      "claim": "Unit C4-U04: Number and Numeration \u2013 FRACTION",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U04-LO01 \u2014 Simplify like fraction with common denominators.",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U04-LO02 \u2014 Compare and order like fraction.",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U04-LO03 \u2014 Identify Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U04-LO04 \u2014 Relate fractions with denominators up to compare equivalent fraction greater than (source text appears truncated/incomplete).",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U05-LO01 \u2014 Add Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U05-LO02 \u2014 Subtract Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U05-LO03 \u2014 Solve both Addition and Subtraction of Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U05-LO04 \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U06-LO01 \u2014 Multiply equivalent fractions.",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U06-LO02 \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to (source text is garbled/repetitive).",
+      "verdict": "supported",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "speculative_claims": false,
+  "truncation_reconstruction": false,
+  "truncation_faithful": false,
+  "tag": "cycle_05_arm_b",
+  "answer": "## Primary 4 Mathematics \u2013 Fractions Learning Objectives\n\nThe resolved evidence identifies three units covering fractions in Primary 4 Mathematics, with the following learning outcomes:\n\n### Unit C4-U04: Number and Numeration \u2013 FRACTION\n- **C4U04-LO01** \u2014 Simplify like fraction with common denominators.\n- **C4U04-LO02** \u2014 Compare and order like fraction.\n- **C4U04-LO03** \u2014 Identify Equivalent fractions.\n- **C4U04-LO04** \u2014 Relate fractions with denominators up to compare equivalent fraction greater than *(source text appears truncated/incomplete)*.\n\n### Unit C4-U05: Number and Numeration \u2013 OPERATION ON FRACTIONS\n- **C4U05-LO01** \u2014 Add Equivalent fractions.\n- **C4U05-LO02** \u2014 Subtract Equivalent fractions.\n- **C4U05-LO03** \u2014 Solve both Addition and Subtraction of Equivalent fractions.\n- **C4U05-LO04** \u2014 Solve word problems involving Addition and Subtraction of Equivalent fractions.\n\n### Unit C4-U06: Number and Numeration \u2013 Operation on Fraction (Multiplication)\n- **C4U06-LO01** \u2014 Multiply equivalent fractions.\n- **C4U06-LO02** \u2014 Multiply like fractions with denominators up to multiply like fractions with denominators up to multiply related fractions with denominators up to multiply related fractions with denominators up to *(source text is garbled/repetitive)*.\n\n**Note:** The learning outcomes are presented as recorded in the curriculum evidence. Some source texts appear truncated or malformed and are reproduced verbatim."
+}

@@ -1,0 +1,213 @@
+=== CYCLE 1/10 ===
+{"cycle": 1, "arm": "A", "accepted": false, "score": 0.9}
+{"cycle": 1, "arm": "B", "accepted": false, "score": 0.9}
+{"cycle": 1, "arm": "C", "accepted": false, "score": 0.6}
+{"cycle": 1, "arm": "D", "accepted": false, "score": 0.7}
+=== CYCLE 2/10 ===
+{"cycle": 2, "arm": "A", "accepted": false, "score": 0.9}
+{"cycle": 2, "arm": "B", "accepted": false, "score": 0.9}
+{"cycle": 2, "arm": "C", "accepted": false, "score": 0.7}
+{"cycle": 2, "arm": "D", "accepted": false, "score": 0.7}
+=== CYCLE 3/10 ===
+{"cycle": 3, "arm": "A", "accepted": false, "score": 0.9}
+{"cycle": 3, "arm": "B", "accepted": false, "score": 0.9}
+{"cycle": 3, "arm": "C", "accepted": false, "score": 0.75}
+{"cycle": 3, "arm": "D", "accepted": false, "score": 0.6}
+=== CYCLE 4/10 ===
+{"cycle": 4, "arm": "A", "accepted": false, "score": 0.9}
+{"cycle": 4, "arm": "B", "accepted": false, "score": 0.85}
+{"cycle": 4, "arm": "C", "accepted": false, "score": 0.7}
+{"cycle": 4, "arm": "D", "accepted": false, "score": 0.7}
+=== CYCLE 5/10 ===
+{"cycle": 5, "arm": "A", "accepted": false, "score": 0.9}
+{"cycle": 5, "arm": "B", "accepted": false, "score": 0.85}
+{"cycle": 5, "arm": "C", "accepted": false, "score": 0.6}
+{"cycle": 5, "arm": "D", "accepted": false, "score": 0.75}
+=== CYCLE 6/10 ===
+{"cycle": 6, "arm": "A", "accepted": false, "score": 0.7}
+{"cycle": 6, "arm": "B", "accepted": false, "score": 0.7}
+{"cycle": 6, "arm": "C", "accepted": false, "score": 0.6}
+{"cycle": 6, "arm": "D", "accepted": false, "score": 0.6}
+=== CYCLE 7/10 ===
+{"cycle": 7, "arm": "A", "accepted": false, "score": 0.7}
+{"cycle": 7, "arm": "B", "accepted": false, "score": 0.7}
+{"cycle": 7, "arm": "C", "accepted": false, "score": 0.6}
+{"cycle": 7, "arm": "D", "accepted": false, "score": 0.7}
+=== CYCLE 8/10 ===
+Traceback (most recent call last):
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 101, in map_httpcore_exceptions
+    yield
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 127, in __iter__
+    for part in self._httpcore_stream:
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpcore/_sync/connection_pool.py", line 407, in __iter__
+    raise exc from None
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpcore/_sync/connection_pool.py", line 403, in __iter__
+    for part in self._stream:
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpcore/_sync/http11.py", line 342, in __iter__
+    raise exc
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpcore/_sync/http11.py", line 334, in __iter__
+    for chunk in self._connection._receive_response_body(**kwargs):
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpcore/_sync/http11.py", line 203, in _receive_response_body
+    event = self._receive_event(timeout=timeout)
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpcore/_sync/http11.py", line 217, in _receive_event
+    data = self._network_stream.read(
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpcore/_backends/sync.py", line 126, in read
+    with map_exceptions(exc_map):
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpcore/_exceptions.py", line 14, in map_exceptions
+    raise to_exc(exc) from exc
+httpcore.ReadTimeout: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/afiz/Projects/side/curriculum-agent/app/llm/deepseek.py", line 205, in _post
+    response = self._client.post(path, json=body)
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpx/_client.py", line 1144, in post
+    return self.request(
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpx/_client.py", line 825, in request
+    return self.send(request, auth=auth, follow_redirects=follow_redirects)
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpx/_client.py", line 928, in send
+    raise exc
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpx/_client.py", line 922, in send
+    response.read()
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpx/_models.py", line 881, in read
+    self._content = b"".join(self.iter_bytes())
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpx/_models.py", line 897, in iter_bytes
+    for raw_bytes in self.iter_raw():
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpx/_models.py", line 951, in iter_raw
+    for raw_stream_bytes in self.stream:
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpx/_client.py", line 153, in __iter__
+    for chunk in self._stream:
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 126, in __iter__
+    with map_httpcore_exceptions():
+  File "/usr/lib/python3.10/contextlib.py", line 153, in __exit__
+    self.gen.throw(typ, value, traceback)
+  File "/home/afiz/Projects/side/curriculum-structure/.venv/lib/python3.10/site-packages/httpx/_transports/default.py", line 118, in map_httpcore_exceptions
+    raise mapped_exc(message) from exc
+httpx.ReadTimeout: The read operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/afiz/Projects/side/curriculum-agent/app/agent/verifier.py", line 159, in _llm_verify
+    raw = self.llm.generate_structured(
+  File "/home/afiz/Projects/side/curriculum-agent/app/llm/tracing.py", line 70, in generate_structured
+    return self._wrap(kind=kind, call=call, node_override=node, schema_title=title)
+  File "/home/afiz/Projects/side/curriculum-agent/app/llm/tracing.py", line 122, in _wrap
+    result = call()
+  File "/home/afiz/Projects/side/curriculum-agent/app/llm/tracing.py", line 66, in call
+    return self._inner.generate_structured(
+  File "/home/afiz/Projects/side/curriculum-agent/app/llm/provider.py", line 303, in generate_structured
+    return self._inner.generate_structured(
+  File "/home/afiz/Projects/side/curriculum-agent/app/llm/deepseek.py", line 98, in generate_structured
+    data = self._create_response(
+  File "/home/afiz/Projects/side/curriculum-agent/app/llm/deepseek.py", line 197, in _create_response
+    data = self._post("/responses", body)
+  File "/home/afiz/Projects/side/curriculum-agent/app/llm/deepseek.py", line 207, in _post
+    raise LLMTimeoutError("LLM request timed out") from exc
+app.exceptions.LLMTimeoutError: LLM request timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/afiz/Projects/side/curriculum-agent/scripts/eval_v26_verifier_evidence_state.py", line 322, in <module>
+    main()
+  File "/home/afiz/Projects/side/curriculum-agent/scripts/eval_v26_verifier_evidence_state.py", line 286, in main
+    row = replay_verifier_for_arm(
+  File "/home/afiz/Projects/side/curriculum-agent/app/agent/v26_experiment.py", line 312, in replay_verifier_for_arm
+    result = verifier.verify(state, request_id=request_id)
+  File "/home/afiz/Projects/side/curriculum-agent/app/agent/verifier.py", line 83, in verify
+    self._llm_verify(state),
+  File "/home/afiz/Projects/side/curriculum-agent/app/agent/verifier.py", line 168, in _llm_verify
+    raise LLMProviderError(f"Verification failed: {exc}") from exc
+app.exceptions.LLMProviderError: Verification failed: LLM request timed out
+=== CYCLE 1/10 (resume: skip) ===
+=== CYCLE 2/10 (resume: skip) ===
+=== CYCLE 3/10 (resume: skip) ===
+=== CYCLE 4/10 (resume: skip) ===
+=== CYCLE 5/10 (resume: skip) ===
+=== CYCLE 6/10 (resume: skip) ===
+=== CYCLE 7/10 (resume: skip) ===
+=== CYCLE 8/10 ===
+{"cycle": 8, "arm": "A", "accepted": false, "score": 0.9}
+{"cycle": 8, "arm": "B", "accepted": false, "score": 0.85}
+{"cycle": 8, "arm": "C", "accepted": false, "score": 0.7}
+{"cycle": 8, "arm": "D", "accepted": false, "score": 0.75}
+=== CYCLE 9/10 ===
+{"cycle": 9, "arm": "A", "accepted": false, "score": 0.9}
+{"cycle": 9, "arm": "B", "accepted": false, "score": 0.9}
+{"cycle": 9, "arm": "C", "accepted": false, "score": 0.7}
+{"cycle": 9, "arm": "D", "accepted": false, "score": 0.7}
+=== CYCLE 10/10 ===
+{"cycle": 10, "arm": "A", "accepted": false, "score": 0.7}
+{"cycle": 10, "arm": "B", "accepted": false, "score": 0.7}
+{"cycle": 10, "arm": "C", "accepted": false, "score": 0.6}
+{"cycle": 10, "arm": "D", "accepted": false, "score": 0.6}
+--- V2.6 EXPERIMENT COMPLETE ---
+{
+  "summaries": {
+    "A": {
+      "n": 10,
+      "verifier_acceptance_rate": 0.0,
+      "verifier_acceptance_count": 0,
+      "rejection_rate": 1.0,
+      "avg_verifier_score": 0.84,
+      "retrieve_more_rate": 1.0,
+      "insufficient_evidence_rate": 0.0,
+      "unsupported_claims_total": 4,
+      "truncation_reconstruction_count": 1,
+      "truncation_faithful_count": 3,
+      "failure_class_distribution": {
+        "MISSING_EVIDENCE": 10
+      }
+    },
+    "B": {
+      "n": 10,
+      "verifier_acceptance_rate": 0.0,
+      "verifier_acceptance_count": 0,
+      "rejection_rate": 1.0,
+      "avg_verifier_score": 0.825,
+      "retrieve_more_rate": 0.9,
+      "insufficient_evidence_rate": 0.1,
+      "unsupported_claims_total": 10,
+      "truncation_reconstruction_count": 0,
+      "truncation_faithful_count": 3,
+      "failure_class_distribution": {
+        "UNSUPPORTED": 10
+      }
+    },
+    "C": {
+      "n": 10,
+      "verifier_acceptance_rate": 0.0,
+      "verifier_acceptance_count": 0,
+      "rejection_rate": 1.0,
+      "avg_verifier_score": 0.655,
+      "retrieve_more_rate": 1.0,
+      "insufficient_evidence_rate": 0.0,
+      "unsupported_claims_total": 20,
+      "truncation_reconstruction_count": 0,
+      "truncation_faithful_count": 3,
+      "failure_class_distribution": {
+        "MISSING_EVIDENCE": 10
+      }
+    },
+    "D": {
+      "n": 10,
+      "verifier_acceptance_rate": 0.0,
+      "verifier_acceptance_count": 0,
+      "rejection_rate": 1.0,
+      "avg_verifier_score": 0.68,
+      "retrieve_more_rate": 1.0,
+      "insufficient_evidence_rate": 0.0,
+      "unsupported_claims_total": 21,
+      "truncation_reconstruction_count": 0,
+      "truncation_faithful_count": 3,
+      "failure_class_distribution": {
+        "MISSING_EVIDENCE": 10
+      }
+    }
+  },
+  "conclusion": "NOT SUPPORTED"
+}

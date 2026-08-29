@@ -582,6 +582,9 @@ def format_evidence_for_prompt(
                 f"original_text_present={eq.get('original_text_present')}; "
                 f"source_record_id={eq.get('source_record_id')}"
             )
+        es = (item.metadata or {}).get("evidence_state")
+        if es:
+            lines.append(f"Evidence state: {es}")
         blocks.append("\n".join(lines))
     omitted = len(evidence) - len(ranked)
     if omitted > 0:
