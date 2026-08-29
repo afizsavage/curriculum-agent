@@ -1,0 +1,68 @@
+[
+  {
+    "threshold": 0.7,
+    "overall_acceptance": 0.138,
+    "faithful_imperfect_acceptance": 0.9,
+    "faithful_imperfect_retrieve_more": 0.1,
+    "faithful_complete_acceptance": 0.2,
+    "placeholder_acceptance": 0.0,
+    "safety_rejections": 1.0,
+    "overall_false_retrieval_rate": 0.113,
+    "faithful_imperfect_false_retrieval_rate": 0.9
+  },
+  {
+    "threshold": 0.75,
+    "overall_acceptance": 0.138,
+    "faithful_imperfect_acceptance": 0.9,
+    "faithful_imperfect_retrieve_more": 0.1,
+    "faithful_complete_acceptance": 0.2,
+    "placeholder_acceptance": 0.0,
+    "safety_rejections": 1.0,
+    "overall_false_retrieval_rate": 0.113,
+    "faithful_imperfect_false_retrieval_rate": 0.9
+  },
+  {
+    "threshold": 0.8,
+    "overall_acceptance": 0.138,
+    "faithful_imperfect_acceptance": 0.9,
+    "faithful_imperfect_retrieve_more": 0.1,
+    "faithful_complete_acceptance": 0.2,
+    "placeholder_acceptance": 0.0,
+    "safety_rejections": 1.0,
+    "overall_false_retrieval_rate": 0.113,
+    "faithful_imperfect_false_retrieval_rate": 0.9
+  },
+  {
+    "threshold": 0.85,
+    "overall_acceptance": 0.138,
+    "faithful_imperfect_acceptance": 0.9,
+    "faithful_imperfect_retrieve_more": 0.1,
+    "faithful_complete_acceptance": 0.2,
+    "placeholder_acceptance": 0.0,
+    "safety_rejections": 1.0,
+    "overall_false_retrieval_rate": 0.113,
+    "faithful_imperfect_false_retrieval_rate": 0.9
+  },
+  {
+    "threshold": 0.9,
+    "overall_acceptance": 0.138,
+    "faithful_imperfect_acceptance": 0.9,
+    "faithful_imperfect_retrieve_more": 0.1,
+    "faithful_complete_acceptance": 0.2,
+    "placeholder_acceptance": 0.0,
+    "safety_rejections": 1.0,
+    "overall_false_retrieval_rate": 0.113,
+    "faithful_imperfect_false_retrieval_rate": 0.9
+  },
+  {
+    "threshold": 0.95,
+    "overall_acceptance": 0.025,
+    "faithful_imperfect_acceptance": 0.0,
+    "faithful_imperfect_retrieve_more": 1.0,
+    "faithful_complete_acceptance": 0.2,
+    "placeholder_acceptance": 0.0,
+    "safety_rejections": 1.0,
+    "overall_false_retrieval_rate": 0.113,
+    "faithful_imperfect_false_retrieval_rate": 0.9
+  }
+]

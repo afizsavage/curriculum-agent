@@ -1,0 +1,103 @@
+{
+  "experiment": "v2.8_recommendation_mapping",
+  "fixture_class": "FAITHFUL_COMPLETE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+  "answer_hash": "967368050c22265f",
+  "evidence_hash": "be3e342763f1faac",
+  "transformed_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "verifier_score": 1.0,
+  "verifier_accepted": true,
+  "verifier_decision": "accept",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": false,
+  "unsupported_claims": [],
+  "issue_codes": [],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+      "verdict": "supported",
+      "classification": "SUPPORTED_COMPLETE"
+    },
+    {
+      "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+      "verdict": "supported",
+      "classification": "SUPPORTED_COMPLETE"
+    },
+    {
+      "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+      "verdict": "supported",
+      "classification": "SUPPORTED_COMPLETE"
+    },
+    {
+      "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+      "verdict": "supported",
+      "classification": "SUPPORTED_COMPLETE"
+    }
+  ],
+  "mapped_recommendation": "accept",
+  "mapped_accepted": true,
+  "policy_applied": false,
+  "policy_rule": "verifier_accept",
+  "mapping_threshold": 0.85,
+  "placeholder_detected": false,
+  "placeholder_classification": null,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "verifier_result_snapshot": {
+    "passed": true,
+    "score": 1.0,
+    "issues": [],
+    "unsupported_claims": [],
+    "missing_evidence": [],
+    "incorrect_claims": [],
+    "recommendation": "accept",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185"
+        ],
+        "notes": "Exact match with evidence record 3."
+      },
+      {
+        "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19"
+        ],
+        "notes": "Exact match with evidence record 1."
+      },
+      {
+        "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+        "verdict": "supported",
+        "evidence_ids": [
+          "ad257603-967d-4ec3-bc33-666776b57790"
+        ],
+        "notes": "Exact match with evidence record 4."
+      },
+      {
+        "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "notes": "Exact match with evidence record 5."
+      }
+    ],
+    "clarification": null,
+    "notes": "All four learning objectives listed in the generated answer are directly supported by the retrieved curriculum evidence for Primary 4 Mathematics, Unit C4-U18 (Everyday Arithmetic Money). No unsupported or contradicted claims were found.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 2836.13,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "faithful_complete_05",
+  "run_index": 5
+}

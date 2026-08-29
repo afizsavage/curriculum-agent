@@ -45,6 +45,9 @@ class Settings(BaseSettings):
     # V2.7 experiment: verifier decision-boundary isolation (replay harness).
     v27_verifier_decision_boundary_experiment: bool = False
 
+    # V2.8 experiment: recommendation-mapping isolation (replay harness).
+    v28_recommendation_mapping_experiment: bool = False
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite

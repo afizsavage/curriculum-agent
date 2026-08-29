@@ -1,0 +1,85 @@
+{
+  "experiment": "v2.8_recommendation_mapping",
+  "fixture_class": "MISSING_EVIDENCE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO04** \u2014 Use inverse operations to verify money word-problem solutions.",
+  "answer_hash": "c615da8999e3f6fe",
+  "evidence_hash": "be3e342763f1faac",
+  "transformed_evidence_hash": "f04c3a982e51bab8",
+  "evidence_source": "c4u18",
+  "evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions."
+  ],
+  "issue_codes": [
+    "The generated answer cites C4U18-LO04, but this learning outcome is not present in the provided curriculum evidence. The evidence only contains C4U18-LO01, C4U18-LO02, and C4U18-LO03.",
+    "The answer is incomplete: it lists only one learning objective, while the evidence shows multiple learning outcomes for the 'Everyday Arithmetic Money' unit (C4-U18) in Primary 4 Mathematics.",
+    "The answer does not include the actual learning objectives that are supported by the evidence, such as solving word problems involving money (C4U18-LO02)."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions.",
+      "verdict": "unsupported",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "mapped_recommendation": "insufficient_evidence",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "missing_evidence",
+  "mapping_threshold": 0.85,
+  "placeholder_detected": false,
+  "placeholder_classification": null,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer cites C4U18-LO04, but this learning outcome is not present in the provided curriculum evidence. The evidence only contains C4U18-LO01, C4U18-LO02, and C4U18-LO03.",
+      "The answer is incomplete: it lists only one learning objective, while the evidence shows multiple learning outcomes for the 'Everyday Arithmetic Money' unit (C4-U18) in Primary 4 Mathematics.",
+      "The answer does not include the actual learning objectives that are supported by the evidence, such as solving word problems involving money (C4U18-LO02)."
+    ],
+    "unsupported_claims": [
+      "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "C4U18-LO04",
+        "detail": "The cited learning outcome C4U18-LO04 is not found in the provided evidence. The evidence only includes C4U18-LO01, C4U18-LO02, and C4U18-LO03."
+      }
+    ],
+    "incorrect_claims": [
+      "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions."
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions.",
+        "verdict": "unsupported",
+        "evidence_ids": [],
+        "notes": "No evidence provided for C4U18-LO04. The evidence only contains C4U18-LO01, C4U18-LO02, and C4U18-LO03."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is not supported by the provided curriculum evidence. It cites a non-existent learning outcome and omits the actual learning objectives for the money unit. A fallback response is recommended, possibly listing the supported learning outcomes (C4U18-LO01, C4U18-LO02, C4U18-LO03) or indicating that the requested specific objective is not available.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 3693.05,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "missing_evidence_08",
+  "run_index": 8
+}

@@ -1,0 +1,136 @@
+[
+  {
+    "source": "curriculum_api",
+    "entity_type": "unit",
+    "entity_id": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+    "name": "Everyday Arithmetic Money",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "Everyday Arithmetic Money",
+    "content": "Everyday Arithmetic Money",
+    "metadata": {
+      "code": "C4-U18",
+      "content_type": "UNIT",
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "authority": "grade_curriculum"
+    },
+    "source_reference": "v2.curriculum.context.resolve"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+    "name": "C4U18-LO01",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+    "content": "Order operations using BODMAS.",
+    "metadata": {
+      "code": "C4U18-LO01",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U18",
+      "parent_content_name": "Everyday Arithmetic Money",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "8e91780d-814a-4829-ba39-289274e7af19",
+    "name": "C4U18-LO02",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+    "content": "Solve word problems involving the 4 operations and money.",
+    "metadata": {
+      "code": "C4U18-LO02",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U18",
+      "parent_content_name": "Everyday Arithmetic Money",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "ad257603-967d-4ec3-bc33-666776b57790",
+    "name": "C4U18-LO03",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+    "content": "Estimate strategies to check answers for reasonableness",
+    "metadata": {
+      "code": "C4U18-LO03",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U18",
+      "parent_content_name": "Everyday Arithmetic Money",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  },
+  {
+    "source": "curriculum_api",
+    "entity_type": "learning_outcome",
+    "entity_id": "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+    "name": "C4U18-LO04",
+    "level": null,
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+    "content": "Inverse operations to check answers for reasonableness.",
+    "metadata": {
+      "code": "C4U18-LO04",
+      "sequence": null,
+      "knowledge": null,
+      "skills": null,
+      "provenance": {
+        "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+        "source_page": null,
+        "source_section": null,
+        "source_reference": null,
+        "source_text": null,
+        "extraction_method": null
+      },
+      "parent_content_code": "C4-U18",
+      "parent_content_name": "Everyday Arithmetic Money",
+      "evidence_quality": null
+    },
+    "source_reference": "learning_outcomes"
+  }
+]

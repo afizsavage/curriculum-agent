@@ -1,0 +1,170 @@
+=== FAITHFUL_COMPLETE 1/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "mapped": "reject"}
+=== FAITHFUL_COMPLETE 2/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "score": 0.75, "verifier": "retrieve_more", "mapped": "reject"}
+=== FAITHFUL_COMPLETE 3/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "mapped": "reject"}
+=== FAITHFUL_COMPLETE 4/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "mapped": "reject"}
+=== FAITHFUL_COMPLETE 5/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "mapped": "accept"}
+=== FAITHFUL_COMPLETE 6/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "mapped": "reject"}
+=== FAITHFUL_COMPLETE 7/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "mapped": "reject"}
+=== FAITHFUL_COMPLETE 8/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "mapped": "reject"}
+=== FAITHFUL_COMPLETE 9/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "mapped": "accept"}
+=== FAITHFUL_COMPLETE 10/10 ===
+{"fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "mapped": "reject"}
+=== FAITHFUL_IMPERFECT 1/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "mapped": "accept"}
+=== FAITHFUL_IMPERFECT 2/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "mapped": "accept"}
+=== FAITHFUL_IMPERFECT 3/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "mapped": "accept"}
+=== FAITHFUL_IMPERFECT 4/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "mapped": "accept"}
+=== FAITHFUL_IMPERFECT 5/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "mapped": "accept"}
+=== FAITHFUL_IMPERFECT 6/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "mapped": "accept"}
+=== FAITHFUL_IMPERFECT 7/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "mapped": "accept"}
+=== FAITHFUL_IMPERFECT 8/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "mapped": "accept"}
+=== FAITHFUL_IMPERFECT 9/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "mapped": "reject"}
+=== FAITHFUL_IMPERFECT 10/10 ===
+{"fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "mapped": "accept"}
+=== CLEAN_PLACEHOLDER 1/10 ===
+{"fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== CLEAN_PLACEHOLDER 2/10 ===
+{"fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== CLEAN_PLACEHOLDER 3/10 ===
+{"fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== CLEAN_PLACEHOLDER 4/10 ===
+{"fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "retrieve_more", "mapped": "reject"}
+=== CLEAN_PLACEHOLDER 5/10 ===
+{"fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== CLEAN_PLACEHOLDER 6/10 ===
+{"fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "fallback", "mapped": "reject"}
+=== CLEAN_PLACEHOLDER 7/10 ===
+{"fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== CLEAN_PLACEHOLDER 8/10 ===
+{"fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== CLEAN_PLACEHOLDER 9/10 ===
+{"fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== CLEAN_PLACEHOLDER 10/10 ===
+{"fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_CLAIM 1/10 ===
+{"fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_CLAIM 2/10 ===
+{"fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_CLAIM 3/10 ===
+{"fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_CLAIM 4/10 ===
+{"fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_CLAIM 5/10 ===
+{"fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_CLAIM 6/10 ===
+{"fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_CLAIM 7/10 ===
+{"fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_CLAIM 8/10 ===
+{"fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_CLAIM 9/10 ===
+{"fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_CLAIM 10/10 ===
+{"fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_ABSENCE 1/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_ABSENCE 2/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_ABSENCE 3/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_ABSENCE 4/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_ABSENCE 5/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_ABSENCE 6/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_ABSENCE 7/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_ABSENCE 8/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_ABSENCE 9/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== UNSUPPORTED_ABSENCE 10/10 ===
+{"fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== SPECULATIVE 1/10 ===
+{"fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== SPECULATIVE 2/10 ===
+{"fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== SPECULATIVE 3/10 ===
+{"fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== SPECULATIVE 4/10 ===
+{"fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== SPECULATIVE 5/10 ===
+{"fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== SPECULATIVE 6/10 ===
+{"fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== SPECULATIVE 7/10 ===
+{"fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== SPECULATIVE 8/10 ===
+{"fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== SPECULATIVE 9/10 ===
+{"fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== SPECULATIVE 10/10 ===
+{"fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== RECONSTRUCTION 1/10 ===
+{"fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "mapped": "reject"}
+=== RECONSTRUCTION 2/10 ===
+{"fixture": "RECONSTRUCTION", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== RECONSTRUCTION 3/10 ===
+{"fixture": "RECONSTRUCTION", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== RECONSTRUCTION 4/10 ===
+{"fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "mapped": "reject"}
+=== RECONSTRUCTION 5/10 ===
+{"fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "mapped": "reject"}
+=== RECONSTRUCTION 6/10 ===
+{"fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "mapped": "reject"}
+=== RECONSTRUCTION 7/10 ===
+{"fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "mapped": "reject"}
+=== RECONSTRUCTION 8/10 ===
+{"fixture": "RECONSTRUCTION", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== RECONSTRUCTION 9/10 ===
+{"fixture": "RECONSTRUCTION", "score": 0.0, "verifier": "fallback", "mapped": "reject"}
+=== RECONSTRUCTION 10/10 ===
+{"fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "mapped": "reject"}
+=== MISSING_EVIDENCE 1/10 ===
+{"fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "mapped": "retrieve_more"}
+=== MISSING_EVIDENCE 2/10 ===
+{"fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "mapped": "insufficient_evidence"}
+=== MISSING_EVIDENCE 3/10 ===
+{"fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "mapped": "insufficient_evidence"}
+=== MISSING_EVIDENCE 4/10 ===
+{"fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "mapped": "retrieve_more"}
+=== MISSING_EVIDENCE 5/10 ===
+{"fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "mapped": "insufficient_evidence"}
+=== MISSING_EVIDENCE 6/10 ===
+{"fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "mapped": "insufficient_evidence"}
+=== MISSING_EVIDENCE 7/10 ===
+{"fixture": "MISSING_EVIDENCE", "score": 0.2, "verifier": "retrieve_more", "mapped": "retrieve_more"}
+=== MISSING_EVIDENCE 8/10 ===
+{"fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "mapped": "insufficient_evidence"}
+=== MISSING_EVIDENCE 9/10 ===
+{"fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "mapped": "retrieve_more"}
+=== MISSING_EVIDENCE 10/10 ===
+{"fixture": "MISSING_EVIDENCE", "score": 0.2, "verifier": "retrieve_more", "mapped": "retrieve_more"}
+Traceback (most recent call last):
+  File "/home/afiz/Projects/side/curriculum-agent/scripts/eval_v28_recommendation_mapping.py", line 294, in <module>
+    main()
+  File "/home/afiz/Projects/side/curriculum-agent/scripts/eval_v28_recommendation_mapping.py", line 247, in main
+    sweep = [summarize_threshold_sweep(control_rows, threshold=t) for t in threshold_sweep()]
+  File "/home/afiz/Projects/side/curriculum-agent/scripts/eval_v28_recommendation_mapping.py", line 247, in <listcomp>
+    sweep = [summarize_threshold_sweep(control_rows, threshold=t) for t in threshold_sweep()]
+  File "/home/afiz/Projects/side/curriculum-agent/app/agent/v28_recommendation_mapping.py", line 543, in summarize_threshold_sweep
+    "overall_acceptance": round(sum(1 for r in mapped_rows if r["mapped_accepted"]) / n, 3),
+NameError: name 'n' is not defined

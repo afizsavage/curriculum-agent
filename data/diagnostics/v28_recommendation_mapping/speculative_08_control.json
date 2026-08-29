@@ -1,0 +1,100 @@
+{
+  "experiment": "v2.8_recommendation_mapping",
+  "fixture_class": "SPECULATIVE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "Primary 4 money objectives probably include cryptocurrency transactions and may likely cover digital payment apps.",
+  "answer_hash": "19b4c5051cf490e6",
+  "evidence_hash": "be3e342763f1faac",
+  "transformed_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "Primary 4 money objectives include cryptocurrency transactions.",
+    "Primary 4 money objectives may cover digital payment apps."
+  ],
+  "issue_codes": [
+    "The generated answer claims cryptocurrency and digital payment apps are learning objectives for Primary 4 money, but the curriculum evidence shows no such content. The actual objectives are about solving word problems with money, BODMAS, estimation, and inverse operations.",
+    "The answer is speculative ('probably', 'may likely') and not grounded in the retrieved curriculum evidence."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "Primary 4 money objectives include cryptocurrency transactions.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "Primary 4 money objectives may cover digital payment apps.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "safety_fixture_reject",
+  "mapping_threshold": 0.85,
+  "placeholder_detected": false,
+  "placeholder_classification": null,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer claims cryptocurrency and digital payment apps are learning objectives for Primary 4 money, but the curriculum evidence shows no such content. The actual objectives are about solving word problems with money, BODMAS, estimation, and inverse operations.",
+      "The answer is speculative ('probably', 'may likely') and not grounded in the retrieved curriculum evidence."
+    ],
+    "unsupported_claims": [
+      "Primary 4 money objectives include cryptocurrency transactions.",
+      "Primary 4 money objectives may cover digital payment apps."
+    ],
+    "missing_evidence": [],
+    "incorrect_claims": [
+      "Primary 4 money objectives include cryptocurrency transactions.",
+      "Primary 4 money objectives may cover digital payment apps."
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "Primary 4 money objectives include cryptocurrency transactions.",
+        "verdict": "contradicted",
+        "evidence_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19",
+          "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "5a3e84bc-fce5-43a3-a369-3d8088786185",
+          "ad257603-967d-4ec3-bc33-666776b57790",
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "notes": "Evidence shows money objectives are about solving word problems with money, BODMAS, estimation, and inverse operations\u2014not cryptocurrency."
+      },
+      {
+        "claim": "Primary 4 money objectives may cover digital payment apps.",
+        "verdict": "contradicted",
+        "evidence_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19",
+          "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "5a3e84bc-fce5-43a3-a369-3d8088786185",
+          "ad257603-967d-4ec3-bc33-666776b57790",
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "notes": "No evidence of digital payment apps in the curriculum; the objectives are arithmetic-focused."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is entirely unsupported and contradicts the retrieved curriculum evidence. The correct objectives for Primary 4 money (Unit C4-U18) are: solve word problems involving the 4 operations and money (C4U18-LO02), order operations using BODMAS (C4U18-LO01), estimate strategies to check answers (C4U18-LO03), and use inverse operations to check answers (C4U18-LO04).",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 4372.8,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "speculative_08",
+  "run_index": 8
+}

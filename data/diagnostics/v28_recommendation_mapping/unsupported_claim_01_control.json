@@ -1,0 +1,85 @@
+{
+  "experiment": "v2.8_recommendation_mapping",
+  "fixture_class": "UNSUPPORTED_CLAIM",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO99** \u2014 Convert foreign currency using blockchain wallets.",
+  "answer_hash": "7506e1d2913a7a52",
+  "evidence_hash": "be3e342763f1faac",
+  "transformed_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets."
+  ],
+  "issue_codes": [
+    "The generated answer claims a learning objective 'C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets' which is not present in the provided curriculum evidence. The evidence contains only C4U18-LO01 through LO04, none of which mention foreign currency or blockchain wallets.",
+    "The answer fails to list the actual learning objectives for the 'Everyday Arithmetic Money' unit (C4-U18) in Primary 4 Mathematics, which are: C4U18-LO01 (BODMAS), C4U18-LO02 (word problems with money), C4U18-LO03 (estimate strategies), and C4U18-LO04 (inverse operations).",
+    "The answer includes a fabricated learning outcome code (C4U18-LO99) that does not exist in the evidence, indicating hallucination."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "safety_fixture_reject",
+  "mapping_threshold": 0.85,
+  "placeholder_detected": false,
+  "placeholder_classification": null,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer claims a learning objective 'C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets' which is not present in the provided curriculum evidence. The evidence contains only C4U18-LO01 through LO04, none of which mention foreign currency or blockchain wallets.",
+      "The answer fails to list the actual learning objectives for the 'Everyday Arithmetic Money' unit (C4-U18) in Primary 4 Mathematics, which are: C4U18-LO01 (BODMAS), C4U18-LO02 (word problems with money), C4U18-LO03 (estimate strategies), and C4U18-LO04 (inverse operations).",
+      "The answer includes a fabricated learning outcome code (C4U18-LO99) that does not exist in the evidence, indicating hallucination."
+    ],
+    "unsupported_claims": [
+      "C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "C4U18-LO99",
+        "detail": "No evidence found for learning outcome C4U18-LO99 or any content about foreign currency or blockchain wallets."
+      }
+    ],
+    "incorrect_claims": [
+      "C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets."
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "C4U18-LO99 \u2014 Convert foreign currency using blockchain wallets.",
+        "verdict": "contradicted",
+        "evidence_ids": [],
+        "notes": "The evidence contains only C4U18-LO01 through LO04; no LO99 exists. The claim is fabricated and contradicts the available curriculum outcomes."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is entirely unsupported and contains a hallucinated learning outcome. The correct learning objectives for the 'Everyday Arithmetic Money' unit (C4-U18) are C4U18-LO01 (BODMAS), C4U18-LO02 (word problems with money), C4U18-LO03 (estimate strategies), and C4U18-LO04 (inverse operations). The answer should be rejected and replaced with the accurate list.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 4560.72,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "unsupported_claim_01",
+  "run_index": 1
+}

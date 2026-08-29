@@ -1,0 +1,122 @@
+{
+  "experiment": "v2.8_recommendation_mapping",
+  "fixture_class": "FAITHFUL_COMPLETE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+  "answer_hash": "967368050c22265f",
+  "evidence_hash": "be3e342763f1faac",
+  "transformed_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "verifier_score": 0.9,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": false,
+  "unsupported_claims": [
+    "The claim that all four learning outcomes are specifically 'money' learning objectives is unsupported because only LO02 explicitly mentions money; the others are general arithmetic skills."
+  ],
+  "issue_codes": [
+    "The generated answer lists all four learning outcomes for C4-U18, but the question specifically asks for 'money' learning objectives. While the unit is 'Everyday Arithmetic Money', the evidence does not explicitly confirm that all four outcomes are specifically about money; only LO02 mentions money. The other outcomes (BODMAS, estimation, inverse operations) are general arithmetic skills that may be part of the unit but are not explicitly tied to money in the evidence.",
+    "The answer omits the unit name 'Everyday Arithmetic Money' and the unit code C4-U18, which could provide context but is not a claim error."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "unsupported_claims",
+  "mapping_threshold": 0.85,
+  "placeholder_detected": false,
+  "placeholder_classification": null,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.9,
+    "issues": [
+      "The generated answer lists all four learning outcomes for C4-U18, but the question specifically asks for 'money' learning objectives. While the unit is 'Everyday Arithmetic Money', the evidence does not explicitly confirm that all four outcomes are specifically about money; only LO02 mentions money. The other outcomes (BODMAS, estimation, inverse operations) are general arithmetic skills that may be part of the unit but are not explicitly tied to money in the evidence.",
+      "The answer omits the unit name 'Everyday Arithmetic Money' and the unit code C4-U18, which could provide context but is not a claim error."
+    ],
+    "unsupported_claims": [
+      "The claim that all four learning outcomes are specifically 'money' learning objectives is unsupported because only LO02 explicitly mentions money; the others are general arithmetic skills."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "Primary 4 Mathematics money learning objectives",
+        "detail": "Evidence does not explicitly confirm that LO01, LO03, and LO04 are specifically about money; they may be general arithmetic outcomes within the unit."
+      }
+    ],
+    "incorrect_claims": [],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185"
+        ],
+        "notes": "Exact match with evidence."
+      },
+      {
+        "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19"
+        ],
+        "notes": "Exact match with evidence."
+      },
+      {
+        "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+        "verdict": "supported",
+        "evidence_ids": [
+          "ad257603-967d-4ec3-bc33-666776b57790"
+        ],
+        "notes": "Exact match with evidence."
+      },
+      {
+        "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "notes": "Exact match with evidence."
+      }
+    ],
+    "clarification": null,
+    "notes": "All four learning outcomes listed in the answer are directly supported by the retrieved evidence. The only minor concern is that the question asks for 'money' objectives, and only LO02 explicitly mentions money; however, the unit is titled 'Everyday Arithmetic Money' and the outcomes are part of that unit, so the answer is acceptable. No contradictions or hallucinations detected.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 5170.26,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "faithful_complete_04",
+  "run_index": 4
+}

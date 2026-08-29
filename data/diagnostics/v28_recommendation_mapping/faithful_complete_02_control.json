@@ -1,0 +1,118 @@
+{
+  "experiment": "v2.8_recommendation_mapping",
+  "fixture_class": "FAITHFUL_COMPLETE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+  "answer_hash": "967368050c22265f",
+  "evidence_hash": "be3e342763f1faac",
+  "transformed_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "verifier_score": 0.75,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": false,
+  "unsupported_claims": [
+    "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness is not found in the provided evidence."
+  ],
+  "issue_codes": [
+    "The generated answer lists four learning objectives for the money unit (C4-U18), but the evidence only supports three of them. LO03 and LO04 are not explicitly present in the retrieved evidence; only LO01, LO02, and LO03 are confirmed. The answer may be incomplete or contain hallucinated objectives."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+      "verdict": "unsupported",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "unsupported_claims",
+  "mapping_threshold": 0.85,
+  "placeholder_detected": false,
+  "placeholder_classification": null,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.75,
+    "issues": [
+      "The generated answer lists four learning objectives for the money unit (C4-U18), but the evidence only supports three of them. LO03 and LO04 are not explicitly present in the retrieved evidence; only LO01, LO02, and LO03 are confirmed. The answer may be incomplete or contain hallucinated objectives."
+    ],
+    "unsupported_claims": [
+      "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness is not found in the provided evidence."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "C4U18-LO04",
+        "detail": "The evidence does not include a learning outcome with code C4U18-LO04. The answer claims it exists, but it is not in the retrieved records."
+      }
+    ],
+    "incorrect_claims": [],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185"
+        ],
+        "notes": "The evidence record for C4U18-LO01 matches the claim exactly."
+      },
+      {
+        "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19"
+        ],
+        "notes": "The evidence record for C4U18-LO02 matches the claim exactly."
+      },
+      {
+        "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+        "verdict": "supported",
+        "evidence_ids": [
+          "ad257603-967d-4ec3-bc33-666776b57790"
+        ],
+        "notes": "The evidence record for C4U18-LO03 matches the claim exactly."
+      },
+      {
+        "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+        "verdict": "unsupported",
+        "evidence_ids": [],
+        "notes": "No evidence record with code C4U18-LO04 was provided. The claim is not supported by the retrieved evidence."
+      }
+    ],
+    "clarification": null,
+    "notes": "The answer correctly identifies the unit (C4-U18) and three of the four learning objectives. However, the fourth objective (LO04) is not present in the evidence, so the answer cannot be fully accepted. It is recommended to retrieve more evidence to confirm whether LO04 exists in the curriculum.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 4644.2,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "faithful_complete_02",
+  "run_index": 2
+}

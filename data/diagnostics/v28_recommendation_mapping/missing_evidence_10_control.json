@@ -1,0 +1,85 @@
+{
+  "experiment": "v2.8_recommendation_mapping",
+  "fixture_class": "MISSING_EVIDENCE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO04** \u2014 Use inverse operations to verify money word-problem solutions.",
+  "answer_hash": "c615da8999e3f6fe",
+  "evidence_hash": "be3e342763f1faac",
+  "transformed_evidence_hash": "f04c3a982e51bab8",
+  "evidence_source": "c4u18",
+  "evidence_present": true,
+  "imperfect_evidence_count": 2,
+  "verifier_score": 0.2,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": false,
+  "unsupported_claims": [
+    "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions."
+  ],
+  "issue_codes": [
+    "The generated answer cites C4U18-LO04, but the provided evidence does not contain any learning outcome with that code. The evidence includes C4U18-LO01, C4U18-LO02, and C4U18-LO03 only.",
+    "The answer is incomplete: it lists only one learning objective, while the evidence shows multiple learning outcomes for the 'Everyday Arithmetic Money' unit (C4U18-LO01, C4U18-LO02, C4U18-LO03).",
+    "The answer does not mention the actual learning outcomes present in the evidence, such as solving word problems involving money (C4U18-LO02) or estimating strategies (C4U18-LO03)."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions.",
+      "verdict": "unsupported",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "mapped_recommendation": "retrieve_more",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "missing_evidence",
+  "mapping_threshold": 0.85,
+  "placeholder_detected": false,
+  "placeholder_classification": null,
+  "false_retrieval": false,
+  "faithful_imperfect_false_retrieval": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.2,
+    "issues": [
+      "The generated answer cites C4U18-LO04, but the provided evidence does not contain any learning outcome with that code. The evidence includes C4U18-LO01, C4U18-LO02, and C4U18-LO03 only.",
+      "The answer is incomplete: it lists only one learning objective, while the evidence shows multiple learning outcomes for the 'Everyday Arithmetic Money' unit (C4U18-LO01, C4U18-LO02, C4U18-LO03).",
+      "The answer does not mention the actual learning outcomes present in the evidence, such as solving word problems involving money (C4U18-LO02) or estimating strategies (C4U18-LO03)."
+    ],
+    "unsupported_claims": [
+      "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "C4U18-LO04",
+        "detail": "The cited learning outcome code C4U18-LO04 is not present in the retrieved evidence. The evidence only contains C4U18-LO01, C4U18-LO02, and C4U18-LO03."
+      }
+    ],
+    "incorrect_claims": [
+      "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions."
+    ],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions.",
+        "verdict": "unsupported",
+        "evidence_ids": [],
+        "notes": "No evidence found for C4U18-LO04. The provided evidence does not include this learning outcome."
+      }
+    ],
+    "clarification": null,
+    "notes": "The answer is incomplete and cites a non-existent learning outcome. The evidence shows the unit 'Everyday Arithmetic Money' (C4-U18) includes C4U18-LO01 (BODMAS), C4U18-LO02 (solve word problems involving money), and C4U18-LO03 (estimate strategies). The answer should list these actual objectives. Recommend retrieving more evidence to confirm whether C4U18-LO04 exists.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 4036.22,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "missing_evidence_10",
+  "run_index": 10
+}
