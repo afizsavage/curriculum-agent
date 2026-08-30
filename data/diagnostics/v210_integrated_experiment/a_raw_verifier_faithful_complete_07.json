@@ -1,0 +1,474 @@
+{
+  "experiment": "v2.10_integrated_experiment",
+  "pipeline": "A_RAW_VERIFIER",
+  "fixture_class": "FAITHFUL_COMPLETE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+  "answer_hash": "967368050c22265f",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "normalization_applied": false,
+  "mapping_applied": false,
+  "normalization_diagnostics": null,
+  "mapping_threshold": null,
+  "verifier_score": 0.75,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": false,
+  "unsupported_claims": [
+    "The answer's LO03 and LO04 are both about checking answers for reasonableness, but the evidence shows they are distinct objectives: LO03 is 'Estimate strategies to check answers for reasonableness' and LO04 is 'Inverse operations to check answers for reasonableness.' The answer's LO03 and LO04 are correctly stated, but the answer omits the fact that LO04 is specifically about inverse operations, which is a minor inaccuracy."
+  ],
+  "issue_codes": [
+    "The generated answer lists four learning objectives for the money unit (C4-U18), but the evidence only supports three of them. LO03 and LO04 are both about checking answers for reasonableness, but the evidence shows they are distinct objectives: LO03 is 'Estimate strategies to check answers for reasonableness' and LO04 is 'Inverse operations to check answers for reasonableness.' The answer's LO03 and LO04 are correctly stated, but the answer omits the fact that LO04 is specifically about inverse operations, which is a minor inaccuracy.",
+    "The answer claims these are the learning objectives for 'money' in Primary 4, which is supported by the unit name 'Everyday Arithmetic Money' and the hierarchy showing Primary 4 \u2192 Mathematics. However, the answer does not mention that the unit is titled 'Everyday Arithmetic Money' or that the objectives are part of that unit, which is a minor omission.",
+    "The answer includes all four learning outcomes from the evidence, but the evidence does not include any additional learning outcomes for this unit. Therefore, the answer is complete in terms of the objectives listed, but the phrasing of LO03 and LO04 could be more precise."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "raw_verifier_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "retrieve_more",
+  "attribution": "SAFETY_BLOCK",
+  "placeholder_detected": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.75,
+    "issues": [
+      "The generated answer lists four learning objectives for the money unit (C4-U18), but the evidence only supports three of them. LO03 and LO04 are both about checking answers for reasonableness, but the evidence shows they are distinct objectives: LO03 is 'Estimate strategies to check answers for reasonableness' and LO04 is 'Inverse operations to check answers for reasonableness.' The answer's LO03 and LO04 are correctly stated, but the answer omits the fact that LO04 is specifically about inverse operations, which is a minor inaccuracy.",
+      "The answer claims these are the learning objectives for 'money' in Primary 4, which is supported by the unit name 'Everyday Arithmetic Money' and the hierarchy showing Primary 4 \u2192 Mathematics. However, the answer does not mention that the unit is titled 'Everyday Arithmetic Money' or that the objectives are part of that unit, which is a minor omission.",
+      "The answer includes all four learning outcomes from the evidence, but the evidence does not include any additional learning outcomes for this unit. Therefore, the answer is complete in terms of the objectives listed, but the phrasing of LO03 and LO04 could be more precise."
+    ],
+    "unsupported_claims": [
+      "The answer's LO03 and LO04 are both about checking answers for reasonableness, but the evidence shows they are distinct objectives: LO03 is 'Estimate strategies to check answers for reasonableness' and LO04 is 'Inverse operations to check answers for reasonableness.' The answer's LO03 and LO04 are correctly stated, but the answer omits the fact that LO04 is specifically about inverse operations, which is a minor inaccuracy."
+    ],
+    "missing_evidence": [],
+    "incorrect_claims": [
+      "The answer's LO03 and LO04 are both about checking answers for reasonableness, but the evidence shows they are distinct objectives: LO03 is 'Estimate strategies to check answers for reasonableness' and LO04 is 'Inverse operations to check answers for reasonableness.' The answer's LO03 and LO04 are correctly stated, but the answer omits the fact that LO04 is specifically about inverse operations, which is a minor inaccuracy."
+    ],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185"
+        ],
+        "notes": "Evidence record 3 shows C4U18-LO01 content exactly matches."
+      },
+      {
+        "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19"
+        ],
+        "notes": "Evidence record 1 shows C4U18-LO02 content exactly matches."
+      },
+      {
+        "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+        "verdict": "supported",
+        "evidence_ids": [
+          "ad257603-967d-4ec3-bc33-666776b57790"
+        ],
+        "notes": "Evidence record 4 shows C4U18-LO03 content exactly matches."
+      },
+      {
+        "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "notes": "Evidence record 5 shows C4U18-LO04 content exactly matches."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer accurately lists all four learning outcomes for the Primary 4 Mathematics money unit (C4-U18) as per the evidence. The only minor issue is that the answer's LO03 and LO04 are both about checking answers for reasonableness, but the evidence shows they are distinct objectives: LO03 is 'Estimate strategies to check answers for reasonableness' and LO04 is 'Inverse operations to check answers for reasonableness.' The answer's LO03 and LO04 are correctly stated, but the answer omits the fact that LO04 is specifically about inverse operations, which is a minor inaccuracy. Since all claims are supported and there are no contradictions or hallucinated facts, the answer is acceptable.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 6983.87,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "c4u18_trace": {
+    "question": "What are the learning objectives for money in Primary 4?",
+    "answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+    "raw_evidence_count": 5,
+    "normalized_evidence_count": 5,
+    "normalization_transformations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "lo_id": "C4U18-LO01",
+    "raw_topic_value": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+    "resolved_topic_value": "Everyday Arithmetic Money",
+    "verifier_claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185"
+        ],
+        "notes": "Evidence record 3 shows C4U18-LO01 content exactly matches."
+      },
+      {
+        "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19"
+        ],
+        "notes": "Evidence record 1 shows C4U18-LO02 content exactly matches."
+      },
+      {
+        "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+        "verdict": "supported",
+        "evidence_ids": [
+          "ad257603-967d-4ec3-bc33-666776b57790"
+        ],
+        "notes": "Evidence record 4 shows C4U18-LO03 content exactly matches."
+      },
+      {
+        "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "notes": "Evidence record 5 shows C4U18-LO04 content exactly matches."
+      }
+    ],
+    "verifier_score": 0.75,
+    "verifier_recommendation": "retrieve_more",
+    "mapper_input": null,
+    "mapper_output": null,
+    "final_recommendation": "retrieve_more",
+    "evidence_chain": [
+      {
+        "lo_id": "C4U18-LO01",
+        "answer_claim": "Order operations using BODMAS.",
+        "lo_text_raw": "Order operations using BODMAS.",
+        "lo_text_normalized": "Order operations using BODMAS.",
+        "topic_raw": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_unit": "Everyday Arithmetic Money",
+        "evidence_record": {
+          "source": "curriculum_api",
+          "entity_type": "learning_outcome",
+          "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+          "name": "C4U18-LO01",
+          "level": null,
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "content": "Order operations using BODMAS.",
+          "metadata": {
+            "code": "C4U18-LO01",
+            "sequence": null,
+            "knowledge": null,
+            "skills": null,
+            "provenance": {
+              "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+              "source_page": null,
+              "source_section": null,
+              "source_reference": null,
+              "source_text": null,
+              "extraction_method": null
+            },
+            "parent_content_code": "C4-U18",
+            "parent_content_name": "Everyday Arithmetic Money",
+            "evidence_quality": null
+          },
+          "source_reference": "learning_outcomes"
+        },
+        "verifier_claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+        "verifier_verdict": "supported",
+        "evidence_matched_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185"
+        ],
+        "evidence_matched_records": [
+          {
+            "source": "curriculum_api",
+            "entity_type": "learning_outcome",
+            "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+            "name": "C4U18-LO01",
+            "level": null,
+            "grade": "CLASS_4",
+            "subject": "MATHEMATICS",
+            "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+            "content": "Order operations using BODMAS.",
+            "metadata": {
+              "code": "C4U18-LO01",
+              "sequence": null,
+              "knowledge": null,
+              "skills": null,
+              "provenance": {
+                "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+                "source_page": null,
+                "source_section": null,
+                "source_reference": null,
+                "source_text": null,
+                "extraction_method": null
+              },
+              "parent_content_code": "C4-U18",
+              "parent_content_name": "Everyday Arithmetic Money",
+              "evidence_quality": null
+            },
+            "source_reference": "learning_outcomes"
+          }
+        ],
+        "mismatch_reason": null
+      },
+      {
+        "lo_id": "C4U18-LO02",
+        "answer_claim": "Solve word problems involving the 4 operations and money.",
+        "lo_text_raw": "Solve word problems involving the 4 operations and money.",
+        "lo_text_normalized": "Solve word problems involving the 4 operations and money.",
+        "topic_raw": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_unit": "Everyday Arithmetic Money",
+        "evidence_record": {
+          "source": "curriculum_api",
+          "entity_type": "learning_outcome",
+          "entity_id": "8e91780d-814a-4829-ba39-289274e7af19",
+          "name": "C4U18-LO02",
+          "level": null,
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "content": "Solve word problems involving the 4 operations and money.",
+          "metadata": {
+            "code": "C4U18-LO02",
+            "sequence": null,
+            "knowledge": null,
+            "skills": null,
+            "provenance": {
+              "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+              "source_page": null,
+              "source_section": null,
+              "source_reference": null,
+              "source_text": null,
+              "extraction_method": null
+            },
+            "parent_content_code": "C4-U18",
+            "parent_content_name": "Everyday Arithmetic Money",
+            "evidence_quality": null
+          },
+          "source_reference": "learning_outcomes"
+        },
+        "verifier_claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+        "verifier_verdict": "supported",
+        "evidence_matched_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19"
+        ],
+        "evidence_matched_records": [
+          {
+            "source": "curriculum_api",
+            "entity_type": "learning_outcome",
+            "entity_id": "8e91780d-814a-4829-ba39-289274e7af19",
+            "name": "C4U18-LO02",
+            "level": null,
+            "grade": "CLASS_4",
+            "subject": "MATHEMATICS",
+            "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+            "content": "Solve word problems involving the 4 operations and money.",
+            "metadata": {
+              "code": "C4U18-LO02",
+              "sequence": null,
+              "knowledge": null,
+              "skills": null,
+              "provenance": {
+                "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+                "source_page": null,
+                "source_section": null,
+                "source_reference": null,
+                "source_text": null,
+                "extraction_method": null
+              },
+              "parent_content_code": "C4-U18",
+              "parent_content_name": "Everyday Arithmetic Money",
+              "evidence_quality": null
+            },
+            "source_reference": "learning_outcomes"
+          }
+        ],
+        "mismatch_reason": null
+      },
+      {
+        "lo_id": "C4U18-LO03",
+        "answer_claim": "Estimate strategies to check answers for reasonableness",
+        "lo_text_raw": "Estimate strategies to check answers for reasonableness",
+        "lo_text_normalized": "Estimate strategies to check answers for reasonableness",
+        "topic_raw": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_unit": "Everyday Arithmetic Money",
+        "evidence_record": {
+          "source": "curriculum_api",
+          "entity_type": "learning_outcome",
+          "entity_id": "ad257603-967d-4ec3-bc33-666776b57790",
+          "name": "C4U18-LO03",
+          "level": null,
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "content": "Estimate strategies to check answers for reasonableness",
+          "metadata": {
+            "code": "C4U18-LO03",
+            "sequence": null,
+            "knowledge": null,
+            "skills": null,
+            "provenance": {
+              "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+              "source_page": null,
+              "source_section": null,
+              "source_reference": null,
+              "source_text": null,
+              "extraction_method": null
+            },
+            "parent_content_code": "C4-U18",
+            "parent_content_name": "Everyday Arithmetic Money",
+            "evidence_quality": null
+          },
+          "source_reference": "learning_outcomes"
+        },
+        "verifier_claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+        "verifier_verdict": "supported",
+        "evidence_matched_ids": [
+          "ad257603-967d-4ec3-bc33-666776b57790"
+        ],
+        "evidence_matched_records": [
+          {
+            "source": "curriculum_api",
+            "entity_type": "learning_outcome",
+            "entity_id": "ad257603-967d-4ec3-bc33-666776b57790",
+            "name": "C4U18-LO03",
+            "level": null,
+            "grade": "CLASS_4",
+            "subject": "MATHEMATICS",
+            "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+            "content": "Estimate strategies to check answers for reasonableness",
+            "metadata": {
+              "code": "C4U18-LO03",
+              "sequence": null,
+              "knowledge": null,
+              "skills": null,
+              "provenance": {
+                "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+                "source_page": null,
+                "source_section": null,
+                "source_reference": null,
+                "source_text": null,
+                "extraction_method": null
+              },
+              "parent_content_code": "C4-U18",
+              "parent_content_name": "Everyday Arithmetic Money",
+              "evidence_quality": null
+            },
+            "source_reference": "learning_outcomes"
+          }
+        ],
+        "mismatch_reason": null
+      },
+      {
+        "lo_id": "C4U18-LO04",
+        "answer_claim": "Inverse operations to check answers for reasonableness.",
+        "lo_text_raw": "Inverse operations to check answers for reasonableness.",
+        "lo_text_normalized": "Inverse operations to check answers for reasonableness.",
+        "topic_raw": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_unit": "Everyday Arithmetic Money",
+        "evidence_record": {
+          "source": "curriculum_api",
+          "entity_type": "learning_outcome",
+          "entity_id": "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+          "name": "C4U18-LO04",
+          "level": null,
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "content": "Inverse operations to check answers for reasonableness.",
+          "metadata": {
+            "code": "C4U18-LO04",
+            "sequence": null,
+            "knowledge": null,
+            "skills": null,
+            "provenance": {
+              "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+              "source_page": null,
+              "source_section": null,
+              "source_reference": null,
+              "source_text": null,
+              "extraction_method": null
+            },
+            "parent_content_code": "C4-U18",
+            "parent_content_name": "Everyday Arithmetic Money",
+            "evidence_quality": null
+          },
+          "source_reference": "learning_outcomes"
+        },
+        "verifier_claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+        "verifier_verdict": "supported",
+        "evidence_matched_ids": [
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "evidence_matched_records": [
+          {
+            "source": "curriculum_api",
+            "entity_type": "learning_outcome",
+            "entity_id": "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+            "name": "C4U18-LO04",
+            "level": null,
+            "grade": "CLASS_4",
+            "subject": "MATHEMATICS",
+            "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+            "content": "Inverse operations to check answers for reasonableness.",
+            "metadata": {
+              "code": "C4U18-LO04",
+              "sequence": null,
+              "knowledge": null,
+              "skills": null,
+              "provenance": {
+                "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+                "source_page": null,
+                "source_section": null,
+                "source_reference": null,
+                "source_text": null,
+                "extraction_method": null
+              },
+              "parent_content_code": "C4-U18",
+              "parent_content_name": "Everyday Arithmetic Money",
+              "evidence_quality": null
+            },
+            "source_reference": "learning_outcomes"
+          }
+        ],
+        "mismatch_reason": null
+      }
+    ]
+  },
+  "tag": "a_raw_verifier_faithful_complete_07",
+  "run_index": 7
+}

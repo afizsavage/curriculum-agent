@@ -1,0 +1,97 @@
+{
+  "experiment": "v2.10_integrated_experiment",
+  "pipeline": "C_RAW_VERIFIER_MAPPER",
+  "fixture_class": "MISSING_EVIDENCE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO04** \u2014 Use inverse operations to verify money word-problem solutions.\n",
+  "answer_hash": "4db54c752c0107cf",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "f04c3a982e51bab8",
+  "normalized_evidence_hash": "f04c3a982e51bab8",
+  "evidence_source": "c4u18",
+  "normalization_applied": false,
+  "mapping_applied": true,
+  "normalization_diagnostics": null,
+  "mapping_threshold": 0.85,
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "C4U18-LO04 exists and its content is 'Use inverse operations to verify money word-problem solutions.'"
+  ],
+  "issue_codes": [
+    "The generated answer cites C4U18-LO04, but the provided curriculum evidence contains no such learning outcome. The evidence only includes C4U18-LO01, C4U18-LO02, and C4U18-LO03.",
+    "The answer is incomplete: it lists only one learning objective, while the evidence shows multiple objectives for the 'Everyday Arithmetic Money' unit (C4-U18) in Primary 4 Mathematics.",
+    "The answer's claim about 'inverse operations' is not supported by any of the provided evidence records."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions.",
+      "verdict": "unsupported",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "raw_verifier_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "retrieve_more",
+  "attribution": "SAFETY_BLOCK",
+  "placeholder_detected": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer cites C4U18-LO04, but the provided curriculum evidence contains no such learning outcome. The evidence only includes C4U18-LO01, C4U18-LO02, and C4U18-LO03.",
+      "The answer is incomplete: it lists only one learning objective, while the evidence shows multiple objectives for the 'Everyday Arithmetic Money' unit (C4-U18) in Primary 4 Mathematics.",
+      "The answer's claim about 'inverse operations' is not supported by any of the provided evidence records."
+    ],
+    "unsupported_claims": [
+      "C4U18-LO04 exists and its content is 'Use inverse operations to verify money word-problem solutions.'"
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "C4U18-LO04",
+        "detail": "The generated answer references C4U18-LO04, but no such learning outcome was found in the evidence. The evidence only contains C4U18-LO01, C4U18-LO02, and C4U18-LO03."
+      }
+    ],
+    "incorrect_claims": [
+      "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions."
+    ],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO04 \u2014 Use inverse operations to verify money word-problem solutions.",
+        "verdict": "unsupported",
+        "evidence_ids": [],
+        "notes": "No evidence record for C4U18-LO04 exists in the provided curriculum evidence. The evidence only includes C4U18-LO01, C4U18-LO02, and C4U18-LO03."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is both incomplete and contains an unsupported learning outcome code. The evidence shows the unit 'Everyday Arithmetic Money' (C4-U18) has at least three learning outcomes: C4U18-LO01 (BODMAS), C4U18-LO02 (word problems with 4 operations and money), and C4U18-LO03 (estimate strategies). The answer should include these and verify the existence of C4U18-LO04 before accepting.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 4170.85,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "mapped_recommendation": "retrieve_more",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "missing_evidence",
+  "mapper_input": {
+    "score": 0.0,
+    "recommendation": "retrieve_more",
+    "unsupported_claims": [
+      "C4U18-LO04 exists and its content is 'Use inverse operations to verify money word-problem solutions.'"
+    ]
+  },
+  "mapper_output": "retrieve_more",
+  "tag": "c_raw_verifier_mapper_missing_evidence_10",
+  "run_index": 10
+}

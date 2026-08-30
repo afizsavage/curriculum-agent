@@ -1,0 +1,149 @@
+{
+  "experiment": "v2.10_integrated_experiment",
+  "pipeline": "C_RAW_VERIFIER_MAPPER",
+  "fixture_class": "ADV_PLACEHOLDER_PARENT",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+  "answer_hash": "967368050c22265f",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "ec39f4a9a93651db",
+  "normalized_evidence_hash": "ec39f4a9a93651db",
+  "evidence_source": "c4u18",
+  "normalization_applied": false,
+  "mapping_applied": true,
+  "normalization_diagnostics": null,
+  "mapping_threshold": 0.85,
+  "verifier_score": 0.75,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "The unit is titled 'Money' (evidence shows 'Everyday Arithmetic Money' with placeholder name)."
+  ],
+  "issue_codes": [
+    "The generated answer includes a claim about the unit code 'C4-U18' and title 'Money' that is not directly supported by the evidence; the unit record has a placeholder name.",
+    "The answer omits the unit title 'Everyday Arithmetic Money' which is present in the evidence hierarchy.",
+    "The answer's claim that these are 'learning objectives for money' is partially supported but the unit name is not explicitly confirmed in the evidence."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "These are the learning objectives for the 'Money' unit (C4-U18).",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "raw_verifier_accepted": true,
+  "final_accepted": false,
+  "final_recommendation": "reject",
+  "attribution": "PLACEHOLDER_BLOCK",
+  "placeholder_detected": true,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.75,
+    "issues": [
+      "The generated answer includes a claim about the unit code 'C4-U18' and title 'Money' that is not directly supported by the evidence; the unit record has a placeholder name.",
+      "The answer omits the unit title 'Everyday Arithmetic Money' which is present in the evidence hierarchy.",
+      "The answer's claim that these are 'learning objectives for money' is partially supported but the unit name is not explicitly confirmed in the evidence."
+    ],
+    "unsupported_claims": [
+      "The unit is titled 'Money' (evidence shows 'Everyday Arithmetic Money' with placeholder name)."
+    ],
+    "missing_evidence": [
+      {
+        "type": "unit_title",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "unit title for C4-U18",
+        "detail": "The unit record has a placeholder name; the actual title 'Everyday Arithmetic Money' appears only in the hierarchy, not as the unit's name."
+      }
+    ],
+    "incorrect_claims": [],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185"
+        ],
+        "notes": "Exact match with evidence content."
+      },
+      {
+        "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19"
+        ],
+        "notes": "Exact match with evidence content."
+      },
+      {
+        "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+        "verdict": "supported",
+        "evidence_ids": [
+          "ad257603-967d-4ec3-bc33-666776b57790"
+        ],
+        "notes": "Exact match with evidence content."
+      },
+      {
+        "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "notes": "Exact match with evidence content."
+      },
+      {
+        "claim": "These are the learning objectives for the 'Money' unit (C4-U18).",
+        "verdict": "supported",
+        "evidence_ids": [
+          "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        ],
+        "notes": "The unit code C4-U18 is confirmed, and the hierarchy shows 'Everyday Arithmetic Money' which aligns with the topic 'money'. The unit name itself is a placeholder, but the context supports the claim."
+      }
+    ],
+    "clarification": null,
+    "notes": "All four learning outcomes are exactly supported by the evidence. The only minor issue is the unit title presentation, but the overall answer is accurate and complete for the query.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 5623.35,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "placeholder_not_substantive",
+  "mapper_input": {
+    "score": 0.75,
+    "recommendation": "retrieve_more",
+    "unsupported_claims": [
+      "The unit is titled 'Money' (evidence shows 'Everyday Arithmetic Money' with placeholder name)."
+    ]
+  },
+  "mapper_output": "reject",
+  "tag": "c_raw_verifier_mapper_adv_placeholder_parent_01",
+  "run_index": 1
+}

@@ -1,0 +1,113 @@
+{
+  "experiment": "v2.10_integrated_experiment",
+  "pipeline": "A_RAW_VERIFIER",
+  "fixture_class": "ADV_WRONG_SUBJECT",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+  "answer_hash": "967368050c22265f",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "normalization_applied": false,
+  "mapping_applied": false,
+  "normalization_diagnostics": null,
+  "mapping_threshold": null,
+  "verifier_score": 0.75,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": false,
+  "unsupported_claims": [],
+  "issue_codes": [
+    "One learning outcome (C4U18-LO01) is listed under English in the evidence, not Mathematics, creating a subject mismatch.",
+    "The answer omits the unit name 'Everyday Arithmetic Money' which is part of the evidence.",
+    "All four learning outcomes are supported by evidence, but the subject mismatch for LO01 is a concern."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "raw_verifier_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "retrieve_more",
+  "attribution": "NO_CHANGE",
+  "placeholder_detected": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.75,
+    "issues": [
+      "One learning outcome (C4U18-LO01) is listed under English in the evidence, not Mathematics, creating a subject mismatch.",
+      "The answer omits the unit name 'Everyday Arithmetic Money' which is part of the evidence.",
+      "All four learning outcomes are supported by evidence, but the subject mismatch for LO01 is a concern."
+    ],
+    "unsupported_claims": [],
+    "missing_evidence": [],
+    "incorrect_claims": [
+      "C4U18-LO01 is attributed to Mathematics, but evidence shows it under English."
+    ],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185"
+        ],
+        "notes": "Content matches, but evidence places it under English, not Mathematics."
+      },
+      {
+        "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19"
+        ],
+        "notes": "Exact match."
+      },
+      {
+        "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+        "verdict": "supported",
+        "evidence_ids": [
+          "ad257603-967d-4ec3-bc33-666776b57790"
+        ],
+        "notes": "Exact match."
+      },
+      {
+        "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "notes": "Exact match."
+      }
+    ],
+    "clarification": null,
+    "notes": "The answer correctly lists all four learning outcomes for unit C4-U18, but the subject mismatch for LO01 (English vs Mathematics) and the omission of the unit name are noted. Since the question is specific and evidence is mostly complete, retrieve_more is recommended to confirm the correct subject placement.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 4753.46,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "a_raw_verifier_adv_wrong_subject_01",
+  "run_index": 1
+}

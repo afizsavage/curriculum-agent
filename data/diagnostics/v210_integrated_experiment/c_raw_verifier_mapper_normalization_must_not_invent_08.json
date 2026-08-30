@@ -1,0 +1,130 @@
+{
+  "experiment": "v2.10_integrated_experiment",
+  "pipeline": "C_RAW_VERIFIER_MAPPER",
+  "fixture_class": "NORMALIZATION_MUST_NOT_INVENT",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n",
+  "answer_hash": "b23cba2c3fa33aa6",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "normalization_applied": false,
+  "mapping_applied": true,
+  "normalization_diagnostics": null,
+  "mapping_threshold": 0.85,
+  "verifier_score": 0.1,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "The answer implies that C4U18-LO01 (Order operations using BODMAS) is a learning objective for 'money' in Primary 4. While it is in the same unit, the evidence does not connect it specifically to money content."
+  ],
+  "issue_codes": [
+    "The generated answer is incomplete: it lists only one learning objective (C4U18-LO01) for the 'money' topic, while the evidence shows there are four learning outcomes (C4U18-LO01 through C4U18-LO04) under the 'Everyday Arithmetic Money' unit.",
+    "The answer mislabels the BODMAS objective as a 'money' learning objective. While C4U18-LO01 is part of the same unit (C4-U18), the evidence shows it is a general operations objective, not specifically about money. The money-specific objectives are C4U18-LO02, C4U18-LO03, and C4U18-LO04.",
+    "The answer omits the three money-specific learning objectives that are directly relevant to the question: C4U18-LO02 (Solve word problems involving the 4 operations and money), C4U18-LO03 (Estimate strategies to check answers for reasonableness), and C4U18-LO04 (Inverse operations to check answers for reasonableness)."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 \u2014 Order operations using BODMAS is a learning objective for money in Primary 4.",
+      "verdict": "unsupported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "The answer provides a complete list of learning objectives for money in Primary 4.",
+      "verdict": "contradicted",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "raw_verifier_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "reject",
+  "attribution": "SAFETY_BLOCK",
+  "placeholder_detected": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.1,
+    "issues": [
+      "The generated answer is incomplete: it lists only one learning objective (C4U18-LO01) for the 'money' topic, while the evidence shows there are four learning outcomes (C4U18-LO01 through C4U18-LO04) under the 'Everyday Arithmetic Money' unit.",
+      "The answer mislabels the BODMAS objective as a 'money' learning objective. While C4U18-LO01 is part of the same unit (C4-U18), the evidence shows it is a general operations objective, not specifically about money. The money-specific objectives are C4U18-LO02, C4U18-LO03, and C4U18-LO04.",
+      "The answer omits the three money-specific learning objectives that are directly relevant to the question: C4U18-LO02 (Solve word problems involving the 4 operations and money), C4U18-LO03 (Estimate strategies to check answers for reasonableness), and C4U18-LO04 (Inverse operations to check answers for reasonableness)."
+    ],
+    "unsupported_claims": [
+      "The answer implies that C4U18-LO01 (Order operations using BODMAS) is a learning objective for 'money' in Primary 4. While it is in the same unit, the evidence does not connect it specifically to money content."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "C4U18-LO02 Solve word problems involving the 4 operations and money",
+        "detail": "This is the primary money-specific learning objective and is missing from the answer."
+      },
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "C4U18-LO03 Estimate strategies to check answers for reasonableness",
+        "detail": "This learning outcome is part of the money unit and is missing from the answer."
+      },
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "C4U18-LO04 Inverse operations to check answers for reasonableness",
+        "detail": "This learning outcome is part of the money unit and is missing from the answer."
+      }
+    ],
+    "incorrect_claims": [
+      "The answer incorrectly presents C4U18-LO01 as a money learning objective when the evidence shows it is a general BODMAS objective within the same unit but not specifically about money."
+    ],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS is a learning objective for money in Primary 4.",
+        "verdict": "unsupported",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185"
+        ],
+        "notes": "The evidence shows C4U18-LO01 is part of the C4-U18 unit (Everyday Arithmetic Money), but its content is about BODMAS operations generally, not specifically about money. The money-specific objectives are C4U18-LO02, LO03, and LO04."
+      },
+      {
+        "claim": "The answer provides a complete list of learning objectives for money in Primary 4.",
+        "verdict": "contradicted",
+        "evidence_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19",
+          "ad257603-967d-4ec3-bc33-666776b57790",
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "notes": "The evidence shows there are four learning outcomes in the money unit (C4U18-LO01 through LO04). The answer only lists one (LO01) and omits the three money-specific ones."
+      }
+    ],
+    "clarification": null,
+    "notes": "The question asks specifically for learning objectives for 'money' in Primary 4. The evidence clearly shows the unit 'Everyday Arithmetic Money' (C4-U18) contains four learning outcomes. The answer is severely incomplete and mischaracterizes the BODMAS objective as a money objective. The correct answer should include C4U18-LO02, LO03, and LO04 as the money-specific objectives, and possibly LO01 as part of the unit. The verifier recommends retrieving more evidence to confirm the full set of objectives, though the provided evidence already contains all four.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 7553.11,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "unsupported_claims",
+  "mapper_input": {
+    "score": 0.1,
+    "recommendation": "retrieve_more",
+    "unsupported_claims": [
+      "The answer implies that C4U18-LO01 (Order operations using BODMAS) is a learning objective for 'money' in Primary 4. While it is in the same unit, the evidence does not connect it specifically to money content."
+    ]
+  },
+  "mapper_output": "reject",
+  "tag": "c_raw_verifier_mapper_normalization_must_not_invent_08",
+  "run_index": 8
+}

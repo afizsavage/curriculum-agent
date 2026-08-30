@@ -1,0 +1,106 @@
+{
+  "experiment": "v2.10_integrated_experiment",
+  "pipeline": "B_NORMALIZED_VERIFIER",
+  "fixture_class": "ADV_FAKE_PARENT",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n",
+  "answer_hash": "b23cba2c3fa33aa6",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "normalization_applied": true,
+  "mapping_applied": false,
+  "normalization_diagnostics": {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "records_in": 5,
+    "records_out": 5,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 5,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "be3e342763f1faac",
+    "evidence_hash_out": "be3e342763f1faac"
+  },
+  "mapping_threshold": null,
+  "verifier_score": 0.1,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "C4U18-LO01 \u2014 Order operations using BODMAS is a learning objective for money in Primary 4."
+  ],
+  "issue_codes": [
+    "The generated answer lists only one learning objective (C4U18-LO01) for the money topic, but the evidence shows the money unit (C4-U18) contains multiple learning outcomes (C4U18-LO02, C4U18-LO03, C4U18-LO04) that are directly relevant to money.",
+    "The generated answer's claim about C4U18-LO01 is misleading because the evidence places C4U18-LO01 under a generic hierarchy (Primary 4 \u2192 Mathematics \u2192 00000000-0000-0000-0000-000000000099) rather than under the 'Everyday Arithmetic Money' unit, so it is not clearly a money-specific objective.",
+    "The answer omits the actual money-specific learning objectives (C4U18-LO02, C4U18-LO03, C4U18-LO04) that are present in the evidence."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 \u2014 Order operations using BODMAS is a learning objective for money in Primary 4.",
+      "verdict": "unsupported",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "raw_verifier_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "retrieve_more",
+  "attribution": "SAFETY_BLOCK",
+  "placeholder_detected": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.1,
+    "issues": [
+      "The generated answer lists only one learning objective (C4U18-LO01) for the money topic, but the evidence shows the money unit (C4-U18) contains multiple learning outcomes (C4U18-LO02, C4U18-LO03, C4U18-LO04) that are directly relevant to money.",
+      "The generated answer's claim about C4U18-LO01 is misleading because the evidence places C4U18-LO01 under a generic hierarchy (Primary 4 \u2192 Mathematics \u2192 00000000-0000-0000-0000-000000000099) rather than under the 'Everyday Arithmetic Money' unit, so it is not clearly a money-specific objective.",
+      "The answer omits the actual money-specific learning objectives (C4U18-LO02, C4U18-LO03, C4U18-LO04) that are present in the evidence."
+    ],
+    "unsupported_claims": [
+      "C4U18-LO01 \u2014 Order operations using BODMAS is a learning objective for money in Primary 4."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "money learning objectives Primary 4",
+        "detail": "Evidence contains C4U18-LO02, C4U18-LO03, C4U18-LO04 under the 'Everyday Arithmetic Money' unit, but the generated answer did not include them."
+      }
+    ],
+    "incorrect_claims": [
+      "C4U18-LO01 is a money learning objective (evidence places it outside the money unit)."
+    ],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS is a learning objective for money in Primary 4.",
+        "verdict": "unsupported",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185"
+        ],
+        "notes": "Evidence shows C4U18-LO01 under a generic hierarchy, not under the 'Everyday Arithmetic Money' unit. The money unit (C4-U18) contains C4U18-LO02, C4U18-LO03, and C4U18-LO04."
+      }
+    ],
+    "clarification": null,
+    "notes": "The answer is incomplete and misattributes a non-money objective. The evidence clearly provides money-specific learning outcomes that should have been included. Recommend retrieving more evidence to confirm all money objectives.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 4702.37,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "b_normalized_verifier_adv_fake_parent_01",
+  "run_index": 1
+}

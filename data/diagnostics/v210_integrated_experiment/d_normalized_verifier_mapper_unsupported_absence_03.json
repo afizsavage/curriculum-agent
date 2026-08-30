@@ -1,0 +1,111 @@
+{
+  "experiment": "v2.10_integrated_experiment",
+  "pipeline": "D_NORMALIZED_VERIFIER_MAPPER",
+  "fixture_class": "UNSUPPORTED_ABSENCE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "There are no money learning outcomes in Primary 4 Mathematics.",
+  "answer_hash": "a99b4863862eda6e",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "normalization_applied": true,
+  "mapping_applied": true,
+  "normalization_diagnostics": {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "records_in": 5,
+    "records_out": 5,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 5,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "be3e342763f1faac",
+    "evidence_hash_out": "be3e342763f1faac"
+  },
+  "mapping_threshold": 0.85,
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "There are no money learning outcomes in Primary 4 Mathematics."
+  ],
+  "issue_codes": [
+    "The generated answer claims there are no money learning outcomes in Primary 4 Mathematics, but the curriculum evidence clearly shows a unit 'Everyday Arithmetic Money' with multiple learning outcomes for Primary 4 Mathematics.",
+    "The answer directly contradicts the retrieved evidence."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "There are no money learning outcomes in Primary 4 Mathematics.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "raw_verifier_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "reject",
+  "attribution": "SAFETY_BLOCK",
+  "placeholder_detected": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer claims there are no money learning outcomes in Primary 4 Mathematics, but the curriculum evidence clearly shows a unit 'Everyday Arithmetic Money' with multiple learning outcomes for Primary 4 Mathematics.",
+      "The answer directly contradicts the retrieved evidence."
+    ],
+    "unsupported_claims": [
+      "There are no money learning outcomes in Primary 4 Mathematics."
+    ],
+    "missing_evidence": [],
+    "incorrect_claims": [
+      "There are no money learning outcomes in Primary 4 Mathematics."
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "There are no money learning outcomes in Primary 4 Mathematics.",
+        "verdict": "contradicted",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185",
+          "8e91780d-814a-4829-ba39-289274e7af19",
+          "ad257603-967d-4ec3-bc33-666776b57790",
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+          "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        ],
+        "notes": "Evidence shows a dedicated 'Everyday Arithmetic Money' unit with four learning outcomes for Primary 4 Mathematics."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is factually incorrect based on the provided curriculum evidence. It should have listed the learning outcomes from the 'Everyday Arithmetic Money' unit.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 3131.54,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "safety_reject",
+  "mapper_input": {
+    "score": 0.0,
+    "recommendation": "fallback",
+    "unsupported_claims": [
+      "There are no money learning outcomes in Primary 4 Mathematics."
+    ]
+  },
+  "mapper_output": "reject",
+  "tag": "d_normalized_verifier_mapper_unsupported_absence_03",
+  "run_index": 3
+}

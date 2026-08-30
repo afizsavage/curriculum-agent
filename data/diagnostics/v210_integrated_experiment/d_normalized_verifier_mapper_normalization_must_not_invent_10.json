@@ -1,0 +1,121 @@
+{
+  "experiment": "v2.10_integrated_experiment",
+  "pipeline": "D_NORMALIZED_VERIFIER_MAPPER",
+  "fixture_class": "NORMALIZATION_MUST_NOT_INVENT",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n",
+  "answer_hash": "b23cba2c3fa33aa6",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "normalization_applied": true,
+  "mapping_applied": true,
+  "normalization_diagnostics": {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "records_in": 5,
+    "records_out": 5,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 5,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "be3e342763f1faac",
+    "evidence_hash_out": "be3e342763f1faac"
+  },
+  "mapping_threshold": 0.85,
+  "verifier_score": 0.1,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "C4U18-LO01 is a learning objective for the 'money' topic in Primary 4 Mathematics."
+  ],
+  "issue_codes": [
+    "The generated answer lists only one learning objective (C4U18-LO01) for the 'money' topic, but the evidence shows the money unit (C4-U18) contains multiple learning outcomes (C4U18-LO02, C4U18-LO03, C4U18-LO04) that are directly relevant and were omitted.",
+    "The generated answer incorrectly attributes C4U18-LO01 (Order operations using BODMAS) to the 'money' topic. The evidence shows C4U18-LO01 belongs to a different unit (hierarchy shows a placeholder ID, not the 'Everyday Arithmetic Money' unit), while the money unit's outcomes are C4U18-LO02, C4U18-LO03, and C4U18-LO04.",
+    "The answer is incomplete and misleading for the question 'What are the learning objectives for money in Primary 4?' because it fails to list the actual money-specific objectives."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 is a learning objective for the 'money' topic in Primary 4 Mathematics.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "raw_verifier_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "reject",
+  "attribution": "SAFETY_BLOCK",
+  "placeholder_detected": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.1,
+    "issues": [
+      "The generated answer lists only one learning objective (C4U18-LO01) for the 'money' topic, but the evidence shows the money unit (C4-U18) contains multiple learning outcomes (C4U18-LO02, C4U18-LO03, C4U18-LO04) that are directly relevant and were omitted.",
+      "The generated answer incorrectly attributes C4U18-LO01 (Order operations using BODMAS) to the 'money' topic. The evidence shows C4U18-LO01 belongs to a different unit (hierarchy shows a placeholder ID, not the 'Everyday Arithmetic Money' unit), while the money unit's outcomes are C4U18-LO02, C4U18-LO03, and C4U18-LO04.",
+      "The answer is incomplete and misleading for the question 'What are the learning objectives for money in Primary 4?' because it fails to list the actual money-specific objectives."
+    ],
+    "unsupported_claims": [
+      "C4U18-LO01 is a learning objective for the 'money' topic in Primary 4 Mathematics."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "Primary 4 Mathematics money learning objectives",
+        "detail": "The evidence contains C4U18-LO02, C4U18-LO03, and C4U18-LO04 under the 'Everyday Arithmetic Money' unit, but the generated answer did not include them."
+      }
+    ],
+    "incorrect_claims": [
+      "C4U18-LO01 is a learning objective for the 'money' topic in Primary 4 Mathematics."
+    ],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 is a learning objective for the 'money' topic in Primary 4 Mathematics.",
+        "verdict": "contradicted",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185",
+          "8e91780d-814a-4829-ba39-289274e7af19",
+          "ad257603-967d-4ec3-bc33-666776b57790",
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "notes": "C4U18-LO01 is listed under a different unit (hierarchy shows a placeholder ID), while the 'Everyday Arithmetic Money' unit contains C4U18-LO02, C4U18-LO03, and C4U18-LO04. Therefore, attributing C4U18-LO01 to the money topic is incorrect."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is incomplete and contains a topic mismatch. The evidence clearly shows the money unit (C4-U18) has three learning outcomes (C4U18-LO02, C4U18-LO03, C4U18-LO04) that should have been listed. The answer only mentions C4U18-LO01, which belongs to a different unit. Recommend retrieving more evidence to confirm all money-specific objectives and then providing a corrected answer.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 5391.38,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "unsupported_claims",
+  "mapper_input": {
+    "score": 0.1,
+    "recommendation": "retrieve_more",
+    "unsupported_claims": [
+      "C4U18-LO01 is a learning objective for the 'money' topic in Primary 4 Mathematics."
+    ]
+  },
+  "mapper_output": "reject",
+  "tag": "d_normalized_verifier_mapper_normalization_must_not_invent_10",
+  "run_index": 10
+}

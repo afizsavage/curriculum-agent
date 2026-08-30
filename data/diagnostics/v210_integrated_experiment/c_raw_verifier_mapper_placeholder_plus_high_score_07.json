@@ -1,0 +1,143 @@
+{
+  "experiment": "v2.10_integrated_experiment",
+  "pipeline": "C_RAW_VERIFIER_MAPPER",
+  "fixture_class": "PLACEHOLDER_PLUS_HIGH_SCORE",
+  "primary_unit": "C4-U04/U05/U06",
+  "question": "What are the learning objectives for fractions in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Fractions Learning Objectives\n\n- **C4U04-LO04** \u2014 C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]\n- **C4U06-LO02** \u2014 C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]\n",
+  "answer_hash": "fbbc9d0f6e82e823",
+  "evidence_hash": "977b259fcfb4b282",
+  "raw_evidence_hash": "36ecb4b660725c25",
+  "normalized_evidence_hash": "36ecb4b660725c25",
+  "evidence_source": "fractions",
+  "normalization_applied": false,
+  "mapping_applied": true,
+  "normalization_diagnostics": null,
+  "mapping_threshold": 0.85,
+  "verifier_score": 0.1,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "retrieve_more_requested": true,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "C4U04-LO04 \u2014 C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+    "C4U06-LO02 \u2014 C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+  ],
+  "issue_codes": [
+    "The generated answer contains placeholder text [CLEAN_EVIDENCE_PLACEHOLDER] instead of actual learning objective content.",
+    "The answer references learning outcome codes (C4U04-LO04, C4U06-LO02) but does not provide the actual learning objectives for these codes.",
+    "The answer omits several relevant learning objectives for fractions in Primary 4 that are present in the evidence, such as C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, and C4U06-LO01.",
+    "The answer is incomplete and does not fulfill the user's request for learning objectives for fractions in Primary 4."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U04-LO04 is a learning objective for fractions in Primary 4",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U06-LO02 is a learning objective for fractions in Primary 4",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "The learning objectives for fractions in Primary 4 include C4U04-LO04 and C4U06-LO02 only",
+      "verdict": "contradicted",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "raw_verifier_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "reject",
+  "attribution": "PLACEHOLDER_BLOCK",
+  "placeholder_detected": true,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.1,
+    "issues": [
+      "The generated answer contains placeholder text [CLEAN_EVIDENCE_PLACEHOLDER] instead of actual learning objective content.",
+      "The answer references learning outcome codes (C4U04-LO04, C4U06-LO02) but does not provide the actual learning objectives for these codes.",
+      "The answer omits several relevant learning objectives for fractions in Primary 4 that are present in the evidence, such as C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01, C4U05-LO02, C4U05-LO03, C4U05-LO04, and C4U06-LO01.",
+      "The answer is incomplete and does not fulfill the user's request for learning objectives for fractions in Primary 4."
+    ],
+    "unsupported_claims": [
+      "C4U04-LO04 \u2014 C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+      "C4U06-LO02 \u2014 C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "fractions",
+        "query": "C4U04-LO04 content",
+        "detail": "The evidence record for C4U04-LO04 contains placeholder text [CLEAN_EVIDENCE_PLACEHOLDER] instead of actual learning objective content."
+      },
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "fractions",
+        "query": "C4U06-LO02 content",
+        "detail": "The evidence record for C4U06-LO02 contains placeholder text [CLEAN_EVIDENCE_PLACEHOLDER] instead of actual learning objective content."
+      }
+    ],
+    "incorrect_claims": [],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U04-LO04 is a learning objective for fractions in Primary 4",
+        "verdict": "supported",
+        "evidence_ids": [
+          "686a96c2-6b45-49d2-aeab-2fa1f7b15704"
+        ],
+        "notes": "The code exists in the evidence, but its content is a placeholder."
+      },
+      {
+        "claim": "C4U06-LO02 is a learning objective for fractions in Primary 4",
+        "verdict": "supported",
+        "evidence_ids": [
+          "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+        ],
+        "notes": "The code exists in the evidence, but its content is a placeholder."
+      },
+      {
+        "claim": "The learning objectives for fractions in Primary 4 include C4U04-LO04 and C4U06-LO02 only",
+        "verdict": "contradicted",
+        "evidence_ids": [
+          "4cb80e72-796a-4513-ac92-68e14fcb630f",
+          "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+          "6926032f-39b7-4ad6-8278-085bae23318b",
+          "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+          "0cc3886d-2320-4795-8c91-e407e3372b5c",
+          "714546a5-7e71-4888-80cb-cd73ec617d8e",
+          "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+          "ee43f087-3372-411e-9495-21859368099e"
+        ],
+        "notes": "The evidence shows multiple other learning outcomes for fractions in Primary 4 that are not included in the answer."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is incomplete and contains placeholder text. It fails to provide the actual learning objectives for fractions in Primary 4. The evidence contains multiple relevant learning outcomes that should be included in a complete answer. The answer should be regenerated with the actual content from the evidence records.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 19916.06,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "placeholder_not_substantive",
+  "mapper_input": {
+    "score": 0.1,
+    "recommendation": "retrieve_more",
+    "unsupported_claims": [
+      "C4U04-LO04 \u2014 C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]",
+      "C4U06-LO02 \u2014 C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]"
+    ]
+  },
+  "mapper_output": "reject",
+  "tag": "c_raw_verifier_mapper_placeholder_plus_high_score_07",
+  "run_index": 7
+}

@@ -1,0 +1,101 @@
+{
+  "experiment": "v2.10_integrated_experiment",
+  "pipeline": "C_RAW_VERIFIER_MAPPER",
+  "fixture_class": "SPECULATIVE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "Primary 4 money objectives probably include cryptocurrency transactions and may likely cover digital payment apps.",
+  "answer_hash": "19b4c5051cf490e6",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "normalization_applied": false,
+  "mapping_applied": true,
+  "normalization_diagnostics": null,
+  "mapping_threshold": 0.85,
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "retrieve_more_requested": false,
+  "insufficient_evidence": true,
+  "unsupported_claims": [
+    "Primary 4 money objectives include cryptocurrency transactions.",
+    "Primary 4 money objectives may cover digital payment apps."
+  ],
+  "issue_codes": [
+    "The generated answer claims cryptocurrency and digital payment apps are learning objectives for Primary 4 money, but the curriculum evidence contains no such content.",
+    "The answer does not mention any of the actual learning outcomes found in the evidence (BODMAS, word problems with money, estimation, inverse operations)."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "Primary 4 money objectives include cryptocurrency transactions.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "Primary 4 money objectives may cover digital payment apps.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "raw_verifier_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "reject",
+  "attribution": "SAFETY_BLOCK",
+  "placeholder_detected": false,
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer claims cryptocurrency and digital payment apps are learning objectives for Primary 4 money, but the curriculum evidence contains no such content.",
+      "The answer does not mention any of the actual learning outcomes found in the evidence (BODMAS, word problems with money, estimation, inverse operations)."
+    ],
+    "unsupported_claims": [
+      "Primary 4 money objectives include cryptocurrency transactions.",
+      "Primary 4 money objectives may cover digital payment apps."
+    ],
+    "missing_evidence": [],
+    "incorrect_claims": [
+      "Primary 4 money objectives include cryptocurrency transactions.",
+      "Primary 4 money objectives may cover digital payment apps."
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "Primary 4 money objectives include cryptocurrency transactions.",
+        "verdict": "contradicted",
+        "evidence_ids": [],
+        "notes": "No evidence supports cryptocurrency; actual objectives are about BODMAS, word problems with money, estimation, and inverse operations."
+      },
+      {
+        "claim": "Primary 4 money objectives may cover digital payment apps.",
+        "verdict": "contradicted",
+        "evidence_ids": [],
+        "notes": "No evidence mentions digital payment apps; the curriculum focuses on arithmetic operations with money."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is entirely unsupported and contradicts the retrieved curriculum evidence. The correct learning objectives for Primary 4 money (Unit C4-U18) are: order operations using BODMAS (C4U18-LO01), solve word problems involving the 4 operations and money (C4U18-LO02), estimate strategies to check answers for reasonableness (C4U18-LO03), and inverse operations to check answers for reasonableness (C4U18-LO04).",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 3110.69,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "policy_applied": true,
+  "policy_rule": "safety_reject",
+  "mapper_input": {
+    "score": 0.0,
+    "recommendation": "fallback",
+    "unsupported_claims": [
+      "Primary 4 money objectives include cryptocurrency transactions.",
+      "Primary 4 money objectives may cover digital payment apps."
+    ]
+  },
+  "mapper_output": "reject",
+  "tag": "c_raw_verifier_mapper_speculative_09",
+  "run_index": 9
+}

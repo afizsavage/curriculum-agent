@@ -1,0 +1,1028 @@
+=== [1/512] A_RAW_VERIFIER FAITHFUL_COMPLETE 1/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [2/512] B_NORMALIZED_VERIFIER FAITHFUL_COMPLETE 1/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [3/512] C_RAW_VERIFIER_MAPPER FAITHFUL_COMPLETE 1/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [4/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_COMPLETE 1/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [5/512] A_RAW_VERIFIER FAITHFUL_COMPLETE 2/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [6/512] B_NORMALIZED_VERIFIER FAITHFUL_COMPLETE 2/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [7/512] C_RAW_VERIFIER_MAPPER FAITHFUL_COMPLETE 2/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [8/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_COMPLETE 2/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [9/512] A_RAW_VERIFIER FAITHFUL_COMPLETE 3/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [10/512] B_NORMALIZED_VERIFIER FAITHFUL_COMPLETE 3/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [11/512] C_RAW_VERIFIER_MAPPER FAITHFUL_COMPLETE 3/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [12/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_COMPLETE 3/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [13/512] A_RAW_VERIFIER FAITHFUL_COMPLETE 4/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 0.75, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [14/512] B_NORMALIZED_VERIFIER FAITHFUL_COMPLETE 4/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [15/512] C_RAW_VERIFIER_MAPPER FAITHFUL_COMPLETE 4/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [16/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_COMPLETE 4/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [17/512] A_RAW_VERIFIER FAITHFUL_COMPLETE 5/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [18/512] B_NORMALIZED_VERIFIER FAITHFUL_COMPLETE 5/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [19/512] C_RAW_VERIFIER_MAPPER FAITHFUL_COMPLETE 5/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 0.75, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [20/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_COMPLETE 5/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [21/512] A_RAW_VERIFIER FAITHFUL_COMPLETE 6/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 0.75, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [22/512] B_NORMALIZED_VERIFIER FAITHFUL_COMPLETE 6/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [23/512] C_RAW_VERIFIER_MAPPER FAITHFUL_COMPLETE 6/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [24/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_COMPLETE 6/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [25/512] A_RAW_VERIFIER FAITHFUL_COMPLETE 7/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 0.75, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [26/512] B_NORMALIZED_VERIFIER FAITHFUL_COMPLETE 7/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [27/512] C_RAW_VERIFIER_MAPPER FAITHFUL_COMPLETE 7/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 0.9, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [28/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_COMPLETE 7/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [29/512] A_RAW_VERIFIER FAITHFUL_COMPLETE 8/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [30/512] B_NORMALIZED_VERIFIER FAITHFUL_COMPLETE 8/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [31/512] C_RAW_VERIFIER_MAPPER FAITHFUL_COMPLETE 8/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 0.75, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [32/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_COMPLETE 8/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [33/512] A_RAW_VERIFIER FAITHFUL_COMPLETE 9/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [34/512] B_NORMALIZED_VERIFIER FAITHFUL_COMPLETE 9/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [35/512] C_RAW_VERIFIER_MAPPER FAITHFUL_COMPLETE 9/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [36/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_COMPLETE 9/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [37/512] A_RAW_VERIFIER FAITHFUL_COMPLETE 10/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 0.75, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [38/512] B_NORMALIZED_VERIFIER FAITHFUL_COMPLETE 10/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [39/512] C_RAW_VERIFIER_MAPPER FAITHFUL_COMPLETE 10/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 0.75, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [40/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_COMPLETE 10/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_COMPLETE", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [41/512] A_RAW_VERIFIER FAITHFUL_IMPERFECT 1/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [42/512] B_NORMALIZED_VERIFIER FAITHFUL_IMPERFECT 1/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [43/512] C_RAW_VERIFIER_MAPPER FAITHFUL_IMPERFECT 1/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [44/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_IMPERFECT 1/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [45/512] A_RAW_VERIFIER FAITHFUL_IMPERFECT 2/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [46/512] B_NORMALIZED_VERIFIER FAITHFUL_IMPERFECT 2/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [47/512] C_RAW_VERIFIER_MAPPER FAITHFUL_IMPERFECT 2/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [48/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_IMPERFECT 2/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [49/512] A_RAW_VERIFIER FAITHFUL_IMPERFECT 3/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [50/512] B_NORMALIZED_VERIFIER FAITHFUL_IMPERFECT 3/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [51/512] C_RAW_VERIFIER_MAPPER FAITHFUL_IMPERFECT 3/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [52/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_IMPERFECT 3/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [53/512] A_RAW_VERIFIER FAITHFUL_IMPERFECT 4/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [54/512] B_NORMALIZED_VERIFIER FAITHFUL_IMPERFECT 4/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [55/512] C_RAW_VERIFIER_MAPPER FAITHFUL_IMPERFECT 4/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [56/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_IMPERFECT 4/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [57/512] A_RAW_VERIFIER FAITHFUL_IMPERFECT 5/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [58/512] B_NORMALIZED_VERIFIER FAITHFUL_IMPERFECT 5/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [59/512] C_RAW_VERIFIER_MAPPER FAITHFUL_IMPERFECT 5/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [60/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_IMPERFECT 5/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [61/512] A_RAW_VERIFIER FAITHFUL_IMPERFECT 6/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [62/512] B_NORMALIZED_VERIFIER FAITHFUL_IMPERFECT 6/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [63/512] C_RAW_VERIFIER_MAPPER FAITHFUL_IMPERFECT 6/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [64/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_IMPERFECT 6/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [65/512] A_RAW_VERIFIER FAITHFUL_IMPERFECT 7/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [66/512] B_NORMALIZED_VERIFIER FAITHFUL_IMPERFECT 7/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [67/512] C_RAW_VERIFIER_MAPPER FAITHFUL_IMPERFECT 7/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [68/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_IMPERFECT 7/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [69/512] A_RAW_VERIFIER FAITHFUL_IMPERFECT 8/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [70/512] B_NORMALIZED_VERIFIER FAITHFUL_IMPERFECT 8/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [71/512] C_RAW_VERIFIER_MAPPER FAITHFUL_IMPERFECT 8/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [72/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_IMPERFECT 8/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [73/512] A_RAW_VERIFIER FAITHFUL_IMPERFECT 9/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [74/512] B_NORMALIZED_VERIFIER FAITHFUL_IMPERFECT 9/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [75/512] C_RAW_VERIFIER_MAPPER FAITHFUL_IMPERFECT 9/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [76/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_IMPERFECT 9/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [77/512] A_RAW_VERIFIER FAITHFUL_IMPERFECT 10/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [78/512] B_NORMALIZED_VERIFIER FAITHFUL_IMPERFECT 10/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [79/512] C_RAW_VERIFIER_MAPPER FAITHFUL_IMPERFECT 10/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [80/512] D_NORMALIZED_VERIFIER_MAPPER FAITHFUL_IMPERFECT 10/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "FAITHFUL_IMPERFECT", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [81/512] A_RAW_VERIFIER CLEAN_PLACEHOLDER 1/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [82/512] B_NORMALIZED_VERIFIER CLEAN_PLACEHOLDER 1/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [83/512] C_RAW_VERIFIER_MAPPER CLEAN_PLACEHOLDER 1/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [84/512] D_NORMALIZED_VERIFIER_MAPPER CLEAN_PLACEHOLDER 1/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [85/512] A_RAW_VERIFIER CLEAN_PLACEHOLDER 2/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [86/512] B_NORMALIZED_VERIFIER CLEAN_PLACEHOLDER 2/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [87/512] C_RAW_VERIFIER_MAPPER CLEAN_PLACEHOLDER 2/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [88/512] D_NORMALIZED_VERIFIER_MAPPER CLEAN_PLACEHOLDER 2/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [89/512] A_RAW_VERIFIER CLEAN_PLACEHOLDER 3/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [90/512] B_NORMALIZED_VERIFIER CLEAN_PLACEHOLDER 3/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [91/512] C_RAW_VERIFIER_MAPPER CLEAN_PLACEHOLDER 3/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [92/512] D_NORMALIZED_VERIFIER_MAPPER CLEAN_PLACEHOLDER 3/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [93/512] A_RAW_VERIFIER CLEAN_PLACEHOLDER 4/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [94/512] B_NORMALIZED_VERIFIER CLEAN_PLACEHOLDER 4/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [95/512] C_RAW_VERIFIER_MAPPER CLEAN_PLACEHOLDER 4/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [96/512] D_NORMALIZED_VERIFIER_MAPPER CLEAN_PLACEHOLDER 4/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [97/512] A_RAW_VERIFIER CLEAN_PLACEHOLDER 5/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [98/512] B_NORMALIZED_VERIFIER CLEAN_PLACEHOLDER 5/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [99/512] C_RAW_VERIFIER_MAPPER CLEAN_PLACEHOLDER 5/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [100/512] D_NORMALIZED_VERIFIER_MAPPER CLEAN_PLACEHOLDER 5/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [101/512] A_RAW_VERIFIER CLEAN_PLACEHOLDER 6/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [102/512] B_NORMALIZED_VERIFIER CLEAN_PLACEHOLDER 6/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [103/512] C_RAW_VERIFIER_MAPPER CLEAN_PLACEHOLDER 6/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [104/512] D_NORMALIZED_VERIFIER_MAPPER CLEAN_PLACEHOLDER 6/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [105/512] A_RAW_VERIFIER CLEAN_PLACEHOLDER 7/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [106/512] B_NORMALIZED_VERIFIER CLEAN_PLACEHOLDER 7/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [107/512] C_RAW_VERIFIER_MAPPER CLEAN_PLACEHOLDER 7/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [108/512] D_NORMALIZED_VERIFIER_MAPPER CLEAN_PLACEHOLDER 7/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [109/512] A_RAW_VERIFIER CLEAN_PLACEHOLDER 8/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [110/512] B_NORMALIZED_VERIFIER CLEAN_PLACEHOLDER 8/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [111/512] C_RAW_VERIFIER_MAPPER CLEAN_PLACEHOLDER 8/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [112/512] D_NORMALIZED_VERIFIER_MAPPER CLEAN_PLACEHOLDER 8/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [113/512] A_RAW_VERIFIER CLEAN_PLACEHOLDER 9/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [114/512] B_NORMALIZED_VERIFIER CLEAN_PLACEHOLDER 9/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [115/512] C_RAW_VERIFIER_MAPPER CLEAN_PLACEHOLDER 9/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [116/512] D_NORMALIZED_VERIFIER_MAPPER CLEAN_PLACEHOLDER 9/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.1, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [117/512] A_RAW_VERIFIER CLEAN_PLACEHOLDER 10/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [118/512] B_NORMALIZED_VERIFIER CLEAN_PLACEHOLDER 10/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [119/512] C_RAW_VERIFIER_MAPPER CLEAN_PLACEHOLDER 10/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [120/512] D_NORMALIZED_VERIFIER_MAPPER CLEAN_PLACEHOLDER 10/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "CLEAN_PLACEHOLDER", "score": 0.0, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [121/512] A_RAW_VERIFIER UNSUPPORTED_CLAIM 1/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [122/512] B_NORMALIZED_VERIFIER UNSUPPORTED_CLAIM 1/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [123/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_CLAIM 1/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [124/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_CLAIM 1/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [125/512] A_RAW_VERIFIER UNSUPPORTED_CLAIM 2/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [126/512] B_NORMALIZED_VERIFIER UNSUPPORTED_CLAIM 2/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [127/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_CLAIM 2/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [128/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_CLAIM 2/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [129/512] A_RAW_VERIFIER UNSUPPORTED_CLAIM 3/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [130/512] B_NORMALIZED_VERIFIER UNSUPPORTED_CLAIM 3/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [131/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_CLAIM 3/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [132/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_CLAIM 3/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [133/512] A_RAW_VERIFIER UNSUPPORTED_CLAIM 4/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [134/512] B_NORMALIZED_VERIFIER UNSUPPORTED_CLAIM 4/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [135/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_CLAIM 4/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [136/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_CLAIM 4/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [137/512] A_RAW_VERIFIER UNSUPPORTED_CLAIM 5/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [138/512] B_NORMALIZED_VERIFIER UNSUPPORTED_CLAIM 5/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [139/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_CLAIM 5/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [140/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_CLAIM 5/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [141/512] A_RAW_VERIFIER UNSUPPORTED_CLAIM 6/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [142/512] B_NORMALIZED_VERIFIER UNSUPPORTED_CLAIM 6/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [143/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_CLAIM 6/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [144/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_CLAIM 6/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [145/512] A_RAW_VERIFIER UNSUPPORTED_CLAIM 7/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [146/512] B_NORMALIZED_VERIFIER UNSUPPORTED_CLAIM 7/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [147/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_CLAIM 7/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [148/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_CLAIM 7/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [149/512] A_RAW_VERIFIER UNSUPPORTED_CLAIM 8/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [150/512] B_NORMALIZED_VERIFIER UNSUPPORTED_CLAIM 8/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [151/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_CLAIM 8/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [152/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_CLAIM 8/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [153/512] A_RAW_VERIFIER UNSUPPORTED_CLAIM 9/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [154/512] B_NORMALIZED_VERIFIER UNSUPPORTED_CLAIM 9/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [155/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_CLAIM 9/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [156/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_CLAIM 9/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [157/512] A_RAW_VERIFIER UNSUPPORTED_CLAIM 10/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [158/512] B_NORMALIZED_VERIFIER UNSUPPORTED_CLAIM 10/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [159/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_CLAIM 10/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [160/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_CLAIM 10/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_CLAIM", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [161/512] A_RAW_VERIFIER UNSUPPORTED_ABSENCE 1/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [162/512] B_NORMALIZED_VERIFIER UNSUPPORTED_ABSENCE 1/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [163/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 1/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [164/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 1/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [165/512] A_RAW_VERIFIER UNSUPPORTED_ABSENCE 2/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [166/512] B_NORMALIZED_VERIFIER UNSUPPORTED_ABSENCE 2/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [167/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 2/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [168/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 2/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [169/512] A_RAW_VERIFIER UNSUPPORTED_ABSENCE 3/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [170/512] B_NORMALIZED_VERIFIER UNSUPPORTED_ABSENCE 3/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [171/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 3/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [172/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 3/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [173/512] A_RAW_VERIFIER UNSUPPORTED_ABSENCE 4/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [174/512] B_NORMALIZED_VERIFIER UNSUPPORTED_ABSENCE 4/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [175/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 4/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [176/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 4/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [177/512] A_RAW_VERIFIER UNSUPPORTED_ABSENCE 5/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [178/512] B_NORMALIZED_VERIFIER UNSUPPORTED_ABSENCE 5/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [179/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 5/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [180/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 5/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [181/512] A_RAW_VERIFIER UNSUPPORTED_ABSENCE 6/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [182/512] B_NORMALIZED_VERIFIER UNSUPPORTED_ABSENCE 6/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [183/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 6/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [184/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 6/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [185/512] A_RAW_VERIFIER UNSUPPORTED_ABSENCE 7/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [186/512] B_NORMALIZED_VERIFIER UNSUPPORTED_ABSENCE 7/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [187/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 7/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [188/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 7/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [189/512] A_RAW_VERIFIER UNSUPPORTED_ABSENCE 8/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [190/512] B_NORMALIZED_VERIFIER UNSUPPORTED_ABSENCE 8/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [191/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 8/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [192/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 8/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [193/512] A_RAW_VERIFIER UNSUPPORTED_ABSENCE 9/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [194/512] B_NORMALIZED_VERIFIER UNSUPPORTED_ABSENCE 9/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [195/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 9/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [196/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 9/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [197/512] A_RAW_VERIFIER UNSUPPORTED_ABSENCE 10/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [198/512] B_NORMALIZED_VERIFIER UNSUPPORTED_ABSENCE 10/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [199/512] C_RAW_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 10/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [200/512] D_NORMALIZED_VERIFIER_MAPPER UNSUPPORTED_ABSENCE 10/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "UNSUPPORTED_ABSENCE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [201/512] A_RAW_VERIFIER SPECULATIVE 1/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [202/512] B_NORMALIZED_VERIFIER SPECULATIVE 1/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [203/512] C_RAW_VERIFIER_MAPPER SPECULATIVE 1/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [204/512] D_NORMALIZED_VERIFIER_MAPPER SPECULATIVE 1/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [205/512] A_RAW_VERIFIER SPECULATIVE 2/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [206/512] B_NORMALIZED_VERIFIER SPECULATIVE 2/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [207/512] C_RAW_VERIFIER_MAPPER SPECULATIVE 2/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [208/512] D_NORMALIZED_VERIFIER_MAPPER SPECULATIVE 2/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [209/512] A_RAW_VERIFIER SPECULATIVE 3/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [210/512] B_NORMALIZED_VERIFIER SPECULATIVE 3/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [211/512] C_RAW_VERIFIER_MAPPER SPECULATIVE 3/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [212/512] D_NORMALIZED_VERIFIER_MAPPER SPECULATIVE 3/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [213/512] A_RAW_VERIFIER SPECULATIVE 4/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [214/512] B_NORMALIZED_VERIFIER SPECULATIVE 4/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [215/512] C_RAW_VERIFIER_MAPPER SPECULATIVE 4/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [216/512] D_NORMALIZED_VERIFIER_MAPPER SPECULATIVE 4/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [217/512] A_RAW_VERIFIER SPECULATIVE 5/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [218/512] B_NORMALIZED_VERIFIER SPECULATIVE 5/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [219/512] C_RAW_VERIFIER_MAPPER SPECULATIVE 5/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [220/512] D_NORMALIZED_VERIFIER_MAPPER SPECULATIVE 5/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [221/512] A_RAW_VERIFIER SPECULATIVE 6/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [222/512] B_NORMALIZED_VERIFIER SPECULATIVE 6/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [223/512] C_RAW_VERIFIER_MAPPER SPECULATIVE 6/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [224/512] D_NORMALIZED_VERIFIER_MAPPER SPECULATIVE 6/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [225/512] A_RAW_VERIFIER SPECULATIVE 7/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [226/512] B_NORMALIZED_VERIFIER SPECULATIVE 7/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [227/512] C_RAW_VERIFIER_MAPPER SPECULATIVE 7/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [228/512] D_NORMALIZED_VERIFIER_MAPPER SPECULATIVE 7/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [229/512] A_RAW_VERIFIER SPECULATIVE 8/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [230/512] B_NORMALIZED_VERIFIER SPECULATIVE 8/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [231/512] C_RAW_VERIFIER_MAPPER SPECULATIVE 8/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [232/512] D_NORMALIZED_VERIFIER_MAPPER SPECULATIVE 8/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [233/512] A_RAW_VERIFIER SPECULATIVE 9/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [234/512] B_NORMALIZED_VERIFIER SPECULATIVE 9/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [235/512] C_RAW_VERIFIER_MAPPER SPECULATIVE 9/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [236/512] D_NORMALIZED_VERIFIER_MAPPER SPECULATIVE 9/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [237/512] A_RAW_VERIFIER SPECULATIVE 10/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [238/512] B_NORMALIZED_VERIFIER SPECULATIVE 10/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [239/512] C_RAW_VERIFIER_MAPPER SPECULATIVE 10/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [240/512] D_NORMALIZED_VERIFIER_MAPPER SPECULATIVE 10/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "SPECULATIVE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [241/512] A_RAW_VERIFIER RECONSTRUCTION 1/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [242/512] B_NORMALIZED_VERIFIER RECONSTRUCTION 1/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [243/512] C_RAW_VERIFIER_MAPPER RECONSTRUCTION 1/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [244/512] D_NORMALIZED_VERIFIER_MAPPER RECONSTRUCTION 1/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [245/512] A_RAW_VERIFIER RECONSTRUCTION 2/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [246/512] B_NORMALIZED_VERIFIER RECONSTRUCTION 2/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [247/512] C_RAW_VERIFIER_MAPPER RECONSTRUCTION 2/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [248/512] D_NORMALIZED_VERIFIER_MAPPER RECONSTRUCTION 2/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [249/512] A_RAW_VERIFIER RECONSTRUCTION 3/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [250/512] B_NORMALIZED_VERIFIER RECONSTRUCTION 3/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [251/512] C_RAW_VERIFIER_MAPPER RECONSTRUCTION 3/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [252/512] D_NORMALIZED_VERIFIER_MAPPER RECONSTRUCTION 3/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [253/512] A_RAW_VERIFIER RECONSTRUCTION 4/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [254/512] B_NORMALIZED_VERIFIER RECONSTRUCTION 4/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [255/512] C_RAW_VERIFIER_MAPPER RECONSTRUCTION 4/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [256/512] D_NORMALIZED_VERIFIER_MAPPER RECONSTRUCTION 4/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [257/512] A_RAW_VERIFIER RECONSTRUCTION 5/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [258/512] B_NORMALIZED_VERIFIER RECONSTRUCTION 5/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [259/512] C_RAW_VERIFIER_MAPPER RECONSTRUCTION 5/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [260/512] D_NORMALIZED_VERIFIER_MAPPER RECONSTRUCTION 5/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [261/512] A_RAW_VERIFIER RECONSTRUCTION 6/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [262/512] B_NORMALIZED_VERIFIER RECONSTRUCTION 6/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [263/512] C_RAW_VERIFIER_MAPPER RECONSTRUCTION 6/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [264/512] D_NORMALIZED_VERIFIER_MAPPER RECONSTRUCTION 6/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [265/512] A_RAW_VERIFIER RECONSTRUCTION 7/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [266/512] B_NORMALIZED_VERIFIER RECONSTRUCTION 7/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [267/512] C_RAW_VERIFIER_MAPPER RECONSTRUCTION 7/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [268/512] D_NORMALIZED_VERIFIER_MAPPER RECONSTRUCTION 7/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [269/512] A_RAW_VERIFIER RECONSTRUCTION 8/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [270/512] B_NORMALIZED_VERIFIER RECONSTRUCTION 8/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [271/512] C_RAW_VERIFIER_MAPPER RECONSTRUCTION 8/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [272/512] D_NORMALIZED_VERIFIER_MAPPER RECONSTRUCTION 8/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [273/512] A_RAW_VERIFIER RECONSTRUCTION 9/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [274/512] B_NORMALIZED_VERIFIER RECONSTRUCTION 9/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [275/512] C_RAW_VERIFIER_MAPPER RECONSTRUCTION 9/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [276/512] D_NORMALIZED_VERIFIER_MAPPER RECONSTRUCTION 9/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [277/512] A_RAW_VERIFIER RECONSTRUCTION 10/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [278/512] B_NORMALIZED_VERIFIER RECONSTRUCTION 10/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [279/512] C_RAW_VERIFIER_MAPPER RECONSTRUCTION 10/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.2, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [280/512] D_NORMALIZED_VERIFIER_MAPPER RECONSTRUCTION 10/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "RECONSTRUCTION", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [281/512] A_RAW_VERIFIER MISSING_EVIDENCE 1/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [282/512] B_NORMALIZED_VERIFIER MISSING_EVIDENCE 1/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [283/512] C_RAW_VERIFIER_MAPPER MISSING_EVIDENCE 1/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "insufficient_evidence", "accepted": false}
+=== [284/512] D_NORMALIZED_VERIFIER_MAPPER MISSING_EVIDENCE 1/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [285/512] A_RAW_VERIFIER MISSING_EVIDENCE 2/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [286/512] B_NORMALIZED_VERIFIER MISSING_EVIDENCE 2/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [287/512] C_RAW_VERIFIER_MAPPER MISSING_EVIDENCE 2/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [288/512] D_NORMALIZED_VERIFIER_MAPPER MISSING_EVIDENCE 2/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [289/512] A_RAW_VERIFIER MISSING_EVIDENCE 3/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [290/512] B_NORMALIZED_VERIFIER MISSING_EVIDENCE 3/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [291/512] C_RAW_VERIFIER_MAPPER MISSING_EVIDENCE 3/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [292/512] D_NORMALIZED_VERIFIER_MAPPER MISSING_EVIDENCE 3/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [293/512] A_RAW_VERIFIER MISSING_EVIDENCE 4/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [294/512] B_NORMALIZED_VERIFIER MISSING_EVIDENCE 4/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [295/512] C_RAW_VERIFIER_MAPPER MISSING_EVIDENCE 4/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "insufficient_evidence", "accepted": false}
+=== [296/512] D_NORMALIZED_VERIFIER_MAPPER MISSING_EVIDENCE 4/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [297/512] A_RAW_VERIFIER MISSING_EVIDENCE 5/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [298/512] B_NORMALIZED_VERIFIER MISSING_EVIDENCE 5/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [299/512] C_RAW_VERIFIER_MAPPER MISSING_EVIDENCE 5/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "insufficient_evidence", "accepted": false}
+=== [300/512] D_NORMALIZED_VERIFIER_MAPPER MISSING_EVIDENCE 5/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [301/512] A_RAW_VERIFIER MISSING_EVIDENCE 6/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [302/512] B_NORMALIZED_VERIFIER MISSING_EVIDENCE 6/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [303/512] C_RAW_VERIFIER_MAPPER MISSING_EVIDENCE 6/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "insufficient_evidence", "accepted": false}
+=== [304/512] D_NORMALIZED_VERIFIER_MAPPER MISSING_EVIDENCE 6/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [305/512] A_RAW_VERIFIER MISSING_EVIDENCE 7/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [306/512] B_NORMALIZED_VERIFIER MISSING_EVIDENCE 7/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [307/512] C_RAW_VERIFIER_MAPPER MISSING_EVIDENCE 7/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "insufficient_evidence", "accepted": false}
+=== [308/512] D_NORMALIZED_VERIFIER_MAPPER MISSING_EVIDENCE 7/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "insufficient_evidence", "accepted": false}
+=== [309/512] A_RAW_VERIFIER MISSING_EVIDENCE 8/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [310/512] B_NORMALIZED_VERIFIER MISSING_EVIDENCE 8/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [311/512] C_RAW_VERIFIER_MAPPER MISSING_EVIDENCE 8/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [312/512] D_NORMALIZED_VERIFIER_MAPPER MISSING_EVIDENCE 8/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "insufficient_evidence", "accepted": false}
+=== [313/512] A_RAW_VERIFIER MISSING_EVIDENCE 9/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [314/512] B_NORMALIZED_VERIFIER MISSING_EVIDENCE 9/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [315/512] C_RAW_VERIFIER_MAPPER MISSING_EVIDENCE 9/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [316/512] D_NORMALIZED_VERIFIER_MAPPER MISSING_EVIDENCE 9/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [317/512] A_RAW_VERIFIER MISSING_EVIDENCE 10/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [318/512] B_NORMALIZED_VERIFIER MISSING_EVIDENCE 10/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [319/512] C_RAW_VERIFIER_MAPPER MISSING_EVIDENCE 10/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [320/512] D_NORMALIZED_VERIFIER_MAPPER MISSING_EVIDENCE 10/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "MISSING_EVIDENCE", "score": 0.0, "verifier": "fallback", "final": "insufficient_evidence", "accepted": false}
+=== [321/512] A_RAW_VERIFIER HIGH_SCORE_UNSUPPORTED 1/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [322/512] B_NORMALIZED_VERIFIER HIGH_SCORE_UNSUPPORTED 1/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [323/512] C_RAW_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 1/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [324/512] D_NORMALIZED_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 1/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [325/512] A_RAW_VERIFIER HIGH_SCORE_UNSUPPORTED 2/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [326/512] B_NORMALIZED_VERIFIER HIGH_SCORE_UNSUPPORTED 2/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [327/512] C_RAW_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 2/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [328/512] D_NORMALIZED_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 2/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [329/512] A_RAW_VERIFIER HIGH_SCORE_UNSUPPORTED 3/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [330/512] B_NORMALIZED_VERIFIER HIGH_SCORE_UNSUPPORTED 3/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [331/512] C_RAW_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 3/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [332/512] D_NORMALIZED_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 3/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [333/512] A_RAW_VERIFIER HIGH_SCORE_UNSUPPORTED 4/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [334/512] B_NORMALIZED_VERIFIER HIGH_SCORE_UNSUPPORTED 4/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [335/512] C_RAW_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 4/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [336/512] D_NORMALIZED_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 4/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [337/512] A_RAW_VERIFIER HIGH_SCORE_UNSUPPORTED 5/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [338/512] B_NORMALIZED_VERIFIER HIGH_SCORE_UNSUPPORTED 5/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [339/512] C_RAW_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 5/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [340/512] D_NORMALIZED_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 5/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [341/512] A_RAW_VERIFIER HIGH_SCORE_UNSUPPORTED 6/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [342/512] B_NORMALIZED_VERIFIER HIGH_SCORE_UNSUPPORTED 6/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [343/512] C_RAW_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 6/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [344/512] D_NORMALIZED_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 6/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [345/512] A_RAW_VERIFIER HIGH_SCORE_UNSUPPORTED 7/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [346/512] B_NORMALIZED_VERIFIER HIGH_SCORE_UNSUPPORTED 7/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [347/512] C_RAW_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 7/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [348/512] D_NORMALIZED_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 7/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [349/512] A_RAW_VERIFIER HIGH_SCORE_UNSUPPORTED 8/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [350/512] B_NORMALIZED_VERIFIER HIGH_SCORE_UNSUPPORTED 8/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [351/512] C_RAW_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 8/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [352/512] D_NORMALIZED_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 8/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [353/512] A_RAW_VERIFIER HIGH_SCORE_UNSUPPORTED 9/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [354/512] B_NORMALIZED_VERIFIER HIGH_SCORE_UNSUPPORTED 9/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [355/512] C_RAW_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 9/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [356/512] D_NORMALIZED_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 9/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [357/512] A_RAW_VERIFIER HIGH_SCORE_UNSUPPORTED 10/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [358/512] B_NORMALIZED_VERIFIER HIGH_SCORE_UNSUPPORTED 10/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [359/512] C_RAW_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 10/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [360/512] D_NORMALIZED_VERIFIER_MAPPER HIGH_SCORE_UNSUPPORTED 10/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "HIGH_SCORE_UNSUPPORTED", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [361/512] A_RAW_VERIFIER NORMALIZATION_ONLY_GROUNDING 1/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [362/512] B_NORMALIZED_VERIFIER NORMALIZATION_ONLY_GROUNDING 1/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [363/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 1/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [364/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 1/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [365/512] A_RAW_VERIFIER NORMALIZATION_ONLY_GROUNDING 2/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [366/512] B_NORMALIZED_VERIFIER NORMALIZATION_ONLY_GROUNDING 2/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [367/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 2/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [368/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 2/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [369/512] A_RAW_VERIFIER NORMALIZATION_ONLY_GROUNDING 3/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [370/512] B_NORMALIZED_VERIFIER NORMALIZATION_ONLY_GROUNDING 3/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [371/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 3/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [372/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 3/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [373/512] A_RAW_VERIFIER NORMALIZATION_ONLY_GROUNDING 4/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [374/512] B_NORMALIZED_VERIFIER NORMALIZATION_ONLY_GROUNDING 4/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [375/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 4/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [376/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 4/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [377/512] A_RAW_VERIFIER NORMALIZATION_ONLY_GROUNDING 5/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [378/512] B_NORMALIZED_VERIFIER NORMALIZATION_ONLY_GROUNDING 5/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [379/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 5/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.75, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [380/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 5/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [381/512] A_RAW_VERIFIER NORMALIZATION_ONLY_GROUNDING 6/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [382/512] B_NORMALIZED_VERIFIER NORMALIZATION_ONLY_GROUNDING 6/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [383/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 6/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [384/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 6/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [385/512] A_RAW_VERIFIER NORMALIZATION_ONLY_GROUNDING 7/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [386/512] B_NORMALIZED_VERIFIER NORMALIZATION_ONLY_GROUNDING 7/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [387/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 7/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "accept", "accepted": true}
+=== [388/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 7/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [389/512] A_RAW_VERIFIER NORMALIZATION_ONLY_GROUNDING 8/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [390/512] B_NORMALIZED_VERIFIER NORMALIZATION_ONLY_GROUNDING 8/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [391/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 8/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [392/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 8/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [393/512] A_RAW_VERIFIER NORMALIZATION_ONLY_GROUNDING 9/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [394/512] B_NORMALIZED_VERIFIER NORMALIZATION_ONLY_GROUNDING 9/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [395/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 9/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [396/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 9/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [397/512] A_RAW_VERIFIER NORMALIZATION_ONLY_GROUNDING 10/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [398/512] B_NORMALIZED_VERIFIER NORMALIZATION_ONLY_GROUNDING 10/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [399/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 10/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 0.9, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [400/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_ONLY_GROUNDING 10/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_ONLY_GROUNDING", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [401/512] A_RAW_VERIFIER NORMALIZATION_MUST_NOT_INVENT 1/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [402/512] B_NORMALIZED_VERIFIER NORMALIZATION_MUST_NOT_INVENT 1/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [403/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 1/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [404/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 1/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [405/512] A_RAW_VERIFIER NORMALIZATION_MUST_NOT_INVENT 2/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [406/512] B_NORMALIZED_VERIFIER NORMALIZATION_MUST_NOT_INVENT 2/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [407/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 2/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [408/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 2/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [409/512] A_RAW_VERIFIER NORMALIZATION_MUST_NOT_INVENT 3/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [410/512] B_NORMALIZED_VERIFIER NORMALIZATION_MUST_NOT_INVENT 3/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [411/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 3/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [412/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 3/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [413/512] A_RAW_VERIFIER NORMALIZATION_MUST_NOT_INVENT 4/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [414/512] B_NORMALIZED_VERIFIER NORMALIZATION_MUST_NOT_INVENT 4/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [415/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 4/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [416/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 4/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [417/512] A_RAW_VERIFIER NORMALIZATION_MUST_NOT_INVENT 5/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [418/512] B_NORMALIZED_VERIFIER NORMALIZATION_MUST_NOT_INVENT 5/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [419/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 5/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [420/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 5/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [421/512] A_RAW_VERIFIER NORMALIZATION_MUST_NOT_INVENT 6/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [422/512] B_NORMALIZED_VERIFIER NORMALIZATION_MUST_NOT_INVENT 6/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [423/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 6/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [424/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 6/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [425/512] A_RAW_VERIFIER NORMALIZATION_MUST_NOT_INVENT 7/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [426/512] B_NORMALIZED_VERIFIER NORMALIZATION_MUST_NOT_INVENT 7/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [427/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 7/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [428/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 7/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [429/512] A_RAW_VERIFIER NORMALIZATION_MUST_NOT_INVENT 8/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [430/512] B_NORMALIZED_VERIFIER NORMALIZATION_MUST_NOT_INVENT 8/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [431/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 8/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [432/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 8/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [433/512] A_RAW_VERIFIER NORMALIZATION_MUST_NOT_INVENT 9/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [434/512] B_NORMALIZED_VERIFIER NORMALIZATION_MUST_NOT_INVENT 9/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [435/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 9/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [436/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 9/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [437/512] A_RAW_VERIFIER NORMALIZATION_MUST_NOT_INVENT 10/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [438/512] B_NORMALIZED_VERIFIER NORMALIZATION_MUST_NOT_INVENT 10/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [439/512] C_RAW_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 10/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [440/512] D_NORMALIZED_VERIFIER_MAPPER NORMALIZATION_MUST_NOT_INVENT 10/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "NORMALIZATION_MUST_NOT_INVENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [441/512] A_RAW_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 1/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [442/512] B_NORMALIZED_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 1/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [443/512] C_RAW_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 1/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.1, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [444/512] D_NORMALIZED_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 1/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [445/512] A_RAW_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 2/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [446/512] B_NORMALIZED_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 2/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [447/512] C_RAW_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 2/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [448/512] D_NORMALIZED_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 2/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [449/512] A_RAW_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 3/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [450/512] B_NORMALIZED_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 3/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [451/512] C_RAW_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 3/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [452/512] D_NORMALIZED_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 3/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [453/512] A_RAW_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 4/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [454/512] B_NORMALIZED_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 4/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [455/512] C_RAW_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 4/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [456/512] D_NORMALIZED_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 4/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [457/512] A_RAW_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 5/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [458/512] B_NORMALIZED_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 5/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [459/512] C_RAW_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 5/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [460/512] D_NORMALIZED_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 5/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [461/512] A_RAW_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 6/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [462/512] B_NORMALIZED_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 6/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [463/512] C_RAW_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 6/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [464/512] D_NORMALIZED_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 6/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.1, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [465/512] A_RAW_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 7/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [466/512] B_NORMALIZED_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 7/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [467/512] C_RAW_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 7/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [468/512] D_NORMALIZED_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 7/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [469/512] A_RAW_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 8/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [470/512] B_NORMALIZED_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 8/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [471/512] C_RAW_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 8/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [472/512] D_NORMALIZED_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 8/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [473/512] A_RAW_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 9/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [474/512] B_NORMALIZED_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 9/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [475/512] C_RAW_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 9/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [476/512] D_NORMALIZED_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 9/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [477/512] A_RAW_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 10/10 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [478/512] B_NORMALIZED_VERIFIER PLACEHOLDER_PLUS_HIGH_SCORE 10/10 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [479/512] C_RAW_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 10/10 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [480/512] D_NORMALIZED_VERIFIER_MAPPER PLACEHOLDER_PLUS_HIGH_SCORE 10/10 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "PLACEHOLDER_PLUS_HIGH_SCORE", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [481/512] A_RAW_VERIFIER ADV_FAKE_PARENT 1/1 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "ADV_FAKE_PARENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [482/512] B_NORMALIZED_VERIFIER ADV_FAKE_PARENT 1/1 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "ADV_FAKE_PARENT", "score": 0.1, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [483/512] C_RAW_VERIFIER_MAPPER ADV_FAKE_PARENT 1/1 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "ADV_FAKE_PARENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [484/512] D_NORMALIZED_VERIFIER_MAPPER ADV_FAKE_PARENT 1/1 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "ADV_FAKE_PARENT", "score": 0.1, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [485/512] A_RAW_VERIFIER ADV_CONFLICTING_PARENT 1/1 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "ADV_CONFLICTING_PARENT", "score": 0.75, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [486/512] B_NORMALIZED_VERIFIER ADV_CONFLICTING_PARENT 1/1 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "ADV_CONFLICTING_PARENT", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [487/512] C_RAW_VERIFIER_MAPPER ADV_CONFLICTING_PARENT 1/1 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "ADV_CONFLICTING_PARENT", "score": 0.9, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [488/512] D_NORMALIZED_VERIFIER_MAPPER ADV_CONFLICTING_PARENT 1/1 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "ADV_CONFLICTING_PARENT", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [489/512] A_RAW_VERIFIER ADV_PLACEHOLDER_PARENT 1/1 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "ADV_PLACEHOLDER_PARENT", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [490/512] B_NORMALIZED_VERIFIER ADV_PLACEHOLDER_PARENT 1/1 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "ADV_PLACEHOLDER_PARENT", "score": 0.75, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [491/512] C_RAW_VERIFIER_MAPPER ADV_PLACEHOLDER_PARENT 1/1 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "ADV_PLACEHOLDER_PARENT", "score": 0.75, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [492/512] D_NORMALIZED_VERIFIER_MAPPER ADV_PLACEHOLDER_PARENT 1/1 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "ADV_PLACEHOLDER_PARENT", "score": 0.75, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [493/512] A_RAW_VERIFIER ADV_WRONG_SUBJECT 1/1 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "ADV_WRONG_SUBJECT", "score": 0.75, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [494/512] B_NORMALIZED_VERIFIER ADV_WRONG_SUBJECT 1/1 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "ADV_WRONG_SUBJECT", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [495/512] C_RAW_VERIFIER_MAPPER ADV_WRONG_SUBJECT 1/1 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "ADV_WRONG_SUBJECT", "score": 0.75, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [496/512] D_NORMALIZED_VERIFIER_MAPPER ADV_WRONG_SUBJECT 1/1 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "ADV_WRONG_SUBJECT", "score": 1.0, "verifier": "accept", "final": "accept", "accepted": true}
+=== [497/512] A_RAW_VERIFIER ADV_WRONG_GRADE 1/1 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "ADV_WRONG_GRADE", "score": 0.75, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [498/512] B_NORMALIZED_VERIFIER ADV_WRONG_GRADE 1/1 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "ADV_WRONG_GRADE", "score": 0.75, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [499/512] C_RAW_VERIFIER_MAPPER ADV_WRONG_GRADE 1/1 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "ADV_WRONG_GRADE", "score": 0.75, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [500/512] D_NORMALIZED_VERIFIER_MAPPER ADV_WRONG_GRADE 1/1 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "ADV_WRONG_GRADE", "score": 0.75, "verifier": "retrieve_more", "final": "reject", "accepted": false}
+=== [501/512] A_RAW_VERIFIER ADV_HIGH_SCORE_SAFETY 1/1 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "ADV_HIGH_SCORE_SAFETY", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [502/512] B_NORMALIZED_VERIFIER ADV_HIGH_SCORE_SAFETY 1/1 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "ADV_HIGH_SCORE_SAFETY", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [503/512] C_RAW_VERIFIER_MAPPER ADV_HIGH_SCORE_SAFETY 1/1 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "ADV_HIGH_SCORE_SAFETY", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [504/512] D_NORMALIZED_VERIFIER_MAPPER ADV_HIGH_SCORE_SAFETY 1/1 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "ADV_HIGH_SCORE_SAFETY", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [505/512] A_RAW_VERIFIER ADV_HIGH_SCORE_PLACEHOLDER 1/1 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "ADV_HIGH_SCORE_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [506/512] B_NORMALIZED_VERIFIER ADV_HIGH_SCORE_PLACEHOLDER 1/1 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "ADV_HIGH_SCORE_PLACEHOLDER", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [507/512] C_RAW_VERIFIER_MAPPER ADV_HIGH_SCORE_PLACEHOLDER 1/1 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "ADV_HIGH_SCORE_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [508/512] D_NORMALIZED_VERIFIER_MAPPER ADV_HIGH_SCORE_PLACEHOLDER 1/1 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "ADV_HIGH_SCORE_PLACEHOLDER", "score": 0.0, "verifier": "fallback", "final": "reject", "accepted": false}
+=== [509/512] A_RAW_VERIFIER ADV_MISSING_AFTER_NORM 1/1 ===
+{"pipeline": "A_RAW_VERIFIER", "fixture": "ADV_MISSING_AFTER_NORM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [510/512] B_NORMALIZED_VERIFIER ADV_MISSING_AFTER_NORM 1/1 ===
+{"pipeline": "B_NORMALIZED_VERIFIER", "fixture": "ADV_MISSING_AFTER_NORM", "score": 0.0, "verifier": "fallback", "final": "fallback", "accepted": false}
+=== [511/512] C_RAW_VERIFIER_MAPPER ADV_MISSING_AFTER_NORM 1/1 ===
+{"pipeline": "C_RAW_VERIFIER_MAPPER", "fixture": "ADV_MISSING_AFTER_NORM", "score": 0.0, "verifier": "retrieve_more", "final": "retrieve_more", "accepted": false}
+=== [512/512] D_NORMALIZED_VERIFIER_MAPPER ADV_MISSING_AFTER_NORM 1/1 ===
+{"pipeline": "D_NORMALIZED_VERIFIER_MAPPER", "fixture": "ADV_MISSING_AFTER_NORM", "score": 0.0, "verifier": "fallback", "final": "insufficient_evidence", "accepted": false}
+--- V2.10 EXPERIMENT COMPLETE ---
+{
+  "conclusion": "NOT_SUPPORTED"
+}
