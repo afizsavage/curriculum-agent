@@ -1,0 +1,140 @@
+{
+  "experiment": "v2.11_metadata_integrity",
+  "pipeline_variant": "B_METADATA_VALIDATE",
+  "fixture_class": "UNSUPPORTED_ABSENCE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "There are no money learning outcomes in Primary 4 Mathematics.",
+  "answer_hash": "a99b4863862eda6e",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "post_metadata_evidence_hash": "be3e342763f1faac",
+  "evidence_source": "c4u18",
+  "normalization_diagnostics": {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "records_in": 5,
+    "records_out": 5,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 5,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "be3e342763f1faac",
+    "evidence_hash_out": "be3e342763f1faac"
+  },
+  "metadata_integrity": {
+    "valid": true,
+    "affected_evidence_ids": [],
+    "violations": [],
+    "resolved_relationships": [
+      {
+        "lo_code": "C4U18-LO01",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO02",
+        "entity_id": "8e91780d-814a-4829-ba39-289274e7af19",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO03",
+        "entity_id": "ad257603-967d-4ec3-bc33-666776b57790",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO04",
+        "entity_id": "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      }
+    ],
+    "confidence_source": "authoritative"
+  },
+  "metadata_blocked": false,
+  "metadata_policy": "metadata_integrity_failure",
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "reject",
+  "unsupported_claims": [
+    "There are no money learning outcomes in Primary 4 Mathematics."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "There are no money learning outcomes in Primary 4 Mathematics.",
+      "verdict": "contradicted",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer claims there are no money learning outcomes in Primary 4 Mathematics, but the curriculum evidence explicitly contains a unit 'Everyday Arithmetic Money' with four learning outcomes under Primary 4 Mathematics.",
+      "The answer directly contradicts the provided evidence."
+    ],
+    "unsupported_claims": [
+      "There are no money learning outcomes in Primary 4 Mathematics."
+    ],
+    "missing_evidence": [],
+    "incorrect_claims": [
+      "There are no money learning outcomes in Primary 4 Mathematics."
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "There are no money learning outcomes in Primary 4 Mathematics.",
+        "verdict": "contradicted",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185",
+          "8e91780d-814a-4829-ba39-289274e7af19",
+          "ad257603-967d-4ec3-bc33-666776b57790",
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+          "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        ],
+        "notes": "Evidence shows a unit 'Everyday Arithmetic Money' with four learning outcomes (C4U18-LO01 to LO04) under Primary 4 Mathematics."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is factually incorrect based on the retrieved curriculum evidence. The correct response should list the four learning outcomes from the 'Everyday Arithmetic Money' unit.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 3357.36,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "b_metadata_validate_unsupported_absence_08",
+  "run_index": 8
+}

@@ -1,0 +1,207 @@
+{
+  "experiment": "v2.11_metadata_integrity",
+  "pipeline_variant": "A_V210_BASELINE",
+  "fixture_class": "RECONSTRUCTION",
+  "primary_unit": "C4-U04/U05/U06",
+  "question": "What are the learning objectives for fractions in Primary 4?",
+  "answer": "## Fractions\n\n- **C4U06-LO02** \u2014 Multiply like and related fractions with denominators up to 12.\n",
+  "answer_hash": "7cfca6c1d830c592",
+  "evidence_hash": "977b259fcfb4b282",
+  "raw_evidence_hash": "977b259fcfb4b282",
+  "normalized_evidence_hash": "977b259fcfb4b282",
+  "post_metadata_evidence_hash": "977b259fcfb4b282",
+  "evidence_source": "fractions",
+  "normalization_diagnostics": {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "records_in": 13,
+    "records_out": 13,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 13,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "977b259fcfb4b282",
+    "evidence_hash_out": "977b259fcfb4b282"
+  },
+  "metadata_integrity": {
+    "valid": true,
+    "affected_evidence_ids": [],
+    "violations": [],
+    "resolved_relationships": [
+      {
+        "lo_code": "C4U04-LO01",
+        "entity_id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+        "topic_raw": "Number and Numeration FRACTION",
+        "topic_resolved": "Number and Numeration FRACTION",
+        "parent_code": "C4-U04",
+        "parent_name": "Number and Numeration FRACTION",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U04-LO02",
+        "entity_id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+        "topic_raw": "Number and Numeration FRACTION",
+        "topic_resolved": "Number and Numeration FRACTION",
+        "parent_code": "C4-U04",
+        "parent_name": "Number and Numeration FRACTION",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U04-LO03",
+        "entity_id": "6926032f-39b7-4ad6-8278-085bae23318b",
+        "topic_raw": "Number and Numeration FRACTION",
+        "topic_resolved": "Number and Numeration FRACTION",
+        "parent_code": "C4-U04",
+        "parent_name": "Number and Numeration FRACTION",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U04-LO04",
+        "entity_id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+        "topic_raw": "Number and Numeration FRACTION",
+        "topic_resolved": "Number and Numeration FRACTION",
+        "parent_code": "C4-U04",
+        "parent_name": "Number and Numeration FRACTION",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U05-LO01",
+        "entity_id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+        "topic_raw": "Number and Numeration OPERATION ON FRACTIONS.",
+        "topic_resolved": "Number and Numeration OPERATION ON FRACTIONS.",
+        "parent_code": "C4-U05",
+        "parent_name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U05-LO02",
+        "entity_id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+        "topic_raw": "Number and Numeration OPERATION ON FRACTIONS.",
+        "topic_resolved": "Number and Numeration OPERATION ON FRACTIONS.",
+        "parent_code": "C4-U05",
+        "parent_name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U05-LO03",
+        "entity_id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+        "topic_raw": "Number and Numeration OPERATION ON FRACTIONS.",
+        "topic_resolved": "Number and Numeration OPERATION ON FRACTIONS.",
+        "parent_code": "C4-U05",
+        "parent_name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U05-LO04",
+        "entity_id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+        "topic_raw": "Number and Numeration OPERATION ON FRACTIONS.",
+        "topic_resolved": "Number and Numeration OPERATION ON FRACTIONS.",
+        "parent_code": "C4-U05",
+        "parent_name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U06-LO01",
+        "entity_id": "ee43f087-3372-411e-9495-21859368099e",
+        "topic_raw": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "topic_resolved": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "parent_code": "C4-U06",
+        "parent_name": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U06-LO02",
+        "entity_id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+        "topic_raw": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "topic_resolved": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "parent_code": "C4-U06",
+        "parent_name": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      }
+    ],
+    "confidence_source": "authoritative"
+  },
+  "metadata_blocked": false,
+  "metadata_policy": "baseline_no_guard",
+  "verifier_score": 0.1,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "reject",
+  "unsupported_claims": [
+    "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+      "verdict": "unsupported",
+      "classification": "TRUNCATION_RECONSTRUCTION"
+    }
+  ],
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.1,
+    "issues": [
+      "The generated answer is incomplete: it lists only one learning objective (C4U06-LO02) while the curriculum evidence contains multiple fraction-related learning outcomes for Primary 4.",
+      "The cited learning outcome C4U06-LO02 is partially supported but its content in the evidence is garbled and does not clearly state 'Multiply like and related fractions with denominators up to 12'.",
+      "The answer omits several relevant learning outcomes from the evidence, such as C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U04-LO04, C5U05-LO01 through C4U05-LO04, and C4U06-LO01.",
+      "The answer does not address the full scope of the question 'learning objectives for fractions' which includes multiple units (C4-U04, C4-U05, C4-U06)."
+    ],
+    "unsupported_claims": [
+      "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "fractions",
+        "query": "All fraction learning objectives for Primary 4",
+        "detail": "Evidence includes multiple fraction learning outcomes (C4U04-LO01 to C4U04-LO04, C4U05-LO01 to C4U05-LO04, C4U06-LO01, C4U06-LO02) that are not all cited in the answer."
+      }
+    ],
+    "incorrect_claims": [
+      "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12."
+    ],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U06-LO02 \u2014 Multiply like and related fractions with denominators up to 12.",
+        "verdict": "unsupported",
+        "evidence_ids": [
+          "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+        ],
+        "notes": "The evidence for C4U06-LO02 is garbled and does not clearly state 'denominators up to 12'. The claim is not fully supported by the evidence."
+      }
+    ],
+    "clarification": null,
+    "notes": "The answer is incomplete and partially inaccurate. It should include all fraction-related learning outcomes from the evidence, not just one. The evidence contains multiple relevant learning outcomes across units C4-U04, C4-U05, and C4-U06.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 24174.28,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "a_v210_baseline_reconstruction_10",
+  "run_index": 10
+}

@@ -1,0 +1,156 @@
+{
+  "experiment": "v2.11_metadata_integrity",
+  "pipeline_variant": "C_METADATA_SUPPRESS",
+  "fixture_class": "ADV_PLACEHOLDER_TOPIC",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n",
+  "answer_hash": "b23cba2c3fa33aa6",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "post_metadata_evidence_hash": "ef7aefc63b8d41ae",
+  "evidence_source": "c4u18",
+  "normalization_diagnostics": {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "records_in": 5,
+    "records_out": 5,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 5,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "be3e342763f1faac",
+    "evidence_hash_out": "be3e342763f1faac"
+  },
+  "metadata_integrity": {
+    "valid": false,
+    "affected_evidence_ids": [
+      "5a3e84bc-fce5-43a3-a369-3d8088786185"
+    ],
+    "violations": [
+      {
+        "violation_type": "placeholder_topic",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "lo_code": "C4U18-LO01",
+        "message": "LO topic is placeholder/non-substantive",
+        "field": "topic",
+        "expected": null,
+        "actual": "[CLEAN_EVIDENCE_PLACEHOLDER]"
+      }
+    ],
+    "resolved_relationships": [
+      {
+        "lo_code": "C4U18-LO01",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "topic_raw": "[CLEAN_EVIDENCE_PLACEHOLDER]",
+        "topic_resolved": "[CLEAN_EVIDENCE_PLACEHOLDER]",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO02",
+        "entity_id": "8e91780d-814a-4829-ba39-289274e7af19",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO03",
+        "entity_id": "ad257603-967d-4ec3-bc33-666776b57790",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO04",
+        "entity_id": "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      }
+    ],
+    "confidence_source": "authoritative"
+  },
+  "metadata_blocked": true,
+  "metadata_policy": "metadata_suppression",
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "insufficient_evidence",
+  "unsupported_claims": [
+    "C4U18-LO01 \u2014 Order operations using BODMAS."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+      "verdict": "unsupported",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer cites C4U18-LO01, but the evidence provided contains no such learning outcome. The evidence includes C4U18-LO02, LO03, and LO04, all related to money, but not LO01.",
+      "The claim 'Order operations using BODMAS' is not supported by any of the provided evidence records. The evidence focuses on word problems, estimation, and inverse operations, not BODMAS.",
+      "The answer fails to mention the actual learning objectives for money in Primary 4 that are present in the evidence (C4U18-LO02, LO03, LO04)."
+    ],
+    "unsupported_claims": [
+      "C4U18-LO01 \u2014 Order operations using BODMAS."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "C4U18-LO01",
+        "detail": "The answer references C4U18-LO01, but no such learning outcome exists in the provided evidence. The evidence contains C4U18-LO02, LO03, and LO04."
+      }
+    ],
+    "incorrect_claims": [
+      "C4U18-LO01 \u2014 Order operations using BODMAS."
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+        "verdict": "unsupported",
+        "evidence_ids": [],
+        "notes": "No evidence supports the existence of C4U18-LO01 or the BODMAS claim. The provided evidence lists C4U18-LO02, LO03, and LO04, none of which mention BODMAS."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is entirely unsupported by the provided curriculum evidence. It references a non-existent learning outcome and fails to include the actual money-related objectives. A fallback response is recommended, possibly providing the correct learning outcomes from the evidence (C4U18-LO02, LO03, LO04) or indicating that the answer is incorrect.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 3841.45,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "c_metadata_suppress_adv_placeholder_topic_08",
+  "run_index": 8
+}

@@ -1,0 +1,192 @@
+{
+  "experiment": "v2.11_metadata_integrity",
+  "pipeline_variant": "C_METADATA_SUPPRESS",
+  "fixture_class": "ADV_WRONG_GRADE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+  "answer_hash": "967368050c22265f",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "be3e342763f1faac",
+  "normalized_evidence_hash": "be3e342763f1faac",
+  "post_metadata_evidence_hash": "ef7aefc63b8d41ae",
+  "evidence_source": "c4u18",
+  "normalization_diagnostics": {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "records_in": 5,
+    "records_out": 5,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 5,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "be3e342763f1faac",
+    "evidence_hash_out": "be3e342763f1faac"
+  },
+  "metadata_integrity": {
+    "valid": false,
+    "affected_evidence_ids": [
+      "5a3e84bc-fce5-43a3-a369-3d8088786185"
+    ],
+    "violations": [
+      {
+        "violation_type": "grade_mismatch",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "lo_code": "C4U18-LO01",
+        "message": "LO grade does not match authoritative unit grade",
+        "field": "grade",
+        "expected": "CLASS_4",
+        "actual": "CLASS_5"
+      }
+    ],
+    "resolved_relationships": [
+      {
+        "lo_code": "C4U18-LO01",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_5"
+      },
+      {
+        "lo_code": "C4U18-LO02",
+        "entity_id": "8e91780d-814a-4829-ba39-289274e7af19",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO03",
+        "entity_id": "ad257603-967d-4ec3-bc33-666776b57790",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO04",
+        "entity_id": "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      }
+    ],
+    "confidence_source": "authoritative"
+  },
+  "metadata_blocked": true,
+  "metadata_policy": "metadata_suppression",
+  "verifier_score": 0.75,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "insufficient_evidence",
+  "unsupported_claims": [
+    "C4U18-LO01 \u2014 Order operations using BODMAS."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+      "verdict": "unsupported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.75,
+    "issues": [
+      "Claim C4U18-LO01 (Order operations using BODMAS) is not supported by the provided evidence; no learning outcome with that code or content was retrieved.",
+      "The generated answer omits the unit context (C4-U18) and lists objectives without confirming they are all the learning objectives for the unit; evidence only shows three of the four listed objectives."
+    ],
+    "unsupported_claims": [
+      "C4U18-LO01 \u2014 Order operations using BODMAS."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "C4U18-LO01 BODMAS",
+        "detail": "No evidence found for learning outcome C4U18-LO01 or any objective about BODMAS in the money unit."
+      }
+    ],
+    "incorrect_claims": [],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+        "verdict": "unsupported",
+        "evidence_ids": [],
+        "notes": "No evidence provided for this learning outcome."
+      },
+      {
+        "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19"
+        ],
+        "notes": "Exact match with evidence record 1."
+      },
+      {
+        "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "ad257603-967d-4ec3-bc33-666776b57790"
+        ],
+        "notes": "Exact match with evidence record 2."
+      },
+      {
+        "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "notes": "Exact match with evidence record 3."
+      }
+    ],
+    "clarification": null,
+    "notes": "The answer correctly identifies three of the four learning objectives for the money unit, but includes an unsupported objective (C4U18-LO01) that is not present in the evidence. Since the question asks for 'the learning objectives' (plural), the answer may be incomplete if there are additional objectives not retrieved. Recommend retrieving more evidence to confirm the full set of objectives for C4-U18.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 4707.42,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "c_metadata_suppress_adv_wrong_grade_07",
+  "run_index": 7
+}

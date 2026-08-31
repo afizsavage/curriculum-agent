@@ -1,0 +1,222 @@
+{
+  "experiment": "v2.11_metadata_integrity",
+  "pipeline_variant": "B_METADATA_VALIDATE",
+  "fixture_class": "CLEAN_PLACEHOLDER",
+  "primary_unit": "C4-U04/U05/U06",
+  "question": "What are the learning objectives for fractions in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Fractions Learning Objectives\n\n- **C4U04-LO04** \u2014 C4U04-LO04 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]\n- **C4U06-LO02** \u2014 C4U06-LO02 \u2014 [CLEAN_EVIDENCE_PLACEHOLDER]\n",
+  "answer_hash": "fbbc9d0f6e82e823",
+  "evidence_hash": "977b259fcfb4b282",
+  "raw_evidence_hash": "36ecb4b660725c25",
+  "normalized_evidence_hash": "36ecb4b660725c25",
+  "post_metadata_evidence_hash": "36ecb4b660725c25",
+  "evidence_source": "fractions",
+  "normalization_diagnostics": {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "records_in": 13,
+    "records_out": 13,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 11,
+      "NON_SUBSTANTIVE": 2,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "36ecb4b660725c25",
+    "evidence_hash_out": "36ecb4b660725c25"
+  },
+  "metadata_integrity": {
+    "valid": true,
+    "affected_evidence_ids": [],
+    "violations": [],
+    "resolved_relationships": [
+      {
+        "lo_code": "C4U04-LO01",
+        "entity_id": "4cb80e72-796a-4513-ac92-68e14fcb630f",
+        "topic_raw": "Number and Numeration FRACTION",
+        "topic_resolved": "Number and Numeration FRACTION",
+        "parent_code": "C4-U04",
+        "parent_name": "Number and Numeration FRACTION",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U04-LO02",
+        "entity_id": "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f",
+        "topic_raw": "Number and Numeration FRACTION",
+        "topic_resolved": "Number and Numeration FRACTION",
+        "parent_code": "C4-U04",
+        "parent_name": "Number and Numeration FRACTION",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U04-LO03",
+        "entity_id": "6926032f-39b7-4ad6-8278-085bae23318b",
+        "topic_raw": "Number and Numeration FRACTION",
+        "topic_resolved": "Number and Numeration FRACTION",
+        "parent_code": "C4-U04",
+        "parent_name": "Number and Numeration FRACTION",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U04-LO04",
+        "entity_id": "686a96c2-6b45-49d2-aeab-2fa1f7b15704",
+        "topic_raw": "Number and Numeration FRACTION",
+        "topic_resolved": "Number and Numeration FRACTION",
+        "parent_code": "C4-U04",
+        "parent_name": "Number and Numeration FRACTION",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U05-LO01",
+        "entity_id": "c9fa3ea4-72dd-442f-bc27-5e7992b72f72",
+        "topic_raw": "Number and Numeration OPERATION ON FRACTIONS.",
+        "topic_resolved": "Number and Numeration OPERATION ON FRACTIONS.",
+        "parent_code": "C4-U05",
+        "parent_name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U05-LO02",
+        "entity_id": "0cc3886d-2320-4795-8c91-e407e3372b5c",
+        "topic_raw": "Number and Numeration OPERATION ON FRACTIONS.",
+        "topic_resolved": "Number and Numeration OPERATION ON FRACTIONS.",
+        "parent_code": "C4-U05",
+        "parent_name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U05-LO03",
+        "entity_id": "714546a5-7e71-4888-80cb-cd73ec617d8e",
+        "topic_raw": "Number and Numeration OPERATION ON FRACTIONS.",
+        "topic_resolved": "Number and Numeration OPERATION ON FRACTIONS.",
+        "parent_code": "C4-U05",
+        "parent_name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U05-LO04",
+        "entity_id": "5af8401e-1c30-4890-b76b-d507a0f0c8a2",
+        "topic_raw": "Number and Numeration OPERATION ON FRACTIONS.",
+        "topic_resolved": "Number and Numeration OPERATION ON FRACTIONS.",
+        "parent_code": "C4-U05",
+        "parent_name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U06-LO01",
+        "entity_id": "ee43f087-3372-411e-9495-21859368099e",
+        "topic_raw": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "topic_resolved": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "parent_code": "C4-U06",
+        "parent_name": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U06-LO02",
+        "entity_id": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+        "topic_raw": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "topic_resolved": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "parent_code": "C4-U06",
+        "parent_name": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      }
+    ],
+    "confidence_source": "authoritative"
+  },
+  "metadata_blocked": false,
+  "metadata_policy": "metadata_integrity_failure",
+  "verifier_score": 0.1,
+  "verifier_accepted": false,
+  "verifier_decision": "fallback",
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "reject",
+  "unsupported_claims": [
+    "C4U04-LO04 is presented as a learning objective for fractions, but the evidence shows its content is a placeholder, not a real objective.",
+    "C4U06-LO02 is presented as a learning objective for fractions, but the evidence shows its content is a placeholder, not a real objective."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U04-LO04 is a learning objective for fractions in Primary 4.",
+      "verdict": "unsupported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U06-LO02 is a learning objective for fractions in Primary 4.",
+      "verdict": "unsupported",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.1,
+    "issues": [
+      "The generated answer contains placeholder text '[CLEAN_EVIDENCE_PLACEHOLDER]' instead of actual learning objective content.",
+      "The answer references C4U04-LO04 and C4U06-LO02, but the evidence shows these records contain placeholder content, not real curriculum objectives.",
+      "The answer omits the actual learning objectives for fractions that are present in the evidence (e.g., C4U04-LO01, C4U04-LO02, C4U04-LO03, C4U05-LO01 through C4U05-LO04, C4U06-LO01).",
+      "The answer provides no actual learning objective content, making it uninformative and unusable."
+    ],
+    "unsupported_claims": [
+      "C4U04-LO04 is presented as a learning objective for fractions, but the evidence shows its content is a placeholder, not a real objective.",
+      "C4U06-LO02 is presented as a learning objective for fractions, but the evidence shows its content is a placeholder, not a real objective."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_outcome",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "fractions",
+        "query": "Primary 4 fractions learning objectives",
+        "detail": "The answer fails to include the actual fraction learning objectives found in evidence: C4U04-LO01 (Simplify like fraction with common denominators), C4U04-LO02 (Compare and order like fraction), C4U04-LO03 (Identify Equivalent fractions), C4U05-LO01 (Add Equivalent fractions), C4U05-LO02 (Subtract Equivalent fractions), C4U05-LO03 (Solve both Addition and Subtraction of Equivalent fractions), C4U05-LO04 (Solve word problems involving Addition and Subtraction of Equivalent fractions), and C4U06-LO01 (Multiply equivalent fractions)."
+      }
+    ],
+    "incorrect_claims": [
+      "The answer claims C4U04-LO04 and C4U06-LO02 are learning objectives for fractions, but these records contain placeholder text and no actual curriculum content."
+    ],
+    "recommendation": "fallback",
+    "claims": [
+      {
+        "claim": "C4U04-LO04 is a learning objective for fractions in Primary 4.",
+        "verdict": "unsupported",
+        "evidence_ids": [
+          "686a96c2-6b45-49d2-aeab-2fa1f7b15704"
+        ],
+        "notes": "The evidence record for C4U04-LO04 contains placeholder text '[CLEAN_EVIDENCE_PLACEHOLDER]' and no actual learning objective content."
+      },
+      {
+        "claim": "C4U06-LO02 is a learning objective for fractions in Primary 4.",
+        "verdict": "unsupported",
+        "evidence_ids": [
+          "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+        ],
+        "notes": "The evidence record for C4U06-LO02 contains placeholder text '[CLEAN_EVIDENCE_PLACEHOLDER]' and no actual learning objective content."
+      }
+    ],
+    "clarification": null,
+    "notes": "The generated answer is fundamentally flawed. It references two learning outcome codes (C4U04-LO04 and C4U06-LO02) that in the evidence contain only placeholder text, not actual curriculum content. The answer completely fails to list the real, substantive fraction learning objectives that are present in the evidence, such as identifying equivalent fractions (C4U04-LO03), adding/subtracting equivalent fractions (C4U05-LO01/02), and multiplying equivalent fractions (C4U06-LO01). The answer should be rejected and a fallback response should be generated that accurately lists the actual fraction learning objectives from the evidence.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 5184.33,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "b_metadata_validate_clean_placeholder_07",
+  "run_index": 7
+}

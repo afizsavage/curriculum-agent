@@ -1,0 +1,215 @@
+{
+  "experiment": "v2.11_metadata_integrity",
+  "pipeline_variant": "C_METADATA_SUPPRESS",
+  "fixture_class": "ADV_TOPIC_UUID_COLLISION",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+  "answer_hash": "967368050c22265f",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "7157a18cfa541a77",
+  "normalized_evidence_hash": "7157a18cfa541a77",
+  "post_metadata_evidence_hash": "d04b012a499e2813",
+  "evidence_source": "c4u18",
+  "normalization_diagnostics": {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "records_in": 6,
+    "records_out": 6,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 6,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "7157a18cfa541a77",
+    "evidence_hash_out": "7157a18cfa541a77"
+  },
+  "metadata_integrity": {
+    "valid": false,
+    "affected_evidence_ids": [
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+      "8e91780d-814a-4829-ba39-289274e7af19",
+      "ad257603-967d-4ec3-bc33-666776b57790",
+      "collision-lo-b"
+    ],
+    "violations": [
+      {
+        "violation_type": "topic_uuid_collision",
+        "entity_id": "Everyday Arithmetic Money",
+        "lo_code": null,
+        "message": "Topic UUID referenced with incompatible parent metadata claims",
+        "field": "topic",
+        "expected": "consistent parent metadata",
+        "actual": "names=['Colliding Unit Label', 'Everyday Arithmetic Money'], codes=['C4-U18', 'C4-U99']"
+      },
+      {
+        "violation_type": "parent_child_mismatch",
+        "entity_id": "collision-lo-b",
+        "lo_code": "C4U18-LO01",
+        "message": "LO parent metadata does not match resolved authoritative unit",
+        "field": "parent_content_name",
+        "expected": "Everyday Arithmetic Money",
+        "actual": "Colliding Unit Label"
+      }
+    ],
+    "resolved_relationships": [
+      {
+        "lo_code": "C4U18-LO01",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO01",
+        "entity_id": "collision-lo-b",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U99",
+        "parent_name": "Colliding Unit Label",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO02",
+        "entity_id": "8e91780d-814a-4829-ba39-289274e7af19",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO03",
+        "entity_id": "ad257603-967d-4ec3-bc33-666776b57790",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO04",
+        "entity_id": "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      }
+    ],
+    "confidence_source": "authoritative"
+  },
+  "metadata_blocked": true,
+  "metadata_policy": "metadata_suppression",
+  "verifier_score": 0.0,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "mapped_recommendation": "reject",
+  "mapped_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "insufficient_evidence",
+  "unsupported_claims": [
+    "C4U18-LO01 \u2014 Order operations using BODMAS.",
+    "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+    "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+    "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness."
+  ],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+      "verdict": "unsupported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+      "verdict": "unsupported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+      "verdict": "unsupported",
+      "classification": "UNSUPPORTED"
+    },
+    {
+      "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+      "verdict": "unsupported",
+      "classification": "UNSUPPORTED"
+    }
+  ],
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.0,
+    "issues": [
+      "The generated answer lists specific learning objective codes (C4U18-LO01 through LO04) and their descriptions, but the provided curriculum evidence only contains the unit entity 'Everyday Arithmetic Money' (C4-U18) with no learning objective details. Therefore, none of the claims can be verified against the evidence.",
+      "The answer's learning objectives appear to be about BODMAS, word problems, estimation, and inverse operations, but without evidence of these being the actual objectives for the money unit, they may be hallucinated or from a different unit."
+    ],
+    "unsupported_claims": [
+      "C4U18-LO01 \u2014 Order operations using BODMAS.",
+      "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+      "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+      "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness."
+    ],
+    "missing_evidence": [
+      {
+        "type": "learning_objectives",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "query": "Primary 4 Mathematics money learning objectives",
+        "detail": "The evidence only includes the unit entity (C4-U18) without any learning objective details. Need to retrieve the specific learning objectives for this unit to verify the answer."
+      }
+    ],
+    "incorrect_claims": [],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+        "verdict": "unsupported",
+        "evidence_ids": [],
+        "notes": "No evidence provided for this learning objective."
+      },
+      {
+        "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+        "verdict": "unsupported",
+        "evidence_ids": [],
+        "notes": "No evidence provided for this learning objective."
+      },
+      {
+        "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+        "verdict": "unsupported",
+        "evidence_ids": [],
+        "notes": "No evidence provided for this learning objective."
+      },
+      {
+        "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+        "verdict": "unsupported",
+        "evidence_ids": [],
+        "notes": "No evidence provided for this learning objective."
+      }
+    ],
+    "clarification": null,
+    "notes": "The evidence is incomplete for verifying the specific learning objectives. The unit name and code match the intent, but the actual learning objectives are missing. Recommend retrieving more detailed evidence for this unit before accepting the answer.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 4883.35,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "c_metadata_suppress_adv_topic_uuid_collision_02",
+  "run_index": 2
+}

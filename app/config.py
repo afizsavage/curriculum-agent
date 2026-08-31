@@ -54,6 +54,9 @@ class Settings(BaseSettings):
     # V2.10 experiment: integrated normalization + recommendation mapping (replay harness).
     v210_integrated_experiment: bool = False
 
+    # V2.11 experiment: metadata-integrity pre-verifier guard (replay harness).
+    v211_metadata_integrity_experiment: bool = False
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite

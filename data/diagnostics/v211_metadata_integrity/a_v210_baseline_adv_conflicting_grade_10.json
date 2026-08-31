@@ -1,0 +1,201 @@
+{
+  "experiment": "v2.11_metadata_integrity",
+  "pipeline_variant": "A_V210_BASELINE",
+  "fixture_class": "ADV_CONFLICTING_GRADE",
+  "primary_unit": "C4-U18",
+  "question": "What are the learning objectives for money in Primary 4?",
+  "answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+  "answer_hash": "967368050c22265f",
+  "evidence_hash": "be3e342763f1faac",
+  "raw_evidence_hash": "c820d7e477ac7deb",
+  "normalized_evidence_hash": "c820d7e477ac7deb",
+  "post_metadata_evidence_hash": "c820d7e477ac7deb",
+  "evidence_source": "c4u18",
+  "normalization_diagnostics": {
+    "variant": "STRUCTURAL_NORMALIZATION",
+    "operations": [
+      "deep_copy",
+      "whitespace_normalize",
+      "resolve_topic_to_unit_name",
+      "dedupe_by_entity_id",
+      "deterministic_sort"
+    ],
+    "records_in": 6,
+    "records_out": 6,
+    "placeholder_filtered": 0,
+    "substance_counts": {
+      "SUBSTANTIVE": 6,
+      "NON_SUBSTANTIVE": 0,
+      "MISSING": 0
+    },
+    "evidence_hash_in": "c820d7e477ac7deb",
+    "evidence_hash_out": "c820d7e477ac7deb"
+  },
+  "metadata_integrity": {
+    "valid": false,
+    "affected_evidence_ids": [
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "conflict-grade-lo"
+    ],
+    "violations": [
+      {
+        "violation_type": "conflicting_grade",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "lo_code": "C4U18-LO01",
+        "message": "Same LO code associated with conflicting grades",
+        "field": "grade",
+        "expected": null,
+        "actual": "CLASS_4, CLASS_5"
+      },
+      {
+        "violation_type": "grade_topic_mismatch",
+        "entity_id": "conflict-grade-lo",
+        "lo_code": "C4U18-LO01",
+        "message": "LO grade does not match authoritative unit grade",
+        "field": "grade",
+        "expected": "CLASS_4",
+        "actual": "CLASS_5"
+      }
+    ],
+    "resolved_relationships": [
+      {
+        "lo_code": "C4U18-LO01",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO01",
+        "entity_id": "conflict-grade-lo",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_5"
+      },
+      {
+        "lo_code": "C4U18-LO02",
+        "entity_id": "8e91780d-814a-4829-ba39-289274e7af19",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO03",
+        "entity_id": "ad257603-967d-4ec3-bc33-666776b57790",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      },
+      {
+        "lo_code": "C4U18-LO04",
+        "entity_id": "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+        "topic_raw": "Everyday Arithmetic Money",
+        "topic_resolved": "Everyday Arithmetic Money",
+        "parent_code": "C4-U18",
+        "parent_name": "Everyday Arithmetic Money",
+        "subject": "MATHEMATICS",
+        "grade": "CLASS_4"
+      }
+    ],
+    "confidence_source": "authoritative"
+  },
+  "metadata_blocked": false,
+  "metadata_policy": "baseline_no_guard",
+  "verifier_score": 0.8,
+  "verifier_accepted": false,
+  "verifier_decision": "retrieve_more",
+  "mapped_recommendation": "retrieve_more",
+  "mapped_accepted": false,
+  "final_accepted": false,
+  "final_recommendation": "retrieve_more",
+  "unsupported_claims": [],
+  "claim_classifications": [
+    {
+      "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    },
+    {
+      "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+      "verdict": "supported",
+      "classification": "MISSING_EVIDENCE"
+    }
+  ],
+  "verifier_result_snapshot": {
+    "passed": false,
+    "score": 0.8,
+    "issues": [
+      "Evidence contains a conflicting record (Record 2) that places C4U18-LO01 in Primary 5, creating ambiguity about the correct grade for this learning outcome.",
+      "The generated answer omits the unit code (C4-U18) and full unit name, but this is a minor formatting issue."
+    ],
+    "unsupported_claims": [],
+    "missing_evidence": [],
+    "incorrect_claims": [],
+    "recommendation": "retrieve_more",
+    "claims": [
+      {
+        "claim": "C4U18-LO01 \u2014 Order operations using BODMAS.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5a3e84bc-fce5-43a3-a369-3d8088786185"
+        ],
+        "notes": "Record 1 confirms this learning outcome for Primary 4 Mathematics, Everyday Arithmetic Money. However, Record 2 shows the same code in Primary 5, creating a conflict. The Primary 4 record is present, so the claim is supported for Primary 4."
+      },
+      {
+        "claim": "C4U18-LO02 \u2014 Solve word problems involving the 4 operations and money.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "8e91780d-814a-4829-ba39-289274e7af19"
+        ],
+        "notes": "Record 3 confirms this learning outcome for Primary 4 Mathematics, Everyday Arithmetic Money."
+      },
+      {
+        "claim": "C4U18-LO03 \u2014 Estimate strategies to check answers for reasonableness",
+        "verdict": "supported",
+        "evidence_ids": [
+          "ad257603-967d-4ec3-bc33-666776b57790"
+        ],
+        "notes": "Record 4 confirms this learning outcome for Primary 4 Mathematics, Everyday Arithmetic Money."
+      },
+      {
+        "claim": "C4U18-LO04 \u2014 Inverse operations to check answers for reasonableness.",
+        "verdict": "supported",
+        "evidence_ids": [
+          "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+        ],
+        "notes": "Record 5 confirms this learning outcome for Primary 4 Mathematics, Everyday Arithmetic Money."
+      }
+    ],
+    "clarification": "The evidence contains a conflicting record for C4U18-LO01 that also places it in Primary 5. The generated answer correctly lists it for Primary 4 based on the primary record, but users should be aware of this ambiguity.",
+    "notes": "All four learning objectives listed in the generated answer are directly supported by the curriculum evidence for Primary 4 Mathematics, Everyday Arithmetic Money. The only concern is the conflicting grade placement for LO01, but since the Primary 4 record exists, the answer is acceptable.",
+    "metadata": {
+      "source": "llm",
+      "verification_latency_ms": 5071.04,
+      "verifier_model": "deepseek-v4-flash"
+    }
+  },
+  "tag": "a_v210_baseline_adv_conflicting_grade_10",
+  "run_index": 10
+}
