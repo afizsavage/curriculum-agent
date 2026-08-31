@@ -57,6 +57,9 @@ class Settings(BaseSettings):
     # V2.11 experiment: metadata-integrity pre-verifier guard (replay harness).
     v211_metadata_integrity_experiment: bool = False
 
+    # V2.12A experiment: LangChain vs LangGraph behavioral equivalence (replay harness).
+    v212_langchain_experiment: bool = False
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite

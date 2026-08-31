@@ -1,0 +1,205 @@
+{
+  "experiment": "v2.12a_langchain_equivalence",
+  "fixture_class": "ADV_CONFLICTING_GRADE",
+  "run_index": 5,
+  "threshold": 0.85,
+  "langgraph": {
+    "experiment": "v2.12a_langchain_equivalence",
+    "implementation": "langgraph",
+    "fixture_class": "ADV_CONFLICTING_GRADE",
+    "run_index": 5,
+    "threshold": 0.85,
+    "question": "What are the learning objectives for money in Primary 4?",
+    "retrieved_evidence_ids": [
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "8e91780d-814a-4829-ba39-289274e7af19",
+      "ad257603-967d-4ec3-bc33-666776b57790",
+      "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+      "conflict-grade-lo"
+    ],
+    "raw_evidence_hash": "c820d7e477ac7deb",
+    "normalized_evidence_hash": "c820d7e477ac7deb",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 6,
+      "records_out": 6,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 6,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "c820d7e477ac7deb",
+      "evidence_hash_out": "c820d7e477ac7deb"
+    },
+    "metadata_integrity_valid": false,
+    "metadata_violations": [
+      {
+        "violation_type": "conflicting_grade",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "lo_code": "C4U18-LO01",
+        "message": "Same LO code associated with conflicting grades",
+        "field": "grade",
+        "expected": null,
+        "actual": "CLASS_4, CLASS_5"
+      },
+      {
+        "violation_type": "grade_topic_mismatch",
+        "entity_id": "conflict-grade-lo",
+        "lo_code": "C4U18-LO01",
+        "message": "LO grade does not match authoritative unit grade",
+        "field": "grade",
+        "expected": "CLASS_4",
+        "actual": "CLASS_5"
+      }
+    ],
+    "metadata_blocked": true,
+    "generated_answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+    "verifier_score": 0.75,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "fallback",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langgraph_orchestration",
+      "retrieve",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 4991.23,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 2.277,
+      "metadata_validation_ms": 0.889,
+      "generation_ms": 0.046,
+      "verification_ms": 4987.907,
+      "mapping_ms": 0.102,
+      "routing_ms": 0.006
+    },
+    "c4u18_regression": null
+  },
+  "langchain": {
+    "experiment": "v2.12a_langchain_equivalence",
+    "implementation": "langchain",
+    "fixture_class": "ADV_CONFLICTING_GRADE",
+    "run_index": 5,
+    "threshold": 0.85,
+    "question": "What are the learning objectives for money in Primary 4?",
+    "retrieved_evidence_ids": [
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "8e91780d-814a-4829-ba39-289274e7af19",
+      "ad257603-967d-4ec3-bc33-666776b57790",
+      "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+      "conflict-grade-lo"
+    ],
+    "raw_evidence_hash": "c820d7e477ac7deb",
+    "normalized_evidence_hash": "c820d7e477ac7deb",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 6,
+      "records_out": 6,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 6,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "c820d7e477ac7deb",
+      "evidence_hash_out": "c820d7e477ac7deb"
+    },
+    "metadata_integrity_valid": false,
+    "metadata_violations": [
+      {
+        "violation_type": "conflicting_grade",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "lo_code": "C4U18-LO01",
+        "message": "Same LO code associated with conflicting grades",
+        "field": "grade",
+        "expected": null,
+        "actual": "CLASS_4, CLASS_5"
+      },
+      {
+        "violation_type": "grade_topic_mismatch",
+        "entity_id": "conflict-grade-lo",
+        "lo_code": "C4U18-LO01",
+        "message": "LO grade does not match authoritative unit grade",
+        "field": "grade",
+        "expected": "CLASS_4",
+        "actual": "CLASS_5"
+      }
+    ],
+    "metadata_blocked": true,
+    "generated_answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+    "verifier_score": 0.75,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "fallback",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langchain_orchestration",
+      "retrieve",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 4970.071,
+      "retrieval_ms": 0.003,
+      "normalization_ms": 2.082,
+      "metadata_validation_ms": 0.964,
+      "generation_ms": 0.043,
+      "verification_ms": 4966.842,
+      "mapping_ms": 0.132,
+      "routing_ms": 0.005
+    },
+    "c4u18_regression": null
+  },
+  "comparison": {
+    "fixture_class": "ADV_CONFLICTING_GRADE",
+    "run_index": 5,
+    "classification": "EXACT_EQUIVALENCE",
+    "control_implementation": "langgraph",
+    "experiment_implementation": "langchain",
+    "control_accepted": false,
+    "experiment_accepted": false,
+    "divergences": [],
+    "notes": ""
+  }
+}

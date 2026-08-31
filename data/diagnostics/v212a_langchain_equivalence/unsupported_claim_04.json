@@ -1,0 +1,165 @@
+{
+  "experiment": "v2.12a_langchain_equivalence",
+  "fixture_class": "UNSUPPORTED_CLAIM",
+  "run_index": 4,
+  "threshold": 0.85,
+  "langgraph": {
+    "experiment": "v2.12a_langchain_equivalence",
+    "implementation": "langgraph",
+    "fixture_class": "UNSUPPORTED_CLAIM",
+    "run_index": 4,
+    "threshold": 0.85,
+    "question": "What are the learning objectives for money in Primary 4?",
+    "retrieved_evidence_ids": [
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "8e91780d-814a-4829-ba39-289274e7af19",
+      "ad257603-967d-4ec3-bc33-666776b57790",
+      "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+    ],
+    "raw_evidence_hash": "be3e342763f1faac",
+    "normalized_evidence_hash": "be3e342763f1faac",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 5,
+      "records_out": 5,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 5,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "be3e342763f1faac",
+      "evidence_hash_out": "be3e342763f1faac"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO99** \u2014 Convert foreign currency using blockchain wallets.\n",
+    "verifier_score": 0.0,
+    "verifier_decision": "fallback",
+    "verifier_recommendation": "fallback",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "fallback",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langgraph_orchestration",
+      "retrieve",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 5042.476,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 1.714,
+      "metadata_validation_ms": 0.869,
+      "generation_ms": 0.045,
+      "verification_ms": 5039.525,
+      "mapping_ms": 0.121,
+      "routing_ms": 0.198
+    },
+    "c4u18_regression": null
+  },
+  "langchain": {
+    "experiment": "v2.12a_langchain_equivalence",
+    "implementation": "langchain",
+    "fixture_class": "UNSUPPORTED_CLAIM",
+    "run_index": 4,
+    "threshold": 0.85,
+    "question": "What are the learning objectives for money in Primary 4?",
+    "retrieved_evidence_ids": [
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "8e91780d-814a-4829-ba39-289274e7af19",
+      "ad257603-967d-4ec3-bc33-666776b57790",
+      "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+    ],
+    "raw_evidence_hash": "be3e342763f1faac",
+    "normalized_evidence_hash": "be3e342763f1faac",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 5,
+      "records_out": 5,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 5,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "be3e342763f1faac",
+      "evidence_hash_out": "be3e342763f1faac"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO99** \u2014 Convert foreign currency using blockchain wallets.\n",
+    "verifier_score": 0.0,
+    "verifier_decision": "fallback",
+    "verifier_recommendation": "fallback",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "fallback",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langchain_orchestration",
+      "retrieve",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 3956.057,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 1.772,
+      "metadata_validation_ms": 0.914,
+      "generation_ms": 0.049,
+      "verification_ms": 3952.971,
+      "mapping_ms": 0.156,
+      "routing_ms": 0.191
+    },
+    "c4u18_regression": null
+  },
+  "comparison": {
+    "fixture_class": "UNSUPPORTED_CLAIM",
+    "run_index": 4,
+    "classification": "EXACT_EQUIVALENCE",
+    "control_implementation": "langgraph",
+    "experiment_implementation": "langchain",
+    "control_accepted": false,
+    "experiment_accepted": false,
+    "divergences": [],
+    "notes": ""
+  }
+}

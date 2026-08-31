@@ -1,0 +1,163 @@
+{
+  "experiment": "v2.12a_langchain_equivalence",
+  "fixture_class": "ADV_MISSING_AFTER_NORM",
+  "run_index": 9,
+  "threshold": 0.85,
+  "langgraph": {
+    "experiment": "v2.12a_langchain_equivalence",
+    "implementation": "langgraph",
+    "fixture_class": "ADV_MISSING_AFTER_NORM",
+    "run_index": 9,
+    "threshold": 0.85,
+    "question": "What are the learning objectives for money in Primary 4?",
+    "retrieved_evidence_ids": [
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "8e91780d-814a-4829-ba39-289274e7af19",
+      "ad257603-967d-4ec3-bc33-666776b57790"
+    ],
+    "raw_evidence_hash": "f04c3a982e51bab8",
+    "normalized_evidence_hash": "f04c3a982e51bab8",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 4,
+      "records_out": 4,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 4,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "f04c3a982e51bab8",
+      "evidence_hash_out": "f04c3a982e51bab8"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO04** \u2014 Use inverse operations to verify money word-problem solutions.\n",
+    "verifier_score": 0.0,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "retrieve_more",
+    "final_accepted": false,
+    "final_route": "retrieve_more",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langgraph_orchestration",
+      "retrieve",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 5281.694,
+      "retrieval_ms": 0.003,
+      "normalization_ms": 1.383,
+      "metadata_validation_ms": 0.802,
+      "generation_ms": 0.049,
+      "verification_ms": 5278.255,
+      "mapping_ms": 0.121,
+      "routing_ms": 1.08
+    },
+    "c4u18_regression": null
+  },
+  "langchain": {
+    "experiment": "v2.12a_langchain_equivalence",
+    "implementation": "langchain",
+    "fixture_class": "ADV_MISSING_AFTER_NORM",
+    "run_index": 9,
+    "threshold": 0.85,
+    "question": "What are the learning objectives for money in Primary 4?",
+    "retrieved_evidence_ids": [
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "8e91780d-814a-4829-ba39-289274e7af19",
+      "ad257603-967d-4ec3-bc33-666776b57790"
+    ],
+    "raw_evidence_hash": "f04c3a982e51bab8",
+    "normalized_evidence_hash": "f04c3a982e51bab8",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 4,
+      "records_out": 4,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 4,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "f04c3a982e51bab8",
+      "evidence_hash_out": "f04c3a982e51bab8"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "## Primary 4 Mathematics \u2014 Money\n\n- **C4U18-LO04** \u2014 Use inverse operations to verify money word-problem solutions.\n",
+    "verifier_score": 0.0,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "retrieve_more",
+    "final_accepted": false,
+    "final_route": "retrieve_more",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langchain_orchestration",
+      "retrieve",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 4450.289,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 1.457,
+      "metadata_validation_ms": 0.732,
+      "generation_ms": 0.041,
+      "verification_ms": 4446.216,
+      "mapping_ms": 0.117,
+      "routing_ms": 1.722
+    },
+    "c4u18_regression": null
+  },
+  "comparison": {
+    "fixture_class": "ADV_MISSING_AFTER_NORM",
+    "run_index": 9,
+    "classification": "EXACT_EQUIVALENCE",
+    "control_implementation": "langgraph",
+    "experiment_implementation": "langchain",
+    "control_accepted": false,
+    "experiment_accepted": false,
+    "divergences": [],
+    "notes": ""
+  }
+}

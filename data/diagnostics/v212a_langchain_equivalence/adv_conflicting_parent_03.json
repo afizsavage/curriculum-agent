@@ -1,0 +1,205 @@
+{
+  "experiment": "v2.12a_langchain_equivalence",
+  "fixture_class": "ADV_CONFLICTING_PARENT",
+  "run_index": 3,
+  "threshold": 0.85,
+  "langgraph": {
+    "experiment": "v2.12a_langchain_equivalence",
+    "implementation": "langgraph",
+    "fixture_class": "ADV_CONFLICTING_PARENT",
+    "run_index": 3,
+    "threshold": 0.85,
+    "question": "What are the learning objectives for money in Primary 4?",
+    "retrieved_evidence_ids": [
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "8e91780d-814a-4829-ba39-289274e7af19",
+      "ad257603-967d-4ec3-bc33-666776b57790",
+      "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+      "conflict-unit-b"
+    ],
+    "raw_evidence_hash": "f1b28623c2ecf3c9",
+    "normalized_evidence_hash": "f1b28623c2ecf3c9",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 6,
+      "records_out": 6,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 6,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "f1b28623c2ecf3c9",
+      "evidence_hash_out": "f1b28623c2ecf3c9"
+    },
+    "metadata_integrity_valid": false,
+    "metadata_violations": [
+      {
+        "violation_type": "topic_uuid_collision",
+        "entity_id": "Everyday Arithmetic Money",
+        "lo_code": null,
+        "message": "Topic UUID referenced with incompatible parent metadata claims",
+        "field": "topic",
+        "expected": "consistent parent metadata",
+        "actual": "names=['Conflicting Unit A', 'Everyday Arithmetic Money'], codes=['C4-U18']"
+      },
+      {
+        "violation_type": "conflicting_parent",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "lo_code": "C4U18-LO01",
+        "message": "LO parent metadata does not match resolved authoritative unit",
+        "field": "parent_content_name",
+        "expected": "Everyday Arithmetic Money",
+        "actual": "Conflicting Unit A"
+      }
+    ],
+    "metadata_blocked": true,
+    "generated_answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+    "verifier_score": 0.0,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "fallback",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langgraph_orchestration",
+      "retrieve",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 4910.255,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 2.383,
+      "metadata_validation_ms": 0.649,
+      "generation_ms": 0.043,
+      "verification_ms": 4907.064,
+      "mapping_ms": 0.105,
+      "routing_ms": 0.007
+    },
+    "c4u18_regression": null
+  },
+  "langchain": {
+    "experiment": "v2.12a_langchain_equivalence",
+    "implementation": "langchain",
+    "fixture_class": "ADV_CONFLICTING_PARENT",
+    "run_index": 3,
+    "threshold": 0.85,
+    "question": "What are the learning objectives for money in Primary 4?",
+    "retrieved_evidence_ids": [
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "8e91780d-814a-4829-ba39-289274e7af19",
+      "ad257603-967d-4ec3-bc33-666776b57790",
+      "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+      "conflict-unit-b"
+    ],
+    "raw_evidence_hash": "f1b28623c2ecf3c9",
+    "normalized_evidence_hash": "f1b28623c2ecf3c9",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 6,
+      "records_out": 6,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 6,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "f1b28623c2ecf3c9",
+      "evidence_hash_out": "f1b28623c2ecf3c9"
+    },
+    "metadata_integrity_valid": false,
+    "metadata_violations": [
+      {
+        "violation_type": "topic_uuid_collision",
+        "entity_id": "Everyday Arithmetic Money",
+        "lo_code": null,
+        "message": "Topic UUID referenced with incompatible parent metadata claims",
+        "field": "topic",
+        "expected": "consistent parent metadata",
+        "actual": "names=['Conflicting Unit A', 'Everyday Arithmetic Money'], codes=['C4-U18']"
+      },
+      {
+        "violation_type": "conflicting_parent",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "lo_code": "C4U18-LO01",
+        "message": "LO parent metadata does not match resolved authoritative unit",
+        "field": "parent_content_name",
+        "expected": "Everyday Arithmetic Money",
+        "actual": "Conflicting Unit A"
+      }
+    ],
+    "metadata_blocked": true,
+    "generated_answer": "## Primary 4 Mathematics \u2014 Money Learning Objectives (C4-U18)\n\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n",
+    "verifier_score": 0.0,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "fallback",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langchain_orchestration",
+      "retrieve",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 4944.38,
+      "retrieval_ms": 0.003,
+      "normalization_ms": 1.842,
+      "metadata_validation_ms": 0.588,
+      "generation_ms": 0.037,
+      "verification_ms": 4941.764,
+      "mapping_ms": 0.14,
+      "routing_ms": 0.008
+    },
+    "c4u18_regression": null
+  },
+  "comparison": {
+    "fixture_class": "ADV_CONFLICTING_PARENT",
+    "run_index": 3,
+    "classification": "EXACT_EQUIVALENCE",
+    "control_implementation": "langgraph",
+    "experiment_implementation": "langchain",
+    "control_accepted": false,
+    "experiment_accepted": false,
+    "divergences": [],
+    "notes": ""
+  }
+}
