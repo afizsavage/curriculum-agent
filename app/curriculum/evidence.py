@@ -31,6 +31,20 @@ class CurriculumEvidence(BaseModel):
     source_reference: Optional[str] = None
 
 
+def is_document_passage(evidence: CurriculumEvidence) -> bool:
+    return evidence.entity_type == "document_passage" or bool(
+        evidence.metadata.get("document_passages")
+    )
+
+
+def merge_evidence_bundles(
+    structured: list[CurriculumEvidence],
+    document_passages: list[CurriculumEvidence],
+) -> list[CurriculumEvidence]:
+    """Additive merge for hybrid retrieval experiments (V2.13+)."""
+    return list(structured) + list(document_passages)
+
+
 class ToolCallRecord(BaseModel):
     tool: str
     arguments: dict[str, Any] = Field(default_factory=dict)

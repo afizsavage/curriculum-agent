@@ -1,0 +1,20 @@
+{
+  "document_id": "doc-a065e7c5b774",
+  "source_id": "science-guidance",
+  "source_url": "https://example.invalid/science-primary.pdf",
+  "document_version": "2020",
+  "content_hash": "feef53e14b590cbd983834cd0c144d2060f88ae68f493fe20b536350df3fea13",
+  "content_type": "text/plain",
+  "file_size": 419,
+  "retrieved_at": "2026-09-01T11:15:16.642198+00:00",
+  "status": "parsed",
+  "curriculum_id": null,
+  "page_count": 2,
+  "passage_count": 3,
+  "metadata": {
+    "source_name": "Primary Science Curriculum Guidance",
+    "authority": "MBSSE",
+    "verification_status": "VERIFIED",
+    "document_name": null
+  }
+}

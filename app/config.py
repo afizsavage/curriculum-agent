@@ -65,6 +65,9 @@ class Settings(BaseSettings):
     v212b_shadow_sample_rate: float = Field(default=0.0, ge=0.0, le=1.0)
     v212b_shadow_timeout_seconds: float = Field(default=120.0, gt=0)
 
+    # V2.13A experiment: curriculum document evidence layer (feature-flagged).
+    v213_document_evidence_experiment: bool = False
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite

@@ -231,3 +231,12 @@ class CurriculumAPIClient:
                 if item.get("version") == version:
                     return str(item["id"])
         return str(items[0]["id"])
+
+    def get_curriculum_source(self, source_id: str) -> dict[str, Any]:
+        data = self.get(f"api/v1/curriculum-sources/{source_id}")
+        if not isinstance(data, dict):
+            raise CurriculumUnexpectedResponseError("Expected curriculum source object")
+        return data
+
+    def list_curriculum_sources(self, **params: Any) -> dict[str, Any]:
+        return self.get("api/v1/curriculum-sources", params=params)

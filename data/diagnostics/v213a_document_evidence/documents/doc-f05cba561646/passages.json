@@ -1,0 +1,156 @@
+[
+  {
+    "passage_id": "passage-7021ff490165",
+    "document_id": "doc-f05cba561646",
+    "source_id": "bec-framework-2020",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 1,
+    "section": "Section Mathematics Education",
+    "heading": "Section Mathematics Education",
+    "text": "The purpose of mathematics education in Sierra Leone is to develop numeracy, reasoning, and problem-solving skills that pupils can apply in daily life.",
+    "source_url": "https://example.invalid/bec-framework.pdf",
+    "content_hash": "5360c6e8a4093b3a",
+    "grade": null,
+    "subject": "MATHEMATICS",
+    "unit": null,
+    "topic": null,
+    "association_method": "source_metadata",
+    "metadata": {
+      "block_id": "p1-b2",
+      "document_content_hash": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4"
+    }
+  },
+  {
+    "passage_id": "passage-7811e1b05dc1",
+    "document_id": "doc-f05cba561646",
+    "source_id": "bec-framework-2020",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 1,
+    "section": "Section Mathematics Education",
+    "heading": "Section Mathematics Education",
+    "text": "Mathematics teaching should emphasize conceptual understanding, fluency, and the ability to communicate mathematical ideas clearly.",
+    "source_url": "https://example.invalid/bec-framework.pdf",
+    "content_hash": "eaac153d5c27ffdd",
+    "grade": null,
+    "subject": "MATHEMATICS",
+    "unit": null,
+    "topic": null,
+    "association_method": "source_metadata",
+    "metadata": {
+      "block_id": "p1-b3",
+      "document_content_hash": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4"
+    }
+  },
+  {
+    "passage_id": "passage-586710bdb371",
+    "document_id": "doc-f05cba561646",
+    "source_id": "bec-framework-2020",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 2,
+    "section": "Section Mathematics Education",
+    "heading": "Section Mathematics Education",
+    "text": "Primary Level Mathematics",
+    "source_url": "https://example.invalid/bec-framework.pdf",
+    "content_hash": "994814655bdb7c37",
+    "grade": null,
+    "subject": "MATHEMATICS",
+    "unit": null,
+    "topic": null,
+    "association_method": "source_metadata",
+    "metadata": {
+      "block_id": "p2-b0",
+      "document_content_hash": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4"
+    }
+  },
+  {
+    "passage_id": "passage-74aa64a07f54",
+    "document_id": "doc-f05cba561646",
+    "source_id": "bec-framework-2020",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 2,
+    "section": "Section Mathematics Education",
+    "heading": "Section Mathematics Education",
+    "text": "At the primary level, mathematics should connect classroom learning to everyday contexts such as money, measurement, and data.",
+    "source_url": "https://example.invalid/bec-framework.pdf",
+    "content_hash": "655f2d1461a2d97e",
+    "grade": null,
+    "subject": "MATHEMATICS",
+    "unit": null,
+    "topic": null,
+    "association_method": "source_metadata",
+    "metadata": {
+      "block_id": "p2-b1",
+      "document_content_hash": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4"
+    }
+  },
+  {
+    "passage_id": "passage-9b3534ec0a42",
+    "document_id": "doc-f05cba561646",
+    "source_id": "bec-framework-2020",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 2,
+    "section": "Section Mathematics Education",
+    "heading": "Section Mathematics Education",
+    "text": "Teachers should use structured progression from concrete experiences to abstract reasoning.",
+    "source_url": "https://example.invalid/bec-framework.pdf",
+    "content_hash": "1dc69734fd188f79",
+    "grade": null,
+    "subject": "MATHEMATICS",
+    "unit": null,
+    "topic": null,
+    "association_method": "source_metadata",
+    "metadata": {
+      "block_id": "p2-b2",
+      "document_content_hash": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4"
+    }
+  },
+  {
+    "passage_id": "passage-d7c40249a6c7",
+    "document_id": "doc-f05cba561646",
+    "source_id": "bec-framework-2020",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 3,
+    "section": "Science education at primary level should develop curiosity, observation, and evidence-based explanation.",
+    "heading": "Science education at primary level should develop curiosity, observation, and evidence-based explanation.",
+    "text": "Science education at primary level should develop curiosity, observation, and evidence-based explanation.",
+    "source_url": "https://example.invalid/bec-framework.pdf",
+    "content_hash": "58b1d49d20bdec10",
+    "grade": null,
+    "subject": "SCIENCE",
+    "unit": null,
+    "topic": null,
+    "association_method": "source_metadata",
+    "metadata": {
+      "block_id": "p3-h1",
+      "document_content_hash": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4"
+    }
+  },
+  {
+    "passage_id": "passage-34365243425f",
+    "document_id": "doc-f05cba561646",
+    "source_id": "bec-framework-2020",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 3,
+    "section": "Science education at primary level should develop curiosity, observation, and evidence-based explanation.",
+    "heading": "Science education at primary level should develop curiosity, observation, and evidence-based explanation.",
+    "text": "This section provides general guidance and does not replace syllabus learning outcomes.",
+    "source_url": "https://example.invalid/bec-framework.pdf",
+    "content_hash": "4be594ea7070b20b",
+    "grade": null,
+    "subject": "SCIENCE",
+    "unit": null,
+    "topic": null,
+    "association_method": "source_metadata",
+    "metadata": {
+      "block_id": "p3-b2",
+      "document_content_hash": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4"
+    }
+  }
+]

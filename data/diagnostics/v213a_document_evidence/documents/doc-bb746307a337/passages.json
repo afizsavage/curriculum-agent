@@ -1,0 +1,134 @@
+[
+  {
+    "passage_id": "passage-694ce399a7a9",
+    "document_id": "doc-bb746307a337",
+    "source_id": "math-primary-guidance",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 1,
+    "section": "PRIMARY MATHEMATICS CURRICULUM GUIDANCE",
+    "heading": "PRIMARY MATHEMATICS CURRICULUM GUIDANCE",
+    "text": "Unit: Everyday Arithmetic Money (C4-U18)",
+    "source_url": "https://example.invalid/math-primary.pdf",
+    "content_hash": "3fed56db9f5016a2",
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "unit": "Everyday Arithmetic Money",
+    "topic": "money",
+    "association_method": "heading_match",
+    "metadata": {
+      "block_id": "p1-b2",
+      "document_content_hash": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70"
+    }
+  },
+  {
+    "passage_id": "passage-42a67e7339e6",
+    "document_id": "doc-bb746307a337",
+    "source_id": "math-primary-guidance",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 1,
+    "section": "PRIMARY MATHEMATICS CURRICULUM GUIDANCE",
+    "heading": "PRIMARY MATHEMATICS CURRICULUM GUIDANCE",
+    "text": "Money in Class 4 should help pupils understand value, exchange, and simple transactions using realistic contexts.",
+    "source_url": "https://example.invalid/math-primary.pdf",
+    "content_hash": "bbd61e10feb13abe",
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "unit": "Everyday Arithmetic Money",
+    "topic": "money",
+    "association_method": "heading_match",
+    "metadata": {
+      "block_id": "p1-b3",
+      "document_content_hash": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70"
+    }
+  },
+  {
+    "passage_id": "passage-ce8bf1634c3d",
+    "document_id": "doc-bb746307a337",
+    "source_id": "math-primary-guidance",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 1,
+    "section": "PRIMARY MATHEMATICS CURRICULUM GUIDANCE",
+    "heading": "PRIMARY MATHEMATICS CURRICULUM GUIDANCE",
+    "text": "Pupils should connect money problems to addition, subtraction, and practical reasoning.",
+    "source_url": "https://example.invalid/math-primary.pdf",
+    "content_hash": "f83d0fb3e356995b",
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "unit": "Everyday Arithmetic Money",
+    "topic": "money",
+    "association_method": "heading_match",
+    "metadata": {
+      "block_id": "p1-b4",
+      "document_content_hash": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70"
+    }
+  },
+  {
+    "passage_id": "passage-62b12ec4e2c0",
+    "document_id": "doc-bb746307a337",
+    "source_id": "math-primary-guidance",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 2,
+    "section": "PRIMARY MATHEMATICS CURRICULUM GUIDANCE",
+    "heading": "PRIMARY MATHEMATICS CURRICULUM GUIDANCE",
+    "text": "Fractions in Class 4",
+    "source_url": "https://example.invalid/math-primary.pdf",
+    "content_hash": "1ff11fd2ff40fb86",
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "unit": "Everyday Arithmetic Money",
+    "topic": "money",
+    "association_method": "heading_match",
+    "metadata": {
+      "block_id": "p2-b0",
+      "document_content_hash": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70"
+    }
+  },
+  {
+    "passage_id": "passage-e8b43d393dd9",
+    "document_id": "doc-bb746307a337",
+    "source_id": "math-primary-guidance",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 2,
+    "section": "PRIMARY MATHEMATICS CURRICULUM GUIDANCE",
+    "heading": "PRIMARY MATHEMATICS CURRICULUM GUIDANCE",
+    "text": "Fractions should be introduced through visual models and everyday sharing contexts before symbolic manipulation.",
+    "source_url": "https://example.invalid/math-primary.pdf",
+    "content_hash": "97a3f74742b31800",
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "unit": "Everyday Arithmetic Money",
+    "topic": "money",
+    "association_method": "heading_match",
+    "metadata": {
+      "block_id": "p2-b1",
+      "document_content_hash": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70"
+    }
+  },
+  {
+    "passage_id": "passage-aaa5ff539243",
+    "document_id": "doc-bb746307a337",
+    "source_id": "math-primary-guidance",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 2,
+    "section": "PRIMARY MATHEMATICS CURRICULUM GUIDANCE",
+    "heading": "PRIMARY MATHEMATICS CURRICULUM GUIDANCE",
+    "text": "Teachers should avoid introducing unrelated secondary topics when teaching fractions.",
+    "source_url": "https://example.invalid/math-primary.pdf",
+    "content_hash": "57a43d345016bb9e",
+    "grade": "CLASS_4",
+    "subject": "MATHEMATICS",
+    "unit": "Everyday Arithmetic Money",
+    "topic": "money",
+    "association_method": "heading_match",
+    "metadata": {
+      "block_id": "p2-b2",
+      "document_content_hash": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70"
+    }
+  }
+]

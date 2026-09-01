@@ -9,6 +9,7 @@ from app.curriculum.client import CurriculumAPIClient
 from app.exceptions import ToolFailureError
 from app.tools.base import Tool, ToolResult
 from app.tools.curriculum import build_curriculum_tools
+from app.tools.document import build_document_tools
 
 
 class ToolRegistry:
@@ -56,6 +57,8 @@ def build_default_registry(
     settings = settings or get_settings()
     api_client = client or CurriculumAPIClient(settings=settings)
     for tool in build_curriculum_tools(api_client):
+        registry.register(tool)
+    for tool in build_document_tools(settings=settings, client=api_client):
         registry.register(tool)
     if include_echo:
         from app.tools.base import EchoTool
