@@ -1,0 +1,403 @@
+{
+  "experiment": "v2.12b_production_shadow",
+  "evaluation_id": "v212b_a6541e6aefe7",
+  "timestamp": "2026-09-01T09:30:24.574394+00:00",
+  "question": "What are pupils expected to learn about decimals in Class 4?",
+  "category": "learning_objectives",
+  "grade": "CLASS_4",
+  "subject": "MATHEMATICS",
+  "topic": "decimals in class 4",
+  "request_trace_id": "66705ae42632d8be",
+  "retrieval_query": null,
+  "retrieved_evidence_ids": [
+    "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+    "36d36607-fa63-431b-9fd5-dedc3db40322",
+    "0731389e-56b3-4f6f-a530-8c173659bee1",
+    "c8bf155d-c699-4927-abb8-88981ce633ce",
+    "09fa75e3-2725-4e00-a5a6-1f5c9684dbdd",
+    "351ef533-e32c-4582-8cd0-ecad956377e8"
+  ],
+  "retrieved_evidence_count": 6,
+  "evidence_snapshot": {
+    "evidence_hash": "26fc26e5991e8789",
+    "evidence_ids": [
+      "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+      "36d36607-fa63-431b-9fd5-dedc3db40322",
+      "0731389e-56b3-4f6f-a530-8c173659bee1",
+      "c8bf155d-c699-4927-abb8-88981ce633ce",
+      "09fa75e3-2725-4e00-a5a6-1f5c9684dbdd",
+      "351ef533-e32c-4582-8cd0-ecad956377e8"
+    ],
+    "evidence_count": 6,
+    "raw_evidence": [
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+        "name": "Everyday Arithmetic Multiplication and Decimal.",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic Multiplication and Decimal.",
+        "content": "Everyday Arithmetic Multiplication and Decimal.",
+        "metadata": {
+          "code": "C4-U19",
+          "content_type": "UNIT",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "authority": "grade_curriculum"
+        },
+        "source_reference": "v2.curriculum.context.resolve"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "36d36607-fa63-431b-9fd5-dedc3db40322",
+        "name": "C4U19-LO01",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+        "content": "Multiply whole numbers up to 5 digits by",
+        "metadata": {
+          "code": "C4U19-LO01",
+          "sequence": null,
+          "knowledge": null,
+          "skills": null,
+          "provenance": {
+            "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+            "source_page": null,
+            "source_section": null,
+            "source_reference": null,
+            "source_text": null,
+            "extraction_method": null
+          },
+          "parent_content_code": "C4-U19",
+          "parent_content_name": "Everyday Arithmetic Multiplication and Decimal.",
+          "evidence_quality": null
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "0731389e-56b3-4f6f-a530-8c173659bee1",
+        "name": "C4U19-LO02",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+        "content": "Multiply decimal to 1 decimal place by",
+        "metadata": {
+          "code": "C4U19-LO02",
+          "sequence": null,
+          "knowledge": null,
+          "skills": null,
+          "provenance": {
+            "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+            "source_page": null,
+            "source_section": null,
+            "source_reference": null,
+            "source_text": null,
+            "extraction_method": null
+          },
+          "parent_content_code": "C4-U19",
+          "parent_content_name": "Everyday Arithmetic Multiplication and Decimal.",
+          "evidence_quality": null
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "c8bf155d-c699-4927-abb8-88981ce633ce",
+        "name": "C4U19-LO03",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+        "content": "Divide whole numbers up to 5 digits by",
+        "metadata": {
+          "code": "C4U19-LO03",
+          "sequence": null,
+          "knowledge": null,
+          "skills": null,
+          "provenance": {
+            "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+            "source_page": null,
+            "source_section": null,
+            "source_reference": null,
+            "source_text": null,
+            "extraction_method": null
+          },
+          "parent_content_code": "C4-U19",
+          "parent_content_name": "Everyday Arithmetic Multiplication and Decimal.",
+          "evidence_quality": null
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "09fa75e3-2725-4e00-a5a6-1f5c9684dbdd",
+        "name": "C4U19-LO04",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+        "content": "Divide decimal to 1 decimal place by",
+        "metadata": {
+          "code": "C4U19-LO04",
+          "sequence": null,
+          "knowledge": null,
+          "skills": null,
+          "provenance": {
+            "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+            "source_page": null,
+            "source_section": null,
+            "source_reference": null,
+            "source_text": null,
+            "extraction_method": null
+          },
+          "parent_content_code": "C4-U19",
+          "parent_content_name": "Everyday Arithmetic Multiplication and Decimal.",
+          "evidence_quality": null
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "351ef533-e32c-4582-8cd0-ecad956377e8",
+        "name": "C4U19-LO05",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+        "content": "Mental strategies for multiplication and division by",
+        "metadata": {
+          "code": "C4U19-LO05",
+          "sequence": null,
+          "knowledge": null,
+          "skills": null,
+          "provenance": {
+            "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+            "source_page": null,
+            "source_section": null,
+            "source_reference": null,
+            "source_text": null,
+            "extraction_method": null
+          },
+          "parent_content_code": "C4-U19",
+          "parent_content_name": "Everyday Arithmetic Multiplication and Decimal.",
+          "evidence_quality": null
+        },
+        "source_reference": "learning_outcomes"
+      }
+    ],
+    "retrieval_metadata": {
+      "retrieval_rounds": 0,
+      "evidence_status": "found",
+      "grade": "CLASS_4",
+      "subject": null,
+      "topic": "decimals in class 4",
+      "tool_calls": 4,
+      "retrieval_query": null,
+      "evidence_snapshot_hash": null
+    },
+    "normalization_version": "v2.9",
+    "metadata_guard_version": "v2.11",
+    "normalized_evidence_hash": "26fc26e5991e8789",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 6,
+      "records_out": 6,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 6,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "26fc26e5991e8789",
+      "evidence_hash_out": "26fc26e5991e8789"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": []
+  },
+  "generated_answer": "### Primary 4 \u2014 Mathematics\n\nThe MBSSE curriculum includes **Everyday Arithmetic Multiplication and Decimal.** under Mathematics.",
+  "production_implementation": "langgraph",
+  "production_route": "fallback",
+  "production_accepted": false,
+  "c4u18_path": false,
+  "langgraph": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langgraph",
+    "fixture_class": "learning_objectives",
+    "run_index": 22,
+    "threshold": 0.85,
+    "question": "What are pupils expected to learn about decimals in Class 4?",
+    "retrieved_evidence_ids": [
+      "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+      "36d36607-fa63-431b-9fd5-dedc3db40322",
+      "0731389e-56b3-4f6f-a530-8c173659bee1",
+      "c8bf155d-c699-4927-abb8-88981ce633ce",
+      "09fa75e3-2725-4e00-a5a6-1f5c9684dbdd",
+      "351ef533-e32c-4582-8cd0-ecad956377e8"
+    ],
+    "raw_evidence_hash": "26fc26e5991e8789",
+    "normalized_evidence_hash": "26fc26e5991e8789",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 6,
+      "records_out": 6,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 6,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "26fc26e5991e8789",
+      "evidence_hash_out": "26fc26e5991e8789"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "### Primary 4 \u2014 Mathematics\n\nThe MBSSE curriculum includes **Everyday Arithmetic Multiplication and Decimal.** under Mathematics.",
+    "verifier_score": 0.2,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "retrieve_more",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langgraph_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 4145.109,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 2.01,
+      "metadata_validation_ms": 1.023,
+      "generation_ms": 0.05,
+      "verification_ms": 4140.82,
+      "mapping_ms": 0.17,
+      "routing_ms": 1.03
+    },
+    "c4u18_regression": null
+  },
+  "langchain": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langchain",
+    "fixture_class": "learning_objectives",
+    "run_index": 22,
+    "threshold": 0.85,
+    "question": "What are pupils expected to learn about decimals in Class 4?",
+    "retrieved_evidence_ids": [
+      "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+      "36d36607-fa63-431b-9fd5-dedc3db40322",
+      "0731389e-56b3-4f6f-a530-8c173659bee1",
+      "c8bf155d-c699-4927-abb8-88981ce633ce",
+      "09fa75e3-2725-4e00-a5a6-1f5c9684dbdd",
+      "351ef533-e32c-4582-8cd0-ecad956377e8"
+    ],
+    "raw_evidence_hash": "26fc26e5991e8789",
+    "normalized_evidence_hash": "26fc26e5991e8789",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 6,
+      "records_out": 6,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 6,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "26fc26e5991e8789",
+      "evidence_hash_out": "26fc26e5991e8789"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "### Primary 4 \u2014 Mathematics\n\nThe MBSSE curriculum includes **Everyday Arithmetic Multiplication and Decimal.** under Mathematics.",
+    "verifier_score": 0.2,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "retrieve_more",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langchain_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 4920.123,
+      "retrieval_ms": 0.005,
+      "normalization_ms": 1.998,
+      "metadata_validation_ms": 1.668,
+      "generation_ms": 0.056,
+      "verification_ms": 4915.193,
+      "mapping_ms": 0.173,
+      "routing_ms": 1.03
+    },
+    "c4u18_regression": null
+  },
+  "comparison": {
+    "fixture_class": "learning_objectives",
+    "run_index": 22,
+    "classification": "EXACT_EQUIVALENCE",
+    "control_implementation": "langgraph",
+    "experiment_implementation": "langchain",
+    "control_accepted": false,
+    "experiment_accepted": false,
+    "divergences": [],
+    "notes": ""
+  },
+  "failure_origin": "UNKNOWN",
+  "unsafe_divergence": false,
+  "likely_cause": "No material divergence or undetermined.",
+  "safety_impact": "none"
+}

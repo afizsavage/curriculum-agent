@@ -1,0 +1,121 @@
+{
+  "generated_at": "2026-09-01T09:31:35.628163+00:00",
+  "experiment": "v2.12b_production_shadow",
+  "n_questions": 24,
+  "n_evaluations": 24,
+  "metrics": {
+    "experiment": "v2.12b_production_shadow",
+    "n_evaluations": 24,
+    "langgraph_summary": {
+      "n": 24,
+      "faithful_complete_acceptance": 0.0,
+      "faithful_imperfect_acceptance": 0.0,
+      "placeholder_false_acceptance": 0,
+      "safety_false_acceptance": 0,
+      "adversarial_false_acceptance": 0,
+      "mean_latency_ms": 7548.668,
+      "median_latency_ms": 7678.809,
+      "p95_latency_ms": 12368.79,
+      "llm_calls": 24,
+      "tool_calls": 0,
+      "errors": 0,
+      "timeouts": 0
+    },
+    "langchain_summary": {
+      "n": 24,
+      "faithful_complete_acceptance": 0.0,
+      "faithful_imperfect_acceptance": 0.0,
+      "placeholder_false_acceptance": 0,
+      "safety_false_acceptance": 0,
+      "adversarial_false_acceptance": 0,
+      "mean_latency_ms": 7840.029,
+      "median_latency_ms": 7170.998,
+      "p95_latency_ms": 11680.129,
+      "llm_calls": 24,
+      "tool_calls": 0,
+      "errors": 0,
+      "timeouts": 0
+    },
+    "comparison_summary": {
+      "total_comparisons": 24,
+      "classification_counts": {
+        "EXACT_EQUIVALENCE": 22,
+        "BEHAVIORAL_EQUIVALENCE": 1,
+        "CONTROLLED_DIFFERENCE": 1
+      },
+      "unsafe_divergence_count": 0
+    },
+    "retrieval_statistics": {
+      "mean_evidence_count": 27.375,
+      "no_evidence": 0,
+      "weak_evidence": 0,
+      "evidence_found": 24
+    },
+    "normalization_statistics": {
+      "normalization_success_rate": 1.0,
+      "uuid_resolution_total": 0
+    },
+    "metadata_statistics": {
+      "valid_evidence_pct": 0.958,
+      "metadata_blocked_count": 1
+    },
+    "verifier_statistics": {
+      "langgraph": {
+        "accept_pct": 0.292,
+        "retrieve_more_pct": 0.708,
+        "fallback_pct": 0.0,
+        "mean_score": 0.658,
+        "mapped_accept_pct": 0.333
+      },
+      "langchain": {
+        "accept_pct": 0.292,
+        "retrieve_more_pct": 0.708,
+        "fallback_pct": 0.0,
+        "mean_score": 0.656,
+        "mapped_accept_pct": 0.333
+      }
+    },
+    "mapper_statistics": {
+      "mapped_acceptance_pct": 0.333,
+      "safety_blocks": 16
+    },
+    "routing_statistics": {
+      "finish_pct": 0.292,
+      "retrieve_more_pct": 0.667,
+      "fallback_pct": 0.042
+    },
+    "safety": {
+      "unsafe_divergence_count": 0,
+      "metadata_false_acceptance": 0,
+      "placeholder_false_acceptance": 0
+    },
+    "c4u18": {
+      "n": 17,
+      "langgraph_accept_rate": 0.353,
+      "langchain_accept_rate": 0.353
+    },
+    "fi_monitoring": {
+      "retrieve_more_rows": 6,
+      "langgraph_accept_after_retrieve_more": 0,
+      "langchain_accept_after_retrieve_more": 0
+    },
+    "latency": {
+      "langgraph_mean_ms": 7548.668,
+      "langchain_mean_ms": 7840.029,
+      "overhead_mean_ms": 291.361
+    },
+    "errors": 0,
+    "shadow_errors": 0
+  },
+  "conclusion": "SUPPORTED",
+  "interpretation_note": "Real-retrieval shadow evaluation preserved safety invariants with zero unsafe LangChain divergences and reproducible evidence snapshots.",
+  "v213_recommendation": "V2.13 \u2014 Controlled LangChain Production Canary (LangGraph rollback retained)",
+  "replay_validation": {
+    "sample_evaluation_id": "v212b_c42c747ddbc4",
+    "evidence_hash_match": true,
+    "classification": "EXACT_EQUIVALENCE"
+  },
+  "regression_summary": "144 passed (V2.12B + V2.12A + V2.7\u2013V2.11 + verifier)",
+  "production_default": "langgraph",
+  "langchain_mode": "shadow_only"
+}

@@ -1,0 +1,477 @@
+{
+  "experiment": "v2.12b_production_shadow",
+  "evaluation_id": "v212b_c42c747ddbc4",
+  "timestamp": "2026-09-01T09:18:36.855492+00:00",
+  "question": "What are the learning objectives for money in Primary 4 Mathematics?",
+  "category": "learning_objectives",
+  "grade": "CLASS_4",
+  "subject": "MATHEMATICS",
+  "topic": null,
+  "request_trace_id": "b5b686a22b38b83d",
+  "retrieval_query": null,
+  "retrieved_evidence_ids": [
+    "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+    "5a3e84bc-fce5-43a3-a369-3d8088786185",
+    "8e91780d-814a-4829-ba39-289274e7af19",
+    "ad257603-967d-4ec3-bc33-666776b57790",
+    "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+    "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+    "011e16fd-9eee-4708-bac2-1a59952b0b87",
+    "1b382751-bcd0-4cd9-b83b-4acd03fb00ce"
+  ],
+  "retrieved_evidence_count": 8,
+  "evidence_snapshot": {
+    "evidence_hash": "d64c29c4b3d0d11b",
+    "evidence_ids": [
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "8e91780d-814a-4829-ba39-289274e7af19",
+      "ad257603-967d-4ec3-bc33-666776b57790",
+      "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+      "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+      "011e16fd-9eee-4708-bac2-1a59952b0b87",
+      "1b382751-bcd0-4cd9-b83b-4acd03fb00ce"
+    ],
+    "evidence_count": 8,
+    "raw_evidence": [
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "name": "Everyday Arithmetic Money",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic Money",
+        "content": "Everyday Arithmetic Money",
+        "metadata": {
+          "code": "C4-U18",
+          "content_type": "UNIT",
+          "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+          "authority": "grade_curriculum"
+        },
+        "source_reference": "v2.curriculum.context.resolve"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+        "name": "C4U18-LO01",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "content": "Order operations using BODMAS.",
+        "metadata": {
+          "code": "C4U18-LO01",
+          "sequence": null,
+          "knowledge": null,
+          "skills": null,
+          "provenance": {
+            "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+            "source_page": null,
+            "source_section": null,
+            "source_reference": null,
+            "source_text": null,
+            "extraction_method": null
+          },
+          "parent_content_code": "C4-U18",
+          "parent_content_name": "Everyday Arithmetic Money",
+          "evidence_quality": null
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "8e91780d-814a-4829-ba39-289274e7af19",
+        "name": "C4U18-LO02",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "content": "Solve word problems involving the 4 operations and money.",
+        "metadata": {
+          "code": "C4U18-LO02",
+          "sequence": null,
+          "knowledge": null,
+          "skills": null,
+          "provenance": {
+            "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+            "source_page": null,
+            "source_section": null,
+            "source_reference": null,
+            "source_text": null,
+            "extraction_method": null
+          },
+          "parent_content_code": "C4-U18",
+          "parent_content_name": "Everyday Arithmetic Money",
+          "evidence_quality": null
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "ad257603-967d-4ec3-bc33-666776b57790",
+        "name": "C4U18-LO03",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "content": "Estimate strategies to check answers for reasonableness",
+        "metadata": {
+          "code": "C4U18-LO03",
+          "sequence": null,
+          "knowledge": null,
+          "skills": null,
+          "provenance": {
+            "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+            "source_page": null,
+            "source_section": null,
+            "source_reference": null,
+            "source_text": null,
+            "extraction_method": null
+          },
+          "parent_content_code": "C4-U18",
+          "parent_content_name": "Everyday Arithmetic Money",
+          "evidence_quality": null
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+        "name": "C4U18-LO04",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "content": "Inverse operations to check answers for reasonableness.",
+        "metadata": {
+          "code": "C4U18-LO04",
+          "sequence": null,
+          "knowledge": null,
+          "skills": null,
+          "provenance": {
+            "source_document_id": "022bfb5f-acd3-4380-b861-5681331eddd4",
+            "source_page": null,
+            "source_section": null,
+            "source_reference": null,
+            "source_text": null,
+            "extraction_method": null
+          },
+          "parent_content_code": "C4-U18",
+          "parent_content_name": "Everyday Arithmetic Money",
+          "evidence_quality": null
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+        "name": "Everyday Arithmetic",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic",
+        "content": "Everyday Arithmetic",
+        "metadata": {
+          "code": "C4-U17",
+          "description": "MONEY",
+          "display_order": 16,
+          "matched_learning_outcomes": [
+            {
+              "id": "011e16fd-9eee-4708-bac2-1a59952b0b87",
+              "code": "C4U17-LO01",
+              "description": "Add money up to Le 5,000, Le10,000, Le 20,000 and Le 50,000",
+              "curriculum_content_id": "684ebd01-8dc0-459b-a610-9d8dfea454ff"
+            },
+            {
+              "id": "1b382751-bcd0-4cd9-b83b-4acd03fb00ce",
+              "code": "C4U17-LO02",
+              "description": "Subtract money up to Le 5,000, Le10,000, Le 20,000 and Le 50,000.",
+              "curriculum_content_id": "684ebd01-8dc0-459b-a610-9d8dfea454ff"
+            }
+          ]
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "011e16fd-9eee-4708-bac2-1a59952b0b87",
+        "name": "C4U17-LO01",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+        "content": "Add money up to Le 5,000, Le10,000, Le 20,000 and Le 50,000",
+        "metadata": {
+          "code": "C4U17-LO01",
+          "sequence": 1,
+          "knowledge": [],
+          "skills": []
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "1b382751-bcd0-4cd9-b83b-4acd03fb00ce",
+        "name": "C4U17-LO02",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+        "content": "Subtract money up to Le 5,000, Le10,000, Le 20,000 and Le 50,000.",
+        "metadata": {
+          "code": "C4U17-LO02",
+          "sequence": 2,
+          "knowledge": [],
+          "skills": []
+        },
+        "source_reference": "learning_outcomes"
+      }
+    ],
+    "retrieval_metadata": {
+      "retrieval_rounds": 0,
+      "evidence_status": "found",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": null,
+      "tool_calls": 4,
+      "retrieval_query": null,
+      "evidence_snapshot_hash": null
+    },
+    "normalization_version": "v2.9",
+    "metadata_guard_version": "v2.11",
+    "normalized_evidence_hash": "d64c29c4b3d0d11b",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 8,
+      "records_out": 8,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 8,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "d64c29c4b3d0d11b",
+      "evidence_hash_out": "d64c29c4b3d0d11b"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": []
+  },
+  "generated_answer": "## Learning Objectives for Money in Primary 4 Mathematics\n\nBased on the retrieved curriculum evidence, the learning objectives related to money in Primary 4 Mathematics are as follows:\n\n### Unit: Everyday Arithmetic (C4-U17)\n- **C4U17-LO01** \u2014 Add money up to Le 5,000, Le10,000, Le 20,000 and Le 50,000\n- **C4U17-LO02** \u2014 Subtract money up to Le 5,000, Le10,000, Le 20,000 and Le 50,000.\n\n### Unit: Everyday Arithmetic Money (C4-U18)\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n\nThese objectives cover addition and subtraction of money amounts, solving word problems that combine money with the four operations, and using estimation and inverse operations to verify answers.",
+  "production_implementation": "langgraph",
+  "production_route": "fallback",
+  "production_accepted": false,
+  "c4u18_path": true,
+  "langgraph": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langgraph",
+    "fixture_class": "learning_objectives",
+    "run_index": 1,
+    "threshold": 0.85,
+    "question": "What are the learning objectives for money in Primary 4 Mathematics?",
+    "retrieved_evidence_ids": [
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "8e91780d-814a-4829-ba39-289274e7af19",
+      "ad257603-967d-4ec3-bc33-666776b57790",
+      "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+      "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+      "011e16fd-9eee-4708-bac2-1a59952b0b87",
+      "1b382751-bcd0-4cd9-b83b-4acd03fb00ce"
+    ],
+    "raw_evidence_hash": "d64c29c4b3d0d11b",
+    "normalized_evidence_hash": "d64c29c4b3d0d11b",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 8,
+      "records_out": 8,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 8,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "d64c29c4b3d0d11b",
+      "evidence_hash_out": "d64c29c4b3d0d11b"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "## Learning Objectives for Money in Primary 4 Mathematics\n\nBased on the retrieved curriculum evidence, the learning objectives related to money in Primary 4 Mathematics are as follows:\n\n### Unit: Everyday Arithmetic (C4-U17)\n- **C4U17-LO01** \u2014 Add money up to Le 5,000, Le10,000, Le 20,000 and Le 50,000\n- **C4U17-LO02** \u2014 Subtract money up to Le 5,000, Le10,000, Le 20,000 and Le 50,000.\n\n### Unit: Everyday Arithmetic Money (C4-U18)\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n\nThese objectives cover addition and subtraction of money amounts, solving word problems that combine money with the four operations, and using estimation and inverse operations to verify answers.",
+    "verifier_score": 1.0,
+    "verifier_decision": "accept",
+    "verifier_recommendation": "accept",
+    "mapped_recommendation": "accept",
+    "final_accepted": true,
+    "final_route": "finish",
+    "safety_status": "accepted",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langgraph_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 3391.118,
+      "retrieval_ms": 0.006,
+      "normalization_ms": 2.525,
+      "metadata_validation_ms": 1.625,
+      "generation_ms": 0.093,
+      "verification_ms": 3386.507,
+      "mapping_ms": 0.171,
+      "routing_ms": 0.191
+    },
+    "c4u18_regression": {
+      "raw_topic_uuid": "Everyday Arithmetic Money",
+      "resolved_topic_name": "Everyday Arithmetic Money",
+      "subject": "MATHEMATICS",
+      "grade": "CLASS_4",
+      "parent": "Everyday Arithmetic Money",
+      "metadata_valid": true,
+      "metadata_blocked": false,
+      "verifier_score": 1.0,
+      "verifier_recommendation": "accept",
+      "mapper_result": "accept",
+      "final_route": "finish",
+      "final_accepted": true,
+      "implementation": "langgraph"
+    }
+  },
+  "langchain": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langchain",
+    "fixture_class": "learning_objectives",
+    "run_index": 1,
+    "threshold": 0.85,
+    "question": "What are the learning objectives for money in Primary 4 Mathematics?",
+    "retrieved_evidence_ids": [
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "5a3e84bc-fce5-43a3-a369-3d8088786185",
+      "8e91780d-814a-4829-ba39-289274e7af19",
+      "ad257603-967d-4ec3-bc33-666776b57790",
+      "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+      "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+      "011e16fd-9eee-4708-bac2-1a59952b0b87",
+      "1b382751-bcd0-4cd9-b83b-4acd03fb00ce"
+    ],
+    "raw_evidence_hash": "d64c29c4b3d0d11b",
+    "normalized_evidence_hash": "d64c29c4b3d0d11b",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 8,
+      "records_out": 8,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 8,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "d64c29c4b3d0d11b",
+      "evidence_hash_out": "d64c29c4b3d0d11b"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "## Learning Objectives for Money in Primary 4 Mathematics\n\nBased on the retrieved curriculum evidence, the learning objectives related to money in Primary 4 Mathematics are as follows:\n\n### Unit: Everyday Arithmetic (C4-U17)\n- **C4U17-LO01** \u2014 Add money up to Le 5,000, Le10,000, Le 20,000 and Le 50,000\n- **C4U17-LO02** \u2014 Subtract money up to Le 5,000, Le10,000, Le 20,000 and Le 50,000.\n\n### Unit: Everyday Arithmetic Money (C4-U18)\n- **C4U18-LO01** \u2014 Order operations using BODMAS.\n- **C4U18-LO02** \u2014 Solve word problems involving the 4 operations and money.\n- **C4U18-LO03** \u2014 Estimate strategies to check answers for reasonableness\n- **C4U18-LO04** \u2014 Inverse operations to check answers for reasonableness.\n\nThese objectives cover addition and subtraction of money amounts, solving word problems that combine money with the four operations, and using estimation and inverse operations to verify answers.",
+    "verifier_score": 1.0,
+    "verifier_decision": "accept",
+    "verifier_recommendation": "accept",
+    "mapped_recommendation": "accept",
+    "final_accepted": true,
+    "final_route": "finish",
+    "safety_status": "accepted",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langchain_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 4595.94,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 2.873,
+      "metadata_validation_ms": 1.205,
+      "generation_ms": 0.043,
+      "verification_ms": 4591.49,
+      "mapping_ms": 0.157,
+      "routing_ms": 0.166
+    },
+    "c4u18_regression": {
+      "raw_topic_uuid": "Everyday Arithmetic Money",
+      "resolved_topic_name": "Everyday Arithmetic Money",
+      "subject": "MATHEMATICS",
+      "grade": "CLASS_4",
+      "parent": "Everyday Arithmetic Money",
+      "metadata_valid": true,
+      "metadata_blocked": false,
+      "verifier_score": 1.0,
+      "verifier_recommendation": "accept",
+      "mapper_result": "accept",
+      "final_route": "finish",
+      "final_accepted": true,
+      "implementation": "langchain"
+    }
+  },
+  "comparison": {
+    "fixture_class": "learning_objectives",
+    "run_index": 1,
+    "classification": "EXACT_EQUIVALENCE",
+    "control_implementation": "langgraph",
+    "experiment_implementation": "langchain",
+    "control_accepted": true,
+    "experiment_accepted": true,
+    "divergences": [],
+    "notes": ""
+  },
+  "failure_origin": "UNKNOWN",
+  "unsafe_divergence": false,
+  "likely_cause": "No material divergence or undetermined.",
+  "safety_impact": "none"
+}

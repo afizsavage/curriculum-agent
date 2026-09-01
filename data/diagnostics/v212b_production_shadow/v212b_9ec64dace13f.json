@@ -1,0 +1,407 @@
+{
+  "experiment": "v2.12b_production_shadow",
+  "evaluation_id": "v212b_9ec64dace13f",
+  "timestamp": "2026-09-01T09:27:29.229550+00:00",
+  "question": "What does Class 4 teach about everyday arithmetic and money?",
+  "category": "c4u18",
+  "grade": "CLASS_4",
+  "subject": "MATHEMATICS",
+  "topic": "everyday arithmetic and money",
+  "request_trace_id": "a04ab9328944be5c",
+  "retrieval_query": null,
+  "retrieved_evidence_ids": [
+    "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+    "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+    "be2bec7d-db04-4307-8300-466dc896466f",
+    "13bc18c0-c518-47ef-911c-8c7174d05555",
+    "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+    "c049057b-ea42-4baf-a902-d3e6c63dc320",
+    "44c8b694-3fdd-473c-a256-bc22fd926da1",
+    "d0f1291c-baa3-4651-a922-6d8590ace82e",
+    "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1"
+  ],
+  "retrieved_evidence_count": 9,
+  "evidence_snapshot": {
+    "evidence_hash": "f20eb3faedca409e",
+    "evidence_ids": [
+      "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+      "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "be2bec7d-db04-4307-8300-466dc896466f",
+      "13bc18c0-c518-47ef-911c-8c7174d05555",
+      "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+      "c049057b-ea42-4baf-a902-d3e6c63dc320",
+      "44c8b694-3fdd-473c-a256-bc22fd926da1",
+      "d0f1291c-baa3-4651-a922-6d8590ace82e",
+      "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1"
+    ],
+    "evidence_count": 9,
+    "raw_evidence": [
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+        "name": "English Language",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "ENGLISH_LANGUAGE",
+        "topic": null,
+        "content": "English Language",
+        "metadata": {
+          "code": "ENGLISH_LANGUAGE",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+        "name": "Mathematics",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": null,
+        "content": "Mathematics",
+        "metadata": {
+          "code": "MATHEMATICS",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "be2bec7d-db04-4307-8300-466dc896466f",
+        "name": "Civic Education",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "CIVIC_EDUCATION",
+        "topic": null,
+        "content": "Civic Education",
+        "metadata": {
+          "code": "CIVIC_EDUCATION",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "13bc18c0-c518-47ef-911c-8c7174d05555",
+        "name": "Social Studies",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "SOCIAL_STUDIES",
+        "topic": null,
+        "content": "Social Studies",
+        "metadata": {
+          "code": "SOCIAL_STUDIES",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+        "name": "Physical Health Education",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+        "topic": null,
+        "content": "Physical Health Education",
+        "metadata": {
+          "code": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "c049057b-ea42-4baf-a902-d3e6c63dc320",
+        "name": "Music and Other Expressive Arts",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MUSIC_EXPRESSIVE_ARTS",
+        "topic": null,
+        "content": "Music and Other Expressive Arts",
+        "metadata": {
+          "code": "MUSIC_EXPRESSIVE_ARTS",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "44c8b694-3fdd-473c-a256-bc22fd926da1",
+        "name": "French Appreciation",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "FRENCH_APPRECIATION",
+        "topic": null,
+        "content": "French Appreciation",
+        "metadata": {
+          "code": "FRENCH_APPRECIATION",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+        "name": "Science",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "SCIENCE",
+        "topic": null,
+        "content": "Science",
+        "metadata": {
+          "code": "SCIENCE",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1",
+        "name": "ICT Literacy",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "ICT_LITERACY",
+        "topic": null,
+        "content": "ICT Literacy",
+        "metadata": {
+          "code": "ICT_LITERACY",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      }
+    ],
+    "retrieval_metadata": {
+      "retrieval_rounds": 0,
+      "evidence_status": "found",
+      "grade": "CLASS_4",
+      "subject": null,
+      "topic": "everyday arithmetic and money",
+      "tool_calls": 4,
+      "retrieval_query": null,
+      "evidence_snapshot_hash": null
+    },
+    "normalization_version": "v2.9",
+    "metadata_guard_version": "v2.11",
+    "normalized_evidence_hash": "f20eb3faedca409e",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 9,
+      "records_out": 9,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 9,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "f20eb3faedca409e",
+      "evidence_hash_out": "f20eb3faedca409e"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": []
+  },
+  "generated_answer": "## Class 4 (Primary 4) \u2014 Everyday Arithmetic and Money\n\nBased on the retrieved curriculum evidence, **no specific learning objectives, topics, or outcomes related to everyday arithmetic or money** are available for Class 4. The evidence only lists the subjects offered at Primary 4, which include:\n\n- **Mathematics** (entity_id: 0e04674a-43e0-4145-84a3-5e656f0a91d0)\n- **English Language** (entity_id: 9da3f7f7-60c2-49c6-8950-fd20a1913661)\n- **Civic Education** (entity_id: be2bec7d-db04-4307-8300-466dc896466f)\n- **Social Studies** (entity_id: 13bc18c0-c518-47ef-911c-8c7174d05555)\n- **Physical Health Education** (entity_id: 1dac62a2-d187-4e7f-9d59-3a2eb1e25b24)\n- **Music and Other Expressive Arts** (entity_id: c049057b-ea42-4baf-a902-d3e6c63dc320)\n- **French Appreciation** (entity_id: 44c8b694-3fdd-473c-a256-bc22fd926da1)\n- **Science** (entity_id: d0f1291c-baa3-4651-a922-6d8590ace82e)\n- **ICT Literacy** (entity_id: 63f1ac54-f7c8-4d1f-a912-7e26389dc2a1)\n\nWhile **Mathematics** is the subject most likely to cover arithmetic and money, the evidence does not include any curriculum content (e.g., topics, learning objectives, or outcomes) for that subject. Therefore, I cannot state what Class 4 specifically teaches about everyday arithmetic or money.",
+  "production_implementation": "langgraph",
+  "production_route": "fallback",
+  "production_accepted": false,
+  "c4u18_path": false,
+  "langgraph": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langgraph",
+    "fixture_class": "c4u18",
+    "run_index": 16,
+    "threshold": 0.85,
+    "question": "What does Class 4 teach about everyday arithmetic and money?",
+    "retrieved_evidence_ids": [
+      "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+      "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "be2bec7d-db04-4307-8300-466dc896466f",
+      "13bc18c0-c518-47ef-911c-8c7174d05555",
+      "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+      "c049057b-ea42-4baf-a902-d3e6c63dc320",
+      "44c8b694-3fdd-473c-a256-bc22fd926da1",
+      "d0f1291c-baa3-4651-a922-6d8590ace82e",
+      "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1"
+    ],
+    "raw_evidence_hash": "f20eb3faedca409e",
+    "normalized_evidence_hash": "f20eb3faedca409e",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 9,
+      "records_out": 9,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 9,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "f20eb3faedca409e",
+      "evidence_hash_out": "f20eb3faedca409e"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "## Class 4 (Primary 4) \u2014 Everyday Arithmetic and Money\n\nBased on the retrieved curriculum evidence, **no specific learning objectives, topics, or outcomes related to everyday arithmetic or money** are available for Class 4. The evidence only lists the subjects offered at Primary 4, which include:\n\n- **Mathematics** (entity_id: 0e04674a-43e0-4145-84a3-5e656f0a91d0)\n- **English Language** (entity_id: 9da3f7f7-60c2-49c6-8950-fd20a1913661)\n- **Civic Education** (entity_id: be2bec7d-db04-4307-8300-466dc896466f)\n- **Social Studies** (entity_id: 13bc18c0-c518-47ef-911c-8c7174d05555)\n- **Physical Health Education** (entity_id: 1dac62a2-d187-4e7f-9d59-3a2eb1e25b24)\n- **Music and Other Expressive Arts** (entity_id: c049057b-ea42-4baf-a902-d3e6c63dc320)\n- **French Appreciation** (entity_id: 44c8b694-3fdd-473c-a256-bc22fd926da1)\n- **Science** (entity_id: d0f1291c-baa3-4651-a922-6d8590ace82e)\n- **ICT Literacy** (entity_id: 63f1ac54-f7c8-4d1f-a912-7e26389dc2a1)\n\nWhile **Mathematics** is the subject most likely to cover arithmetic and money, the evidence does not include any curriculum content (e.g., topics, learning objectives, or outcomes) for that subject. Therefore, I cannot state what Class 4 specifically teaches about everyday arithmetic or money.",
+    "verifier_score": 0.6,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "retrieve_more",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langgraph_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 8109.728,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 2.778,
+      "metadata_validation_ms": 0.659,
+      "generation_ms": 0.043,
+      "verification_ms": 8104.87,
+      "mapping_ms": 0.193,
+      "routing_ms": 1.181
+    },
+    "c4u18_regression": null
+  },
+  "langchain": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langchain",
+    "fixture_class": "c4u18",
+    "run_index": 16,
+    "threshold": 0.85,
+    "question": "What does Class 4 teach about everyday arithmetic and money?",
+    "retrieved_evidence_ids": [
+      "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+      "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "be2bec7d-db04-4307-8300-466dc896466f",
+      "13bc18c0-c518-47ef-911c-8c7174d05555",
+      "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+      "c049057b-ea42-4baf-a902-d3e6c63dc320",
+      "44c8b694-3fdd-473c-a256-bc22fd926da1",
+      "d0f1291c-baa3-4651-a922-6d8590ace82e",
+      "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1"
+    ],
+    "raw_evidence_hash": "f20eb3faedca409e",
+    "normalized_evidence_hash": "f20eb3faedca409e",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 9,
+      "records_out": 9,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 9,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "f20eb3faedca409e",
+      "evidence_hash_out": "f20eb3faedca409e"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "## Class 4 (Primary 4) \u2014 Everyday Arithmetic and Money\n\nBased on the retrieved curriculum evidence, **no specific learning objectives, topics, or outcomes related to everyday arithmetic or money** are available for Class 4. The evidence only lists the subjects offered at Primary 4, which include:\n\n- **Mathematics** (entity_id: 0e04674a-43e0-4145-84a3-5e656f0a91d0)\n- **English Language** (entity_id: 9da3f7f7-60c2-49c6-8950-fd20a1913661)\n- **Civic Education** (entity_id: be2bec7d-db04-4307-8300-466dc896466f)\n- **Social Studies** (entity_id: 13bc18c0-c518-47ef-911c-8c7174d05555)\n- **Physical Health Education** (entity_id: 1dac62a2-d187-4e7f-9d59-3a2eb1e25b24)\n- **Music and Other Expressive Arts** (entity_id: c049057b-ea42-4baf-a902-d3e6c63dc320)\n- **French Appreciation** (entity_id: 44c8b694-3fdd-473c-a256-bc22fd926da1)\n- **Science** (entity_id: d0f1291c-baa3-4651-a922-6d8590ace82e)\n- **ICT Literacy** (entity_id: 63f1ac54-f7c8-4d1f-a912-7e26389dc2a1)\n\nWhile **Mathematics** is the subject most likely to cover arithmetic and money, the evidence does not include any curriculum content (e.g., topics, learning objectives, or outcomes) for that subject. Therefore, I cannot state what Class 4 specifically teaches about everyday arithmetic or money.",
+    "verifier_score": 0.6,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "retrieve_more",
+    "final_accepted": false,
+    "final_route": "retrieve_more",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langchain_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 5489.07,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 2.056,
+      "metadata_validation_ms": 0.676,
+      "generation_ms": 0.04,
+      "verification_ms": 5485.029,
+      "mapping_ms": 0.183,
+      "routing_ms": 1.081
+    },
+    "c4u18_regression": null
+  },
+  "comparison": {
+    "fixture_class": "c4u18",
+    "run_index": 16,
+    "classification": "CONTROLLED_DIFFERENCE",
+    "control_implementation": "langgraph",
+    "experiment_implementation": "langchain",
+    "control_accepted": false,
+    "experiment_accepted": false,
+    "divergences": [
+      "mapped_recommendation: 'reject' != 'retrieve_more'"
+    ],
+    "notes": ""
+  },
+  "failure_origin": "MAPPER",
+  "unsafe_divergence": false,
+  "likely_cause": "Recommendation mapper applied different policy outcome.",
+  "safety_impact": "none"
+}

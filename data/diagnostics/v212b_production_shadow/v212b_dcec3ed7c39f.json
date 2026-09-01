@@ -1,0 +1,720 @@
+{
+  "experiment": "v2.12b_production_shadow",
+  "evaluation_id": "v212b_dcec3ed7c39f",
+  "timestamp": "2026-09-01T09:25:07.701025+00:00",
+  "question": "What topics are in Primary 5 Mathematics?",
+  "category": "topics",
+  "grade": "CLASS_5",
+  "subject": "MATHEMATICS",
+  "topic": null,
+  "request_trace_id": "1ffc135c4430c10a",
+  "retrieval_query": null,
+  "retrieved_evidence_ids": [
+    "666fe810-d15b-4fce-9456-a2e9641e0a54",
+    "893a3592-88cf-4c3f-8282-d51795b90829",
+    "0b3cfbaf-f9b5-41ac-8278-4faa09d80fa2",
+    "ba85b48d-bdcb-49f5-9f4e-56a71194abb5",
+    "d3489861-79eb-46ee-be2f-516b12562ad2",
+    "e90dd98b-e07d-495c-af0e-dfee3d8f083f",
+    "576e718f-5398-4424-b8ce-8a7cf3a0c30e",
+    "7d05c5a5-c298-4938-a35e-2943e67eb2e3",
+    "c0a746cf-9fb5-4ce5-a452-4cee4d88a141",
+    "4f867225-82c2-4199-b611-8479008d2190",
+    "44d156b7-9ae2-4308-b21a-74ccf7862182",
+    "fe5d4e05-c7ef-4806-b47d-950d18c92099",
+    "058ebed5-6422-4f62-9f2f-4e87df930ca9",
+    "e648bceb-ba13-442c-8837-5e2c1a9d4a40",
+    "fdc0b15e-febd-4e55-a0a7-43d0befe27e5",
+    "f80fd2e7-f31f-4c36-b402-bd583f8becbb",
+    "b7d736a9-3e59-40ee-aaef-37a8820a3238",
+    "7a811a20-702c-432a-9a29-7dfb4aa321c3",
+    "e63f80c0-3dd1-48d9-84a2-c088a6595ab4",
+    "efdab903-5c11-41f1-a4b7-f2c646fd5ac8",
+    "eb2c7e01-8f02-4293-a9db-9ad722b17c06",
+    "5b12fb30-5454-4599-bd94-9c803e67a85f",
+    "9e87517b-3b29-4639-b99f-f5dbb4cda55d",
+    "5d84e927-6428-455a-a4a1-0edaf87c13de"
+  ],
+  "retrieved_evidence_count": 24,
+  "evidence_snapshot": {
+    "evidence_hash": "63591ca53a5a9ef9",
+    "evidence_ids": [
+      "666fe810-d15b-4fce-9456-a2e9641e0a54",
+      "893a3592-88cf-4c3f-8282-d51795b90829",
+      "0b3cfbaf-f9b5-41ac-8278-4faa09d80fa2",
+      "ba85b48d-bdcb-49f5-9f4e-56a71194abb5",
+      "d3489861-79eb-46ee-be2f-516b12562ad2",
+      "e90dd98b-e07d-495c-af0e-dfee3d8f083f",
+      "576e718f-5398-4424-b8ce-8a7cf3a0c30e",
+      "7d05c5a5-c298-4938-a35e-2943e67eb2e3",
+      "c0a746cf-9fb5-4ce5-a452-4cee4d88a141",
+      "4f867225-82c2-4199-b611-8479008d2190",
+      "44d156b7-9ae2-4308-b21a-74ccf7862182",
+      "fe5d4e05-c7ef-4806-b47d-950d18c92099",
+      "058ebed5-6422-4f62-9f2f-4e87df930ca9",
+      "e648bceb-ba13-442c-8837-5e2c1a9d4a40",
+      "fdc0b15e-febd-4e55-a0a7-43d0befe27e5",
+      "f80fd2e7-f31f-4c36-b402-bd583f8becbb",
+      "b7d736a9-3e59-40ee-aaef-37a8820a3238",
+      "7a811a20-702c-432a-9a29-7dfb4aa321c3",
+      "e63f80c0-3dd1-48d9-84a2-c088a6595ab4",
+      "efdab903-5c11-41f1-a4b7-f2c646fd5ac8",
+      "eb2c7e01-8f02-4293-a9db-9ad722b17c06",
+      "5b12fb30-5454-4599-bd94-9c803e67a85f",
+      "9e87517b-3b29-4639-b99f-f5dbb4cda55d",
+      "5d84e927-6428-455a-a4a1-0edaf87c13de"
+    ],
+    "evidence_count": 24,
+    "raw_evidence": [
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "666fe810-d15b-4fce-9456-a2e9641e0a54",
+        "name": "Number and Numeration Counting",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration Counting",
+        "content": "Number and Numeration Counting",
+        "metadata": {
+          "code": "C5-U01",
+          "description": null,
+          "display_order": 1
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "893a3592-88cf-4c3f-8282-d51795b90829",
+        "name": "Number and Numeration Reading And Writing",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration Reading And Writing",
+        "content": "Number and Numeration Reading And Writing",
+        "metadata": {
+          "code": "C5-U02",
+          "description": null,
+          "display_order": 2
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "0b3cfbaf-f9b5-41ac-8278-4faa09d80fa2",
+        "name": "Number and Numeration Approximation",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration Approximation",
+        "content": "Number and Numeration Approximation",
+        "metadata": {
+          "code": "C5-U03",
+          "description": null,
+          "display_order": 3
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "ba85b48d-bdcb-49f5-9f4e-56a71194abb5",
+        "name": "Number and Numeration Place Value",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration Place Value",
+        "content": "Number and Numeration Place Value",
+        "metadata": {
+          "code": "C5-U04",
+          "description": null,
+          "display_order": 4
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "d3489861-79eb-46ee-be2f-516b12562ad2",
+        "name": "Number and Numeration Fraction.",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration Fraction.",
+        "content": "Number and Numeration Fraction.",
+        "metadata": {
+          "code": "C5-U05",
+          "description": null,
+          "display_order": 5
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "e90dd98b-e07d-495c-af0e-dfee3d8f083f",
+        "name": "Number and Numeration Operation on Fraction.",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration Operation on Fraction.",
+        "content": "Number and Numeration Operation on Fraction.",
+        "metadata": {
+          "code": "C5-U06",
+          "description": null,
+          "display_order": 6
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "576e718f-5398-4424-b8ce-8a7cf3a0c30e",
+        "name": "Number and Numeration",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration",
+        "content": "Number and Numeration",
+        "metadata": {
+          "code": "C5-U07",
+          "description": null,
+          "display_order": 7
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "7d05c5a5-c298-4938-a35e-2943e67eb2e3",
+        "name": "Number and Numeration Conversion of Numbers (fraction, decimal & percentage)",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration Conversion of Numbers (fraction, decimal & percentage)",
+        "content": "Number and Numeration Conversion of Numbers (fraction, decimal & percentage)",
+        "metadata": {
+          "code": "C5-U08",
+          "description": null,
+          "display_order": 8
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "c0a746cf-9fb5-4ce5-a452-4cee4d88a141",
+        "name": "Number and Numeration",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration",
+        "content": "Number and Numeration",
+        "metadata": {
+          "code": "C5-U09",
+          "description": "Percentages",
+          "display_order": 9
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "4f867225-82c2-4199-b611-8479008d2190",
+        "name": "Number and Numeration",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration",
+        "content": "Number and Numeration",
+        "metadata": {
+          "code": "C5-U10",
+          "description": "Number Pattern",
+          "display_order": 10
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "44d156b7-9ae2-4308-b21a-74ccf7862182",
+        "name": "Number and Numeration",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration",
+        "content": "Number and Numeration",
+        "metadata": {
+          "code": "C5-U11",
+          "description": "Relation",
+          "display_order": 11
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "fe5d4e05-c7ef-4806-b47d-950d18c92099",
+        "name": "Number and Numeration",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration",
+        "content": "Number and Numeration",
+        "metadata": {
+          "code": "C5-U12",
+          "description": "Factors",
+          "display_order": 12
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "058ebed5-6422-4f62-9f2f-4e87df930ca9",
+        "name": "Everyday Arithmetic",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic",
+        "content": "Everyday Arithmetic",
+        "metadata": {
+          "code": "C5-U13",
+          "description": "Operation on whole numbers to 100,000",
+          "display_order": 13
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "e648bceb-ba13-442c-8837-5e2c1a9d4a40",
+        "name": "Everyday Arithmetic Strategies on Operations",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic Strategies on Operations",
+        "content": "Everyday Arithmetic Strategies on Operations",
+        "metadata": {
+          "code": "C5-U14",
+          "description": null,
+          "display_order": 14
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "fdc0b15e-febd-4e55-a0a7-43d0befe27e5",
+        "name": "Everyday Arithmetic Multiplication",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic Multiplication",
+        "content": "Everyday Arithmetic Multiplication",
+        "metadata": {
+          "code": "C5-U15",
+          "description": null,
+          "display_order": 15
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "f80fd2e7-f31f-4c36-b402-bd583f8becbb",
+        "name": "Everyday Arithmetic Division",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic Division",
+        "content": "Everyday Arithmetic Division",
+        "metadata": {
+          "code": "C5-U16",
+          "description": null,
+          "display_order": 16
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "b7d736a9-3e59-40ee-aaef-37a8820a3238",
+        "name": "Everyday Arithmetic Ratio",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic Ratio",
+        "content": "Everyday Arithmetic Ratio",
+        "metadata": {
+          "code": "C5-U17",
+          "description": null,
+          "display_order": 17
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "7a811a20-702c-432a-9a29-7dfb4aa321c3",
+        "name": "Measurement And Estimation Length",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Measurement And Estimation Length",
+        "content": "Measurement And Estimation Length",
+        "metadata": {
+          "code": "C5-U18",
+          "description": null,
+          "display_order": 18
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "e63f80c0-3dd1-48d9-84a2-c088a6595ab4",
+        "name": "Measurement and Estimation.",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Measurement and Estimation.",
+        "content": "Measurement and Estimation.",
+        "metadata": {
+          "code": "C5-U19",
+          "description": "Revision",
+          "display_order": 19
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "efdab903-5c11-41f1-a4b7-f2c646fd5ac8",
+        "name": "Measurement and Estimation",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Measurement and Estimation",
+        "content": "Measurement and Estimation",
+        "metadata": {
+          "code": "C5-U20",
+          "description": "Temperature/ Time",
+          "display_order": 20
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "eb2c7e01-8f02-4293-a9db-9ad722b17c06",
+        "name": "Measurement and Estimation GEOMETRY Angle Types",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Measurement and Estimation GEOMETRY Angle Types",
+        "content": "Measurement and Estimation GEOMETRY Angle Types",
+        "metadata": {
+          "code": "C5-U21",
+          "description": null,
+          "display_order": 21
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "5b12fb30-5454-4599-bd94-9c803e67a85f",
+        "name": "Measurement and Estimation GEOMETRY Circle/ other shapes",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Measurement and Estimation GEOMETRY Circle/ other shapes",
+        "content": "Measurement and Estimation GEOMETRY Circle/ other shapes",
+        "metadata": {
+          "code": "C5-U22",
+          "description": null,
+          "display_order": 22
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "9e87517b-3b29-4639-b99f-f5dbb4cda55d",
+        "name": "Statistics Data Collection Plan",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Statistics Data Collection Plan",
+        "content": "Statistics Data Collection Plan",
+        "metadata": {
+          "code": "C5-U23",
+          "description": null,
+          "display_order": 23
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "5d84e927-6428-455a-a4a1-0edaf87c13de",
+        "name": "Statistics Mean/Mode/Median.",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "MATHEMATICS",
+        "topic": "Statistics Mean/Mode/Median.",
+        "content": "Statistics Mean/Mode/Median.",
+        "metadata": {
+          "code": "C5-U24",
+          "description": null,
+          "display_order": 24
+        },
+        "source_reference": "grade_curriculum.content"
+      }
+    ],
+    "retrieval_metadata": {
+      "retrieval_rounds": 0,
+      "evidence_status": "found",
+      "grade": "CLASS_5",
+      "subject": "MATHEMATICS",
+      "topic": null,
+      "tool_calls": 2,
+      "retrieval_query": null,
+      "evidence_snapshot_hash": null
+    },
+    "normalization_version": "v2.9",
+    "metadata_guard_version": "v2.11",
+    "normalized_evidence_hash": "63591ca53a5a9ef9",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 24,
+      "records_out": 24,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 24,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "63591ca53a5a9ef9",
+      "evidence_hash_out": "63591ca53a5a9ef9"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": []
+  },
+  "generated_answer": "## Primary 5 Mathematics Topics\n\nBased on the retrieved curriculum evidence, the Primary 5 Mathematics curriculum is organized into the following units:\n\n### Number and Numeration\n- **C5-U01** \u2014 Number and Numeration Counting\n- **C5-U02** \u2014 Number and Numeration Reading And Writing\n- **C5-U03** \u2014 Number and Numeration Approximation\n- **C5-U04** \u2014 Number and Numeration Place Value\n- **C5-U05** \u2014 Number and Numeration Fraction.\n- **C5-U06** \u2014 Number and Numeration Operation on Fraction.\n- **C5-U07** \u2014 Number and Numeration\n- **C5-U08** \u2014 Number and Numeration Conversion of Numbers (fraction, decimal & percentage)\n- **C5-U09** \u2014 Number and Numeration\n- **C5-U10** \u2014 Number and Numeration\n- **C5-U11** \u2014 Number and Numeration\n- **C5-U12** \u2014 Number and Numeration\n\n### Everyday Arithmetic\n- **C5-U13** \u2014 Everyday Arithmetic\n- **C5-U14** \u2014 Everyday Arithmetic Strategies on Operations\n- **C5-U15** \u2014 Everyday Arithmetic Multiplication\n- **C5-U16** \u2014 Everyday Arithmetic Division\n- **C5-U17** \u2014 Everyday Arithmetic Ratio\n\n### Measurement and Estimation\n- **C5-U18** \u2014 Measurement And Estimation Length\n- **C5-U19** \u2014 Measurement and Estimation.\n- **C5-U20** \u2014 Measurement and Estimation\n- **C5-U21** \u2014 Measurement and Estimation GEOMETRY Angle Types\n- **C5-U22** \u2014 Measurement and Estimation GEOMETRY Circle/ other shapes\n\n### Statistics\n- **C5-U23** \u2014 Statistics Data Collection Plan\n- **C5-U24** \u2014 Statistics Mean/Mode/Median.\n\n**Note:** Some units (C5-U07, C5-U09, C5-U10, C5-U11, C5-U12, C5-U19, C5-U20) are listed only as 'Number and Numeration' or 'Measurement and Estimation' without a specific subtopic in the evidence.",
+  "production_implementation": "langgraph",
+  "production_route": "fallback",
+  "production_accepted": false,
+  "c4u18_path": false,
+  "langgraph": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langgraph",
+    "fixture_class": "topics",
+    "run_index": 11,
+    "threshold": 0.85,
+    "question": "What topics are in Primary 5 Mathematics?",
+    "retrieved_evidence_ids": [
+      "666fe810-d15b-4fce-9456-a2e9641e0a54",
+      "893a3592-88cf-4c3f-8282-d51795b90829",
+      "0b3cfbaf-f9b5-41ac-8278-4faa09d80fa2",
+      "ba85b48d-bdcb-49f5-9f4e-56a71194abb5",
+      "d3489861-79eb-46ee-be2f-516b12562ad2",
+      "e90dd98b-e07d-495c-af0e-dfee3d8f083f",
+      "576e718f-5398-4424-b8ce-8a7cf3a0c30e",
+      "7d05c5a5-c298-4938-a35e-2943e67eb2e3",
+      "c0a746cf-9fb5-4ce5-a452-4cee4d88a141",
+      "4f867225-82c2-4199-b611-8479008d2190",
+      "44d156b7-9ae2-4308-b21a-74ccf7862182",
+      "fe5d4e05-c7ef-4806-b47d-950d18c92099",
+      "058ebed5-6422-4f62-9f2f-4e87df930ca9",
+      "e648bceb-ba13-442c-8837-5e2c1a9d4a40",
+      "fdc0b15e-febd-4e55-a0a7-43d0befe27e5",
+      "f80fd2e7-f31f-4c36-b402-bd583f8becbb",
+      "b7d736a9-3e59-40ee-aaef-37a8820a3238",
+      "7a811a20-702c-432a-9a29-7dfb4aa321c3",
+      "e63f80c0-3dd1-48d9-84a2-c088a6595ab4",
+      "efdab903-5c11-41f1-a4b7-f2c646fd5ac8",
+      "eb2c7e01-8f02-4293-a9db-9ad722b17c06",
+      "5b12fb30-5454-4599-bd94-9c803e67a85f",
+      "9e87517b-3b29-4639-b99f-f5dbb4cda55d",
+      "5d84e927-6428-455a-a4a1-0edaf87c13de"
+    ],
+    "raw_evidence_hash": "63591ca53a5a9ef9",
+    "normalized_evidence_hash": "63591ca53a5a9ef9",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 24,
+      "records_out": 24,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 24,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "63591ca53a5a9ef9",
+      "evidence_hash_out": "63591ca53a5a9ef9"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "## Primary 5 Mathematics Topics\n\nBased on the retrieved curriculum evidence, the Primary 5 Mathematics curriculum is organized into the following units:\n\n### Number and Numeration\n- **C5-U01** \u2014 Number and Numeration Counting\n- **C5-U02** \u2014 Number and Numeration Reading And Writing\n- **C5-U03** \u2014 Number and Numeration Approximation\n- **C5-U04** \u2014 Number and Numeration Place Value\n- **C5-U05** \u2014 Number and Numeration Fraction.\n- **C5-U06** \u2014 Number and Numeration Operation on Fraction.\n- **C5-U07** \u2014 Number and Numeration\n- **C5-U08** \u2014 Number and Numeration Conversion of Numbers (fraction, decimal & percentage)\n- **C5-U09** \u2014 Number and Numeration\n- **C5-U10** \u2014 Number and Numeration\n- **C5-U11** \u2014 Number and Numeration\n- **C5-U12** \u2014 Number and Numeration\n\n### Everyday Arithmetic\n- **C5-U13** \u2014 Everyday Arithmetic\n- **C5-U14** \u2014 Everyday Arithmetic Strategies on Operations\n- **C5-U15** \u2014 Everyday Arithmetic Multiplication\n- **C5-U16** \u2014 Everyday Arithmetic Division\n- **C5-U17** \u2014 Everyday Arithmetic Ratio\n\n### Measurement and Estimation\n- **C5-U18** \u2014 Measurement And Estimation Length\n- **C5-U19** \u2014 Measurement and Estimation.\n- **C5-U20** \u2014 Measurement and Estimation\n- **C5-U21** \u2014 Measurement and Estimation GEOMETRY Angle Types\n- **C5-U22** \u2014 Measurement and Estimation GEOMETRY Circle/ other shapes\n\n### Statistics\n- **C5-U23** \u2014 Statistics Data Collection Plan\n- **C5-U24** \u2014 Statistics Mean/Mode/Median.\n\n**Note:** Some units (C5-U07, C5-U09, C5-U10, C5-U11, C5-U12, C5-U19, C5-U20) are listed only as 'Number and Numeration' or 'Measurement and Estimation' without a specific subtopic in the evidence.",
+    "verifier_score": 0.9,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "retrieve_more",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langgraph_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 12368.79,
+      "retrieval_ms": 0.005,
+      "normalization_ms": 5.987,
+      "metadata_validation_ms": 1.791,
+      "generation_ms": 0.054,
+      "verification_ms": 12357.839,
+      "mapping_ms": 0.302,
+      "routing_ms": 2.812
+    },
+    "c4u18_regression": null
+  },
+  "langchain": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langchain",
+    "fixture_class": "topics",
+    "run_index": 11,
+    "threshold": 0.85,
+    "question": "What topics are in Primary 5 Mathematics?",
+    "retrieved_evidence_ids": [
+      "666fe810-d15b-4fce-9456-a2e9641e0a54",
+      "893a3592-88cf-4c3f-8282-d51795b90829",
+      "0b3cfbaf-f9b5-41ac-8278-4faa09d80fa2",
+      "ba85b48d-bdcb-49f5-9f4e-56a71194abb5",
+      "d3489861-79eb-46ee-be2f-516b12562ad2",
+      "e90dd98b-e07d-495c-af0e-dfee3d8f083f",
+      "576e718f-5398-4424-b8ce-8a7cf3a0c30e",
+      "7d05c5a5-c298-4938-a35e-2943e67eb2e3",
+      "c0a746cf-9fb5-4ce5-a452-4cee4d88a141",
+      "4f867225-82c2-4199-b611-8479008d2190",
+      "44d156b7-9ae2-4308-b21a-74ccf7862182",
+      "fe5d4e05-c7ef-4806-b47d-950d18c92099",
+      "058ebed5-6422-4f62-9f2f-4e87df930ca9",
+      "e648bceb-ba13-442c-8837-5e2c1a9d4a40",
+      "fdc0b15e-febd-4e55-a0a7-43d0befe27e5",
+      "f80fd2e7-f31f-4c36-b402-bd583f8becbb",
+      "b7d736a9-3e59-40ee-aaef-37a8820a3238",
+      "7a811a20-702c-432a-9a29-7dfb4aa321c3",
+      "e63f80c0-3dd1-48d9-84a2-c088a6595ab4",
+      "efdab903-5c11-41f1-a4b7-f2c646fd5ac8",
+      "eb2c7e01-8f02-4293-a9db-9ad722b17c06",
+      "5b12fb30-5454-4599-bd94-9c803e67a85f",
+      "9e87517b-3b29-4639-b99f-f5dbb4cda55d",
+      "5d84e927-6428-455a-a4a1-0edaf87c13de"
+    ],
+    "raw_evidence_hash": "63591ca53a5a9ef9",
+    "normalized_evidence_hash": "63591ca53a5a9ef9",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 24,
+      "records_out": 24,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 24,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "63591ca53a5a9ef9",
+      "evidence_hash_out": "63591ca53a5a9ef9"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "## Primary 5 Mathematics Topics\n\nBased on the retrieved curriculum evidence, the Primary 5 Mathematics curriculum is organized into the following units:\n\n### Number and Numeration\n- **C5-U01** \u2014 Number and Numeration Counting\n- **C5-U02** \u2014 Number and Numeration Reading And Writing\n- **C5-U03** \u2014 Number and Numeration Approximation\n- **C5-U04** \u2014 Number and Numeration Place Value\n- **C5-U05** \u2014 Number and Numeration Fraction.\n- **C5-U06** \u2014 Number and Numeration Operation on Fraction.\n- **C5-U07** \u2014 Number and Numeration\n- **C5-U08** \u2014 Number and Numeration Conversion of Numbers (fraction, decimal & percentage)\n- **C5-U09** \u2014 Number and Numeration\n- **C5-U10** \u2014 Number and Numeration\n- **C5-U11** \u2014 Number and Numeration\n- **C5-U12** \u2014 Number and Numeration\n\n### Everyday Arithmetic\n- **C5-U13** \u2014 Everyday Arithmetic\n- **C5-U14** \u2014 Everyday Arithmetic Strategies on Operations\n- **C5-U15** \u2014 Everyday Arithmetic Multiplication\n- **C5-U16** \u2014 Everyday Arithmetic Division\n- **C5-U17** \u2014 Everyday Arithmetic Ratio\n\n### Measurement and Estimation\n- **C5-U18** \u2014 Measurement And Estimation Length\n- **C5-U19** \u2014 Measurement and Estimation.\n- **C5-U20** \u2014 Measurement and Estimation\n- **C5-U21** \u2014 Measurement and Estimation GEOMETRY Angle Types\n- **C5-U22** \u2014 Measurement and Estimation GEOMETRY Circle/ other shapes\n\n### Statistics\n- **C5-U23** \u2014 Statistics Data Collection Plan\n- **C5-U24** \u2014 Statistics Mean/Mode/Median.\n\n**Note:** Some units (C5-U07, C5-U09, C5-U10, C5-U11, C5-U12, C5-U19, C5-U20) are listed only as 'Number and Numeration' or 'Measurement and Estimation' without a specific subtopic in the evidence.",
+    "verifier_score": 0.9,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "retrieve_more",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langchain_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 23981.446,
+      "retrieval_ms": 0.005,
+      "normalization_ms": 9.445,
+      "metadata_validation_ms": 2.392,
+      "generation_ms": 0.049,
+      "verification_ms": 23967.66,
+      "mapping_ms": 0.249,
+      "routing_ms": 1.646
+    },
+    "c4u18_regression": null
+  },
+  "comparison": {
+    "fixture_class": "topics",
+    "run_index": 11,
+    "classification": "EXACT_EQUIVALENCE",
+    "control_implementation": "langgraph",
+    "experiment_implementation": "langchain",
+    "control_accepted": false,
+    "experiment_accepted": false,
+    "divergences": [],
+    "notes": ""
+  },
+  "failure_origin": "UNKNOWN",
+  "unsafe_divergence": false,
+  "likely_cause": "No material divergence or undetermined.",
+  "safety_impact": "none"
+}

@@ -1,0 +1,484 @@
+{
+  "experiment": "v2.12b_production_shadow",
+  "evaluation_id": "v212b_991f50c66b11",
+  "timestamp": "2026-09-01T09:19:08.319517+00:00",
+  "question": "What are the learning outcomes for C4-U18?",
+  "category": "learning_objectives",
+  "grade": "CLASS_4",
+  "subject": "MATHEMATICS",
+  "topic": null,
+  "request_trace_id": "de6580b5c2608769",
+  "retrieval_query": null,
+  "retrieved_evidence_ids": [
+    "5c811e26-cf8b-4d59-a145-41e8f7dca01b",
+    "e14e7ab6-b16b-497c-8589-4488b64d8ce3",
+    "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+    "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+    "be2bec7d-db04-4307-8300-466dc896466f",
+    "13bc18c0-c518-47ef-911c-8c7174d05555",
+    "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+    "c049057b-ea42-4baf-a902-d3e6c63dc320",
+    "44c8b694-3fdd-473c-a256-bc22fd926da1",
+    "d0f1291c-baa3-4651-a922-6d8590ace82e",
+    "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1"
+  ],
+  "retrieved_evidence_count": 11,
+  "evidence_snapshot": {
+    "evidence_hash": "519a0e3eebe75911",
+    "evidence_ids": [
+      "5c811e26-cf8b-4d59-a145-41e8f7dca01b",
+      "e14e7ab6-b16b-497c-8589-4488b64d8ce3",
+      "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+      "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "be2bec7d-db04-4307-8300-466dc896466f",
+      "13bc18c0-c518-47ef-911c-8c7174d05555",
+      "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+      "c049057b-ea42-4baf-a902-d3e6c63dc320",
+      "44c8b694-3fdd-473c-a256-bc22fd926da1",
+      "d0f1291c-baa3-4651-a922-6d8590ace82e",
+      "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1"
+    ],
+    "evidence_count": 11,
+    "raw_evidence": [
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "5c811e26-cf8b-4d59-a145-41e8f7dca01b",
+        "name": "The Magic Porridge Pot",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": null,
+        "topic": "The Magic Porridge Pot",
+        "content": "The Magic Porridge Pot",
+        "metadata": {
+          "code": "C4-U18",
+          "description": null,
+          "display_order": 18,
+          "matched_learning_outcomes": [
+            {
+              "id": "e14e7ab6-b16b-497c-8589-4488b64d8ce3",
+              "code": "C4U18-LO01",
+              "description": "Read the play in parts and find answers; complete sentences about the story; make sentences about things in the picture.",
+              "curriculum_content_id": "5c811e26-cf8b-4d59-a145-41e8f7dca01b"
+            }
+          ]
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "e14e7ab6-b16b-497c-8589-4488b64d8ce3",
+        "name": "C4U18-LO01",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": null,
+        "topic": "5c811e26-cf8b-4d59-a145-41e8f7dca01b",
+        "content": "Read the play in parts and find answers; complete sentences about the story; make sentences about things in the picture.",
+        "metadata": {
+          "code": "C4U18-LO01",
+          "sequence": 1,
+          "knowledge": [],
+          "skills": []
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+        "name": "English Language",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "ENGLISH_LANGUAGE",
+        "topic": null,
+        "content": "English Language",
+        "metadata": {
+          "code": "ENGLISH_LANGUAGE",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+        "name": "Mathematics",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": null,
+        "content": "Mathematics",
+        "metadata": {
+          "code": "MATHEMATICS",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "be2bec7d-db04-4307-8300-466dc896466f",
+        "name": "Civic Education",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "CIVIC_EDUCATION",
+        "topic": null,
+        "content": "Civic Education",
+        "metadata": {
+          "code": "CIVIC_EDUCATION",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "13bc18c0-c518-47ef-911c-8c7174d05555",
+        "name": "Social Studies",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "SOCIAL_STUDIES",
+        "topic": null,
+        "content": "Social Studies",
+        "metadata": {
+          "code": "SOCIAL_STUDIES",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+        "name": "Physical Health Education",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+        "topic": null,
+        "content": "Physical Health Education",
+        "metadata": {
+          "code": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "c049057b-ea42-4baf-a902-d3e6c63dc320",
+        "name": "Music and Other Expressive Arts",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "MUSIC_EXPRESSIVE_ARTS",
+        "topic": null,
+        "content": "Music and Other Expressive Arts",
+        "metadata": {
+          "code": "MUSIC_EXPRESSIVE_ARTS",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "44c8b694-3fdd-473c-a256-bc22fd926da1",
+        "name": "French Appreciation",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "FRENCH_APPRECIATION",
+        "topic": null,
+        "content": "French Appreciation",
+        "metadata": {
+          "code": "FRENCH_APPRECIATION",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+        "name": "Science",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "SCIENCE",
+        "topic": null,
+        "content": "Science",
+        "metadata": {
+          "code": "SCIENCE",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "subject",
+        "entity_id": "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1",
+        "name": "ICT Literacy",
+        "level": null,
+        "grade": "CLASS_4",
+        "subject": "ICT_LITERACY",
+        "topic": null,
+        "content": "ICT Literacy",
+        "metadata": {
+          "code": "ICT_LITERACY",
+          "category": null,
+          "status": "ACTIVE"
+        },
+        "source_reference": "subjects"
+      }
+    ],
+    "retrieval_metadata": {
+      "retrieval_rounds": 0,
+      "evidence_status": "found",
+      "grade": null,
+      "subject": null,
+      "topic": null,
+      "tool_calls": 4,
+      "retrieval_query": null,
+      "evidence_snapshot_hash": null
+    },
+    "normalization_version": "v2.9",
+    "metadata_guard_version": "v2.11",
+    "normalized_evidence_hash": "519a0e3eebe75911",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 11,
+      "records_out": 11,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 11,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "519a0e3eebe75911",
+      "evidence_hash_out": "519a0e3eebe75911"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": []
+  },
+  "generated_answer": "### Primary 4 \u2014 English Language\n\n## Learning objectives/outcomes\n- **C4U18-LO01** \u2014 Read the play in parts and find answers; complete sentences about the story; make sentences about things in the picture.",
+  "production_implementation": "langgraph",
+  "production_route": "fallback",
+  "production_accepted": false,
+  "c4u18_path": true,
+  "langgraph": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langgraph",
+    "fixture_class": "learning_objectives",
+    "run_index": 3,
+    "threshold": 0.85,
+    "question": "What are the learning outcomes for C4-U18?",
+    "retrieved_evidence_ids": [
+      "5c811e26-cf8b-4d59-a145-41e8f7dca01b",
+      "e14e7ab6-b16b-497c-8589-4488b64d8ce3",
+      "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+      "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "be2bec7d-db04-4307-8300-466dc896466f",
+      "13bc18c0-c518-47ef-911c-8c7174d05555",
+      "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+      "c049057b-ea42-4baf-a902-d3e6c63dc320",
+      "44c8b694-3fdd-473c-a256-bc22fd926da1",
+      "d0f1291c-baa3-4651-a922-6d8590ace82e",
+      "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1"
+    ],
+    "raw_evidence_hash": "519a0e3eebe75911",
+    "normalized_evidence_hash": "519a0e3eebe75911",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 11,
+      "records_out": 11,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 11,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "519a0e3eebe75911",
+      "evidence_hash_out": "519a0e3eebe75911"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "### Primary 4 \u2014 English Language\n\n## Learning objectives/outcomes\n- **C4U18-LO01** \u2014 Read the play in parts and find answers; complete sentences about the story; make sentences about things in the picture.",
+    "verifier_score": 1.0,
+    "verifier_decision": "accept",
+    "verifier_recommendation": "accept",
+    "mapped_recommendation": "accept",
+    "final_accepted": true,
+    "final_route": "finish",
+    "safety_status": "accepted",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langgraph_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 2838.79,
+      "retrieval_ms": 0.005,
+      "normalization_ms": 2.684,
+      "metadata_validation_ms": 1.01,
+      "generation_ms": 0.043,
+      "verification_ms": 2834.687,
+      "mapping_ms": 0.18,
+      "routing_ms": 0.182
+    },
+    "c4u18_regression": {
+      "raw_topic_uuid": "The Magic Porridge Pot",
+      "resolved_topic_name": "The Magic Porridge Pot",
+      "subject": null,
+      "grade": "CLASS_4",
+      "parent": null,
+      "metadata_valid": true,
+      "metadata_blocked": false,
+      "verifier_score": 1.0,
+      "verifier_recommendation": "accept",
+      "mapper_result": "accept",
+      "final_route": "finish",
+      "final_accepted": true,
+      "implementation": "langgraph"
+    }
+  },
+  "langchain": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langchain",
+    "fixture_class": "learning_objectives",
+    "run_index": 3,
+    "threshold": 0.85,
+    "question": "What are the learning outcomes for C4-U18?",
+    "retrieved_evidence_ids": [
+      "5c811e26-cf8b-4d59-a145-41e8f7dca01b",
+      "e14e7ab6-b16b-497c-8589-4488b64d8ce3",
+      "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+      "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "be2bec7d-db04-4307-8300-466dc896466f",
+      "13bc18c0-c518-47ef-911c-8c7174d05555",
+      "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+      "c049057b-ea42-4baf-a902-d3e6c63dc320",
+      "44c8b694-3fdd-473c-a256-bc22fd926da1",
+      "d0f1291c-baa3-4651-a922-6d8590ace82e",
+      "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1"
+    ],
+    "raw_evidence_hash": "519a0e3eebe75911",
+    "normalized_evidence_hash": "519a0e3eebe75911",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 11,
+      "records_out": 11,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 11,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "519a0e3eebe75911",
+      "evidence_hash_out": "519a0e3eebe75911"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "### Primary 4 \u2014 English Language\n\n## Learning objectives/outcomes\n- **C4U18-LO01** \u2014 Read the play in parts and find answers; complete sentences about the story; make sentences about things in the picture.",
+    "verifier_score": 1.0,
+    "verifier_decision": "accept",
+    "verifier_recommendation": "accept",
+    "mapped_recommendation": "accept",
+    "final_accepted": true,
+    "final_route": "finish",
+    "safety_status": "accepted",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langchain_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 2669.938,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 2.715,
+      "metadata_validation_ms": 0.987,
+      "generation_ms": 0.045,
+      "verification_ms": 2665.711,
+      "mapping_ms": 0.179,
+      "routing_ms": 0.298
+    },
+    "c4u18_regression": {
+      "raw_topic_uuid": "The Magic Porridge Pot",
+      "resolved_topic_name": "The Magic Porridge Pot",
+      "subject": null,
+      "grade": "CLASS_4",
+      "parent": null,
+      "metadata_valid": true,
+      "metadata_blocked": false,
+      "verifier_score": 1.0,
+      "verifier_recommendation": "accept",
+      "mapper_result": "accept",
+      "final_route": "finish",
+      "final_accepted": true,
+      "implementation": "langchain"
+    }
+  },
+  "comparison": {
+    "fixture_class": "learning_objectives",
+    "run_index": 3,
+    "classification": "EXACT_EQUIVALENCE",
+    "control_implementation": "langgraph",
+    "experiment_implementation": "langchain",
+    "control_accepted": true,
+    "experiment_accepted": true,
+    "divergences": [],
+    "notes": ""
+  },
+  "failure_origin": "UNKNOWN",
+  "unsafe_divergence": false,
+  "likely_cause": "No material divergence or undetermined.",
+  "safety_impact": "none"
+}

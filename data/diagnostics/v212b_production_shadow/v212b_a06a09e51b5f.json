@@ -1,0 +1,811 @@
+{
+  "experiment": "v2.12b_production_shadow",
+  "evaluation_id": "v212b_a06a09e51b5f",
+  "timestamp": "2026-09-01T09:20:41.496445+00:00",
+  "question": "What does Class 4 Mathematics cover?",
+  "category": "grade_subject",
+  "grade": "CLASS_4",
+  "subject": "MATHEMATICS",
+  "topic": null,
+  "request_trace_id": "0c62675ffaa7102e",
+  "retrieval_query": null,
+  "retrieved_evidence_ids": [
+    "f293e00a-bae7-44db-ad55-3c1263e20387",
+    "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+    "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+    "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+    "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+    "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+    "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+    "c148074c-fac8-4771-94de-01de1805f585",
+    "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+    "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+    "a06e3216-dd97-4d5f-af49-f1afec6def85",
+    "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+    "152b4a5a-c080-403c-a780-9940c818bc4b",
+    "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+    "13202e14-75a9-455e-9f58-baad27d672b4",
+    "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+    "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+    "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+    "6252f434-14ed-42cc-8415-ea870de24273",
+    "6ec53325-5983-421a-8b3e-9690e6da159f",
+    "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+    "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+    "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+    "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+    "36924334-8856-4c53-8f48-d4e6eed8cf12",
+    "00d27bae-413d-4841-9a1b-23020b50567d",
+    "b1587bd8-a2da-493e-8872-4b404108c235"
+  ],
+  "retrieved_evidence_count": 27,
+  "evidence_snapshot": {
+    "evidence_hash": "408a01afc35801c7",
+    "evidence_ids": [
+      "f293e00a-bae7-44db-ad55-3c1263e20387",
+      "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+      "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+      "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+      "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+      "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+      "c148074c-fac8-4771-94de-01de1805f585",
+      "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+      "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+      "a06e3216-dd97-4d5f-af49-f1afec6def85",
+      "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+      "152b4a5a-c080-403c-a780-9940c818bc4b",
+      "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+      "13202e14-75a9-455e-9f58-baad27d672b4",
+      "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+      "6252f434-14ed-42cc-8415-ea870de24273",
+      "6ec53325-5983-421a-8b3e-9690e6da159f",
+      "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+      "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+      "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+      "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+      "36924334-8856-4c53-8f48-d4e6eed8cf12",
+      "00d27bae-413d-4841-9a1b-23020b50567d",
+      "b1587bd8-a2da-493e-8872-4b404108c235"
+    ],
+    "evidence_count": 27,
+    "raw_evidence": [
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "f293e00a-bae7-44db-ad55-3c1263e20387",
+        "name": "Number and Numeration",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration",
+        "content": "Number and Numeration",
+        "metadata": {
+          "code": "C4-U01",
+          "description": "COUNTING",
+          "display_order": 1
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+        "name": "Number and Numeration Reading And Writing",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration Reading And Writing",
+        "content": "Number and Numeration Reading And Writing",
+        "metadata": {
+          "code": "C4-U02",
+          "description": null,
+          "display_order": 2
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+        "name": "Number and Numeration. Approximation.",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration. Approximation.",
+        "content": "Number and Numeration. Approximation.",
+        "metadata": {
+          "code": "C4-U03",
+          "description": null,
+          "display_order": 3
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "name": "Number and Numeration FRACTION",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration FRACTION",
+        "content": "Number and Numeration FRACTION",
+        "metadata": {
+          "code": "C4-U04",
+          "description": null,
+          "display_order": 4
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+        "name": "Number and Numeration OPERATION ON FRACTIONS.",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration OPERATION ON FRACTIONS.",
+        "content": "Number and Numeration OPERATION ON FRACTIONS.",
+        "metadata": {
+          "code": "C4-U05",
+          "description": null,
+          "display_order": 5
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+        "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "content": "Number and Numeration Operation on Fraction. (Multiplication)",
+        "metadata": {
+          "code": "C4-U06",
+          "description": null,
+          "display_order": 6
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+        "name": "Number and Numeration",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration",
+        "content": "Number and Numeration",
+        "metadata": {
+          "code": "C4-U07",
+          "description": "Fraction",
+          "display_order": 7
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "c148074c-fac8-4771-94de-01de1805f585",
+        "name": "Number and Numeration",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration",
+        "content": "Number and Numeration",
+        "metadata": {
+          "code": "C4-U08",
+          "description": "Fractions / Decimals",
+          "display_order": 8
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+        "name": "Number and Numeration",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration",
+        "content": "Number and Numeration",
+        "metadata": {
+          "code": "C4-U09",
+          "description": "Factors.",
+          "display_order": 9
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+        "name": "Number and Numeration",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Number and Numeration",
+        "content": "Number and Numeration",
+        "metadata": {
+          "code": "C4-U10",
+          "description": "NUMBER PATTERN",
+          "display_order": 10
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "a06e3216-dd97-4d5f-af49-f1afec6def85",
+        "name": "Everyday Arithmetic Addition and Subtraction",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic Addition and Subtraction",
+        "content": "Everyday Arithmetic Addition and Subtraction",
+        "metadata": {
+          "code": "C4-U11",
+          "description": null,
+          "display_order": 11
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+        "name": "Everyday Arithmetic Multiplication",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic Multiplication",
+        "content": "Everyday Arithmetic Multiplication",
+        "metadata": {
+          "code": "C4-U13",
+          "description": null,
+          "display_order": 12
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "152b4a5a-c080-403c-a780-9940c818bc4b",
+        "name": "Everyday Arithmetic DIVISION",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic DIVISION",
+        "content": "Everyday Arithmetic DIVISION",
+        "metadata": {
+          "code": "C4-U14",
+          "description": null,
+          "display_order": 13
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+        "name": "Everyday Arithmetic",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic",
+        "content": "Everyday Arithmetic",
+        "metadata": {
+          "code": "C4-U15",
+          "description": "Operations on Decimals.",
+          "display_order": 14
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "13202e14-75a9-455e-9f58-baad27d672b4",
+        "name": "Everyday Arithmetic Addition and Subtraction.",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic Addition and Subtraction.",
+        "content": "Everyday Arithmetic Addition and Subtraction.",
+        "metadata": {
+          "code": "C4-U16",
+          "description": null,
+          "display_order": 15
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+        "name": "Everyday Arithmetic",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic",
+        "content": "Everyday Arithmetic",
+        "metadata": {
+          "code": "C4-U17",
+          "description": "MONEY",
+          "display_order": 16
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "name": "Everyday Arithmetic Money",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic Money",
+        "content": "Everyday Arithmetic Money",
+        "metadata": {
+          "code": "C4-U18",
+          "description": null,
+          "display_order": 17
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+        "name": "Everyday Arithmetic Multiplication and Decimal.",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Everyday Arithmetic Multiplication and Decimal.",
+        "content": "Everyday Arithmetic Multiplication and Decimal.",
+        "metadata": {
+          "code": "C4-U19",
+          "description": null,
+          "display_order": 18
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "6252f434-14ed-42cc-8415-ea870de24273",
+        "name": "Measurement And Estimation LENGTH",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Measurement And Estimation LENGTH",
+        "content": "Measurement And Estimation LENGTH",
+        "metadata": {
+          "code": "C4-U20",
+          "description": null,
+          "display_order": 19
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "6ec53325-5983-421a-8b3e-9690e6da159f",
+        "name": "Measurement And Estimation LENGTH",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Measurement And Estimation LENGTH",
+        "content": "Measurement And Estimation LENGTH",
+        "metadata": {
+          "code": "C4-U21",
+          "description": "Perimeter",
+          "display_order": 20
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+        "name": "Measurement and Estimation.",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Measurement and Estimation.",
+        "content": "Measurement and Estimation.",
+        "metadata": {
+          "code": "C4-U22",
+          "description": "LENGTH; Area.",
+          "display_order": 21
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+        "name": "Measurement and Estimation",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Measurement and Estimation",
+        "content": "Measurement and Estimation",
+        "metadata": {
+          "code": "C4-U23",
+          "description": "MASS",
+          "display_order": 22
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+        "name": "Measurement and Estimation",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Measurement and Estimation",
+        "content": "Measurement and Estimation",
+        "metadata": {
+          "code": "C4-U24",
+          "description": "VOLUME & CAPACITY",
+          "display_order": 23
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+        "name": "Measurement and Estimation GEOMETRY Lines and Angles",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Measurement and Estimation GEOMETRY Lines and Angles",
+        "content": "Measurement and Estimation GEOMETRY Lines and Angles",
+        "metadata": {
+          "code": "C4-U25",
+          "description": null,
+          "display_order": 24
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "36924334-8856-4c53-8f48-d4e6eed8cf12",
+        "name": "Measurement and Estimation Time",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Measurement and Estimation Time",
+        "content": "Measurement and Estimation Time",
+        "metadata": {
+          "code": "C4-U26",
+          "description": null,
+          "display_order": 25
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "00d27bae-413d-4841-9a1b-23020b50567d",
+        "name": "STATISTICS Data Collection Plan",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "STATISTICS Data Collection Plan",
+        "content": "STATISTICS Data Collection Plan",
+        "metadata": {
+          "code": "C4-U27",
+          "description": null,
+          "display_order": 26
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "b1587bd8-a2da-493e-8872-4b404108c235",
+        "name": "Unit 28",
+        "level": "primary",
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "Unit 28",
+        "content": "Unit 28",
+        "metadata": {
+          "code": "C4-U28",
+          "description": "STATISTICS Data Handling",
+          "display_order": 27
+        },
+        "source_reference": "grade_curriculum.content"
+      }
+    ],
+    "retrieval_metadata": {
+      "retrieval_rounds": 0,
+      "evidence_status": "found",
+      "grade": "CLASS_4",
+      "subject": "MATHEMATICS",
+      "topic": null,
+      "tool_calls": 3,
+      "retrieval_query": null,
+      "evidence_snapshot_hash": null
+    },
+    "normalization_version": "v2.9",
+    "metadata_guard_version": "v2.11",
+    "normalized_evidence_hash": "408a01afc35801c7",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 27,
+      "records_out": 27,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 27,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "408a01afc35801c7",
+      "evidence_hash_out": "408a01afc35801c7"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": []
+  },
+  "generated_answer": "### Primary 4 \u2014 Mathematics\n\nThe MBSSE curriculum includes these units/topics:\n- Number and Numeration (C4-U01)\n- Number and Numeration Reading And Writing (C4-U02)\n- Number and Numeration. Approximation. (C4-U03)\n- Number and Numeration FRACTION (C4-U04)\n- Number and Numeration OPERATION ON FRACTIONS. (C4-U05)\n- Number and Numeration Operation on Fraction. (Multiplication) (C4-U06)\n- Everyday Arithmetic Addition and Subtraction (C4-U11)\n- Everyday Arithmetic Multiplication (C4-U13)\n- Everyday Arithmetic DIVISION (C4-U14)\n- Everyday Arithmetic (C4-U15)\n- Everyday Arithmetic Addition and Subtraction. (C4-U16)\n- Everyday Arithmetic Money (C4-U18)\n- Everyday Arithmetic Multiplication and Decimal. (C4-U19)\n- Measurement And Estimation LENGTH (C4-U20)\n- Measurement and Estimation. (C4-U22)\n- Measurement and Estimation (C4-U23)\n- Measurement and Estimation GEOMETRY Lines and Angles (C4-U25)\n- Measurement and Estimation Time (C4-U26)\n- STATISTICS Data Collection Plan (C4-U27)\n- Unit 28 (C4-U28)",
+  "production_implementation": "langgraph",
+  "production_route": "fallback",
+  "production_accepted": false,
+  "c4u18_path": true,
+  "langgraph": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langgraph",
+    "fixture_class": "grade_subject",
+    "run_index": 4,
+    "threshold": 0.85,
+    "question": "What does Class 4 Mathematics cover?",
+    "retrieved_evidence_ids": [
+      "f293e00a-bae7-44db-ad55-3c1263e20387",
+      "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+      "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+      "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+      "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+      "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+      "c148074c-fac8-4771-94de-01de1805f585",
+      "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+      "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+      "a06e3216-dd97-4d5f-af49-f1afec6def85",
+      "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+      "152b4a5a-c080-403c-a780-9940c818bc4b",
+      "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+      "13202e14-75a9-455e-9f58-baad27d672b4",
+      "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+      "6252f434-14ed-42cc-8415-ea870de24273",
+      "6ec53325-5983-421a-8b3e-9690e6da159f",
+      "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+      "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+      "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+      "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+      "36924334-8856-4c53-8f48-d4e6eed8cf12",
+      "00d27bae-413d-4841-9a1b-23020b50567d",
+      "b1587bd8-a2da-493e-8872-4b404108c235"
+    ],
+    "raw_evidence_hash": "408a01afc35801c7",
+    "normalized_evidence_hash": "408a01afc35801c7",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 27,
+      "records_out": 27,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 27,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "408a01afc35801c7",
+      "evidence_hash_out": "408a01afc35801c7"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "### Primary 4 \u2014 Mathematics\n\nThe MBSSE curriculum includes these units/topics:\n- Number and Numeration (C4-U01)\n- Number and Numeration Reading And Writing (C4-U02)\n- Number and Numeration. Approximation. (C4-U03)\n- Number and Numeration FRACTION (C4-U04)\n- Number and Numeration OPERATION ON FRACTIONS. (C4-U05)\n- Number and Numeration Operation on Fraction. (Multiplication) (C4-U06)\n- Everyday Arithmetic Addition and Subtraction (C4-U11)\n- Everyday Arithmetic Multiplication (C4-U13)\n- Everyday Arithmetic DIVISION (C4-U14)\n- Everyday Arithmetic (C4-U15)\n- Everyday Arithmetic Addition and Subtraction. (C4-U16)\n- Everyday Arithmetic Money (C4-U18)\n- Everyday Arithmetic Multiplication and Decimal. (C4-U19)\n- Measurement And Estimation LENGTH (C4-U20)\n- Measurement and Estimation. (C4-U22)\n- Measurement and Estimation (C4-U23)\n- Measurement and Estimation GEOMETRY Lines and Angles (C4-U25)\n- Measurement and Estimation Time (C4-U26)\n- STATISTICS Data Collection Plan (C4-U27)\n- Unit 28 (C4-U28)",
+    "verifier_score": 0.85,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "retrieve_more",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langgraph_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 11590.972,
+      "retrieval_ms": 0.005,
+      "normalization_ms": 6.754,
+      "metadata_validation_ms": 3.619,
+      "generation_ms": 0.11,
+      "verification_ms": 11574.979,
+      "mapping_ms": 0.287,
+      "routing_ms": 5.218
+    },
+    "c4u18_regression": {
+      "raw_topic_uuid": null,
+      "resolved_topic_name": null,
+      "subject": null,
+      "grade": null,
+      "parent": null,
+      "metadata_valid": true,
+      "metadata_blocked": false,
+      "verifier_score": 0.85,
+      "verifier_recommendation": "retrieve_more",
+      "mapper_result": "reject",
+      "final_route": "retrieve_more",
+      "final_accepted": false,
+      "implementation": "langgraph"
+    }
+  },
+  "langchain": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langchain",
+    "fixture_class": "grade_subject",
+    "run_index": 4,
+    "threshold": 0.85,
+    "question": "What does Class 4 Mathematics cover?",
+    "retrieved_evidence_ids": [
+      "f293e00a-bae7-44db-ad55-3c1263e20387",
+      "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+      "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+      "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+      "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+      "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+      "c148074c-fac8-4771-94de-01de1805f585",
+      "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+      "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+      "a06e3216-dd97-4d5f-af49-f1afec6def85",
+      "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+      "152b4a5a-c080-403c-a780-9940c818bc4b",
+      "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+      "13202e14-75a9-455e-9f58-baad27d672b4",
+      "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+      "6252f434-14ed-42cc-8415-ea870de24273",
+      "6ec53325-5983-421a-8b3e-9690e6da159f",
+      "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+      "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+      "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+      "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+      "36924334-8856-4c53-8f48-d4e6eed8cf12",
+      "00d27bae-413d-4841-9a1b-23020b50567d",
+      "b1587bd8-a2da-493e-8872-4b404108c235"
+    ],
+    "raw_evidence_hash": "408a01afc35801c7",
+    "normalized_evidence_hash": "408a01afc35801c7",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 27,
+      "records_out": 27,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 27,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "408a01afc35801c7",
+      "evidence_hash_out": "408a01afc35801c7"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "### Primary 4 \u2014 Mathematics\n\nThe MBSSE curriculum includes these units/topics:\n- Number and Numeration (C4-U01)\n- Number and Numeration Reading And Writing (C4-U02)\n- Number and Numeration. Approximation. (C4-U03)\n- Number and Numeration FRACTION (C4-U04)\n- Number and Numeration OPERATION ON FRACTIONS. (C4-U05)\n- Number and Numeration Operation on Fraction. (Multiplication) (C4-U06)\n- Everyday Arithmetic Addition and Subtraction (C4-U11)\n- Everyday Arithmetic Multiplication (C4-U13)\n- Everyday Arithmetic DIVISION (C4-U14)\n- Everyday Arithmetic (C4-U15)\n- Everyday Arithmetic Addition and Subtraction. (C4-U16)\n- Everyday Arithmetic Money (C4-U18)\n- Everyday Arithmetic Multiplication and Decimal. (C4-U19)\n- Measurement And Estimation LENGTH (C4-U20)\n- Measurement and Estimation. (C4-U22)\n- Measurement and Estimation (C4-U23)\n- Measurement and Estimation GEOMETRY Lines and Angles (C4-U25)\n- Measurement and Estimation Time (C4-U26)\n- STATISTICS Data Collection Plan (C4-U27)\n- Unit 28 (C4-U28)",
+    "verifier_score": 0.85,
+    "verifier_decision": "retrieve_more",
+    "verifier_recommendation": "retrieve_more",
+    "mapped_recommendation": "reject",
+    "final_accepted": false,
+    "final_route": "retrieve_more",
+    "safety_status": "rejected",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langchain_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 11680.129,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 5.412,
+      "metadata_validation_ms": 1.974,
+      "generation_ms": 0.037,
+      "verification_ms": 11667.462,
+      "mapping_ms": 0.285,
+      "routing_ms": 4.954
+    },
+    "c4u18_regression": {
+      "raw_topic_uuid": null,
+      "resolved_topic_name": null,
+      "subject": null,
+      "grade": null,
+      "parent": null,
+      "metadata_valid": true,
+      "metadata_blocked": false,
+      "verifier_score": 0.85,
+      "verifier_recommendation": "retrieve_more",
+      "mapper_result": "reject",
+      "final_route": "retrieve_more",
+      "final_accepted": false,
+      "implementation": "langchain"
+    }
+  },
+  "comparison": {
+    "fixture_class": "grade_subject",
+    "run_index": 4,
+    "classification": "EXACT_EQUIVALENCE",
+    "control_implementation": "langgraph",
+    "experiment_implementation": "langchain",
+    "control_accepted": false,
+    "experiment_accepted": false,
+    "divergences": [],
+    "notes": ""
+  },
+  "failure_origin": "UNKNOWN",
+  "unsafe_divergence": false,
+  "likely_cause": "No material divergence or undetermined.",
+  "safety_impact": "none"
+}

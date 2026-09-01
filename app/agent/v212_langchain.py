@@ -40,6 +40,7 @@ from app.agent.v28_recommendation_mapping import map_recommendation, remap_row_f
 from app.agent.v29_evidence_normalization import NormalizationVariant, normalize_evidence
 from app.config import Settings
 from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus
+from app.schemas.verification import VerificationRecommendation, VerificationResult
 
 _EXPERIMENT_NAME = "v2.12a_langchain_equivalence"
 _ANALYTICAL_THRESHOLD = 0.85
@@ -88,6 +89,10 @@ class _PipelineContext:
     llm_calls: int = 0
     tool_calls: int = 0
     errors: list[str] = field(default_factory=list)
+    post_retrieval: bool = False
+    mapper_fixture_override: str | None = None
+    evaluation_id: str = ""
+    retrieval_metadata: dict[str, Any] = field(default_factory=dict)
 
 
 def v212_experiment_enabled(settings: Settings, qa: CurriculumQAState) -> bool:
@@ -101,6 +106,31 @@ def default_implementation(settings: Settings) -> Implementation:
     if getattr(settings, "v212_langchain_experiment", False):
         return Implementation.LANGCHAIN
     return Implementation.LANGGRAPH
+
+
+def infer_mapper_fixture_class(
+    evidence: list[CurriculumEvidence],
+    verifier_result: VerificationResult | None,
+) -> str:
+    """Heuristic mapper fixture for real-retrieval shadow evaluations."""
+    from app.agent.v28_recommendation_mapping import detect_placeholder
+
+    if not evidence:
+        return "MISSING_EVIDENCE"
+    if verifier_result is None:
+        return "FAITHFUL_COMPLETE"
+    placeholder_detected, _ = detect_placeholder(
+        evidence=evidence,
+        answer="",
+        verifier_result=verifier_result,
+    )
+    if placeholder_detected:
+        return "CLEAN_PLACEHOLDER"
+    if verifier_result.unsupported_claims:
+        return "UNSUPPORTED_CLAIM"
+    if verifier_result.recommendation == VerificationRecommendation.RETRIEVE_MORE:
+        return "FAITHFUL_IMPERFECT"
+    return "FAITHFUL_COMPLETE"
 
 
 def _new_context(
@@ -156,7 +186,10 @@ def _new_context(
 
 def _stage_retrieve(ctx: _PipelineContext) -> _PipelineContext:
     started = time.perf_counter()
-    ctx.execution_path.append("retrieve")
+    if ctx.post_retrieval:
+        ctx.execution_path.append("retrieve_snapshot")
+    else:
+        ctx.execution_path.append("retrieve")
     ctx.timings.retrieval_ms += (time.perf_counter() - started) * 1000
     return ctx
 
@@ -196,14 +229,27 @@ def _stage_generate(ctx: _PipelineContext) -> _PipelineContext:
     ctx.state.evidence_status = (
         EvidenceStatus.FOUND if ctx.verify_evidence else EvidenceStatus.NOT_FOUND
     )
-    ctx.state.grade = "CLASS_4"
-    ctx.state.topic = "money" if ctx.evidence_source == "c4u18" else "fractions"
-    ctx.state.subject = "MATHEMATICS"
-    ctx.state.final_answer = ctx.spec["answer"]
-    ctx.state.draft_answer = ctx.spec["answer"]
+    if ctx.post_retrieval:
+        answer = ctx.spec.get("answer", "")
+        ctx.state.final_answer = answer
+        ctx.state.draft_answer = answer
+        if ctx.retrieval_metadata.get("grade"):
+            ctx.state.grade = ctx.retrieval_metadata["grade"]
+        if ctx.retrieval_metadata.get("subject"):
+            ctx.state.subject = ctx.retrieval_metadata["subject"]
+        if ctx.retrieval_metadata.get("topic"):
+            ctx.state.topic = ctx.retrieval_metadata["topic"]
+    else:
+        ctx.state.grade = "CLASS_4"
+        ctx.state.topic = "money" if ctx.evidence_source == "c4u18" else "fractions"
+        ctx.state.subject = "MATHEMATICS"
+        ctx.state.final_answer = ctx.spec["answer"]
+        ctx.state.draft_answer = ctx.spec["answer"]
     ctx.state.metadata["v212_langchain_replay"] = True
     ctx.state.metadata["v212_fixture_class"] = ctx.fixture_class
     ctx.state.metadata["v212_implementation"] = ctx.implementation.value
+    if ctx.evaluation_id:
+        ctx.state.metadata["v212b_evaluation_id"] = ctx.evaluation_id
     ctx.execution_path.append("generate")
     ctx.timings.generation_ms += (time.perf_counter() - started) * 1000
     return ctx
@@ -221,11 +267,18 @@ def _stage_verify(ctx: _PipelineContext) -> _PipelineContext:
 
 def _stage_map(ctx: _PipelineContext) -> _PipelineContext:
     started = time.perf_counter()
+    if ctx.post_retrieval:
+        mapper_fixture = ctx.mapper_fixture_override or infer_mapper_fixture_class(
+            ctx.verify_evidence,
+            ctx.verifier_result,
+        )
+    else:
+        mapper_fixture = ctx.mapper_fixture_override or _mapper_fixture(ctx.fixture_class)
     ctx.mapping = map_recommendation(
         ctx.verifier_result,
-        fixture_class=_mapper_fixture(ctx.fixture_class),
+        fixture_class=mapper_fixture,  # type: ignore[arg-type]
         evidence=ctx.verify_evidence,
-        answer=ctx.spec["answer"],
+        answer=ctx.spec.get("answer", ""),
         threshold=ctx.threshold,
     )
     if ctx.metadata_blocked:
@@ -273,12 +326,18 @@ def _context_to_result(ctx: _PipelineContext) -> PipelineRunResult:
     )
     ctx.timings.total_ms = total
 
+    experiment_name = (
+        "v2.12b_production_shadow" if ctx.post_retrieval else _EXPERIMENT_NAME
+    )
+    generated_answer = ctx.spec.get("answer", "")
+
     result = PipelineRunResult(
+        experiment=experiment_name,
         implementation=ctx.implementation.value,
         fixture_class=ctx.fixture_class,
         run_index=ctx.run_index,
         threshold=ctx.threshold,
-        question=ctx.spec["question"],
+        question=ctx.spec.get("question", ""),
         retrieved_evidence_ids=[
             e.entity_id for e in ctx.raw_evidence if e.entity_id
         ],
@@ -290,7 +349,7 @@ def _context_to_result(ctx: _PipelineContext) -> PipelineRunResult:
             v.to_dict() for v in (ctx.integrity.violations if ctx.integrity else [])
         ],
         metadata_blocked=ctx.metadata_blocked,
-        generated_answer=ctx.spec["answer"],
+        generated_answer=generated_answer,
         verifier_score=float(ctx.verifier_result.score if ctx.verifier_result else 0.0),
         verifier_decision=str(
             ctx.verifier_result.recommendation.value if ctx.verifier_result else ""
@@ -311,7 +370,10 @@ def _context_to_result(ctx: _PipelineContext) -> PipelineRunResult:
         timings=ctx.timings,
     )
 
-    if ctx.fixture_class in {"FAITHFUL_COMPLETE", "NORMALIZATION_ONLY_GROUNDING"}:
+    c4u18_fixtures = {"FAITHFUL_COMPLETE", "NORMALIZATION_ONLY_GROUNDING"}
+    if ctx.fixture_class in c4u18_fixtures or (
+        ctx.post_retrieval and ctx.evidence_source == "c4u18"
+    ):
         lo01 = next(
             (
                 r
@@ -710,6 +772,178 @@ def interpret_v212(
     return conclusion, note, v213, arch_answer
 
 
+def _new_post_retrieval_context(
+    *,
+    question: str,
+    raw_evidence: list[CurriculumEvidence],
+    generated_answer: str,
+    implementation: Implementation,
+    verifier: Any,
+    settings: Settings,
+    threshold: float = _ANALYTICAL_THRESHOLD,
+    run_index: int = 1,
+    request_id: str | None = None,
+    category: str = "REAL_SHADOW",
+    evaluation_id: str = "",
+    retrieval_metadata: dict[str, Any] | None = None,
+    evidence_source: str = "real",
+    mapper_fixture_override: str | None = None,
+) -> _PipelineContext:
+    return _PipelineContext(
+        fixture_class=category,
+        run_index=run_index,
+        threshold=threshold,
+        implementation=implementation,
+        c4u18_baseline=[],
+        fractions_baseline=[],
+        verifier=verifier,
+        settings=settings,
+        request_id=request_id,
+        spec={"question": question, "answer": generated_answer},
+        raw_evidence=copy.deepcopy(raw_evidence),
+        evidence_source=evidence_source,
+        verify_evidence=[],
+        normalized_evidence=[],
+        normalization_diagnostics={},
+        integrity=None,
+        metadata_blocked=False,
+        metadata_policy="",
+        state=CurriculumQAState.initial(question=question),
+        verifier_result=None,
+        mapping=None,
+        final_accepted=False,
+        final_recommendation="",
+        final_route="fallback",
+        execution_path=[],
+        timings=StageTimings(),
+        llm_calls=0,
+        tool_calls=0,
+        errors=[],
+        post_retrieval=True,
+        mapper_fixture_override=mapper_fixture_override,
+        evaluation_id=evaluation_id,
+        retrieval_metadata=dict(retrieval_metadata or {}),
+    )
+
+
+def run_post_retrieval_implementation(
+    *,
+    implementation: Implementation,
+    question: str,
+    raw_evidence: list[CurriculumEvidence],
+    generated_answer: str,
+    verifier: Any,
+    settings: Settings | None = None,
+    threshold: float = _ANALYTICAL_THRESHOLD,
+    run_index: int = 1,
+    request_id: str | None = None,
+    category: str = "REAL_SHADOW",
+    evaluation_id: str = "",
+    retrieval_metadata: dict[str, Any] | None = None,
+    evidence_source: str = "real",
+    mapper_fixture_override: str | None = None,
+) -> PipelineRunResult:
+    """Run post-retrieval validated pipeline stages on a frozen evidence snapshot."""
+    ctx = _new_post_retrieval_context(
+        question=question,
+        raw_evidence=raw_evidence,
+        generated_answer=generated_answer,
+        implementation=implementation,
+        verifier=verifier,
+        settings=settings or Settings(),
+        threshold=threshold,
+        run_index=run_index,
+        request_id=request_id,
+        category=category,
+        evaluation_id=evaluation_id,
+        retrieval_metadata=retrieval_metadata,
+        evidence_source=evidence_source,
+        mapper_fixture_override=mapper_fixture_override,
+    )
+
+    if implementation == Implementation.LANGGRAPH:
+        graph = _get_langgraph_harness()
+        ctx.execution_path.append("langgraph_orchestration")
+        final_state = graph.invoke(_context_to_harness_state(ctx))
+        ctx = _harness_state_to_context(final_state)
+        return _context_to_result(ctx)
+
+    chain = _get_langchain_harness()
+    ctx.execution_path.append("langchain_orchestration")
+    result = chain.invoke(ctx)
+    if isinstance(result, PipelineRunResult):
+        return result
+    return _context_to_result(result)
+
+
+def run_post_retrieval_pair(
+    *,
+    question: str,
+    raw_evidence: list[CurriculumEvidence],
+    generated_answer: str,
+    verifier: Any,
+    settings: Settings | None = None,
+    threshold: float = _ANALYTICAL_THRESHOLD,
+    run_index: int = 1,
+    request_id: str | None = None,
+    category: str = "REAL_SHADOW",
+    evaluation_id: str = "",
+    retrieval_metadata: dict[str, Any] | None = None,
+    evidence_source: str = "real",
+) -> dict[str, Any]:
+    """Run LangGraph control and LangChain experiment on the same evidence snapshot."""
+    evidence_hash = evidence_snapshot_hash(raw_evidence)
+    tag = request_id or evaluation_id or f"shadow_{run_index:02d}"
+    control = run_post_retrieval_implementation(
+        implementation=Implementation.LANGGRAPH,
+        question=question,
+        raw_evidence=raw_evidence,
+        generated_answer=generated_answer,
+        verifier=verifier,
+        settings=settings,
+        threshold=threshold,
+        run_index=run_index,
+        request_id=f"lg_{tag}",
+        category=category,
+        evaluation_id=evaluation_id,
+        retrieval_metadata=retrieval_metadata,
+        evidence_source=evidence_source,
+    )
+    experiment = run_post_retrieval_implementation(
+        implementation=Implementation.LANGCHAIN,
+        question=question,
+        raw_evidence=copy.deepcopy(raw_evidence),
+        generated_answer=generated_answer,
+        verifier=verifier,
+        settings=settings,
+        threshold=threshold,
+        run_index=run_index,
+        request_id=f"lc_{tag}",
+        category=category,
+        evaluation_id=evaluation_id,
+        retrieval_metadata=retrieval_metadata,
+        evidence_source=evidence_source,
+    )
+    comparison = compare_pipeline_results(
+        control,
+        experiment,
+        fixture_class=category,
+        run_index=run_index,
+        expected_evidence_hash=evidence_hash,
+    )
+    return {
+        "experiment": "v2.12b_production_shadow",
+        "evaluation_id": evaluation_id,
+        "category": category,
+        "run_index": run_index,
+        "threshold": threshold,
+        "evidence_hash": evidence_hash,
+        "langgraph": control.to_dict(),
+        "langchain": experiment.to_dict(),
+        "comparison": comparison.to_dict(),
+    }
+
+
 __all__ = [
     "ADVERSARIAL_FIXTURE_CLASSES",
     "FIXTURE_CLASSES",
@@ -718,9 +952,12 @@ __all__ = [
     "build_langchain_harness_chain",
     "build_langgraph_harness_graph",
     "default_implementation",
+    "infer_mapper_fixture_class",
     "interpret_v212",
     "run_equivalence_pair",
     "run_implementation",
+    "run_post_retrieval_implementation",
+    "run_post_retrieval_pair",
     "summarize_comparisons",
     "summarize_implementation_rows",
     "v212_experiment_enabled",

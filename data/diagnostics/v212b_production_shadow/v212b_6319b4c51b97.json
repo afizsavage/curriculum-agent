@@ -1,0 +1,536 @@
+{
+  "experiment": "v2.12b_production_shadow",
+  "evaluation_id": "v212b_6319b4c51b97",
+  "timestamp": "2026-09-01T09:23:17.267080+00:00",
+  "question": "What does Class 5 Science cover?",
+  "category": "grade_subject",
+  "grade": "CLASS_5",
+  "subject": "SCIENCE",
+  "topic": null,
+  "request_trace_id": "7c6198e858ce94a6",
+  "retrieval_query": null,
+  "retrieved_evidence_ids": [
+    "10200c4a-9c57-460e-9a86-3a8e22d44d50",
+    "bf1fffa1-38ac-452d-9daa-78f92af90427",
+    "1ba5942d-860b-4fdd-b4d7-9ee6a5f32a45",
+    "0d10f1e9-3977-4e32-9256-240a12fd9b61",
+    "c1718dd8-045d-4480-8fca-77b4d482c84c",
+    "8826aac5-79fb-433d-a68a-589a3170ebd8",
+    "35160d2c-3623-4510-9913-90dee2bc0017",
+    "5992e4e9-adc0-465f-abbb-75a2a16713ff",
+    "19a5e8e1-4479-47d6-be64-b30ff5eb97fd",
+    "6619da7e-3b4b-4196-9efc-03d4778ecd4c",
+    "f77f259f-40d6-43c4-9b13-476cff72451b",
+    "f06c5713-fd88-46ac-8b83-32746d768c9d",
+    "de5fa179-6f77-4363-8637-29c951eac70e",
+    "99cde2b5-4148-411e-9f31-dc4e66478b17",
+    "1a4a359e-e4db-4398-92ba-c4267ee8eb05"
+  ],
+  "retrieved_evidence_count": 15,
+  "evidence_snapshot": {
+    "evidence_hash": "c0d1ecaebd60baca",
+    "evidence_ids": [
+      "10200c4a-9c57-460e-9a86-3a8e22d44d50",
+      "bf1fffa1-38ac-452d-9daa-78f92af90427",
+      "1ba5942d-860b-4fdd-b4d7-9ee6a5f32a45",
+      "0d10f1e9-3977-4e32-9256-240a12fd9b61",
+      "c1718dd8-045d-4480-8fca-77b4d482c84c",
+      "8826aac5-79fb-433d-a68a-589a3170ebd8",
+      "35160d2c-3623-4510-9913-90dee2bc0017",
+      "5992e4e9-adc0-465f-abbb-75a2a16713ff",
+      "19a5e8e1-4479-47d6-be64-b30ff5eb97fd",
+      "6619da7e-3b4b-4196-9efc-03d4778ecd4c",
+      "f77f259f-40d6-43c4-9b13-476cff72451b",
+      "f06c5713-fd88-46ac-8b83-32746d768c9d",
+      "de5fa179-6f77-4363-8637-29c951eac70e",
+      "99cde2b5-4148-411e-9f31-dc4e66478b17",
+      "1a4a359e-e4db-4398-92ba-c4267ee8eb05"
+    ],
+    "evidence_count": 15,
+    "raw_evidence": [
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "10200c4a-9c57-460e-9a86-3a8e22d44d50",
+        "name": "Sources, uses of and properties of water.",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "SCIENCE",
+        "topic": "Sources, uses of and properties of water.",
+        "content": "Sources, uses of and properties of water.",
+        "metadata": {
+          "code": "C5-U01",
+          "description": "Water",
+          "display_order": 1
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "bf1fffa1-38ac-452d-9daa-78f92af90427",
+        "name": "Water purification",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "SCIENCE",
+        "topic": "Water purification",
+        "content": "Water purification",
+        "metadata": {
+          "code": "C5-U02",
+          "description": null,
+          "display_order": 2
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "1ba5942d-860b-4fdd-b4d7-9ee6a5f32a45",
+        "name": "Water Cycle",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "SCIENCE",
+        "topic": "Water Cycle",
+        "content": "Water Cycle",
+        "metadata": {
+          "code": "C5-U03",
+          "description": null,
+          "display_order": 3
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "0d10f1e9-3977-4e32-9256-240a12fd9b61",
+        "name": "Simple machines",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "SCIENCE",
+        "topic": "Simple machines",
+        "content": "Simple machines",
+        "metadata": {
+          "code": "C5-U04",
+          "description": "Machines",
+          "display_order": 4
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "c1718dd8-045d-4480-8fca-77b4d482c84c",
+        "name": "Soil Components, Types and Uses",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "SCIENCE",
+        "topic": "Soil Components, Types and Uses",
+        "content": "Soil Components, Types and Uses",
+        "metadata": {
+          "code": "C5-U05",
+          "description": "Ecology and Conservation",
+          "display_order": 5
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "8826aac5-79fb-433d-a68a-589a3170ebd8",
+        "name": "Soil Conservation",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "SCIENCE",
+        "topic": "Soil Conservation",
+        "content": "Soil Conservation",
+        "metadata": {
+          "code": "C5-U06",
+          "description": null,
+          "display_order": 6
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "35160d2c-3623-4510-9913-90dee2bc0017",
+        "name": "Forest Reserves",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "SCIENCE",
+        "topic": "Forest Reserves",
+        "content": "Forest Reserves",
+        "metadata": {
+          "code": "C5-U07",
+          "description": null,
+          "display_order": 7
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "5992e4e9-adc0-465f-abbb-75a2a16713ff",
+        "name": "Chemical Processes in the Home",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "SCIENCE",
+        "topic": "Chemical Processes in the Home",
+        "content": "Chemical Processes in the Home",
+        "metadata": {
+          "code": "C5-U08",
+          "description": "Chemical Reactions",
+          "display_order": 8
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "19a5e8e1-4479-47d6-be64-b30ff5eb97fd",
+        "name": "Disease Prevention",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "SCIENCE",
+        "topic": "Disease Prevention",
+        "content": "Disease Prevention",
+        "metadata": {
+          "code": "C5-U09",
+          "description": "Disease prevention",
+          "display_order": 9
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "unit",
+        "entity_id": "6619da7e-3b4b-4196-9efc-03d4778ecd4c",
+        "name": "Puberty and changes",
+        "level": "primary",
+        "grade": "CLASS_5",
+        "subject": "SCIENCE",
+        "topic": "Puberty and changes",
+        "content": "Puberty and changes",
+        "metadata": {
+          "code": "C5-U10",
+          "description": "The Human Body & Development: Preparation for discussion of sexual development : Bodily integrity & Rights; Challenge assertively gender discriminatory language and",
+          "display_order": 10
+        },
+        "source_reference": "grade_curriculum.content"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "f77f259f-40d6-43c4-9b13-476cff72451b",
+        "name": "C5U08-LO01",
+        "level": null,
+        "grade": null,
+        "subject": null,
+        "topic": "5992e4e9-adc0-465f-abbb-75a2a16713ff",
+        "content": "Explain what a chemical reaction is.",
+        "metadata": {
+          "code": "C5U08-LO01",
+          "sequence": 1,
+          "knowledge": [],
+          "skills": []
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "f06c5713-fd88-46ac-8b83-32746d768c9d",
+        "name": "C5U08-LO02",
+        "level": null,
+        "grade": null,
+        "subject": null,
+        "topic": "5992e4e9-adc0-465f-abbb-75a2a16713ff",
+        "content": "State some chemical processes in the home",
+        "metadata": {
+          "code": "C5U08-LO02",
+          "sequence": 2,
+          "knowledge": [],
+          "skills": []
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "de5fa179-6f77-4363-8637-29c951eac70e",
+        "name": "C5U08-LO03",
+        "level": null,
+        "grade": null,
+        "subject": null,
+        "topic": "5992e4e9-adc0-465f-abbb-75a2a16713ff",
+        "content": "Explain how foofoo is made",
+        "metadata": {
+          "code": "C5U08-LO03",
+          "sequence": 3,
+          "knowledge": [],
+          "skills": []
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "99cde2b5-4148-411e-9f31-dc4e66478b17",
+        "name": "C5U08-LO04",
+        "level": null,
+        "grade": null,
+        "subject": null,
+        "topic": "5992e4e9-adc0-465f-abbb-75a2a16713ff",
+        "content": "Explain how ogiri is made",
+        "metadata": {
+          "code": "C5U08-LO04",
+          "sequence": 4,
+          "knowledge": [],
+          "skills": []
+        },
+        "source_reference": "learning_outcomes"
+      },
+      {
+        "source": "curriculum_api",
+        "entity_type": "learning_outcome",
+        "entity_id": "1a4a359e-e4db-4398-92ba-c4267ee8eb05",
+        "name": "C5U08-LO05",
+        "level": null,
+        "grade": null,
+        "subject": null,
+        "topic": "5992e4e9-adc0-465f-abbb-75a2a16713ff",
+        "content": "Explain how local soap is made Discuss about preservation of foofoo, ogiri and local soap.",
+        "metadata": {
+          "code": "C5U08-LO05",
+          "sequence": 5,
+          "knowledge": [],
+          "skills": []
+        },
+        "source_reference": "learning_outcomes"
+      }
+    ],
+    "retrieval_metadata": {
+      "retrieval_rounds": 0,
+      "evidence_status": "found",
+      "grade": "CLASS_5",
+      "subject": "SCIENCE",
+      "topic": null,
+      "tool_calls": 4,
+      "retrieval_query": null,
+      "evidence_snapshot_hash": null
+    },
+    "normalization_version": "v2.9",
+    "metadata_guard_version": "v2.11",
+    "normalized_evidence_hash": "c0d1ecaebd60baca",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 15,
+      "records_out": 15,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 15,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "c0d1ecaebd60baca",
+      "evidence_hash_out": "c0d1ecaebd60baca"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": []
+  },
+  "generated_answer": "## Class 5 Science Coverage\n\nBased on the retrieved curriculum evidence, Class 5 (Primary 5) Science is organised into the following units:\n\n- **Sources, uses of and properties of water** (C5-U01)\n- **Water purification** (C5-U02)\n- **Water Cycle** (C5-U03)\n- **Simple machines** (C5-U04)\n- **Soil Components, Types and Uses** (C5-U05)\n- **Soil Conservation** (C5-U06)\n- **Forest Reserves** (C5-U07)\n- **Chemical Processes in the Home** (C5-U08)\n- **Disease Prevention** (C5-U09)\n- **Puberty and changes** (C5-U10)\n\n### Learning Outcomes (example from Chemical Processes in the Home)\nFor the unit **Chemical Processes in the Home** (C5-U08), the following learning outcomes are specified:\n\n- **C5U08-LO01** \u2014 Explain what a chemical reaction is.\n- **C5U08-LO02** \u2014 State some chemical processes in the home.\n- **C5U08-LO03** \u2014 Explain how foofoo is made.\n- **C5U08-LO04** \u2014 Explain how ogiri is made.\n- **C5U08-LO05** \u2014 Explain how local soap is made. Discuss about preservation of foofoo, ogiri and local soap.\n\nNote: Learning outcomes for the other units (C5-U01 to C5-U07, C5-U09, C5-U10) were not provided in the retrieved evidence.",
+  "production_implementation": "langgraph",
+  "production_route": "fallback",
+  "production_accepted": false,
+  "c4u18_path": false,
+  "langgraph": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langgraph",
+    "fixture_class": "grade_subject",
+    "run_index": 9,
+    "threshold": 0.85,
+    "question": "What does Class 5 Science cover?",
+    "retrieved_evidence_ids": [
+      "10200c4a-9c57-460e-9a86-3a8e22d44d50",
+      "bf1fffa1-38ac-452d-9daa-78f92af90427",
+      "1ba5942d-860b-4fdd-b4d7-9ee6a5f32a45",
+      "0d10f1e9-3977-4e32-9256-240a12fd9b61",
+      "c1718dd8-045d-4480-8fca-77b4d482c84c",
+      "8826aac5-79fb-433d-a68a-589a3170ebd8",
+      "35160d2c-3623-4510-9913-90dee2bc0017",
+      "5992e4e9-adc0-465f-abbb-75a2a16713ff",
+      "19a5e8e1-4479-47d6-be64-b30ff5eb97fd",
+      "6619da7e-3b4b-4196-9efc-03d4778ecd4c",
+      "f77f259f-40d6-43c4-9b13-476cff72451b",
+      "f06c5713-fd88-46ac-8b83-32746d768c9d",
+      "de5fa179-6f77-4363-8637-29c951eac70e",
+      "99cde2b5-4148-411e-9f31-dc4e66478b17",
+      "1a4a359e-e4db-4398-92ba-c4267ee8eb05"
+    ],
+    "raw_evidence_hash": "c0d1ecaebd60baca",
+    "normalized_evidence_hash": "c0d1ecaebd60baca",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 15,
+      "records_out": 15,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 15,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "c0d1ecaebd60baca",
+      "evidence_hash_out": "c0d1ecaebd60baca"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "## Class 5 Science Coverage\n\nBased on the retrieved curriculum evidence, Class 5 (Primary 5) Science is organised into the following units:\n\n- **Sources, uses of and properties of water** (C5-U01)\n- **Water purification** (C5-U02)\n- **Water Cycle** (C5-U03)\n- **Simple machines** (C5-U04)\n- **Soil Components, Types and Uses** (C5-U05)\n- **Soil Conservation** (C5-U06)\n- **Forest Reserves** (C5-U07)\n- **Chemical Processes in the Home** (C5-U08)\n- **Disease Prevention** (C5-U09)\n- **Puberty and changes** (C5-U10)\n\n### Learning Outcomes (example from Chemical Processes in the Home)\nFor the unit **Chemical Processes in the Home** (C5-U08), the following learning outcomes are specified:\n\n- **C5U08-LO01** \u2014 Explain what a chemical reaction is.\n- **C5U08-LO02** \u2014 State some chemical processes in the home.\n- **C5U08-LO03** \u2014 Explain how foofoo is made.\n- **C5U08-LO04** \u2014 Explain how ogiri is made.\n- **C5U08-LO05** \u2014 Explain how local soap is made. Discuss about preservation of foofoo, ogiri and local soap.\n\nNote: Learning outcomes for the other units (C5-U01 to C5-U07, C5-U09, C5-U10) were not provided in the retrieved evidence.",
+    "verifier_score": 1.0,
+    "verifier_decision": "accept",
+    "verifier_recommendation": "accept",
+    "mapped_recommendation": "accept",
+    "final_accepted": true,
+    "final_route": "finish",
+    "safety_status": "accepted",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langgraph_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 6901.253,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 4.408,
+      "metadata_validation_ms": 1.515,
+      "generation_ms": 0.047,
+      "verification_ms": 6894.915,
+      "mapping_ms": 0.196,
+      "routing_ms": 0.168
+    },
+    "c4u18_regression": null
+  },
+  "langchain": {
+    "experiment": "v2.12b_production_shadow",
+    "implementation": "langchain",
+    "fixture_class": "grade_subject",
+    "run_index": 9,
+    "threshold": 0.85,
+    "question": "What does Class 5 Science cover?",
+    "retrieved_evidence_ids": [
+      "10200c4a-9c57-460e-9a86-3a8e22d44d50",
+      "bf1fffa1-38ac-452d-9daa-78f92af90427",
+      "1ba5942d-860b-4fdd-b4d7-9ee6a5f32a45",
+      "0d10f1e9-3977-4e32-9256-240a12fd9b61",
+      "c1718dd8-045d-4480-8fca-77b4d482c84c",
+      "8826aac5-79fb-433d-a68a-589a3170ebd8",
+      "35160d2c-3623-4510-9913-90dee2bc0017",
+      "5992e4e9-adc0-465f-abbb-75a2a16713ff",
+      "19a5e8e1-4479-47d6-be64-b30ff5eb97fd",
+      "6619da7e-3b4b-4196-9efc-03d4778ecd4c",
+      "f77f259f-40d6-43c4-9b13-476cff72451b",
+      "f06c5713-fd88-46ac-8b83-32746d768c9d",
+      "de5fa179-6f77-4363-8637-29c951eac70e",
+      "99cde2b5-4148-411e-9f31-dc4e66478b17",
+      "1a4a359e-e4db-4398-92ba-c4267ee8eb05"
+    ],
+    "raw_evidence_hash": "c0d1ecaebd60baca",
+    "normalized_evidence_hash": "c0d1ecaebd60baca",
+    "normalization_diagnostics": {
+      "variant": "STRUCTURAL_NORMALIZATION",
+      "operations": [
+        "deep_copy",
+        "whitespace_normalize",
+        "resolve_topic_to_unit_name",
+        "dedupe_by_entity_id",
+        "deterministic_sort"
+      ],
+      "records_in": 15,
+      "records_out": 15,
+      "placeholder_filtered": 0,
+      "substance_counts": {
+        "SUBSTANTIVE": 15,
+        "NON_SUBSTANTIVE": 0,
+        "MISSING": 0
+      },
+      "evidence_hash_in": "c0d1ecaebd60baca",
+      "evidence_hash_out": "c0d1ecaebd60baca"
+    },
+    "metadata_integrity_valid": true,
+    "metadata_violations": [],
+    "metadata_blocked": false,
+    "generated_answer": "## Class 5 Science Coverage\n\nBased on the retrieved curriculum evidence, Class 5 (Primary 5) Science is organised into the following units:\n\n- **Sources, uses of and properties of water** (C5-U01)\n- **Water purification** (C5-U02)\n- **Water Cycle** (C5-U03)\n- **Simple machines** (C5-U04)\n- **Soil Components, Types and Uses** (C5-U05)\n- **Soil Conservation** (C5-U06)\n- **Forest Reserves** (C5-U07)\n- **Chemical Processes in the Home** (C5-U08)\n- **Disease Prevention** (C5-U09)\n- **Puberty and changes** (C5-U10)\n\n### Learning Outcomes (example from Chemical Processes in the Home)\nFor the unit **Chemical Processes in the Home** (C5-U08), the following learning outcomes are specified:\n\n- **C5U08-LO01** \u2014 Explain what a chemical reaction is.\n- **C5U08-LO02** \u2014 State some chemical processes in the home.\n- **C5U08-LO03** \u2014 Explain how foofoo is made.\n- **C5U08-LO04** \u2014 Explain how ogiri is made.\n- **C5U08-LO05** \u2014 Explain how local soap is made. Discuss about preservation of foofoo, ogiri and local soap.\n\nNote: Learning outcomes for the other units (C5-U01 to C5-U07, C5-U09, C5-U10) were not provided in the retrieved evidence.",
+    "verifier_score": 1.0,
+    "verifier_decision": "accept",
+    "verifier_recommendation": "accept",
+    "mapped_recommendation": "accept",
+    "final_accepted": true,
+    "final_route": "finish",
+    "safety_status": "accepted",
+    "errors": [],
+    "llm_calls": 1,
+    "tool_calls": 0,
+    "retries": 0,
+    "timeouts": 0,
+    "execution_path": [
+      "langchain_orchestration",
+      "retrieve_snapshot",
+      "normalize",
+      "metadata_integrity",
+      "generate",
+      "verify",
+      "map_recommendation",
+      "route"
+    ],
+    "timings": {
+      "total_ms": 6746.474,
+      "retrieval_ms": 0.004,
+      "normalization_ms": 3.257,
+      "metadata_validation_ms": 1.459,
+      "generation_ms": 0.04,
+      "verification_ms": 6741.313,
+      "mapping_ms": 0.215,
+      "routing_ms": 0.185
+    },
+    "c4u18_regression": null
+  },
+  "comparison": {
+    "fixture_class": "grade_subject",
+    "run_index": 9,
+    "classification": "EXACT_EQUIVALENCE",
+    "control_implementation": "langgraph",
+    "experiment_implementation": "langchain",
+    "control_accepted": true,
+    "experiment_accepted": true,
+    "divergences": [],
+    "notes": ""
+  },
+  "failure_origin": "UNKNOWN",
+  "unsafe_divergence": false,
+  "likely_cause": "No material divergence or undetermined.",
+  "safety_impact": "none"
+}

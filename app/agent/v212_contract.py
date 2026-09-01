@@ -64,8 +64,22 @@ class EquivalenceClassification(str, Enum):
     BEHAVIORAL_EQUIVALENCE = "BEHAVIORAL_EQUIVALENCE"
     EXPECTED_LLM_VARIANCE = "EXPECTED_LLM_VARIANCE"
     CONTROLLED_DIFFERENCE = "CONTROLLED_DIFFERENCE"
+    RETRIEVAL_VARIANCE = "RETRIEVAL_VARIANCE"
     REGRESSION = "REGRESSION"
     UNSAFE_DIVERGENCE = "UNSAFE_DIVERGENCE"
+
+
+class FailureOrigin(str, Enum):
+    RETRIEVAL = "RETRIEVAL"
+    NORMALIZATION = "NORMALIZATION"
+    METADATA_GUARD = "METADATA_GUARD"
+    GENERATION = "GENERATION"
+    VERIFIER = "VERIFIER"
+    MAPPER = "MAPPER"
+    ROUTING = "ROUTING"
+    LANGCHAIN_ORCHESTRATION = "LANGCHAIN_ORCHESTRATION"
+    LANGGRAPH_ORCHESTRATION = "LANGGRAPH_ORCHESTRATION"
+    UNKNOWN = "UNKNOWN"
 
 
 @dataclass
@@ -200,9 +214,42 @@ def compare_pipeline_results(
     *,
     fixture_class: str,
     run_index: int = 0,
+    expected_evidence_hash: str | None = None,
 ) -> EquivalenceComparison:
     """Classify behavioral equivalence between control and experiment runs."""
     divergences: list[str] = []
+
+    if (
+        expected_evidence_hash
+        and control.raw_evidence_hash
+        and control.raw_evidence_hash != expected_evidence_hash
+    ):
+        return EquivalenceComparison(
+            fixture_class=fixture_class,
+            run_index=run_index,
+            classification=EquivalenceClassification.RETRIEVAL_VARIANCE,
+            control_implementation=control.implementation,
+            experiment_implementation=experiment.implementation,
+            control_accepted=control.final_accepted,
+            experiment_accepted=experiment.final_accepted,
+            divergences=(f"evidence_hash: {control.raw_evidence_hash} != {expected_evidence_hash}",),
+            notes="Evidence snapshot differs from expected retrieval hash.",
+        )
+
+    if control.raw_evidence_hash != experiment.raw_evidence_hash:
+        return EquivalenceComparison(
+            fixture_class=fixture_class,
+            run_index=run_index,
+            classification=EquivalenceClassification.RETRIEVAL_VARIANCE,
+            control_implementation=control.implementation,
+            experiment_implementation=experiment.implementation,
+            control_accepted=control.final_accepted,
+            experiment_accepted=experiment.final_accepted,
+            divergences=(
+                f"raw_evidence_hash: {control.raw_evidence_hash} != {experiment.raw_evidence_hash}",
+            ),
+            notes="Implementations consumed different evidence snapshots.",
+        )
 
     deterministic_fields = (
         ("raw_evidence_hash", control.raw_evidence_hash, experiment.raw_evidence_hash),

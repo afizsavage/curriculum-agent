@@ -280,6 +280,14 @@ class CurriculumQAAgent:
                     phase_timings_ms=trace.phase_timings_ms,
                     latency_ms=round(latency_ms, 2),
                 )
+                try:
+                    from app.agent.v212b_shadow import maybe_schedule_production_shadow
+
+                    maybe_schedule_production_shadow(
+                        self, state, request_id=request_id
+                    )
+                except Exception:
+                    logger.debug("v212b shadow scheduling skipped", exc_info=True)
                 return state
             except AgentError as exc:
                 get_metrics().record_request(

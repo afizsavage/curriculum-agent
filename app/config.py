@@ -60,6 +60,11 @@ class Settings(BaseSettings):
     # V2.12A experiment: LangChain vs LangGraph behavioral equivalence (replay harness).
     v212_langchain_experiment: bool = False
 
+    # V2.12B experiment: production-shadow retrieval evaluation (observational only).
+    v212b_shadow_enabled: bool = False
+    v212b_shadow_sample_rate: float = Field(default=0.0, ge=0.0, le=1.0)
+    v212b_shadow_timeout_seconds: float = Field(default=120.0, gt=0)
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite
