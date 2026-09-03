@@ -1,0 +1,38 @@
+{
+  "experiment": "v2.13d",
+  "schema_version": "v213d.1",
+  "traffic_sampled": 5,
+  "successful_shadow_evaluations": 4,
+  "shadow_errors": 1,
+  "shadow_error_rate": 0.2,
+  "retrieval_success": 1.0,
+  "provenance_complete_rate": 1.0,
+  "metadata_valid_rate": 1.0,
+  "newly_recoverable_count": 1,
+  "newly_recoverable_rate": 0.2,
+  "improvements": 1,
+  "regressions": 0,
+  "unchanged": 3,
+  "classifications": {
+    "DOCUMENT_ADDED_GROUNDING": 1,
+    "BOTH_ACCEPTED": 2,
+    "SHADOW_ERROR": 1,
+    "BOTH_REJECTED": 1
+  },
+  "safety_metrics": {
+    "wrong_context_false_acceptance": 0,
+    "placeholder_false_acceptance": 0,
+    "metadata_integrity_false_acceptance": 0,
+    "unsafe_adversarial_false_acceptance": 0,
+    "shadow_errors_must_not_affect_production": true
+  },
+  "latency_metrics": {
+    "shadow_mean_ms": 37.402367750473786,
+    "retrieval_mean_ms": 30.220322749300976
+  },
+  "canary_recommendation": "CANARY_NOT_READY",
+  "canary_note": "Local replay is operationally stable and shows document grounding gains, but real production traffic has not been collected. Enable shadow at a low sample rate; do not promote document retrieval.",
+  "v213c_comparison_note": "V2.13C was a controlled harness (59.7%\u219290.3% grounded-correct). V2.13D replay is not statistically equivalent to that dataset.",
+  "generated_at": "2026-09-03T07:31:35.685816+00:00",
+  "mode": "controlled_replay"
+}

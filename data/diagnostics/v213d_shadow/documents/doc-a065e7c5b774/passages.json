@@ -1,0 +1,68 @@
+[
+  {
+    "passage_id": "passage-21399ed19666",
+    "document_id": "doc-a065e7c5b774",
+    "source_id": "science-guidance",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 1,
+    "section": "Science inquiry at the primary level should emphasize observation, questioning, and simple investigation.",
+    "heading": "Science inquiry at the primary level should emphasize observation, questioning, and simple investigation.",
+    "text": "Science inquiry at the primary level should emphasize observation, questioning, and simple investigation.",
+    "source_url": "https://example.invalid/science-primary.pdf",
+    "content_hash": "8d55549ca3ef58c7",
+    "grade": "CLASS_5",
+    "subject": "SCIENCE",
+    "unit": null,
+    "topic": null,
+    "association_method": "heading_match",
+    "metadata": {
+      "block_id": "p1-h2",
+      "document_content_hash": "feef53e14b590cbd983834cd0c144d2060f88ae68f493fe20b536350df3fea13"
+    }
+  },
+  {
+    "passage_id": "passage-c251ee156d1a",
+    "document_id": "doc-a065e7c5b774",
+    "source_id": "science-guidance",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 1,
+    "section": "Science inquiry at the primary level should emphasize observation, questioning, and simple investigation.",
+    "heading": "Science inquiry at the primary level should emphasize observation, questioning, and simple investigation.",
+    "text": "Pupils should record findings and discuss evidence using age-appropriate scientific vocabulary.",
+    "source_url": "https://example.invalid/science-primary.pdf",
+    "content_hash": "f5e4eeeb22ead895",
+    "grade": "CLASS_5",
+    "subject": "SCIENCE",
+    "unit": null,
+    "topic": null,
+    "association_method": "heading_match",
+    "metadata": {
+      "block_id": "p1-b3",
+      "document_content_hash": "feef53e14b590cbd983834cd0c144d2060f88ae68f493fe20b536350df3fea13"
+    }
+  },
+  {
+    "passage_id": "passage-33877293f649",
+    "document_id": "doc-a065e7c5b774",
+    "source_id": "science-guidance",
+    "curriculum_id": null,
+    "curriculum_version_id": null,
+    "page_number": 2,
+    "section": "Science inquiry at the primary level should emphasize observation, questioning, and simple investigation.",
+    "heading": "Science inquiry at the primary level should emphasize observation, questioning, and simple investigation.",
+    "text": "Teachers should model safe handling of materials and respect for living things during classroom investigations.",
+    "source_url": "https://example.invalid/science-primary.pdf",
+    "content_hash": "bdc25cc5ae7b0cc4",
+    "grade": "CLASS_5",
+    "subject": "SCIENCE",
+    "unit": null,
+    "topic": null,
+    "association_method": "heading_match",
+    "metadata": {
+      "block_id": "p2-b1",
+      "document_content_hash": "feef53e14b590cbd983834cd0c144d2060f88ae68f493fe20b536350df3fea13"
+    }
+  }
+]

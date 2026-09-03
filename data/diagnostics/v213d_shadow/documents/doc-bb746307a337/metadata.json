@@ -1,0 +1,20 @@
+{
+  "document_id": "doc-bb746307a337",
+  "source_id": "math-primary-guidance",
+  "source_url": "https://example.invalid/math-primary.pdf",
+  "document_version": "2020",
+  "content_hash": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70",
+  "content_type": "text/plain",
+  "file_size": 560,
+  "retrieved_at": "2026-09-03T07:31:35.446908+00:00",
+  "status": "parsed",
+  "curriculum_id": null,
+  "page_count": 2,
+  "passage_count": 6,
+  "metadata": {
+    "source_name": "Primary Mathematics Curriculum Guidance",
+    "authority": "MBSSE",
+    "verification_status": "VERIFIED",
+    "document_name": null
+  }
+}

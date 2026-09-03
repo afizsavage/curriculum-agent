@@ -68,6 +68,25 @@ class Settings(BaseSettings):
     # V2.13A experiment: curriculum document evidence layer (feature-flagged).
     v213_document_evidence_experiment: bool = False
 
+    # V2.13B experiment: hybrid semantic document retrieval (feature-flagged).
+    v213b_semantic_retrieval_experiment: bool = False
+    v213b_retrieval_variant: str = "lexical"
+    v213b_embedding_provider: str = "feature_hash"
+    v213b_embedding_model: str = "feature-hash-v1"
+    v213b_embedding_dimension: int = 128
+
+    # V2.13C experiment: controlled hybrid retrieval + curriculum QA eval (harness-only).
+    v213c_experiment: bool = False
+    v213c_document_retrieval: bool = False
+    v213c_retrieval_variant: str = "context_hybrid"
+
+    # V2.13D experiment: production-shadow context-hybrid document evidence (observational).
+    v213d_shadow_enabled: bool = False
+    v213d_shadow_sample_rate: float = Field(default=0.0, ge=0.0, le=1.0)
+    v213d_shadow_document_retrieval: bool = True
+    v213d_shadow_retrieval_variant: str = "context_hybrid"
+    v213d_shadow_timeout_seconds: float = Field(default=30.0, gt=0)
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite

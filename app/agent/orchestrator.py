@@ -288,6 +288,12 @@ class CurriculumQAAgent:
                     )
                 except Exception:
                     logger.debug("v212b shadow scheduling skipped", exc_info=True)
+                try:
+                    from app.agent.v213d_shadow import maybe_schedule_v213d_shadow
+
+                    maybe_schedule_v213d_shadow(self, state, request_id=request_id)
+                except Exception:
+                    logger.debug("v213d shadow scheduling skipped", exc_info=True)
                 return state
             except AgentError as exc:
                 get_metrics().record_request(
