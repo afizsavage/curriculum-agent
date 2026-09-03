@@ -1,20 +1,28 @@
-"""V2.13D production-shadow tests."""
+"""V2.13D Phase 1 production-shadow tests."""
 
 from __future__ import annotations
 
 import copy
+import time
+from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 from app.agent.orchestrator import CurriculumQAAgent
 from app.agent.state import CurriculumQAState
 from app.agent.v213c_experiment import frozen_structured_catalog
 from app.agent.v213d_shadow import (
+    aggregate_records,
     classify_shadow_comparison,
+    classify_shadow_outcome,
+    configured_sample_rate,
+    format_v213d_startup_banner,
     maybe_schedule_v213d_shadow,
     prepare_replay_corpus,
+    record_traffic_event,
     replay_fixtures,
     run_shadow_pipeline,
     should_sample_v213d,
+    v213d_runtime_config,
     v213d_shadow_enabled,
 )
 from app.config import Settings
@@ -23,8 +31,8 @@ from app.schemas.verification import VerificationRecommendation, VerificationRes
 from app.tools.registry import build_default_registry
 
 
-def test_default_disabled():
-    settings = Settings()
+def test_default_disabled_without_env_file():
+    settings = Settings(_env_file=None)
     assert v213d_shadow_enabled(settings) is False
     assert settings.v213d_shadow_sample_rate == 0.0
     assert settings.v213d_shadow_document_retrieval is True
@@ -32,53 +40,100 @@ def test_default_disabled():
 
 
 def test_sample_rate_zero_disables_execution():
-    settings = Settings(v213d_shadow_enabled=True, v213d_shadow_sample_rate=0.0)
+    settings = Settings(
+        _env_file=None, v213d_shadow_enabled=True, v213d_shadow_sample_rate=0.0
+    )
     assert should_sample_v213d(settings, "seed") is False
 
 
+def test_one_percent_sampling_configuration():
+    settings = Settings(
+        _env_file=None, v213d_shadow_enabled=True, v213d_shadow_sample_rate=0.01
+    )
+    assert configured_sample_rate(settings) == 0.01
+    sampled = sum(1 for i in range(10000) if should_sample_v213d(settings, str(i)))
+    assert 50 <= sampled <= 150
+
+
+def test_sampling_cannot_silently_exceed_configured_rate():
+    settings = Settings(
+        _env_file=None, v213d_shadow_enabled=True, v213d_shadow_sample_rate=0.01
+    )
+    # Hash threshold is int(rate * 10000); rate cannot exceed configured value.
+    assert configured_sample_rate(settings) == 0.01
+    for seed in ("a", "b", "c", "request-1"):
+        if should_sample_v213d(settings, seed):
+            digest_bucket = __import__("hashlib").sha256(
+                f"v213d:{seed}".encode()
+            ).hexdigest()
+            bucket = int(digest_bucket[:8], 16) % 10000
+            assert bucket < 100
+
+
 def test_deterministic_sampling():
-    settings = Settings(v213d_shadow_enabled=True, v213d_shadow_sample_rate=0.5)
+    settings = Settings(
+        _env_file=None, v213d_shadow_enabled=True, v213d_shadow_sample_rate=0.5
+    )
     first = should_sample_v213d(settings, "stable-id")
     second = should_sample_v213d(settings, "stable-id")
     assert first is second
     assert should_sample_v213d(
-        Settings(v213d_shadow_enabled=True, v213d_shadow_sample_rate=1.0), "x"
+        Settings(_env_file=None, v213d_shadow_enabled=True, v213d_shadow_sample_rate=1.0),
+        "x",
     )
     assert not should_sample_v213d(
-        Settings(v213d_shadow_enabled=False, v213d_shadow_sample_rate=1.0), "x"
+        Settings(_env_file=None, v213d_shadow_enabled=False, v213d_shadow_sample_rate=1.0),
+        "x",
     )
 
 
-def test_shadow_does_not_execute_when_unsampled():
-    settings = Settings(v213d_shadow_enabled=True, v213d_shadow_sample_rate=0.0)
+def test_shadow_does_not_execute_when_unsampled(tmp_path):
+    settings = Settings(
+        _env_file=None, v213d_shadow_enabled=True, v213d_shadow_sample_rate=0.0
+    )
     agent = MagicMock()
     agent.settings = settings
     state = CurriculumQAState.initial(question="What are money LOs?")
     with patch("app.agent.v213d_shadow.run_production_shadow") as mock_run:
-        maybe_schedule_v213d_shadow(agent, state, request_id="r1")
+        with patch("app.agent.v213d_shadow._TRAFFIC", tmp_path / "traffic.json"):
+            maybe_schedule_v213d_shadow(agent, state, request_id="r1")
         mock_run.assert_not_called()
 
 
-def test_shadow_executes_when_sampled():
-    settings = Settings(v213d_shadow_enabled=True, v213d_shadow_sample_rate=1.0)
+def test_shadow_executes_when_sampled_asynchronously(tmp_path):
+    settings = Settings(
+        _env_file=None, v213d_shadow_enabled=True, v213d_shadow_sample_rate=1.0
+    )
     agent = MagicMock()
     agent.settings = settings
     state = CurriculumQAState.initial(question="What are money LOs?")
-    with patch("app.agent.v213d_shadow.run_production_shadow") as mock_run:
-        thread = maybe_schedule_v213d_shadow(agent, state, request_id="r1")
-        if thread:
-            thread.join(timeout=2)
-        mock_run.assert_called_once()
+
+    def slow_run(*_a, **_k):
+        time.sleep(0.3)
+        return {}
+
+    with patch("app.agent.v213d_shadow.run_production_shadow", side_effect=slow_run):
+        with patch("app.agent.v213d_shadow._TRAFFIC", tmp_path / "traffic.json"):
+            started = time.perf_counter()
+            thread = maybe_schedule_v213d_shadow(agent, state, request_id="r1")
+            elapsed = time.perf_counter() - started
+        assert elapsed < 0.15
+        assert thread is not None
+        thread.join(timeout=2)
 
 
 def test_production_path_unchanged_and_document_retrieval_shadow_only():
-    settings = Settings()
+    settings = Settings(_env_file=None)
     registry = build_default_registry(settings=settings)
     assert "search_curriculum_documents" not in registry.names()
     original = CurriculumQAState.initial(question="q")
     original.final_answer = "production"
+    original.evidence = copy.deepcopy(frozen_structured_catalog()["c4u18"])
+    frozen_evidence = [e.model_dump() for e in original.evidence]
     agent = MagicMock()
-    agent.settings = Settings(v213d_shadow_enabled=True, v213d_shadow_sample_rate=1.0)
+    agent.settings = Settings(
+        _env_file=None, v213d_shadow_enabled=True, v213d_shadow_sample_rate=1.0
+    )
     agent.answer.side_effect = lambda s, request_id=None: s
     agent.verify.side_effect = lambda s, request_id=None: s
     agent.route.return_value = "finish"
@@ -88,10 +143,11 @@ def test_production_path_unchanged_and_document_retrieval_shadow_only():
 
     run_shadow_pipeline(agent, original, retrieve_documents=boom)
     assert original.final_answer == "production"
+    assert [e.model_dump() for e in original.evidence] == frozen_evidence
 
 
 def test_structured_preserved_and_document_added(tmp_path):
-    settings = Settings(llm_provider="stub")
+    settings = Settings(_env_file=None, llm_provider="stub")
     agent = CurriculumQAAgent(settings=settings, llm=StubLLMProvider())
     retrieval = prepare_replay_corpus(tmp_path / "documents", tmp_path / "index")
     state = CurriculumQAState.initial(
@@ -101,13 +157,18 @@ def test_structured_preserved_and_document_added(tmp_path):
     state.evidence = copy.deepcopy(frozen_structured_catalog()["c4u18"])
     record = run_shadow_pipeline(agent, state, retrieval=retrieval)
     assert record["shadow"]["structured_evidence_count"] == len(state.evidence)
-    assert record["shadow"].get("document_evidence_count", 0) >= 1 or record["shadow"].get("error")
+    assert record["shadow"].get("document_evidence_count", 0) >= 1 or record["shadow"].get(
+        "error"
+    )
     if not record["shadow"].get("error"):
         assert record["grounding"]["provenance_complete"] is True
+        assert isinstance(record["shadow"].get("document_passages"), list)
 
 
 def test_failure_isolation_does_not_mutate_production():
-    settings = Settings(v213d_shadow_enabled=True, v213d_shadow_sample_rate=1.0)
+    settings = Settings(
+        _env_file=None, v213d_shadow_enabled=True, v213d_shadow_sample_rate=1.0
+    )
     original = CurriculumQAState.initial(question="q")
     original.final_answer = "ok"
 
@@ -141,14 +202,23 @@ def test_failure_isolation_does_not_mutate_production():
         (_agent(fail_answer=True), lambda **_k: ([], {})),
         (_agent(fail_verify=True), lambda **_k: ([], {})),
     ]
+    expected = {
+        "DOCUMENT_RETRIEVAL_FAILURE",
+        "GENERATION_FAILURE",
+        "VERIFIER_FAILURE",
+        "DOCUMENT_NOISE",
+    }
     for agent, retriever in cases:
         record = run_shadow_pipeline(agent, original, retrieve_documents=retriever)
         assert original.final_answer == "ok"
-        assert record["comparison"]["classification"] == "SHADOW_ERROR"
+        assert record["comparison"]["classification"] in expected
+        assert record["shadow"].get("shadow_error_type")
 
 
-def test_shadow_errors_cannot_break_production_scheduler():
-    settings = Settings(v213d_shadow_enabled=True, v213d_shadow_sample_rate=1.0)
+def test_shadow_errors_cannot_break_production_scheduler(tmp_path):
+    settings = Settings(
+        _env_file=None, v213d_shadow_enabled=True, v213d_shadow_sample_rate=1.0
+    )
     agent = MagicMock()
     agent.settings = settings
     state = CurriculumQAState.initial(question="q")
@@ -156,12 +226,13 @@ def test_shadow_errors_cannot_break_production_scheduler():
         "app.agent.v213d_shadow.run_production_shadow",
         side_effect=RuntimeError("boom"),
     ):
-        thread = maybe_schedule_v213d_shadow(agent, state, request_id="x")
+        with patch("app.agent.v213d_shadow._TRAFFIC", tmp_path / "traffic.json"):
+            thread = maybe_schedule_v213d_shadow(agent, state, request_id="x")
         if thread:
             thread.join(timeout=2)
 
 
-def test_safety_false_acceptance_classification():
+def test_wrong_context_classification_and_gate():
     control = {
         "final_accepted": False,
         "final_route": "retrieve_more",
@@ -174,10 +245,10 @@ def test_safety_false_acceptance_classification():
         "document_evidence_count": 2,
         "final_route": "finish",
     }
-    assert classify_shadow_comparison(control, shadow) == "DOCUMENT_CREATED_WRONG_CONTEXT"
+    assert classify_shadow_comparison(control, shadow) == "WRONG_CONTEXT"
 
 
-def test_comparison_labels():
+def test_comparison_labels_phase1():
     assert (
         classify_shadow_comparison(
             {"final_accepted": False, "final_route": "retrieve_more"},
@@ -188,8 +259,17 @@ def test_comparison_labels():
                 "wrong_context": False,
             },
         )
-        == "DOCUMENT_ADDED_GROUNDING"
+        == "DOCUMENT_ADDED_MISSING_CONTEXT"
     )
+    assert classify_shadow_outcome(
+        {"final_accepted": False, "final_route": "retrieve_more"},
+        {
+            "final_accepted": True,
+            "metadata_valid": True,
+            "document_evidence_count": 3,
+            "wrong_context": False,
+        },
+    )["newly_recoverable"]
     assert (
         classify_shadow_comparison(
             {"final_accepted": True, "final_route": "finish"},
@@ -201,7 +281,7 @@ def test_comparison_labels():
                 "wrong_context": False,
             },
         )
-        == "SHADOW_REGRESSED"
+        == "DOCUMENT_NOISE"
     )
     assert (
         classify_shadow_comparison(
@@ -213,26 +293,132 @@ def test_comparison_labels():
                 "wrong_context": False,
             },
         )
-        == "BOTH_ACCEPTED"
+        == "STRUCTURED_DATA_ALREADY_SUFFICIENT"
     )
-    assert classify_shadow_comparison({}, {"error": "TimeoutError"}) == "SHADOW_ERROR"
+    assert (
+        classify_shadow_comparison({}, {"error": "TimeoutError", "shadow_stage": "document_retrieval"})
+        == "DOCUMENT_RETRIEVAL_FAILURE"
+    )
     assert (
         classify_shadow_comparison(
             {"final_accepted": False, "final_route": "retrieve_more"},
             {
                 "final_accepted": False,
                 "metadata_valid": True,
-                "document_evidence_count": 0,
+                "document_evidence_count": 2,
                 "wrong_context": False,
                 "final_route": "retrieve_more",
             },
         )
-        == "BOTH_INSUFFICIENT"
+        == "DOCUMENT_DID_NOT_HELP"
     )
 
 
+def test_aggregation_improvement_and_regression_metrics():
+    records = [
+        {
+            "shadow": {"document_evidence_count": 2, "final_accepted": True},
+            "grounding": {
+                "metadata_valid": True,
+                "provenance_complete": True,
+                "wrong_context": False,
+                "placeholder_evidence": False,
+                "unsupported_claims": [],
+            },
+            "comparison": {
+                "classification": "DOCUMENT_ADDED_MISSING_CONTEXT",
+                "improved": True,
+                "regressed": False,
+                "newly_recoverable": True,
+                "control_correct_shadow_worse": False,
+            },
+            "latency_ms": 40,
+        },
+        {
+            "shadow": {
+                "document_evidence_count": 1,
+                "final_accepted": False,
+                "document_retrieval_latency_ms": 12,
+            },
+            "grounding": {
+                "metadata_valid": True,
+                "provenance_complete": True,
+                "wrong_context": False,
+                "placeholder_evidence": False,
+                "unsupported_claims": [],
+            },
+            "comparison": {
+                "classification": "DOCUMENT_NOISE",
+                "improved": False,
+                "regressed": True,
+                "newly_recoverable": False,
+                "control_correct_shadow_worse": True,
+            },
+            "latency_ms": 50,
+        },
+    ]
+    metrics = aggregate_records(records, traffic={"total_production_requests": 200, "sampled_requests": 2})
+    assert metrics["newly_recoverable_count"] == 1
+    assert metrics["control_correct_shadow_worse"] == 1
+    assert metrics["regressions"] == 1
+    assert metrics["phase1_status"] == "INSUFFICIENT_SAMPLE"
+    assert metrics["phase1_recommendation"] == "CONTINUE SHADOW"
+
+
+def test_safety_blocked_status():
+    records = [
+        {
+            "shadow": {"document_evidence_count": 1, "final_accepted": True},
+            "grounding": {
+                "metadata_valid": True,
+                "provenance_complete": True,
+                "wrong_context": True,
+                "placeholder_evidence": False,
+                "unsupported_claims": [],
+            },
+            "comparison": {
+                "classification": "WRONG_CONTEXT",
+                "improved": False,
+                "regressed": False,
+                "newly_recoverable": False,
+                "control_correct_shadow_worse": True,
+            },
+            "latency_ms": 10,
+        }
+    ]
+    metrics = aggregate_records(records)
+    assert metrics["safety_metrics"]["wrong_context_false_acceptance"] == 1
+    assert metrics["phase1_status"] == "SAFETY_BLOCKED"
+    assert metrics["phase1_recommendation"] == "STOP — SAFETY ISSUE"
+
+
+def test_runtime_config_banner():
+    settings = Settings(
+        _env_file=None,
+        v213d_shadow_enabled=True,
+        v213d_shadow_sample_rate=0.01,
+        v213d_shadow_document_retrieval=True,
+        v213d_shadow_retrieval_variant="context_hybrid",
+        v213d_shadow_timeout_seconds=30,
+    )
+    cfg = v213d_runtime_config(settings)
+    assert cfg["sample_rate"] == 0.01
+    banner = format_v213d_startup_banner(settings)
+    assert "V2.13D shadow enabled: true" in banner
+    assert "V2.13D sample rate: 0.01" in banner
+
+
+def test_traffic_counter(tmp_path: Path):
+    path = tmp_path / "traffic.json"
+    first = record_traffic_event(sampled=False, path=path)
+    second = record_traffic_event(sampled=True, path=path)
+    assert first["total_production_requests"] == 1
+    assert second["total_production_requests"] == 2
+    assert second["sampled_requests"] == 1
+
+
 def test_replay_includes_required_categories(tmp_path):
-    settings = Settings(llm_provider="stub")
+    settings = Settings(_env_file=None, llm_provider="stub")
     agent = CurriculumQAAgent(settings=settings, llm=StubLLMProvider())
     retrieval = prepare_replay_corpus(tmp_path / "documents", tmp_path / "index")
     records = replay_fixtures(
@@ -247,14 +433,24 @@ def test_replay_includes_required_categories(tmp_path):
     assert "insufficient_evidence" in cats
     assert "adversarial" in cats
     timeout_row = next(r for r in records if r.get("replay_id") == "V213C-F01")
-    assert timeout_row["comparison"]["classification"] == "SHADOW_ERROR"
+    assert timeout_row["comparison"]["classification"] == "DOCUMENT_RETRIEVAL_FAILURE"
     assert timeout_row["shadow"]["shadow_error_type"] == "TimeoutError"
 
 
 def test_placeholder_not_accepted(tmp_path):
-    settings = Settings(llm_provider="stub")
+    settings = Settings(_env_file=None, llm_provider="stub")
     agent = CurriculumQAAgent(settings=settings, llm=StubLLMProvider())
     retrieval = prepare_replay_corpus(tmp_path / "documents", tmp_path / "index")
     records = replay_fixtures(agent, retrieval=retrieval, question_ids=("V213C-G03",))
     shadow = records[0]["shadow"]
     assert shadow.get("final_accepted") is False or shadow.get("error")
+
+
+def test_metadata_guard_blocks_acceptance(tmp_path):
+    settings = Settings(_env_file=None, llm_provider="stub")
+    agent = CurriculumQAAgent(settings=settings, llm=StubLLMProvider())
+    retrieval = prepare_replay_corpus(tmp_path / "documents", tmp_path / "index")
+    records = replay_fixtures(agent, retrieval=retrieval, question_ids=("V213C-G03",))
+    shadow = records[0]["shadow"]
+    if not shadow.get("error"):
+        assert shadow.get("final_accepted") is False

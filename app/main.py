@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Request
 from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
@@ -14,7 +16,17 @@ logger = get_logger(__name__)
 
 def create_app() -> FastAPI:
     configure_logging()
+
+    @asynccontextmanager
+    async def lifespan(_application: FastAPI):
+        from app.agent.v213d_shadow import log_v213d_startup
+        from app.config import get_settings
+
+        log_v213d_startup(get_settings())
+        yield
+
     application = FastAPI(
+        lifespan=lifespan,
         title="Curriculum Q&A Agent",
         description=(
             "Independent MBSSE Curriculum Q&A Agent service. "
@@ -80,8 +92,16 @@ def create_app() -> FastAPI:
         )
 
     @application.get("/health", tags=["health"])
-    def health() -> dict[str, str]:
-        return {"status": "ok", "service": "curriculum-agent", "version": __version__}
+    def health() -> dict[str, object]:
+        from app.agent.v213d_shadow import v213d_runtime_config
+        from app.config import get_settings
+
+        return {
+            "status": "ok",
+            "service": "curriculum-agent",
+            "version": __version__,
+            "v213d": v213d_runtime_config(get_settings()),
+        }
 
     application.add_middleware(
         CORSMiddleware,

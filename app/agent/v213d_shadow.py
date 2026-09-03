@@ -47,10 +47,27 @@ from app.schemas.verification import VerificationRecommendation
 logger = logging.getLogger(__name__)
 
 _EXPERIMENT_NAME = "v2.13d"
-_SCHEMA_VERSION = "v213d.1"
+_SCHEMA_VERSION = "v213d.2"
 _ANALYTICAL_THRESHOLD = 0.85
 _JSONL = Path("data/diagnostics/v213d_shadow.jsonl")
+_TRAFFIC = Path("data/diagnostics/v213d_traffic.json")
 _WRITE_LOCK = threading.Lock()
+OBSERVATION_TARGET_MIN = 100
+OBSERVATION_TARGET_MAX = 200
+
+PHASE1_CATEGORIES = (
+    "DOCUMENT_ADDED_MISSING_CONTEXT",
+    "DOCUMENT_ADDED_EXPLANATION",
+    "DOCUMENT_DISAMBIGUATED_CONTEXT",
+    "DOCUMENT_PROVIDED_SOURCE",
+    "STRUCTURED_DATA_ALREADY_SUFFICIENT",
+    "DOCUMENT_DID_NOT_HELP",
+    "DOCUMENT_RETRIEVAL_FAILURE",
+    "DOCUMENT_NOISE",
+    "WRONG_CONTEXT",
+    "GENERATION_FAILURE",
+    "VERIFIER_FAILURE",
+)
 
 REPLAY_QUESTION_IDS = (
     "V213C-A01",  # document-only
@@ -65,10 +82,55 @@ def v213d_shadow_enabled(settings: Settings) -> bool:
     return bool(getattr(settings, "v213d_shadow_enabled", False))
 
 
+def configured_sample_rate(settings: Settings) -> float:
+    rate = float(getattr(settings, "v213d_shadow_sample_rate", 0.0) or 0.0)
+    return min(max(rate, 0.0), 1.0)
+
+
+def v213d_runtime_config(settings: Settings) -> dict[str, Any]:
+    return {
+        "shadow_enabled": v213d_shadow_enabled(settings),
+        "sample_rate": configured_sample_rate(settings),
+        "document_retrieval": bool(
+            getattr(settings, "v213d_shadow_document_retrieval", True)
+        ),
+        "retrieval_variant": str(
+            getattr(settings, "v213d_shadow_retrieval_variant", "context_hybrid")
+        ),
+        "timeout_seconds": float(
+            getattr(settings, "v213d_shadow_timeout_seconds", 30.0) or 30.0
+        ),
+    }
+
+
+def format_v213d_startup_banner(settings: Settings) -> str:
+    cfg = v213d_runtime_config(settings)
+    return "\n".join(
+        [
+            f"V2.13D shadow enabled: {str(cfg['shadow_enabled']).lower()}",
+            f"V2.13D sample rate: {cfg['sample_rate']}",
+            f"V2.13D retrieval variant: {cfg['retrieval_variant']}",
+            f"V2.13D document retrieval: {str(cfg['document_retrieval']).lower()}",
+            f"V2.13D timeout: {int(cfg['timeout_seconds'])}s",
+        ]
+    )
+
+
+def log_v213d_startup(settings: Settings) -> None:
+    banner = format_v213d_startup_banner(settings)
+    for line in banner.splitlines():
+        logger.info(line)
+    log_agent_event(
+        logger,
+        "v213d.shadow.config",
+        extra_config=v213d_runtime_config(settings),
+    )
+
+
 def should_sample_v213d(settings: Settings, seed: str) -> bool:
     if not v213d_shadow_enabled(settings):
         return False
-    rate = float(getattr(settings, "v213d_shadow_sample_rate", 0.0) or 0.0)
+    rate = configured_sample_rate(settings)
     if rate <= 0.0:
         return False
     if rate >= 1.0:
@@ -104,38 +166,169 @@ def infer_question_category(state: CurriculumQAState, document_count: int) -> st
     return "structured"
 
 
-def classify_shadow_comparison(control: dict[str, Any], shadow: dict[str, Any]) -> str:
-    if shadow.get("error"):
-        return "SHADOW_ERROR"
-    if shadow.get("wrong_context") and shadow.get("final_accepted"):
-        return "DOCUMENT_CREATED_WRONG_CONTEXT"
-    c_route = control.get("final_route")
-    s_route = shadow.get("final_route")
-    c_accept = bool(control.get("final_accepted"))
-    s_accept = bool(shadow.get("final_accepted")) and bool(shadow.get("metadata_valid"))
-    docs = int(shadow.get("document_evidence_count") or 0)
+def _pack_classification(
+    primary: str,
+    *,
+    secondaries: list[str] | None = None,
+    improved: bool = False,
+    regressed: bool = False,
+    newly_recoverable: bool = False,
+    control_correct_shadow_worse: bool = False,
+) -> dict[str, Any]:
+    return {
+        "classification": primary,
+        "primary_category": primary,
+        "secondary_categories": secondaries or [],
+        "improved": improved,
+        "regressed": regressed,
+        "newly_recoverable": newly_recoverable,
+        "control_correct_shadow_worse": control_correct_shadow_worse,
+    }
 
-    if (not c_accept) and s_accept and docs > 0:
-        return "DOCUMENT_ADDED_GROUNDING"
+
+def classify_shadow_outcome(
+    control: dict[str, Any],
+    shadow: dict[str, Any],
+    *,
+    question_category: str | None = None,
+) -> dict[str, Any]:
+    """Deterministic Phase 1 comparison. Does not use verifier acceptance alone."""
+    error = shadow.get("error") or shadow.get("shadow_error_type")
+    stage = str(shadow.get("shadow_stage") or "")
+    docs = int(shadow.get("document_evidence_count") or 0)
+    c_accept = bool(control.get("final_accepted"))
+    s_accept = bool(shadow.get("final_accepted")) and bool(
+        shadow.get("metadata_valid", True)
+    )
+    skipped = bool(shadow.get("retrieval_skipped"))
+
+    if error:
+        err_l = str(error).lower()
+        if "timeout" in err_l or stage in {"document_retrieval", "start"}:
+            primary = "DOCUMENT_RETRIEVAL_FAILURE"
+        elif stage == "generation":
+            primary = "GENERATION_FAILURE"
+        elif stage in {"verification", "mapper", "routing"}:
+            primary = "VERIFIER_FAILURE"
+        elif stage in {"normalization", "metadata_guard", "merge"}:
+            primary = "DOCUMENT_NOISE"
+        else:
+            primary = "DOCUMENT_RETRIEVAL_FAILURE"
+        return _pack_classification(primary)
+
+    if shadow.get("wrong_context"):
+        return _pack_classification(
+            "WRONG_CONTEXT",
+            control_correct_shadow_worse=c_accept and s_accept,
+        )
+
+    if docs == 0 and not skipped:
+        if c_accept and s_accept:
+            return _pack_classification("STRUCTURED_DATA_ALREADY_SUFFICIENT")
+        return _pack_classification("DOCUMENT_RETRIEVAL_FAILURE")
+
+    newly = (not c_accept) and s_accept and docs > 0
+    worse = c_accept and (not s_accept)
+
+    if newly:
+        secondaries = ["DOCUMENT_PROVIDED_SOURCE"]
+        if question_category == "ambiguous":
+            secondaries.insert(0, "DOCUMENT_DISAMBIGUATED_CONTEXT")
+        return _pack_classification(
+            "DOCUMENT_ADDED_MISSING_CONTEXT",
+            secondaries=secondaries,
+            improved=True,
+            newly_recoverable=True,
+        )
+
     if c_accept and s_accept:
-        return "BOTH_ACCEPTED"
-    if (not c_accept) and (not s_accept):
-        if c_route in {"retrieve_more", "fallback"} and s_route in {"retrieve_more", "fallback"}:
-            return "BOTH_INSUFFICIENT"
-        return "BOTH_REJECTED"
-    if c_accept and not s_accept:
-        if s_route == "retrieve_more" and c_route == "finish":
-            return "SHADOW_REGRESSED"
-        if docs:
-            return "DOCUMENT_CREATED_NOISE"
-        return "SHADOW_REGRESSED"
-    if docs == 0:
-        return "RETRIEVAL_FAILURE"
-    if control.get("verifier_decision") != shadow.get("verifier_decision"):
-        return "VERIFIER_DIFFERENCE"
-    if control.get("answer_hash") != shadow.get("answer_hash"):
-        return "GENERATION_DIFFERENCE"
-    return "DOCUMENT_DID_NOT_HELP"
+        if (
+            docs > 0
+            and control.get("answer_hash")
+            and shadow.get("answer_hash")
+            and control.get("answer_hash") != shadow.get("answer_hash")
+        ):
+            return _pack_classification(
+                "DOCUMENT_ADDED_EXPLANATION",
+                secondaries=["DOCUMENT_PROVIDED_SOURCE"],
+                improved=True,
+            )
+        if question_category == "ambiguous" and docs > 0:
+            return _pack_classification(
+                "DOCUMENT_DISAMBIGUATED_CONTEXT",
+                secondaries=["DOCUMENT_PROVIDED_SOURCE"],
+            )
+        secondaries = ["DOCUMENT_PROVIDED_SOURCE"] if docs > 0 else []
+        return _pack_classification(
+            "STRUCTURED_DATA_ALREADY_SUFFICIENT",
+            secondaries=secondaries,
+        )
+
+    if worse:
+        return _pack_classification(
+            "DOCUMENT_NOISE",
+            regressed=True,
+            control_correct_shadow_worse=True,
+        )
+
+    if docs > 0:
+        return _pack_classification("DOCUMENT_DID_NOT_HELP")
+    return _pack_classification("DOCUMENT_RETRIEVAL_FAILURE")
+
+
+def classify_shadow_comparison(
+    control: dict[str, Any],
+    shadow: dict[str, Any],
+    *,
+    question_category: str | None = None,
+) -> str:
+    return str(
+        classify_shadow_outcome(
+            control, shadow, question_category=question_category
+        )["classification"]
+    )
+
+
+def _evidence_summary(evidence: list[CurriculumEvidence]) -> list[dict[str, Any]]:
+    rows = []
+    for item in evidence[:20]:
+        rows.append(
+            {
+                "entity_type": item.entity_type,
+                "entity_id": item.entity_id,
+                "grade": item.grade,
+                "subject": item.subject,
+                "topic": item.topic,
+            }
+        )
+    return rows
+
+
+def _document_passage_summaries(
+    evidence: list[CurriculumEvidence],
+) -> list[dict[str, Any]]:
+    rows = []
+    for item in evidence:
+        if item.entity_type != "document_passage":
+            continue
+        provenance = item.metadata.get("provenance") or {}
+        rows.append(
+            {
+                "document_id": item.metadata.get("document_id"),
+                "passage_id": item.entity_id,
+                "source_url": provenance.get("source_url")
+                or item.metadata.get("source_id"),
+                "page_number": item.metadata.get("page_number")
+                or provenance.get("page_number"),
+                "document_hash": provenance.get("content_hash"),
+                "retrieval_score": item.metadata.get("retrieval_score"),
+                "retrieval_rank": item.metadata.get("retrieval_rank"),
+                "grade": item.grade,
+                "subject": item.subject,
+                "topic": item.topic,
+            }
+        )
+    return rows
 
 
 def _control_snapshot(state: CurriculumQAState, settings: Settings) -> dict[str, Any]:
@@ -164,8 +357,10 @@ def _control_snapshot(state: CurriculumQAState, settings: Settings) -> dict[str,
             route = "finish"
     answer = state.final_answer or state.draft_answer or ""
     return {
+        "status": state.status.value if getattr(state, "status", None) else None,
         "evidence_count": len(state.evidence),
         "evidence_snapshot": evidence_snapshot_hash(state.evidence),
+        "evidence_summary": _evidence_summary(state.evidence),
         "verifier_score": verification.score if verification else None,
         "verifier_decision": verification.recommendation.value if verification else None,
         "verifier_accepted": verification.passed if verification else False,
@@ -174,8 +369,13 @@ def _control_snapshot(state: CurriculumQAState, settings: Settings) -> dict[str,
         "mapped_accepted": mapping.mapped_accepted if mapping else False,
         "final_accepted": bool(mapping.mapped_accepted) if mapping else bool(verification and verification.passed),
         "final_route": route,
+        "answer_present": bool(answer),
         "answer_hash": answer_hash(answer) if answer else "",
         "model": (state.metadata or {}).get("model"),
+        "generation_config": {
+            "provider": getattr(settings, "llm_provider", None),
+            "model": getattr(settings, "llm_model", None),
+        },
     }
 
 
@@ -191,7 +391,7 @@ def retrieve_document_evidence(
     timeout_seconds: float | None = None,
 ) -> tuple[list[CurriculumEvidence], dict[str, Any]]:
     if not bool(getattr(settings, "v213d_shadow_document_retrieval", True)):
-        return [], {"skipped": True}
+        return [], {"skipped": True, "variant": getattr(settings, "v213d_shadow_retrieval_variant", "context_hybrid")}
     service = retrieval or default_retrieval_service(settings)
     variant = getattr(settings, "v213d_shadow_retrieval_variant", "context_hybrid")
     started = time.perf_counter()
@@ -207,12 +407,18 @@ def retrieve_document_evidence(
     latency = (time.perf_counter() - started) * 1000
     if timeout_seconds is not None and latency > timeout_seconds * 1000:
         raise TimeoutError("document retrieval exceeded shadow timeout")
-    evidence = [document_passage_to_evidence(hit.passage) for hit in result.hits]
+    evidence: list[CurriculumEvidence] = []
+    for hit in result.hits:
+        item = document_passage_to_evidence(hit.passage)
+        item.metadata["retrieval_score"] = hit.retrieval_score
+        item.metadata["retrieval_rank"] = hit.retrieval_rank
+        evidence.append(item)
     return evidence, {
         "variant": variant,
         "latency_ms": latency,
         "count": len(evidence),
         "diagnostics": result.diagnostics.to_dict(),
+        "passages": _document_passage_summaries(evidence),
     }
 
 
@@ -328,18 +534,28 @@ def run_shadow_pipeline(
             wrong_context = wrong_context or any(
                 e.subject and e.subject != production_state.subject for e in documents
             )
+        # Shadow-only safety gates: never treat blocked evidence as a successful answer.
+        if metadata_blocked or wrong_context or placeholder:
+            final_accepted = False
         shadow = {
             "structured_evidence_count": len(structured),
             "document_evidence_count": len(documents),
             "evidence_count": len(verify_evidence),
+            "evidence_summary": _evidence_summary(verify_evidence),
+            "document_passages": retrieval_meta.get("passages")
+            or _document_passage_summaries(documents),
             "retrieval_variant": retrieval_meta.get("variant")
             or getattr(settings, "v213d_shadow_retrieval_variant", "context_hybrid"),
             "document_retrieval_latency_ms": retrieval_meta.get("latency_ms", 0),
+            "retrieval_skipped": bool(retrieval_meta.get("skipped")),
             "normalization_status": "ok",
             "normalization_count": len(normalized.evidence),
+            "normalization_failures": 0,
             "metadata_valid": integrity.valid,
             "metadata_blocked": metadata_blocked,
             "metadata_policy": metadata_policy,
+            "metadata_violations": [v.to_dict() for v in integrity.violations],
+            "blocked_evidence": len(normalized.evidence) - len(verify_evidence),
             "violations": [v.to_dict() for v in integrity.violations],
             "verifier_score": verifier_result.score if verifier_result else None,
             "verifier_decision": verifier_result.recommendation.value if verifier_result else None,
@@ -351,28 +567,38 @@ def run_shadow_pipeline(
             "mapped_accepted": mapping.mapped_accepted,
             "final_accepted": final_accepted and not metadata_blocked,
             "final_route": final_route,
+            "answer_present": bool(answer),
             "answer_hash": answer_hash(answer) if answer else "",
             "provenance_complete": _provenance_complete(documents),
             "wrong_context": wrong_context,
             "placeholder_evidence": placeholder,
             "error": None,
+            "generation_config": {
+                "provider": getattr(settings, "llm_provider", None),
+                "model": getattr(settings, "llm_model", None),
+            },
         }
-        classification = classify_shadow_comparison(control, shadow)
+        category = infer_question_category(production_state, len(documents))
+        comparison = classify_shadow_outcome(
+            control, shadow, question_category=category
+        )
         record = {
             "experiment": _EXPERIMENT_NAME,
             "schema_version": _SCHEMA_VERSION,
+            "phase": "phase1",
             "request_id": hashlib.sha256((request_id or "").encode()).hexdigest()[:16]
             if request_id
             else "",
             "timestamp": datetime.now(timezone.utc).isoformat(),
             "sampling": {
                 "enabled": v213d_shadow_enabled(settings),
-                "rate": float(getattr(settings, "v213d_shadow_sample_rate", 0.0) or 0.0),
+                "rate": configured_sample_rate(settings),
                 "sampled": True,
+                "decision": "sampled",
             },
             "question": {
                 "hash": question_hash(production_state.question),
-                "category": infer_question_category(production_state, len(documents)),
+                "category": category,
                 "grade": production_state.grade,
                 "subject": production_state.subject,
                 "topic": production_state.topic,
@@ -386,25 +612,23 @@ def run_shadow_pipeline(
                 "placeholder_evidence": placeholder,
                 "unsupported_claims": shadow["unsupported_claims"],
             },
-            "comparison": {
-                "classification": classification,
-                "improved": classification in {"DOCUMENT_ADDED_GROUNDING", "SHADOW_IMPROVED"},
-                "regressed": classification == "SHADOW_REGRESSED",
-            },
+            "comparison": comparison,
             "latency_ms": (time.perf_counter() - started) * 1000,
         }
         log_agent_event(
             logger,
             "v213d.shadow.completed",
             request_id=request_id,
-            extra_classification=classification,
+            extra_classification=comparison["classification"],
         )
         if shadow["metadata_blocked"]:
             log_agent_event(logger, "v213d.shadow.metadata_blocked", request_id=request_id)
-        if record["comparison"]["improved"]:
+        if comparison.get("improved"):
             log_agent_event(logger, "v213d.shadow.improved", request_id=request_id)
-        if record["comparison"]["regressed"]:
+        if comparison.get("regressed"):
             log_agent_event(logger, "v213d.shadow.regressed", request_id=request_id)
+        if int(shadow.get("document_evidence_count") or 0) > 0:
+            log_agent_event(logger, "v213d.shadow.retrieval_success", request_id=request_id)
         return record
     except Exception as exc:
         log_agent_event(
@@ -413,28 +637,36 @@ def run_shadow_pipeline(
             request_id=request_id,
             error=type(exc).__name__,
         )
+        shadow_err = {
+            "error": type(exc).__name__,
+            "shadow_error_type": type(exc).__name__,
+            "shadow_error_message_safe": str(exc)[:200],
+            "shadow_stage": stage,
+            "final_accepted": False,
+            "metadata_valid": False,
+            "document_evidence_count": 0,
+        }
+        comparison = classify_shadow_outcome(control, shadow_err)
         return {
             "experiment": _EXPERIMENT_NAME,
             "schema_version": _SCHEMA_VERSION,
+            "phase": "phase1",
             "request_id": hashlib.sha256((request_id or "").encode()).hexdigest()[:16]
             if request_id
             else "",
             "timestamp": datetime.now(timezone.utc).isoformat(),
+            "sampling": {
+                "enabled": v213d_shadow_enabled(settings),
+                "rate": configured_sample_rate(settings),
+                "sampled": True,
+                "decision": "sampled",
+            },
             "question": {"hash": question_hash(production_state.question)},
             "control": control,
-            "shadow": {
-                "error": type(exc).__name__,
-                "shadow_error_type": type(exc).__name__,
-                "shadow_error_message_safe": str(exc)[:200],
-                "shadow_stage": stage,
-                "final_accepted": False,
-            },
+            "shadow": shadow_err,
             "grounding": {"metadata_valid": False},
-            "comparison": {
-                "classification": "SHADOW_ERROR",
-                "improved": False,
-                "regressed": False,
-            },
+            "comparison": comparison,
+            "latency_ms": (time.perf_counter() - started) * 1000,
         }
 
 
@@ -444,6 +676,42 @@ def persist_record(record: dict[str, Any], path: Path | None = None) -> None:
     with _WRITE_LOCK:
         with target.open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(record) + "\n")
+
+
+def record_traffic_event(*, sampled: bool, path: Path | None = None) -> dict[str, int]:
+    target = path or _TRAFFIC
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with _WRITE_LOCK:
+        current = {"total_production_requests": 0, "sampled_requests": 0}
+        if target.exists():
+            try:
+                current.update(json.loads(target.read_text() or "{}"))
+            except json.JSONDecodeError:
+                pass
+        current["total_production_requests"] = int(
+            current.get("total_production_requests") or 0
+        ) + 1
+        if sampled:
+            current["sampled_requests"] = int(current.get("sampled_requests") or 0) + 1
+        target.write_text(json.dumps(current))
+        return {
+            "total_production_requests": int(current["total_production_requests"]),
+            "sampled_requests": int(current.get("sampled_requests") or 0),
+        }
+
+
+def load_traffic_counters(path: Path | None = None) -> dict[str, int]:
+    target = path or _TRAFFIC
+    if not target.exists():
+        return {"total_production_requests": 0, "sampled_requests": 0}
+    try:
+        data = json.loads(target.read_text() or "{}")
+    except json.JSONDecodeError:
+        return {"total_production_requests": 0, "sampled_requests": 0}
+    return {
+        "total_production_requests": int(data.get("total_production_requests") or 0),
+        "sampled_requests": int(data.get("sampled_requests") or 0),
+    }
 
 
 def run_production_shadow(
@@ -468,11 +736,16 @@ def maybe_schedule_v213d_shadow(
     state: CurriculumQAState,
     *,
     request_id: str | None = None,
-) -> None:
+) -> threading.Thread | None:
     """Fire-and-forget; exceptions never reach the production caller."""
     settings = agent.settings
-    if not should_sample_v213d(settings, request_id or state.question):
-        return
+    sampled = should_sample_v213d(settings, request_id or state.question)
+    try:
+        record_traffic_event(sampled=sampled)
+    except Exception:
+        logger.debug("v213d traffic counter skipped", exc_info=True)
+    if not sampled:
+        return None
     snapshot = copy.deepcopy(state)
     timeout = float(getattr(settings, "v213d_shadow_timeout_seconds", 30.0))
 
@@ -570,16 +843,116 @@ def replay_fixtures(
     return records
 
 
-def aggregate_records(records: list[dict[str, Any]]) -> dict[str, Any]:
-    n = len(records) or 1
+def load_jsonl_records(path: Path | None = None) -> list[dict[str, Any]]:
+    target = path or _JSONL
+    if not target.exists():
+        return []
+    records: list[dict[str, Any]] = []
+    for line in target.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            records.append(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+    return records
+
+
+def production_shadow_records(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [r for r in records if not r.get("replay_id")]
+
+
+def _percentile(values: list[float], pct: float) -> float:
+    if not values:
+        return 0.0
+    ordered = sorted(values)
+    if len(ordered) == 1:
+        return ordered[0]
+    rank = (pct / 100.0) * (len(ordered) - 1)
+    low = int(rank)
+    high = min(low + 1, len(ordered) - 1)
+    weight = rank - low
+    return ordered[low] * (1 - weight) + ordered[high] * weight
+
+
+def phase1_observation_status(metrics: dict[str, Any]) -> tuple[str, str]:
+    safety = metrics.get("safety_metrics") or {}
+    hard = (
+        int(safety.get("wrong_context_false_acceptance") or 0)
+        + int(safety.get("placeholder_false_acceptance") or 0)
+        + int(safety.get("metadata_integrity_false_acceptance") or 0)
+        + int(safety.get("metadata_false_acceptance") or 0)
+    )
+    if hard > 0 or metrics.get("safety_blocked"):
+        return (
+            "SAFETY_BLOCKED",
+            "STOP — SAFETY ISSUE",
+        )
+    completed = int(metrics.get("successful_shadow_evaluations") or 0)
+    worse = int(metrics.get("control_correct_shadow_worse") or 0)
+    regressions = int(metrics.get("regressions") or 0)
+    newly = int(metrics.get("newly_recoverable_count") or 0)
+    if completed < OBSERVATION_TARGET_MIN:
+        return (
+            "INSUFFICIENT_SAMPLE",
+            "CONTINUE SHADOW",
+        )
+    if worse > 0 or regressions > 0:
+        return (
+            "REGRESSION_DETECTED",
+            "INVESTIGATE BEFORE CONTINUING",
+        )
+    if newly > 0 and completed >= OBSERVATION_TARGET_MIN:
+        if completed >= OBSERVATION_TARGET_MAX:
+            return (
+                "PROMISING",
+                "CONTINUE SHADOW",
+            )
+        return (
+            "PROMISING",
+            "CONTINUE SHADOW",
+        )
+    return (
+        "OBSERVATION_READY",
+        "CONTINUE SHADOW",
+    )
+
+
+def aggregate_records(
+    records: list[dict[str, Any]],
+    *,
+    traffic: dict[str, int] | None = None,
+    source: str = "mixed",
+) -> dict[str, Any]:
+    n_raw = len(records)
+    n = n_raw or 1
     successful = [r for r in records if not (r.get("shadow") or {}).get("error")]
     errors = [r for r in records if (r.get("shadow") or {}).get("error")]
+    timeouts = [
+        r
+        for r in errors
+        if "timeout" in str((r.get("shadow") or {}).get("shadow_error_type") or "").lower()
+        or "timeout" in str((r.get("shadow") or {}).get("shadow_error_message_safe") or "").lower()
+    ]
+    retrieval_failures = [
+        r
+        for r in records
+        if (r.get("comparison") or {}).get("classification") == "DOCUMENT_RETRIEVAL_FAILURE"
+    ]
     improved = [r for r in records if r.get("comparison", {}).get("improved")]
     regressed = [r for r in records if r.get("comparison", {}).get("regressed")]
     newly = [
         r
         for r in records
-        if r.get("comparison", {}).get("classification") == "DOCUMENT_ADDED_GROUNDING"
+        if r.get("comparison", {}).get("newly_recoverable")
+        or r.get("comparison", {}).get("classification")
+        in {"DOCUMENT_ADDED_MISSING_CONTEXT", "DOCUMENT_ADDED_GROUNDING"}
+    ]
+    worse = [
+        r
+        for r in records
+        if r.get("comparison", {}).get("control_correct_shadow_worse")
     ]
     safety = {
         "wrong_context_false_acceptance": sum(
@@ -600,6 +973,12 @@ def aggregate_records(records: list[dict[str, Any]]) -> dict[str, Any]:
             if (r.get("shadow") or {}).get("metadata_blocked")
             and (r.get("shadow") or {}).get("final_accepted")
         ),
+        "metadata_false_acceptance": sum(
+            1
+            for r in successful
+            if (r.get("shadow") or {}).get("metadata_blocked")
+            and (r.get("shadow") or {}).get("final_accepted")
+        ),
         "unsafe_adversarial_false_acceptance": sum(
             1
             for r in successful
@@ -607,67 +986,145 @@ def aggregate_records(records: list[dict[str, Any]]) -> dict[str, Any]:
             and (r.get("shadow") or {}).get("final_accepted")
         ),
         "shadow_errors_must_not_affect_production": True,
+        "unsupported_claims": sum(
+            len((r.get("grounding") or {}).get("unsupported_claims") or [])
+            for r in successful
+        ),
     }
+    safety_fail = any(
+        int(v) > 0
+        for k, v in safety.items()
+        if k
+        not in {
+            "shadow_errors_must_not_affect_production",
+            "unsupported_claims",
+        }
+    )
     latencies = [float(r.get("latency_ms") or 0) for r in successful]
     retrieval_lat = [
         float((r.get("shadow") or {}).get("document_retrieval_latency_ms") or 0)
         for r in successful
     ]
-    provenance = [
-        r.get("grounding", {}).get("provenance_complete") for r in successful
+    passages = [
+        float((r.get("shadow") or {}).get("document_evidence_count") or 0)
+        for r in successful
     ]
-    safety_fail = any(v > 0 for k, v in safety.items() if k != "shadow_errors_must_not_affect_production")
-    error_rate = len(errors) / n
-    if safety_fail:
-        canary = "BLOCKED"
-        note = "Safety gate failed; do not enable canary or production document retrieval."
-    elif not successful:
-        canary = "BLOCKED"
-        note = "No successful shadow evaluations."
-    elif newly and not regressed and not safety_fail and error_rate < 0.25:
-        canary = "CANARY_NOT_READY"
-        note = (
-            "Local replay is operationally stable and shows document grounding gains, "
-            "but real production traffic has not been collected. Enable shadow at a low "
-            "sample rate; do not promote document retrieval."
-        )
-    else:
-        canary = "CANARY_NOT_READY"
-        note = "Shadow path works, but evidence is insufficient for canary of user-facing answers."
-    return {
+    provenance = [r.get("grounding", {}).get("provenance_complete") for r in successful]
+    classifications = _count_classifications(records)
+    traffic = traffic or load_traffic_counters()
+    metrics: dict[str, Any] = {
         "experiment": _EXPERIMENT_NAME,
         "schema_version": _SCHEMA_VERSION,
+        "source": source,
+        "total_production_requests": int(traffic.get("total_production_requests") or 0),
+        "sampled_requests": int(
+            traffic.get("sampled_requests") or len(records)
+        ),
         "traffic_sampled": len(records),
+        "shadow_completed": len(successful),
         "successful_shadow_evaluations": len(successful),
         "shadow_errors": len(errors),
-        "shadow_error_rate": error_rate,
-        "retrieval_success": sum(
-            1 for r in successful if int((r.get("shadow") or {}).get("document_evidence_count") or 0) > 0
+        "shadow_timeouts": len(timeouts),
+        "shadow_error_rate": len(errors) / n,
+        "retrieval_failures": len(retrieval_failures),
+        "retrieval_success_rate": sum(
+            1
+            for r in successful
+            if int((r.get("shadow") or {}).get("document_evidence_count") or 0) > 0
         )
         / max(len(successful), 1),
-        "provenance_complete_rate": sum(1 for p in provenance if p) / max(len(provenance), 1),
+        "retrieval_success": sum(
+            1
+            for r in successful
+            if int((r.get("shadow") or {}).get("document_evidence_count") or 0) > 0
+        )
+        / max(len(successful), 1),
+        "mean_retrieval_latency": (
+            sum(retrieval_lat) / len(retrieval_lat) if retrieval_lat else 0.0
+        ),
+        "p95_retrieval_latency": _percentile(retrieval_lat, 95),
+        "mean_passages_retrieved": (
+            sum(passages) / len(passages) if passages else 0.0
+        ),
+        "provenance_complete_rate": sum(1 for p in provenance if p)
+        / max(len(provenance), 1),
         "metadata_valid_rate": sum(
             1 for r in successful if r.get("grounding", {}).get("metadata_valid")
         )
         / max(len(successful), 1),
+        "wrong_context_false_acceptance_rate": safety["wrong_context_false_acceptance"]
+        / max(len(successful), 1),
+        "placeholder_false_acceptance_rate": safety["placeholder_false_acceptance"]
+        / max(len(successful), 1),
+        "metadata_false_acceptance_rate": safety["metadata_false_acceptance"]
+        / max(len(successful), 1),
+        "unsupported_claim_rate": safety["unsupported_claims"] / max(len(successful), 1),
         "newly_recoverable_count": len(newly),
         "newly_recoverable_rate": len(newly) / n,
         "improvements": len(improved),
         "regressions": len(regressed),
-        "unchanged": n - len(improved) - len(regressed) - len(errors),
-        "classifications": _count_classifications(records),
+        "unchanged": max(0, n_raw - len(improved) - len(regressed) - len(errors)),
+        "control_correct_shadow_worse": len(worse),
+        "document_added_explanation": classifications.get("DOCUMENT_ADDED_EXPLANATION", 0),
+        "document_disambiguated_context": classifications.get(
+            "DOCUMENT_DISAMBIGUATED_CONTEXT", 0
+        ),
+        "document_provided_source": classifications.get("DOCUMENT_PROVIDED_SOURCE", 0)
+        + sum(
+            1
+            for r in records
+            if "DOCUMENT_PROVIDED_SOURCE"
+            in ((r.get("comparison") or {}).get("secondary_categories") or [])
+        ),
+        "document_did_not_help": classifications.get("DOCUMENT_DID_NOT_HELP", 0),
+        "document_noise": classifications.get("DOCUMENT_NOISE", 0),
+        "classifications": classifications,
         "safety_metrics": safety,
+        "safety_blocked": safety_fail,
         "latency_metrics": {
             "shadow_mean_ms": sum(latencies) / len(latencies) if latencies else 0.0,
-            "retrieval_mean_ms": sum(retrieval_lat) / len(retrieval_lat) if retrieval_lat else 0.0,
+            "shadow_p95_ms": _percentile(latencies, 95),
+            "retrieval_mean_ms": (
+                sum(retrieval_lat) / len(retrieval_lat) if retrieval_lat else 0.0
+            ),
+            "retrieval_p95_ms": _percentile(retrieval_lat, 95),
         },
-        "canary_recommendation": canary,
-        "canary_note": note,
+        "observation_target_min": OBSERVATION_TARGET_MIN,
+        "observation_target_max": OBSERVATION_TARGET_MAX,
         "v213c_comparison_note": (
             "V2.13C was a controlled harness (59.7%→90.3% grounded-correct). "
-            "V2.13D replay is not statistically equivalent to that dataset."
+            "V2.13D Phase 1 real-traffic observations are not statistically equivalent."
         ),
     }
+    status, recommendation = phase1_observation_status(metrics)
+    metrics["phase1_status"] = status
+    metrics["phase1_recommendation"] = recommendation
+    metrics["canary_recommendation"] = (
+        "BLOCKED" if status == "SAFETY_BLOCKED" else "CANARY_NOT_READY"
+    )
+    if source == "controlled_replay":
+        metrics["canary_note"] = (
+            "Controlled replay only. Phase 1 requires real production shadow observations."
+        )
+    elif status == "INSUFFICIENT_SAMPLE":
+        metrics["canary_note"] = (
+            f"Only {metrics['successful_shadow_evaluations']} successful real shadow "
+            f"evaluations; target is {OBSERVATION_TARGET_MIN}–{OBSERVATION_TARGET_MAX} "
+            "before a rollout recommendation."
+        )
+    elif status == "SAFETY_BLOCKED":
+        metrics["canary_note"] = (
+            "Safety gate failed; do not enable canary or production document retrieval."
+        )
+    elif status == "REGRESSION_DETECTED":
+        metrics["canary_note"] = (
+            "Control-correct / shadow-worse cases detected; investigate before continuing."
+        )
+    else:
+        metrics["canary_note"] = (
+            "Shadow observation continues; do not promote document retrieval yet."
+        )
+    return metrics
 
 
 def _count_classifications(records: list[dict[str, Any]]) -> dict[str, int]:
@@ -679,20 +1136,37 @@ def _count_classifications(records: list[dict[str, Any]]) -> dict[str, int]:
 
 
 def interpret_v213d(metrics: dict[str, Any]) -> str:
-    return str(metrics.get("canary_recommendation") or "CANARY_NOT_READY")
+    return str(
+        metrics.get("phase1_status")
+        or metrics.get("canary_recommendation")
+        or "INSUFFICIENT_SAMPLE"
+    )
 
 
 __all__ = [
+    "OBSERVATION_TARGET_MIN",
+    "OBSERVATION_TARGET_MAX",
+    "PHASE1_CATEGORIES",
     "REPLAY_QUESTION_IDS",
     "aggregate_records",
     "classify_shadow_comparison",
+    "classify_shadow_outcome",
+    "configured_sample_rate",
+    "format_v213d_startup_banner",
     "interpret_v213d",
+    "load_jsonl_records",
+    "load_traffic_counters",
+    "log_v213d_startup",
     "maybe_schedule_v213d_shadow",
     "persist_record",
+    "phase1_observation_status",
     "prepare_replay_corpus",
+    "production_shadow_records",
+    "record_traffic_event",
     "replay_fixtures",
     "run_production_shadow",
     "run_shadow_pipeline",
     "should_sample_v213d",
+    "v213d_runtime_config",
     "v213d_shadow_enabled",
 ]
