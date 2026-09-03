@@ -93,7 +93,12 @@ def create_app() -> FastAPI:
 
     @application.get("/health", tags=["health"])
     def health() -> dict[str, object]:
-        from app.agent.v213d_shadow import v213d_runtime_config
+        from app.agent.metrics import get_metrics
+        from app.agent.v213d_shadow import (
+            load_pipeline_funnel,
+            load_traffic_counters,
+            v213d_runtime_config,
+        )
         from app.config import get_settings
 
         return {
@@ -101,6 +106,11 @@ def create_app() -> FastAPI:
             "service": "curriculum-agent",
             "version": __version__,
             "v213d": v213d_runtime_config(get_settings()),
+            "v213d_traffic": load_traffic_counters(),
+            "v213d_pipeline": load_pipeline_funnel(),
+            "qa_metrics": {
+                "total_requests": get_metrics().snapshot().get("total_requests", 0),
+            },
         }
 
     application.add_middleware(

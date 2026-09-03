@@ -1,0 +1,22 @@
+{
+  "embedding_model": "feature-hash-v1",
+  "embedding_dimension": 128,
+  "indexed_at": "2026-09-03T10:21:38Z",
+  "documents": {
+    "doc-a065e7c5b774": {
+      "document_content_hash": "feef53e14b590cbd983834cd0c144d2060f88ae68f493fe20b536350df3fea13",
+      "passage_count": 3,
+      "indexed_at": "2026-09-03T10:21:38Z"
+    },
+    "doc-bb746307a337": {
+      "document_content_hash": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70",
+      "passage_count": 6,
+      "indexed_at": "2026-09-03T10:21:38Z"
+    },
+    "doc-f05cba561646": {
+      "document_content_hash": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4",
+      "passage_count": 7,
+      "indexed_at": "2026-09-03T10:21:38Z"
+    }
+  }
+}

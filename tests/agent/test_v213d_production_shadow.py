@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import json
 import time
 from pathlib import Path
 from unittest.mock import MagicMock, patch
@@ -95,7 +96,10 @@ def test_shadow_does_not_execute_when_unsampled(tmp_path):
     agent.settings = settings
     state = CurriculumQAState.initial(question="What are money LOs?")
     with patch("app.agent.v213d_shadow.run_production_shadow") as mock_run:
-        with patch("app.agent.v213d_shadow._TRAFFIC", tmp_path / "traffic.json"):
+        with (
+            patch("app.agent.v213d_shadow._TRAFFIC", tmp_path / "traffic.json"),
+            patch("app.agent.v213d_shadow._FUNNEL", tmp_path / "funnel.json"),
+        ):
             maybe_schedule_v213d_shadow(agent, state, request_id="r1")
         mock_run.assert_not_called()
 
@@ -113,7 +117,10 @@ def test_shadow_executes_when_sampled_asynchronously(tmp_path):
         return {}
 
     with patch("app.agent.v213d_shadow.run_production_shadow", side_effect=slow_run):
-        with patch("app.agent.v213d_shadow._TRAFFIC", tmp_path / "traffic.json"):
+        with (
+            patch("app.agent.v213d_shadow._TRAFFIC", tmp_path / "traffic.json"),
+            patch("app.agent.v213d_shadow._FUNNEL", tmp_path / "funnel.json"),
+        ):
             started = time.perf_counter()
             thread = maybe_schedule_v213d_shadow(agent, state, request_id="r1")
             elapsed = time.perf_counter() - started
@@ -226,7 +233,10 @@ def test_shadow_errors_cannot_break_production_scheduler(tmp_path):
         "app.agent.v213d_shadow.run_production_shadow",
         side_effect=RuntimeError("boom"),
     ):
-        with patch("app.agent.v213d_shadow._TRAFFIC", tmp_path / "traffic.json"):
+        with (
+            patch("app.agent.v213d_shadow._TRAFFIC", tmp_path / "traffic.json"),
+            patch("app.agent.v213d_shadow._FUNNEL", tmp_path / "funnel.json"),
+        ):
             thread = maybe_schedule_v213d_shadow(agent, state, request_id="x")
         if thread:
             thread.join(timeout=2)
@@ -416,6 +426,73 @@ def test_traffic_counter(tmp_path: Path):
     assert second["total_production_requests"] == 2
     assert second["sampled_requests"] == 1
 
+
+def test_pipeline_funnel_stages(tmp_path: Path):
+    settings = Settings(
+        _env_file=None, v213d_shadow_enabled=True, v213d_shadow_sample_rate=1.0
+    )
+    agent = MagicMock()
+    agent.settings = settings
+    state = CurriculumQAState.initial(question="q")
+    state.final_answer = "ok"
+
+    def fake_run(agent, snapshot, *, request_id=None, retrieval=None, jsonl_path=None):
+        from app.agent.v213d_shadow import persist_record, record_pipeline_stage
+
+        record_pipeline_stage("shadow_started", request_id=request_id)
+        record_pipeline_stage("shadow_completed", request_id=request_id)
+        record = {
+            "experiment": "v2.13d",
+            "request_id": "abc",
+            "shadow": {"error": None},
+            "comparison": {"classification": "STRUCTURED_DATA_ALREADY_SUFFICIENT"},
+        }
+        persist_record(record, jsonl_path or (tmp_path / "out.jsonl"))
+        return record
+
+    with (
+        patch("app.agent.v213d_shadow._FUNNEL", tmp_path / "funnel.json"),
+        patch("app.agent.v213d_shadow._TRAFFIC", tmp_path / "traffic.json"),
+        patch("app.agent.v213d_shadow.run_production_shadow", side_effect=fake_run),
+    ):
+        thread = maybe_schedule_v213d_shadow(
+            agent, state, request_id="funnel-1", jsonl_path=tmp_path / "out.jsonl"
+        )
+        assert thread is not None
+        thread.join(timeout=2)
+    funnel = json.loads((tmp_path / "funnel.json").read_text())
+    stages = funnel["stages"]
+    assert stages["request_seen"] >= 1
+    assert stages["shadow_eligible"] >= 1
+    assert stages["shadow_sampled"] >= 1
+    assert stages["shadow_started"] >= 1
+    assert stages["shadow_completed"] >= 1
+    assert stages["shadow_persisted"] >= 1
+    assert state.final_answer == "ok"
+
+
+def test_persist_error_is_counted(tmp_path: Path):
+    from app.agent.v213d_shadow import persist_record, record_pipeline_stage
+
+    funnel = tmp_path / "funnel.json"
+    with patch("app.agent.v213d_shadow._FUNNEL", funnel):
+        bad = tmp_path / "missing_dir_as_file"
+        bad.write_text("not-a-dir")
+        try:
+            persist_record({"request_id": "x", "shadow": {}}, bad / "out.jsonl")
+            assert False, "expected persist failure"
+        except Exception:
+            pass
+        stages = json.loads(funnel.read_text())["stages"]
+        assert stages["persist_error"] >= 1
+
+
+def test_jsonl_runtime_path_absolute():
+    from app.agent.v213d_shadow import jsonl_runtime_path
+
+    path = jsonl_runtime_path()
+    assert path.is_absolute()
+    assert path.name == "v213d_shadow.jsonl"
 
 def test_replay_includes_required_categories(tmp_path):
     settings = Settings(_env_file=None, llm_provider="stub")

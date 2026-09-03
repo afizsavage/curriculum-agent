@@ -51,9 +51,21 @@ _SCHEMA_VERSION = "v213d.2"
 _ANALYTICAL_THRESHOLD = 0.85
 _JSONL = Path("data/diagnostics/v213d_shadow.jsonl")
 _TRAFFIC = Path("data/diagnostics/v213d_traffic.json")
+_FUNNEL = Path("data/diagnostics/v213d_pipeline_funnel.json")
 _WRITE_LOCK = threading.Lock()
 OBSERVATION_TARGET_MIN = 100
 OBSERVATION_TARGET_MAX = 200
+_FUNNEL_STAGES = (
+    "request_seen",
+    "shadow_eligible",
+    "shadow_sampled",
+    "shadow_not_sampled",
+    "shadow_started",
+    "shadow_completed",
+    "shadow_failed",
+    "shadow_persisted",
+    "persist_error",
+)
 
 PHASE1_CATEGORIES = (
     "DOCUMENT_ADDED_MISSING_CONTEXT",
@@ -670,15 +682,93 @@ def run_shadow_pipeline(
         }
 
 
+def jsonl_runtime_path() -> Path:
+    return _JSONL.resolve()
+
+
+def record_pipeline_stage(
+    stage: str,
+    *,
+    path: Path | None = None,
+    request_id: str | None = None,
+) -> dict[str, Any]:
+    """Lightweight, privacy-conscious funnel counter. Never stores question text."""
+    target = path or _FUNNEL
+    try:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with _WRITE_LOCK:
+            current: dict[str, Any] = {
+                "updated_at": datetime.now(timezone.utc).isoformat(),
+                "stages": {name: 0 for name in _FUNNEL_STAGES},
+                "last_request_id_hash": "",
+                "jsonl_path": str(jsonl_runtime_path()),
+            }
+            if target.exists():
+                try:
+                    loaded = json.loads(target.read_text() or "{}")
+                    if isinstance(loaded, dict):
+                        current.update(loaded)
+                        stages = current.get("stages") or {}
+                        for name in _FUNNEL_STAGES:
+                            stages.setdefault(name, 0)
+                        current["stages"] = stages
+                except json.JSONDecodeError:
+                    pass
+            stages = current.setdefault("stages", {})
+            stages[stage] = int(stages.get(stage) or 0) + 1
+            current["updated_at"] = datetime.now(timezone.utc).isoformat()
+            if request_id:
+                current["last_request_id_hash"] = hashlib.sha256(
+                    request_id.encode()
+                ).hexdigest()[:16]
+            current["jsonl_path"] = str(jsonl_runtime_path())
+            target.write_text(json.dumps(current))
+            return current
+    except Exception:
+        logger.debug("v213d pipeline funnel skipped", exc_info=True)
+        return {}
+
+
+def load_pipeline_funnel(path: Path | None = None) -> dict[str, Any]:
+    target = path or _FUNNEL
+    if not target.exists():
+        return {
+            "stages": {name: 0 for name in _FUNNEL_STAGES},
+            "jsonl_path": str(jsonl_runtime_path()),
+        }
+    try:
+        data = json.loads(target.read_text() or "{}")
+    except json.JSONDecodeError:
+        data = {}
+    stages = data.get("stages") or {}
+    for name in _FUNNEL_STAGES:
+        stages.setdefault(name, 0)
+    data["stages"] = stages
+    data.setdefault("jsonl_path", str(jsonl_runtime_path()))
+    return data
+
+
 def persist_record(record: dict[str, Any], path: Path | None = None) -> None:
     target = path or _JSONL
-    target.parent.mkdir(parents=True, exist_ok=True)
-    with _WRITE_LOCK:
-        with target.open("a", encoding="utf-8") as handle:
-            handle.write(json.dumps(record) + "\n")
+    try:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        with _WRITE_LOCK:
+            with target.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps(record) + "\n")
+                handle.flush()
+        record_pipeline_stage("shadow_persisted", request_id=record.get("request_id"))
+    except Exception as exc:
+        record_pipeline_stage("persist_error", request_id=record.get("request_id"))
+        log_agent_event(
+            logger,
+            "v213d.shadow.persist_failed",
+            error=type(exc).__name__,
+        )
+        raise
 
 
 def record_traffic_event(*, sampled: bool, path: Path | None = None) -> dict[str, int]:
+    """Process-local counter (single uvicorn worker). Multi-worker deployments need aggregation."""
     target = path or _TRAFFIC
     target.parent.mkdir(parents=True, exist_ok=True)
     with _WRITE_LOCK:
@@ -723,12 +813,21 @@ def run_production_shadow(
     jsonl_path: Path | None = None,
 ) -> dict[str, Any]:
     production_copy = copy.deepcopy(state)
+    record_pipeline_stage("shadow_started", request_id=request_id)
     log_agent_event(logger, "v213d.shadow.started", request_id=request_id)
-    record = run_shadow_pipeline(
-        agent, production_copy, request_id=request_id, retrieval=retrieval
-    )
-    persist_record(record, jsonl_path)
-    return record
+    try:
+        record = run_shadow_pipeline(
+            agent, production_copy, request_id=request_id, retrieval=retrieval
+        )
+        if (record.get("shadow") or {}).get("error"):
+            record_pipeline_stage("shadow_failed", request_id=request_id)
+        else:
+            record_pipeline_stage("shadow_completed", request_id=request_id)
+        persist_record(record, jsonl_path)
+        return record
+    except Exception:
+        record_pipeline_stage("shadow_failed", request_id=request_id)
+        raise
 
 
 def maybe_schedule_v213d_shadow(
@@ -736,23 +835,43 @@ def maybe_schedule_v213d_shadow(
     state: CurriculumQAState,
     *,
     request_id: str | None = None,
+    jsonl_path: Path | None = None,
 ) -> threading.Thread | None:
-    """Fire-and-forget; exceptions never reach the production caller."""
+    """Fire-and-forget; exceptions never reach the production caller.
+
+    Invoked only after the production LangGraph response is fully determined.
+    """
     settings = agent.settings
+    record_pipeline_stage("request_seen", request_id=request_id)
+    record_pipeline_stage("shadow_eligible", request_id=request_id)
     sampled = should_sample_v213d(settings, request_id or state.question)
     try:
         record_traffic_event(sampled=sampled)
     except Exception:
         logger.debug("v213d traffic counter skipped", exc_info=True)
     if not sampled:
+        record_pipeline_stage("shadow_not_sampled", request_id=request_id)
+        log_agent_event(
+            logger,
+            "v213d.shadow.not_sampled",
+            request_id=request_id,
+            extra_rate=configured_sample_rate(settings),
+        )
         return None
+    record_pipeline_stage("shadow_sampled", request_id=request_id)
+    log_agent_event(logger, "v213d.shadow.sampled", request_id=request_id)
     snapshot = copy.deepcopy(state)
     timeout = float(getattr(settings, "v213d_shadow_timeout_seconds", 30.0))
 
     def _worker() -> None:
         try:
             started = time.perf_counter()
-            run_production_shadow(agent, snapshot, request_id=request_id)
+            run_production_shadow(
+                agent,
+                snapshot,
+                request_id=request_id,
+                jsonl_path=jsonl_path,
+            )
             elapsed = time.perf_counter() - started
             if elapsed > timeout:
                 logger.warning("v213d shadow exceeded timeout after completion")
@@ -1154,7 +1273,9 @@ __all__ = [
     "configured_sample_rate",
     "format_v213d_startup_banner",
     "interpret_v213d",
+    "jsonl_runtime_path",
     "load_jsonl_records",
+    "load_pipeline_funnel",
     "load_traffic_counters",
     "log_v213d_startup",
     "maybe_schedule_v213d_shadow",
@@ -1162,6 +1283,7 @@ __all__ = [
     "phase1_observation_status",
     "prepare_replay_corpus",
     "production_shadow_records",
+    "record_pipeline_stage",
     "record_traffic_event",
     "replay_fixtures",
     "run_production_shadow",

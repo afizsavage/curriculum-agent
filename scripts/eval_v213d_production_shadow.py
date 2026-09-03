@@ -64,20 +64,88 @@ def _examples(records: list[dict]) -> dict[str, list[dict]]:
     return {k: v[:5] for k, v in buckets.items()}
 
 
+def classify_pipeline(
+    *,
+    live_qa_requests: int | None,
+    production_rows: int,
+    config: dict,
+    funnel: dict,
+) -> dict:
+    stages = (funnel or {}).get("stages") or {}
+    enabled = bool(config.get("shadow_enabled"))
+    rate = float(config.get("sample_rate") or 0.0)
+    if not enabled or rate <= 0:
+        classification = "CONFIGURATION_MISMATCH"
+    elif live_qa_requests is not None and live_qa_requests == 0 and production_rows == 0:
+        classification = "TRAFFIC_NOT_REACHING_QA"
+    elif production_rows > 0:
+        classification = "PIPELINE_OPERATIONAL"
+    elif int(stages.get("shadow_sampled") or 0) > 0 and int(
+        stages.get("shadow_persisted") or 0
+    ) == 0:
+        classification = "PERSISTENCE_FAILURE"
+    elif int(stages.get("shadow_sampled") or 0) > 0 and int(
+        stages.get("shadow_started") or 0
+    ) == 0:
+        classification = "SHADOW_NOT_EXECUTING"
+    elif live_qa_requests and live_qa_requests > 0 and production_rows == 0:
+        # Requests exist but no shadows yet — likely low volume at 1%.
+        classification = "TRAFFIC_IS_SIMPLY_TOO_LOW"
+    else:
+        classification = "TRAFFIC_NOT_REACHING_QA"
+    return {
+        "classification": classification,
+        "live_qa_metrics_total_requests": live_qa_requests,
+        "production_jsonl_rows": production_rows,
+        "funnel_stages": stages,
+        "config_enabled": enabled,
+        "sample_rate": rate,
+        "jsonl_path": (funnel or {}).get("jsonl_path"),
+        "stages_checklist": {
+            "qa_request": (
+                "PASS"
+                if (live_qa_requests or 0) > 0
+                else "NOT OBSERVED"
+            ),
+            "hook": (
+                "PASS"
+                if int(stages.get("request_seen") or 0) > 0
+                else "NOT OBSERVED"
+            ),
+            "sampling": "PASS" if enabled and rate > 0 else "FAIL",
+            "shadow": (
+                "PASS"
+                if int(stages.get("shadow_completed") or 0) > 0
+                else "NOT OBSERVED"
+            ),
+            "persistence": (
+                "PASS"
+                if production_rows > 0 or int(stages.get("shadow_persisted") or 0) > 0
+                else "NOT OBSERVED"
+            ),
+        },
+    }
+
+
 def write_phase1_doc(report: dict, *, config: dict) -> None:
     examples = report.get("examples") or {}
+    pipeline = report.get("pipeline_verification") or {}
     lines = [
-        "# V2.13D Phase 1 — Production Shadow Observation",
+        "# V2.13D Phase 1 Observation Report",
         "",
         f"Generated: `{report.get('generated_at')}`",
         "",
-        f"## Executive status",
+        "## Executive Summary",
         "",
-        f"**{report.get('phase1_status')}**",
+        f"**Status: `{report.get('phase1_status')}`**",
+        "",
+        f"**Recommendation: `{report.get('phase1_recommendation')}`**",
+        "",
+        f"**Pipeline classification: `{pipeline.get('classification', 'UNKNOWN')}`**",
         "",
         report.get("canary_note", ""),
         "",
-        "## Configuration",
+        "## Active Configuration",
         "",
         "```text",
         f"v213d_shadow_enabled={config.get('shadow_enabled')}",
@@ -87,12 +155,21 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         f"v213d_shadow_timeout_seconds={config.get('timeout_seconds')}",
         "```",
         "",
-        "## Sample",
+        "## Phase 1 Traffic Pipeline Verification",
+        "",
+        "```json",
+        json.dumps(pipeline, indent=2),
+        "```",
+        "",
+        "## Real-Traffic Sample",
         "",
         "```json",
         json.dumps(
             {
                 "total_production_requests": report.get("total_production_requests"),
+                "live_qa_metrics_total_requests": pipeline.get(
+                    "live_qa_metrics_total_requests"
+                ),
                 "sampled": report.get("sampled_requests"),
                 "completed": report.get("successful_shadow_evaluations"),
                 "errors": report.get("shadow_errors"),
@@ -102,12 +179,13 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
                     report.get("observation_target_max"),
                 ],
                 "source": report.get("source"),
+                "real_traffic_observed": report.get("real_traffic_observed"),
             },
             indent=2,
         ),
         "```",
         "",
-        "## Retrieval performance",
+        "## Retrieval Performance",
         "",
         "```json",
         json.dumps(
@@ -122,85 +200,40 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         ),
         "```",
         "",
-        "## Grounding safety",
+        "## Grounding and Safety",
         "",
         "```json",
         json.dumps(report.get("safety_metrics", {}), indent=2),
         "```",
         "",
-        "## Product impact",
+        "## Outcome Metrics",
         "",
         "```json",
         json.dumps(
             {
                 "newly_recoverable": report.get("newly_recoverable_count"),
-                "newly_recoverable_rate": report.get("newly_recoverable_rate"),
                 "improvements": report.get("improvements"),
                 "unchanged": report.get("unchanged"),
                 "regressions": report.get("regressions"),
                 "control_correct_shadow_worse": report.get(
                     "control_correct_shadow_worse"
                 ),
-                "document_added_explanation": report.get("document_added_explanation"),
-                "document_disambiguated_context": report.get(
-                    "document_disambiguated_context"
-                ),
-                "document_did_not_help": report.get("document_did_not_help"),
-                "document_noise": report.get("document_noise"),
             },
             indent=2,
         ),
         "```",
         "",
-        "## Qualitative examples (anonymized)",
-        "",
-        "1. Document retrieval improving an answer:",
+        "## Qualitative Examples (anonymized)",
         "",
         "```json",
-        json.dumps(examples.get("document_improved") or [], indent=2),
-        "```",
-        "",
-        "2. Structured data already sufficient:",
-        "",
-        "```json",
-        json.dumps(examples.get("structured_sufficient") or [], indent=2),
-        "```",
-        "",
-        "3. Document retrieval did not help:",
-        "",
-        "```json",
-        json.dumps(examples.get("document_did_not_help") or [], indent=2),
-        "```",
-        "",
-        "4. Document noise:",
-        "",
-        "```json",
-        json.dumps(examples.get("document_noise") or [], indent=2),
-        "```",
-        "",
-        "5. Regressions:",
-        "",
-        "```json",
-        json.dumps(examples.get("regression") or [], indent=2),
-        "```",
-        "",
-        "6. Safety violations / shadow failures:",
-        "",
-        "```json",
-        json.dumps(
-            {
-                "safety": examples.get("safety") or [],
-                "shadow_failure": examples.get("shadow_failure") or [],
-            },
-            indent=2,
-        ),
+        json.dumps(examples, indent=2),
         "```",
         "",
         "## Distinctions",
         "",
-        "- This report counts **real production shadow** records only when "
-        "`source=production_shadow`.",
-        "- Controlled V2.13C / Phase 0 replay is **not** mixed into Phase 1 success claims.",
+        "- Production analysis uses only `v213d_shadow.jsonl` (no `replay_id`).",
+        "- Smoke/test records must live in `v213d_shadow_smoke.jsonl` only.",
+        "- Phase 0 replay is excluded from Phase 1 claims.",
         "",
         report.get("v213c_comparison_note", ""),
         "",
@@ -259,6 +292,7 @@ def main() -> int:
     from app.agent.v213d_shadow import (
         aggregate_records,
         load_jsonl_records,
+        load_pipeline_funnel,
         load_traffic_counters,
         persist_record,
         prepare_replay_corpus,
@@ -299,7 +333,6 @@ def main() -> int:
         print(f"Report: {DOC}")
         return 0
 
-    # Phase 1: real traffic JSONL
     settings = get_settings()
     config = v213d_runtime_config(settings)
     records = load_jsonl_records(JSONL)
@@ -309,6 +342,21 @@ def main() -> int:
         records,
         traffic=load_traffic_counters(),
         source="production_shadow",
+    )
+    live_qa = None
+    try:
+        import urllib.request
+
+        with urllib.request.urlopen("http://127.0.0.1:8001/api/v1/agent/metrics", timeout=2) as resp:
+            live_qa = json.loads(resp.read().decode()).get("total_requests")
+    except Exception:
+        live_qa = None
+    funnel = load_pipeline_funnel()
+    summary["pipeline_verification"] = classify_pipeline(
+        live_qa_requests=live_qa,
+        production_rows=len(records),
+        config=config,
+        funnel=funnel,
     )
     summary["generated_at"] = datetime.now(timezone.utc).isoformat()
     summary["active_configuration"] = config
@@ -320,6 +368,9 @@ def main() -> int:
     write_doc(summary)
     print(f"Phase1 status: {summary['phase1_status']}")
     print(f"Recommendation: {summary['phase1_recommendation']}")
+    print(
+        f"Pipeline: {summary['pipeline_verification']['classification']}"
+    )
     print(f"Report: {PHASE1_DOC}")
     print(f"JSON: {PHASE1_JSON}")
     return 0

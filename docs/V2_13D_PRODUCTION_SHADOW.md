@@ -1,12 +1,12 @@
 # V2.13D — Production Shadow for Context-Hybrid Curriculum Document Evidence
 
-Generated: `2026-09-03T09:56:07.497727+00:00`
+Generated: `2026-09-03T11:02:32.987511+00:00`
 
 **Phase 1 status: INSUFFICIENT_SAMPLE**
 
 **Recommendation: CONTINUE SHADOW**
 
-Only 0 successful real shadow evaluations; target is 100–200 before a rollout recommendation.
+Only 2 successful real shadow evaluations; target is 100–200 before a rollout recommendation.
 
 ## Metrics
 
@@ -15,38 +15,40 @@ Only 0 successful real shadow evaluations; target is 100–200 before a rollout 
   "experiment": "v2.13d",
   "schema_version": "v213d.2",
   "source": "production_shadow",
-  "total_production_requests": 0,
-  "sampled_requests": 0,
-  "traffic_sampled": 0,
-  "shadow_completed": 0,
-  "successful_shadow_evaluations": 0,
+  "total_production_requests": 122,
+  "sampled_requests": 2,
+  "traffic_sampled": 2,
+  "shadow_completed": 2,
+  "successful_shadow_evaluations": 2,
   "shadow_errors": 0,
   "shadow_timeouts": 0,
   "shadow_error_rate": 0.0,
-  "retrieval_failures": 0,
+  "retrieval_failures": 2,
   "retrieval_success_rate": 0.0,
   "retrieval_success": 0.0,
-  "mean_retrieval_latency": 0.0,
-  "p95_retrieval_latency": 0.0,
+  "mean_retrieval_latency": 11.659051000151521,
+  "p95_retrieval_latency": 15.040290699516845,
   "mean_passages_retrieved": 0.0,
-  "provenance_complete_rate": 0.0,
-  "metadata_valid_rate": 0.0,
+  "provenance_complete_rate": 1.0,
+  "metadata_valid_rate": 1.0,
   "wrong_context_false_acceptance_rate": 0.0,
   "placeholder_false_acceptance_rate": 0.0,
   "metadata_false_acceptance_rate": 0.0,
-  "unsupported_claim_rate": 0.0,
+  "unsupported_claim_rate": 4.0,
   "newly_recoverable_count": 0,
   "newly_recoverable_rate": 0.0,
   "improvements": 0,
   "regressions": 0,
-  "unchanged": 0,
+  "unchanged": 2,
   "control_correct_shadow_worse": 0,
   "document_added_explanation": 0,
   "document_disambiguated_context": 0,
   "document_provided_source": 0,
   "document_did_not_help": 0,
   "document_noise": 0,
-  "classifications": {},
+  "classifications": {
+    "DOCUMENT_RETRIEVAL_FAILURE": 2
+  },
   "safety_metrics": {
     "wrong_context_false_acceptance": 0,
     "placeholder_false_acceptance": 0,
@@ -54,14 +56,14 @@ Only 0 successful real shadow evaluations; target is 100–200 before a rollout 
     "metadata_false_acceptance": 0,
     "unsafe_adversarial_false_acceptance": 0,
     "shadow_errors_must_not_affect_production": true,
-    "unsupported_claims": 0
+    "unsupported_claims": 8
   },
   "safety_blocked": false,
   "latency_metrics": {
-    "shadow_mean_ms": 0.0,
-    "shadow_p95_ms": 0.0,
-    "retrieval_mean_ms": 0.0,
-    "retrieval_p95_ms": 0.0
+    "shadow_mean_ms": 17329.27320900035,
+    "shadow_p95_ms": 19721.098863900625,
+    "retrieval_mean_ms": 11.659051000151521,
+    "retrieval_p95_ms": 15.040290699516845
   },
   "observation_target_min": 100,
   "observation_target_max": 200,
@@ -69,8 +71,34 @@ Only 0 successful real shadow evaluations; target is 100–200 before a rollout 
   "phase1_status": "INSUFFICIENT_SAMPLE",
   "phase1_recommendation": "CONTINUE SHADOW",
   "canary_recommendation": "CANARY_NOT_READY",
-  "canary_note": "Only 0 successful real shadow evaluations; target is 100\u2013200 before a rollout recommendation.",
-  "generated_at": "2026-09-03T09:56:07.497727+00:00",
+  "canary_note": "Only 2 successful real shadow evaluations; target is 100\u2013200 before a rollout recommendation.",
+  "pipeline_verification": {
+    "classification": "PIPELINE_OPERATIONAL",
+    "live_qa_metrics_total_requests": 121,
+    "production_jsonl_rows": 2,
+    "funnel_stages": {
+      "request_seen": 124,
+      "shadow_eligible": 124,
+      "shadow_sampled": 4,
+      "shadow_not_sampled": 120,
+      "shadow_started": 2,
+      "shadow_completed": 2,
+      "shadow_failed": 0,
+      "shadow_persisted": 2,
+      "persist_error": 0
+    },
+    "config_enabled": true,
+    "sample_rate": 0.01,
+    "jsonl_path": "/home/afiz/Projects/side/curriculum-agent/data/diagnostics/v213d_shadow.jsonl",
+    "stages_checklist": {
+      "qa_request": "PASS",
+      "hook": "PASS",
+      "sampling": "PASS",
+      "shadow": "PASS",
+      "persistence": "PASS"
+    }
+  },
+  "generated_at": "2026-09-03T11:02:32.987511+00:00",
   "active_configuration": {
     "shadow_enabled": true,
     "sample_rate": 0.01,
@@ -78,6 +106,6 @@ Only 0 successful real shadow evaluations; target is 100–200 before a rollout 
     "retrieval_variant": "context_hybrid",
     "timeout_seconds": 30.0
   },
-  "real_traffic_observed": false
+  "real_traffic_observed": true
 }
 ```

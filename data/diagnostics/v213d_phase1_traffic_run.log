@@ -1,0 +1,36 @@
+{"event": "traffic_start", "count": 120, "concurrency": 2, "qa_before": 0, "shadow_rows_before": 0, "categories": {"adversarial": 18, "ambiguous": 17, "document_only": 17, "insufficient_evidence": 17, "source_grounding": 17, "structured_fact": 17, "structured_plus_document": 17}}
+{"event": "progress", "done": 10, "total": 120, "ok": 10, "elapsed_s": 135.2}
+{"event": "progress", "done": 20, "total": 120, "ok": 20, "elapsed_s": 286.2}
+{"event": "progress", "done": 30, "total": 120, "ok": 30, "elapsed_s": 423.6}
+{"event": "progress", "done": 40, "total": 120, "ok": 40, "elapsed_s": 603.0}
+{"event": "progress", "done": 50, "total": 120, "ok": 50, "elapsed_s": 728.6}
+{"event": "progress", "done": 60, "total": 120, "ok": 60, "elapsed_s": 838.9}
+{"event": "progress", "done": 70, "total": 120, "ok": 70, "elapsed_s": 985.6}
+{"event": "progress", "done": 80, "total": 120, "ok": 79, "elapsed_s": 1174.6}
+{"event": "progress", "done": 90, "total": 120, "ok": 89, "elapsed_s": 1336.0}
+{"event": "progress", "done": 100, "total": 120, "ok": 99, "elapsed_s": 1429.0}
+{"event": "progress", "done": 110, "total": 120, "ok": 109, "elapsed_s": 1557.2}
+{"event": "progress", "done": 120, "total": 120, "ok": 119, "elapsed_s": 1693.8}
+{
+  "event": "traffic_complete",
+  "path": "/home/afiz/Projects/side/curriculum-agent/data/diagnostics/v213d_phase1_traffic_run.json",
+  "ok": 119,
+  "failed": 1,
+  "qa_requests_after": 121,
+  "shadow_rows_after": 1,
+  "funnel_after": {
+    "request_seen": 124,
+    "shadow_eligible": 124,
+    "shadow_sampled": 4,
+    "shadow_not_sampled": 120,
+    "shadow_started": 2,
+    "shadow_completed": 1,
+    "shadow_failed": 0,
+    "shadow_persisted": 1,
+    "persist_error": 0
+  },
+  "traffic_after": {
+    "total_production_requests": 122,
+    "sampled_requests": 2
+  }
+}
