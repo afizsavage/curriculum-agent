@@ -1,0 +1,16 @@
+{
+    "total_requests": 194,
+    "successful_requests": 43,
+    "insufficient_evidence_requests": 127,
+    "clarification_requests": 16,
+    "error_requests": 8,
+    "verification_pass_rate": 0.23118279569892472,
+    "average_iterations": 1.5721649484536082,
+    "average_tool_calls": 4.469072164948454,
+    "max_iteration_rate": 0.6082474226804123,
+    "retrieval_failure_rate": 0.010309278350515464,
+    "average_latency_ms": 40883.2267067217,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_cost": 0.0
+}

@@ -1,0 +1,35 @@
+{
+    "status": "ok",
+    "service": "curriculum-agent",
+    "version": "0.4.0",
+    "v213d": {
+        "shadow_enabled": true,
+        "sample_rate": 0.01,
+        "document_retrieval": true,
+        "retrieval_variant": "context_hybrid",
+        "timeout_seconds": 30.0
+    },
+    "v213d_traffic": {
+        "total_production_requests": 688,
+        "sampled_requests": 7
+    },
+    "v213d_pipeline": {
+        "updated_at": "2026-09-04T14:15:21.750516+00:00",
+        "stages": {
+            "request_seen": 690,
+            "shadow_eligible": 690,
+            "shadow_sampled": 9,
+            "shadow_not_sampled": 681,
+            "shadow_started": 7,
+            "shadow_completed": 7,
+            "shadow_failed": 0,
+            "shadow_persisted": 7,
+            "persist_error": 0
+        },
+        "last_request_id_hash": "755180db65ad40f8",
+        "jsonl_path": "/home/afiz/Projects/side/curriculum-agent/data/diagnostics/v213d_shadow.jsonl"
+    },
+    "qa_metrics": {
+        "total_requests": 194
+    }
+}

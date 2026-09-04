@@ -1,0 +1,87 @@
+{
+  "generated_at": "2026-09-04T14:46:23.208320+00:00",
+  "phase": "1D",
+  "status": "INSUFFICIENT_SAMPLE",
+  "recommendation": "CONTINUE SHADOW",
+  "post_corpus_metrics": {
+    "metrics_scope": "post_corpus",
+    "retrieval_success_rate": 1.0,
+    "no_match_rate": 0.0,
+    "provenance_complete_rate": 1.0,
+    "metadata_valid_rate": 1.0,
+    "newly_recoverable_count": 1,
+    "newly_recoverable_rate": 0.2,
+    "improvement_rate": 0.2,
+    "regression_rate": 0.2,
+    "control_correct_shadow_worse": 1,
+    "document_added_missing_context": 1,
+    "document_did_not_help": 3,
+    "document_noise": 1,
+    "structured_data_already_sufficient": 0,
+    "latency_metrics": {
+      "shadow_mean_ms": 10677.568457800226,
+      "shadow_p95_ms": 13521.566139400238,
+      "retrieval_mean_ms": 116.09215839998797,
+      "retrieval_p95_ms": 237.9934875978506
+    },
+    "safety_metrics": {
+      "wrong_context_false_acceptance": 0,
+      "placeholder_false_acceptance": 0,
+      "metadata_integrity_false_acceptance": 0,
+      "metadata_false_acceptance": 0,
+      "unsafe_adversarial_false_acceptance": 0,
+      "shadow_errors_must_not_affect_production": true,
+      "unsupported_claims": 4
+    },
+    "safety_blocked": false,
+    "post_corpus_classifications": {
+      "DOCUMENT_DID_NOT_HELP": 3,
+      "DOCUMENT_NOISE": 1,
+      "DOCUMENT_ADDED_MISSING_CONTEXT": 1
+    },
+    "post_corpus_successful_shadow_evaluations": 5
+  },
+  "v213c_direction": "DIRECTIONALLY INCONCLUSIVE",
+  "corpus_sufficiency": "PARTIALLY_SUFFICIENT",
+  "eta": {
+    "batch_ok_asks": 550,
+    "batch_failed_asks": 50,
+    "batch_elapsed_h": 1.09,
+    "new_post_corpus_shadows": 5,
+    "shadows_per_hour_at_this_load": 4.59,
+    "asks_per_hour_at_this_load": 504.7,
+    "hours_to_100_post_corpus_at_this_load": 20.7,
+    "hours_to_200_post_corpus_at_this_load": 42.5,
+    "natural_asks_needed_at_1pct_for_100": 10000,
+    "natural_asks_needed_at_1pct_for_200": 20000
+  },
+  "traffic": {
+    "requested": 600,
+    "ok": 550,
+    "failed": 50,
+    "categories": {
+      "adversarial": 86,
+      "ambiguous": 86,
+      "document_only": 86,
+      "insufficient_evidence": 86,
+      "source_grounding": 86,
+      "structured_fact": 85,
+      "structured_plus_document": 85
+    },
+    "funnel_after": {
+      "request_seen": 690,
+      "shadow_eligible": 690,
+      "shadow_sampled": 9,
+      "shadow_not_sampled": 681,
+      "shadow_started": 7,
+      "shadow_completed": 7,
+      "shadow_failed": 0,
+      "shadow_persisted": 7,
+      "persist_error": 0
+    },
+    "traffic_after": {
+      "total_production_requests": 688,
+      "sampled_requests": 7
+    }
+  }
+}

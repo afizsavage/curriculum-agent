@@ -666,10 +666,16 @@ def run_shadow_pipeline(
         comparison = classify_shadow_outcome(
             control, shadow, question_category=category
         )
+        corpus_epoch = (
+            "post_corpus"
+            if retrieval_meta.get("corpus_available")
+            else "pre_corpus"
+        )
         record = {
             "experiment": _EXPERIMENT_NAME,
             "schema_version": _SCHEMA_VERSION,
             "phase": "phase1",
+            "corpus_epoch": corpus_epoch,
             "request_id": hashlib.sha256((request_id or "").encode()).hexdigest()[:16]
             if request_id
             else "",
@@ -735,6 +741,11 @@ def run_shadow_pipeline(
             "experiment": _EXPERIMENT_NAME,
             "schema_version": _SCHEMA_VERSION,
             "phase": "phase1",
+            "corpus_epoch": (
+                "post_corpus"
+                if production_corpus_status().get("available")
+                else "pre_corpus"
+            ),
             "request_id": hashlib.sha256((request_id or "").encode()).hexdigest()[:16]
             if request_id
             else "",
@@ -1144,59 +1155,66 @@ def aggregate_records(
         for r in records
         if (r.get("comparison") or {}).get("classification") == "DOCUMENT_CORPUS_UNAVAILABLE"
     ]
-    improved = [r for r in records if r.get("comparison", {}).get("improved")]
-    regressed = [r for r in records if r.get("comparison", {}).get("regressed")]
+    # Observation sample sufficiency should ignore pre-corpus infrastructure failures.
+    post_successful = [
+        r for r in post_corpus if not (r.get("shadow") or {}).get("error")
+    ]
+    # Primary Phase 1D performance metrics use post-corpus rows only when available.
+    metric_base = post_successful if post_successful else successful
+    metric_n = max(len(metric_base), 1)
+    improved = [
+        r for r in metric_base if r.get("comparison", {}).get("improved")
+    ]
+    regressed = [
+        r for r in metric_base if r.get("comparison", {}).get("regressed")
+    ]
     newly = [
         r
-        for r in records
+        for r in metric_base
         if r.get("comparison", {}).get("newly_recoverable")
         or r.get("comparison", {}).get("classification")
         in {"DOCUMENT_ADDED_MISSING_CONTEXT", "DOCUMENT_ADDED_GROUNDING"}
     ]
     worse = [
         r
-        for r in records
+        for r in metric_base
         if r.get("comparison", {}).get("control_correct_shadow_worse")
-    ]
-    # Observation sample sufficiency should ignore pre-corpus infrastructure failures.
-    post_successful = [
-        r for r in post_corpus if not (r.get("shadow") or {}).get("error")
     ]
     safety = {
         "wrong_context_false_acceptance": sum(
             1
-            for r in successful
+            for r in metric_base
             if r.get("grounding", {}).get("wrong_context")
             and (r.get("shadow") or {}).get("final_accepted")
         ),
         "placeholder_false_acceptance": sum(
             1
-            for r in successful
+            for r in metric_base
             if r.get("grounding", {}).get("placeholder_evidence")
             and (r.get("shadow") or {}).get("final_accepted")
         ),
         "metadata_integrity_false_acceptance": sum(
             1
-            for r in successful
+            for r in metric_base
             if (r.get("shadow") or {}).get("metadata_blocked")
             and (r.get("shadow") or {}).get("final_accepted")
         ),
         "metadata_false_acceptance": sum(
             1
-            for r in successful
+            for r in metric_base
             if (r.get("shadow") or {}).get("metadata_blocked")
             and (r.get("shadow") or {}).get("final_accepted")
         ),
         "unsafe_adversarial_false_acceptance": sum(
             1
-            for r in successful
+            for r in metric_base
             if r.get("replay_category") == "adversarial"
             and (r.get("shadow") or {}).get("final_accepted")
         ),
         "shadow_errors_must_not_affect_production": True,
         "unsupported_claims": sum(
             len((r.get("grounding") or {}).get("unsupported_claims") or [])
-            for r in successful
+            for r in metric_base
         ),
     }
     safety_fail = any(
@@ -1208,17 +1226,29 @@ def aggregate_records(
             "unsupported_claims",
         }
     )
-    latencies = [float(r.get("latency_ms") or 0) for r in successful]
+    latencies = [float(r.get("latency_ms") or 0) for r in metric_base]
     retrieval_lat = [
         float((r.get("shadow") or {}).get("document_retrieval_latency_ms") or 0)
-        for r in successful
+        for r in metric_base
     ]
     passages = [
         float((r.get("shadow") or {}).get("document_evidence_count") or 0)
-        for r in successful
+        for r in metric_base
     ]
-    provenance = [r.get("grounding", {}).get("provenance_complete") for r in successful]
+    provenance = [r.get("grounding", {}).get("provenance_complete") for r in metric_base]
     classifications = _count_classifications(records)
+    post_classifications = _count_classifications(metric_base)
+    no_match = sum(
+        1
+        for r in metric_base
+        if (r.get("comparison") or {}).get("classification") == "DOCUMENT_NO_MATCH"
+        or (r.get("shadow") or {}).get("retrieval_failure_kind") == "no_match"
+    )
+    retrieval_success_count = sum(
+        1
+        for r in metric_base
+        if int((r.get("shadow") or {}).get("document_evidence_count") or 0) > 0
+    )
     traffic = traffic or load_traffic_counters()
     metrics: dict[str, Any] = {
         "experiment": _EXPERIMENT_NAME,
@@ -1239,18 +1269,9 @@ def aggregate_records(
         "shadow_timeouts": len(timeouts),
         "shadow_error_rate": len(errors) / n,
         "retrieval_failures": len(retrieval_failures),
-        "retrieval_success_rate": sum(
-            1
-            for r in successful
-            if int((r.get("shadow") or {}).get("document_evidence_count") or 0) > 0
-        )
-        / max(len(successful), 1),
-        "retrieval_success": sum(
-            1
-            for r in successful
-            if int((r.get("shadow") or {}).get("document_evidence_count") or 0) > 0
-        )
-        / max(len(successful), 1),
+        "retrieval_success_rate": retrieval_success_count / metric_n,
+        "retrieval_success": retrieval_success_count / metric_n,
+        "no_match_rate": no_match / metric_n,
         "mean_retrieval_latency": (
             sum(retrieval_lat) / len(retrieval_lat) if retrieval_lat else 0.0
         ),
@@ -1261,36 +1282,48 @@ def aggregate_records(
         "provenance_complete_rate": sum(1 for p in provenance if p)
         / max(len(provenance), 1),
         "metadata_valid_rate": sum(
-            1 for r in successful if r.get("grounding", {}).get("metadata_valid")
+            1 for r in metric_base if r.get("grounding", {}).get("metadata_valid")
         )
-        / max(len(successful), 1),
+        / metric_n,
         "wrong_context_false_acceptance_rate": safety["wrong_context_false_acceptance"]
-        / max(len(successful), 1),
+        / metric_n,
         "placeholder_false_acceptance_rate": safety["placeholder_false_acceptance"]
-        / max(len(successful), 1),
+        / metric_n,
         "metadata_false_acceptance_rate": safety["metadata_false_acceptance"]
-        / max(len(successful), 1),
-        "unsupported_claim_rate": safety["unsupported_claims"] / max(len(successful), 1),
+        / metric_n,
+        "unsupported_claim_rate": safety["unsupported_claims"] / metric_n,
         "newly_recoverable_count": len(newly),
-        "newly_recoverable_rate": len(newly) / n,
+        "newly_recoverable_rate": len(newly) / metric_n,
         "improvements": len(improved),
+        "improvement_rate": len(improved) / metric_n,
         "regressions": len(regressed),
-        "unchanged": max(0, n_raw - len(improved) - len(regressed) - len(errors)),
+        "regression_rate": len(regressed) / metric_n,
+        "unchanged": max(0, len(metric_base) - len(improved) - len(regressed)),
         "control_correct_shadow_worse": len(worse),
-        "document_added_explanation": classifications.get("DOCUMENT_ADDED_EXPLANATION", 0),
-        "document_disambiguated_context": classifications.get(
+        "document_added_explanation": post_classifications.get(
+            "DOCUMENT_ADDED_EXPLANATION", 0
+        ),
+        "document_disambiguated_context": post_classifications.get(
             "DOCUMENT_DISAMBIGUATED_CONTEXT", 0
         ),
-        "document_provided_source": classifications.get("DOCUMENT_PROVIDED_SOURCE", 0)
+        "document_provided_source": post_classifications.get("DOCUMENT_PROVIDED_SOURCE", 0)
         + sum(
             1
-            for r in records
+            for r in metric_base
             if "DOCUMENT_PROVIDED_SOURCE"
             in ((r.get("comparison") or {}).get("secondary_categories") or [])
         ),
-        "document_did_not_help": classifications.get("DOCUMENT_DID_NOT_HELP", 0),
-        "document_noise": classifications.get("DOCUMENT_NOISE", 0),
+        "document_did_not_help": post_classifications.get("DOCUMENT_DID_NOT_HELP", 0),
+        "document_noise": post_classifications.get("DOCUMENT_NOISE", 0),
+        "document_added_missing_context": post_classifications.get(
+            "DOCUMENT_ADDED_MISSING_CONTEXT", 0
+        ),
+        "structured_data_already_sufficient": post_classifications.get(
+            "STRUCTURED_DATA_ALREADY_SUFFICIENT", 0
+        ),
         "classifications": classifications,
+        "post_corpus_classifications": post_classifications,
+        "metrics_scope": "post_corpus" if post_successful else "all_successful",
         "safety_metrics": safety,
         "safety_blocked": safety_fail,
         "latency_metrics": {

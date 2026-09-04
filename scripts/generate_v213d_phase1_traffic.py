@@ -21,6 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EVAL = ROOT / "data" / "evals" / "v213c_curriculum_qa.json"
 OUT = ROOT / "data" / "diagnostics" / "v213d_phase1_traffic_run.json"
+OUT_PHASE1D = ROOT / "data" / "diagnostics" / "v213d_phase1d_traffic_run.json"
 
 
 def load_questions() -> list[dict]:
@@ -101,7 +102,19 @@ def main() -> int:
     parser.add_argument("--count", type=int, default=120)
     parser.add_argument("--concurrency", type=int, default=2)
     parser.add_argument("--timeout", type=float, default=180.0)
+    parser.add_argument(
+        "--out",
+        type=Path,
+        default=None,
+        help="Write run report JSON (default: phase1 traffic path)",
+    )
+    parser.add_argument(
+        "--traffic-class",
+        default="CONTROLLED_REAL_QA",
+        help="Label for the traffic batch (e.g. PHASE1D_POST_CORPUS)",
+    )
     args = parser.parse_args()
+    out_path = args.out or OUT
 
     questions = load_questions()
     batch = pick_batch(questions, args.count)
@@ -169,7 +182,7 @@ def main() -> int:
         else 0
     )
     report = {
-        "traffic_class": "CONTROLLED_REAL_QA",
+        "traffic_class": args.traffic_class,
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "base_url": args.base_url,
         "requested": len(batch),
@@ -182,20 +195,25 @@ def main() -> int:
         "shadow_rows_after": rows_after,
         "health_before_v213d": health_before.get("v213d"),
         "health_after_v213d": health_after.get("v213d"),
+        "funnel_before": (health_before.get("v213d_pipeline") or {}).get("stages"),
         "funnel_after": (health_after.get("v213d_pipeline") or {}).get("stages"),
+        "traffic_before": health_before.get("v213d_traffic"),
         "traffic_after": health_after.get("v213d_traffic"),
         "mean_latency_ms": (
             sum(float(r.get("latency_ms") or 0) for r in results if r.get("ok"))
             / max(sum(1 for r in results if r.get("ok")), 1)
         ),
+        "elapsed_s": round(time.perf_counter() - started, 1),
         "note": (
             "Requests went through POST /api/v1/agent/ask only. "
-            "Shadow rows appear only if V2.13D sampled them at configured rate."
+            "Shadow rows appear only if V2.13D sampled them at configured rate. "
+            "Sampling is not forced."
         ),
         "results": results,
     }
-    OUT.write_text(json.dumps(report, indent=2))
-    print(json.dumps({"event": "traffic_complete", "path": str(OUT), **{k: report[k] for k in (
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(json.dumps(report, indent=2))
+    print(json.dumps({"event": "traffic_complete", "path": str(out_path), **{k: report[k] for k in (
         "ok","failed","qa_requests_after","shadow_rows_after","funnel_after","traffic_after"
     )}}, indent=2), flush=True)
     return 0 if report["failed"] == 0 else 1

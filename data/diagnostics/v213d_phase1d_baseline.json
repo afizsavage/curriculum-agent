@@ -1,0 +1,28 @@
+{
+  "captured_at": "2026-09-04T09:26:43.167798+00:00",
+  "phase": "1D_pre_batch_baseline",
+  "jsonl_lines": 2,
+  "v213d_config": {
+    "shadow_enabled": true,
+    "sample_rate": 0.01,
+    "document_retrieval": true,
+    "retrieval_variant": "context_hybrid",
+    "timeout_seconds": 30.0
+  },
+  "v213d_traffic": {
+    "total_production_requests": 123,
+    "sampled_requests": 2
+  },
+  "v213d_pipeline_stages": {
+    "request_seen": 125,
+    "shadow_eligible": 125,
+    "shadow_sampled": 4,
+    "shadow_not_sampled": 121,
+    "shadow_started": 2,
+    "shadow_completed": 2,
+    "shadow_failed": 0,
+    "shadow_persisted": 2,
+    "persist_error": 0
+  },
+  "qa_metrics_total_requests": 0
+}

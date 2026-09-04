@@ -1,12 +1,12 @@
 # V2.13D — Production Shadow for Context-Hybrid Curriculum Document Evidence
 
-Generated: `2026-09-04T09:16:03.910462+00:00`
+Generated: `2026-09-04T14:46:08.722265+00:00`
 
 **Phase 1 status: INSUFFICIENT_SAMPLE**
 
 **Recommendation: CONTINUE SHADOW**
 
-Only 0 post-corpus successful real shadow evaluations (pre-corpus=2); target is 100–200 before a rollout recommendation.
+Only 5 post-corpus successful real shadow evaluations (pre-corpus=2); target is 100–200 before a rollout recommendation.
 
 ## Metrics
 
@@ -15,44 +15,58 @@ Only 0 post-corpus successful real shadow evaluations (pre-corpus=2); target is 
   "experiment": "v2.13d",
   "schema_version": "v213d.2",
   "source": "production_shadow",
-  "total_production_requests": 122,
-  "sampled_requests": 2,
-  "traffic_sampled": 2,
-  "shadow_completed": 2,
-  "successful_shadow_evaluations": 2,
+  "total_production_requests": 688,
+  "sampled_requests": 7,
+  "traffic_sampled": 7,
+  "shadow_completed": 7,
+  "successful_shadow_evaluations": 7,
   "pre_corpus_shadow_evaluations": 2,
-  "post_corpus_shadow_evaluations": 0,
-  "post_corpus_successful_shadow_evaluations": 0,
+  "post_corpus_shadow_evaluations": 5,
+  "post_corpus_successful_shadow_evaluations": 5,
   "corpus_unavailable_count": 2,
   "shadow_errors": 0,
   "shadow_timeouts": 0,
   "shadow_error_rate": 0.0,
   "retrieval_failures": 0,
-  "retrieval_success_rate": 0.0,
-  "retrieval_success": 0.0,
-  "mean_retrieval_latency": 11.659051000151521,
-  "p95_retrieval_latency": 15.040290699516845,
-  "mean_passages_retrieved": 0.0,
+  "retrieval_success_rate": 1.0,
+  "retrieval_success": 1.0,
+  "no_match_rate": 0.0,
+  "mean_retrieval_latency": 116.09215839998797,
+  "p95_retrieval_latency": 237.9934875978506,
+  "mean_passages_retrieved": 5.0,
   "provenance_complete_rate": 1.0,
   "metadata_valid_rate": 1.0,
   "wrong_context_false_acceptance_rate": 0.0,
   "placeholder_false_acceptance_rate": 0.0,
   "metadata_false_acceptance_rate": 0.0,
-  "unsupported_claim_rate": 4.0,
-  "newly_recoverable_count": 0,
-  "newly_recoverable_rate": 0.0,
-  "improvements": 0,
-  "regressions": 0,
-  "unchanged": 2,
-  "control_correct_shadow_worse": 0,
+  "unsupported_claim_rate": 0.8,
+  "newly_recoverable_count": 1,
+  "newly_recoverable_rate": 0.2,
+  "improvements": 1,
+  "improvement_rate": 0.2,
+  "regressions": 1,
+  "regression_rate": 0.2,
+  "unchanged": 3,
+  "control_correct_shadow_worse": 1,
   "document_added_explanation": 0,
   "document_disambiguated_context": 0,
-  "document_provided_source": 0,
-  "document_did_not_help": 0,
-  "document_noise": 0,
+  "document_provided_source": 1,
+  "document_did_not_help": 3,
+  "document_noise": 1,
+  "document_added_missing_context": 1,
+  "structured_data_already_sufficient": 0,
   "classifications": {
-    "DOCUMENT_CORPUS_UNAVAILABLE": 2
+    "DOCUMENT_CORPUS_UNAVAILABLE": 2,
+    "DOCUMENT_DID_NOT_HELP": 3,
+    "DOCUMENT_NOISE": 1,
+    "DOCUMENT_ADDED_MISSING_CONTEXT": 1
   },
+  "post_corpus_classifications": {
+    "DOCUMENT_DID_NOT_HELP": 3,
+    "DOCUMENT_NOISE": 1,
+    "DOCUMENT_ADDED_MISSING_CONTEXT": 1
+  },
+  "metrics_scope": "post_corpus",
   "safety_metrics": {
     "wrong_context_false_acceptance": 0,
     "placeholder_false_acceptance": 0,
@@ -60,14 +74,14 @@ Only 0 post-corpus successful real shadow evaluations (pre-corpus=2); target is 
     "metadata_false_acceptance": 0,
     "unsafe_adversarial_false_acceptance": 0,
     "shadow_errors_must_not_affect_production": true,
-    "unsupported_claims": 8
+    "unsupported_claims": 4
   },
   "safety_blocked": false,
   "latency_metrics": {
-    "shadow_mean_ms": 17329.27320900035,
-    "shadow_p95_ms": 19721.098863900625,
-    "retrieval_mean_ms": 11.659051000151521,
-    "retrieval_p95_ms": 15.040290699516845
+    "shadow_mean_ms": 10677.568457800226,
+    "shadow_p95_ms": 13521.566139400238,
+    "retrieval_mean_ms": 116.09215839998797,
+    "retrieval_p95_ms": 237.9934875978506
   },
   "observation_target_min": 100,
   "observation_target_max": 200,
@@ -75,20 +89,20 @@ Only 0 post-corpus successful real shadow evaluations (pre-corpus=2); target is 
   "phase1_status": "INSUFFICIENT_SAMPLE",
   "phase1_recommendation": "CONTINUE SHADOW",
   "canary_recommendation": "CANARY_NOT_READY",
-  "canary_note": "Only 0 post-corpus successful real shadow evaluations (pre-corpus=2); target is 100\u2013200 before a rollout recommendation.",
+  "canary_note": "Only 5 post-corpus successful real shadow evaluations (pre-corpus=2); target is 100\u2013200 before a rollout recommendation.",
   "pipeline_verification": {
     "classification": "PIPELINE_OPERATIONAL",
     "live_qa_metrics_total_requests": 0,
-    "production_jsonl_rows": 2,
+    "production_jsonl_rows": 7,
     "funnel_stages": {
-      "request_seen": 124,
-      "shadow_eligible": 124,
-      "shadow_sampled": 4,
-      "shadow_not_sampled": 120,
-      "shadow_started": 2,
-      "shadow_completed": 2,
+      "request_seen": 690,
+      "shadow_eligible": 690,
+      "shadow_sampled": 9,
+      "shadow_not_sampled": 681,
+      "shadow_started": 7,
+      "shadow_completed": 7,
       "shadow_failed": 0,
-      "shadow_persisted": 2,
+      "shadow_persisted": 7,
       "persist_error": 0
     },
     "config_enabled": true,
@@ -102,7 +116,7 @@ Only 0 post-corpus successful real shadow evaluations (pre-corpus=2); target is 
       "persistence": "PASS"
     }
   },
-  "generated_at": "2026-09-04T09:16:03.910462+00:00",
+  "generated_at": "2026-09-04T14:46:08.722265+00:00",
   "active_configuration": {
     "shadow_enabled": true,
     "sample_rate": 0.01,

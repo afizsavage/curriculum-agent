@@ -1,0 +1,99 @@
+{
+  "traffic_class": "PHASE1D_PROBE",
+  "generated_at": "2026-09-04T09:33:40.640853+00:00",
+  "base_url": "http://127.0.0.1:8001",
+  "requested": 3,
+  "ok": 3,
+  "failed": 0,
+  "categories": {
+    "adversarial": 1,
+    "ambiguous": 1,
+    "document_only": 1
+  },
+  "qa_requests_before": 6,
+  "qa_requests_after": 9,
+  "shadow_rows_before": 2,
+  "shadow_rows_after": 2,
+  "health_before_v213d": {
+    "shadow_enabled": true,
+    "sample_rate": 0.01,
+    "document_retrieval": true,
+    "retrieval_variant": "context_hybrid",
+    "timeout_seconds": 30.0
+  },
+  "health_after_v213d": {
+    "shadow_enabled": true,
+    "sample_rate": 0.01,
+    "document_retrieval": true,
+    "retrieval_variant": "context_hybrid",
+    "timeout_seconds": 30.0
+  },
+  "funnel_before": {
+    "request_seen": 131,
+    "shadow_eligible": 131,
+    "shadow_sampled": 4,
+    "shadow_not_sampled": 127,
+    "shadow_started": 2,
+    "shadow_completed": 2,
+    "shadow_failed": 0,
+    "shadow_persisted": 2,
+    "persist_error": 0
+  },
+  "funnel_after": {
+    "request_seen": 134,
+    "shadow_eligible": 134,
+    "shadow_sampled": 4,
+    "shadow_not_sampled": 130,
+    "shadow_started": 2,
+    "shadow_completed": 2,
+    "shadow_failed": 0,
+    "shadow_persisted": 2,
+    "persist_error": 0
+  },
+  "traffic_before": {
+    "total_production_requests": 129,
+    "sampled_requests": 2
+  },
+  "traffic_after": {
+    "total_production_requests": 132,
+    "sampled_requests": 2
+  },
+  "mean_latency_ms": 21001.61871900006,
+  "elapsed_s": 63.0,
+  "note": "Requests went through POST /api/v1/agent/ask only. Shadow rows appear only if V2.13D sampled them at configured rate. Sampling is not forced.",
+  "results": [
+    {
+      "ok": true,
+      "http_status": 200,
+      "status": "completed",
+      "latency_ms": 18586.387939999895,
+      "conversation_id": "812121c1-d966-4fd4-97ce-289b67f98995",
+      "answer_present": true,
+      "id": "V213C-G01",
+      "category": "adversarial",
+      "question_hash": "314b3caefd1ef813"
+    },
+    {
+      "ok": true,
+      "http_status": 200,
+      "status": "needs_clarification",
+      "latency_ms": 11573.597079000137,
+      "conversation_id": "6c2e2a2c-2ffd-47a2-acba-acc2b045b184",
+      "answer_present": false,
+      "id": "V213C-E01",
+      "category": "ambiguous",
+      "question_hash": "10bf3da83c049f37"
+    },
+    {
+      "ok": true,
+      "http_status": 200,
+      "status": "insufficient_evidence",
+      "latency_ms": 32844.87113800015,
+      "conversation_id": "4b7189f6-9500-4b4a-84e1-a58ba25b6868",
+      "answer_present": true,
+      "id": "V213C-A01",
+      "category": "document_only",
+      "question_hash": "fa3a85905c930394"
+    }
+  ]
+}

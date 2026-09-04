@@ -138,6 +138,28 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
             activation = json.loads(activation_path.read_text(encoding="utf-8"))
         except Exception:
             activation = {}
+    phase1d_path = Path("data/diagnostics/v213d_phase1d_traffic_run.json")
+    phase1d_traffic: dict = {}
+    if phase1d_path.is_file():
+        try:
+            raw = json.loads(phase1d_path.read_text(encoding="utf-8"))
+            phase1d_traffic = {
+                "traffic_class": raw.get("traffic_class"),
+                "requested": raw.get("requested"),
+                "ok": raw.get("ok"),
+                "failed": raw.get("failed"),
+                "elapsed_s": raw.get("elapsed_s"),
+                "categories": raw.get("categories"),
+                "shadow_rows_before": raw.get("shadow_rows_before"),
+                "shadow_rows_after": raw.get("shadow_rows_after"),
+                "funnel_before": raw.get("funnel_before"),
+                "funnel_after": raw.get("funnel_after"),
+                "traffic_before": raw.get("traffic_before"),
+                "traffic_after": raw.get("traffic_after"),
+                "mean_latency_ms": raw.get("mean_latency_ms"),
+            }
+        except Exception:
+            phase1d_traffic = {}
     lines = [
         "# V2.13D Phase 1 Observation Report",
         "",
@@ -177,9 +199,13 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         f"    activation_ok={activation.get('activation_ok')}",
         f"    expected_hashes_matched={activation.get('expected_hashes_matched')}",
         "",
-        "Phase 1D — resumed real observation",
+        "Phase 1D — post-corpus observation",
         f"    post-corpus real shadows: {report.get('post_corpus_successful_shadow_evaluations', 0)}",
         "    sample_rate remains 0.01 (no forced sampling)",
+        f"    metrics_scope: {report.get('metrics_scope', 'post_corpus')}",
+        f"    retrieval_success (post-corpus): {report.get('retrieval_success_rate')}",
+        f"    newly_recoverable: {report.get('newly_recoverable_count')}",
+        f"    regressions (control_correct_shadow_worse): {report.get('control_correct_shadow_worse')}",
         "```",
         "",
         "## Active Configuration",
@@ -219,6 +245,12 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         ),
         "```",
         "",
+        "## Phase 1D Traffic Batch",
+        "",
+        "```json",
+        json.dumps(phase1d_traffic, indent=2),
+        "```",
+        "",
         "## Pre- vs Post-Corpus Real Shadows",
         "",
         "```json",
@@ -234,11 +266,53 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
                     "post_corpus_successful_shadow_evaluations"
                 ),
                 "corpus_unavailable_count": report.get("corpus_unavailable_count"),
+                "metrics_scope": report.get("metrics_scope"),
                 "classifications": classifications,
+                "post_corpus_classifications": report.get("post_corpus_classifications"),
             },
             indent=2,
         ),
         "```",
+        "",
+        "## Phase 1D Post-Corpus Performance (primary)",
+        "",
+        "```json",
+        json.dumps(
+            {
+                "retrieval_success_rate": report.get("retrieval_success_rate"),
+                "no_match_rate": report.get("no_match_rate"),
+                "mean_passages_retrieved": report.get("mean_passages_retrieved"),
+                "provenance_complete_rate": report.get("provenance_complete_rate"),
+                "metadata_valid_rate": report.get("metadata_valid_rate"),
+                "newly_recoverable_count": report.get("newly_recoverable_count"),
+                "newly_recoverable_rate": report.get("newly_recoverable_rate"),
+                "improvement_rate": report.get("improvement_rate"),
+                "regression_rate": report.get("regression_rate"),
+                "control_correct_shadow_worse": report.get(
+                    "control_correct_shadow_worse"
+                ),
+                "document_added_missing_context": report.get(
+                    "document_added_missing_context"
+                ),
+                "document_added_explanation": report.get("document_added_explanation"),
+                "document_disambiguated_context": report.get(
+                    "document_disambiguated_context"
+                ),
+                "document_provided_source": report.get("document_provided_source"),
+                "document_did_not_help": report.get("document_did_not_help"),
+                "document_noise": report.get("document_noise"),
+                "structured_data_already_sufficient": report.get(
+                    "structured_data_already_sufficient"
+                ),
+                "latency_metrics": report.get("latency_metrics"),
+            },
+            indent=2,
+        ),
+        "```",
+        "",
+        "Primary performance metrics above are scoped to **post-corpus** shadows. "
+        "Pre-corpus `DOCUMENT_CORPUS_UNAVAILABLE` rows remain historical infrastructure "
+        "failures and are excluded from retrieval-quality rates.",
         "",
         "## Phase 1 Traffic Pipeline Verification",
         "",
@@ -276,14 +350,12 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         json.dumps(
             {
                 "retrieval_success_rate": report.get("retrieval_success_rate"),
+                "no_match_rate": report.get("no_match_rate"),
                 "mean_retrieval_latency": report.get("mean_retrieval_latency"),
                 "p95_retrieval_latency": report.get("p95_retrieval_latency"),
                 "mean_passages_retrieved": report.get("mean_passages_retrieved"),
                 "provenance_complete_rate": report.get("provenance_complete_rate"),
-                "note": (
-                    "Pre-corpus rows had empty store (corpus unavailable). "
-                    "Do not interpret pre-corpus 0% retrieval as algorithm failure."
-                ),
+                "metrics_scope": report.get("metrics_scope"),
             },
             indent=2,
         ),
@@ -301,9 +373,12 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         json.dumps(
             {
                 "newly_recoverable": report.get("newly_recoverable_count"),
+                "newly_recoverable_rate": report.get("newly_recoverable_rate"),
                 "improvements": report.get("improvements"),
+                "improvement_rate": report.get("improvement_rate"),
                 "unchanged": report.get("unchanged"),
                 "regressions": report.get("regressions"),
+                "regression_rate": report.get("regression_rate"),
                 "control_correct_shadow_worse": report.get(
                     "control_correct_shadow_worse"
                 ),
@@ -324,6 +399,7 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         "- Smoke/test records must live in `v213d_shadow_smoke.jsonl` only.",
         "- Phase 0 replay is excluded from Phase 1 claims.",
         "- Pre-corpus vs post-corpus shadows are analyzed separately.",
+        "- Phase 1D primary rates are post-corpus only.",
         "",
         report.get("v213c_comparison_note", ""),
         "",
