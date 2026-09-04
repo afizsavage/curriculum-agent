@@ -130,6 +130,14 @@ def classify_pipeline(
 def write_phase1_doc(report: dict, *, config: dict) -> None:
     examples = report.get("examples") or {}
     pipeline = report.get("pipeline_verification") or {}
+    classifications = report.get("classifications") or {}
+    activation_path = Path("data/diagnostics/v213d_corpus_activation.json")
+    activation = {}
+    if activation_path.is_file():
+        try:
+            activation = json.loads(activation_path.read_text(encoding="utf-8"))
+        except Exception:
+            activation = {}
     lines = [
         "# V2.13D Phase 1 Observation Report",
         "",
@@ -145,6 +153,35 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         "",
         report.get("canary_note", ""),
         "",
+        "Pre-corpus real shadows are infrastructure/corpus-availability failures "
+        "(`DOCUMENT_CORPUS_UNAVAILABLE`), not retrieval-algorithm failures. "
+        "Post-corpus observation sufficiency is measured separately.",
+        "",
+        "## Phase 1 Timeline",
+        "",
+        "```text",
+        "Phase 1A — pipeline verification",
+        "    0 production QA requests (TRAFFIC_NOT_REACHING_QA initially)",
+        "",
+        "Phase 1B — first real traffic",
+        "    ~121 QA requests",
+        "    2 real shadows",
+        "    corpus unavailable (empty data/documents)",
+        "    classification: DOCUMENT_CORPUS_UNAVAILABLE (reclassified)",
+        "",
+        "Phase 1C — corpus activation",
+        "    trusted V2.13A–C BENCHMARK_SOURCES activated",
+        f"    documents={activation.get('counts', {}).get('documents', 'n/a')}",
+        f"    passages={activation.get('counts', {}).get('passages', 'n/a')}",
+        f"    index_entries={activation.get('counts', {}).get('index_entries', 'n/a')}",
+        f"    activation_ok={activation.get('activation_ok')}",
+        f"    expected_hashes_matched={activation.get('expected_hashes_matched')}",
+        "",
+        "Phase 1D — resumed real observation",
+        f"    post-corpus real shadows: {report.get('post_corpus_successful_shadow_evaluations', 0)}",
+        "    sample_rate remains 0.01 (no forced sampling)",
+        "```",
+        "",
         "## Active Configuration",
         "",
         "```text",
@@ -153,6 +190,54 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         f"v213d_shadow_document_retrieval={config.get('document_retrieval')}",
         f"v213d_shadow_retrieval_variant={config.get('retrieval_variant')}",
         f"v213d_shadow_timeout_seconds={config.get('timeout_seconds')}",
+        "```",
+        "",
+        "No rollout escalation. No V2.13E. Document evidence does not enter the "
+        "user-facing production answer path.",
+        "",
+        "## Corpus Activation (Phase 1C)",
+        "",
+        "```json",
+        json.dumps(
+            {
+                "corpus_family": activation.get("corpus_family"),
+                "counts": activation.get("counts"),
+                "document_hashes": (activation.get("ingestion") or {}).get(
+                    "document_hashes"
+                ),
+                "discrepancies": activation.get("discrepancies"),
+                "orphaned": (activation.get("counts") or {}).get(
+                    "orphaned_document_dirs"
+                ),
+                "passages_missing_provenance": (activation.get("counts") or {}).get(
+                    "passages_missing_provenance"
+                ),
+                "hierarchy": activation.get("hierarchy"),
+                "activated_at": activation.get("activated_at"),
+            },
+            indent=2,
+        ),
+        "```",
+        "",
+        "## Pre- vs Post-Corpus Real Shadows",
+        "",
+        "```json",
+        json.dumps(
+            {
+                "pre_corpus_shadow_evaluations": report.get(
+                    "pre_corpus_shadow_evaluations"
+                ),
+                "post_corpus_shadow_evaluations": report.get(
+                    "post_corpus_shadow_evaluations"
+                ),
+                "post_corpus_successful_shadow_evaluations": report.get(
+                    "post_corpus_successful_shadow_evaluations"
+                ),
+                "corpus_unavailable_count": report.get("corpus_unavailable_count"),
+                "classifications": classifications,
+            },
+            indent=2,
+        ),
         "```",
         "",
         "## Phase 1 Traffic Pipeline Verification",
@@ -195,6 +280,10 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
                 "p95_retrieval_latency": report.get("p95_retrieval_latency"),
                 "mean_passages_retrieved": report.get("mean_passages_retrieved"),
                 "provenance_complete_rate": report.get("provenance_complete_rate"),
+                "note": (
+                    "Pre-corpus rows had empty store (corpus unavailable). "
+                    "Do not interpret pre-corpus 0% retrieval as algorithm failure."
+                ),
             },
             indent=2,
         ),
@@ -234,12 +323,16 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         "- Production analysis uses only `v213d_shadow.jsonl` (no `replay_id`).",
         "- Smoke/test records must live in `v213d_shadow_smoke.jsonl` only.",
         "- Phase 0 replay is excluded from Phase 1 claims.",
+        "- Pre-corpus vs post-corpus shadows are analyzed separately.",
         "",
         report.get("v213c_comparison_note", ""),
         "",
         "## Recommendation",
         "",
         report.get("phase1_recommendation", "CONTINUE SHADOW"),
+        "",
+        "Keep `sample_rate=0.01`. Do not enable V2.13E until enough **post-corpus** "
+        "real shadows exist to judge document-layer value in production.",
         "",
     ]
     PHASE1_DOC.write_text("\n".join(lines))

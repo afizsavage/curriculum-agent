@@ -74,7 +74,9 @@ PHASE1_CATEGORIES = (
     "DOCUMENT_PROVIDED_SOURCE",
     "STRUCTURED_DATA_ALREADY_SUFFICIENT",
     "DOCUMENT_DID_NOT_HELP",
+    "DOCUMENT_CORPUS_UNAVAILABLE",
     "DOCUMENT_RETRIEVAL_FAILURE",
+    "DOCUMENT_NO_MATCH",
     "DOCUMENT_NOISE",
     "WRONG_CONTEXT",
     "GENERATION_FAILURE",
@@ -216,7 +218,9 @@ def classify_shadow_outcome(
 
     if error:
         err_l = str(error).lower()
-        if "timeout" in err_l or stage in {"document_retrieval", "start"}:
+        if "corpus" in err_l or shadow.get("corpus_available") is False:
+            primary = "DOCUMENT_CORPUS_UNAVAILABLE"
+        elif "timeout" in err_l or stage in {"document_retrieval", "start"}:
             primary = "DOCUMENT_RETRIEVAL_FAILURE"
         elif stage == "generation":
             primary = "GENERATION_FAILURE"
@@ -235,8 +239,16 @@ def classify_shadow_outcome(
         )
 
     if docs == 0 and not skipped:
+        if shadow.get("corpus_available") is False or shadow.get(
+            "retrieval_failure_kind"
+        ) == "corpus_unavailable":
+            return _pack_classification("DOCUMENT_CORPUS_UNAVAILABLE")
         if c_accept and s_accept:
             return _pack_classification("STRUCTURED_DATA_ALREADY_SUFFICIENT")
+        if shadow.get("retrieval_failure_kind") == "no_match" or shadow.get(
+            "corpus_available"
+        ):
+            return _pack_classification("DOCUMENT_NO_MATCH")
         return _pack_classification("DOCUMENT_RETRIEVAL_FAILURE")
 
     newly = (not c_accept) and s_accept and docs > 0
@@ -391,6 +403,40 @@ def _control_snapshot(state: CurriculumQAState, settings: Settings) -> dict[str,
     }
 
 
+def production_corpus_status(
+    store_root: Path | None = None,
+    index_root: Path | None = None,
+) -> dict[str, Any]:
+    """Inspect live production document store + index availability."""
+    store_path = store_root or Path("data/documents")
+    index_path = index_root or Path("data/document_index")
+    document_dirs = (
+        sorted(p for p in store_path.glob("doc-*") if p.is_dir())
+        if store_path.is_dir()
+        else []
+    )
+    document_count = 0
+    for doc_dir in document_dirs:
+        if (doc_dir / "metadata.json").is_file() and (doc_dir / "passages.json").is_file():
+            document_count += 1
+    index_entries = 0
+    index_file = index_path / "feature-hash-v1" / "index.json"
+    if index_file.is_file():
+        try:
+            rows = json.loads(index_file.read_text() or "[]")
+            index_entries = len(rows) if isinstance(rows, list) else 0
+        except json.JSONDecodeError:
+            index_entries = 0
+    available = document_count > 0 and index_entries > 0
+    return {
+        "available": available,
+        "document_count": document_count,
+        "index_entry_count": index_entries,
+        "store_root": str(store_path.resolve()) if store_path.exists() else str(store_path),
+        "index_root": str(index_path.resolve()) if index_path.exists() else str(index_path),
+    }
+
+
 def retrieve_document_evidence(
     *,
     question: str,
@@ -403,7 +449,25 @@ def retrieve_document_evidence(
     timeout_seconds: float | None = None,
 ) -> tuple[list[CurriculumEvidence], dict[str, Any]]:
     if not bool(getattr(settings, "v213d_shadow_document_retrieval", True)):
-        return [], {"skipped": True, "variant": getattr(settings, "v213d_shadow_retrieval_variant", "context_hybrid")}
+        return [], {
+            "skipped": True,
+            "variant": getattr(settings, "v213d_shadow_retrieval_variant", "context_hybrid"),
+            "corpus_available": production_corpus_status()["available"],
+        }
+    corpus = production_corpus_status()
+    if retrieval is None and not corpus["available"]:
+        return [], {
+            "variant": getattr(settings, "v213d_shadow_retrieval_variant", "context_hybrid"),
+            "latency_ms": 0.0,
+            "count": 0,
+            "passages": [],
+            "corpus_available": False,
+            "retrieval_failure_kind": "corpus_unavailable",
+            "diagnostics": {
+                "document_count": corpus["document_count"],
+                "index_entry_count": corpus["index_entry_count"],
+            },
+        }
     service = retrieval or default_retrieval_service(settings)
     variant = getattr(settings, "v213d_shadow_retrieval_variant", "context_hybrid")
     started = time.perf_counter()
@@ -425,12 +489,18 @@ def retrieve_document_evidence(
         item.metadata["retrieval_score"] = hit.retrieval_score
         item.metadata["retrieval_rank"] = hit.retrieval_rank
         evidence.append(item)
+    corpus_available = True if retrieval is not None else corpus["available"]
+    failure_kind = None
+    if not evidence:
+        failure_kind = "no_match" if corpus_available else "corpus_unavailable"
     return evidence, {
         "variant": variant,
         "latency_ms": latency,
         "count": len(evidence),
         "diagnostics": result.diagnostics.to_dict(),
         "passages": _document_passage_summaries(evidence),
+        "corpus_available": corpus_available,
+        "retrieval_failure_kind": failure_kind,
     }
 
 
@@ -560,6 +630,8 @@ def run_shadow_pipeline(
             or getattr(settings, "v213d_shadow_retrieval_variant", "context_hybrid"),
             "document_retrieval_latency_ms": retrieval_meta.get("latency_ms", 0),
             "retrieval_skipped": bool(retrieval_meta.get("skipped")),
+            "corpus_available": retrieval_meta.get("corpus_available"),
+            "retrieval_failure_kind": retrieval_meta.get("retrieval_failure_kind"),
             "normalization_status": "ok",
             "normalization_count": len(normalized.evidence),
             "normalization_failures": 0,
@@ -1048,6 +1120,13 @@ def aggregate_records(
     n = n_raw or 1
     successful = [r for r in records if not (r.get("shadow") or {}).get("error")]
     errors = [r for r in records if (r.get("shadow") or {}).get("error")]
+    pre_corpus = [
+        r
+        for r in records
+        if r.get("corpus_epoch") == "pre_corpus"
+        or (r.get("comparison") or {}).get("classification") == "DOCUMENT_CORPUS_UNAVAILABLE"
+    ]
+    post_corpus = [r for r in records if r not in pre_corpus]
     timeouts = [
         r
         for r in errors
@@ -1057,7 +1136,13 @@ def aggregate_records(
     retrieval_failures = [
         r
         for r in records
-        if (r.get("comparison") or {}).get("classification") == "DOCUMENT_RETRIEVAL_FAILURE"
+        if (r.get("comparison") or {}).get("classification")
+        in {"DOCUMENT_RETRIEVAL_FAILURE", "DOCUMENT_NO_MATCH"}
+    ]
+    corpus_unavailable = [
+        r
+        for r in records
+        if (r.get("comparison") or {}).get("classification") == "DOCUMENT_CORPUS_UNAVAILABLE"
     ]
     improved = [r for r in records if r.get("comparison", {}).get("improved")]
     regressed = [r for r in records if r.get("comparison", {}).get("regressed")]
@@ -1072,6 +1157,10 @@ def aggregate_records(
         r
         for r in records
         if r.get("comparison", {}).get("control_correct_shadow_worse")
+    ]
+    # Observation sample sufficiency should ignore pre-corpus infrastructure failures.
+    post_successful = [
+        r for r in post_corpus if not (r.get("shadow") or {}).get("error")
     ]
     safety = {
         "wrong_context_false_acceptance": sum(
@@ -1142,6 +1231,10 @@ def aggregate_records(
         "traffic_sampled": len(records),
         "shadow_completed": len(successful),
         "successful_shadow_evaluations": len(successful),
+        "pre_corpus_shadow_evaluations": len(pre_corpus),
+        "post_corpus_shadow_evaluations": len(post_corpus),
+        "post_corpus_successful_shadow_evaluations": len(post_successful),
+        "corpus_unavailable_count": len(corpus_unavailable),
         "shadow_errors": len(errors),
         "shadow_timeouts": len(timeouts),
         "shadow_error_rate": len(errors) / n,
@@ -1215,7 +1308,11 @@ def aggregate_records(
             "V2.13D Phase 1 real-traffic observations are not statistically equivalent."
         ),
     }
-    status, recommendation = phase1_observation_status(metrics)
+    status_input = {
+        **metrics,
+        "successful_shadow_evaluations": len(post_successful),
+    }
+    status, recommendation = phase1_observation_status(status_input)
     metrics["phase1_status"] = status
     metrics["phase1_recommendation"] = recommendation
     metrics["canary_recommendation"] = (
@@ -1227,9 +1324,9 @@ def aggregate_records(
         )
     elif status == "INSUFFICIENT_SAMPLE":
         metrics["canary_note"] = (
-            f"Only {metrics['successful_shadow_evaluations']} successful real shadow "
-            f"evaluations; target is {OBSERVATION_TARGET_MIN}–{OBSERVATION_TARGET_MAX} "
-            "before a rollout recommendation."
+            f"Only {len(post_successful)} post-corpus successful real shadow "
+            f"evaluations (pre-corpus={len(pre_corpus)}); target is "
+            f"{OBSERVATION_TARGET_MIN}–{OBSERVATION_TARGET_MAX} before a rollout recommendation."
         )
     elif status == "SAFETY_BLOCKED":
         metrics["canary_note"] = (
@@ -1282,6 +1379,7 @@ __all__ = [
     "persist_record",
     "phase1_observation_status",
     "prepare_replay_corpus",
+    "production_corpus_status",
     "production_shadow_records",
     "record_pipeline_stage",
     "record_traffic_event",

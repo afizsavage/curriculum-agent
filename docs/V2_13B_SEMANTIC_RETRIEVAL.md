@@ -1,6 +1,6 @@
 # V2.13B — Hybrid Semantic Document Retrieval
 
-Generated: `2026-09-03T06:41:13.643730+00:00`
+Generated: `2026-09-04T09:12:52.023041+00:00`
 
 **Conclusion: SUPPORTED**
 
@@ -89,7 +89,7 @@ Provenance complete rates: `{"lexical": 1.0, "semantic": 1.0, "hybrid": 1.0, "co
 | Recall@5 | 0.889 | 1.000 | 1.000 | 1.000 |
 | Recall@10 | 0.889 | 1.000 | 1.000 | 1.000 |
 | MRR | 0.889 | 0.750 | 0.889 | 0.889 |
-| Mean latency (ms) | 4.325 | 32.019 | 51.525 | 44.716 |
+| Mean latency (ms) | 3.321 | 28.919 | 30.597 | 30.222 |
 
 ## 13. Grounding metrics
 
@@ -161,10 +161,10 @@ Integration subset through V2.9 normalization + V2.11 metadata guard (verifier/m
 
 ```json
 {
-  "lexical": 4.325131110413673,
-  "semantic": 32.01921833331451,
-  "hybrid": 51.52547588901749,
-  "context_hybrid": 44.71642955549113
+  "lexical": 3.321061888780403,
+  "semantic": 28.919033111227083,
+  "hybrid": 30.59690377772818,
+  "context_hybrid": 30.221968111113206
 }
 ```
 

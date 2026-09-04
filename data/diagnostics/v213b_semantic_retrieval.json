@@ -1,6 +1,6 @@
 {
   "experiment_version": "v2.13b_semantic_retrieval",
-  "generated_at": "2026-09-03T06:41:13.643730+00:00",
+  "generated_at": "2026-09-04T09:12:52.023041+00:00",
   "document_hashes": {
     "bec-framework-2020": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4",
     "math-primary-guidance": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70",
@@ -35,7 +35,7 @@
         "placeholder_retrieval": 0
       },
       "provenance_complete_rate": 1.0,
-      "mean_latency_ms": 4.325131110413673,
+      "mean_latency_ms": 3.321061888780403,
       "rows": [
         {
           "id": "narrative_math_purpose",
@@ -259,7 +259,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 0,
-            "latency_ms": 4.636839999875519
+            "latency_ms": 3.775730999677762
           }
         },
         {
@@ -484,7 +484,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 0,
-            "latency_ms": 4.401939000672428
+            "latency_ms": 3.4377130000393663
           }
         },
         {
@@ -676,7 +676,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 0,
-            "latency_ms": 3.842228001303738
+            "latency_ms": 3.2653429998390493
           }
         },
         {
@@ -910,7 +910,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 0,
-            "latency_ms": 4.352025996922748
+            "latency_ms": 3.4176839999418007
           }
         },
         {
@@ -1028,7 +1028,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 0,
-            "latency_ms": 5.000732999178581
+            "latency_ms": 3.033048999895982
           }
         },
         {
@@ -1253,7 +1253,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 0,
-            "latency_ms": 4.533229999651667
+            "latency_ms": 3.3991929999501735
           }
         },
         {
@@ -1495,7 +1495,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 0,
-            "latency_ms": 4.14527300017653
+            "latency_ms": 3.4212010000373994
           }
         },
         {
@@ -1531,7 +1531,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 0,
-            "latency_ms": 3.905185996700311
+            "latency_ms": 2.856454999800917
           }
         },
         {
@@ -1715,7 +1715,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 0,
-            "latency_ms": 4.108724999241531
+            "latency_ms": 3.283187999841175
           }
         }
       ]
@@ -1741,7 +1741,7 @@
         "placeholder_retrieval": 0
       },
       "provenance_complete_rate": 1.0,
-      "mean_latency_ms": 32.01921833331451,
+      "mean_latency_ms": 28.919033111227083,
       "rows": [
         {
           "id": "narrative_math_purpose",
@@ -1965,7 +1965,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 33.03710399995907
+            "latency_ms": 29.272488000060548
           }
         },
         {
@@ -2190,7 +2190,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 34.020230999885825
+            "latency_ms": 28.635261000090395
           }
         },
         {
@@ -2420,7 +2420,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 36.320003997388994
+            "latency_ms": 28.880602000299405
           }
         },
         {
@@ -2654,7 +2654,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 34.164582000812516
+            "latency_ms": 27.96143600016876
           }
         },
         {
@@ -2886,7 +2886,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 29.38604100199882
+            "latency_ms": 28.209423000134848
           }
         },
         {
@@ -3111,7 +3111,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 29.872355997213162
+            "latency_ms": 28.78715499991813
           }
         },
         {
@@ -3353,7 +3353,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 29.684394001378678
+            "latency_ms": 28.817771000376524
           }
         },
         {
@@ -3580,7 +3580,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 31.377373001305386
+            "latency_ms": 29.643376999956672
           }
         },
         {
@@ -3802,7 +3802,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 30.31087999988813
+            "latency_ms": 30.06378500003848
           }
         }
       ]
@@ -3828,7 +3828,7 @@
         "placeholder_retrieval": 0
       },
       "provenance_complete_rate": 1.0,
-      "mean_latency_ms": 51.52547588901749,
+      "mean_latency_ms": 30.59690377772818,
       "rows": [
         {
           "id": "narrative_math_purpose",
@@ -4052,7 +4052,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 39.96421199917677
+            "latency_ms": 30.40984599965668
           }
         },
         {
@@ -4277,7 +4277,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 33.71182300179498
+            "latency_ms": 29.533319999700325
           }
         },
         {
@@ -4507,7 +4507,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 72.70006700127851
+            "latency_ms": 29.451648999838653
           }
         },
         {
@@ -4741,7 +4741,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 94.67207600027905
+            "latency_ms": 29.82609000036973
           }
         },
         {
@@ -4973,7 +4973,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 46.90998800288071
+            "latency_ms": 31.168978000096104
           }
         },
         {
@@ -5198,7 +5198,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 69.82632399740396
+            "latency_ms": 31.2890499999412
           }
         },
         {
@@ -5440,7 +5440,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 34.20644200014067
+            "latency_ms": 30.146531999889703
           }
         },
         {
@@ -5667,7 +5667,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 34.97000200150069
+            "latency_ms": 32.12779900013629
           }
         },
         {
@@ -5889,7 +5889,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 36.768348996702116
+            "latency_ms": 31.418869999924937
           }
         }
       ]
@@ -5915,7 +5915,7 @@
         "placeholder_retrieval": 0
       },
       "provenance_complete_rate": 1.0,
-      "mean_latency_ms": 44.71642955549113,
+      "mean_latency_ms": 30.221968111113206,
       "rows": [
         {
           "id": "narrative_math_purpose",
@@ -6139,7 +6139,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 33.514196999021806
+            "latency_ms": 30.443484999977954
           }
         },
         {
@@ -6364,7 +6364,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 95.23626699956367
+            "latency_ms": 33.22869300018283
           }
         },
         {
@@ -6594,7 +6594,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 45.189786000264576
+            "latency_ms": 29.993874999945547
           }
         },
         {
@@ -6828,7 +6828,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 77.26453599752858
+            "latency_ms": 29.369315000167262
           }
         },
         {
@@ -7060,7 +7060,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 29.711855000641663
+            "latency_ms": 29.72739199958596
           }
         },
         {
@@ -7285,7 +7285,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 29.91302600275958
+            "latency_ms": 29.98523100040984
           }
         },
         {
@@ -7527,7 +7527,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 29.306450000149198
+            "latency_ms": 29.31240699990667
           }
         },
         {
@@ -7754,7 +7754,7 @@
             "unresolved_context": false,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 29.612574999191565
+            "latency_ms": 29.466983000020264
           }
         },
         {
@@ -7976,7 +7976,7 @@
             "unresolved_context": true,
             "embedding_model": "feature-hash-v1",
             "index_passages": 16,
-            "latency_ms": 32.699174000299536
+            "latency_ms": 30.47033199982252
           }
         }
       ]
@@ -7990,7 +7990,7 @@
       "recall_at_5": 0.8888888888888888,
       "recall_at_10": 0.8888888888888888,
       "mrr": 0.8888888888888888,
-      "mean_latency_ms": 4.325131110413673
+      "mean_latency_ms": 3.321061888780403
     },
     "semantic": {
       "evidence_found_rate": 1.0,
@@ -7999,7 +7999,7 @@
       "recall_at_5": 1.0,
       "recall_at_10": 1.0,
       "mrr": 0.75,
-      "mean_latency_ms": 32.01921833331451
+      "mean_latency_ms": 28.919033111227083
     },
     "hybrid": {
       "evidence_found_rate": 1.0,
@@ -8008,7 +8008,7 @@
       "recall_at_5": 1.0,
       "recall_at_10": 1.0,
       "mrr": 0.8888888888888888,
-      "mean_latency_ms": 51.52547588901749
+      "mean_latency_ms": 30.59690377772818
     },
     "context_hybrid": {
       "evidence_found_rate": 1.0,
@@ -8017,7 +8017,7 @@
       "recall_at_5": 1.0,
       "recall_at_10": 1.0,
       "mrr": 0.8888888888888888,
-      "mean_latency_ms": 44.71642955549113
+      "mean_latency_ms": 30.221968111113206
     }
   },
   "context_metrics": {
@@ -8071,10 +8071,10 @@
     "context_hybrid": 1.0
   },
   "latency_metrics": {
-    "lexical": 4.325131110413673,
-    "semantic": 32.01921833331451,
-    "hybrid": 51.52547588901749,
-    "context_hybrid": 44.71642955549113
+    "lexical": 3.321061888780403,
+    "semantic": 28.919033111227083,
+    "hybrid": 30.59690377772818,
+    "context_hybrid": 30.221968111113206
   },
   "integration_results": [
     {

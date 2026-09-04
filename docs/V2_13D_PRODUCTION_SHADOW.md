@@ -1,12 +1,12 @@
 # V2.13D — Production Shadow for Context-Hybrid Curriculum Document Evidence
 
-Generated: `2026-09-03T11:02:32.987511+00:00`
+Generated: `2026-09-04T09:16:03.910462+00:00`
 
 **Phase 1 status: INSUFFICIENT_SAMPLE**
 
 **Recommendation: CONTINUE SHADOW**
 
-Only 2 successful real shadow evaluations; target is 100–200 before a rollout recommendation.
+Only 0 post-corpus successful real shadow evaluations (pre-corpus=2); target is 100–200 before a rollout recommendation.
 
 ## Metrics
 
@@ -20,10 +20,14 @@ Only 2 successful real shadow evaluations; target is 100–200 before a rollout 
   "traffic_sampled": 2,
   "shadow_completed": 2,
   "successful_shadow_evaluations": 2,
+  "pre_corpus_shadow_evaluations": 2,
+  "post_corpus_shadow_evaluations": 0,
+  "post_corpus_successful_shadow_evaluations": 0,
+  "corpus_unavailable_count": 2,
   "shadow_errors": 0,
   "shadow_timeouts": 0,
   "shadow_error_rate": 0.0,
-  "retrieval_failures": 2,
+  "retrieval_failures": 0,
   "retrieval_success_rate": 0.0,
   "retrieval_success": 0.0,
   "mean_retrieval_latency": 11.659051000151521,
@@ -47,7 +51,7 @@ Only 2 successful real shadow evaluations; target is 100–200 before a rollout 
   "document_did_not_help": 0,
   "document_noise": 0,
   "classifications": {
-    "DOCUMENT_RETRIEVAL_FAILURE": 2
+    "DOCUMENT_CORPUS_UNAVAILABLE": 2
   },
   "safety_metrics": {
     "wrong_context_false_acceptance": 0,
@@ -71,10 +75,10 @@ Only 2 successful real shadow evaluations; target is 100–200 before a rollout 
   "phase1_status": "INSUFFICIENT_SAMPLE",
   "phase1_recommendation": "CONTINUE SHADOW",
   "canary_recommendation": "CANARY_NOT_READY",
-  "canary_note": "Only 2 successful real shadow evaluations; target is 100\u2013200 before a rollout recommendation.",
+  "canary_note": "Only 0 post-corpus successful real shadow evaluations (pre-corpus=2); target is 100\u2013200 before a rollout recommendation.",
   "pipeline_verification": {
     "classification": "PIPELINE_OPERATIONAL",
-    "live_qa_metrics_total_requests": 121,
+    "live_qa_metrics_total_requests": 0,
     "production_jsonl_rows": 2,
     "funnel_stages": {
       "request_seen": 124,
@@ -91,14 +95,14 @@ Only 2 successful real shadow evaluations; target is 100–200 before a rollout 
     "sample_rate": 0.01,
     "jsonl_path": "/home/afiz/Projects/side/curriculum-agent/data/diagnostics/v213d_shadow.jsonl",
     "stages_checklist": {
-      "qa_request": "PASS",
+      "qa_request": "NOT OBSERVED",
       "hook": "PASS",
       "sampling": "PASS",
       "shadow": "PASS",
       "persistence": "PASS"
     }
   },
-  "generated_at": "2026-09-03T11:02:32.987511+00:00",
+  "generated_at": "2026-09-04T09:16:03.910462+00:00",
   "active_configuration": {
     "shadow_enabled": true,
     "sample_rate": 0.01,

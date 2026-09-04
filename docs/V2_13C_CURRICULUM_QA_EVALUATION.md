@@ -1,6 +1,6 @@
 # V2.13C — Controlled Hybrid Retrieval + Real Curriculum QA Evaluation
 
-Generated: `2026-09-03T07:09:22.756682+00:00`
+Generated: `2026-09-04T09:12:58.735211+00:00`
 
 **Conclusion: SUPPORTED**
 
@@ -78,19 +78,17 @@ McNemar statistic is reported as an observed paired discordance measure, not a s
 
 ## Latency
 
-Harness-only timings (stub verifier, frozen structured catalog). Control is ~1.5 ms because it does not call the live Curriculum API; the **absolute** experiment add is ~37 ms of local context-hybrid retrieval, not production LLM latency. Percentage delta is therefore not operationally meaningful.
-
 ```json
 {
-  "control_mean_ms": 1.5147125832299935,
-  "experiment_mean_ms": 38.06685747218176,
-  "control_p50_ms": 0.7317960007640067,
-  "control_p95_ms": 2.715796003030846,
-  "experiment_p50_ms": 35.901915001886664,
-  "experiment_p95_ms": 52.903907002473716,
-  "added_mean_ms": 36.552144888951766,
-  "added_pct": 2413.140637612416,
-  "retrieval_mean_ms": 33.56998322194866
+  "control_mean_ms": 1.6206384166821408,
+  "experiment_mean_ms": 37.932264319433926,
+  "control_p50_ms": 0.7809849998920981,
+  "control_p95_ms": 2.871455999866157,
+  "experiment_p50_ms": 35.77778299995771,
+  "experiment_p95_ms": 42.260884000370424,
+  "added_mean_ms": 36.311625902751786,
+  "added_pct": 2240.5754133047717,
+  "retrieval_mean_ms": 33.11490455551949
 }
 ```
 

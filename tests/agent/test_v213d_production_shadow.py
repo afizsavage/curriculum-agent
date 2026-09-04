@@ -494,6 +494,43 @@ def test_jsonl_runtime_path_absolute():
     assert path.is_absolute()
     assert path.name == "v213d_shadow.jsonl"
 
+
+def test_corpus_unavailable_classification():
+    assert (
+        classify_shadow_comparison(
+            {"final_accepted": False, "final_route": "retrieve_more"},
+            {
+                "final_accepted": False,
+                "document_evidence_count": 0,
+                "corpus_available": False,
+                "retrieval_failure_kind": "corpus_unavailable",
+                "wrong_context": False,
+            },
+        )
+        == "DOCUMENT_CORPUS_UNAVAILABLE"
+    )
+    assert (
+        classify_shadow_comparison(
+            {"final_accepted": False, "final_route": "retrieve_more"},
+            {
+                "final_accepted": False,
+                "document_evidence_count": 0,
+                "corpus_available": True,
+                "retrieval_failure_kind": "no_match",
+                "wrong_context": False,
+            },
+        )
+        == "DOCUMENT_NO_MATCH"
+    )
+
+
+def test_production_corpus_status_empty(tmp_path: Path):
+    from app.agent.v213d_shadow import production_corpus_status
+
+    status = production_corpus_status(tmp_path / "docs", tmp_path / "idx")
+    assert status["available"] is False
+    assert status["document_count"] == 0
+
 def test_replay_includes_required_categories(tmp_path):
     settings = Settings(_env_file=None, llm_provider="stub")
     agent = CurriculumQAAgent(settings=settings, llm=StubLLMProvider())

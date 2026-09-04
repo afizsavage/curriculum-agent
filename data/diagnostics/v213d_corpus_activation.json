@@ -1,0 +1,119 @@
+{
+  "activation": "v213d_phase1c_corpus",
+  "activated_at": "2026-09-04T09:11:16.031986+00:00",
+  "corpus_family": "V2.13A\u2013C BENCHMARK_SOURCES",
+  "store_root": "/home/afiz/Projects/side/curriculum-agent/data/documents",
+  "index_root": "/home/afiz/Projects/side/curriculum-agent/data/document_index",
+  "provenance": [
+    {
+      "document_name": "MBSSE Basic Education Curriculum Framework",
+      "source_id": "bec-framework-2020",
+      "source_url": "https://example.invalid/bec-framework.pdf",
+      "local_source_path": "tests/fixtures/v213_documents/bec_framework.txt",
+      "sha256": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4",
+      "expected_sha256": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4",
+      "version": "2020",
+      "verification_status": "VERIFIED",
+      "structure_hints": {
+        "subject": "MATHEMATICS",
+        "association_method": "source_metadata"
+      }
+    },
+    {
+      "document_name": "Primary Mathematics Curriculum Guidance",
+      "source_id": "math-primary-guidance",
+      "source_url": "https://example.invalid/math-primary.pdf",
+      "local_source_path": "tests/fixtures/v213_documents/math_primary.txt",
+      "sha256": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70",
+      "expected_sha256": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70",
+      "version": "2020",
+      "verification_status": "VERIFIED",
+      "structure_hints": {
+        "grade": "CLASS_4",
+        "subject": "MATHEMATICS",
+        "topic": "money",
+        "unit": "Everyday Arithmetic Money"
+      }
+    },
+    {
+      "document_name": "Primary Science Curriculum Guidance",
+      "source_id": "science-guidance",
+      "source_url": "https://example.invalid/science-primary.pdf",
+      "local_source_path": "tests/fixtures/v213_documents/science_guidance.txt",
+      "sha256": "feef53e14b590cbd983834cd0c144d2060f88ae68f493fe20b536350df3fea13",
+      "expected_sha256": "feef53e14b590cbd983834cd0c144d2060f88ae68f493fe20b536350df3fea13",
+      "version": "2020",
+      "verification_status": "VERIFIED",
+      "structure_hints": {
+        "grade": "CLASS_5",
+        "subject": "SCIENCE"
+      }
+    }
+  ],
+  "discrepancies": [],
+  "ingestion": {
+    "acquisition": [
+      {
+        "source_id": "bec-framework-2020",
+        "name": "MBSSE Basic Education Curriculum Framework",
+        "document_id": "doc-f05cba561646",
+        "content_hash": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4",
+        "page_count": 3,
+        "passage_count": 7,
+        "status": "success"
+      },
+      {
+        "source_id": "math-primary-guidance",
+        "name": "Primary Mathematics Curriculum Guidance",
+        "document_id": "doc-bb746307a337",
+        "content_hash": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70",
+        "page_count": 2,
+        "passage_count": 6,
+        "status": "success"
+      },
+      {
+        "source_id": "science-guidance",
+        "name": "Primary Science Curriculum Guidance",
+        "document_id": "doc-a065e7c5b774",
+        "content_hash": "feef53e14b590cbd983834cd0c144d2060f88ae68f493fe20b536350df3fea13",
+        "page_count": 2,
+        "passage_count": 3,
+        "status": "success"
+      }
+    ],
+    "index": {
+      "embedding_model": "feature-hash-v1",
+      "embedding_dimension": 128,
+      "passages_indexed": 16,
+      "documents_rebuilt": [
+        "doc-a065e7c5b774",
+        "doc-bb746307a337",
+        "doc-f05cba561646"
+      ],
+      "documents_kept": [],
+      "indexed_at": "2026-09-04T09:11:15Z"
+    },
+    "document_hashes": {
+      "bec-framework-2020": "26409f8e53267603f3b446ad19ef422cff73f7116b74661daa09c77459fb08a4",
+      "math-primary-guidance": "3710ff81811f0fd2c436d89db7d43d9a03bdac5ed4e4e25712a0dde2c1733d70",
+      "science-guidance": "feef53e14b590cbd983834cd0c144d2060f88ae68f493fe20b536350df3fea13"
+    }
+  },
+  "counts": {
+    "documents": 3,
+    "passages": 16,
+    "index_entries": 16,
+    "orphaned_document_dirs": 0,
+    "passages_missing_provenance": 0
+  },
+  "hierarchy": {
+    "with_grade": 9,
+    "with_subject": 16,
+    "with_topic": 6
+  },
+  "corpus_available": true,
+  "probe_context_hybrid_hits": 3,
+  "expected_hashes_matched": true,
+  "activation_ok": true,
+  "pre_corpus_rows_reclassified": 2
+}
