@@ -1,0 +1,25 @@
+{"event": "traffic_start", "count": 3, "concurrency": 1, "qa_before": 6, "shadow_rows_before": 2, "categories": {"adversarial": 1, "ambiguous": 1, "document_only": 1}}
+{"event": "progress", "done": 3, "total": 3, "ok": 3, "elapsed_s": 63.0}
+{
+  "event": "traffic_complete",
+  "path": "data/diagnostics/v213d_phase1d_probe.json",
+  "ok": 3,
+  "failed": 0,
+  "qa_requests_after": 9,
+  "shadow_rows_after": 2,
+  "funnel_after": {
+    "request_seen": 134,
+    "shadow_eligible": 134,
+    "shadow_sampled": 4,
+    "shadow_not_sampled": 130,
+    "shadow_started": 2,
+    "shadow_completed": 2,
+    "shadow_failed": 0,
+    "shadow_persisted": 2,
+    "persist_error": 0
+  },
+  "traffic_after": {
+    "total_production_requests": 132,
+    "sampled_requests": 2
+  }
+}

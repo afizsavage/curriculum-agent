@@ -1,0 +1,84 @@
+{"event": "traffic_start", "count": 600, "concurrency": 6, "qa_before": 0, "shadow_rows_before": 2, "categories": {"adversarial": 86, "ambiguous": 86, "document_only": 86, "insufficient_evidence": 86, "source_grounding": 86, "structured_fact": 85, "structured_plus_document": 85}}
+{"event": "progress", "done": 10, "total": 600, "ok": 8, "elapsed_s": 120.8}
+{"event": "progress", "done": 20, "total": 600, "ok": 18, "elapsed_s": 188.0}
+{"event": "progress", "done": 30, "total": 600, "ok": 19, "elapsed_s": 281.4}
+{"event": "progress", "done": 40, "total": 600, "ok": 27, "elapsed_s": 339.8}
+{"event": "progress", "done": 50, "total": 600, "ok": 36, "elapsed_s": 382.4}
+{"event": "progress", "done": 60, "total": 600, "ok": 46, "elapsed_s": 436.8}
+{"event": "progress", "done": 70, "total": 600, "ok": 56, "elapsed_s": 468.1}
+{"event": "progress", "done": 80, "total": 600, "ok": 66, "elapsed_s": 554.0}
+{"event": "progress", "done": 90, "total": 600, "ok": 72, "elapsed_s": 603.4}
+{"event": "progress", "done": 100, "total": 600, "ok": 80, "elapsed_s": 652.8}
+{"event": "progress", "done": 110, "total": 600, "ok": 88, "elapsed_s": 752.0}
+{"event": "progress", "done": 120, "total": 600, "ok": 98, "elapsed_s": 804.3}
+{"event": "progress", "done": 130, "total": 600, "ok": 108, "elapsed_s": 873.9}
+{"event": "progress", "done": 140, "total": 600, "ok": 118, "elapsed_s": 906.1}
+{"event": "progress", "done": 150, "total": 600, "ok": 128, "elapsed_s": 944.1}
+{"event": "progress", "done": 160, "total": 600, "ok": 137, "elapsed_s": 1005.3}
+{"event": "progress", "done": 170, "total": 600, "ok": 142, "elapsed_s": 1082.8}
+{"event": "progress", "done": 180, "total": 600, "ok": 150, "elapsed_s": 1170.7}
+{"event": "progress", "done": 190, "total": 600, "ok": 159, "elapsed_s": 1217.7}
+{"event": "progress", "done": 200, "total": 600, "ok": 169, "elapsed_s": 1259.0}
+{"event": "progress", "done": 210, "total": 600, "ok": 178, "elapsed_s": 1332.1}
+{"event": "progress", "done": 220, "total": 600, "ok": 188, "elapsed_s": 1376.3}
+{"event": "progress", "done": 230, "total": 600, "ok": 192, "elapsed_s": 1441.3}
+{"event": "progress", "done": 240, "total": 600, "ok": 202, "elapsed_s": 1530.4}
+{"event": "progress", "done": 250, "total": 600, "ok": 212, "elapsed_s": 1613.6}
+{"event": "progress", "done": 260, "total": 600, "ok": 222, "elapsed_s": 1668.3}
+{"event": "progress", "done": 270, "total": 600, "ok": 232, "elapsed_s": 1699.0}
+{"event": "progress", "done": 280, "total": 600, "ok": 242, "elapsed_s": 1758.2}
+{"event": "progress", "done": 290, "total": 600, "ok": 252, "elapsed_s": 1807.8}
+{"event": "progress", "done": 300, "total": 600, "ok": 262, "elapsed_s": 1870.1}
+{"event": "progress", "done": 310, "total": 600, "ok": 272, "elapsed_s": 1937.0}
+{"event": "progress", "done": 320, "total": 600, "ok": 282, "elapsed_s": 1999.4}
+{"event": "progress", "done": 330, "total": 600, "ok": 292, "elapsed_s": 2065.2}
+{"event": "progress", "done": 340, "total": 600, "ok": 300, "elapsed_s": 2141.4}
+{"event": "progress", "done": 350, "total": 600, "ok": 308, "elapsed_s": 2182.3}
+{"event": "progress", "done": 360, "total": 600, "ok": 318, "elapsed_s": 2262.5}
+{"event": "progress", "done": 370, "total": 600, "ok": 328, "elapsed_s": 2312.3}
+{"event": "progress", "done": 380, "total": 600, "ok": 338, "elapsed_s": 2374.8}
+{"event": "progress", "done": 390, "total": 600, "ok": 348, "elapsed_s": 2425.4}
+{"event": "progress", "done": 400, "total": 600, "ok": 358, "elapsed_s": 2472.9}
+{"event": "progress", "done": 410, "total": 600, "ok": 368, "elapsed_s": 2549.3}
+{"event": "progress", "done": 420, "total": 600, "ok": 378, "elapsed_s": 2630.3}
+{"event": "progress", "done": 430, "total": 600, "ok": 388, "elapsed_s": 2688.0}
+{"event": "progress", "done": 440, "total": 600, "ok": 398, "elapsed_s": 2743.5}
+{"event": "progress", "done": 450, "total": 600, "ok": 408, "elapsed_s": 2803.0}
+{"event": "progress", "done": 460, "total": 600, "ok": 418, "elapsed_s": 2870.0}
+{"event": "progress", "done": 470, "total": 600, "ok": 428, "elapsed_s": 2935.3}
+{"event": "progress", "done": 480, "total": 600, "ok": 438, "elapsed_s": 3001.3}
+{"event": "progress", "done": 490, "total": 600, "ok": 448, "elapsed_s": 3047.3}
+{"event": "progress", "done": 500, "total": 600, "ok": 457, "elapsed_s": 3112.0}
+{"event": "progress", "done": 510, "total": 600, "ok": 467, "elapsed_s": 3157.8}
+{"event": "progress", "done": 520, "total": 600, "ok": 477, "elapsed_s": 3225.6}
+{"event": "progress", "done": 530, "total": 600, "ok": 487, "elapsed_s": 3286.9}
+{"event": "progress", "done": 540, "total": 600, "ok": 495, "elapsed_s": 3389.3}
+{"event": "progress", "done": 550, "total": 600, "ok": 503, "elapsed_s": 3501.2}
+{"event": "progress", "done": 560, "total": 600, "ok": 513, "elapsed_s": 3564.1}
+{"event": "progress", "done": 570, "total": 600, "ok": 523, "elapsed_s": 3651.7}
+{"event": "progress", "done": 580, "total": 600, "ok": 533, "elapsed_s": 3707.9}
+{"event": "progress", "done": 590, "total": 600, "ok": 543, "elapsed_s": 3787.5}
+{"event": "progress", "done": 600, "total": 600, "ok": 550, "elapsed_s": 3923.2}
+{
+  "event": "traffic_complete",
+  "path": "data/diagnostics/v213d_phase1d_traffic_run.json",
+  "ok": 550,
+  "failed": 50,
+  "qa_requests_after": 194,
+  "shadow_rows_after": 7,
+  "funnel_after": {
+    "request_seen": 690,
+    "shadow_eligible": 690,
+    "shadow_sampled": 9,
+    "shadow_not_sampled": 681,
+    "shadow_started": 7,
+    "shadow_completed": 7,
+    "shadow_failed": 0,
+    "shadow_persisted": 7,
+    "persist_error": 0
+  },
+  "traffic_after": {
+    "total_production_requests": 688,
+    "sampled_requests": 7
+  }
+}

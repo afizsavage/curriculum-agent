@@ -87,6 +87,10 @@ class Settings(BaseSettings):
     v213d_shadow_retrieval_variant: str = "context_hybrid"
     v213d_shadow_timeout_seconds: float = Field(default=30.0, gt=0)
 
+    # V2.13F experiment: document evidence arbitration (shadow/replay only; default off).
+    v213f_document_arbitration_experiment: bool = False
+    v213f_arbitration_policy: str = "C_ARBITRATED"
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite

@@ -1,0 +1,104 @@
+{"event": "traffic_start", "count": 800, "concurrency": 2, "qa_before": 125, "shadow_rows_before": 21, "categories": {"adversarial": 115, "ambiguous": 115, "document_only": 114, "insufficient_evidence": 114, "source_grounding": 114, "structured_fact": 114, "structured_plus_document": 114}}
+{"event": "progress", "done": 10, "total": 800, "ok": 10, "elapsed_s": 171.7}
+{"event": "progress", "done": 20, "total": 800, "ok": 20, "elapsed_s": 302.8}
+{"event": "progress", "done": 30, "total": 800, "ok": 29, "elapsed_s": 438.8}
+{"event": "progress", "done": 40, "total": 800, "ok": 39, "elapsed_s": 617.4}
+{"event": "progress", "done": 50, "total": 800, "ok": 49, "elapsed_s": 742.5}
+{"event": "progress", "done": 60, "total": 800, "ok": 59, "elapsed_s": 841.8}
+{"event": "progress", "done": 70, "total": 800, "ok": 69, "elapsed_s": 997.1}
+{"event": "progress", "done": 80, "total": 800, "ok": 79, "elapsed_s": 1152.1}
+{"event": "progress", "done": 90, "total": 800, "ok": 89, "elapsed_s": 1295.9}
+{"event": "progress", "done": 100, "total": 800, "ok": 99, "elapsed_s": 1424.7}
+{"event": "progress", "done": 110, "total": 800, "ok": 109, "elapsed_s": 1556.8}
+{"event": "progress", "done": 120, "total": 800, "ok": 119, "elapsed_s": 1696.8}
+{"event": "progress", "done": 130, "total": 800, "ok": 129, "elapsed_s": 1856.6}
+{"event": "progress", "done": 140, "total": 800, "ok": 138, "elapsed_s": 2020.5}
+{"event": "progress", "done": 150, "total": 800, "ok": 148, "elapsed_s": 2189.4}
+{"event": "progress", "done": 160, "total": 800, "ok": 158, "elapsed_s": 2284.9}
+{"event": "progress", "done": 170, "total": 800, "ok": 168, "elapsed_s": 2399.3}
+{"event": "progress", "done": 180, "total": 800, "ok": 178, "elapsed_s": 2524.7}
+{"event": "progress", "done": 190, "total": 800, "ok": 188, "elapsed_s": 2661.8}
+{"event": "progress", "done": 200, "total": 800, "ok": 197, "elapsed_s": 2741.3}
+{"event": "progress", "done": 210, "total": 800, "ok": 207, "elapsed_s": 2879.5}
+{"event": "progress", "done": 220, "total": 800, "ok": 217, "elapsed_s": 2988.5}
+{"event": "progress", "done": 230, "total": 800, "ok": 227, "elapsed_s": 3111.0}
+{"event": "progress", "done": 240, "total": 800, "ok": 237, "elapsed_s": 3229.9}
+{"event": "progress", "done": 250, "total": 800, "ok": 247, "elapsed_s": 3375.3}
+{"event": "progress", "done": 260, "total": 800, "ok": 257, "elapsed_s": 3483.4}
+{"event": "progress", "done": 270, "total": 800, "ok": 267, "elapsed_s": 3594.6}
+{"event": "progress", "done": 280, "total": 800, "ok": 277, "elapsed_s": 3711.9}
+{"event": "progress", "done": 290, "total": 800, "ok": 287, "elapsed_s": 3808.3}
+{"event": "progress", "done": 300, "total": 800, "ok": 296, "elapsed_s": 3990.1}
+{"event": "progress", "done": 310, "total": 800, "ok": 306, "elapsed_s": 4111.4}
+{"event": "progress", "done": 320, "total": 800, "ok": 316, "elapsed_s": 4290.1}
+{"event": "progress", "done": 330, "total": 800, "ok": 326, "elapsed_s": 4408.3}
+{"event": "progress", "done": 340, "total": 800, "ok": 336, "elapsed_s": 4527.9}
+{"event": "progress", "done": 350, "total": 800, "ok": 346, "elapsed_s": 4619.5}
+{"event": "progress", "done": 360, "total": 800, "ok": 356, "elapsed_s": 4779.7}
+{"event": "progress", "done": 370, "total": 800, "ok": 366, "elapsed_s": 4925.1}
+{"event": "progress", "done": 380, "total": 800, "ok": 376, "elapsed_s": 5063.3}
+{"event": "progress", "done": 390, "total": 800, "ok": 386, "elapsed_s": 5182.4}
+{"event": "progress", "done": 400, "total": 800, "ok": 396, "elapsed_s": 5334.6}
+{"event": "progress", "done": 410, "total": 800, "ok": 406, "elapsed_s": 5464.4}
+{"event": "progress", "done": 420, "total": 800, "ok": 416, "elapsed_s": 5639.2}
+{"event": "progress", "done": 430, "total": 800, "ok": 426, "elapsed_s": 5737.2}
+{"event": "progress", "done": 440, "total": 800, "ok": 436, "elapsed_s": 5830.0}
+{"event": "progress", "done": 450, "total": 800, "ok": 446, "elapsed_s": 5927.7}
+{"event": "progress", "done": 460, "total": 800, "ok": 456, "elapsed_s": 6069.5}
+{"event": "progress", "done": 470, "total": 800, "ok": 466, "elapsed_s": 6206.9}
+{"event": "progress", "done": 480, "total": 800, "ok": 476, "elapsed_s": 6329.9}
+{"event": "progress", "done": 490, "total": 800, "ok": 486, "elapsed_s": 6491.8}
+{"event": "progress", "done": 500, "total": 800, "ok": 496, "elapsed_s": 6625.6}
+{"event": "progress", "done": 510, "total": 800, "ok": 506, "elapsed_s": 6709.4}
+{"event": "progress", "done": 520, "total": 800, "ok": 516, "elapsed_s": 6841.7}
+{"event": "progress", "done": 530, "total": 800, "ok": 525, "elapsed_s": 7009.6}
+{"event": "progress", "done": 540, "total": 800, "ok": 535, "elapsed_s": 7140.5}
+{"event": "progress", "done": 550, "total": 800, "ok": 545, "elapsed_s": 7239.4}
+{"event": "progress", "done": 560, "total": 800, "ok": 555, "elapsed_s": 7342.9}
+{"event": "progress", "done": 570, "total": 800, "ok": 565, "elapsed_s": 7479.5}
+{"event": "progress", "done": 580, "total": 800, "ok": 575, "elapsed_s": 7619.0}
+{"event": "progress", "done": 590, "total": 800, "ok": 584, "elapsed_s": 7753.2}
+{"event": "progress", "done": 600, "total": 800, "ok": 594, "elapsed_s": 7880.3}
+{"event": "progress", "done": 610, "total": 800, "ok": 604, "elapsed_s": 7978.9}
+{"event": "progress", "done": 620, "total": 800, "ok": 614, "elapsed_s": 8123.9}
+{"event": "progress", "done": 630, "total": 800, "ok": 624, "elapsed_s": 8300.7}
+{"event": "progress", "done": 640, "total": 800, "ok": 634, "elapsed_s": 8459.2}
+{"event": "progress", "done": 650, "total": 800, "ok": 644, "elapsed_s": 8586.6}
+{"event": "progress", "done": 660, "total": 800, "ok": 654, "elapsed_s": 8684.5}
+{"event": "progress", "done": 670, "total": 800, "ok": 664, "elapsed_s": 8820.7}
+{"event": "progress", "done": 680, "total": 800, "ok": 674, "elapsed_s": 8920.6}
+{"event": "progress", "done": 690, "total": 800, "ok": 684, "elapsed_s": 9015.9}
+{"event": "progress", "done": 700, "total": 800, "ok": 690, "elapsed_s": 9140.4}
+{"event": "progress", "done": 710, "total": 800, "ok": 690, "elapsed_s": 9145.0}
+{"event": "progress", "done": 720, "total": 800, "ok": 690, "elapsed_s": 9148.3}
+{"event": "progress", "done": 730, "total": 800, "ok": 690, "elapsed_s": 9152.0}
+{"event": "progress", "done": 740, "total": 800, "ok": 690, "elapsed_s": 9158.1}
+{"event": "progress", "done": 750, "total": 800, "ok": 690, "elapsed_s": 9162.1}
+{"event": "progress", "done": 760, "total": 800, "ok": 690, "elapsed_s": 9168.4}
+{"event": "progress", "done": 770, "total": 800, "ok": 690, "elapsed_s": 9173.8}
+{"event": "progress", "done": 780, "total": 800, "ok": 690, "elapsed_s": 9178.6}
+{"event": "progress", "done": 790, "total": 800, "ok": 690, "elapsed_s": 9186.4}
+{"event": "progress", "done": 800, "total": 800, "ok": 690, "elapsed_s": 9191.4}
+{
+  "event": "traffic_complete",
+  "path": "data/diagnostics/v213d_phase1e_traffic_run3.json",
+  "ok": 690,
+  "failed": 110,
+  "qa_requests_after": 925,
+  "shadow_rows_after": 31,
+  "funnel_after": {
+    "request_seen": 2414,
+    "shadow_eligible": 2414,
+    "shadow_sampled": 33,
+    "shadow_not_sampled": 2381,
+    "shadow_started": 31,
+    "shadow_completed": 30,
+    "shadow_failed": 1,
+    "shadow_persisted": 31,
+    "persist_error": 0
+  },
+  "traffic_after": {
+    "total_production_requests": 2412,
+    "sampled_requests": 31
+  }
+}

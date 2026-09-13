@@ -35,6 +35,11 @@ from app.agent.v213b_semantic_retrieval import HybridDocumentRetrievalService
 from app.agent.v213b_vector_index import PassageVectorIndex
 from app.agent.v213c_dataset import build_v213c_dataset
 from app.agent.v213c_experiment import frozen_structured_catalog
+from app.agent.v213d_phase1e_diagnostics import (
+    build_phase1e_diagnostics,
+    enrich_existing_record,
+    segment_and_transitions,
+)
 from app.agent.v25_experiment import _CLEAN_PLACEHOLDER
 from app.agent.v26_experiment import answer_hash
 from app.agent.v28_recommendation_mapping import map_recommendation
@@ -113,6 +118,12 @@ def v213d_runtime_config(settings: Settings) -> dict[str, Any]:
         ),
         "timeout_seconds": float(
             getattr(settings, "v213d_shadow_timeout_seconds", 30.0) or 30.0
+        ),
+        "v213f_document_arbitration_experiment": bool(
+            getattr(settings, "v213f_document_arbitration_experiment", False)
+        ),
+        "v213f_arbitration_policy": str(
+            getattr(settings, "v213f_arbitration_policy", "C_ARBITRATED")
         ),
     }
 
@@ -395,6 +406,7 @@ def _control_snapshot(state: CurriculumQAState, settings: Settings) -> dict[str,
         "final_route": route,
         "answer_present": bool(answer),
         "answer_hash": answer_hash(answer) if answer else "",
+        "answer_length": len(answer),
         "model": (state.metadata or {}).get("model"),
         "generation_config": {
             "provider": getattr(settings, "llm_provider", None),
@@ -564,8 +576,50 @@ def run_shadow_pipeline(
             retrieval=retrieval,
             timeout_seconds=float(getattr(settings, "v213d_shadow_timeout_seconds", 30.0)),
         )
-        stage = "merge"
-        merged = merge_evidence_bundles(structured, documents)
+        stage = "arbitration"
+        arbitration_info: dict[str, Any] | None = None
+        if bool(getattr(settings, "v213f_document_arbitration_experiment", False)):
+            from app.agent.v213f_arbitration import (
+                ArbitrationPolicy,
+                arbitrate_documents,
+                select_generation_evidence,
+            )
+
+            policy_raw = str(
+                getattr(settings, "v213f_arbitration_policy", "C_ARBITRATED") or "C_ARBITRATED"
+            )
+            try:
+                policy = ArbitrationPolicy(policy_raw)
+            except ValueError:
+                policy = ArbitrationPolicy.ARBITRATED
+            decision = arbitrate_documents(
+                documents,
+                structured=structured,
+                question=production_state.question or "",
+                grade=production_state.grade,
+                subject=production_state.subject,
+                topic=production_state.topic,
+                control_accepted=bool(control.get("final_accepted")),
+                control_route=control.get("final_route"),
+                control_verifier_decision=control.get("verifier_decision"),
+                policy=policy,
+            )
+            generation_bundle, provenance_only = select_generation_evidence(
+                structured, documents, decision
+            )
+            arbitration_info = {
+                **decision.to_dict(),
+                "generation_document_count": sum(
+                    1
+                    for e in generation_bundle
+                    if getattr(e, "entity_type", None) == "document_passage"
+                ),
+                "provenance_document_count": len(provenance_only),
+            }
+            merged = generation_bundle
+        else:
+            stage = "merge"
+            merged = merge_evidence_bundles(structured, documents)
         stage = "normalization"
         normalized = normalize_evidence(merged, NormalizationVariant.STRUCTURAL_NORMALIZATION)
         stage = "metadata_guard"
@@ -623,6 +677,7 @@ def run_shadow_pipeline(
             "structured_evidence_count": len(structured),
             "document_evidence_count": len(documents),
             "evidence_count": len(verify_evidence),
+            "evidence_snapshot": evidence_snapshot_hash(verify_evidence),
             "evidence_summary": _evidence_summary(verify_evidence),
             "document_passages": retrieval_meta.get("passages")
             or _document_passage_summaries(documents),
@@ -653,6 +708,8 @@ def run_shadow_pipeline(
             "final_route": final_route,
             "answer_present": bool(answer),
             "answer_hash": answer_hash(answer) if answer else "",
+            "answer_length": len(answer),
+            "merged_evidence_count": len(verify_evidence),
             "provenance_complete": _provenance_complete(documents),
             "wrong_context": wrong_context,
             "placeholder_evidence": placeholder,
@@ -662,10 +719,32 @@ def run_shadow_pipeline(
                 "model": getattr(settings, "llm_model", None),
             },
         }
+        if arbitration_info is not None:
+            shadow["v213f_arbitration"] = arbitration_info
         category = infer_question_category(production_state, len(documents))
         comparison = classify_shadow_outcome(
             control, shadow, question_category=category
         )
+        control_answer = production_state.final_answer or production_state.draft_answer or ""
+        diagnostics = build_phase1e_diagnostics(
+            control,
+            shadow,
+            comparison,
+            question_grade=production_state.grade,
+            question_subject=production_state.subject,
+            question_topic=production_state.topic,
+            control_answer=control_answer,
+            shadow_answer=answer,
+        )
+        comparison = dict(comparison)
+        comparison["document_effect"] = diagnostics["document_value"]["document_effect"]
+        comparison["retrieval_quality"] = diagnostics["document_value"][
+            "retrieval_quality"
+        ]
+        comparison["regression_cause"] = diagnostics.get("regression_cause")
+        comparison["structured_sufficient_document_retrieved"] = diagnostics[
+            "document_value"
+        ]["structured_sufficient_document_retrieved"]
         corpus_epoch = (
             "post_corpus"
             if retrieval_meta.get("corpus_available")
@@ -675,6 +754,7 @@ def run_shadow_pipeline(
             "experiment": _EXPERIMENT_NAME,
             "schema_version": _SCHEMA_VERSION,
             "phase": "phase1",
+            "observation_phase": "phase1e",
             "corpus_epoch": corpus_epoch,
             "request_id": hashlib.sha256((request_id or "").encode()).hexdigest()[:16]
             if request_id
@@ -703,6 +783,7 @@ def run_shadow_pipeline(
                 "unsupported_claims": shadow["unsupported_claims"],
             },
             "comparison": comparison,
+            "diagnostics": diagnostics,
             "latency_ms": (time.perf_counter() - started) * 1000,
         }
         log_agent_event(
@@ -1095,24 +1176,31 @@ def phase1_observation_status(metrics: dict[str, Any]) -> tuple[str, str]:
     worse = int(metrics.get("control_correct_shadow_worse") or 0)
     regressions = int(metrics.get("regressions") or 0)
     newly = int(metrics.get("newly_recoverable_count") or 0)
+    # Mid-sample recurrent regressions (Phase 1E) outrank pure sample-size status.
+    if metrics.get("phase1e_investigate_signal"):
+        return (
+            "INVESTIGATE_BEFORE_CONTINUING",
+            "CONTINUE SHADOW",
+        )
     if completed < OBSERVATION_TARGET_MIN:
         return (
             "INSUFFICIENT_SAMPLE",
             "CONTINUE SHADOW",
         )
+    # Recurring regressions after a meaningful sample → investigate.
     if worse > 0 or regressions > 0:
         return (
-            "REGRESSION_DETECTED",
-            "INVESTIGATE BEFORE CONTINUING",
+            "INVESTIGATE_BEFORE_CONTINUING",
+            "CONTINUE SHADOW",
         )
     if newly > 0 and completed >= OBSERVATION_TARGET_MIN:
         if completed >= OBSERVATION_TARGET_MAX:
             return (
-                "PROMISING",
+                "OBSERVATION_READY",
                 "CONTINUE SHADOW",
             )
         return (
-            "PROMISING",
+            "OBSERVATION_READY",
             "CONTINUE SHADOW",
         )
     return (
@@ -1341,11 +1429,43 @@ def aggregate_records(
             "V2.13D Phase 1 real-traffic observations are not statistically equivalent."
         ),
     }
+    phase1e = segment_and_transitions(metric_base)
+    metrics.update(
+        {
+            "phase1e": phase1e,
+            "document_helped": phase1e.get("document_helped"),
+            "document_neutral": phase1e.get("document_neutral"),
+            "document_hurt": phase1e.get("document_hurt"),
+            "structured_sufficient_document_retrieved": phase1e.get(
+                "structured_sufficient_document_retrieved"
+            ),
+            "transitions": phase1e.get("transitions"),
+            "segmentation": phase1e.get("segmentation"),
+            "regression_cause_counts": phase1e.get("regression_cause_counts"),
+            "retrieval_quality_counts": phase1e.get("retrieval_quality_counts"),
+            "document_effect_counts": phase1e.get("document_effect_counts"),
+        }
+    )
+    # Recurring regression signal for mid-size samples (diagnostic Phase 1E).
+    if (
+        len(post_successful) >= 20
+        and int(metrics.get("control_correct_shadow_worse") or 0) >= 3
+        and float(metrics.get("regression_rate") or 0) >= 0.15
+    ):
+        metrics["phase1e_investigate_signal"] = True
+    else:
+        metrics["phase1e_investigate_signal"] = False
     status_input = {
         **metrics,
         "successful_shadow_evaluations": len(post_successful),
     }
     status, recommendation = phase1_observation_status(status_input)
+    if metrics.get("phase1e_investigate_signal"):
+        metrics["phase1_investigate_note"] = (
+            "Recurring control_correct_shadow_worse pattern (n≥20, worse≥3, "
+            "regression_rate≥0.15); diagnose before treating rates as stable. "
+            "V2.13E remains disabled."
+        )
     metrics["phase1_status"] = status
     metrics["phase1_recommendation"] = recommendation
     metrics["canary_recommendation"] = (
@@ -1365,9 +1485,10 @@ def aggregate_records(
         metrics["canary_note"] = (
             "Safety gate failed; do not enable canary or production document retrieval."
         )
-    elif status == "REGRESSION_DETECTED":
+    elif status == "INVESTIGATE_BEFORE_CONTINUING":
         metrics["canary_note"] = (
-            "Control-correct / shadow-worse cases detected; investigate before continuing."
+            "Control-correct / shadow-worse cases detected after sufficient sample; "
+            "investigate before continuing toward V2.13E."
         )
     else:
         metrics["canary_note"] = (

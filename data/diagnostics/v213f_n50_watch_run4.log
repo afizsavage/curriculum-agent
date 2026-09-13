@@ -1,0 +1,9 @@
+{"event": "watch_start", "target": 50, "post_ok": 41}
+{"event": "progress", "post_ok": 41, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 41, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 41, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 41, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 41, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 41, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 41, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 41, "target": 50, "traffic_alive": true}

@@ -1,0 +1,6 @@
+{"event": "traffic_start", "count": 2500, "concurrency": 3, "qa_before": 0, "shadow_rows_before": 31, "categories": {"adversarial": 358, "ambiguous": 357, "document_only": 357, "insufficient_evidence": 357, "source_grounding": 357, "structured_fact": 357, "structured_plus_document": 357}}
+{"event": "progress", "done": 10, "total": 2500, "ok": 10, "elapsed_s": 433.5}
+{"event": "progress", "done": 20, "total": 2500, "ok": 20, "elapsed_s": 706.5}
+{"event": "progress", "done": 30, "total": 2500, "ok": 29, "elapsed_s": 1093.7}
+{"event": "progress", "done": 40, "total": 2500, "ok": 39, "elapsed_s": 1487.7}
+{"event": "progress", "done": 50, "total": 2500, "ok": 49, "elapsed_s": 1817.4}

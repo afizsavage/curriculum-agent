@@ -160,6 +160,44 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
             }
         except Exception:
             phase1d_traffic = {}
+    phase1e_traffic: dict = {}
+    # Prefer the newest completed Phase 1E traffic artifact (runN.json).
+    phase1e_candidates = sorted(
+        Path("data/diagnostics").glob("v213d_phase1e_traffic_run*.json"),
+        key=lambda p: p.stat().st_mtime,
+        reverse=True,
+    )
+    # Also allow the unnumbered legacy path.
+    legacy = Path("data/diagnostics/v213d_phase1e_traffic_run.json")
+    if legacy.is_file():
+        phase1e_candidates.append(legacy)
+    for candidate in phase1e_candidates:
+        if not candidate.is_file() or candidate.stat().st_size <= 0:
+            continue
+        try:
+            raw = json.loads(candidate.read_text(encoding="utf-8"))
+            # Skip in-progress / empty shells that lack completion fields.
+            if raw.get("ok") is None and raw.get("elapsed_s") is None:
+                continue
+            phase1e_traffic = {
+                "path": str(candidate),
+                "traffic_class": raw.get("traffic_class"),
+                "requested": raw.get("requested"),
+                "ok": raw.get("ok"),
+                "failed": raw.get("failed"),
+                "elapsed_s": raw.get("elapsed_s"),
+                "categories": raw.get("categories"),
+                "shadow_rows_before": raw.get("shadow_rows_before"),
+                "shadow_rows_after": raw.get("shadow_rows_after"),
+                "funnel_before": raw.get("funnel_before"),
+                "funnel_after": raw.get("funnel_after"),
+                "traffic_before": raw.get("traffic_before"),
+                "traffic_after": raw.get("traffic_after"),
+                "mean_latency_ms": raw.get("mean_latency_ms"),
+            }
+            break
+        except Exception:
+            phase1e_traffic = {}
     lines = [
         "# V2.13D Phase 1 Observation Report",
         "",
@@ -199,10 +237,15 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         f"    activation_ok={activation.get('activation_ok')}",
         f"    expected_hashes_matched={activation.get('expected_hashes_matched')}",
         "",
-        "Phase 1D — post-corpus observation",
+        "Phase 1D — first post-corpus real observations",
+        "    initial post-corpus n≈5; retrieval operational; mixed document value",
+        "",
+        "Phase 1E — diagnostic continuation",
         f"    post-corpus real shadows: {report.get('post_corpus_successful_shadow_evaluations', 0)}",
         "    sample_rate remains 0.01 (no forced sampling)",
         f"    metrics_scope: {report.get('metrics_scope', 'post_corpus')}",
+        f"    document_helped/neutral/hurt: {report.get('document_helped')}/"
+        f"{report.get('document_neutral')}/{report.get('document_hurt')}",
         f"    retrieval_success (post-corpus): {report.get('retrieval_success_rate')}",
         f"    newly_recoverable: {report.get('newly_recoverable_count')}",
         f"    regressions (control_correct_shadow_worse): {report.get('control_correct_shadow_worse')}",
@@ -250,6 +293,14 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         "```json",
         json.dumps(phase1d_traffic, indent=2),
         "```",
+        "",
+        "## Phase 1E Traffic Batch",
+        "",
+        "```json",
+        json.dumps(phase1e_traffic, indent=2),
+        "```",
+        "",
+        f"Investigate note: {report.get('phase1_investigate_note') or 'none'}",
         "",
         "## Pre- vs Post-Corpus Real Shadows",
         "",
@@ -313,6 +364,27 @@ def write_phase1_doc(report: dict, *, config: dict) -> None:
         "Primary performance metrics above are scoped to **post-corpus** shadows. "
         "Pre-corpus `DOCUMENT_CORPUS_UNAVAILABLE` rows remain historical infrastructure "
         "failures and are excluded from retrieval-quality rates.",
+        "",
+        "## Phase 1E Diagnostic Attribution",
+        "",
+        "```json",
+        json.dumps(
+            {
+                "document_helped": report.get("document_helped"),
+                "document_neutral": report.get("document_neutral"),
+                "document_hurt": report.get("document_hurt"),
+                "document_effect_counts": report.get("document_effect_counts"),
+                "retrieval_quality_counts": report.get("retrieval_quality_counts"),
+                "structured_sufficient_document_retrieved": report.get(
+                    "structured_sufficient_document_retrieved"
+                ),
+                "transitions": report.get("transitions"),
+                "regression_cause_counts": report.get("regression_cause_counts"),
+                "segmentation": report.get("segmentation"),
+            },
+            indent=2,
+        ),
+        "```",
         "",
         "## Phase 1 Traffic Pipeline Verification",
         "",

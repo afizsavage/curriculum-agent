@@ -1,0 +1,1 @@
+{"event": "traffic_start", "count": 2000, "concurrency": 4, "qa_before": 0, "shadow_rows_before": 36, "categories": {"adversarial": 286, "ambiguous": 286, "document_only": 286, "insufficient_evidence": 286, "source_grounding": 286, "structured_fact": 285, "structured_plus_document": 285}}

@@ -568,3 +568,76 @@ def test_metadata_guard_blocks_acceptance(tmp_path):
     shadow = records[0]["shadow"]
     if not shadow.get("error"):
         assert shadow.get("final_accepted") is False
+
+
+def test_phase1e_diagnostics_regression_cause_generator_drift():
+    from app.agent.v213d_phase1e_diagnostics import build_phase1e_diagnostics
+
+    control = {
+        "evidence_count": 40,
+        "final_accepted": True,
+        "final_route": "finish",
+        "verifier_decision": "accept",
+        "verifier_score": 1.0,
+        "mapper_recommendation": "accept",
+        "unsupported_claims": [],
+        "answer_hash": "aaa",
+    }
+    shadow = {
+        "structured_evidence_count": 40,
+        "document_evidence_count": 5,
+        "evidence_count": 45,
+        "final_accepted": False,
+        "final_route": "fallback",
+        "verifier_decision": "retrieve_more",
+        "verifier_score": 0.6,
+        "mapper_recommendation": "reject",
+        "unsupported_claims": ["Money in Class 4 should help pupils understand value"],
+        "answer_hash": "bbb",
+        "document_passages": [
+            {
+                "document_id": "doc-f05cba561646",
+                "source_url": "https://example.invalid/bec-framework.pdf",
+                "subject": "MATHEMATICS",
+                "grade": None,
+            }
+        ],
+    }
+    comparison = {
+        "classification": "DOCUMENT_NOISE",
+        "regressed": True,
+        "control_correct_shadow_worse": True,
+    }
+    diag = build_phase1e_diagnostics(control, shadow, comparison, question_grade="CLASS_4")
+    assert diag["regression_cause"] == "GENERATOR_DOCUMENT_DRIFT"
+    assert diag["document_value"]["document_effect"] == "hurt"
+    assert diag["document_value"]["retrieval_quality"] == "retrieval_noise"
+    assert diag["deltas"]["route"] == "finish→fallback"
+
+
+def test_phase1e_document_helped_vs_neutral():
+    from app.agent.v213d_phase1e_diagnostics import build_document_value_attribution
+
+    helped = build_document_value_attribution(
+        {"final_accepted": False},
+        {
+            "document_evidence_count": 3,
+            "document_passages": [{"subject": "SCIENCE", "grade": "CLASS_5"}],
+        },
+        {"classification": "DOCUMENT_ADDED_MISSING_CONTEXT", "newly_recoverable": True},
+        question_subject="SCIENCE",
+    )
+    assert helped["document_effect"] == "helped"
+    assert helped["retrieval_quality"] == "retrieval_decisive"
+
+    neutral = build_document_value_attribution(
+        {"final_accepted": False},
+        {
+            "document_evidence_count": 3,
+            "document_passages": [{"subject": "SCIENCE", "grade": "CLASS_5"}],
+        },
+        {"classification": "DOCUMENT_DID_NOT_HELP"},
+        question_subject="SCIENCE",
+    )
+    assert neutral["document_effect"] == "neutral"
+    assert neutral["retrieval_quality"] == "retrieval_non_decisive"

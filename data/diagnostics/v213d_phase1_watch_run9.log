@@ -1,0 +1,2 @@
+{"event": "watch_start", "post_ok": 38, "milestones": [50, 75, 100]}
+{"event": "progress", "post_ok": 38, "traffic_alive": true}
