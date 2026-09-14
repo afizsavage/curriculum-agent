@@ -24,10 +24,24 @@ def write_report(summary: dict, *, out_md: Path) -> None:
     def row(metric: str, b, s, a) -> str:
         return f"| {metric:<27} | {b:>6} | {s:>6} | {a:>6} |"
 
+    def row2(metric: str, b, a) -> str:
+        return f"| {metric:<27} | {b:>6} | {a:>6} |"
+
+    b_drift = int(baseline.get("regressions") or 0)
+    a_drift = max(
+        0,
+        int(baseline.get("regressions") or 0)
+        - int(arb.get("generator_drift_prevented") or 0),
+    )
+
     lines = [
         "# V2.13F Document Evidence Arbitration",
         "",
         f"Generated: `{summary.get('generated_at')}`",
+        "",
+        f"**Decision: `{summary.get('decision')}`**",
+        "",
+        summary.get("recommendation_text", ""),
         "",
         "## 1. Hypothesis",
         "",
@@ -130,6 +144,35 @@ def write_report(summary: dict, *, out_md: Path) -> None:
         "```",
         "",
         "## Comparison table",
+        "",
+        "Primary (required):",
+        "",
+        "| Metric                      | V2.13D | V2.13F |",
+        "| --------------------------- | -----: | -----: |",
+        row2("Document helped", baseline.get("document_helped", 0), arb.get("document_helped", 0)),
+        row2("Document neutral", baseline.get("document_neutral", 0), arb.get("document_neutral", 0)),
+        row2("Document hurt", baseline.get("document_hurt", 0), arb.get("document_hurt", 0)),
+        row2("Recoveries", baseline.get("recoveries", 0), arb.get("recoveries", 0)),
+        row2("Regressions", baseline.get("regressions", 0), arb.get("regressions", 0)),
+        row2("Generator drift", b_drift, a_drift),
+        row2("Unsupported claims", baseline.get("unsupported_claims", 0), arb.get("unsupported_claims", 0)),
+        row2(
+            "Wrong-context false accepts",
+            b_safety.get("wrong_context_false_acceptance", 0),
+            a_safety.get("wrong_context_false_acceptance", 0),
+        ),
+        row2(
+            "Placeholder false accepts",
+            b_safety.get("placeholder_false_acceptance", 0),
+            a_safety.get("placeholder_false_acceptance", 0),
+        ),
+        row2(
+            "Metadata false accepts",
+            b_safety.get("metadata_false_acceptance", 0),
+            a_safety.get("metadata_false_acceptance", 0),
+        ),
+        "",
+        "Detail (includes structured-first):",
         "",
         "| Metric                      | V2.13D | B-SF   | V2.13F |",
         "| --------------------------- | -----: | -----: | -----: |",

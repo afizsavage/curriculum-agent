@@ -1,0 +1,74 @@
+{"event": "watch_start", "target": 50, "post_ok": 41}
+{"event": "progress", "post_ok": 41, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 41, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 41, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 41, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 42, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 42, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 42, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 43, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 43, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 44, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 44, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 45, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 46, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 46, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 46, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 46, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 46, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 47, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 48, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 49, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 49, "target": 50, "traffic_alive": true}
+{"event": "progress", "post_ok": 50, "target": 50, "traffic_alive": true}
+{"event": "run", "cmd": ["/home/afiz/Projects/curriculumz/curriculum-agent/.venv/bin/python", "scripts/eval_v213d_production_shadow.py", "--from-jsonl"]}
+Phase1 status: INSUFFICIENT_SAMPLE
+Recommendation: CONTINUE SHADOW
+Pipeline: PIPELINE_OPERATIONAL
+Report: /home/afiz/Projects/curriculumz/curriculum-agent/docs/V2_13D_PHASE1_OBSERVATION.md
+JSON: /home/afiz/Projects/curriculumz/curriculum-agent/data/diagnostics/v213d_phase1_summary.json
+{"event": "run", "cmd": ["/home/afiz/Projects/curriculumz/curriculum-agent/.venv/bin/python", "scripts/freeze_v213d_baseline_for_v213f.py"]}
+{
+  "ok": true,
+  "freeze": "/home/afiz/Projects/curriculumz/curriculum-agent/data/diagnostics/v213f_baseline/freeze.json",
+  "jsonl_rows": 53,
+  "post_corpus_successful": 50,
+  "document_helped": 20,
+  "document_neutral": 25,
+  "document_hurt": 5,
+  "control_correct_shadow_worse": 5,
+  "phase1_status": "INSUFFICIENT_SAMPLE",
+  "jsonl_sha256": "4dcbca7a46ca11e603552eb520cb0ac7703f4582247e9ecb995e43005167ca83"
+}
+{"event": "run", "cmd": ["/home/afiz/Projects/curriculumz/curriculum-agent/.venv/bin/python", "scripts/build_v213f_replay_dataset.py", "--jsonl", "data/diagnostics/v213f_baseline/v213d_shadow_freeze.jsonl", "--min-size", "30", "--max-size", "50"]}
+{
+  "path": "/home/afiz/Projects/curriculumz/curriculum-agent/data/diagnostics/v213f_replay/dataset.json",
+  "n": 50,
+  "group_pool_sizes": {
+    "D_regression": 5,
+    "B_structured_insufficient_recovery": 15,
+    "A_structured_sufficient": 5,
+    "C_neutral": 25
+  },
+  "selected_groups": {
+    "D_regression": 5,
+    "B_structured_insufficient_recovery": 15,
+    "A_structured_sufficient": 5,
+    "C_neutral": 25
+  }
+}
+{"event": "run", "cmd": ["/home/afiz/Projects/curriculumz/curriculum-agent/.venv/bin/python", "scripts/eval_v213f_document_arbitration.py"]}
+{
+  "decision": "ARBITRATION_SUPPORTED",
+  "n": 50,
+  "baseline_regressions": 5,
+  "arbitrated_regressions": 0,
+  "baseline_recoveries": 15,
+  "arbitrated_recoveries": 15,
+  "md": "/home/afiz/Projects/curriculumz/curriculum-agent/docs/V2_13F_DOCUMENT_ARBITRATION.md",
+  "json": "/home/afiz/Projects/curriculumz/curriculum-agent/data/diagnostics/v213f_arbitration_summary.json"
+}
+{"event": "complete", "post_ok": 50}
+ta/diagnostics/v213f_arbitration_summary.json"
+}
+{"event": "complete", "post_ok": 50}
