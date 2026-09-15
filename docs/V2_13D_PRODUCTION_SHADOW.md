@@ -1,6 +1,6 @@
 # V2.13D — Production Shadow for Context-Hybrid Curriculum Document Evidence
 
-Generated: `2026-09-14T13:27:22.660239+00:00`
+Generated: `2026-09-14T14:04:33.571610+00:00`
 
 **Phase 1 status: INSUFFICIENT_SAMPLE**
 
@@ -397,7 +397,7 @@ Only 50 post-corpus successful real shadow evaluations (pre-corpus=2); target is
   "canary_note": "Only 50 post-corpus successful real shadow evaluations (pre-corpus=2); target is 100\u2013200 before a rollout recommendation.",
   "pipeline_verification": {
     "classification": "PIPELINE_OPERATIONAL",
-    "live_qa_metrics_total_requests": 791,
+    "live_qa_metrics_total_requests": null,
     "production_jsonl_rows": 53,
     "funnel_stages": {
       "request_seen": 4097,
@@ -414,14 +414,14 @@ Only 50 post-corpus successful real shadow evaluations (pre-corpus=2); target is
     "sample_rate": 0.01,
     "jsonl_path": "/home/afiz/Projects/curriculumz/curriculum-agent/data/diagnostics/v213d_shadow.jsonl",
     "stages_checklist": {
-      "qa_request": "PASS",
+      "qa_request": "NOT OBSERVED",
       "hook": "PASS",
       "sampling": "PASS",
       "shadow": "PASS",
       "persistence": "PASS"
     }
   },
-  "generated_at": "2026-09-14T13:27:22.660239+00:00",
+  "generated_at": "2026-09-14T14:04:33.571610+00:00",
   "active_configuration": {
     "shadow_enabled": true,
     "sample_rate": 0.01,
@@ -429,7 +429,8 @@ Only 50 post-corpus successful real shadow evaluations (pre-corpus=2); target is
     "retrieval_variant": "context_hybrid",
     "timeout_seconds": 30.0,
     "v213f_document_arbitration_experiment": false,
-    "v213f_arbitration_policy": "C_ARBITRATED"
+    "v213f_arbitration_policy": "C_ARBITRATED",
+    "v213g_live_arbitration_shadow": true
   },
   "real_traffic_observed": true
 }

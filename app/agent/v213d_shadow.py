@@ -125,6 +125,9 @@ def v213d_runtime_config(settings: Settings) -> dict[str, Any]:
         "v213f_arbitration_policy": str(
             getattr(settings, "v213f_arbitration_policy", "C_ARBITRATED")
         ),
+        "v213g_live_arbitration_shadow": bool(
+            getattr(settings, "v213g_live_arbitration_shadow", False)
+        ),
     }
 
 
@@ -137,6 +140,8 @@ def format_v213d_startup_banner(settings: Settings) -> str:
             f"V2.13D retrieval variant: {cfg['retrieval_variant']}",
             f"V2.13D document retrieval: {str(cfg['document_retrieval']).lower()}",
             f"V2.13D timeout: {int(cfg['timeout_seconds'])}s",
+            f"V2.13F arbitration experiment: {str(cfg['v213f_document_arbitration_experiment']).lower()}",
+            f"V2.13G live dual-arm shadow: {str(cfg['v213g_live_arbitration_shadow']).lower()}",
         ]
     )
 
@@ -980,6 +985,33 @@ def run_production_shadow(
     record_pipeline_stage("shadow_started", request_id=request_id)
     log_agent_event(logger, "v213d.shadow.started", request_id=request_id)
     try:
+        settings = agent.settings
+        # V2.13G dual-arm: one retrieval → baseline + arbitrated. Production untouched.
+        # V2.13F single-arm experiment flag must remain false in production configs.
+        if bool(getattr(settings, "v213g_live_arbitration_shadow", False)):
+            from app.agent.v213g_live_shadow import (
+                baseline_compatible_v213d_record,
+                persist_v213g_record,
+                run_dual_arm_shadow_pipeline,
+            )
+
+            g_record = run_dual_arm_shadow_pipeline(
+                agent,
+                production_copy,
+                request_id=request_id,
+                retrieval=retrieval,
+            )
+            persist_v213g_record(g_record)
+            record = baseline_compatible_v213d_record(g_record)
+            if (record.get("shadow") or {}).get("error") or (
+                g_record.get("arbitrated_shadow") or {}
+            ).get("error"):
+                record_pipeline_stage("shadow_failed", request_id=request_id)
+            else:
+                record_pipeline_stage("shadow_completed", request_id=request_id)
+            persist_record(record, jsonl_path)
+            return g_record
+
         record = run_shadow_pipeline(
             agent, production_copy, request_id=request_id, retrieval=retrieval
         )

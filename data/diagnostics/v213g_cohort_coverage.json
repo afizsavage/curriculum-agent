@@ -1,0 +1,250 @@
+{
+  "generated_at": "2026-09-15T12:09:59.097590+00:00",
+  "experiment": "v2.13g_cohort_coverage",
+  "config": {
+    "v213d_shadow_enabled": true,
+    "v213d_shadow_sample_rate": 0.01,
+    "v213d_shadow_document_retrieval": true,
+    "v213d_shadow_retrieval_variant": "context_hybrid",
+    "v213f_document_arbitration_experiment": false,
+    "v213f_arbitration_policy": "C_ARBITRATED",
+    "v213g_live_arbitration_shadow": true,
+    "v213e": "disabled",
+    "curriculum_api_url": "http://127.0.0.1:8000"
+  },
+  "live_traffic": {
+    "n": 52,
+    "control_accepted": {
+      "false": 52
+    },
+    "control_route": {
+      "fallback": 48,
+      "clarify": 3,
+      "retrieve_more": 1
+    },
+    "categories": {
+      "document_oriented": 17,
+      "insufficient_evidence": 17,
+      "ambiguous": 15,
+      "adversarial_suspicious": 3
+    },
+    "grades": {
+      "None": 30,
+      "CLASS_4": 18,
+      "SSS_3": 2,
+      "CLASS_1": 1,
+      "CLASS_5": 1
+    },
+    "subjects": {
+      "MATHEMATICS": 11,
+      "None": 39,
+      "SCIENCE": 2
+    },
+    "structured_count_hist": {
+      "0": 52
+    },
+    "document_count_hist": {
+      "5": 52
+    },
+    "sufficiency": {
+      "INSUFFICIENT": 52
+    },
+    "document_role": {
+      "DECISIVE": 52
+    },
+    "document_use": {
+      "INCLUDE_IN_GENERATION": 52
+    },
+    "zero_structured_evidence": 52,
+    "all_zero_structured": true,
+    "all_insufficient_decisive_include": true
+  },
+  "live_cohort_counts": {
+    "structured_sufficient_with_docs": 0,
+    "structured_sufficient_redundant_docs": 0,
+    "structured_sufficient_irrelevant_docs": 0,
+    "structured_insufficient_decisive_docs": 52,
+    "structured_insufficient_irrelevant_docs": 0,
+    "neutral_document_cases": 22
+  },
+  "live_comparison_table": {
+    "recoveries": {
+      "baseline": 30,
+      "arbitrated": 36
+    },
+    "neutral": {
+      "baseline": 22,
+      "arbitrated": 16
+    },
+    "hurt": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "regressions": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "generator_drift": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "unsupported_claims": {
+      "baseline": 30,
+      "arbitrated": 17
+    },
+    "wrong_context_false_accepts": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "placeholder_false_accepts": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "metadata_false_accepts": {
+      "baseline": 0,
+      "arbitrated": 0
+    }
+  },
+  "live_latency": {
+    "mean_retrieval_ms": 5.561,
+    "mean_arbitration_ms": 0.071,
+    "mean_baseline_shadow_ms": 7079.447,
+    "mean_arbitrated_shadow_ms": 7003.629
+  },
+  "safety": {
+    "baseline": {
+      "wrong_context_false_acceptance": 0,
+      "placeholder_false_acceptance": 0,
+      "metadata_false_acceptance": 0
+    },
+    "arbitrated": {
+      "wrong_context_false_acceptance": 0,
+      "placeholder_false_acceptance": 0,
+      "metadata_false_acceptance": 0
+    },
+    "safety_blocked": false
+  },
+  "root_cause": {
+    "determination": "SAMPLING_BIAS",
+    "classification_validity": "CLASSIFICATION_CORRECT",
+    "detail": "All live dual-arm rows have structured_count=0 and control_accepted=false. Classification is consistent with that evidence. The live sample did not include any structured-sufficient/document-redundant cases, so the primary V2.13F regression hypothesis was untested.",
+    "primary_regression_hypothesis": "UNTESTED",
+    "curriculum_api_reachable": true
+  },
+  "targeted_replay": {
+    "n": 50,
+    "classifier_distribution": {
+      "SUFFICIENT|REDUNDANT|PROVENANCE_ONLY": 7,
+      "SUFFICIENT|IRRELEVANT|DO_NOT_USE": 3,
+      "INSUFFICIENT|DECISIVE|INCLUDE_IN_GENERATION": 40
+    },
+    "group_compatibility": {
+      "D_regression": {
+        "n": 5,
+        "compatible": 5,
+        "expected": "SUFFICIENT + REDUNDANT/IRRELEVANT + withhold docs"
+      },
+      "B_structured_insufficient_recovery": {
+        "n": 15,
+        "compatible": 15,
+        "expected": "INSUFFICIENT + DECISIVE + INCLUDE"
+      },
+      "A_structured_sufficient": {
+        "n": 5,
+        "compatible": 5,
+        "expected": "SUFFICIENT + REDUNDANT/IRRELEVANT + PROVENANCE_ONLY/DO_NOT_USE"
+      },
+      "C_neutral": {
+        "n": 25,
+        "compatible": 25,
+        "expected": "mixed; often INSUFFICIENT if control not accepted"
+      }
+    },
+    "cohort_counts": {
+      "structured_sufficient_with_docs": 10,
+      "structured_sufficient_redundant_docs": 7,
+      "structured_sufficient_irrelevant_docs": 3,
+      "structured_insufficient_decisive_docs": 40,
+      "structured_insufficient_irrelevant_docs": 0,
+      "neutral_document_cases": 35
+    },
+    "dd1c57": {
+      "question_hash": "dd1c57ff32af875b",
+      "request_id": "63bbf28e5f0db6e1",
+      "v213f_group": "D_regression",
+      "expected": {
+        "structured_sufficiency": "SUFFICIENT",
+        "document_role": "REDUNDANT",
+        "document_use": "PROVENANCE_ONLY"
+      },
+      "observed": {
+        "document_role": "REDUNDANT",
+        "structured_sufficiency": "SUFFICIENT",
+        "document_use": "PROVENANCE_ONLY",
+        "policy": "C_ARBITRATED",
+        "reasons": [
+          "structured_already_sufficient_docs_redundant"
+        ],
+        "relevant_passage_count": 1,
+        "conflicting_passage_count": 0,
+        "document_count": 5,
+        "structured_count": 40
+      },
+      "counterfactual": {
+        "policy": "C_ARBITRATED",
+        "document_use": "PROVENANCE_ONLY",
+        "document_role": "REDUNDANT",
+        "structured_sufficiency": "SUFFICIENT",
+        "outcome_source": "control",
+        "final_accepted": true,
+        "final_route": "finish",
+        "verifier_decision": "accept",
+        "verifier_score": 1.0,
+        "mapper_decision": "accept",
+        "unsupported_claim_count": 0,
+        "answer_length": null,
+        "answer_hash": "16088fa24c2d597f",
+        "control_correct_shadow_worse": false,
+        "control_insufficient_shadow_accepted": false,
+        "document_helped": false,
+        "document_hurt": false,
+        "document_neutral": true,
+        "generator_drift_prevented": true
+      },
+      "pass": true
+    }
+  },
+  "hypotheses": {
+    "H1_regression_prevention": {
+      "result": "UNTESTED",
+      "note": "PRIMARY_REGRESSION_HYPOTHESIS_UNTESTED on LIVE_TRAFFIC (structured_sufficient_with_docs=0). TARGETED_REPLAY reproduces V2.13F sufficient/redundant withholding including dd1c57."
+    },
+    "H2_recovery_preservation": {
+      "result": "CONFIRMED",
+      "note": "Arbitrated recoveries (36) preserved vs baseline (30)."
+    },
+    "H3_generator_drift_reduction": {
+      "result": "PARTIALLY_CONFIRMED",
+      "note": "Unsupported claims fell 30\u219217 (live sufficient+doc cohort=0)."
+    },
+    "safety": "PASS",
+    "overall_status": "INVESTIGATE_BEFORE_PROMOTION",
+    "recommendation": "PROCEED_TO_TARGETED_LIVE_VALIDATION",
+    "primary_regression_hypothesis_live": "PRIMARY_REGRESSION_HYPOTHESIS_UNTESTED"
+  },
+  "preserved_artifacts": {
+    "v213g_arbitration_shadow_jsonl": "/home/afiz/Projects/curriculumz/curriculum-agent/data/diagnostics/v213g_arbitration_shadow.jsonl",
+    "v213g_arbitration_summary_json": "/home/afiz/Projects/curriculumz/curriculum-agent/data/diagnostics/v213g_arbitration_summary.json",
+    "v213f_replay_dataset": "/home/afiz/Projects/curriculumz/curriculum-agent/data/diagnostics/v213f_replay/dataset.json",
+    "note": "Live G JSONL/summary not overwritten by this investigation."
+  },
+  "next_experiment": {
+    "keep_sample_rate": 0.01,
+    "require_live_structured_sufficient_with_docs": 20,
+    "then_continue_toward": [
+      100,
+      200
+    ],
+    "ensure_curriculum_api": true
+  }
+}

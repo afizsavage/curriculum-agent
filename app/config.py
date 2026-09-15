@@ -91,6 +91,11 @@ class Settings(BaseSettings):
     v213f_document_arbitration_experiment: bool = False
     v213f_arbitration_policy: str = "C_ARBITRATED"
 
+    # V2.13G experiment: live dual-arm arbitration shadow (observational; default off).
+    # When enabled with V2.13D sampling, runs baseline+arbitrated arms from one retrieval.
+    # Never changes user-facing production answers. Keep V2.13F experiment flag false.
+    v213g_live_arbitration_shadow: bool = False
+
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite

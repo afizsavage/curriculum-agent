@@ -99,15 +99,34 @@ def create_app() -> FastAPI:
             load_traffic_counters,
             v213d_runtime_config,
         )
+        from app.agent.v213g_live_shadow import load_v213g_records, v213g_jsonl_path
         from app.config import get_settings
 
+        settings = get_settings()
+        g_rows = load_v213g_records()
+        g_ok = sum(
+            1
+            for r in g_rows
+            if r.get("corpus_epoch") != "pre_corpus"
+            and not (r.get("baseline_shadow") or {}).get("error")
+            and not (r.get("arbitrated_shadow") or {}).get("error")
+        )
         return {
             "status": "ok",
             "service": "curriculum-agent",
             "version": __version__,
-            "v213d": v213d_runtime_config(get_settings()),
+            "v213d": v213d_runtime_config(settings),
             "v213d_traffic": load_traffic_counters(),
             "v213d_pipeline": load_pipeline_funnel(),
+            "v213g": {
+                "live_arbitration_shadow": bool(
+                    getattr(settings, "v213g_live_arbitration_shadow", False)
+                ),
+                "jsonl_path": str(v213g_jsonl_path()),
+                "rows": len(g_rows),
+                "successful_comparisons": g_ok,
+                "milestone_first": 50,
+            },
             "qa_metrics": {
                 "total_requests": get_metrics().snapshot().get("total_requests", 0),
             },

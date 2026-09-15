@@ -1,6 +1,6 @@
 # V2.13D Phase 1 Observation Report
 
-Generated: `2026-09-14T13:27:22.660239+00:00`
+Generated: `2026-09-14T14:04:33.571610+00:00`
 
 ## Executive Summary
 
@@ -417,7 +417,7 @@ Primary performance metrics above are scoped to **post-corpus** shadows. Pre-cor
 ```json
 {
   "classification": "PIPELINE_OPERATIONAL",
-  "live_qa_metrics_total_requests": 791,
+  "live_qa_metrics_total_requests": null,
   "production_jsonl_rows": 53,
   "funnel_stages": {
     "request_seen": 4097,
@@ -434,7 +434,7 @@ Primary performance metrics above are scoped to **post-corpus** shadows. Pre-cor
   "sample_rate": 0.01,
   "jsonl_path": "/home/afiz/Projects/curriculumz/curriculum-agent/data/diagnostics/v213d_shadow.jsonl",
   "stages_checklist": {
-    "qa_request": "PASS",
+    "qa_request": "NOT OBSERVED",
     "hook": "PASS",
     "sampling": "PASS",
     "shadow": "PASS",
@@ -448,7 +448,7 @@ Primary performance metrics above are scoped to **post-corpus** shadows. Pre-cor
 ```json
 {
   "total_production_requests": 4095,
-  "live_qa_metrics_total_requests": 791,
+  "live_qa_metrics_total_requests": null,
   "sampled": 53,
   "completed": 52,
   "errors": 1,

@@ -32,7 +32,14 @@ from app.schemas.verification import VerificationRecommendation, VerificationRes
 from app.tools.registry import build_default_registry
 
 
-def test_default_disabled_without_env_file():
+def test_default_disabled_without_env_file(monkeypatch):
+    for key in (
+        "V213D_SHADOW_ENABLED",
+        "V213D_SHADOW_SAMPLE_RATE",
+        "V213G_LIVE_ARBITRATION_SHADOW",
+        "V213F_DOCUMENT_ARBITRATION_EXPERIMENT",
+    ):
+        monkeypatch.delenv(key, raising=False)
     settings = Settings(_env_file=None)
     assert v213d_shadow_enabled(settings) is False
     assert settings.v213d_shadow_sample_rate == 0.0

@@ -1,0 +1,158 @@
+{
+  "generated_at": "2026-09-15T11:42:21.966764+00:00",
+  "experiment": "v2.13g",
+  "schema_version": "v213g.1",
+  "n_total": 52,
+  "n_successful": 52,
+  "milestones": {
+    "first": 50,
+    "stronger": 100,
+    "preferred": 200,
+    "reached_first": true,
+    "reached_stronger": false,
+    "reached_preferred": false
+  },
+  "retrieval": {
+    "retrieval_success": 52,
+    "no_match": 0,
+    "technical_retrieval_failure": 0,
+    "provenance_complete": 52,
+    "metadata_valid": 52,
+    "retrieval_success_rate": 1.0
+  },
+  "arbitration": {
+    "sufficiency_counts": {
+      "INSUFFICIENT": 52
+    },
+    "role_counts": {
+      "DECISIVE": 52
+    },
+    "use_counts": {
+      "INCLUDE_IN_GENERATION": 52
+    }
+  },
+  "document_value": {
+    "baseline": {
+      "helped": 30,
+      "neutral": 22,
+      "hurt": 0
+    },
+    "arbitrated": {
+      "helped": 36,
+      "neutral": 16,
+      "hurt": 0
+    }
+  },
+  "recovery": {
+    "baseline_recovery": 30,
+    "arbitrated_recovery": 36
+  },
+  "regression": {
+    "baseline_regression": 0,
+    "arbitrated_regression": 0
+  },
+  "generator_drift": {
+    "baseline_drift": 0,
+    "arbitrated_drift": 0,
+    "baseline_unsupported_claims": 30,
+    "arbitrated_unsupported_claims": 17
+  },
+  "safety": {
+    "baseline": {
+      "wrong_context_false_acceptance": 0,
+      "placeholder_false_acceptance": 0,
+      "metadata_false_acceptance": 0
+    },
+    "arbitrated": {
+      "wrong_context_false_acceptance": 0,
+      "placeholder_false_acceptance": 0,
+      "metadata_false_acceptance": 0
+    },
+    "safety_blocked": false
+  },
+  "cohorts": {
+    "structured_sufficient_with_docs": {
+      "n": 0,
+      "control_correct_baseline_same": 0,
+      "control_correct_baseline_worse": 0,
+      "control_correct_arbitrated_same": 0,
+      "control_correct_arbitrated_worse": 0
+    },
+    "structured_insufficient_decisive_docs": {
+      "n": 52,
+      "baseline_accepted": 30,
+      "arbitrated_accepted": 36
+    }
+  },
+  "classification_diagnostics": {
+    "decisive_arbitrated_rejection": 1
+  },
+  "latency": {
+    "mean_retrieval_ms": 5.561,
+    "mean_arbitration_ms": 0.071,
+    "mean_baseline_shadow_ms": 7079.447,
+    "mean_arbitrated_shadow_ms": 7003.629
+  },
+  "investigations": [],
+  "comparison_table": {
+    "recoveries": {
+      "baseline": 30,
+      "arbitrated": 36
+    },
+    "neutral": {
+      "baseline": 22,
+      "arbitrated": 16
+    },
+    "hurt": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "regressions": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "generator_drift": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "unsupported_claims": {
+      "baseline": 30,
+      "arbitrated": 17
+    },
+    "wrong_context_false_accepts": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "placeholder_false_accepts": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "metadata_false_accepts": {
+      "baseline": 0,
+      "arbitrated": 0
+    }
+  },
+  "status": "ARBITRATION_NOT_CONFIRMED",
+  "recommendation_text": "No meaningful live reduction in document-induced regressions.",
+  "production_isolation": {
+    "v213f_document_arbitration_experiment": false,
+    "v213e": "disabled",
+    "v213g_live_only": true,
+    "note": "Production answers remain control; arbitration never user-facing."
+  },
+  "preserved_priors": {
+    "v213f_freeze_jsonl_sha256_prefix": "4dcbca7a46ca11e6",
+    "v213f_decision": "ARBITRATION_SUPPORTED",
+    "note": "V2.13D/F datasets are not overwritten by V2.13G."
+  },
+  "config": {
+    "v213d_shadow_enabled": true,
+    "v213d_shadow_sample_rate": 0.01,
+    "v213d_shadow_document_retrieval": true,
+    "v213d_shadow_retrieval_variant": "context_hybrid",
+    "v213f_document_arbitration_experiment": false,
+    "v213f_arbitration_policy": "C_ARBITRATED",
+    "v213g_live_arbitration_shadow": true,
+    "v213e": "disabled"
+  }
+}
