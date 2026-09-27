@@ -1,4 +1,5 @@
 import json
+import re
 
 import pytest
 
@@ -219,3 +220,164 @@ def test_build_messages_includes_evidence_not_full_state():
 def test_grounded_answer_schema_has_required_fields():
     assert "answer" in GROUNDED_ANSWER_JSON_SCHEMA["required"]
     assert "confidence" in GROUNDED_ANSWER_JSON_SCHEMA["required"]
+
+
+def _subject_evidence(codes_and_names: list[tuple[str, str]], *, grade: str):
+    return [
+        CurriculumEvidence(
+            entity_type="subject",
+            entity_id=f"id-{code}",
+            name=name,
+            grade=grade,
+            subject=code,
+            metadata={"code": code, "classification": "CORE"},
+        )
+        for code, name in codes_and_names
+    ]
+
+
+def test_subject_list_heading_from_resolved_context():
+    from app.agent.answer_generator import subject_list_heading
+
+    assert (
+        subject_list_heading(grade_code="CLASS_3", classification="CORE")
+        == "Core Subjects Listed for Primary 3"
+    )
+    assert (
+        subject_list_heading(grade_code="CLASS_3", classification=None)
+        == "Subjects Listed for Primary 3"
+    )
+    assert (
+        subject_list_heading(grade_code="CLASS_3", classification="NON_CORE")
+        == "Non-Core Subjects Listed for Primary 3"
+    )
+    assert (
+        subject_list_heading(grade_code="CLASS_4", classification="CORE")
+        == "Core Subjects Listed for Primary 4"
+    )
+
+
+def test_header_core_plus_primary3():
+    evidence = _subject_evidence(
+        [
+            ("ENGLISH", "English"),
+            ("MATHEMATICS", "Mathematics"),
+            ("CIVIC_EDUCATION", "Civic Education"),
+        ],
+        grade="CLASS_3",
+    )
+    state = CurriculumQAState.initial(
+        question="What are the core subjects in Primary 3?"
+    )
+    state.grade = "CLASS_3"
+    state.classification = "CORE"
+    state.evidence = evidence
+    state.evidence_status = EvidenceStatus.FOUND
+    result = AnswerGenerator(StubLLMProvider()).generate(state)
+    heading = result.answer.splitlines()[0]
+    assert "Core" in heading
+    assert "Primary 3" in heading
+    assert "Subjects" in heading
+    # Must not imply the full unfiltered Primary 3 catalogue.
+    assert not re.search(r"^#+\s*Subjects Listed for Primary 3\s*$", heading)
+    assert "English" in result.answer
+    assert "Mathematics" in result.answer
+
+
+def test_header_grade_only_omits_core():
+    evidence = _subject_evidence(
+        [
+            ("ENGLISH", "English"),
+            ("MATHEMATICS", "Mathematics"),
+            ("HOME_ECONOMICS", "Home Economics"),
+        ],
+        grade="CLASS_3",
+    )
+    state = CurriculumQAState.initial(
+        question="What subjects are taught in Primary 3?"
+    )
+    state.grade = "CLASS_3"
+    state.classification = None
+    state.evidence = evidence
+    state.evidence_status = EvidenceStatus.FOUND
+    result = AnswerGenerator(StubLLMProvider()).generate(state)
+    heading = result.answer.splitlines()[0]
+    assert "Primary 3" in heading
+    assert "Subjects" in heading
+    assert "Core" not in heading
+    assert "Non-Core" not in heading
+
+
+def test_header_non_core_plus_primary3():
+    evidence = [
+        CurriculumEvidence(
+            entity_type="subject",
+            entity_id="id-home",
+            name="Home Economics",
+            grade="CLASS_3",
+            subject="HOME_ECONOMICS",
+            metadata={"classification": "AVAILABLE"},
+        ),
+        CurriculumEvidence(
+            entity_type="subject",
+            entity_id="id-ict",
+            name="ICT Literacy",
+            grade="CLASS_3",
+            subject="ICT_LITERACY",
+            metadata={"classification": "AVAILABLE"},
+        ),
+    ]
+    state = CurriculumQAState.initial(
+        question="What are the non-core subjects in Primary 3?"
+    )
+    state.grade = "CLASS_3"
+    state.classification = "NON_CORE"
+    state.evidence = evidence
+    state.evidence_status = EvidenceStatus.FOUND
+    result = AnswerGenerator(StubLLMProvider()).generate(state)
+    heading = result.answer.splitlines()[0]
+    assert heading == "## Non-Core Subjects Listed for Primary 3"
+    assert not heading.startswith("## Core ")
+
+
+def test_header_core_primary4_is_generic():
+    evidence = _subject_evidence(
+        [("MATHEMATICS", "Mathematics"), ("SCIENCE", "Science")],
+        grade="CLASS_4",
+    )
+    state = CurriculumQAState.initial(
+        question="What are the core subjects in Primary 4?"
+    )
+    state.grade = "CLASS_4"
+    state.classification = "CORE"
+    state.evidence = evidence
+    state.evidence_status = EvidenceStatus.FOUND
+    result = AnswerGenerator(StubLLMProvider()).generate(state)
+    heading = result.answer.splitlines()[0]
+    assert "Core" in heading
+    assert "Primary 4" in heading
+    assert "Primary 3" not in result.answer.splitlines()[0]
+
+
+def test_header_rewrites_broader_llm_subject_heading():
+    """Classification in STRUCTURED INTENT must survive into the presented header."""
+    from app.agent.answer_generator import _ensure_subject_list_scope_heading
+
+    evidence = _subject_evidence(
+        [("ENGLISH", "English"), ("MATHEMATICS", "Mathematics")],
+        grade="CLASS_3",
+    )
+    state = CurriculumQAState.initial(
+        question="What are the core subjects in Primary 3?"
+    )
+    state.grade = "CLASS_3"
+    state.classification = "CORE"
+    state.evidence = evidence
+    broader = (
+        "## Primary 3 Subjects (from resolved curriculum evidence)\n\n"
+        "- English\n- Mathematics\n"
+    )
+    fixed = _ensure_subject_list_scope_heading(state, broader)
+    assert fixed.splitlines()[0] == "## Core Subjects Listed for Primary 3"
+    assert "English" in fixed
+    assert "Primary 3 Subjects (from resolved" not in fixed
