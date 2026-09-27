@@ -67,6 +67,32 @@ def _router(request: httpx.Request) -> httpx.Response:
                 ],
             },
         )
+    if path.endswith(f"/api/v1/curricula/{CURRICULUM_ID}/grade-subjects"):
+        # Minimal grade-subject row so subject listing prefers this path.
+        items = [
+            {
+                "id": "gs-math-c4",
+                "curriculum_id": CURRICULUM_ID,
+                "grade_id": "g4",
+                "subject_id": SUBJECT_ID,
+                "display_order": 1,
+                "weekly_periods": 8,
+                "status": "ACTIVE",
+                "classification": "CORE",
+                "subject": {
+                    "id": SUBJECT_ID,
+                    "code": "MATHEMATICS",
+                    "name": "Mathematics",
+                },
+            }
+        ]
+        classification = request.url.params.get("classification")
+        if classification:
+            items = [i for i in items if i["classification"] == classification]
+        return httpx.Response(
+            200,
+            json={"items": items, "total": len(items), "limit": 200, "offset": 0},
+        )
     if path.endswith(f"/api/v1/curricula/{CURRICULUM_ID}/grade-curricula"):
         return httpx.Response(
             200,

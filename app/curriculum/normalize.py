@@ -91,6 +91,7 @@ def evidence_from_subject(subject: dict[str, Any], *, grade: str | None = None) 
             "code": subject.get("code"),
             "category": subject.get("category"),
             "status": subject.get("status"),
+            "classification": subject.get("classification"),
         },
         source_reference="subjects",
     )

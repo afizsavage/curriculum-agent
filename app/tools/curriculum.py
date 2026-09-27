@@ -9,6 +9,7 @@ from app.curriculum.client import CurriculumAPIClient
 from app.curriculum.codes import (
     default_curriculum_for_grade,
     infer_level,
+    normalize_classification,
     normalize_grade_code,
     normalize_subject_code,
 )
@@ -134,6 +135,76 @@ class CurriculumTool(Tool):
         if not curriculum_id:
             raise CurriculumNotFoundError(f"Curriculum '{code}' was not found")
         return curriculum_id, code, version
+
+    def _grade_id_from_structure(
+        self, structure: dict[str, Any], grade_code: str
+    ) -> str | None:
+        for level_node in structure.get("education_levels") or []:
+            for grade in level_node.get("grades") or []:
+                if str(grade.get("code", "")).upper() == grade_code:
+                    grade_id = grade.get("id")
+                    return str(grade_id) if grade_id else None
+        return None
+
+    def _subjects_from_grade_subject_items(
+        self, items: list[dict[str, Any]]
+    ) -> list[dict[str, Any]]:
+        subjects: list[dict[str, Any]] = []
+        for item in items:
+            subject = item.get("subject") if isinstance(item.get("subject"), dict) else {}
+            subjects.append(
+                {
+                    "id": subject.get("id") or item.get("subject_id"),
+                    "name": subject.get("name"),
+                    "code": subject.get("code"),
+                    "classification": item.get("classification"),
+                    "status": item.get("status"),
+                    "grade_subject_id": item.get("id"),
+                    "grade_id": item.get("grade_id"),
+                }
+            )
+        return subjects
+
+    def _list_grade_subjects_for_grade(
+        self,
+        *,
+        curriculum_id: str,
+        grade_code: str,
+        classification: str | None = None,
+        subject_code: str | None = None,
+    ) -> list[dict[str, Any]]:
+        """Authoritative grade-scoped subject list via GradeSubject rows.
+
+        Classification is enforced here (Structure API filter or local NON_CORE
+        exclusion), never deferred to the LLM.
+        """
+        structure = self.client.get_curriculum_structure(curriculum_id)
+        grade_id = self._grade_id_from_structure(structure, grade_code)
+        if not grade_id:
+            return []
+
+        params: dict[str, Any] = {"grade_id": grade_id, "limit": 200}
+        # NON_CORE is agent-side: fetch grade set then exclude CORE.
+        api_classification = (
+            None if classification in (None, "NON_CORE") else classification
+        )
+        if api_classification:
+            params["classification"] = api_classification
+
+        page = self.client.list_grade_subjects(curriculum_id, **params)
+        items = list(page.get("items") or [])
+        if classification == "NON_CORE":
+            items = [i for i in items if i.get("classification") != "CORE"]
+        if subject_code:
+            wanted = subject_code.upper()
+            filtered = []
+            for item in items:
+                code = str((item.get("subject") or {}).get("code") or "").upper()
+                name = str((item.get("subject") or {}).get("name") or "").lower()
+                if code == wanted or wanted in code or wanted.lower() in name:
+                    filtered.append(item)
+            items = filtered
+        return self._subjects_from_grade_subject_items(items)
 
     def _find_syllabus(
         self,
@@ -379,6 +450,14 @@ class GetCurriculumStructureTool(CurriculumTool):
                     "type": "string",
                     "description": "Subject name or code. Omit to list subjects for the grade.",
                 },
+                "classification": {
+                    "type": "string",
+                    "description": (
+                        "Optional GradeSubject classification constraint for the "
+                        "requested grade (CORE, OPTIONAL, ELECTIVE, AVAILABLE, or "
+                        "NON_CORE). Enforced in structured retrieval."
+                    ),
+                },
             },
             "required": ["grade"],
         }
@@ -387,6 +466,7 @@ class GetCurriculumStructureTool(CurriculumTool):
         try:
             grade_code = normalize_grade_code(kwargs.get("grade"))
             subject_code = normalize_subject_code(kwargs.get("subject"))
+            classification = normalize_classification(kwargs.get("classification"))
             if not grade_code:
                 raise CurriculumInvalidQueryError("grade is required and must be resolvable")
             level = kwargs.get("level") or infer_level(grade_code)
@@ -394,28 +474,45 @@ class GetCurriculumStructureTool(CurriculumTool):
                 grade_code=grade_code
             )
 
-            # Subject listing: return subjects from curriculum structure for the grade.
+            # Subject listing: authoritative GradeSubject rows for the grade,
+            # with optional classification constraint applied in the Structure API.
             if not subject_code:
-                structure = self.client.get_curriculum_structure(curriculum_id)
-                subjects = []
+                subjects: list[dict[str, Any]] = []
                 evidence: list[CurriculumEvidence] = []
-                for level_node in structure.get("education_levels") or []:
-                    for grade in level_node.get("grades") or []:
-                        if str(grade.get("code", "")).upper() != grade_code:
-                            continue
-                        for subject in grade.get("subjects") or []:
-                            subjects.append(
-                                {
-                                    "id": subject.get("id"),
-                                    "name": subject.get("name"),
-                                    "code": subject.get("code"),
-                                }
-                            )
-                            evidence.append(
-                                evidence_from_subject(subject, grade=grade_code)
-                            )
-                if not subjects:
-                    # Fallback: catalogue subjects on the curriculum
+                try:
+                    subjects = self._list_grade_subjects_for_grade(
+                        curriculum_id=curriculum_id,
+                        grade_code=grade_code,
+                        classification=classification,
+                    )
+                    evidence = [
+                        evidence_from_subject(subject, grade=grade_code)
+                        for subject in subjects
+                    ]
+                except CurriculumAPIError:
+                    if classification is not None:
+                        raise
+                    subjects = []
+                    evidence = []
+                if not subjects and classification is None:
+                    # Fallback: unfiltered structure subjects (no classification constraint).
+                    structure = self.client.get_curriculum_structure(curriculum_id)
+                    for level_node in structure.get("education_levels") or []:
+                        for grade in level_node.get("grades") or []:
+                            if str(grade.get("code", "")).upper() != grade_code:
+                                continue
+                            for subject in grade.get("subjects") or []:
+                                subjects.append(
+                                    {
+                                        "id": subject.get("id"),
+                                        "name": subject.get("name"),
+                                        "code": subject.get("code"),
+                                    }
+                                )
+                                evidence.append(
+                                    evidence_from_subject(subject, grade=grade_code)
+                                )
+                if not subjects and classification is None:
                     page = self.client.list_subjects(curriculum_id, limit=200)
                     for subject in page.get("items") or []:
                         subjects.append(
@@ -438,6 +535,7 @@ class GetCurriculumStructureTool(CurriculumTool):
                         },
                         "grade": grade_code,
                         "level": level,
+                        "classification": classification,
                         "subjects": subjects,
                         "evidence": [e.model_dump() for e in evidence],
                     },
@@ -522,21 +620,36 @@ class GetSubjectTool(CurriculumTool):
             subject_code = normalize_subject_code(kwargs.get("subject"))
             if not subject_code:
                 raise CurriculumInvalidQueryError("subject is required")
+            if not grade_code:
+                raise CurriculumInvalidQueryError(
+                    "grade is required to resolve subject classification within a grade"
+                )
             curriculum_id, _, _ = self._resolve_curriculum(grade_code=grade_code)
-            page = self.client.list_subjects(curriculum_id, limit=200)
-            items = page.get("items") or []
-            subject = next(
-                (
-                    s
-                    for s in items
-                    if str(s.get("code", "")).upper() == subject_code
-                    or str(s.get("name", "")).lower()
-                    == str(kwargs.get("subject") or "").lower()
-                ),
-                None,
+
+            # Prefer grade-scoped GradeSubject metadata (classification is per grade).
+            grade_subjects = self._list_grade_subjects_for_grade(
+                curriculum_id=curriculum_id,
+                grade_code=grade_code,
+                subject_code=subject_code,
             )
+            subject: dict[str, Any] | None = (
+                grade_subjects[0] if grade_subjects else None
+            )
+
             if subject is None:
-                # Fall back via syllabus listing
+                page = self.client.list_subjects(curriculum_id, limit=200)
+                items = page.get("items") or []
+                subject = next(
+                    (
+                        s
+                        for s in items
+                        if str(s.get("code", "")).upper() == subject_code
+                        or str(s.get("name", "")).lower()
+                        == str(kwargs.get("subject") or "").lower()
+                    ),
+                    None,
+                )
+            if subject is None:
                 syllabus = self._find_syllabus(
                     subject_code=subject_code,
                     grade_code=grade_code,
@@ -549,10 +662,11 @@ class GetSubjectTool(CurriculumTool):
                     "syllabus_id": syllabus.get("id"),
                 }
             evidence = [evidence_from_subject(subject, grade=grade_code)]
-            detail = subject
-            if subject.get("id"):
+            detail = dict(subject)
+            if subject.get("id") and subject.get("classification") is None:
                 try:
-                    detail = self.client.get_subject(str(subject["id"]))
+                    fetched = self.client.get_subject(str(subject["id"]))
+                    detail = {**fetched, **{k: v for k, v in subject.items() if v}}
                     evidence = [evidence_from_subject(detail, grade=grade_code)]
                 except CurriculumNotFoundError:
                     pass
@@ -561,6 +675,7 @@ class GetSubjectTool(CurriculumTool):
                 data={
                     "subject": detail,
                     "grade": grade_code,
+                    "classification": detail.get("classification"),
                     "evidence": [e.model_dump() for e in evidence],
                 },
             )
