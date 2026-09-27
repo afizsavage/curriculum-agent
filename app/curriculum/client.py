@@ -137,6 +137,16 @@ class CurriculumAPIClient:
     def list_subjects(self, curriculum_id: str, **params: Any) -> dict[str, Any]:
         return self.get(f"api/v1/curricula/{curriculum_id}/subjects", params=params)
 
+    def list_grade_subjects(self, curriculum_id: str, **params: Any) -> dict[str, Any]:
+        """List GradeSubject rows (grade-scoped classification metadata).
+
+        Supports ``grade_id``, ``subject_id``, ``classification``, ``status``,
+        ``limit``, and ``offset`` as query params on the Structure API.
+        """
+        return self.get(
+            f"api/v1/curricula/{curriculum_id}/grade-subjects", params=params
+        )
+
     def get_subject(self, subject_id: str) -> dict[str, Any]:
         return self.get(f"api/v1/subjects/{subject_id}")
 

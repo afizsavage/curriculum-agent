@@ -50,6 +50,9 @@ Core rules:
    question; medium when interpretation is needed; low when evidence is partial.
 6. STYLE: Write for teachers and education officers — concise, clear headings,
    bullet points, hierarchy, and learning objectives where relevant.
+7. SUBJECT NAMES: Use human-readable subject names only (e.g. English, Mathematics).
+   Never include subject codes such as ENGLISH, MATHEMATICS, or "(Code: …)" in the
+   answer text.
 
 {EVIDENCE_CONSERVATIVE_RULES}
 """
@@ -186,6 +189,8 @@ class AnswerGenerator:
             "Reference entity_id values from the evidence records in your evidence array.\n"
             "Set limitations when evidence is partial, ambiguous, or source text is damaged.\n"
             "Use markdown headings and bullet points in the answer field where helpful.\n"
+            "Use subject display names only — never include subject codes "
+            "(e.g. ENGLISH, MATHEMATICS) or '(Code: …)' in the answer.\n"
             f"{EVIDENCE_CONSERVATIVE_USER_APPENDIX}\n"
         )
         if state.metadata.get("conservative_regeneration"):
@@ -474,7 +479,9 @@ class AnswerGenerator:
         confidence = answer.confidence
 
         if not state.evidence:
-            return answer
+            return answer.model_copy(
+                update={"answer": _strip_subject_codes(answer.answer)}
+            )
 
         question_grade = normalize_grade_code(state.grade or state.question)
         evidence_grades = {
@@ -501,8 +508,13 @@ class AnswerGenerator:
                 "Answer could not be linked to specific curriculum entity references."
             )
 
+        cleaned = _strip_subject_codes(answer.answer)
         return answer.model_copy(
-            update={"limitations": limitations, "confidence": confidence}
+            update={
+                "answer": cleaned,
+                "limitations": limitations,
+                "confidence": confidence,
+            }
         )
 
     @staticmethod
@@ -513,6 +525,7 @@ class AnswerGenerator:
             "grade": state.grade,
             "subject": state.subject,
             "topic": state.topic,
+            "classification": state.classification,
         }
         return json.dumps({k: v for k, v in payload.items() if v}, indent=2)
 
@@ -537,6 +550,25 @@ def _looks_garbled_source_text(text: str) -> bool:
     if text.endswith((" greater than", " up to", " to")):
         return True
     return False
+
+
+_SUBJECT_CODE_PAREN = re.compile(
+    r"\s*\(\s*[Cc]ode\s*:\s*[A-Z][A-Z0-9_]{1,40}\s*\)"
+)
+_SUBJECT_CODE_LINE = re.compile(
+    r"(?m)^\s*[Cc]ode\s*:\s*[A-Z][A-Z0-9_]{1,40}\s*$"
+)
+
+
+def _strip_subject_codes(text: str) -> str:
+    """Remove subject-code annotations from user-facing answer text."""
+    if not text:
+        return text
+    cleaned = _SUBJECT_CODE_PAREN.sub("", text)
+    cleaned = _SUBJECT_CODE_LINE.sub("", cleaned)
+    cleaned = re.sub(r"[ \t]+\n", "\n", cleaned)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip()
 
 
 def format_evidence_for_prompt(
@@ -572,7 +604,8 @@ def format_evidence_for_prompt(
         if item.source_reference:
             lines.append(f"Source: {item.source_reference}")
         code = item.metadata.get("code") if item.metadata else None
-        if code:
+        # Subject codes (e.g. ENGLISH) belong in filters, not user-facing answers.
+        if code and (item.entity_type or "").lower() != "subject":
             lines.append(f"Code: {code}")
         eq = (item.metadata or {}).get("evidence_quality")
         if isinstance(eq, dict):

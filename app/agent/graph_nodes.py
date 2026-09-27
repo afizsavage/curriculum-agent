@@ -68,7 +68,7 @@ class GraphNodes:
         prior = graph_state.get("prior_filters") or {}
 
         if prior:
-            for field in ("grade", "subject", "level", "topic"):
+            for field in ("grade", "subject", "level", "topic", "classification"):
                 new_value = filters.get(field)
                 if new_value:
                     setattr(qa, field, new_value)
@@ -79,6 +79,7 @@ class GraphNodes:
             qa.subject = filters.get("subject") or qa.subject
             qa.level = filters.get("level") or qa.level
             qa.topic = filters.get("topic") or qa.topic
+            qa.classification = filters.get("classification") or qa.classification
 
         explicit_grade = normalize_grade_code(qa.question)
         if explicit_grade:
@@ -93,6 +94,7 @@ class GraphNodes:
             "grade": qa.grade,
             "subject": qa.subject,
             "topic": qa.topic,
+            "classification": qa.classification,
             "requested_information": filters,
             "raw_filters": filters,
             "prior_filters": prior,
@@ -553,4 +555,5 @@ def filters_from_state(state: CurriculumQAState) -> dict[str, Any]:
         "subject": state.subject,
         "level": state.level,
         "topic": state.topic,
+        "classification": state.classification,
     }

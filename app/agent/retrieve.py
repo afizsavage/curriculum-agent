@@ -663,6 +663,7 @@ class RetrievalNode:
             "grade": state.grade,
             "subject": state.subject,
             "topic": state.topic,
+            "classification": state.classification,
             "resolved_subject": state.retrieval_state.resolved_subject,
         }
         parts = [
@@ -731,7 +732,17 @@ class RetrievalNode:
         result_previews: list[dict[str, Any]] = []
         observability: dict[str, Any] | None = None
         try:
-            result = self.tools.execute(call.name, **(call.arguments or {}))
+            # Ensure grade-scoped classification constraints from understand()
+            # reach structured retrieval even if the planner omitted them.
+            call_args = dict(call.arguments or {})
+            if call.name == "get_curriculum_structure":
+                if state.grade and not call_args.get("grade"):
+                    call_args["grade"] = state.grade
+                if state.classification and not call_args.get("classification"):
+                    call_args["classification"] = state.classification
+                if state.level and not call_args.get("level"):
+                    call_args["level"] = state.level
+            result = self.tools.execute(call.name, **call_args)
             latency = timed_ms(started)
             state.bump_tool_calls()
             if result.success:

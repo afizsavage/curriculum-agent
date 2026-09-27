@@ -53,10 +53,36 @@ def select_tool_calls(
     subject = filters.get("subject")
     topic = filters.get("topic")
     level = filters.get("level")
+    classification = filters.get("classification")
     lower = question.lower()
 
     def make(name: str, arguments: dict[str, Any]) -> ToolCallRequest:
         return ToolCallRequest(id=str(uuid4()), name=name, arguments=arguments)
+
+    # Classification of a named subject within a grade (grade-scoped metadata).
+    if (
+        grade
+        and subject
+        and "classification" in lower
+        and "get_subject" in available
+        and not re.search(r"\bcore subjects?\b|\bnon[-\s]?core subjects?\b", lower)
+    ):
+        return [make("get_subject", {"grade": grade, "subject": subject})]
+
+    # Grade-scoped subject lists (optionally constrained by classification).
+    # Classification without a grade must not invent a grade — leave for clarify.
+    if re.search(
+        r"\bwhat subjects\b|\bsubjects (are )?available\b|"
+        r"\b(core|non[-\s]?core|optional|elective)\s+subjects?\b|"
+        r"\bsubjects?\b.*\b(core|non[-\s]?core|optional|elective)\b",
+        lower,
+    ):
+        if "get_curriculum_structure" in available and grade:
+            args: dict[str, Any] = {"grade": grade, "level": level}
+            if classification:
+                args["classification"] = classification
+            return [make("get_curriculum_structure", args)]
+        return []
 
     if "learning objective" in lower or "objectives" in lower or "what should" in lower:
         if "resolve_curriculum_context" in available and grade:
@@ -75,15 +101,6 @@ def select_tool_calls(
             if subject:
                 args["subject"] = subject
             return [make("get_learning_objectives", args)]
-
-    if re.search(r"\bwhat subjects\b|\bsubjects (are )?available\b", lower):
-        if "get_curriculum_structure" in available and grade:
-            return [
-                make(
-                    "get_curriculum_structure",
-                    {"grade": grade, "level": level},
-                )
-            ]
 
     if topic and grade and ("resolve_curriculum_context" in available) and subject and (
         "topic" in lower
