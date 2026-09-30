@@ -1,61 +1,66 @@
 {
-  "generated_at": "2026-09-15T11:42:21.966764+00:00",
+  "generated_at": "2026-09-29T23:45:19.492435+00:00",
   "experiment": "v2.13g",
   "schema_version": "v213g.1",
-  "n_total": 52,
-  "n_successful": 52,
+  "n_total": 85,
+  "n_successful": 32,
   "milestones": {
     "first": 50,
     "stronger": 100,
     "preferred": 200,
-    "reached_first": true,
+    "reached_first": false,
     "reached_stronger": false,
     "reached_preferred": false
   },
   "retrieval": {
-    "retrieval_success": 52,
+    "retrieval_success": 32,
     "no_match": 0,
     "technical_retrieval_failure": 0,
-    "provenance_complete": 52,
-    "metadata_valid": 52,
+    "provenance_complete": 32,
+    "metadata_valid": 32,
     "retrieval_success_rate": 1.0
   },
   "arbitration": {
     "sufficiency_counts": {
-      "INSUFFICIENT": 52
+      "SUFFICIENT": 20,
+      "INSUFFICIENT": 12
     },
     "role_counts": {
-      "DECISIVE": 52
+      "REDUNDANT": 16,
+      "IRRELEVANT": 4,
+      "DECISIVE": 12
     },
     "use_counts": {
-      "INCLUDE_IN_GENERATION": 52
+      "PROVENANCE_ONLY": 16,
+      "DO_NOT_USE": 4,
+      "INCLUDE_IN_GENERATION": 12
     }
   },
   "document_value": {
     "baseline": {
-      "helped": 30,
-      "neutral": 22,
-      "hurt": 0
+      "helped": 25,
+      "neutral": 3,
+      "hurt": 4
     },
     "arbitrated": {
-      "helped": 36,
-      "neutral": 16,
+      "helped": 9,
+      "neutral": 23,
       "hurt": 0
     }
   },
   "recovery": {
-    "baseline_recovery": 30,
-    "arbitrated_recovery": 36
+    "baseline_recovery": 9,
+    "arbitrated_recovery": 9
   },
   "regression": {
-    "baseline_regression": 0,
+    "baseline_regression": 4,
     "arbitrated_regression": 0
   },
   "generator_drift": {
-    "baseline_drift": 0,
+    "baseline_drift": 4,
     "arbitrated_drift": 0,
-    "baseline_unsupported_claims": 30,
-    "arbitrated_unsupported_claims": 17
+    "baseline_unsupported_claims": 9,
+    "arbitrated_unsupported_claims": 2
   },
   "safety": {
     "baseline": {
@@ -72,52 +77,60 @@
   },
   "cohorts": {
     "structured_sufficient_with_docs": {
-      "n": 0,
-      "control_correct_baseline_same": 0,
-      "control_correct_baseline_worse": 0,
-      "control_correct_arbitrated_same": 0,
+      "n": 20,
+      "control_correct_baseline_same": 16,
+      "control_correct_baseline_worse": 4,
+      "control_correct_arbitrated_same": 20,
       "control_correct_arbitrated_worse": 0
     },
     "structured_insufficient_decisive_docs": {
-      "n": 52,
-      "baseline_accepted": 30,
-      "arbitrated_accepted": 36
+      "n": 12,
+      "baseline_accepted": 9,
+      "arbitrated_accepted": 9
     }
   },
-  "classification_diagnostics": {
-    "decisive_arbitrated_rejection": 1
+  "healthy_batch_coverage": {
+    "structured_sufficient_with_docs": 20,
+    "structured_sufficient_redundant_docs": 16,
+    "structured_sufficient_irrelevant_docs": 4,
+    "structured_insufficient_decisive_docs": 12,
+    "infrastructure_invalid": 0,
+    "historical_batch_1": 52,
+    "valid_healthy": 32
   },
+  "sufficient_with_docs_target": 20,
+  "classification_diagnostics": {},
   "latency": {
-    "mean_retrieval_ms": 5.561,
-    "mean_arbitration_ms": 0.071,
-    "mean_baseline_shadow_ms": 7079.447,
-    "mean_arbitrated_shadow_ms": 7003.629
+    "mean_retrieval_ms": 6.552,
+    "mean_arbitration_ms": 0.084,
+    "mean_baseline_shadow_ms": 12541.51,
+    "mean_arbitrated_shadow_ms": 2918.319
   },
   "investigations": [],
   "comparison_table": {
     "recoveries": {
-      "baseline": 30,
-      "arbitrated": 36
+      "baseline": 9,
+      "arbitrated": 9
     },
     "neutral": {
-      "baseline": 22,
-      "arbitrated": 16
+      "baseline": 3,
+      "arbitrated": 23
     },
     "hurt": {
-      "baseline": 0,
+      "baseline": 4,
       "arbitrated": 0
     },
     "regressions": {
-      "baseline": 0,
+      "baseline": 4,
       "arbitrated": 0
     },
     "generator_drift": {
-      "baseline": 0,
+      "baseline": 4,
       "arbitrated": 0
     },
     "unsupported_claims": {
-      "baseline": 30,
-      "arbitrated": 17
+      "baseline": 9,
+      "arbitrated": 2
     },
     "wrong_context_false_accepts": {
       "baseline": 0,
@@ -132,13 +145,43 @@
       "arbitrated": 0
     }
   },
-  "status": "ARBITRATION_NOT_CONFIRMED",
-  "recommendation_text": "No meaningful live reduction in document-induced regressions.",
+  "status": "INSUFFICIENT_SAMPLE",
+  "recommendation_text": "Stage-1 sufficient_with_docs target met (20>=20); continue healthy live collection toward n>=50 (have 32). Keep sample_rate=0.01; do not raise sampling; do not enable production arbitration.",
   "production_isolation": {
     "v213f_document_arbitration_experiment": false,
     "v213e": "disabled",
     "v213g_live_only": true,
     "note": "Production answers remain control; arbitration never user-facing."
+  },
+  "batch_boundaries": {
+    "batch_1_api_unavailable": {
+      "n": 52,
+      "validity": "INFRASTRUCTURE_INVALID",
+      "confounder": "Curriculum Structure API unavailable during collection \u2192 52/52 structured-insufficient; H1 untestable",
+      "preserved_summary": "data/diagnostics/v213g_arbitration_summary_batch1_api_unavailable.json"
+    },
+    "batch_2_healthy_structured_api": {
+      "n_valid": 32,
+      "structured_sufficient_with_docs": 20,
+      "structured_insufficient_decisive_docs": 12,
+      "infrastructure_invalid": 0,
+      "target_structured_sufficient_with_docs": 20
+    }
+  },
+  "historical_batch_1_prior": {
+    "n": 52,
+    "source": "LIVE_TRAFFIC",
+    "validity": "INFRASTRUCTURE_INVALID",
+    "recovery": {
+      "baseline_recovery": 30,
+      "arbitrated_recovery": 36
+    },
+    "unsupported_claims": {
+      "baseline": 30,
+      "arbitrated": 17
+    },
+    "structured_sufficient_with_docs": 0,
+    "note": "Historical prior only; excluded from healthy-batch hypothesis n. JSONL rows preserved unchanged."
   },
   "preserved_priors": {
     "v213f_freeze_jsonl_sha256_prefix": "4dcbca7a46ca11e6",

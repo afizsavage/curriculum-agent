@@ -1,0 +1,130 @@
+{
+  "schema_version": "v213g3.1",
+  "experiment": "v2.13g.3_stage1_live_shadow_validation",
+  "generated_at": "2026-09-15T17:42:24.027259+00:00",
+  "source_jsonl": "data/diagnostics/v213g_arbitration_shadow.jsonl",
+  "runtime": {
+    "V213G_PROVENANCE_ONLY_SEMANTICS": "preserve_control_answer",
+    "v213d_shadow_enabled": true,
+    "v213d_shadow_sample_rate": 0.01,
+    "v213f_document_arbitration_experiment": false,
+    "v213e_enabled": false,
+    "v213g_live_only": true,
+    "verified_at": "2026-09-15T17:26:59.971393+00:00",
+    "agent_restarted_at": "2026-09-15T17:26:59.971406+00:00"
+  },
+  "production_isolation": {
+    "production_arbitration": "OFF",
+    "v213f_document_arbitration_experiment": false,
+    "v213e_enabled": false,
+    "sample_rate": 0.01,
+    "api_v1_unchanged": true,
+    "corpus_unchanged": true,
+    "historical_artifacts_unchanged": true,
+    "historical_hash_files": {
+      "pre": "data/diagnostics/v213g3_historical_artifact_hashes_pre.txt",
+      "post": "data/diagnostics/v213g3_historical_artifact_hashes_post.txt"
+    }
+  },
+  "valid_n": 1,
+  "infrastructure_invalid_n": 0,
+  "historical_batch1_n": 52,
+  "n_source_rows": 53,
+  "cohort_composition": {
+    "structured_sufficient_redundant": 1,
+    "structured_sufficient_irrelevant": 0,
+    "structured_sufficient_decisive": 0,
+    "structured_insufficient_decisive": 0,
+    "structured_insufficient_irrelevant": 0,
+    "structured_insufficient_redundant": 0,
+    "document_only": 0,
+    "other": 0,
+    "infrastructure_invalid": 0
+  },
+  "h1a": {
+    "evaluated": 1,
+    "classification_errors": 0,
+    "error_cases": []
+  },
+  "h1b": {
+    "non_generation_cases": 1,
+    "document_leaks": 0,
+    "regeneration_attempts": 0,
+    "leak_cases": [],
+    "regen_cases": []
+  },
+  "preserve_control": {
+    "preserve_control_cases": 1,
+    "preserve_control_hash_matches": 1,
+    "preserve_control_hash_mismatches": 0,
+    "preserve_control_regeneration_attempts": 0,
+    "preserve_control_document_leaks": 0,
+    "preserve_control_regressions": 0,
+    "hash_match_rate_pct": 100.0,
+    "violation_cases": []
+  },
+  "h2": {
+    "n": 0,
+    "generation_document_counts": [],
+    "regeneration_attempted": 0,
+    "outcome_sources": {},
+    "arbitrated_recoveries": 0,
+    "baseline_recoveries": 0,
+    "arbitration_regressions": 0,
+    "cases": []
+  },
+  "baseline_contamination": {
+    "ids": [
+      "9cd42c",
+      "27e64a"
+    ],
+    "observed_live_valid": [],
+    "baseline_document_merge_regressions": 0,
+    "arbitration_regressions": 0
+  },
+  "safety": {
+    "flag_counts": {},
+    "total_flags": 0,
+    "expected_all_zero": true
+  },
+  "latency": {
+    "structured_retrieval_ms": {
+      "n": 1,
+      "p50": 4.25,
+      "p95": 4.25,
+      "mean": 4.25
+    },
+    "document_retrieval_ms": {
+      "n": 1,
+      "p50": 8.621,
+      "p95": 8.621,
+      "mean": 8.62
+    },
+    "arbitration_ms": {
+      "n": 1,
+      "p50": 0.089,
+      "p95": 0.089,
+      "mean": 0.09
+    },
+    "total_shadow_ms": {
+      "n": 1,
+      "p50": 15094.535,
+      "p95": 15094.535,
+      "mean": 15094.53
+    },
+    "note": "Shadow latency only; not production user-facing latency."
+  },
+  "decision": "INSUFFICIENT_LIVE_COVERAGE",
+  "recommendation": {
+    "enable_production_arbitration": false,
+    "continue_live_at_0_01": true,
+    "next": "Continue Stage-1 live shadow at sample_rate=0.01 until sufficient+document, redundant/irrelevant, and insufficient+decisive cohorts are all represented; do not enable production arbitration."
+  },
+  "config_and_cohort_hashes": {
+    "runtime_config_hash": "b5f606c46955b4c6",
+    "valid_case_hashes": [
+      "23701dcdbaf629d9"
+    ],
+    "cohort_fingerprint": "008b9379e984336a"
+  }
+}

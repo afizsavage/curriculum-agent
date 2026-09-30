@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-09-15T17:41:30+00:00",
+  "stage": "v213g3_stage1_live_shadow_validation",
+  "overall_status": "INSUFFICIENT_LIVE_COVERAGE",
+  "production_arbitration": "disabled",
+  "live_config": {
+    "v213g_live_arbitration_shadow": true,
+    "v213f_document_arbitration_experiment": false,
+    "sample_rate": 0.01,
+    "v213g_provenance_only_semantics": "preserve_control_answer",
+    "agent_restarted_at": "2026-09-15T17:26:40+00:00"
+  },
+  "g3_artifacts": {
+    "report": "docs/V2_13G3_STAGE1_LIVE_SHADOW_VALIDATION.md",
+    "summary": "data/diagnostics/v213g3_stage1_live.json",
+    "cases": "data/diagnostics/v213g3_stage1_live.jsonl"
+  },
+  "live_observation": {
+    "valid_healthy": 1,
+    "structured_sufficient_with_docs": 1,
+    "structured_sufficient_redundant": 1,
+    "structured_insufficient_decisive": 0,
+    "infrastructure_invalid_tagged": 0,
+    "preserve_control_cases": 1,
+    "preserve_control_hash_matches": 1,
+    "preserve_control_document_leaks": 0,
+    "preserve_control_regeneration_attempts": 0,
+    "h2_cases": 0
+  },
+  "prior": {
+    "g2": "PRESERVE_CONTROL_CONFIRMED",
+    "g2_preserve_control_hash_matches": 17,
+    "g2_h2": "5/5"
+  },
+  "recommendation": {
+    "continue_live_at_0.01": true,
+    "preserve_control_answer_live": true,
+    "enable_production_arbitration": false,
+    "next": "Continue Stage-1 live shadow collection at 0.01 until redundant/irrelevant and insufficient+decisive cohorts are represented alongside additional preserve cases; re-run scripts/eval_v213g3_stage1_live.py"
+  }
+}

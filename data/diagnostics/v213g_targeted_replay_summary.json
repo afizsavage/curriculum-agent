@@ -1,0 +1,882 @@
+{
+  "generated_at": "2026-09-15T14:30:19.666735+00:00",
+  "experiment": "v2.13g",
+  "schema_version": "v213g.1",
+  "n_total": 26,
+  "n_successful": 26,
+  "milestones": {
+    "first": 50,
+    "stronger": 100,
+    "preferred": 200,
+    "reached_first": false,
+    "reached_stronger": false,
+    "reached_preferred": false
+  },
+  "retrieval": {
+    "retrieval_success": 26,
+    "no_match": 0,
+    "technical_retrieval_failure": 0,
+    "provenance_complete": 26,
+    "metadata_valid": 26,
+    "retrieval_success_rate": 1.0
+  },
+  "arbitration": {
+    "sufficiency_counts": {
+      "SUFFICIENT": 20,
+      "INSUFFICIENT": 5,
+      "UNCERTAIN": 1
+    },
+    "role_counts": {
+      "REDUNDANT": 17,
+      "DECISIVE": 5,
+      "SUPPORTING": 1,
+      "IRRELEVANT": 3
+    },
+    "use_counts": {
+      "PROVENANCE_ONLY": 17,
+      "INCLUDE_IN_GENERATION": 6,
+      "DO_NOT_USE": 3
+    }
+  },
+  "document_value": {
+    "baseline": {
+      "helped": 24,
+      "neutral": 0,
+      "hurt": 2
+    },
+    "arbitrated": {
+      "helped": 23,
+      "neutral": 0,
+      "hurt": 3
+    }
+  },
+  "recovery": {
+    "baseline_recovery": 6,
+    "arbitrated_recovery": 6
+  },
+  "regression": {
+    "baseline_regression": 2,
+    "arbitrated_regression": 3
+  },
+  "generator_drift": {
+    "baseline_drift": 2,
+    "arbitrated_drift": 3,
+    "baseline_unsupported_claims": 2,
+    "arbitrated_unsupported_claims": 2
+  },
+  "safety": {
+    "baseline": {
+      "wrong_context_false_acceptance": 0,
+      "placeholder_false_acceptance": 0,
+      "metadata_false_acceptance": 0
+    },
+    "arbitrated": {
+      "wrong_context_false_acceptance": 0,
+      "placeholder_false_acceptance": 0,
+      "metadata_false_acceptance": 0
+    },
+    "safety_blocked": false
+  },
+  "cohorts": {
+    "structured_sufficient_with_docs": {
+      "n": 20,
+      "control_correct_baseline_same": 18,
+      "control_correct_baseline_worse": 2,
+      "control_correct_arbitrated_same": 17,
+      "control_correct_arbitrated_worse": 3
+    },
+    "structured_insufficient_decisive_docs": {
+      "n": 5,
+      "baseline_accepted": 5,
+      "arbitrated_accepted": 5
+    }
+  },
+  "healthy_batch_coverage": {
+    "structured_sufficient_with_docs": 20,
+    "structured_sufficient_redundant_docs": 17,
+    "structured_sufficient_irrelevant_docs": 3,
+    "structured_insufficient_decisive_docs": 5,
+    "infrastructure_invalid": 0,
+    "historical_batch_1": 0,
+    "valid_healthy": 26
+  },
+  "sufficient_with_docs_target": 20,
+  "classification_diagnostics": {},
+  "latency": {
+    "mean_retrieval_ms": 7.298,
+    "mean_arbitration_ms": 0.084,
+    "mean_baseline_shadow_ms": 9440.183,
+    "mean_arbitrated_shadow_ms": 8765.273
+  },
+  "investigations": [
+    {
+      "question_hash": "fd894182926a5f8b",
+      "grade": "CLASS_4",
+      "subject": null,
+      "topic": null,
+      "structured_evidence_summary": [
+        {
+          "entity_type": "unit",
+          "entity_id": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic Money"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "8e91780d-814a-4829-ba39-289274e7af19",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "ad257603-967d-4ec3-bc33-666776b57790",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "f293e00a-bae7-44db-ad55-3c1263e20387",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration Reading And Writing"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration. Approximation."
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration FRACTION"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration OPERATION ON FRACTIONS."
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration Operation on Fraction. (Multiplication)"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "c148074c-fac8-4771-94de-01de1805f585",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "a06e3216-dd97-4d5f-af49-f1afec6def85",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic Addition and Subtraction"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic Multiplication"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "152b4a5a-c080-403c-a780-9940c818bc4b",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic DIVISION"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "13202e14-75a9-455e-9f58-baad27d672b4",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic Addition and Subtraction."
+        }
+      ],
+      "document_passages": [
+        {
+          "document_id": "doc-f05cba561646",
+          "passage_id": "passage-74aa64a07f54",
+          "source_url": "https://example.invalid/bec-framework.pdf",
+          "page_number": 2,
+          "document_hash": "655f2d1461a2d97e",
+          "retrieval_score": 0.03252247488101534,
+          "retrieval_rank": 1,
+          "grade": null,
+          "subject": "MATHEMATICS",
+          "topic": null
+        },
+        {
+          "document_id": "doc-bb746307a337",
+          "passage_id": "passage-42a67e7339e6",
+          "source_url": "https://example.invalid/math-primary.pdf",
+          "page_number": 1,
+          "document_hash": "bbd61e10feb13abe",
+          "retrieval_score": 0.032266458495966696,
+          "retrieval_rank": 2,
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "money"
+        },
+        {
+          "document_id": "doc-f05cba561646",
+          "passage_id": "passage-7021ff490165",
+          "source_url": "https://example.invalid/bec-framework.pdf",
+          "page_number": 1,
+          "document_hash": "5360c6e8a4093b3a",
+          "retrieval_score": 0.03125,
+          "retrieval_rank": 3,
+          "grade": null,
+          "subject": "MATHEMATICS",
+          "topic": null
+        },
+        {
+          "document_id": "doc-f05cba561646",
+          "passage_id": "passage-7811e1b05dc1",
+          "source_url": "https://example.invalid/bec-framework.pdf",
+          "page_number": 1,
+          "document_hash": "eaac153d5c27ffdd",
+          "retrieval_score": 0.030536130536130537,
+          "retrieval_rank": 4,
+          "grade": null,
+          "subject": "MATHEMATICS",
+          "topic": null
+        },
+        {
+          "document_id": "doc-f05cba561646",
+          "passage_id": "passage-34365243425f",
+          "source_url": "https://example.invalid/bec-framework.pdf",
+          "page_number": 3,
+          "document_hash": "4be594ea7070b20b",
+          "retrieval_score": 0.030536130536130537,
+          "retrieval_rank": 5,
+          "grade": null,
+          "subject": "SCIENCE",
+          "topic": null
+        }
+      ],
+      "document_role": "REDUNDANT",
+      "structured_sufficiency": "SUFFICIENT",
+      "document_use": "PROVENANCE_ONLY",
+      "arbitration_reasons": [
+        "structured_already_sufficient_docs_redundant"
+      ],
+      "control": {
+        "final_accepted": true,
+        "final_route": "finish",
+        "verifier_decision": "accept",
+        "mapper_recommendation": "accept",
+        "unsupported_claims": [],
+        "answer_hash": "6dcb51ba957698ee",
+        "answer_length": 804
+      },
+      "baseline": {
+        "final_accepted": true,
+        "final_route": "finish",
+        "verifier_decision": "accept",
+        "mapper_recommendation": "accept",
+        "unsupported_claims": [],
+        "answer_hash": "da05dbd73be3f229",
+        "answer_length": 1037
+      },
+      "arbitrated": {
+        "final_accepted": false,
+        "final_route": "retrieve_more",
+        "verifier_decision": "retrieve_more",
+        "mapper_recommendation": "reject",
+        "unsupported_claims": [
+          "These four learning outcomes are the only money-specific outcomes present in the resolved evidence for Class 4.",
+          "The answer implies the four LOs constitute the complete set of money-related achievements for Class 4, which is not established by the evidence."
+        ],
+        "answer_hash": "38b84a8ebf5aff77",
+        "answer_length": 813
+      },
+      "regression_cause": "GENERATOR_DOCUMENT_DRIFT",
+      "note": "Answer bodies omitted from persisted investigation for privacy."
+    },
+    {
+      "question_hash": "7fb53cf210f937c5",
+      "grade": null,
+      "subject": null,
+      "topic": null,
+      "structured_evidence_summary": [
+        {
+          "entity_type": "topic",
+          "entity_id": "C4-U18",
+          "grade": null,
+          "subject": null,
+          "topic": null
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic Money"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "8e91780d-814a-4829-ba39-289274e7af19",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "ad257603-967d-4ec3-bc33-666776b57790",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "011e16fd-9eee-4708-bac2-1a59952b0b87",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "684ebd01-8dc0-459b-a610-9d8dfea454ff"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "1b382751-bcd0-4cd9-b83b-4acd03fb00ce",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "684ebd01-8dc0-459b-a610-9d8dfea454ff"
+        }
+      ],
+      "document_passages": [
+        {
+          "document_id": "doc-a065e7c5b774",
+          "passage_id": "passage-33877293f649",
+          "source_url": "https://example.invalid/science-primary.pdf",
+          "page_number": 2,
+          "document_hash": "bdc25cc5ae7b0cc4",
+          "retrieval_score": 0.03200204813108039,
+          "retrieval_rank": 1,
+          "grade": "CLASS_5",
+          "subject": "SCIENCE",
+          "topic": null
+        },
+        {
+          "document_id": "doc-f05cba561646",
+          "passage_id": "passage-7811e1b05dc1",
+          "source_url": "https://example.invalid/bec-framework.pdf",
+          "page_number": 1,
+          "document_hash": "eaac153d5c27ffdd",
+          "retrieval_score": 0.031544957774465976,
+          "retrieval_rank": 2,
+          "grade": null,
+          "subject": "MATHEMATICS",
+          "topic": null
+        },
+        {
+          "document_id": "doc-f05cba561646",
+          "passage_id": "passage-34365243425f",
+          "source_url": "https://example.invalid/bec-framework.pdf",
+          "page_number": 3,
+          "document_hash": "4be594ea7070b20b",
+          "retrieval_score": 0.03131881575727918,
+          "retrieval_rank": 3,
+          "grade": null,
+          "subject": "SCIENCE",
+          "topic": null
+        },
+        {
+          "document_id": "doc-f05cba561646",
+          "passage_id": "passage-74aa64a07f54",
+          "source_url": "https://example.invalid/bec-framework.pdf",
+          "page_number": 2,
+          "document_hash": "655f2d1461a2d97e",
+          "retrieval_score": 0.031009615384615385,
+          "retrieval_rank": 4,
+          "grade": null,
+          "subject": "MATHEMATICS",
+          "topic": null
+        },
+        {
+          "document_id": "doc-bb746307a337",
+          "passage_id": "passage-42a67e7339e6",
+          "source_url": "https://example.invalid/math-primary.pdf",
+          "page_number": 1,
+          "document_hash": "bbd61e10feb13abe",
+          "retrieval_score": 0.030330882352941176,
+          "retrieval_rank": 5,
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "money"
+        }
+      ],
+      "document_role": "IRRELEVANT",
+      "structured_sufficiency": "SUFFICIENT",
+      "document_use": "DO_NOT_USE",
+      "arbitration_reasons": [
+        "structured_sufficient_docs_irrelevant"
+      ],
+      "control": {
+        "final_accepted": true,
+        "final_route": "finish",
+        "verifier_decision": "accept",
+        "mapper_recommendation": "accept",
+        "unsupported_claims": [],
+        "answer_hash": "3923be6df399e6dd",
+        "answer_length": 1399
+      },
+      "baseline": {
+        "final_accepted": true,
+        "final_route": "finish",
+        "verifier_decision": "accept",
+        "mapper_recommendation": "accept",
+        "unsupported_claims": [],
+        "answer_hash": "7acdb0e111b8f15e",
+        "answer_length": 1223
+      },
+      "arbitrated": {
+        "final_accepted": false,
+        "final_route": "retrieve_more",
+        "verifier_decision": "retrieve_more",
+        "mapper_recommendation": "retrieve_more",
+        "unsupported_claims": [],
+        "answer_hash": "ffc60bc78f45784e",
+        "answer_length": 873
+      },
+      "regression_cause": "GENERATOR_DOCUMENT_DRIFT",
+      "note": "Answer bodies omitted from persisted investigation for privacy."
+    },
+    {
+      "question_hash": "3445d54939ac9ed9",
+      "grade": "CLASS_4",
+      "subject": null,
+      "topic": null,
+      "structured_evidence_summary": [
+        {
+          "entity_type": "unit",
+          "entity_id": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic Money"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "5a3e84bc-fce5-43a3-a369-3d8088786185",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "8e91780d-814a-4829-ba39-289274e7af19",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "ad257603-967d-4ec3-bc33-666776b57790",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "entity_id": "5fbb62a9-742e-40a8-8169-ba81607f69b2",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "f293e00a-bae7-44db-ad55-3c1263e20387",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration Reading And Writing"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration. Approximation."
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration FRACTION"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration OPERATION ON FRACTIONS."
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration Operation on Fraction. (Multiplication)"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "c148074c-fac8-4771-94de-01de1805f585",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "a06e3216-dd97-4d5f-af49-f1afec6def85",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic Addition and Subtraction"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic Multiplication"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "152b4a5a-c080-403c-a780-9940c818bc4b",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic DIVISION"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic"
+        },
+        {
+          "entity_type": "unit",
+          "entity_id": "13202e14-75a9-455e-9f58-baad27d672b4",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "Everyday Arithmetic Addition and Subtraction."
+        }
+      ],
+      "document_passages": [
+        {
+          "document_id": "doc-f05cba561646",
+          "passage_id": "passage-74aa64a07f54",
+          "source_url": "https://example.invalid/bec-framework.pdf",
+          "page_number": 2,
+          "document_hash": "655f2d1461a2d97e",
+          "retrieval_score": 0.032018442622950824,
+          "retrieval_rank": 1,
+          "grade": null,
+          "subject": "MATHEMATICS",
+          "topic": null
+        },
+        {
+          "document_id": "doc-bb746307a337",
+          "passage_id": "passage-42a67e7339e6",
+          "source_url": "https://example.invalid/math-primary.pdf",
+          "page_number": 1,
+          "document_hash": "bbd61e10feb13abe",
+          "retrieval_score": 0.03177805800756621,
+          "retrieval_rank": 2,
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "money"
+        },
+        {
+          "document_id": "doc-bb746307a337",
+          "passage_id": "passage-aaa5ff539243",
+          "source_url": "https://example.invalid/math-primary.pdf",
+          "page_number": 2,
+          "document_hash": "57a43d345016bb9e",
+          "retrieval_score": 0.031054405392392875,
+          "retrieval_rank": 3,
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "money"
+        },
+        {
+          "document_id": "doc-f05cba561646",
+          "passage_id": "passage-7811e1b05dc1",
+          "source_url": "https://example.invalid/bec-framework.pdf",
+          "page_number": 1,
+          "document_hash": "eaac153d5c27ffdd",
+          "retrieval_score": 0.030776515151515152,
+          "retrieval_rank": 4,
+          "grade": null,
+          "subject": "MATHEMATICS",
+          "topic": null
+        },
+        {
+          "document_id": "doc-bb746307a337",
+          "passage_id": "passage-ce8bf1634c3d",
+          "source_url": "https://example.invalid/math-primary.pdf",
+          "page_number": 1,
+          "document_hash": "f83d0fb3e356995b",
+          "retrieval_score": 0.03057889822595705,
+          "retrieval_rank": 5,
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS",
+          "topic": "money"
+        }
+      ],
+      "document_role": "REDUNDANT",
+      "structured_sufficiency": "SUFFICIENT",
+      "document_use": "PROVENANCE_ONLY",
+      "arbitration_reasons": [
+        "structured_already_sufficient_docs_redundant"
+      ],
+      "control": {
+        "final_accepted": true,
+        "final_route": "finish",
+        "verifier_decision": "accept",
+        "mapper_recommendation": "accept",
+        "unsupported_claims": [],
+        "answer_hash": "6c5922ec6f1bcabb",
+        "answer_length": 761
+      },
+      "baseline": {
+        "final_accepted": true,
+        "final_route": "finish",
+        "verifier_decision": "accept",
+        "mapper_recommendation": "accept",
+        "unsupported_claims": [],
+        "answer_hash": "3ad9f929754735d1",
+        "answer_length": 1180
+      },
+      "arbitrated": {
+        "final_accepted": false,
+        "final_route": "retrieve_more",
+        "verifier_decision": "retrieve_more",
+        "mapper_recommendation": "retrieve_more",
+        "unsupported_claims": [],
+        "answer_hash": "1f071b2504ae5cff",
+        "answer_length": 1190
+      },
+      "regression_cause": "GENERATOR_DOCUMENT_DRIFT",
+      "note": "Answer bodies omitted from persisted investigation for privacy."
+    }
+  ],
+  "comparison_table": {
+    "recoveries": {
+      "baseline": 6,
+      "arbitrated": 6
+    },
+    "neutral": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "hurt": {
+      "baseline": 2,
+      "arbitrated": 3
+    },
+    "regressions": {
+      "baseline": 2,
+      "arbitrated": 3
+    },
+    "generator_drift": {
+      "baseline": 2,
+      "arbitrated": 3
+    },
+    "unsupported_claims": {
+      "baseline": 2,
+      "arbitrated": 2
+    },
+    "wrong_context_false_accepts": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "placeholder_false_accepts": {
+      "baseline": 0,
+      "arbitrated": 0
+    },
+    "metadata_false_accepts": {
+      "baseline": 0,
+      "arbitrated": 0
+    }
+  },
+  "status": "INSUFFICIENT_SAMPLE",
+  "recommendation_text": "Stage-1 sufficient_with_docs target met (20>=20); continue healthy live collection toward n>=50 (have 26). Keep sample_rate=0.01; do not raise sampling; do not enable production arbitration.",
+  "production_isolation": {
+    "v213f_document_arbitration_experiment": false,
+    "v213e": "disabled",
+    "v213g_live_only": true,
+    "note": "Production answers remain control; arbitration never user-facing."
+  },
+  "batch_boundaries": {
+    "batch_1_api_unavailable": {
+      "n": 0,
+      "validity": "INFRASTRUCTURE_INVALID",
+      "confounder": "Curriculum Structure API unavailable during collection \u2192 52/52 structured-insufficient; H1 untestable",
+      "preserved_summary": "data/diagnostics/v213g_arbitration_summary_batch1_api_unavailable.json"
+    },
+    "batch_2_healthy_structured_api": {
+      "n_valid": 26,
+      "structured_sufficient_with_docs": 20,
+      "structured_insufficient_decisive_docs": 5,
+      "infrastructure_invalid": 0,
+      "target_structured_sufficient_with_docs": 20
+    }
+  },
+  "historical_batch_1_prior": {
+    "n": 52,
+    "source": "LIVE_TRAFFIC",
+    "validity": "INFRASTRUCTURE_INVALID",
+    "recovery": {
+      "baseline_recovery": 30,
+      "arbitrated_recovery": 36
+    },
+    "unsupported_claims": {
+      "baseline": 30,
+      "arbitrated": 17
+    },
+    "structured_sufficient_with_docs": 0,
+    "note": "Historical prior only; excluded from healthy-batch hypothesis n. JSONL rows preserved unchanged."
+  },
+  "preserved_priors": {
+    "v213f_freeze_jsonl_sha256_prefix": "4dcbca7a46ca11e6",
+    "v213f_decision": "ARBITRATION_SUPPORTED",
+    "note": "V2.13D/F datasets are not overwritten by V2.13G."
+  },
+  "source": "TARGETED_REPLAY",
+  "config": {
+    "v213d_shadow_enabled": true,
+    "v213d_shadow_sample_rate": 0.01,
+    "v213f_document_arbitration_experiment": false,
+    "v213g_live_arbitration_shadow": true,
+    "v213e": "disabled",
+    "note": "TARGETED_REPLAY forced dual-arm; sample_rate unchanged for live path"
+  },
+  "H1_structured_sufficient_with_docs": {
+    "n": 20,
+    "control_accepted": 20,
+    "baseline_regression": 2,
+    "arbitrated_regression": 3,
+    "baseline_generator_drift": 2,
+    "arbitrated_generator_drift": 3,
+    "baseline_unsupported_claims": 2,
+    "arbitrated_unsupported_claims": 2,
+    "redundant": 17,
+    "irrelevant": 3,
+    "document_use": {
+      "PROVENANCE_ONLY": 17,
+      "DO_NOT_USE": 3
+    },
+    "result": "NOT_CONFIRMED"
+  },
+  "never_mixed_with_live": true
+}

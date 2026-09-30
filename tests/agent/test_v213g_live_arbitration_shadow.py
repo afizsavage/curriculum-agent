@@ -347,6 +347,45 @@ def test_decide_status_untested_when_sufficient_cohort_missing():
     assert "PRIMARY_REGRESSION_HYPOTHESIS_UNTESTED" in out["recommendation_text"]
 
 
+def test_decide_status_stage1_sufficient_target_before_n50():
+    out = decide_v213g_status(
+        n=28,
+        baseline_reg=0,
+        arb_reg=0,
+        baseline_rec=8,
+        arb_rec=10,
+        safety_blocked=False,
+        class_diag={},
+        structured_sufficient_with_docs=20,
+    )
+    assert out["status"] == "INSUFFICIENT_SAMPLE"
+    assert "Stage-1 sufficient_with_docs target met" in out["recommendation_text"]
+
+
+def test_classify_row_validity_api_failure_vs_genuine():
+    from app.agent.v213g_live_shadow import classify_row_validity
+
+    bad = classify_row_validity(
+        structured_api_available=False, structured_count=0
+    )
+    assert bad["validity"] == "INFRASTRUCTURE_INVALID"
+    assert bad["structured_count_zero_due_to_api_failure"] is True
+    assert bad["structured_count_zero_due_to_genuine_no_evidence"] is False
+
+    genuine = classify_row_validity(
+        structured_api_available=True, structured_count=0
+    )
+    assert genuine["validity"] == "VALID"
+    assert genuine["structured_count_zero_due_to_api_failure"] is False
+    assert genuine["structured_count_zero_due_to_genuine_no_evidence"] is True
+
+    ok = classify_row_validity(
+        structured_api_available=True, structured_count=3
+    )
+    assert ok["validity"] == "VALID"
+    assert ok["zero_structured_reason"] is None
+
+
 def test_decide_status_safety_blocked():
     out = decide_v213g_status(
         n=50,

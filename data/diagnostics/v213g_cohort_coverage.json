@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-15T12:09:59.097590+00:00",
+  "generated_at": "2026-09-29T23:45:20.092219+00:00",
   "experiment": "v2.13g_cohort_coverage",
   "config": {
     "v213d_shadow_enabled": true,
@@ -13,84 +13,103 @@
     "curriculum_api_url": "http://127.0.0.1:8000"
   },
   "live_traffic": {
-    "n": 52,
+    "n": 85,
     "control_accepted": {
-      "false": 52
+      "false": 65,
+      "true": 20
     },
     "control_route": {
-      "fallback": 48,
+      "fallback": 61,
       "clarify": 3,
-      "retrieve_more": 1
+      "retrieve_more": 1,
+      "finish": 20
     },
     "categories": {
-      "document_oriented": 17,
-      "insufficient_evidence": 17,
-      "ambiguous": 15,
-      "adversarial_suspicious": 3
+      "document_oriented": 19,
+      "insufficient_evidence": 22,
+      "ambiguous": 21,
+      "adversarial_suspicious": 3,
+      "mixed": 20
     },
     "grades": {
-      "None": 30,
-      "CLASS_4": 18,
+      "None": 40,
+      "CLASS_4": 38,
       "SSS_3": 2,
       "CLASS_1": 1,
-      "CLASS_5": 1
+      "CLASS_5": 2,
+      "CLASS_6": 1,
+      "CLASS_3": 1
     },
     "subjects": {
-      "MATHEMATICS": 11,
-      "None": 39,
-      "SCIENCE": 2
+      "MATHEMATICS": 14,
+      "None": 67,
+      "SCIENCE": 4
     },
     "structured_count_hist": {
-      "0": 52
+      "0": 65,
+      "5": 6,
+      "9": 1,
+      "13": 2,
+      "14": 4,
+      "15": 1,
+      "22": 1,
+      "27": 1,
+      "31": 2,
+      "37": 2
     },
     "document_count_hist": {
-      "5": 52
+      "5": 85
     },
     "sufficiency": {
-      "INSUFFICIENT": 52
+      "INSUFFICIENT": 65,
+      "SUFFICIENT": 20
     },
     "document_role": {
-      "DECISIVE": 52
+      "DECISIVE": 65,
+      "REDUNDANT": 16,
+      "IRRELEVANT": 4
     },
     "document_use": {
-      "INCLUDE_IN_GENERATION": 52
+      "INCLUDE_IN_GENERATION": 65,
+      "PROVENANCE_ONLY": 16,
+      "DO_NOT_USE": 4
     },
-    "zero_structured_evidence": 52,
-    "all_zero_structured": true,
-    "all_insufficient_decisive_include": true
+    "zero_structured_evidence": 65,
+    "all_zero_structured": false,
+    "all_insufficient_decisive_include": false
   },
   "live_cohort_counts": {
-    "structured_sufficient_with_docs": 0,
-    "structured_sufficient_redundant_docs": 0,
-    "structured_sufficient_irrelevant_docs": 0,
-    "structured_insufficient_decisive_docs": 52,
+    "structured_sufficient_with_docs": 20,
+    "structured_sufficient_redundant_docs": 16,
+    "structured_sufficient_irrelevant_docs": 4,
+    "structured_insufficient_decisive_docs": 65,
     "structured_insufficient_irrelevant_docs": 0,
-    "neutral_document_cases": 22
+    "neutral_document_cases": 42
   },
   "live_comparison_table": {
     "recoveries": {
-      "baseline": 30,
-      "arbitrated": 36
+      "baseline": 9,
+      "arbitrated": 9
     },
     "neutral": {
-      "baseline": 22,
-      "arbitrated": 16
+      "baseline": 3,
+      "arbitrated": 23
     },
     "hurt": {
-      "baseline": 0,
+      "baseline": 4,
       "arbitrated": 0
     },
     "regressions": {
-      "baseline": 0,
+      "baseline": 4,
       "arbitrated": 0
     },
     "generator_drift": {
-      "baseline": 0,
+      "baseline": 4,
       "arbitrated": 0
     },
     "unsupported_claims": {
-      "baseline": 30,
-      "arbitrated": 17
+      "baseline": 9,
+      "arbitrated": 2
     },
     "wrong_context_false_accepts": {
       "baseline": 0,
@@ -106,10 +125,10 @@
     }
   },
   "live_latency": {
-    "mean_retrieval_ms": 5.561,
-    "mean_arbitration_ms": 0.071,
-    "mean_baseline_shadow_ms": 7079.447,
-    "mean_arbitrated_shadow_ms": 7003.629
+    "mean_retrieval_ms": 6.552,
+    "mean_arbitration_ms": 0.084,
+    "mean_baseline_shadow_ms": 12541.51,
+    "mean_arbitrated_shadow_ms": 2918.319
   },
   "safety": {
     "baseline": {
@@ -125,10 +144,10 @@
     "safety_blocked": false
   },
   "root_cause": {
-    "determination": "SAMPLING_BIAS",
-    "classification_validity": "CLASSIFICATION_CORRECT",
-    "detail": "All live dual-arm rows have structured_count=0 and control_accepted=false. Classification is consistent with that evidence. The live sample did not include any structured-sufficient/document-redundant cases, so the primary V2.13F regression hypothesis was untested.",
-    "primary_regression_hypothesis": "UNTESTED",
+    "determination": "INSUFFICIENT_INFORMATION",
+    "classification_validity": "INSUFFICIENT_INFORMATION",
+    "detail": "Live distribution is mixed; further inspection required.",
+    "primary_regression_hypothesis": "TESTABLE",
     "curriculum_api_reachable": true
   },
   "targeted_replay": {
@@ -216,21 +235,21 @@
   },
   "hypotheses": {
     "H1_regression_prevention": {
-      "result": "UNTESTED",
-      "note": "PRIMARY_REGRESSION_HYPOTHESIS_UNTESTED on LIVE_TRAFFIC (structured_sufficient_with_docs=0). TARGETED_REPLAY reproduces V2.13F sufficient/redundant withholding including dd1c57."
+      "result": "CONFIRMED",
+      "note": "Live arbitrated regressions below baseline and at zero."
     },
     "H2_recovery_preservation": {
       "result": "CONFIRMED",
-      "note": "Arbitrated recoveries (36) preserved vs baseline (30)."
+      "note": "Arbitrated recoveries (9) preserved vs baseline (9)."
     },
     "H3_generator_drift_reduction": {
-      "result": "PARTIALLY_CONFIRMED",
-      "note": "Unsupported claims fell 30\u219217 (live sufficient+doc cohort=0)."
+      "result": "CONFIRMED",
+      "note": "Unsupported claims fell 9\u21922 (live sufficient+doc cohort=20)."
     },
     "safety": "PASS",
-    "overall_status": "INVESTIGATE_BEFORE_PROMOTION",
-    "recommendation": "PROCEED_TO_TARGETED_LIVE_VALIDATION",
-    "primary_regression_hypothesis_live": "PRIMARY_REGRESSION_HYPOTHESIS_UNTESTED"
+    "overall_status": "ARBITRATION_CONFIRMED",
+    "recommendation": "ARBITRATION_CONFIRMED",
+    "primary_regression_hypothesis_live": "TESTED"
   },
   "preserved_artifacts": {
     "v213g_arbitration_shadow_jsonl": "/home/afiz/Projects/curriculumz/curriculum-agent/data/diagnostics/v213g_arbitration_shadow.jsonl",

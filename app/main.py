@@ -104,6 +104,12 @@ def create_app() -> FastAPI:
 
         settings = get_settings()
         g_rows = load_v213g_records()
+        from app.agent.v213g_live_shadow import (
+            SUFFICIENT_WITH_DOCS_TARGET,
+            count_sufficient_with_docs,
+            probe_structured_api,
+        )
+
         g_ok = sum(
             1
             for r in g_rows
@@ -111,6 +117,8 @@ def create_app() -> FastAPI:
             and not (r.get("baseline_shadow") or {}).get("error")
             and not (r.get("arbitrated_shadow") or {}).get("error")
         )
+        coverage = count_sufficient_with_docs(g_rows)
+        infra = probe_structured_api(settings)
         return {
             "status": "ok",
             "service": "curriculum-agent",
@@ -126,6 +134,9 @@ def create_app() -> FastAPI:
                 "rows": len(g_rows),
                 "successful_comparisons": g_ok,
                 "milestone_first": 50,
+                "sufficient_with_docs_target": SUFFICIENT_WITH_DOCS_TARGET,
+                "healthy_batch_coverage": coverage,
+                "structured_api": infra,
             },
             "qa_metrics": {
                 "total_requests": get_metrics().snapshot().get("total_requests", 0),

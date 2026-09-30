@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-09-15T15:18:42.512820+00:00",
+  "experiment": "v2.13g.1",
+  "schema_version": "v213g1.1",
+  "n_provenance_only_redundant": 17,
+  "enforcement_status": "PARTIALLY_ENFORCED",
+  "enforcement_note": "Documents are withheld from generation_evidence (generation_document_count=0) but the arbitrated arm still regenerates instead of preserving control (V2.13F outcome_source=control).",
+  "questions": {
+    "A_documents_in_generation": {
+      "leaked_cases": 0,
+      "result": "NO"
+    },
+    "B_structured_evidence_identical": {
+      "identical_cases": 17,
+      "n": 17,
+      "result": "YES"
+    },
+    "C_prompt_identical": {
+      "result": "LIKELY_YES",
+      "note": "Arbitrated arm uses agent.answer() with structured-only evidence; no alternate system prompt. Control ran earlier in the same ask with the same generator (temperature=0.0)."
+    },
+    "D_generation_parameters": {
+      "result": "LIKELY_YES",
+      "temperature": 0.0,
+      "note": "AnswerGenerator.generate_structured uses temperature=0.0."
+    },
+    "E_intended_semantics": {
+      "v213f_documented": "PRESERVE_CONTROL_ANSWER (outcome_source=control)",
+      "v213g_current": "STRUCTURED_ONLY_REGENERATION",
+      "result": "CURRENT_DIVERGES_FROM_V213F"
+    }
+  },
+  "answer_preservation": {
+    "arbitrated_hash_match_control": 0,
+    "n": 17,
+    "rate": 0.0,
+    "preserve_counterfactual_hash_match": 17
+  },
+  "regressions_on_cohort": {
+    "baseline_regression": 2,
+    "arbitrated_regression": 2,
+    "preserve_counterfactual_arbitrated_regression": 0
+  },
+  "root_cause_counts": {
+    "CONTROL_REGENERATION": 17
+  },
+  "determinism": {
+    "generation_determinism_rate": 0.0,
+    "identical_evidence_but_divergent_answer": 17,
+    "interpretation": "Control is generated once (production path) and reused as the comparison baseline \u2014 control is not regenerated for scoring. Baseline and arbitrated arms each regenerate independently. With identical evidence fingerprints, answer-hash divergence is CONTROL_REGENERATION / LLM variance, not document leak."
+  },
+  "recommended_architecture": "PRESERVE_CONTROL_ANSWER",
+  "recommended_note": "V2.13F counterfactual uses outcome_source=control for PROVENANCE_ONLY. Current structured-only regeneration yields 0/17 hash matches despite identical evidence fingerprints and zero document leak. Preserve-control would yield 17/17 hash matches and 0 preserve-path regressions on this set.",
+  "hypotheses": {
+    "H1a_classification": "PASS",
+    "H1b_enforcement": "PARTIALLY_ENFORCED",
+    "H1c_control_preservation": "NOT_CONFIRMED",
+    "H2_recovery": "PASS",
+    "H3_generator_behavior": "NOT_CONFIRMED",
+    "safety": "PASS"
+  },
+  "promotion_status": "INVESTIGATE_BEFORE_PROMOTION",
+  "production_isolation": {
+    "v213f_document_arbitration_experiment": false,
+    "v213d_shadow_sample_rate": 0.01,
+    "note": "No production enablement; sample rate unchanged."
+  },
+  "n_cases": 17
+}

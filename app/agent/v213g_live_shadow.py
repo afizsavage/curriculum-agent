@@ -63,10 +63,14 @@ _ANALYTICAL_THRESHOLD = 0.85
 _JSONL = Path("data/diagnostics/v213g_arbitration_shadow.jsonl")
 _SUMMARY = Path("data/diagnostics/v213g_arbitration_summary.json")
 _WRITE_LOCK = threading.Lock()
+_BATCH_HEALTHY = "batch_2_healthy_structured_api"
+_BATCH_HISTORICAL = "batch_1_api_unavailable"
 
 MILESTONE_FIRST = 50
 MILESTONE_STRONG = 100
 MILESTONE_PREFERRED = 200
+SUFFICIENT_WITH_DOCS_TARGET = 20
+
 
 G_REGRESSION_CAUSES = (
     "RETRIEVAL_IRRELEVANCE",
@@ -108,6 +112,80 @@ def load_v213g_records(path: Path | None = None) -> list[dict[str, Any]]:
     return rows
 
 
+def probe_structured_api(settings: Any | None = None) -> dict[str, Any]:
+    """Lightweight Curriculum Structure API health probe for V2.13G validity."""
+    base = "http://127.0.0.1:8000"
+    if settings is not None:
+        try:
+            base = str(settings.resolved_curriculum_api_url())
+        except Exception:  # noqa: BLE001
+            base = getattr(settings, "curriculum_api_base_url", base) or base
+    url = f"{str(base).rstrip('/')}/health"
+    started = time.perf_counter()
+    try:
+        import urllib.request
+
+        with urllib.request.urlopen(url, timeout=3.0) as resp:
+            ok = int(getattr(resp, "status", 200) or 200) < 400
+            body = resp.read()[:200]
+            latency = (time.perf_counter() - started) * 1000
+            return {
+                "structured_api_available": bool(ok),
+                "structured_api_latency_ms": round(latency, 3),
+                "structured_request_success": bool(ok),
+                "health_url": url,
+                "health_body_prefix": body.decode("utf-8", errors="replace"),
+            }
+    except Exception as exc:  # noqa: BLE001
+        return {
+            "structured_api_available": False,
+            "structured_api_latency_ms": round((time.perf_counter() - started) * 1000, 3),
+            "structured_request_success": False,
+            "health_url": url,
+            "error": type(exc).__name__,
+        }
+
+
+def classify_row_validity(
+    *,
+    structured_api_available: bool,
+    structured_count: int,
+    evidence_status: str | None = None,
+) -> dict[str, Any]:
+    """Distinguish API outage zeros from genuine no-structured-evidence."""
+    status = str(evidence_status or "").lower()
+    if not structured_api_available and structured_count <= 0:
+        return {
+            "validity": "INFRASTRUCTURE_INVALID",
+            "zero_structured_reason": "api_failure",
+            "structured_count_zero_due_to_api_failure": True,
+            "structured_count_zero_due_to_genuine_no_evidence": False,
+        }
+    if structured_count <= 0:
+        # Production evidence_status error with API up can still be genuine miss
+        # or tool failure; treat as genuine_no_evidence for cohort math unless
+        # evidence_status explicitly signals transport/api errors.
+        apiish = any(tok in status for tok in ("error", "timeout", "unavailable", "connection"))
+        if apiish and not structured_api_available:
+            reason = "api_failure"
+            validity = "INFRASTRUCTURE_INVALID"
+        else:
+            reason = "genuine_no_evidence"
+            validity = "VALID"
+        return {
+            "validity": validity,
+            "zero_structured_reason": reason,
+            "structured_count_zero_due_to_api_failure": reason == "api_failure",
+            "structured_count_zero_due_to_genuine_no_evidence": reason == "genuine_no_evidence",
+        }
+    return {
+        "validity": "VALID",
+        "zero_structured_reason": None,
+        "structured_count_zero_due_to_api_failure": False,
+        "structured_count_zero_due_to_genuine_no_evidence": False,
+    }
+
+
 def execute_shadow_arm(
     agent: Any,
     production_state: Any,
@@ -119,9 +197,15 @@ def execute_shadow_arm(
     request_id: str | None,
     arm_name: str,
     arbitration_info: dict[str, Any] | None = None,
+    provenance_evidence: list[CurriculumEvidence] | None = None,
 ) -> dict[str, Any]:
-    """Run normalize→metadata→generate→verify→map→route for one evidence policy."""
+    """Run normalize→metadata→generate→verify→map→route for one evidence policy.
+
+    generation_evidence feeds the LLM. provenance_evidence is recorded only and
+    must not be merged into generation when document_use is PROVENANCE_ONLY.
+    """
     settings = agent.settings
+    provenance_evidence = list(provenance_evidence or [])
     stage = f"{arm_name}:normalization"
     try:
         normalized = normalize_evidence(
@@ -181,14 +265,27 @@ def execute_shadow_arm(
         if metadata_blocked or wrong_context or placeholder:
             final_accepted = False
 
+        gen_doc_n = sum(
+            1
+            for e in generation_evidence
+            if getattr(e, "entity_type", None) == "document_passage"
+        )
         arm: dict[str, Any] = {
             "arm": arm_name,
+            "outcome_source": "regenerated",
+            "generation_attempted": True,
             "structured_evidence_count": len(structured),
             "document_evidence_count": len(documents),
             "generation_evidence_count": len(generation_evidence),
+            "provenance_evidence_count": len(provenance_evidence),
+            "generation_document_count": gen_doc_n,
             "merged_evidence_count": len(verify_evidence),
             "evidence_count": len(verify_evidence),
             "evidence_snapshot": evidence_snapshot_hash(verify_evidence),
+            "generation_evidence_fingerprint": evidence_snapshot_hash(verify_evidence),
+            "provenance_evidence_fingerprint": (
+                evidence_snapshot_hash(provenance_evidence) if provenance_evidence else ""
+            ),
             "evidence_summary": _evidence_summary(verify_evidence),
             "document_passages": retrieval_meta.get("passages")
             or _document_passage_summaries(documents),
@@ -227,6 +324,7 @@ def execute_shadow_arm(
             "generation_config": {
                 "provider": getattr(settings, "llm_provider", None),
                 "model": getattr(settings, "llm_model", None),
+                "temperature": 0.0,
             },
         }
         if arbitration_info is not None:
@@ -435,6 +533,25 @@ def run_dual_arm_shadow_pipeline(
     started = time.perf_counter()
     control_answer = production_state.final_answer or production_state.draft_answer or ""
 
+    infra_probe = probe_structured_api(settings)
+    evidence_status = None
+    try:
+        evidence_status = getattr(production_state.evidence_status, "value", None) or str(
+            production_state.evidence_status or ""
+        )
+    except Exception:  # noqa: BLE001
+        evidence_status = str(getattr(production_state, "evidence_status", "") or "")
+    validity = classify_row_validity(
+        structured_api_available=bool(infra_probe.get("structured_api_available")),
+        structured_count=len(structured),
+        evidence_status=evidence_status,
+    )
+    batch_id = (
+        _BATCH_HEALTHY
+        if infra_probe.get("structured_api_available")
+        else "batch_2_api_degraded"
+    )
+
     retriever = retrieve_documents or retrieve_document_evidence
     retrieval_started = time.perf_counter()
     documents, retrieval_meta = retriever(
@@ -476,15 +593,17 @@ def run_dual_arm_shadow_pipeline(
         structured, documents, decision
     )
     arbitration_latency_ms = (time.perf_counter() - arb_started) * 1000
+    gen_doc_n = sum(
+        1
+        for e in generation_bundle
+        if getattr(e, "entity_type", None) == "document_passage"
+    )
     arbitration_info = {
         **decision.to_dict(),
-        "generation_document_count": sum(
-            1
-            for e in generation_bundle
-            if getattr(e, "entity_type", None) == "document_passage"
-        ),
+        "generation_document_count": gen_doc_n,
         "provenance_document_count": len(provenance_only),
         "arbitration_latency_ms": round(arbitration_latency_ms, 3),
+        "provenance_only_semantics": None,
     }
 
     baseline_bundle = merge_evidence_bundles(structured, documents)
@@ -496,24 +615,52 @@ def run_dual_arm_shadow_pipeline(
         structured=structured,
         documents=documents,
         generation_evidence=baseline_bundle,
+        provenance_evidence=[],
         retrieval_meta=retrieval_meta,
         request_id=request_id,
         arm_name="baseline",
     )
     baseline_latency_ms = (time.perf_counter() - baseline_started) * 1000
 
-    arb_arm_started = time.perf_counter()
-    arbitrated = execute_shadow_arm(
-        agent,
-        production_state,
-        structured=structured,
-        documents=documents,
-        generation_evidence=generation_bundle,
-        retrieval_meta=retrieval_meta,
-        request_id=request_id,
-        arm_name="arbitrated",
-        arbitration_info=arbitration_info,
+    from app.agent.v213g1_provenance_only import (
+        build_preserved_control_arm,
+        resolved_provenance_only_semantics,
+        should_preserve_control_answer,
     )
+
+    semantics = resolved_provenance_only_semantics(settings)
+    arbitration_info["provenance_only_semantics"] = semantics
+    preserve = should_preserve_control_answer(
+        document_use=decision.document_use.value,
+        control_accepted=bool(control.get("final_accepted")),
+        semantics=semantics,
+    )
+
+    arb_arm_started = time.perf_counter()
+    if preserve:
+        arbitrated = build_preserved_control_arm(
+            control,
+            structured=structured,
+            documents=documents,
+            generation_evidence=generation_bundle,
+            provenance_evidence=provenance_only,
+            retrieval_meta=retrieval_meta,
+            arbitration_info=arbitration_info,
+            arm_name="arbitrated",
+        )
+    else:
+        arbitrated = execute_shadow_arm(
+            agent,
+            production_state,
+            structured=structured,
+            documents=documents,
+            generation_evidence=generation_bundle,
+            provenance_evidence=provenance_only,
+            retrieval_meta=retrieval_meta,
+            request_id=request_id,
+            arm_name="arbitrated",
+            arbitration_info=arbitration_info,
+        )
     arbitrated_latency_ms = (time.perf_counter() - arb_arm_started) * 1000
 
     category = infer_question_category(production_state, len(documents))
@@ -644,6 +791,8 @@ def run_dual_arm_shadow_pipeline(
         "experiment": _EXPERIMENT,
         "schema_version": _SCHEMA,
         "phase": "live_arbitration_shadow",
+        "batch_id": batch_id,
+        "source": "LIVE_TRAFFIC",
         "corpus_epoch": corpus_epoch,
         "request_id": hashlib.sha256((request_id or "").encode()).hexdigest()[:16]
         if request_id
@@ -657,6 +806,12 @@ def run_dual_arm_shadow_pipeline(
             "v213f_document_arbitration_experiment": bool(
                 getattr(settings, "v213f_document_arbitration_experiment", False)
             ),
+        },
+        "infrastructure": {
+            **infra_probe,
+            **validity,
+            "structured_count": len(structured),
+            "evidence_status": evidence_status,
         },
         "question": {
             "hash": question_hash(production_state.question),
@@ -711,6 +866,7 @@ def run_dual_arm_shadow_pipeline(
             "baseline_shadow_ms": round(baseline_latency_ms, 3),
             "arbitrated_shadow_ms": round(arbitrated_latency_ms, 3),
             "total_ms": round((time.perf_counter() - started) * 1000, 3),
+            "structured_api_ms": infra_probe.get("structured_api_latency_ms"),
         },
         "coverage_gap": coverage_gap,
         "investigation": investigation,
@@ -764,11 +920,60 @@ def baseline_compatible_v213d_record(g_record: dict[str, Any]) -> dict[str, Any]
 def _successful(record: dict[str, Any]) -> bool:
     if record.get("corpus_epoch") == "pre_corpus":
         return False
+    infra = record.get("infrastructure") or {}
+    if infra.get("validity") == "INFRASTRUCTURE_INVALID":
+        return False
+    # Historical batch 1 (API unavailable) is preserved but not used for H1.
+    if record.get("batch_id") == _BATCH_HISTORICAL:
+        return False
+    if not record.get("batch_id") and not infra:
+        # Untagged historical rows from batch 1: treat as confounded for hypothesis n.
+        return False
     b = record.get("baseline_shadow") or {}
     a = record.get("arbitrated_shadow") or {}
     if b.get("error") or a.get("error"):
         return False
     return True
+
+
+def count_sufficient_with_docs(records: list[dict[str, Any]]) -> dict[str, int]:
+    """Count healthy-batch cohort coverage for live validation targets."""
+    out = {
+        "structured_sufficient_with_docs": 0,
+        "structured_sufficient_redundant_docs": 0,
+        "structured_sufficient_irrelevant_docs": 0,
+        "structured_insufficient_decisive_docs": 0,
+        "infrastructure_invalid": 0,
+        "historical_batch_1": 0,
+        "valid_healthy": 0,
+    }
+    for r in records:
+        if not r.get("batch_id") or r.get("batch_id") == _BATCH_HISTORICAL:
+            out["historical_batch_1"] += 1
+            continue
+        infra = r.get("infrastructure") or {}
+        if infra.get("validity") == "INFRASTRUCTURE_INVALID":
+            out["infrastructure_invalid"] += 1
+            continue
+        if (r.get("baseline_shadow") or {}).get("error") or (
+            r.get("arbitrated_shadow") or {}
+        ).get("error"):
+            continue
+        out["valid_healthy"] += 1
+        arb = r.get("arbitration") or {}
+        docs = int(arb.get("document_count") or 0)
+        suff = str(arb.get("structured_sufficiency") or "")
+        role = str(arb.get("document_role") or "")
+        if suff == "SUFFICIENT" and docs > 0:
+            out["structured_sufficient_with_docs"] += 1
+            if role == "REDUNDANT":
+                out["structured_sufficient_redundant_docs"] += 1
+            if role == "IRRELEVANT":
+                out["structured_sufficient_irrelevant_docs"] += 1
+        if suff == "INSUFFICIENT" and role == "DECISIVE":
+            out["structured_insufficient_decisive_docs"] += 1
+    return out
+
 
 
 def aggregate_v213g_records(records: list[dict[str, Any]]) -> dict[str, Any]:
@@ -883,6 +1088,10 @@ def aggregate_v213g_records(records: list[dict[str, Any]]) -> dict[str, Any]:
         int(v) > 0 for v in safety_b.values()
     )
     sufficient_with_docs = int(sufficient_cohort.get("n") or 0)
+    # Prefer explicit healthy-batch cohort counter when available.
+    coverage = count_sufficient_with_docs(records)
+    if coverage.get("structured_sufficient_with_docs") is not None:
+        sufficient_with_docs = int(coverage["structured_sufficient_with_docs"])
     status = decide_v213g_status(
         n=n,
         baseline_reg=baseline_reg,
@@ -959,6 +1168,8 @@ def aggregate_v213g_records(records: list[dict[str, Any]]) -> dict[str, Any]:
             "structured_sufficient_with_docs": sufficient_cohort,
             "structured_insufficient_decisive_docs": recovery_cohort,
         },
+        "healthy_batch_coverage": count_sufficient_with_docs(records),
+        "sufficient_with_docs_target": SUFFICIENT_WITH_DOCS_TARGET,
         "classification_diagnostics": dict(class_diag),
         "latency": {
             "mean_retrieval_ms": mean(lat_ret),
@@ -998,6 +1209,42 @@ def aggregate_v213g_records(records: list[dict[str, Any]]) -> dict[str, Any]:
             "v213g_live_only": True,
             "note": "Production answers remain control; arbitration never user-facing.",
         },
+        "batch_boundaries": {
+            "batch_1_api_unavailable": {
+                "n": coverage.get("historical_batch_1", 0),
+                "validity": "INFRASTRUCTURE_INVALID",
+                "confounder": (
+                    "Curriculum Structure API unavailable during collection "
+                    "→ 52/52 structured-insufficient; H1 untestable"
+                ),
+                "preserved_summary": str(
+                    Path("data/diagnostics/v213g_arbitration_summary_batch1_api_unavailable.json")
+                ),
+            },
+            "batch_2_healthy_structured_api": {
+                "n_valid": coverage.get("valid_healthy", 0),
+                "structured_sufficient_with_docs": coverage.get(
+                    "structured_sufficient_with_docs", 0
+                ),
+                "structured_insufficient_decisive_docs": coverage.get(
+                    "structured_insufficient_decisive_docs", 0
+                ),
+                "infrastructure_invalid": coverage.get("infrastructure_invalid", 0),
+                "target_structured_sufficient_with_docs": SUFFICIENT_WITH_DOCS_TARGET,
+            },
+        },
+        "historical_batch_1_prior": {
+            "n": 52,
+            "source": "LIVE_TRAFFIC",
+            "validity": "INFRASTRUCTURE_INVALID",
+            "recovery": {"baseline_recovery": 30, "arbitrated_recovery": 36},
+            "unsupported_claims": {"baseline": 30, "arbitrated": 17},
+            "structured_sufficient_with_docs": 0,
+            "note": (
+                "Historical prior only; excluded from healthy-batch hypothesis n. "
+                "JSONL rows preserved unchanged."
+            ),
+        },
         "preserved_priors": {
             "v213f_freeze_jsonl_sha256_prefix": "4dcbca7a46ca11e6",
             "v213f_decision": "ARBITRATION_SUPPORTED",
@@ -1022,14 +1269,6 @@ def decide_v213g_status(
             "status": "SAFETY_BLOCKED",
             "recommendation_text": "Hard safety gate non-zero on baseline or arbitrated arm. Stop.",
         }
-    if n < MILESTONE_FIRST:
-        return {
-            "status": "INSUFFICIENT_SAMPLE",
-            "recommendation_text": (
-                f"Need ≥{MILESTONE_FIRST} successful dual-arm comparisons "
-                f"(have {n}). Keep sample_rate=0.01; do not raise sampling."
-            ),
-        }
     # Do not treat zero regressions as confirmation or rejection when the
     # primary V2.13F sufficient+doc cohort was never observed live.
     if structured_sufficient_with_docs is not None and structured_sufficient_with_docs <= 0:
@@ -1041,6 +1280,32 @@ def decide_v213g_status(
                 "ARBITRATION_NOT_CONFIRMED solely from zero regressions. "
                 "Obtain targeted/live coverage of sufficient+redundant cases "
                 "before promotion decisions."
+            ),
+        }
+    if n < MILESTONE_FIRST:
+        if (
+            structured_sufficient_with_docs is not None
+            and structured_sufficient_with_docs >= SUFFICIENT_WITH_DOCS_TARGET
+        ):
+            return {
+                "status": "INSUFFICIENT_SAMPLE",
+                "recommendation_text": (
+                    f"Stage-1 sufficient_with_docs target met "
+                    f"({structured_sufficient_with_docs}>="
+                    f"{SUFFICIENT_WITH_DOCS_TARGET}); continue healthy live "
+                    f"collection toward n>={MILESTONE_FIRST} (have {n}). "
+                    "Keep sample_rate=0.01; do not raise sampling; "
+                    "do not enable production arbitration."
+                ),
+            }
+        return {
+            "status": "INSUFFICIENT_SAMPLE",
+            "recommendation_text": (
+                f"Need ≥{MILESTONE_FIRST} successful dual-arm comparisons "
+                f"(have {n}) and ≥{SUFFICIENT_WITH_DOCS_TARGET} "
+                f"structured_sufficient_with_docs "
+                f"(have {structured_sufficient_with_docs}). "
+                "Keep sample_rate=0.01; do not raise sampling."
             ),
         }
     mis = int(class_diag.get("decisive_arbitrated_rejection") or 0) + int(
@@ -1126,6 +1391,24 @@ def write_v213g_report(summary: dict[str, Any], *, out_md: Path) -> None:
         f"- Total rows: **{summary.get('n_total')}**",
         f"- Milestones: `{json.dumps(summary.get('milestones') or {})}`",
         "",
+        "## Batch boundaries",
+        "",
+        "```json",
+        json.dumps(summary.get("batch_boundaries") or {}, indent=2),
+        "```",
+        "",
+        "### Historical confounder (batch 1)",
+        "",
+        "```json",
+        json.dumps(summary.get("historical_batch_1_prior") or {}, indent=2),
+        "```",
+        "",
+        "### Healthy-batch coverage",
+        "",
+        "```json",
+        json.dumps(summary.get("healthy_batch_coverage") or {}, indent=2),
+        "```",
+        "",
         "## Comparison table",
         "",
         "| Metric                      | V2.13D baseline | V2.13F arbitrated |",
@@ -1190,12 +1473,16 @@ def write_v213g_report(summary: dict[str, Any], *, out_md: Path) -> None:
 
 
 __all__ = [
+    "SUFFICIENT_WITH_DOCS_TARGET",
     "aggregate_v213g_records",
     "baseline_compatible_v213d_record",
+    "classify_row_validity",
+    "count_sufficient_with_docs",
     "decide_v213g_status",
     "execute_shadow_arm",
     "load_v213g_records",
     "persist_v213g_record",
+    "probe_structured_api",
     "run_dual_arm_shadow_pipeline",
     "v213g_enabled",
     "v213g_jsonl_path",

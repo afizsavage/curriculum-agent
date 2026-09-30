@@ -1,0 +1,93 @@
+{
+  "generated_at": "2026-09-15T15:31:40.564376+00:00",
+  "experiment": "v2.13g.2",
+  "schema_version": "v213g2.1",
+  "source_jsonl": "data/diagnostics/v213g_arbitration_targeted_replay.jsonl",
+  "n_total_records": 26,
+  "n_provenance_only_redundant": 17,
+  "n_provenance_only_sufficient_any_role": 20,
+  "n_h2_decisive": 5,
+  "comparison_table": {
+    "PROVENANCE_ONLY_redundant_cases": {
+      "regeneration": 17,
+      "preserve_control": 17
+    },
+    "generation_document_leaks": {
+      "regeneration": 0,
+      "preserve_control": 0
+    },
+    "regeneration_attempted": {
+      "regeneration": 17,
+      "preserve_control": 0
+    },
+    "control_hash_matches": {
+      "regeneration": 0,
+      "preserve_control": 17
+    },
+    "answer_regressions": {
+      "regeneration": 2,
+      "preserve_control": 0
+    },
+    "verifier_regressions": {
+      "regeneration": 2,
+      "preserve_control": 0
+    },
+    "mapper_regressions": {
+      "regeneration": 2,
+      "preserve_control": 0
+    },
+    "control_preservation_violations": {
+      "regeneration": null,
+      "preserve_control": 0
+    }
+  },
+  "mode_a_summary": {
+    "n": 17,
+    "generation_document_leaks": 0,
+    "regeneration_attempted": 17,
+    "control_hash_matches": 0,
+    "answer_regressions": 2,
+    "verifier_regressions": 2,
+    "mapper_regressions": 2,
+    "control_preservation_violations": null
+  },
+  "mode_b_summary": {
+    "n": 17,
+    "generation_document_leaks": 0,
+    "regeneration_attempted": 0,
+    "control_hash_matches": 17,
+    "answer_regressions": 0,
+    "verifier_regressions": 0,
+    "mapper_regressions": 0,
+    "control_preservation_violations": 0
+  },
+  "h2_decisive_recovery": {
+    "n": 5,
+    "baseline_recovery": 5,
+    "arbitrated_recovery_mode_a": 5,
+    "arbitrated_recovery_mode_b": 5,
+    "generation_document_count_sum_mode_a": 25,
+    "generation_document_count_sum_mode_b": 25,
+    "preserve_wrongly_applied": 0
+  },
+  "success_criteria": {
+    "S1_control_preservation": true,
+    "S2_no_generation_leakage": true,
+    "S3_no_unnecessary_regeneration": true,
+    "S4_regression_elimination": true,
+    "S5_h2_preservation": true,
+    "S6_safety": true,
+    "S7_isolation": true
+  },
+  "decision": "PRESERVE_CONTROL_CONFIRMED",
+  "recommendation": "resume Stage-1 live shadow at sample_rate=0.01",
+  "production_isolation": {
+    "v213f_document_arbitration_experiment": false,
+    "v213d_shadow_sample_rate": 0.01,
+    "v213g_provenance_only_semantics_default": "structured_only_regeneration",
+    "production_arbitration": "OFF",
+    "note": "Preserve semantics are shadow-only via V213G_PROVENANCE_ONLY_SEMANTICS; default remains regeneration until explicitly enabled. Historical JSONL not overwritten."
+  },
+  "n_cases": 26,
+  "n_prior_regression_cases": 5
+}

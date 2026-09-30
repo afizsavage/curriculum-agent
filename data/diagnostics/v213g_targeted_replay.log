@@ -1,0 +1,86 @@
+{"event": "targeted_replay_start", "count": 60, "categories": ["structured_fact", "structured_plus_document", "source_grounding"], "target_sufficient_with_docs": 20, "structured_api": {"structured_api_available": true, "structured_api_latency_ms": 1.825, "structured_request_success": true, "health_url": "http://127.0.0.1:8000/health", "health_body_prefix": "{\"status\":\"ok\"}"}, "isolation": {"v213f_document_arbitration_experiment": false, "v213d_shadow_sample_rate": 0.01, "v213g_live_arbitration_shadow": true}}
+curriculum_api.timeout path='api/v1/curriculum-context' params={'curriculum_content_id': '1997d3c8-5ec2-43d7-9dac-9afcf97c1734'}
+{"event": "progress", "done": 1, "total": 60, "written": 1, "sufficient_with_docs": 1, "structured_count": 31, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 100.4, "question_category": "structured_plus_document"}
+curriculum_api.timeout path='api/v1/grade-curricula/ed5b1644-21be-4848-b64b-7f88fc971b56/content' params={}
+curriculum_api.timeout path='api/v1/grade-curricula/ed5b1644-21be-4848-b64b-7f88fc971b56/content' params={}
+{"event": "progress", "done": 2, "total": 60, "written": 2, "sufficient_with_docs": 1, "structured_count": 0, "document_count": 5, "sufficiency": "INSUFFICIENT", "role": "DECISIVE", "control_accepted": false, "latency_s": 136.2, "question_category": "structured_plus_document"}
+{"event": "progress", "done": 3, "total": 60, "written": 3, "sufficient_with_docs": 2, "structured_count": 37, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 116.9, "question_category": "structured_plus_document"}
+curriculum_api.timeout path='api/v1/grade-curricula/78c09b83-9ee9-49ea-91fa-079ad218fd05/content' params={}
+curriculum_api.timeout path='api/v1/curriculum-context' params={'curriculum_content_id': '1997d3c8-5ec2-43d7-9dac-9afcf97c1734'}
+{"event": "progress", "done": 4, "total": 60, "written": 4, "sufficient_with_docs": 3, "structured_count": 31, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 108.3, "question_category": "structured_plus_document"}
+curriculum_api.timeout path='api/v1/curriculum-context' params={'curriculum_content_id': '1997d3c8-5ec2-43d7-9dac-9afcf97c1734'}
+curriculum_api.timeout path='api/v1/curriculum-context' params={'curriculum_content_id': '1997d3c8-5ec2-43d7-9dac-9afcf97c1734'}
+{"event": "progress", "done": 5, "total": 60, "written": 5, "sufficient_with_docs": 3, "structured_count": 5, "document_count": 5, "sufficiency": "UNCERTAIN", "role": "SUPPORTING", "control_accepted": false, "latency_s": 90.1, "question_category": "structured_plus_document"}
+{"event": "progress", "done": 6, "total": 60, "written": 6, "sufficient_with_docs": 4, "structured_count": 15, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 101.0, "question_category": "structured_plus_document"}
+curriculum_api.timeout path='api/v1/grade-curricula/b1bcff00-3d07-4e92-b426-97e3bfee12ec/content' params={}
+{"event": "progress", "done": 7, "total": 60, "written": 7, "sufficient_with_docs": 5, "structured_count": 5, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 126.3, "question_category": "structured_plus_document"}
+{"event": "progress", "done": 8, "total": 60, "written": 8, "sufficient_with_docs": 6, "structured_count": 9, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "IRRELEVANT", "control_accepted": true, "latency_s": 83.5, "question_category": "structured_plus_document"}
+curriculum_api.timeout path='api/v1/grade-curricula/ea7d7116-dbb6-4bc4-a941-b890e20e8aab/content' params={}
+{"event": "progress", "done": 9, "total": 60, "written": 9, "sufficient_with_docs": 7, "structured_count": 27, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 118.1, "question_category": "source_grounding"}
+curriculum_api.timeout path='api/v1/grade-curricula/ea7d7116-dbb6-4bc4-a941-b890e20e8aab/content' params={}
+curriculum_api.timeout path='api/v1/grade-curricula/ed5b1644-21be-4848-b64b-7f88fc971b56/content' params={}
+curriculum_api.timeout path='api/v1/grade-curricula/ea7d7116-dbb6-4bc4-a941-b890e20e8aab/content' params={}
+{"event": "progress", "done": 10, "total": 60, "written": 10, "sufficient_with_docs": 7, "structured_count": 0, "document_count": 5, "sufficiency": "INSUFFICIENT", "role": "DECISIVE", "control_accepted": false, "latency_s": 131.1, "question_category": "source_grounding"}
+curriculum_api.timeout path='api/v1/grade-curricula/ea7d7116-dbb6-4bc4-a941-b890e20e8aab/content' params={}
+curriculum_api.timeout path='api/v1/grade-curricula/ea7d7116-dbb6-4bc4-a941-b890e20e8aab/content' params={}
+curriculum_api.timeout path='api/v1/grade-curricula/ed5b1644-21be-4848-b64b-7f88fc971b56/content' params={}
+{"event": "progress", "done": 11, "total": 60, "written": 11, "sufficient_with_docs": 8, "structured_count": 27, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 137.5, "question_category": "source_grounding"}
+curriculum_api.timeout path='api/v1/grade-curricula/78c09b83-9ee9-49ea-91fa-079ad218fd05/content' params={}
+{"event": "progress", "done": 12, "total": 60, "written": 12, "sufficient_with_docs": 9, "structured_count": 5, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 114.4, "question_category": "source_grounding"}
+curriculum_api.timeout path='api/v1/curriculum-context' params={'curriculum_content_id': '0f90b316-6be5-4b60-a2b1-2ac91a603d49'}
+curriculum_api.timeout path='api/v1/curriculum-context' params={'curriculum_content_id': '0f90b316-6be5-4b60-a2b1-2ac91a603d49'}
+curriculum_api.timeout path='api/v1/curriculum-context' params={'curriculum_content_id': 'd2c1777c-7ed5-4a43-97c5-1efa895114d8'}
+{"event": "progress", "done": 13, "total": 60, "written": 13, "sufficient_with_docs": 10, "structured_count": 13, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 97.3, "question_category": "source_grounding"}
+{"event": "progress", "done": 14, "total": 60, "written": 14, "sufficient_with_docs": 10, "structured_count": 0, "document_count": 5, "sufficiency": "INSUFFICIENT", "role": "DECISIVE", "control_accepted": false, "latency_s": 99.8, "question_category": "source_grounding"}
+curriculum_api.timeout path='api/v1/grade-curricula/ed5b1644-21be-4848-b64b-7f88fc971b56/content' params={}
+curriculum_api.timeout path='api/v1/grade-curricula/ed5b1644-21be-4848-b64b-7f88fc971b56/content' params={}
+{"event": "progress", "done": 15, "total": 60, "written": 15, "sufficient_with_docs": 10, "structured_count": 0, "document_count": 5, "sufficiency": "INSUFFICIENT", "role": "DECISIVE", "control_accepted": false, "latency_s": 127.3, "question_category": "source_grounding"}
+{"event": "progress", "done": 16, "total": 60, "written": 16, "sufficient_with_docs": 11, "structured_count": 20, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 98.1, "question_category": "source_grounding"}
+curriculum_api.timeout path='api/v1/curriculum-context' params={'curriculum_content_id': '1997d3c8-5ec2-43d7-9dac-9afcf97c1734'}
+{"event": "progress", "done": 17, "total": 60, "written": 17, "sufficient_with_docs": 12, "structured_count": 5, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 80.9, "question_category": "structured_fact"}
+{"event": "progress", "done": 18, "total": 60, "written": 18, "sufficient_with_docs": 13, "structured_count": 10, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "IRRELEVANT", "control_accepted": true, "latency_s": 71.4, "question_category": "structured_fact"}
+curriculum_api.timeout path='api/v1/curriculum-context' params={'curriculum_content_id': '1997d3c8-5ec2-43d7-9dac-9afcf97c1734'}
+{"event": "progress", "done": 19, "total": 60, "written": 19, "sufficient_with_docs": 14, "structured_count": 5, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 70.9, "question_category": "structured_fact"}
+curriculum_api.timeout path='api/v1/grade-curricula/ed5b1644-21be-4848-b64b-7f88fc971b56/content' params={}
+curriculum_api.timeout path='api/v1/grade-curricula/ed5b1644-21be-4848-b64b-7f88fc971b56/content' params={}
+{"event": "progress", "done": 20, "total": 60, "written": 20, "sufficient_with_docs": 14, "structured_count": 0, "document_count": 5, "sufficiency": "INSUFFICIENT", "role": "DECISIVE", "control_accepted": false, "latency_s": 123.2, "question_category": "structured_fact"}
+{"event": "progress", "done": 21, "total": 60, "written": 21, "sufficient_with_docs": 15, "structured_count": 13, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 106.5, "question_category": "structured_fact"}
+curriculum_api.timeout path='api/v1/grade-curricula/78c09b83-9ee9-49ea-91fa-079ad218fd05/content' params={}
+curriculum_api.timeout path='api/v1/curriculum-context' params={'curriculum_content_id': '0f90b316-6be5-4b60-a2b1-2ac91a603d49'}
+{"event": "progress", "done": 22, "total": 60, "written": 22, "sufficient_with_docs": 16, "structured_count": 37, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 105.6, "question_category": "structured_fact"}
+{"event": "progress", "done": 23, "total": 60, "written": 23, "sufficient_with_docs": 17, "structured_count": 5, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 29.5, "question_category": "structured_fact"}
+curriculum_api.timeout path='api/v1/curriculum-context' params={'curriculum_content_id': 'C4U18-LO01'}
+{"event": "progress", "done": 24, "total": 60, "written": 24, "sufficient_with_docs": 18, "structured_count": 6, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "IRRELEVANT", "control_accepted": true, "latency_s": 61.9, "question_category": "structured_fact"}
+{"event": "progress", "done": 25, "total": 60, "written": 25, "sufficient_with_docs": 19, "structured_count": 36, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 59.9, "question_category": "structured_fact"}
+curriculum_api.timeout path='api/v1/curriculum-context' params={'curriculum_content_id': '1997d3c8-5ec2-43d7-9dac-9afcf97c1734'}
+{"event": "progress", "done": 26, "total": 60, "written": 26, "sufficient_with_docs": 20, "structured_count": 31, "document_count": 5, "sufficiency": "SUFFICIENT", "role": "REDUNDANT", "control_accepted": true, "latency_s": 104.5, "question_category": "structured_fact"}
+{"event": "target_met", "sufficient_with_docs": 20, "written": 26}
+{
+  "event": "complete",
+  "generated_at": "2026-09-15T14:23:31.994054+00:00",
+  "source": "TARGETED_REPLAY",
+  "batch_id": "batch_2_targeted_replay",
+  "n_written": 26,
+  "errors": 0,
+  "structured_sufficient_with_docs": 20,
+  "sufficiency_counts": {
+    "SUFFICIENT": 20,
+    "INSUFFICIENT": 5,
+    "UNCERTAIN": 1
+  },
+  "role_counts": {
+    "REDUNDANT": 17,
+    "DECISIVE": 5,
+    "SUPPORTING": 1,
+    "IRRELEVANT": 3
+  },
+  "elapsed_s": 2600.6,
+  "jsonl": "/home/afiz/Projects/curriculumz/curriculum-agent/data/diagnostics/v213g_arbitration_targeted_replay.jsonl",
+  "note": "Separate from LIVE_TRAFFIC. Do not merge into live n without explicit dual reporting.",
+  "production_isolation": {
+    "v213f_document_arbitration_experiment": false,
+    "v213d_shadow_sample_rate": 0.01,
+    "forced_dual_arm": true,
+    "sample_rate_unchanged": true
+  }
+}

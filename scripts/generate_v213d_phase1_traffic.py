@@ -29,11 +29,15 @@ def load_questions() -> list[dict]:
     return list(data.get("questions") or [])
 
 
-def pick_batch(questions: list[dict], n: int) -> list[dict]:
+def pick_batch(questions: list[dict], n: int, categories: list[str] | None = None) -> list[dict]:
     """Round-robin across categories for a representative mix."""
     by_cat: dict[str, list[dict]] = {}
+    allow = {c.strip() for c in (categories or []) if c.strip()} or None
     for q in questions:
-        by_cat.setdefault(str(q.get("category") or "unknown"), []).append(q)
+        cat = str(q.get("category") or "unknown")
+        if allow is not None and cat not in allow:
+            continue
+        by_cat.setdefault(cat, []).append(q)
     cats = sorted(by_cat.keys())
     selected: list[dict] = []
     idx = {c: 0 for c in cats}
@@ -113,11 +117,21 @@ def main() -> int:
         default="CONTROLLED_REAL_QA",
         help="Label for the traffic batch (e.g. PHASE1D_POST_CORPUS)",
     )
+    parser.add_argument(
+        "--categories",
+        default="",
+        help=(
+            "Optional comma-separated eval categories to include "
+            "(e.g. structured_fact,structured_plus_document). "
+            "Empty = all categories. Does not change sample_rate."
+        ),
+    )
     args = parser.parse_args()
     out_path = args.out or OUT
 
     questions = load_questions()
-    batch = pick_batch(questions, args.count)
+    cats = [c.strip() for c in str(args.categories or "").split(",") if c.strip()]
+    batch = pick_batch(questions, args.count, categories=cats or None)
     health_before = fetch_json(f"{args.base_url}/health")
     metrics_before = fetch_json(f"{args.base_url}/api/v1/agent/metrics")
     jsonl = ROOT / "data" / "diagnostics" / "v213d_shadow.jsonl"
@@ -135,6 +149,7 @@ def main() -> int:
                 "concurrency": args.concurrency,
                 "qa_before": metrics_before.get("total_requests"),
                 "shadow_rows_before": rows_before,
+                "category_filter": cats or None,
                 "categories": dict(Counter(q.get("category") for q in batch)),
             }
         ),
@@ -143,36 +158,55 @@ def main() -> int:
 
     results: list[dict] = []
     started = time.perf_counter()
-    with ThreadPoolExecutor(max_workers=max(1, args.concurrency)) as pool:
-        futures = {
-            pool.submit(ask, args.base_url, q["question"], args.timeout): q
-            for q in batch
-        }
-        done = 0
-        for fut in as_completed(futures):
-            q = futures[fut]
-            row = fut.result()
-            row["id"] = q.get("id")
-            row["category"] = q.get("category")
-            row["question_hash"] = __import__("hashlib").sha256(
-                str(q.get("question") or "").encode()
-            ).hexdigest()[:16]
-            results.append(row)
-            done += 1
-            if done % 10 == 0 or done == len(batch):
-                ok = sum(1 for r in results if r.get("ok"))
-                print(
-                    json.dumps(
-                        {
-                            "event": "progress",
-                            "done": done,
-                            "total": len(batch),
-                            "ok": ok,
-                            "elapsed_s": round(time.perf_counter() - started, 1),
-                        }
-                    ),
-                    flush=True,
-                )
+    # Rolling submission avoids queuing thousands of blocked HTTP clients that
+    # then fail fast when the agent/structure API is saturated.
+    workers = max(1, args.concurrency)
+    in_flight: dict = {}
+    batch_iter = iter(batch)
+    done = 0
+
+    def _submit_one(pool) -> bool:
+        try:
+            q = next(batch_iter)
+        except StopIteration:
+            return False
+        fut = pool.submit(ask, args.base_url, q["question"], args.timeout)
+        in_flight[fut] = q
+        return True
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        for _ in range(workers):
+            if not _submit_one(pool):
+                break
+        while in_flight:
+            for fut in as_completed(list(in_flight.keys()), timeout=None):
+                q = in_flight.pop(fut)
+                row = fut.result()
+                row["id"] = q.get("id")
+                row["category"] = q.get("category")
+                row["question_hash"] = __import__("hashlib").sha256(
+                    str(q.get("question") or "").encode()
+                ).hexdigest()[:16]
+                results.append(row)
+                done += 1
+                if done % 10 == 0 or done == len(batch):
+                    ok = sum(1 for r in results if r.get("ok"))
+                    failed = done - ok
+                    print(
+                        json.dumps(
+                            {
+                                "event": "progress",
+                                "done": done,
+                                "total": len(batch),
+                                "ok": ok,
+                                "failed": failed,
+                                "elapsed_s": round(time.perf_counter() - started, 1),
+                            }
+                        ),
+                        flush=True,
+                    )
+                _submit_one(pool)
+                break
 
     health_after = fetch_json(f"{args.base_url}/health")
     metrics_after = fetch_json(f"{args.base_url}/api/v1/agent/metrics")

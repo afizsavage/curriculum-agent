@@ -128,6 +128,14 @@ def v213d_runtime_config(settings: Settings) -> dict[str, Any]:
         "v213g_live_arbitration_shadow": bool(
             getattr(settings, "v213g_live_arbitration_shadow", False)
         ),
+        "v213g_provenance_only_semantics": str(
+            getattr(
+                settings,
+                "v213g_provenance_only_semantics",
+                "structured_only_regeneration",
+            )
+            or "structured_only_regeneration"
+        ),
     }
 
 
@@ -142,6 +150,7 @@ def format_v213d_startup_banner(settings: Settings) -> str:
             f"V2.13D timeout: {int(cfg['timeout_seconds'])}s",
             f"V2.13F arbitration experiment: {str(cfg['v213f_document_arbitration_experiment']).lower()}",
             f"V2.13G live dual-arm shadow: {str(cfg['v213g_live_arbitration_shadow']).lower()}",
+            f"V2.13G provenance-only semantics: {cfg['v213g_provenance_only_semantics']}",
         ]
     )
 

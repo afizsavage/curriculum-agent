@@ -1,0 +1,49 @@
+{
+  "generated_at": "2026-09-15T14:32:01.870383+00:00",
+  "note": "Historical batch boundaries for V2.13G. Batch 1 JSONL rows are preserved unchanged.",
+  "batches": [
+    {
+      "batch_id": "batch_1_api_unavailable",
+      "source": "LIVE_TRAFFIC",
+      "rows": 52,
+      "request_id_range_note": "all rows in v213g_arbitration_shadow.jsonl lacking batch_id/infrastructure",
+      "structured_api_available": false,
+      "validity": "INFRASTRUCTURE_INVALID",
+      "confounder": "Curriculum Structure API unavailable during collection",
+      "hypothesis_use": "excluded from H1; H2/H3 signals retained as historical prior only",
+      "structured_sufficient_with_docs": 0,
+      "structured_insufficient_decisive_docs": 52
+    },
+    {
+      "batch_id": "batch_2_healthy_structured_api",
+      "source": "LIVE_TRAFFIC",
+      "status": "collecting",
+      "structured_api_available": true,
+      "validity": "VALID when structured_api_available",
+      "target_structured_sufficient_with_docs": 20,
+      "sample_rate": 0.01,
+      "traffic_class": "V213G_HEALTHY",
+      "category_bias": [
+        "structured_fact",
+        "structured_plus_document",
+        "source_grounding"
+      ],
+      "traffic_requested": 4000,
+      "traffic_concurrency": 3,
+      "note": "LIVE_TRAFFIC still accumulating at sample_rate=0.01; healthy dual-arm rows still rare"
+    },
+    {
+      "batch_id": "batch_2_targeted_replay",
+      "source": "TARGETED_REPLAY",
+      "status": "stage1_complete",
+      "structured_api_available": true,
+      "n_written": 26,
+      "structured_sufficient_with_docs": 20,
+      "structured_sufficient_redundant_docs": 17,
+      "structured_sufficient_irrelevant_docs": 3,
+      "structured_insufficient_decisive_docs": 5,
+      "H1_note": "Role/use correct (REDUNDANT\u2192PROVENANCE_ONLY) but shadow regenerates (not control copy); arb_reg 3 vs base_reg 2 on sufficient+docs \u2192 INVESTIGATE_BEFORE_PROMOTION",
+      "generated_at": "2026-09-15T14:32:01.870369+00:00"
+    }
+  ]
+}

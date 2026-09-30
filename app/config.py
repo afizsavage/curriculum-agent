@@ -95,6 +95,11 @@ class Settings(BaseSettings):
     # When enabled with V2.13D sampling, runs baseline+arbitrated arms from one retrieval.
     # Never changes user-facing production answers. Keep V2.13F experiment flag false.
     v213g_live_arbitration_shadow: bool = False
+    # V2.13G.1: PROVENANCE_ONLY / DO_NOT_USE semantics for the arbitrated shadow arm only.
+    # structured_only_regeneration = current (regenerate without docs)
+    # preserve_control_answer = V2.13F counterfactual (reuse accepted control answer)
+    # Default keeps current behavior until G.1 investigation is accepted.
+    v213g_provenance_only_semantics: str = "structured_only_regeneration"
 
     # LangGraph short-term memory / checkpointing
     agent_checkpointing_enabled: bool = True

@@ -1,14 +1,14 @@
 # V2.13G Live Document Arbitration Shadow
 
-Generated: `2026-09-15T12:09:59.097590+00:00`
+Generated: `2026-09-29T23:45:20.092219+00:00`
 
-**Overall status: `INVESTIGATE_BEFORE_PROMOTION`**
+**Overall status: `ARBITRATION_CONFIRMED`**
 
-**Recommendation: `PROCEED_TO_TARGETED_LIVE_VALIDATION`**
+**Recommendation: `ARBITRATION_CONFIRMED`**
 
-**Classification determination: `SAMPLING_BIAS`** (`CLASSIFICATION_CORRECT`)
+**Classification determination: `INSUFFICIENT_INFORMATION`** (`INSUFFICIENT_INFORMATION`)
 
-All live dual-arm rows have structured_count=0 and control_accepted=false. Classification is consistent with that evidence. The live sample did not include any structured-sufficient/document-redundant cases, so the primary V2.13F regression hypothesis was untested.
+Live distribution is mixed; further inspection required.
 
 ## Hard isolation (unchanged)
 
@@ -30,27 +30,43 @@ All live dual-arm rows have structured_count=0 and control_accepted=false. Class
 
 ```json
 {
-  "live_n": 52,
+  "live_n": 85,
   "control_accepted": {
-    "false": 52
+    "false": 65,
+    "true": 20
   },
   "structured_count_hist": {
-    "0": 52
+    "0": 65,
+    "5": 6,
+    "9": 1,
+    "13": 2,
+    "14": 4,
+    "15": 1,
+    "22": 1,
+    "27": 1,
+    "31": 2,
+    "37": 2
   },
   "sufficiency": {
-    "INSUFFICIENT": 52
+    "INSUFFICIENT": 65,
+    "SUFFICIENT": 20
   },
   "document_role": {
-    "DECISIVE": 52
+    "DECISIVE": 65,
+    "REDUNDANT": 16,
+    "IRRELEVANT": 4
   },
   "document_use": {
-    "INCLUDE_IN_GENERATION": 52
+    "INCLUDE_IN_GENERATION": 65,
+    "PROVENANCE_ONLY": 16,
+    "DO_NOT_USE": 4
   },
   "categories": {
-    "document_oriented": 17,
-    "insufficient_evidence": 17,
-    "ambiguous": 15,
-    "adversarial_suspicious": 3
+    "document_oriented": 19,
+    "insufficient_evidence": 22,
+    "ambiguous": 21,
+    "adversarial_suspicious": 3,
+    "mixed": 20
   },
   "curriculum_api_reachable_at_audit": true
 }
@@ -63,11 +79,11 @@ With documents retrieved (n=5), the existing V2.13F rules correctly emit
 This is **not** evidence that arbitration is ineffective. The primary V2.13F
 regression cohort (`structured_sufficient_with_docs`) had live coverage **0**.
 
-**Primary regression hypothesis (live): `PRIMARY_REGRESSION_HYPOTHESIS_UNTESTED`**
+**Primary regression hypothesis (live): `TESTED`**
 
 ## B. Classification validity
 
-`CLASSIFICATION_CORRECT` — SAMPLING_BIAS
+`INSUFFICIENT_INFORMATION` — INSUFFICIENT_INFORMATION
 
 Checked: no silent default to INSUFFICIENT when control is accepted;
 sufficiency is decided from control acceptance / structured count **before**
@@ -176,12 +192,12 @@ without modifying the freeze.
 
 ```json
 {
-  "structured_sufficient_with_docs": 0,
-  "structured_sufficient_redundant_docs": 0,
-  "structured_sufficient_irrelevant_docs": 0,
-  "structured_insufficient_decisive_docs": 52,
+  "structured_sufficient_with_docs": 20,
+  "structured_sufficient_redundant_docs": 16,
+  "structured_sufficient_irrelevant_docs": 4,
+  "structured_insufficient_decisive_docs": 65,
   "structured_insufficient_irrelevant_docs": 0,
-  "neutral_document_cases": 22
+  "neutral_document_cases": 42
 }
 ```
 
@@ -203,16 +219,16 @@ without modifying the freeze.
 ```json
 {
   "H1": {
-    "result": "UNTESTED",
-    "note": "PRIMARY_REGRESSION_HYPOTHESIS_UNTESTED on LIVE_TRAFFIC (structured_sufficient_with_docs=0). TARGETED_REPLAY reproduces V2.13F sufficient/redundant withholding including dd1c57."
+    "result": "CONFIRMED",
+    "note": "Live arbitrated regressions below baseline and at zero."
   },
   "H2": {
     "result": "CONFIRMED",
-    "note": "Arbitrated recoveries (36) preserved vs baseline (30)."
+    "note": "Arbitrated recoveries (9) preserved vs baseline (9)."
   },
   "H3": {
-    "result": "PARTIALLY_CONFIRMED",
-    "note": "Unsupported claims fell 30\u219217 (live sufficient+doc cohort=0)."
+    "result": "CONFIRMED",
+    "note": "Unsupported claims fell 9\u21922 (live sufficient+doc cohort=20)."
   },
   "safety": "PASS"
 }
@@ -238,7 +254,7 @@ without modifying the freeze.
 
 ## G. Recommendation
 
-`PROCEED_TO_TARGETED_LIVE_VALIDATION`
+`ARBITRATION_CONFIRMED`
 
 Do **not** promote arbitration to production.
 Do **not** raise `sample_rate` above 0.01.
@@ -257,28 +273,28 @@ Do **not** overwrite V2.13F freeze/replay artifacts.
 ```json
 {
   "recoveries": {
-    "baseline": 30,
-    "arbitrated": 36
+    "baseline": 9,
+    "arbitrated": 9
   },
   "neutral": {
-    "baseline": 22,
-    "arbitrated": 16
+    "baseline": 3,
+    "arbitrated": 23
   },
   "hurt": {
-    "baseline": 0,
+    "baseline": 4,
     "arbitrated": 0
   },
   "regressions": {
-    "baseline": 0,
+    "baseline": 4,
     "arbitrated": 0
   },
   "generator_drift": {
-    "baseline": 0,
+    "baseline": 4,
     "arbitrated": 0
   },
   "unsupported_claims": {
-    "baseline": 30,
-    "arbitrated": 17
+    "baseline": 9,
+    "arbitrated": 2
   },
   "wrong_context_false_accepts": {
     "baseline": 0,
@@ -299,10 +315,10 @@ Do **not** overwrite V2.13F freeze/replay artifacts.
 
 ```json
 {
-  "mean_retrieval_ms": 5.561,
-  "mean_arbitration_ms": 0.071,
-  "mean_baseline_shadow_ms": 7079.447,
-  "mean_arbitrated_shadow_ms": 7003.629
+  "mean_retrieval_ms": 6.552,
+  "mean_arbitration_ms": 0.084,
+  "mean_baseline_shadow_ms": 12541.51,
+  "mean_arbitrated_shadow_ms": 2918.319
 }
 ```
 

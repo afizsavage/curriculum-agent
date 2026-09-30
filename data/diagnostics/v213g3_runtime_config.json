@@ -1,0 +1,42 @@
+{
+  "verified_at": "2026-09-15T17:26:59.971393+00:00",
+  "restart_required": true,
+  "agent_restarted_at": "2026-09-15T17:26:59.971406+00:00",
+  "checks": {
+    "V213G_PROVENANCE_ONLY_SEMANTICS": "preserve_control_answer",
+    "v213d_shadow_enabled": true,
+    "v213d_shadow_sample_rate": 0.01,
+    "v213f_document_arbitration_experiment": false,
+    "v213e_enabled": false,
+    "v213g_live_only": true
+  },
+  "health_excerpt": {
+    "v213d": {
+      "shadow_enabled": true,
+      "sample_rate": 0.01,
+      "document_retrieval": true,
+      "retrieval_variant": "context_hybrid",
+      "timeout_seconds": 30.0,
+      "v213f_document_arbitration_experiment": false,
+      "v213f_arbitration_policy": "C_ARBITRATED",
+      "v213g_live_arbitration_shadow": true,
+      "v213g_provenance_only_semantics": "preserve_control_answer"
+    },
+    "v213g_coverage": {
+      "structured_sufficient_with_docs": 1,
+      "structured_sufficient_redundant_docs": 1,
+      "structured_sufficient_irrelevant_docs": 0,
+      "structured_insufficient_decisive_docs": 0,
+      "infrastructure_invalid": 0,
+      "historical_batch_1": 52,
+      "valid_healthy": 1
+    },
+    "structured_api": {
+      "structured_api_available": true,
+      "structured_api_latency_ms": 1.714,
+      "structured_request_success": true,
+      "health_url": "http://127.0.0.1:8000/health",
+      "health_body_prefix": "{\"status\":\"ok\"}"
+    }
+  }
+}
