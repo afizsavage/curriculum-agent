@@ -210,8 +210,17 @@ class AnswerGenerator:
             user_content += (
                 "USER-FACING ANSWER\n"
                 "Write a concise natural-language synthesis for pupils and teachers.\n"
-                "Group related objectives by unit or topic name into one explanation.\n"
-                "Do not emit one bullet per learning objective.\n"
+                "When several learning areas are present, use this shape:\n"
+                "# Grade Subject — Topic\n"
+                "A short introduction that names only those areas.\n"
+                "### 1. Concept name\n"
+                "Pupils learn to:\n"
+                "* one grounded learning expectation\n"
+                "### Curriculum Evidence Note\n"
+                "Include the evidence note only when source text is incomplete, "
+                "duplicated, or garbled. Omit it when the evidence is intact.\n"
+                "A question with only one or two relevant records stays short, "
+                "without a long multi-section document.\n"
                 "Do not copy learning-objective codes, unit codes, entity IDs, "
                 "database IDs, retrieval IDs, or grade_curriculum_id into the answer.\n"
                 "AUDIT\n"
@@ -564,8 +573,8 @@ def _render_stub_answer(
         )
         if damaged:
             limitations.append(
-                "Some supplied curriculum records are duplicated, truncated, or "
-                "garbled, so their exact wording is unreliable."
+                "Some supplied curriculum records are incomplete or duplicated, "
+                "so their exact wording cannot be confirmed."
             )
         return text, limitations
 
@@ -589,8 +598,8 @@ def _render_stub_answer(
         )
         if damaged:
             limitations.append(
-                "Some supplied curriculum records are duplicated, truncated, or "
-                "garbled, so their exact wording is unreliable."
+                "Some supplied curriculum records are incomplete or duplicated, "
+                "so their exact wording cannot be confirmed."
             )
         return text, limitations
 
@@ -624,61 +633,180 @@ def _render_outcome_synthesis(
         label = _group_label(outcome, units_by_code)
         bucket = groups.get(label)
         if bucket is None:
-            bucket = {"reliable": [], "damaged": False}
+            bucket = {"reliable": [], "damaged_raw": []}
             groups[label] = bucket
             order.append(label)
         content = _strip_leading_code(outcome.content or "")
         damaged = _is_damaged_source(content) or _evidence_marked_imperfect(outcome)
         if damaged:
-            bucket["damaged"] = True
+            bucket["damaged_raw"].append(content)
             portion = (
                 _reliable_portion(content)
                 if _is_damaged_source(content)
                 else content.strip()
             )
-            if portion:
-                bucket["reliable"].append(portion)
-        elif content.strip():
-            bucket["reliable"].append(content.strip())
+        else:
+            portion = content.strip()
+        if portion:
+            _append_unique(bucket["reliable"], portion)
 
     focus = _focus_phrase(question, topic_hint)
+    where = " ".join(part for part in (grade_label, subject_label) if part) or "the supplied curriculum"
+    damaged_records = [
+        {"label": label, "raw": raw}
+        for label in order
+        for raw in groups[label]["damaged_raw"]
+    ]
+    visible = [label for label in order if groups[label]["reliable"]]
+    structured = _use_structured_sections(visible, groups)
     lines = _heading_lines(grade_label, subject_label, focus)
-    lines.append("")
-    where = " ".join(part for part in (grade_label, subject_label) if part) or "supplied"
-    topic_name = focus or "this topic"
-    lines.append(
-        f"Based on the {where} curriculum evidence, pupils are expected to "
-        f"learn about {topic_name} through these areas:"
-    )
-    lines.append("")
-    any_damaged = False
-    for label in order:
-        bucket = groups[label]
-        body = _join_claims(bucket["reliable"])
-        if bucket["damaged"]:
-            any_damaged = True
-            if body:
-                lines.append(
-                    f"* **{label}:** {body} The exact wording of part of this "
-                    "evidence is unreliable because the source text is duplicated, "
-                    "truncated, or garbled."
-                )
-            else:
-                lines.append(
-                    f"* **{label}:** The supplied source text is duplicated, "
-                    "truncated, or garbled, so the exact wording is unreliable "
-                    "and is not restated."
-                )
-        elif body:
-            lines.append(f"* **{label}:** {body}")
-    if any_damaged:
+    if structured and len(visible) >= 2:
         lines.append("")
-        lines.append(
-            "The curriculum evidence contains malformed or duplicated source text, "
-            "so the exact wording of those records should be verified against the "
-            "source before quoting them verbatim."
+        lines.append(_area_introduction(where, focus, visible))
+    if structured:
+        for index, label in enumerate(visible, start=1):
+            lines.append("")
+            if len(visible) >= 2:
+                lines.append(f"### {index}. {label}")
+            else:
+                lines.append(f"### {label}")
+            lines.extend(_expectation_block(groups[label]["reliable"]))
+    else:
+        claims = [
+            claim
+            for label in order
+            for claim in groups[label]["reliable"]
+        ]
+        if claims:
+            lines.append("")
+            if len(claims) == 1:
+                lines.append(_as_sentence(claims[0]))
+            else:
+                lines.extend(_expectation_block(claims))
+    if damaged_records:
+        lines.append("")
+        lines.append("### Curriculum Evidence Note")
+        lines.append("")
+        lines.append(_curriculum_evidence_note(damaged_records))
+    return "\n".join(lines).strip(), bool(damaged_records)
+
+
+def _use_structured_sections(
+    order: list[str],
+    groups: dict[str, dict[str, Any]],
+) -> bool:
+    """Use headings when several areas, or many skills, need separating."""
+    claim_count = sum(len(groups[label]["reliable"]) for label in order)
+    if len(order) >= 2 and claim_count >= 3:
+        return True
+    return claim_count >= 4
+
+
+def _area_introduction(where: str, focus: str | None, labels: list[str]) -> str:
+    topic = (focus or "this topic").lower()
+    listed = _join_labels(labels)
+    return (
+        f"In {where}, {topic} work is organised into {len(labels)} main areas: "
+        f"{listed}."
+    )
+
+
+def _join_labels(labels: list[str]) -> str:
+    if len(labels) == 1:
+        return labels[0]
+    if len(labels) == 2:
+        return f"{labels[0]} and {labels[1]}"
+    return ", ".join(labels[:-1]) + f", and {labels[-1]}"
+
+
+def _expectation_block(claims: list[str]) -> list[str]:
+    return ["", "Pupils learn to:", "", *[_bullet(claim) for claim in claims]]
+
+
+def _bullet(text: str) -> str:
+    return f"* {_as_sentence(text)}"
+
+
+def _as_sentence(text: str) -> str:
+    sentence = " ".join(text.split()).strip(" .;")
+    if not sentence:
+        return ""
+    sentence = sentence[:1].upper() + sentence[1:]
+    if sentence[-1] not in ".!?":
+        sentence += "."
+    return sentence
+
+
+def _append_unique(items: list[str], text: str) -> None:
+    key = " ".join(text.lower().split())
+    if any(" ".join(item.lower().split()) == key for item in items):
+        return
+    items.append(text)
+
+
+def _curriculum_evidence_note(records: list[dict[str, str]]) -> str:
+    if len(records) == 1:
+        raw = records[0]["raw"]
+        subject = _note_subject(records[0])
+        concerning = f" concerning {subject}" if subject else ""
+        if _missing_denominator_range(raw):
+            return (
+                f"One learning outcome{concerning} is incomplete in the source "
+                "evidence. Therefore, the exact denominator range for that "
+                "particular outcome cannot be confirmed from the available evidence."
+            )
+        return (
+            f"One learning outcome{concerning} is incomplete or duplicated in "
+            "the source evidence. The exact wording cannot be confirmed from "
+            "the available evidence."
         )
-    return "\n".join(lines).strip(), any_damaged
+    return (
+        "Some learning outcomes are incomplete or duplicated in the source "
+        "evidence. Their exact wording cannot be confirmed from the available "
+        "evidence."
+    )
+
+
+_NOTE_VERBS = {
+    "identify",
+    "locate",
+    "represent",
+    "work",
+    "add",
+    "subtract",
+    "solve",
+    "simplify",
+    "compare",
+    "multiply",
+    "order",
+}
+
+
+def _note_subject(record: dict[str, str]) -> str:
+    portion = (_reliable_portion(record["raw"]) or "").strip(" .")
+    words = portion.split()
+    if words and words[0].lower() in _NOTE_VERBS and len(words) > 1:
+        subject_words = words[1:]
+        if subject_words[0].lower() == "with" and len(subject_words) > 1:
+            subject_words = subject_words[1:]
+        subject = " ".join(subject_words)
+    elif portion and len(words) <= 8:
+        subject = portion
+    else:
+        label = record["label"].strip()
+        if not label or label.lower() == "related curriculum evidence":
+            return ""
+        subject = label
+    return subject[:1].lower() + subject[1:]
+
+
+def _missing_denominator_range(text: str) -> bool:
+    lowered = " ".join((text or "").lower().split())
+    if "denominator" not in lowered:
+        return False
+    if re.search(r"\bdenominators?\s+up to\s+\d+", lowered):
+        return False
+    return "up to" in lowered
 
 
 def _render_identifier_answer(
@@ -776,7 +904,7 @@ def _heading_lines(
     title = " ".join(parts) if parts else "Curriculum evidence"
     if focus:
         title = f"{title} — {focus}"
-    return [f"**{title}**"]
+    return [f"# {title}"]
 
 
 def _is_catalogue_question(question: str) -> bool:
@@ -936,29 +1064,6 @@ def _reliable_portion(text: str) -> str | None:
     if len(parts) < 2:
         return None
     return " ".join(parts)
-
-
-def _join_claims(parts: list[str]) -> str:
-    cleaned: list[str] = []
-    seen: set[str] = set()
-    for part in parts:
-        text = " ".join(part.split()).strip(" .;")
-        if not text:
-            continue
-        key = text.lower()
-        if key in seen:
-            continue
-        seen.add(key)
-        cleaned.append(text)
-    if not cleaned:
-        return ""
-    rendered: list[str] = []
-    for index, text in enumerate(cleaned):
-        if index == 0:
-            rendered.append(text[:1].upper() + text[1:])
-        else:
-            rendered.append(text[:1].lower() + text[1:])
-    return "; ".join(rendered) + "."
 
 
 def _focus_phrase(question: str, topic_hint: str | None) -> str | None:

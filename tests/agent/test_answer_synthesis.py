@@ -18,27 +18,42 @@ _GARBLED_MULTIPLY = (
 _GARBLED_COMPARE = (
     "Compare fractions greater than compare fractions greater than"
 )
-_CODE_RE = re.compile(r"C4-U\d+|C4U\d+-LO\d+|grade_curriculum_id", re.I)
+_CODE_RE = re.compile(
+    r"C3-U\d+|C3U\d+-LO\d+|C4-U\d+|C4U\d+-LO\d+|grade_curriculum_id",
+    re.I,
+)
 _BULLET_RE = re.compile(r"(?m)^\s*\*\s+")
+_SECTION_RE = re.compile(r"(?m)^### \d+\. ")
 
 
-def _state(question: str, evidence: list[CurriculumEvidence]) -> CurriculumQAState:
+def _state(
+    question: str,
+    evidence: list[CurriculumEvidence],
+    *,
+    grade: str = "CLASS_4",
+) -> CurriculumQAState:
     state = CurriculumQAState.initial(question=question)
-    state.grade = "CLASS_4"
+    state.grade = grade
     state.subject = "MATHEMATICS"
     state.evidence = evidence
     state.evidence_status = EvidenceStatus.FOUND
     return state
 
 
-def _unit(entity_id: str, name: str, code: str) -> CurriculumEvidence:
+def _unit(
+    entity_id: str,
+    name: str,
+    code: str,
+    *,
+    grade: str = "CLASS_4",
+) -> CurriculumEvidence:
     return CurriculumEvidence(
         entity_type="unit",
         entity_id=entity_id,
         name=name,
-        grade="CLASS_4",
+        grade=grade,
         subject="MATHEMATICS",
-        metadata={"code": code, "grade_curriculum_id": "gc-class-4-math"},
+        metadata={"code": code, "grade_curriculum_id": f"gc-{grade.lower()}-math"},
     )
 
 
@@ -48,19 +63,21 @@ def _outcome(
     topic: str,
     content: str,
     parent_code: str,
+    *,
+    grade: str = "CLASS_4",
 ) -> CurriculumEvidence:
     return CurriculumEvidence(
         entity_type="learning_outcome",
         entity_id=entity_id,
         name=code,
-        grade="CLASS_4",
+        grade=grade,
         subject="MATHEMATICS",
         topic=topic,
         content=content,
         metadata={
             "code": code,
             "parent_content_code": parent_code,
-            "grade_curriculum_id": "gc-class-4-math",
+            "grade_curriculum_id": f"gc-{grade.lower()}-math",
         },
     )
 
@@ -108,8 +125,122 @@ def _primary4_fractions_evidence() -> list[CurriculumEvidence]:
     ]
 
 
-def _generate(question: str, evidence: list[CurriculumEvidence]):
-    return AnswerGenerator(StubLLMProvider()).generate(_state(question, evidence))
+def _primary3_fractions_evidence() -> list[CurriculumEvidence]:
+    grade = "CLASS_3"
+    return [
+        _unit("unit-p3-unit-fractions", "Unit Fractions", "C3-U04", grade=grade),
+        _unit(
+            "unit-p3-non-unit",
+            "Unit and Non-Unit Fractions",
+            "C3-U05",
+            grade=grade,
+        ),
+        _unit(
+            "unit-p3-operations",
+            "Equivalent Fractions and Fraction Operations",
+            "C3-U06",
+            grade=grade,
+        ),
+        _outcome(
+            "lo-p3-den-1-5",
+            "C3U04-LO01",
+            "Unit Fractions",
+            "Identify unit fractions with denominators 1-5 using pictorial representations.",
+            "C3-U04",
+            grade=grade,
+        ),
+        _outcome(
+            "lo-p3-den-6-10",
+            "C3U04-LO02",
+            "Unit Fractions",
+            "Identify unit fractions with denominators 6-10 using pictorial representations.",
+            "C3-U04",
+            grade=grade,
+        ),
+        _outcome(
+            "lo-p3-number-line",
+            "C3U04-LO03",
+            "Unit Fractions",
+            "Locate unit fractions on the number line.",
+            "C3-U04",
+            grade=grade,
+        ),
+        _outcome(
+            "lo-p3-non-unit",
+            "C3U05-LO01",
+            "Unit and Non-Unit Fractions",
+            "Identify unit and non-unit fractions with denominators 2-10.",
+            "C3-U05",
+            grade=grade,
+        ),
+        _outcome(
+            "lo-p3-pictorial",
+            "C3U05-LO02",
+            "Unit and Non-Unit Fractions",
+            "Represent these fractions pictorially.",
+            "C3-U05",
+            grade=grade,
+        ),
+        _outcome(
+            "lo-p3-locate",
+            "C3U05-LO03",
+            "Unit and Non-Unit Fractions",
+            "Locate and identify fractions on the number line.",
+            "C3-U05",
+            grade=grade,
+        ),
+        _outcome(
+            "lo-p3-equivalent",
+            "C3U06-LO01",
+            "Equivalent Fractions and Fraction Operations",
+            "Work with equivalent fractions.",
+            "C3-U06",
+            grade=grade,
+        ),
+        _outcome(
+            "lo-p3-add",
+            "C3U06-LO02",
+            "Equivalent Fractions and Fraction Operations",
+            "Add like fractions.",
+            "C3-U06",
+            grade=grade,
+        ),
+        _outcome(
+            "lo-p3-subtract",
+            "C3U06-LO03",
+            "Equivalent Fractions and Fraction Operations",
+            "Subtract like fractions.",
+            "C3-U06",
+            grade=grade,
+        ),
+        _outcome(
+            "lo-p3-word-problems",
+            "C3U06-LO04",
+            "Equivalent Fractions and Fraction Operations",
+            "Solve word problems involving addition and subtraction of like fractions.",
+            "C3-U06",
+            grade=grade,
+        ),
+        _outcome(
+            "lo-p3-equivalent-incomplete",
+            "C3U06-LO05",
+            "Equivalent Fractions and Fraction Operations",
+            "Identify equivalent fractions with denominators up to",
+            "C3-U06",
+            grade=grade,
+        ),
+    ]
+
+
+def _generate(
+    question: str,
+    evidence: list[CurriculumEvidence],
+    *,
+    grade: str = "CLASS_4",
+):
+    return AnswerGenerator(StubLLMProvider()).generate(
+        _state(question, evidence, grade=grade)
+    )
 
 
 def _assert_no_internal_identifiers(answer: str, evidence: list[CurriculumEvidence]) -> None:
@@ -140,15 +271,17 @@ def test_primary4_fractions_is_synthesized():
     assert "equivalent" in lowered
     assert "add" in lowered and "subtract" in lowered
     assert "multiply" in lowered
-    bullets = _BULLET_RE.findall(answer)
+    assert answer.startswith("# Primary 4 Mathematics — Fractions")
+    sections = _SECTION_RE.findall(answer)
     outcome_count = sum(
         1 for item in evidence if item.entity_type == "learning_outcome"
     )
-    assert len(bullets) < outcome_count
+    assert 1 < len(sections) < outcome_count
+    assert "### Curriculum Evidence Note" in answer
     assert "denominators up to multiply" not in lowered
     assert "related fractions" not in lowered
     combined = lowered + " " + " ".join(result.limitations).lower()
-    assert "unreliable" in combined
+    assert "cannot be confirmed" in combined or "incomplete" in combined
     _assert_no_internal_identifiers(answer, evidence)
     evidence_ids = {ref.entity_id for ref in result.evidence}
     assert {
@@ -161,6 +294,45 @@ def test_primary4_fractions_is_synthesized():
         "lo-problems",
         "lo-multiply-garbled",
     } <= evidence_ids
+
+
+def test_primary3_fractions_presentation():
+    evidence = _primary3_fractions_evidence()
+    result = _generate(
+        "What should a Primary 3 pupil learn about fractions?",
+        evidence,
+        grade="CLASS_3",
+    )
+    answer = result.answer
+    lowered = answer.lower()
+    assert answer.startswith("# Primary 3 Mathematics — Fractions")
+    assert "organised into 3 main areas" in lowered
+    assert "### 1. Unit Fractions" in answer
+    assert "### 2. Unit and Non-Unit Fractions" in answer
+    assert "### 3. Equivalent Fractions and Fraction Operations" in answer
+    assert "Pupils learn to:" in answer
+    assert "denominators 1-5" in lowered
+    assert "denominators 6-10" in lowered
+    assert "denominators 2-10" in lowered
+    assert "number line" in lowered
+    assert "equivalent fractions" in lowered
+    assert "add like fractions" in lowered
+    assert "subtract like fractions" in lowered
+    assert "word problems" in lowered
+    assert "### Curriculum Evidence Note" in answer
+    assert "cannot be confirmed" in lowered
+    assert "denominator range" in lowered
+    assert "up to 12" not in lowered
+    assert "up to 8" not in lowered
+    for invented in ("decimal", "mixed number", "multiplication"):
+        assert invented not in lowered
+    sections = _SECTION_RE.findall(answer)
+    outcome_count = sum(
+        1 for item in evidence if item.entity_type == "learning_outcome"
+    )
+    assert len(sections) < outcome_count
+    assert len(_BULLET_RE.findall(answer)) >= 8
+    _assert_no_internal_identifiers(answer, evidence)
 
 
 def test_multiple_units_form_one_explanation():
@@ -180,13 +352,49 @@ def test_multiple_units_form_one_explanation():
     assert "simplify" in answer
     assert "equivalent" in answer
     assert "add" in answer and "subtract" in answer
-    bullets = _BULLET_RE.findall(result.answer)
+    sections = _SECTION_RE.findall(result.answer)
     outcome_count = sum(
         1 for item in evidence if item.entity_type == "learning_outcome"
     )
-    assert 1 < len(bullets) < outcome_count
+    assert len(sections) == 2
+    assert len(sections) < outcome_count
+    assert _BULLET_RE.search(result.answer)
     assert "**—**" not in result.answer
+    assert "### Curriculum Evidence Note" not in result.answer
     _assert_no_internal_identifiers(result.answer, evidence)
+
+
+def test_simple_question_stays_concise():
+    evidence = [
+        _unit("unit-fraction", "Fraction", "C4-U04"),
+        _outcome(
+            "lo-simplify",
+            "C4U04-LO01",
+            "Fraction",
+            "Simplify like fractions with common denominators.",
+            "C4-U04",
+        ),
+        _outcome(
+            "lo-compare",
+            "C4U04-LO02",
+            "Fraction",
+            "Compare and order like fractions.",
+            "C4-U04",
+        ),
+    ]
+    result = _generate(
+        "What should a Primary 4 pupil learn about like fractions?",
+        evidence,
+    )
+    answer = result.answer
+    assert answer.startswith("# ")
+    assert "### " not in answer
+    assert "Curriculum Evidence Note" not in answer
+    assert "organised into" not in answer.lower()
+    assert len(answer) < 700
+    assert "simplify like fractions" in answer.lower()
+    assert "compare and order like fractions" in answer.lower()
+    _assert_no_internal_identifiers(answer, evidence)
 
 
 def test_explicit_identifier_question_keeps_lo_code():
@@ -208,7 +416,7 @@ def test_explicit_identifier_question_keeps_lo_code():
         ),
     ]
     result = _generate(
-        "What is the learning-objective code for simplifying like fractions in Primary 4?",
+        "What is the learning-objective code for simplifying like fractions?",
         evidence,
     )
     assert "C4U04-LO01" in result.answer
@@ -238,8 +446,9 @@ def test_malformed_evidence_is_not_repaired():
     assert "probably" not in lowered
     assert "the intended objective is" not in lowered
     assert "greater than compare" not in lowered
+    assert "### Curriculum Evidence Note" in result.answer
     combined = lowered + " " + " ".join(result.limitations).lower()
-    assert "unreliable" in combined
+    assert "cannot be confirmed" in combined or "incomplete" in combined
     _assert_no_internal_identifiers(result.answer, evidence)
 
 
@@ -282,17 +491,29 @@ def test_synthesis_does_not_add_unsupported_concepts():
 
 
 def test_ordinary_answer_hides_internal_identifiers():
-    evidence = _primary4_fractions_evidence()
-    result = _generate(
-        "What should a Primary 4 pupil learn about fractions?",
-        evidence,
-    )
-    _assert_no_internal_identifiers(result.answer, evidence)
-    assert re.search(r"C4-U\d+", result.answer) is None
-    assert re.search(r"C4U\d+-LO\d+", result.answer) is None
-    assert "grade_curriculum_id" not in result.answer
-    for ref in result.evidence:
-        assert ref.entity_id
+    cases = [
+        (
+            "What should a Primary 4 pupil learn about fractions?",
+            _primary4_fractions_evidence(),
+            "CLASS_4",
+        ),
+        (
+            "What should a Primary 3 pupil learn about fractions?",
+            _primary3_fractions_evidence(),
+            "CLASS_3",
+        ),
+    ]
+    for question, evidence, grade in cases:
+        result = _generate(question, evidence, grade=grade)
+        _assert_no_internal_identifiers(result.answer, evidence)
+        assert re.search(r"C3-U\d+", result.answer) is None
+        assert re.search(r"C3U\d+-LO\d+", result.answer) is None
+        assert re.search(r"C4-U\d+", result.answer) is None
+        assert re.search(r"C4U\d+-LO\d+", result.answer) is None
+        assert "grade_curriculum_id" not in result.answer
+        for ref in result.evidence:
+            assert ref.entity_id
+            assert ref.entity_id not in result.answer
 
 
 def test_model_code_dump_is_redacted_for_ordinary_questions():

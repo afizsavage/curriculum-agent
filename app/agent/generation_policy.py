@@ -20,11 +20,11 @@ A. Evidence is the boundary
 B. User-facing prose is a synthesis
 - For ordinary pupil and teacher questions, write a concise natural-language
   explanation of what the supplied evidence supports.
-- Group related learning objectives under their unit or topic name.
-- Do not emit one bullet per learning objective when several objectives
-  belong to the same unit or topic.
+- Group related learning objectives under one concept heading. List distinct
+  skills as bullets under that heading. Do not create a heading for every
+  learning objective, and do not prefix bullets with LO codes.
 - When several units or topics answer the question, combine them into one
-  explanation and keep meaningful unit or topic names.
+  explanation. Headings name the curriculum concept, not a database node.
 - State only concepts present in the supplied evidence. Do not add generally
   plausible curriculum content from model knowledge.
 - Do not include learning-objective codes, unit codes, entity IDs, database IDs,
@@ -58,10 +58,17 @@ F. Answer only the question asked
 - Do not add unsupported claims about what is not taught, pedagogy, assessment,
   prerequisites, or grade progression unless explicitly in the evidence and necessary.
 
-G. User-facing structure (when useful)
-- A short heading with grade, subject, and topic in natural language
-- One synthesis of the relevant units or topics, not a dump of every objective
-- An explicit uncertainty note only when source text is damaged
+G. User-facing structure (when the evidence justifies it)
+- Title: `# Grade Subject — Topic` from resolved grade, subject, and topic.
+  No internal identifiers in the title.
+- A short introductory paragraph when several learning areas answer the question.
+  Name only areas supported by the evidence.
+- Numbered concept headings such as `### 1. Unit Fractions`, then `Pupils learn to:`
+  and one bullet per distinct learning expectation.
+- Keep a one- or two-record answer short. Do not force a multi-section document.
+- `### Curriculum Evidence Note` only when damaged source text materially limits
+  the answer. Omit that heading when the evidence is intact.
+- Do not show evidence-quality flags, database fields, or diagnostic terms.
 
 H. Audit and provenance stay structured
 - Identifiers remain on the evidence records and in the evidence array
@@ -78,9 +85,11 @@ I. Do not fix curriculum data in generation
 EVIDENCE_CONSERVATIVE_USER_APPENDIX = """
 Apply the evidence-conservative policy above.
 Answer using ONLY the curriculum evidence block.
-The answer field is user-facing synthesis: natural language, grouped by unit
-or topic, with no internal identifiers unless the question explicitly asks
-for a code or id, and no one-bullet-per-objective dump.
+The answer field is user-facing synthesis: a title when context supports one,
+a short introduction when several areas are present, concept headings, and
+bullets for distinct learning expectations. No internal identifiers unless the
+question explicitly asks for a code or id.
+Use `### Curriculum Evidence Note` only when source text is materially limited.
 The evidence array is the audit surface: reference entity_id values from the
 evidence records there. Do not remove provenance from that array.
 Set limitations when source records are incomplete, duplicated, garbled, or ambiguous.
