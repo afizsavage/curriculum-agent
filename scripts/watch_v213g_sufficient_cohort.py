@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Watch V2.13G healthy-batch coverage until structured_sufficient_with_docs >= target."""
+"""Watch V2.13G until healthy valid LIVE_TRAFFIC rows reach the n>=50 milestone.
+
+Stage-1 structured_sufficient_with_docs (target 20) is recorded but does not
+stop collection. Reaching n>=50 does not enable production arbitration.
+"""
 
 from __future__ import annotations
 
@@ -12,7 +16,8 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGET = int(os.environ.get("V213G_SUFFICIENT_TARGET", "20"))
+# First healthy-live milestone. Not the sufficient-with-docs target of 20.
+TARGET = int(os.environ.get("V213G_HEALTHY_TARGET", "50"))
 
 
 def coverage() -> dict:
@@ -39,12 +44,22 @@ def stop_traffic() -> None:
 
 
 def main() -> int:
-    print(json.dumps({"event": "watch_start", "target": TARGET, **coverage()}), flush=True)
+    print(
+        json.dumps(
+            {
+                "event": "watch_start",
+                "target_metric": "healthy_valid",
+                "target": TARGET,
+                **coverage(),
+            }
+        ),
+        flush=True,
+    )
     stagnant = 0
-    last = coverage().get("structured_sufficient_with_docs", 0)
+    last = int(coverage().get("healthy_valid") or coverage().get("valid_healthy") or 0)
     while True:
         cov = coverage()
-        n = int(cov.get("structured_sufficient_with_docs") or 0)
+        n = int(cov.get("healthy_valid") or cov.get("valid_healthy") or 0)
         traffic_alive = False
         try:
             subprocess.check_output(
@@ -58,6 +73,7 @@ def main() -> int:
             json.dumps(
                 {
                     "event": "progress",
+                    "target_metric": "healthy_valid",
                     "target": TARGET,
                     "traffic_alive": traffic_alive,
                     **cov,
