@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import json
-
 from app.agent.answer_generator import (
     SYSTEM_PROMPT,
     AnswerGenerator,
@@ -132,12 +130,16 @@ def test_truncated_lo_policy_in_prompt():
     assert "reconstruct" in combined.lower() or "repair" in combined.lower()
 
 
-def test_stub_preserves_truncated_lo_wording():
+def test_stub_flags_damaged_wording_without_codes():
     state = _state(evidence=_fractions_evidence())
     result = AnswerGenerator(StubLLMProvider()).generate(state)
-    assert "C4U06-LO02" in result.answer
-    assert "denominators up to multiply" in result.answer
-    assert "Source limitations" in result.answer or "incomplete" in result.answer.lower()
+    assert "C4U06-LO02" not in result.answer
+    assert "C4-U04" not in result.answer
+    assert "simplify like fraction" in result.answer.lower()
+    assert "denominators up to multiply" not in result.answer.lower()
+    combined = result.answer.lower() + " " + " ".join(result.limitations).lower()
+    assert "unreliable" in combined or "incomplete" in combined or "garbled" in combined
+    assert "lo-garbled" in {ref.entity_id for ref in result.evidence}
 
 
 # Test 3 — Speculative completion
@@ -172,11 +174,16 @@ def test_source_wording_preservation_heuristic():
     )
 
 
-def test_build_messages_requires_source_wording():
+def test_build_messages_distinguishes_prose_from_audit():
     state = _state(evidence=_fractions_evidence())
     messages = AnswerGenerator(RecordingLLM({})).build_messages(state)
     system = messages[0].content or ""
-    assert "source wording" in system.lower() or "lo code" in system.lower()
+    user = messages[1].content or ""
+    combined = (system + user).lower()
+    assert "natural language" in combined or "natural-language" in combined
+    assert "entity_id" in user.lower()
+    assert "user-facing" in combined
+    assert "audit" in combined
 
 
 # Test 5 — Evidence boundary
@@ -198,14 +205,10 @@ def test_normal_lo_answer_is_readable():
     state = _state(evidence=_fractions_evidence())
     payload = {
         "answer": (
-            "## Curriculum context\n"
-            "Grade: Primary 4\nSubject: Mathematics\n\n"
-            "## Learning objectives/outcomes\n"
-            "- **C4U04-LO01** — Simplify like fraction with common denominators.\n"
-            "- **C4U06-LO02** — Multiply like fractions with denominators up to multiply "
-            "like fractions with denominators up to multiply related fractions\n\n"
-            "## Source limitations\n"
-            "- C4U06-LO02 source record appears repetitive/incomplete."
+            "**Primary 4 Mathematics — Fractions**\n\n"
+            "Based on the Primary 4 Mathematics curriculum evidence, pupils are "
+            "expected to learn to simplify like fractions with common denominators. "
+            "A multiplication record is duplicated, so its exact wording is unreliable."
         ),
         "confidence": "high",
         "evidence": [
@@ -216,7 +219,8 @@ def test_normal_lo_answer_is_readable():
     }
     llm = RecordingLLM(payload)
     result = AnswerGenerator(llm).generate(state)
-    assert "C4U04-LO01" in result.answer
+    assert "C4U04-LO01" not in result.answer
+    assert "simplify like fraction" in result.answer.lower()
     assert result.confidence == AnswerConfidence.HIGH
     assert state.metadata.get("generation_policy") == "evidence_conservative"
     assert state.metadata.get("truncation_warning_count", 0) >= 1

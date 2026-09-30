@@ -17,17 +17,31 @@ A. Evidence is the boundary
 - Do not use general model knowledge to fill MBSSE curriculum gaps.
 - Do not infer curriculum content that is not present in the evidence.
 
-B. Preserve official learning outcome text
-- For learning objectives/outcomes, prefer: LO code + source wording.
-- Do not rewrite the meaning of an official LO to sound cleaner.
-- Minor formatting normalization is acceptable; semantic rewriting is not.
+B. User-facing prose is a synthesis
+- For ordinary pupil and teacher questions, write a concise natural-language
+  explanation of what the supplied evidence supports.
+- Group related learning objectives under their unit or topic name.
+- Do not emit one bullet per learning objective when several objectives
+  belong to the same unit or topic.
+- When several units or topics answer the question, combine them into one
+  explanation and keep meaningful unit or topic names.
+- State only concepts present in the supplied evidence. Do not add generally
+  plausible curriculum content from model knowledge.
+- Do not include learning-objective codes, unit codes, entity IDs, database IDs,
+  retrieval IDs, grade_curriculum_id, or other internal identifiers in the answer
+  unless the user explicitly asks for that identifier.
+- Minor formatting normalization is acceptable. Do not change the meaning of
+  a reliable source statement.
 
 C. Truncated / garbled source text
 - If evidence text appears truncated, repetitive, malformed, incomplete, or garbled,
   do NOT reconstruct or repair it.
 - Never use: "likely", "probably", "this means", "the intended objective is",
   "the missing text appears to say", or similar speculative completion.
-- Report the available wording and note the limitation in limitations and/or the answer.
+- Use a reliable portion only when that portion is explicitly present in the source.
+- Where damage materially affects what can be stated, say that the exact wording
+  is unreliable. Note the limitation in limitations and/or the answer.
+- Do not quote internal identifiers while describing that limitation.
 
 D. No unsupported absence claims
 - Do not claim something is absent merely because it was not found in the evidence.
@@ -44,14 +58,18 @@ F. Answer only the question asked
 - Do not add unsupported claims about what is not taught, pedagogy, assessment,
   prerequisites, or grade progression unless explicitly in the evidence and necessary.
 
-G. Evidence-first structure (when useful)
-- Curriculum context (grade, subject, topic/unit)
-- Learning objectives/outcomes as bullets: [LO code] — [source wording]
-- Source limitations (only when evidence is incomplete/garbled)
+G. User-facing structure (when useful)
+- A short heading with grade, subject, and topic in natural language
+- One synthesis of the relevant units or topics, not a dump of every objective
+- An explicit uncertainty note only when source text is damaged
 
-H. Preserve identifiers
-- Retain LO codes, unit codes, topic codes, and entity IDs from evidence.
-- Do not invent codes.
+H. Audit and provenance stay structured
+- Identifiers remain on the evidence records and in the evidence array
+  (entity_id). Do not invent codes.
+- The evidence array is the audit surface. The answer field is the user-facing
+  synthesis.
+- If the user explicitly asks for an LO code, unit code, entity ID, or similar
+  identifier, include that identifier in the answer.
 
 I. Do not fix curriculum data in generation
 - The generator is not an ingestion system. Preserve damaged source text and flag it.
@@ -60,8 +78,13 @@ I. Do not fix curriculum data in generation
 EVIDENCE_CONSERVATIVE_USER_APPENDIX = """
 Apply the evidence-conservative policy above.
 Answer using ONLY the curriculum evidence block.
-Reference entity_id values from the evidence in your evidence array.
-Set limitations when source records are incomplete or ambiguous.
+The answer field is user-facing synthesis: natural language, grouped by unit
+or topic, with no internal identifiers unless the question explicitly asks
+for a code or id, and no one-bullet-per-objective dump.
+The evidence array is the audit surface: reference entity_id values from the
+evidence records there. Do not remove provenance from that array.
+Set limitations when source records are incomplete, duplicated, garbled, or ambiguous.
+Do not reconstruct damaged source text.
 """
 
 
@@ -154,13 +177,74 @@ def analyze_answer_quality(
     }
 
 
+_IDENTIFIER_REQUEST_RE = re.compile(
+    r"\b("
+    r"learning[-\s]?objective\s+codes?|"
+    r"objective\s+codes?|"
+    r"\blo\s+codes?\b|"
+    r"unit\s+codes?|"
+    r"topic\s+codes?|"
+    r"entity[_\s-]?ids?|"
+    r"database\s+ids?|"
+    r"retrieval\s+ids?|"
+    r"grade_curriculum_id|"
+    r"curriculum\s+identifiers?|"
+    r"internal\s+identifiers?"
+    r")\b",
+    re.I,
+)
+
+_INTERNAL_IDENTIFIER_RE = re.compile(
+    r"\bC\d+-U\d+\b|\bC\d+U\d+-LO\d+\b|grade_curriculum_id",
+    re.I,
+)
+
+
+def question_requests_identifiers(question: str | None) -> bool:
+    """True when the user explicitly asks for a curriculum code or id."""
+    return bool(_IDENTIFIER_REQUEST_RE.search(question or ""))
+
+
+def redact_internal_identifiers(
+    answer: str,
+    evidence: list[CurriculumEvidence] | None = None,
+) -> str:
+    """Remove internal ids from user-facing prose. Evidence objects are unchanged."""
+    text = answer or ""
+    needles: list[str] = []
+    for item in evidence or []:
+        if item.entity_id and len(str(item.entity_id)) >= 4:
+            needles.append(str(item.entity_id))
+        code = (item.metadata or {}).get("code")
+        if code:
+            needles.append(str(code))
+        if item.name and _INTERNAL_IDENTIFIER_RE.search(str(item.name)):
+            needles.append(str(item.name).strip())
+    for needle in sorted(set(needles), key=len, reverse=True):
+        if len(needle) < 3:
+            continue
+        text = re.sub(
+            rf"(?<![A-Za-z0-9]){re.escape(needle)}(?![A-Za-z0-9])",
+            "",
+            text,
+            flags=re.I,
+        )
+    text = _INTERNAL_IDENTIFIER_RE.sub("", text)
+    text = re.sub(r"\*\*\s*\*\*", "", text)
+    text = re.sub(r"(?m)^[ \t]*[-*][ \t]*[—–-][ \t]*", "- ", text)
+    text = re.sub(r"[ \t]{2,}", " ", text)
+    text = re.sub(r" +\n", "\n", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
+
+
 def source_wording_preserved(
     answer: str,
     *,
     lo_code: str,
     source_wording: str,
 ) -> bool:
-    """Heuristic: answer includes LO code and a substantive substring of source wording."""
+    """Heuristic for identifier-bearing audit text, not ordinary user prose."""
     if lo_code not in answer:
         return False
     words = [w for w in re.findall(r"[a-z]{4,}", source_wording.lower()) if len(w) > 4]

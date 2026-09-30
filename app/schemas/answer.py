@@ -42,7 +42,11 @@ GROUNDED_ANSWER_JSON_SCHEMA: dict = {
     "properties": {
         "answer": {
             "type": "string",
-            "description": "Grounded curriculum answer for teachers and education officers.",
+            "description": (
+                "User-facing curriculum answer: a natural-language synthesis for "
+                "pupils and teachers. Do not include internal curriculum identifiers "
+                "unless the question asks for them."
+            ),
         },
         "summary": {
             "type": "string",

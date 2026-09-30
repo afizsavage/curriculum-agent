@@ -26,6 +26,8 @@ from app.agent.generation_policy import (
     EVIDENCE_CONSERVATIVE_USER_APPENDIX,
     GENERATION_POLICY,
     analyze_answer_quality,
+    question_requests_identifiers,
+    redact_internal_identifiers,
 )
 
 logger = get_logger(__name__)
@@ -48,8 +50,9 @@ Core rules:
    Never invent entity IDs.
 5. CONFIDENCE: Assign high only when exact topic/objective evidence answers the
    question; medium when interpretation is needed; low when evidence is partial.
-6. STYLE: Write for teachers and education officers — concise, clear headings,
-   bullet points, hierarchy, and learning objectives where relevant.
+6. STYLE: Write for pupils, teachers, and education users. Synthesize the
+   evidence into concise natural language. Do not expose internal curriculum
+   identifiers unless the question asks for them.
 
 {EVIDENCE_CONSERVATIVE_RULES}
 """
@@ -96,6 +99,15 @@ class AnswerGenerator:
             result = self._llm_generate(state, conversation=conversation)
 
         result = self._apply_evidence_constraints(state, result)
+        if not question_requests_identifiers(state.question):
+            cleaned = redact_internal_identifiers(result.answer, state.evidence)
+            if cleaned != (result.answer or "").strip():
+                result = result.model_copy(
+                    update={
+                        "answer": cleaned,
+                        "summary": _one_line_summary(cleaned) or result.summary,
+                    }
+                )
         latency_ms = (time.perf_counter() - started) * 1000
         quality = analyze_answer_quality(
             result.answer or "",
@@ -180,19 +192,39 @@ class AnswerGenerator:
             user_content += f"CONVERSATION CONTEXT\n{history}\n\n"
         user_content += (
             f"CURRICULUM EVIDENCE\n{evidence_block}\n\n"
+            "The evidence block above includes entity IDs and codes for audit. "
+            "Those identifiers stay available for the evidence array.\n\n"
             "INSTRUCTIONS\n"
             "Answer the question using ONLY the curriculum evidence above.\n"
             "Do not invent curriculum information.\n"
             "Reference entity_id values from the evidence records in your evidence array.\n"
             "Set limitations when evidence is partial, ambiguous, or source text is damaged.\n"
-            "Use markdown headings and bullet points in the answer field where helpful.\n"
-            f"{EVIDENCE_CONSERVATIVE_USER_APPENDIX}\n"
         )
+        if question_requests_identifiers(state.question):
+            user_content += (
+                "The user explicitly asked for a curriculum identifier. Include the "
+                "requested code or id from the evidence in the answer, and do not "
+                "invent one.\n"
+            )
+        else:
+            user_content += (
+                "USER-FACING ANSWER\n"
+                "Write a concise natural-language synthesis for pupils and teachers.\n"
+                "Group related objectives by unit or topic name into one explanation.\n"
+                "Do not emit one bullet per learning objective.\n"
+                "Do not copy learning-objective codes, unit codes, entity IDs, "
+                "database IDs, retrieval IDs, or grade_curriculum_id into the answer.\n"
+                "AUDIT\n"
+                "Keep entity_id values in the evidence array only.\n"
+            )
+        user_content += f"{EVIDENCE_CONSERVATIVE_USER_APPENDIX}\n"
         if state.metadata.get("conservative_regeneration"):
             user_content += (
                 "\nCONSERVATIVE REGENERATION (authoritative context already resolved)\n"
                 "- Regenerate using only the evidence above; remove unsupported claims.\n"
-                "- Preserve source LO wording; do not complete truncated text.\n"
+                "- Do not complete truncated or garbled text.\n"
+                "- Keep the answer a user-facing synthesis unless the user asked "
+                "for an identifier. Keep identifiers in the evidence array.\n"
             )
         if state.metadata.get("generation_mode") == "constrained":
             user_content += CONSTRAINED_GENERATION_APPENDIX
@@ -256,109 +288,22 @@ class AnswerGenerator:
             raise LLMProviderError(f"Answer generation failed: {exc}") from exc
 
     def _stub_generate(self, state: CurriculumQAState) -> GroundedAnswer:
-        """Deterministic grounded answers for tests without network calls."""
+        """Deterministic grounded synthesis for tests without a model call."""
         evidence = state.evidence
         grade_label = _display_grade(state.grade or _first_attr(evidence, "grade"))
         subject_label = _display_subject(
             state.subject or _first_attr(evidence, "subject")
         )
-
-        topics = [
-            e
-            for e in evidence
-            if (e.entity_type or "").lower() in {"topic", "subtopic", "unit", "strand"}
-        ]
-        subjects = [e for e in evidence if (e.entity_type or "").lower() == "subject"]
-        outcomes = [
-            e for e in evidence if (e.entity_type or "").lower() == "learning_outcome"
-        ]
-
-        q = (state.question or "").lower()
-        lo_question = any(
-            token in q
-            for token in ("learning objective", "learning outcome", "lo ", "los ")
+        answer_text, limitations = _render_stub_answer(
+            state,
+            grade_label=grade_label,
+            subject_label=subject_label,
         )
-
-        lines: list[str] = []
-        if grade_label and subject_label:
-            lines.append(f"### {grade_label} — {subject_label}")
-        elif grade_label:
-            lines.append(f"### {grade_label}")
-
-        if lo_question and outcomes:
-            lines.append("")
-            lines.append("## Learning objectives/outcomes")
-            for outcome in outcomes[:20]:
-                code = (outcome.metadata or {}).get("code") or outcome.name or ""
-                wording = (outcome.content or "").strip()
-                if code and wording:
-                    lines.append(f"- **{code}** — {wording}")
-                elif code:
-                    lines.append(f"- **{code}**")
-                elif wording:
-                    lines.append(f"- {wording}")
-            garbled = [
-                o
-                for o in outcomes
-                if o.content and _looks_garbled_source_text(o.content)
-            ]
-            if garbled:
-                lines.append("")
-                lines.append("## Source limitations")
-                lines.append(
-                    "Some curriculum records appear incomplete or repetitive; "
-                    "wording above is reported as supplied."
-                )
-        elif topics:
-            lines.append("")
-            list_mode = any(
-                token in q for token in ("topics", "units", "what is taught", "structure")
-            ) or len(topics) > 1
-            if list_mode:
-                lines.append("The MBSSE curriculum includes these units/topics:")
-                seen: set[str] = set()
-                for topic in topics[:40]:
-                    name = (topic.name or "").strip()
-                    if not name or name in seen:
-                        continue
-                    seen.add(name)
-                    code = (topic.metadata or {}).get("code")
-                    suffix = f" ({code})" if code else ""
-                    lines.append(f"- {name}{suffix}")
-            else:
-                topic = topics[0]
-                lines.append(
-                    f"The MBSSE curriculum includes **{topic.name}**"
-                    + (f" under {subject_label}." if subject_label else ".")
-                )
-                if topic.content and topic.content != topic.name:
-                    lines.append("")
-                    lines.append(topic.content)
-        elif subjects:
-            names = sorted({s.name for s in subjects if s.name})
-            if names:
-                lines.append("")
-                lines.append("Subjects include:")
-                lines.extend(f"- {name}" for name in names)
-        elif outcomes:
-            lines.append("")
-            lines.append("## Learning objectives/outcomes")
-            for outcome in outcomes[:20]:
-                code = (outcome.metadata or {}).get("code") or outcome.name or ""
-                wording = (outcome.content or "").strip()
-                if code and wording:
-                    lines.append(f"- **{code}** — {wording}")
-                elif code:
-                    lines.append(f"- **{code}**")
-                elif wording:
-                    lines.append(f"- {wording}")
-
-        if not lines:
-            names = sorted({e.name for e in evidence if e.name})[:10]
-            if names:
-                lines.append("")
-                lines.append("Retrieved curriculum records include:")
-                lines.extend(f"- {name}" for name in names)
+        if state.evidence_status == EvidenceStatus.PARTIAL:
+            limitations.append(
+                "Some curriculum API calls failed or returned partial results."
+            )
+        limitations = list(dict.fromkeys(limitations))
 
         refs = _evidence_refs_from_items(evidence[:8], state.question)
         confidence = (
@@ -366,13 +311,7 @@ class AnswerGenerator:
             if state.evidence_status == EvidenceStatus.FOUND and refs
             else AnswerConfidence.MEDIUM
         )
-        limitations: list[str] = []
-        if state.evidence_status == EvidenceStatus.PARTIAL:
-            limitations.append(
-                "Some curriculum API calls failed or returned partial results."
-            )
-
-        answer_text = "\n".join(lines).strip() or self.INSUFFICIENT_EVIDENCE_ANSWER
+        answer_text = answer_text.strip() or self.INSUFFICIENT_EVIDENCE_ANSWER
         return GroundedAnswer(
             answer=answer_text,
             summary=_one_line_summary(answer_text),
@@ -537,6 +476,544 @@ def _looks_garbled_source_text(text: str) -> bool:
     if text.endswith((" greater than", " up to", " to")):
         return True
     return False
+
+
+_UNIT_TYPES = {"topic", "subtopic", "unit", "strand"}
+_LO_CODE_RE = re.compile(r"(C\d+)U(\d+)-LO\d+", re.I)
+_LEADING_CODE_RE = re.compile(
+    r"^(?:C\d+-U\d+|C\d+U\d+-LO\d+)\s*[—–:-]\s*",
+    re.I,
+)
+_TRUNCATION_CUES = ("up to", "greater than", "related to")
+_TRAILING_FUNCTION_WORDS = {
+    "with",
+    "of",
+    "and",
+    "or",
+    "to",
+    "for",
+    "the",
+    "a",
+    "an",
+    "in",
+    "on",
+}
+_IDENTIFIER_STOPWORDS = {
+    "what",
+    "which",
+    "learning",
+    "objective",
+    "objectives",
+    "code",
+    "codes",
+    "primary",
+    "junior",
+    "senior",
+    "class",
+    "grade",
+    "pupil",
+    "pupils",
+    "this",
+    "that",
+    "from",
+    "with",
+    "about",
+    "should",
+    "learn",
+    "taught",
+    "curriculum",
+}
+
+
+def _render_stub_answer(
+    state: CurriculumQAState,
+    *,
+    grade_label: str | None,
+    subject_label: str | None,
+) -> tuple[str, list[str]]:
+    """Group supplied evidence into user-facing prose. No model call."""
+    evidence = state.evidence
+    topics = [e for e in evidence if (e.entity_type or "").lower() in _UNIT_TYPES]
+    subjects = [e for e in evidence if (e.entity_type or "").lower() == "subject"]
+    outcomes = [
+        e for e in evidence if (e.entity_type or "").lower() == "learning_outcome"
+    ]
+    question = state.question or ""
+    limitations: list[str] = []
+
+    if question_requests_identifiers(question) and (outcomes or topics):
+        return (
+            _render_identifier_answer(
+                question,
+                outcomes=outcomes,
+                topics=topics,
+                grade_label=grade_label,
+                subject_label=subject_label,
+            ),
+            limitations,
+        )
+
+    if outcomes and not _is_catalogue_question(question):
+        text, damaged = _render_outcome_synthesis(
+            question,
+            outcomes=outcomes,
+            topics=topics,
+            grade_label=grade_label,
+            subject_label=subject_label,
+            topic_hint=state.topic,
+        )
+        if damaged:
+            limitations.append(
+                "Some supplied curriculum records are duplicated, truncated, or "
+                "garbled, so their exact wording is unreliable."
+            )
+        return text, limitations
+
+    lines = _heading_lines(grade_label, subject_label, focus=None)
+    if topics:
+        lines.extend(_render_topic_catalogue(question, topics, subject_label))
+    elif subjects:
+        names = sorted({s.name for s in subjects if s.name and _public_name(s.name)})
+        if names:
+            lines.append("")
+            lines.append("Subjects include:")
+            lines.extend(f"* {name}" for name in names)
+    elif outcomes:
+        text, damaged = _render_outcome_synthesis(
+            question,
+            outcomes=outcomes,
+            topics=topics,
+            grade_label=grade_label,
+            subject_label=subject_label,
+            topic_hint=state.topic,
+        )
+        if damaged:
+            limitations.append(
+                "Some supplied curriculum records are duplicated, truncated, or "
+                "garbled, so their exact wording is unreliable."
+            )
+        return text, limitations
+
+    if len(lines) <= 1:
+        names = [
+            name
+            for name in dict.fromkeys(
+                e.name for e in evidence if e.name and _public_name(e.name)
+            )
+        ][:10]
+        if names:
+            lines.append("")
+            lines.append("Retrieved curriculum records include:")
+            lines.extend(f"* {name}" for name in names)
+    return "\n".join(lines).strip(), limitations
+
+
+def _render_outcome_synthesis(
+    question: str,
+    *,
+    outcomes: list[CurriculumEvidence],
+    topics: list[CurriculumEvidence],
+    grade_label: str | None,
+    subject_label: str | None,
+    topic_hint: str | None,
+) -> tuple[str, bool]:
+    units_by_code = _units_by_code(topics)
+    groups: dict[str, dict[str, Any]] = {}
+    order: list[str] = []
+    for outcome in outcomes:
+        label = _group_label(outcome, units_by_code)
+        bucket = groups.get(label)
+        if bucket is None:
+            bucket = {"reliable": [], "damaged": False}
+            groups[label] = bucket
+            order.append(label)
+        content = _strip_leading_code(outcome.content or "")
+        damaged = _is_damaged_source(content) or _evidence_marked_imperfect(outcome)
+        if damaged:
+            bucket["damaged"] = True
+            portion = (
+                _reliable_portion(content)
+                if _is_damaged_source(content)
+                else content.strip()
+            )
+            if portion:
+                bucket["reliable"].append(portion)
+        elif content.strip():
+            bucket["reliable"].append(content.strip())
+
+    focus = _focus_phrase(question, topic_hint)
+    lines = _heading_lines(grade_label, subject_label, focus)
+    lines.append("")
+    where = " ".join(part for part in (grade_label, subject_label) if part) or "supplied"
+    topic_name = focus or "this topic"
+    lines.append(
+        f"Based on the {where} curriculum evidence, pupils are expected to "
+        f"learn about {topic_name} through these areas:"
+    )
+    lines.append("")
+    any_damaged = False
+    for label in order:
+        bucket = groups[label]
+        body = _join_claims(bucket["reliable"])
+        if bucket["damaged"]:
+            any_damaged = True
+            if body:
+                lines.append(
+                    f"* **{label}:** {body} The exact wording of part of this "
+                    "evidence is unreliable because the source text is duplicated, "
+                    "truncated, or garbled."
+                )
+            else:
+                lines.append(
+                    f"* **{label}:** The supplied source text is duplicated, "
+                    "truncated, or garbled, so the exact wording is unreliable "
+                    "and is not restated."
+                )
+        elif body:
+            lines.append(f"* **{label}:** {body}")
+    if any_damaged:
+        lines.append("")
+        lines.append(
+            "The curriculum evidence contains malformed or duplicated source text, "
+            "so the exact wording of those records should be verified against the "
+            "source before quoting them verbatim."
+        )
+    return "\n".join(lines).strip(), any_damaged
+
+
+def _render_identifier_answer(
+    question: str,
+    *,
+    outcomes: list[CurriculumEvidence],
+    topics: list[CurriculumEvidence],
+    grade_label: str | None,
+    subject_label: str | None,
+) -> str:
+    kind = _identifier_kind(question)
+    lines = _heading_lines(grade_label, subject_label, focus=None)
+    lines.append("")
+    if kind == "unit":
+        matches = _best_content_matches(question, topics) or topics[:3]
+        if not matches:
+            lines.append(
+                "The supplied curriculum evidence does not include a unit code "
+                "that matches this question."
+            )
+            return "\n".join(lines).strip()
+        lines.append("The requested unit code from the supplied evidence:")
+        for item in matches:
+            code = _record_code(item)
+            label = _public_name(item.name) or "Curriculum unit"
+            if code:
+                lines.append(f"* **{code}** — {label}")
+        return "\n".join(lines).strip()
+
+    pool = outcomes or topics
+    matches = _best_content_matches(question, pool)
+    if not matches:
+        lines.append(
+            "The supplied curriculum evidence does not include an identifier "
+            "that matches this question."
+        )
+        return "\n".join(lines).strip()
+    lines.append("The requested curriculum identifier from the supplied evidence:")
+    for item in matches:
+        code = _record_code(item) or (
+            item.entity_id if kind == "entity" else None
+        )
+        wording = _strip_leading_code(item.content or "")
+        if _is_damaged_source(wording):
+            portion = _reliable_portion(wording)
+            shown = portion or "the exact source wording is unreliable"
+            lines.append(
+                f"* **{code or 'unknown'}** — {shown}. "
+                "The exact wording of this record is unreliable."
+            )
+        elif code and wording:
+            lines.append(f"* **{code}** — {wording.strip()}")
+        elif code:
+            lines.append(f"* **{code}**")
+        elif wording:
+            lines.append(f"* {wording.strip()}")
+    return "\n".join(lines).strip()
+
+
+def _render_topic_catalogue(
+    question: str,
+    topics: list[CurriculumEvidence],
+    subject_label: str | None,
+) -> list[str]:
+    lines: list[str] = [""]
+    list_mode = _is_catalogue_question(question) or len(topics) > 1
+    if list_mode:
+        lines.append("The MBSSE curriculum includes these units/topics:")
+        seen: set[str] = set()
+        for topic in topics[:40]:
+            name = _public_name(topic.name)
+            if not name or name in seen:
+                continue
+            seen.add(name)
+            lines.append(f"* {name}")
+        return lines
+    topic = topics[0]
+    name = _public_name(topic.name) or "this topic"
+    lines.append(
+        f"The MBSSE curriculum includes **{name}**"
+        + (f" under {subject_label}." if subject_label else ".")
+    )
+    if topic.content and topic.content != topic.name and _public_name(topic.content):
+        lines.append("")
+        lines.append(_strip_leading_code(topic.content))
+    return lines
+
+
+def _heading_lines(
+    grade_label: str | None,
+    subject_label: str | None,
+    focus: str | None,
+) -> list[str]:
+    parts = [part for part in (grade_label, subject_label) if part]
+    title = " ".join(parts) if parts else "Curriculum evidence"
+    if focus:
+        title = f"{title} — {focus}"
+    return [f"**{title}**"]
+
+
+def _is_catalogue_question(question: str) -> bool:
+    lowered = question.lower()
+    return any(
+        token in lowered
+        for token in (
+            "what topics",
+            "which topics",
+            "what units",
+            "which units",
+            "list the units",
+            "list the topics",
+            "what is taught",
+            "curriculum structure",
+        )
+    )
+
+
+def _identifier_kind(question: str) -> str:
+    lowered = question.lower()
+    if "unit code" in lowered:
+        return "unit"
+    if "entity" in lowered or "database id" in lowered or "retrieval id" in lowered:
+        return "entity"
+    return "learning_outcome"
+
+
+def _units_by_code(topics: list[CurriculumEvidence]) -> dict[str, CurriculumEvidence]:
+    indexed: dict[str, CurriculumEvidence] = {}
+    for item in topics:
+        code = _record_code(item)
+        if code:
+            indexed[code.upper()] = item
+    return indexed
+
+
+def _record_code(item: CurriculumEvidence) -> str | None:
+    code = (item.metadata or {}).get("code")
+    if code and str(code).strip():
+        return str(code).strip()
+    if item.name and _looks_like_internal_id(item.name):
+        return item.name.strip()
+    return None
+
+
+def _unit_code_for_outcome(item: CurriculumEvidence) -> str | None:
+    parent = (item.metadata or {}).get("parent_content_code")
+    if parent and str(parent).strip():
+        return str(parent).strip().upper()
+    code = _record_code(item) or ""
+    match = _LO_CODE_RE.match(code)
+    if match:
+        return f"{match.group(1).upper()}-U{match.group(2)}"
+    return None
+
+
+def _group_label(
+    item: CurriculumEvidence,
+    units_by_code: dict[str, CurriculumEvidence],
+) -> str:
+    topic = (item.topic or "").strip()
+    if topic and not _looks_like_internal_id(topic):
+        return topic
+    parent_name = str((item.metadata or {}).get("parent_content_name") or "").strip()
+    if parent_name and not _looks_like_internal_id(parent_name):
+        return parent_name
+    unit_code = _unit_code_for_outcome(item)
+    if unit_code:
+        unit = units_by_code.get(unit_code.upper())
+        if unit is not None:
+            label = _public_name(unit.name)
+            if label:
+                return label
+    return "Related curriculum evidence"
+
+
+def _public_name(value: str | None) -> str | None:
+    if not value:
+        return None
+    text = " ".join(str(value).split()).strip()
+    if not text or _looks_like_internal_id(text):
+        return None
+    return text
+
+
+def _looks_like_internal_id(value: str) -> bool:
+    text = value.strip()
+    if re.fullmatch(r"C\d+-U\d+", text, flags=re.I):
+        return True
+    if re.fullmatch(r"C\d+U\d+-LO\d+", text, flags=re.I):
+        return True
+    if text.lower() == "grade_curriculum_id":
+        return True
+    return False
+
+
+def _strip_leading_code(text: str) -> str:
+    return _LEADING_CODE_RE.sub("", text or "").strip()
+
+
+def _evidence_marked_imperfect(item: CurriculumEvidence) -> bool:
+    state = str((item.metadata or {}).get("evidence_state") or "")
+    if "IMPERFECT" in state.upper():
+        return True
+    quality = (item.metadata or {}).get("evidence_quality")
+    if isinstance(quality, dict):
+        status = str(quality.get("status") or "").lower()
+        if status in {"imperfect", "garbled", "truncated", "damaged", "incomplete"}:
+            return True
+    return False
+
+
+def _is_damaged_source(text: str) -> bool:
+    cleaned = " ".join((text or "").split())
+    if not cleaned:
+        return False
+    if _looks_garbled_source_text(cleaned):
+        return True
+    words = re.findall(r"[A-Za-z0-9']+", cleaned)
+    return _repeated_phrase_cut(words) < len(words)
+
+
+def _repeated_phrase_cut(words: list[str]) -> int:
+    lower = [word.lower() for word in words]
+    cut = len(words)
+    max_n = min(8, len(words) // 2)
+    for size in range(4, max_n + 1):
+        seen: dict[tuple[str, ...], int] = {}
+        for index in range(0, len(lower) - size + 1):
+            phrase = tuple(lower[index : index + size])
+            if phrase in seen:
+                return min(cut, index)
+            seen[phrase] = index
+    return cut
+
+
+def _reliable_portion(text: str) -> str | None:
+    """Return source text that can be stated without repairing damage."""
+    raw = _strip_leading_code(" ".join((text or "").split()))
+    if not raw:
+        return None
+    if not _is_damaged_source(raw):
+        return raw
+    words = re.findall(r"[A-Za-z0-9']+", raw)
+    prefix = " ".join(words[: _repeated_phrase_cut(words)])
+    lower_prefix = prefix.lower()
+    for cue in _TRUNCATION_CUES:
+        index = lower_prefix.find(cue)
+        if index != -1:
+            prefix = prefix[:index]
+            break
+    prefix = re.sub(r"\b(?:with|of)\s+\w+\s*$", "", prefix).strip(" ,;:-")
+    parts = prefix.split()
+    while parts and parts[-1].lower() in _TRAILING_FUNCTION_WORDS:
+        parts.pop()
+    if len(parts) < 2:
+        return None
+    return " ".join(parts)
+
+
+def _join_claims(parts: list[str]) -> str:
+    cleaned: list[str] = []
+    seen: set[str] = set()
+    for part in parts:
+        text = " ".join(part.split()).strip(" .;")
+        if not text:
+            continue
+        key = text.lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        cleaned.append(text)
+    if not cleaned:
+        return ""
+    rendered: list[str] = []
+    for index, text in enumerate(cleaned):
+        if index == 0:
+            rendered.append(text[:1].upper() + text[1:])
+        else:
+            rendered.append(text[:1].lower() + text[1:])
+    return "; ".join(rendered) + "."
+
+
+def _focus_phrase(question: str, topic_hint: str | None) -> str | None:
+    hint = _public_name(topic_hint)
+    if hint and not _looks_like_internal_id(hint):
+        return hint[:1].upper() + hint[1:]
+    match = re.search(r"\babout\s+([A-Za-z][A-Za-z\s]{2,40})", question or "", re.I)
+    if not match:
+        return None
+    phrase = re.sub(
+        r"\b(?:in|for|at|under)\b.*$",
+        "",
+        match.group(1),
+        flags=re.I,
+    ).strip()
+    if not phrase or _looks_like_internal_id(phrase):
+        return None
+    return phrase[:1].upper() + phrase[1:]
+
+
+def _content_tokens(text: str) -> set[str]:
+    tokens: set[str] = set()
+    for raw in re.findall(r"[a-z]+", (text or "").lower()):
+        if raw in _IDENTIFIER_STOPWORDS or len(raw) < 4:
+            continue
+        tokens.add(raw)
+        if raw.endswith("ing") and len(raw) > 6:
+            tokens.add(raw[:-3])
+    return tokens
+
+
+def _best_content_matches(
+    question: str,
+    items: list[CurriculumEvidence],
+) -> list[CurriculumEvidence]:
+    scored: list[tuple[int, CurriculumEvidence]] = []
+    question_tokens = _content_tokens(question)
+    for item in items:
+        hay = _content_tokens(
+            " ".join(
+                [
+                    item.content or "",
+                    item.topic or "",
+                    item.name or "",
+                    str((item.metadata or {}).get("parent_content_name") or ""),
+                ]
+            )
+        )
+        scored.append((len(question_tokens & hay), item))
+    if not scored:
+        return []
+    best = max(score for score, _item in scored)
+    if best < 2:
+        return []
+    return [item for score, item in scored if score == best]
 
 
 def format_evidence_for_prompt(
