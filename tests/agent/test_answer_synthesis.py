@@ -4,9 +4,12 @@ from __future__ import annotations
 
 import re
 
-from app.agent.answer_generator import AnswerGenerator
-from app.agent.state import CurriculumQAState
+from app.agent.answer import AnswerGenerationNode
+from app.agent.answer_generator import AnswerGenerator, _render_stub_answer
+from app.agent.verify import VerificationNode
 from app.agent.verifier import AnswerVerifier
+from app.config import Settings
+from app.agent.state import CurriculumQAState
 from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus
 from app.llm.base import LLMProvider, LLMResponse
 from app.llm.provider import StubLLMProvider
@@ -332,6 +335,8 @@ def test_primary3_fractions_presentation():
     )
     assert len(sections) < outcome_count
     assert len(_BULLET_RE.findall(answer)) >= 8
+    assert "Identify equivalent fractions." not in answer
+    assert "lo-p3-equivalent-incomplete" in {ref.entity_id for ref in result.evidence}
     _assert_no_internal_identifiers(answer, evidence)
 
 
@@ -576,3 +581,193 @@ def test_verifier_reads_the_synthesized_prose():
     assert generated.answer in user
     assert "C4U04-LO01" not in generated.answer
     assert "C4U04-LO01" in user
+
+
+def test_later_evidence_is_referenced_when_it_supports_a_claim():
+    evidence = [
+        _outcome(
+            f"lo-skill-{index}",
+            f"C4U04-LO{index:02d}",
+            "Fractions",
+            f"Describe fraction skill {index} using diagrams.",
+            "C4-U04",
+        )
+        for index in range(1, 10)
+    ]
+    evidence.append(
+        CurriculumEvidence(
+            entity_type="annotation",
+            entity_id="unused-later-record",
+            name="Administrative note",
+            content="This record is not a learning expectation.",
+            grade="CLASS_4",
+            subject="MATHEMATICS",
+            metadata={"grade_curriculum_id": "gc-class-4-math"},
+        )
+    )
+    assert len(evidence) > 8
+    result = _generate(
+        "What should a Primary 4 pupil learn about fractions?",
+        evidence,
+    )
+    ids = {ref.entity_id for ref in result.evidence}
+    assert "lo-skill-9" in ids
+    assert "Describe fraction skill 9 using diagrams." in result.answer
+    assert "unused-later-record" not in ids
+    assert "Administrative note" not in result.answer
+
+
+def test_near_duplicate_expectations_are_not_repeated():
+    evidence = [
+        _unit("unit-equivalent", "Equivalent Fractions", "C4-U04"),
+        _outcome(
+            "lo-eq-work",
+            "C4U04-LO01",
+            "Equivalent Fractions",
+            "Work with equivalent fractions.",
+            "C4-U04",
+        ),
+        _outcome(
+            "lo-eq-identify",
+            "C4U04-LO02",
+            "Equivalent Fractions",
+            "Identify equivalent fractions.",
+            "C4-U04",
+        ),
+        _outcome(
+            "lo-add",
+            "C4U04-LO03",
+            "Equivalent Fractions",
+            "Add like fractions.",
+            "C4-U04",
+        ),
+        _outcome(
+            "lo-den-1",
+            "C4U04-LO04",
+            "Equivalent Fractions",
+            "Identify unit fractions with denominators 1-5 using pictorial representations.",
+            "C4-U04",
+        ),
+        _outcome(
+            "lo-den-2",
+            "C4U04-LO05",
+            "Equivalent Fractions",
+            "Identify unit fractions with denominators 6-10 using pictorial representations.",
+            "C4-U04",
+        ),
+    ]
+    result = _generate(
+        "What should a Primary 4 pupil learn about fractions?",
+        evidence,
+    )
+    assert "Work with equivalent fractions." in result.answer
+    assert "Identify equivalent fractions." not in result.answer
+    assert "Add like fractions." in result.answer
+    assert "denominators 1-5" in result.answer
+    assert "denominators 6-10" in result.answer
+    ids = {ref.entity_id for ref in result.evidence}
+    assert {"lo-eq-work", "lo-eq-identify", "lo-add", "lo-den-1", "lo-den-2"} <= ids
+
+
+def test_awkward_unit_name_becomes_a_descriptive_heading():
+    evidence = [
+        _unit("unit-awkward", "Number and Numeration FRACTION", "C4-U04"),
+        _outcome(
+            "lo-simplify",
+            "C4U04-LO01",
+            "",
+            "Simplify like fractions with common denominators.",
+            "C4-U04",
+        ),
+        _outcome(
+            "lo-compare",
+            "C4U04-LO02",
+            "",
+            "Compare and order like fractions.",
+            "C4-U04",
+        ),
+        _outcome(
+            "lo-add",
+            "C4U04-LO03",
+            "",
+            "Add like fractions.",
+            "C4-U04",
+        ),
+        _outcome(
+            "lo-subtract",
+            "C4U04-LO04",
+            "",
+            "Subtract like fractions.",
+            "C4-U04",
+        ),
+    ]
+    result = _generate(
+        "What should a Primary 4 pupil learn about fractions?",
+        evidence,
+    )
+    assert "### Fractions" in result.answer
+    assert "Number and Numeration" not in result.answer
+    assert "C4-U04" not in result.answer
+    assert "Simplify like fractions with common denominators." in result.answer
+    assert "unit-awkward" in {ref.entity_id for ref in result.evidence}
+    assert "lo-subtract" in {ref.entity_id for ref in result.evidence}
+
+
+def test_stub_synthesis_is_structured_before_redaction():
+    evidence = _primary4_fractions_evidence()
+    state = _state(
+        "What should a Primary 4 pupil learn about fractions?",
+        evidence,
+    )
+    text, _limitations, _used = _render_stub_answer(
+        state,
+        grade_label="Primary 4",
+        subject_label="Mathematics",
+    )
+    assert text.startswith("# Primary 4 Mathematics — Fractions")
+    assert "### 1. Fractions" in text
+    assert "Pupils learn to:" in text
+    assert "* Simplify like fractions with common denominators." in text
+    assert "C4U04-LO01" not in text
+    assert "C4-U04" not in text
+    assert not re.search(r"\*\*C\d+U\d+-LO\d+\*\*", text)
+
+
+def test_end_to_end_synthesis_integrity():
+    evidence = _primary3_fractions_evidence()
+    evidence.append(
+        CurriculumEvidence(
+            entity_type="annotation",
+            entity_id="unused-later-record",
+            name="Administrative note",
+            content="Not a learning expectation.",
+            grade="CLASS_3",
+            subject="MATHEMATICS",
+            metadata={"grade_curriculum_id": "gc-class-3-math", "evidence_state": "UNUSED"},
+        )
+    )
+    state = _state(
+        "What should a Primary 3 pupil learn about fractions?",
+        evidence,
+        grade="CLASS_3",
+    )
+    settings = Settings()
+    llm = StubLLMProvider()
+    state = AnswerGenerationNode(llm=llm, settings=settings).run(state)
+    synthesized = state.final_answer or ""
+    state = VerificationNode(llm=llm, settings=settings).run(state)
+    messages = AnswerVerifier(llm, settings=settings).build_messages(state)
+    user = messages[1].content or ""
+    ids = {ref.entity_id for ref in state.answer_evidence}
+
+    assert state.final_answer == state.draft_answer == synthesized
+    assert synthesized in user
+    _assert_no_internal_identifiers(synthesized, evidence)
+    assert "denominators 1-5" in synthesized
+    assert "lo-p3-den-1-5" in ids
+    assert "lo-p3-equivalent-incomplete" in ids
+    assert "unused-later-record" not in ids
+    assert "up to 12" not in synthesized.lower()
+    assert "denominators up to" not in synthesized.lower()
+    for hidden in ("grade_curriculum_id", "evidence_state", "entity_id", "UNUSED"):
+        assert hidden not in synthesized

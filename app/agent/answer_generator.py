@@ -303,7 +303,7 @@ class AnswerGenerator:
         subject_label = _display_subject(
             state.subject or _first_attr(evidence, "subject")
         )
-        answer_text, limitations = _render_stub_answer(
+        answer_text, limitations, used = _render_stub_answer(
             state,
             grade_label=grade_label,
             subject_label=subject_label,
@@ -314,7 +314,10 @@ class AnswerGenerator:
             )
         limitations = list(dict.fromkeys(limitations))
 
-        refs = _evidence_refs_from_items(evidence[:8], state.question)
+        refs = _evidence_refs_from_items(
+            _records_in_evidence_order(evidence, used),
+            state.question,
+        )
         confidence = (
             AnswerConfidence.HIGH
             if state.evidence_status == EvidenceStatus.FOUND and refs
@@ -539,7 +542,7 @@ def _render_stub_answer(
     *,
     grade_label: str | None,
     subject_label: str | None,
-) -> tuple[str, list[str]]:
+) -> tuple[str, list[str], list[CurriculumEvidence]]:
     """Group supplied evidence into user-facing prose. No model call."""
     evidence = state.evidence
     topics = [e for e in evidence if (e.entity_type or "").lower() in _UNIT_TYPES]
@@ -551,19 +554,17 @@ def _render_stub_answer(
     limitations: list[str] = []
 
     if question_requests_identifiers(question) and (outcomes or topics):
-        return (
-            _render_identifier_answer(
-                question,
-                outcomes=outcomes,
-                topics=topics,
-                grade_label=grade_label,
-                subject_label=subject_label,
-            ),
-            limitations,
+        text, used = _render_identifier_answer(
+            question,
+            outcomes=outcomes,
+            topics=topics,
+            grade_label=grade_label,
+            subject_label=subject_label,
         )
+        return text, limitations, used
 
     if outcomes and not _is_catalogue_question(question):
-        text, damaged = _render_outcome_synthesis(
+        text, damaged, used = _render_outcome_synthesis(
             question,
             outcomes=outcomes,
             topics=topics,
@@ -576,19 +577,23 @@ def _render_stub_answer(
                 "Some supplied curriculum records are incomplete or duplicated, "
                 "so their exact wording cannot be confirmed."
             )
-        return text, limitations
+        return text, limitations, used
 
     lines = _heading_lines(grade_label, subject_label, focus=None)
+    used: list[CurriculumEvidence] = []
     if topics:
-        lines.extend(_render_topic_catalogue(question, topics, subject_label))
+        catalogue, used = _render_topic_catalogue(question, topics, subject_label)
+        lines.extend(catalogue)
     elif subjects:
-        names = sorted({s.name for s in subjects if s.name and _public_name(s.name)})
+        named = [s for s in subjects if s.name and _public_name(s.name)]
+        names = sorted({s.name for s in named if s.name})
         if names:
             lines.append("")
             lines.append("Subjects include:")
             lines.extend(f"* {name}" for name in names)
+            used = named
     elif outcomes:
-        text, damaged = _render_outcome_synthesis(
+        text, damaged, used = _render_outcome_synthesis(
             question,
             outcomes=outcomes,
             topics=topics,
@@ -601,20 +606,17 @@ def _render_stub_answer(
                 "Some supplied curriculum records are incomplete or duplicated, "
                 "so their exact wording cannot be confirmed."
             )
-        return text, limitations
+        return text, limitations, used
 
     if len(lines) <= 1:
-        names = [
-            name
-            for name in dict.fromkeys(
-                e.name for e in evidence if e.name and _public_name(e.name)
-            )
-        ][:10]
+        named_items = [e for e in evidence if e.name and _public_name(e.name)]
+        names = list(dict.fromkeys(e.name for e in named_items if e.name))[:10]
         if names:
             lines.append("")
             lines.append("Retrieved curriculum records include:")
             lines.extend(f"* {name}" for name in names)
-    return "\n".join(lines).strip(), limitations
+            used = [e for e in named_items if e.name in names]
+    return "\n".join(lines).strip(), limitations, used
 
 
 def _render_outcome_synthesis(
@@ -625,7 +627,7 @@ def _render_outcome_synthesis(
     grade_label: str | None,
     subject_label: str | None,
     topic_hint: str | None,
-) -> tuple[str, bool]:
+) -> tuple[str, bool, list[CurriculumEvidence]]:
     units_by_code = _units_by_code(topics)
     groups: dict[str, dict[str, Any]] = {}
     order: list[str] = []
@@ -633,13 +635,13 @@ def _render_outcome_synthesis(
         label = _group_label(outcome, units_by_code)
         bucket = groups.get(label)
         if bucket is None:
-            bucket = {"reliable": [], "damaged_raw": []}
+            bucket = {"claims": [], "damaged": []}
             groups[label] = bucket
             order.append(label)
         content = _strip_leading_code(outcome.content or "")
         damaged = _is_damaged_source(content) or _evidence_marked_imperfect(outcome)
         if damaged:
-            bucket["damaged_raw"].append(content)
+            _remember(bucket["damaged"], outcome)
             portion = (
                 _reliable_portion(content)
                 if _is_damaged_source(content)
@@ -648,34 +650,38 @@ def _render_outcome_synthesis(
         else:
             portion = content.strip()
         if portion:
-            _append_unique(bucket["reliable"], portion)
+            _append_claim(bucket["claims"], portion, outcome, from_damage=damaged)
 
     focus = _focus_phrase(question, topic_hint)
     where = " ".join(part for part in (grade_label, subject_label) if part) or "the supplied curriculum"
     damaged_records = [
-        {"label": label, "raw": raw}
+        {"label": _display_heading(label, focus), "raw": _strip_leading_code(item.content or "")}
         for label in order
-        for raw in groups[label]["damaged_raw"]
+        for item in groups[label]["damaged"]
     ]
-    visible = [label for label in order if groups[label]["reliable"]]
+    visible = [label for label in order if groups[label]["claims"]]
+    display_labels = [_display_heading(label, focus) for label in visible]
     structured = _use_structured_sections(visible, groups)
     lines = _heading_lines(grade_label, subject_label, focus)
     if structured and len(visible) >= 2:
         lines.append("")
-        lines.append(_area_introduction(where, focus, visible))
+        lines.append(_area_introduction(where, focus, display_labels))
     if structured:
-        for index, label in enumerate(visible, start=1):
+        for index, label in enumerate(visible):
+            heading = display_labels[index]
             lines.append("")
             if len(visible) >= 2:
-                lines.append(f"### {index}. {label}")
+                lines.append(f"### {index + 1}. {heading}")
             else:
-                lines.append(f"### {label}")
-            lines.extend(_expectation_block(groups[label]["reliable"]))
+                lines.append(f"### {heading}")
+            lines.extend(
+                _expectation_block([claim["text"] for claim in groups[label]["claims"]])
+            )
     else:
         claims = [
-            claim
+            claim["text"]
             for label in order
-            for claim in groups[label]["reliable"]
+            for claim in groups[label]["claims"]
         ]
         if claims:
             lines.append("")
@@ -688,7 +694,7 @@ def _render_outcome_synthesis(
         lines.append("### Curriculum Evidence Note")
         lines.append("")
         lines.append(_curriculum_evidence_note(damaged_records))
-    return "\n".join(lines).strip(), bool(damaged_records)
+    return "\n".join(lines).strip(), bool(damaged_records), _sources_for_groups(groups, order, units_by_code)
 
 
 def _use_structured_sections(
@@ -696,7 +702,7 @@ def _use_structured_sections(
     groups: dict[str, dict[str, Any]],
 ) -> bool:
     """Use headings when several areas, or many skills, need separating."""
-    claim_count = sum(len(groups[label]["reliable"]) for label in order)
+    claim_count = sum(len(groups[label]["claims"]) for label in order)
     if len(order) >= 2 and claim_count >= 3:
         return True
     return claim_count >= 4
@@ -737,11 +743,109 @@ def _as_sentence(text: str) -> str:
     return sentence
 
 
-def _append_unique(items: list[str], text: str) -> None:
-    key = " ".join(text.lower().split())
-    if any(" ".join(item.lower().split()) == key for item in items):
-        return
-    items.append(text)
+_FRAMING_WORDS = {"identify", "identifying", "work", "working", "with"}
+_FILLER_WORDS = {"a", "an", "the", "these", "this", "using", "use"}
+
+
+def _expectation_key(text: str) -> tuple[str, ...]:
+    """Near-exact key: drop only a leading framing verb, keep distinguishing words."""
+    words = re.findall(r"[a-z0-9]+", (text or "").lower())
+    while words and words[0] in _FRAMING_WORDS:
+        words.pop(0)
+    return tuple(word for word in words if word not in _FILLER_WORDS)
+
+
+def _append_claim(
+    claims: list[dict[str, Any]],
+    text: str,
+    source: CurriculumEvidence,
+    *,
+    from_damage: bool,
+) -> None:
+    key = _expectation_key(text)
+    for claim in claims:
+        if key and claim["key"] == key:
+            _remember(claim["sources"], source)
+            if claim.get("from_damage") and not from_damage:
+                claim["text"] = text
+                claim["from_damage"] = False
+            return
+    claims.append(
+        {
+            "text": text,
+            "sources": [source],
+            "key": key,
+            "from_damage": from_damage,
+        }
+    )
+
+
+def _remember(items: list[CurriculumEvidence], item: CurriculumEvidence) -> None:
+    if all(existing is not item and existing.entity_id != item.entity_id for existing in items):
+        items.append(item)
+
+
+def _sources_for_groups(
+    groups: dict[str, dict[str, Any]],
+    order: list[str],
+    units_by_code: dict[str, CurriculumEvidence],
+) -> list[CurriculumEvidence]:
+    used: list[CurriculumEvidence] = []
+    for label in order:
+        bucket = groups[label]
+        contributors: list[CurriculumEvidence] = []
+        for claim in bucket["claims"]:
+            contributors.extend(claim["sources"])
+        contributors.extend(bucket["damaged"])
+        for source in contributors:
+            _remember(used, source)
+            parent_code = _unit_code_for_outcome(source)
+            parent = units_by_code.get(parent_code or "")
+            if parent is not None:
+                _remember(used, parent)
+    return used
+
+
+def _records_in_evidence_order(
+    evidence: list[CurriculumEvidence],
+    used: list[CurriculumEvidence],
+) -> list[CurriculumEvidence]:
+    used_ids = {item.entity_id for item in used if item.entity_id}
+    return [item for item in evidence if item.entity_id and item.entity_id in used_ids]
+
+
+def _display_heading(label: str, focus: str | None) -> str:
+    """Present a unit/topic label without strand prefixes or shouty database casing."""
+    text = " ".join((label or "").split()).strip()
+    if not text:
+        return "Related curriculum evidence"
+    lowered = text.lower()
+    prefix = "number and numeration"
+    if lowered.startswith(prefix):
+        rest = text[len(prefix) :].strip(" -–—:")
+        if rest and not _looks_like_internal_id(rest):
+            text = rest
+            lowered = text.lower()
+    if focus:
+        focus_key = re.sub(r"s$", "", focus.lower())
+        label_key = re.sub(r"s$", "", lowered)
+        if label_key == focus_key:
+            return focus[:1].upper() + focus[1:]
+    return _heading_case(text)
+
+
+def _heading_case(text: str) -> str:
+    small = {"and", "or", "of", "on", "in", "the", "a", "for"}
+    rendered: list[str] = []
+    for index, word in enumerate(text.split()):
+        lower = word.lower()
+        if index > 0 and lower in small:
+            rendered.append(lower)
+        elif word.isupper() or word.islower():
+            rendered.append(lower[:1].upper() + lower[1:])
+        else:
+            rendered.append(word)
+    return " ".join(rendered)
 
 
 def _curriculum_evidence_note(records: list[dict[str, str]]) -> str:
@@ -816,7 +920,7 @@ def _render_identifier_answer(
     topics: list[CurriculumEvidence],
     grade_label: str | None,
     subject_label: str | None,
-) -> str:
+) -> tuple[str, list[CurriculumEvidence]]:
     kind = _identifier_kind(question)
     lines = _heading_lines(grade_label, subject_label, focus=None)
     lines.append("")
@@ -827,14 +931,14 @@ def _render_identifier_answer(
                 "The supplied curriculum evidence does not include a unit code "
                 "that matches this question."
             )
-            return "\n".join(lines).strip()
+            return "\n".join(lines).strip(), []
         lines.append("The requested unit code from the supplied evidence:")
         for item in matches:
             code = _record_code(item)
             label = _public_name(item.name) or "Curriculum unit"
             if code:
                 lines.append(f"* **{code}** — {label}")
-        return "\n".join(lines).strip()
+        return "\n".join(lines).strip(), matches
 
     pool = outcomes or topics
     matches = _best_content_matches(question, pool)
@@ -843,7 +947,7 @@ def _render_identifier_answer(
             "The supplied curriculum evidence does not include an identifier "
             "that matches this question."
         )
-        return "\n".join(lines).strip()
+        return "\n".join(lines).strip(), []
     lines.append("The requested curriculum identifier from the supplied evidence:")
     for item in matches:
         code = _record_code(item) or (
@@ -863,36 +967,40 @@ def _render_identifier_answer(
             lines.append(f"* **{code}**")
         elif wording:
             lines.append(f"* {wording.strip()}")
-    return "\n".join(lines).strip()
+    return "\n".join(lines).strip(), matches
 
 
 def _render_topic_catalogue(
     question: str,
     topics: list[CurriculumEvidence],
     subject_label: str | None,
-) -> list[str]:
+) -> tuple[list[str], list[CurriculumEvidence]]:
     lines: list[str] = [""]
+    used: list[CurriculumEvidence] = []
     list_mode = _is_catalogue_question(question) or len(topics) > 1
     if list_mode:
         lines.append("The MBSSE curriculum includes these units/topics:")
         seen: set[str] = set()
         for topic in topics[:40]:
-            name = _public_name(topic.name)
-            if not name or name in seen:
+            name = _display_heading(topic.name or "", focus=None) if _public_name(topic.name) else ""
+            public = _public_name(topic.name)
+            if not public or public in seen:
                 continue
-            seen.add(name)
-            lines.append(f"* {name}")
-        return lines
+            seen.add(public)
+            lines.append(f"* {name or public}")
+            _remember(used, topic)
+        return lines, used
     topic = topics[0]
     name = _public_name(topic.name) or "this topic"
     lines.append(
         f"The MBSSE curriculum includes **{name}**"
         + (f" under {subject_label}." if subject_label else ".")
     )
+    _remember(used, topic)
     if topic.content and topic.content != topic.name and _public_name(topic.content):
         lines.append("")
         lines.append(_strip_leading_code(topic.content))
-    return lines
+    return lines, used
 
 
 def _heading_lines(
