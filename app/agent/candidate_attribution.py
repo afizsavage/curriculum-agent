@@ -146,12 +146,22 @@ _STEM_ALIASES = {
     "numbers": "number",
     "fractions": "fraction",
     "operations": "operation",
+    # Explicit pairs only. Do not treat a shared prefix as the same word.
+    "measurement": "measure",
+    "measurements": "measure",
+    "estimation": "estimate",
+    "estimations": "estimate",
 }
 _NUMBER_WORDS = {
     "one": "1", "two": "2", "three": "3", "four": "4", "five": "5",
     "six": "6", "seven": "7", "eight": "8", "nine": "9", "ten": "10",
 }
 _OPERATION_STEMS = {"add", "subtract", "multiply", "divide"}
+_CONTRAST_GROUPS = (
+    frozenset({"fraction", "decimal"}),
+    frozenset({"forward", "backward"}),
+    frozenset({"identify", "solve"}),
+)
 _UNIT_TYPES = {"topic", "subtopic", "unit", "strand", "subject"}
 
 
@@ -187,7 +197,9 @@ def _support_stems(text: str) -> list[str]:
     stems: list[str] = []
     for token in re.findall(r"[a-z0-9]+", raw):
         stem = _stem_token(token)
-        if len(stem) < 3 or stem in _CANDIDATE_STOPWORDS or stem in _FRAMING_WORDS:
+        if stem in _CANDIDATE_STOPWORDS or stem in _FRAMING_WORDS:
+            continue
+        if len(stem) < 3 and not stem.isdigit():
             continue
         if stem not in stems:
             stems.append(stem)
@@ -231,6 +243,9 @@ def relaxed_record_supports(
     is a shorter span, a normalized paraphrase, a unit-name claim, or a limitation
     note about a damaged or generic unit record.
     """
+    source_text = f"{item.name or ''} {item.content or ''}"
+    if _number_conflict(claim_text, source_text) or _contrast_conflict(claim_text, source_text):
+        return False
     if _record_supports_text(item, claim_text):
         return True
     name = item.name or ""
@@ -269,6 +284,83 @@ def relaxed_record_supports(
     if len(claim_stems) == 1 and claim_stems[0] in name_stems:
         return True
     if len(claim_stems) <= 2 and set(claim_stems) <= name_stems:
+        return True
+    return _parenthetical_expansion_supports(claim_text, content or name)
+
+
+def _contrast_conflict(claim_text: str, source_text: str) -> bool:
+    """Reject a citation that swaps a contrasting curriculum concept."""
+    claim = set(_support_stems(claim_text))
+    source = set(_support_stems(source_text))
+    for group in _CONTRAST_GROUPS:
+        claim_hits = claim & group
+        source_hits = source & group
+        if claim_hits and source_hits and claim_hits.isdisjoint(source_hits):
+            return True
+    return False
+
+
+def _number_conflict(claim_text: str, source_text: str) -> bool:
+    """Reject a citation when the claim and source state different numbers."""
+    claim_numbers = {stem for stem in _support_stems(claim_text) if stem.isdigit()}
+    source_numbers = {stem for stem in _support_stems(source_text) if stem.isdigit()}
+    return bool(claim_numbers and source_numbers and claim_numbers.isdisjoint(source_numbers))
+
+
+def _parenthetical_expansion_supports(claim_text: str, source_text: str) -> bool:
+    """Accept a numbered claim whose parenthetical only names that number.
+
+    "Use the four operations on fractions (addition, subtraction, multiplication
+    and division)" matches "Use the 4 operations on fractions". A different
+    number, or a parenthetical that adds a new topic, does not match.
+    """
+    if "(" not in (claim_text or ""):
+        return False
+    main = re.sub(r"\([^)]*\)", " ", claim_text)
+    parenthetical = " ".join(re.findall(r"\(([^)]*)\)", claim_text))
+    main_stems = _support_stems(main)
+    source_stems = set(_support_stems(source_text))
+    if len(main_stems) < 2 or not set(main_stems) <= source_stems:
+        return False
+    parenthetical_stems = _support_stems(parenthetical)
+    extra = [
+        stem for stem in parenthetical_stems
+        if stem not in source_stems and stem not in _OPERATION_STEMS
+    ]
+    if extra:
+        return False
+    if parenthetical_stems and set(parenthetical_stems) <= _OPERATION_STEMS and "operation" not in main_stems:
+        return False
+    return True
+
+
+def _note_explicitly_identifies(note: str, item: CurriculumEvidence) -> bool:
+    """True when a limitation note names this record, not merely its topic."""
+    note_text = note or ""
+    note_lower = note_text.lower()
+    blob = f"{item.name or ''} {item.content or ''}".lower()
+    name_norm = _norm_label(item.name or "")
+    if name_norm and len(name_norm) > 8 and name_norm in note_lower:
+        return True
+    for quoted in re.findall(r"\"([^\"]+)\"|“([^”]+)”", note_text):
+        label = next((part for part in quoted if part), "")
+        if label and _norm_label(label) == name_norm:
+            return True
+    if _is_generic_structural(item):
+        return False
+    stems = set(_support_stems(blob))
+    if "decimal" in note_lower and "decimal" in stems and "multiply" in stems:
+        return True
+    if "mental" in note_lower and "mental" in blob and "strateg" in blob:
+        return True
+    if "whole" in note_lower and {"whole", "number", "multiply"} <= stems:
+        return True
+    if (
+        _limited_source(item.content or "")
+        and "fraction" in note_lower
+        and "fraction" in blob
+        and ("like" in blob or "related" in blob)
+    ):
         return True
     return False
 
@@ -466,27 +558,63 @@ def select_candidates(
     # A rescued row was moved into kept_rows and must not be listed as capped.
     kept_ids = {row[1].entity_id for row in kept_rows}
     removed_by_cap = [item for item in removed_by_cap if item["entity_id"] not in kept_ids]
+    note_protected_ids: list[str] = []
+    note_protected_truncated: list[str] = []
+    if is_note:
+        for _rank, item, _reasons in kept_rows:
+            if item.entity_id and _note_explicitly_identifies(claim_text, item):
+                note_protected_ids.append(item.entity_id)
+        still_capped: list[dict[str, Any]] = []
+        for removed in removed_by_cap:
+            probe = CurriculumEvidence(
+                entity_type=str(removed.get("entity_type") or "learning_outcome"),
+                entity_id=removed.get("entity_id"),
+                name=removed.get("name"),
+                content=removed.get("content") or "",
+            )
+            if probe.entity_id and _note_explicitly_identifies(claim_text, probe):
+                note_protected_truncated.append(probe.entity_id)
+                note_protected_ids.append(probe.entity_id)
+            else:
+                still_capped.append(removed)
+        removed_by_cap = still_capped
+    public_candidates = [
+        _public_candidate(item, rank=rank, reasons=reasons)
+        for rank, item, reasons in kept_rows
+    ]
+    for removed_id in note_protected_truncated:
+        removed = next(
+            (
+                item for item in rescued_overflow
+                if item[1].entity_id == removed_id
+            ),
+            None,
+        )
+        if removed is None:
+            continue
+        public_candidates.append(
+            _public_candidate(removed[1], rank=removed[0], reasons=[*removed[2], "note_protected"])
+        )
     return {
-        "candidates": [
-            _public_candidate(item, rank=rank, reasons=reasons)
-            for rank, item, reasons in kept_rows
-        ],
+        "candidates": public_candidates,
         "truncated": bool(removed_by_cap),
         "candidate_count_before_cap": len(scored),
         "candidates_considered": len(scored),
-        "candidates_retained": len(kept_rows),
-        "candidate_count": len(kept_rows),
+        "candidates_retained": len(public_candidates),
+        "candidate_count": len(public_candidates),
         "candidates_removed_as_duplicates": len(removed_duplicates),
         "candidates_removed_by_cap": len(removed_by_cap),
         "removed_duplicates": removed_duplicates,
         "removed_by_cap": removed_by_cap,
         "omitted_ids": [item["entity_id"] for item in removed_by_cap if item.get("entity_id")],
         "rescued_specific_ids": rescued,
+        "note_protected_candidates": note_protected_ids,
+        "note_protected_candidates_that_would_have_been_truncated": note_protected_truncated,
         "generic_structural_retained": sum(1 for row in kept_rows if _is_generic_structural(row[1])),
         "specific_content_retained": sum(
             1
-            for row in kept_rows
-            if (row[1].entity_type or "").lower() == "learning_outcome" and (row[1].content or "").strip()
+            for item in public_candidates
+            if (item.get("entity_type") or "").lower() == "learning_outcome" and item.get("content")
         ),
     }
 
@@ -511,6 +639,128 @@ def _candidate_block(candidates: list[dict[str, Any]]) -> str:
         ]
         blocks.append("\n".join(lines))
     return "\n\n".join(blocks)
+
+
+def group_evidence_note(
+    note: str,
+    candidates: list[dict[str, Any]],
+    selected_refs: list[str],
+) -> dict[str, Any]:
+    """Group an evidence note's candidates by the entity or issue the note names."""
+    named: list[str] = []
+    for quoted in re.findall(r'"([^"]+)"', note or ""):
+        label = " ".join(quoted.split())
+        if label and label not in named:
+            named.append(label)
+    note_lower = (note or "").lower()
+    for item in candidates:
+        name = " ".join(str(item.get("name") or "").split())
+        if len(name) > 8 and name.lower() in note_lower and name not in named:
+            named.append(name)
+    characteristics = [
+        ("decimal multiplication", ("decimal",)),
+        ("mental strategies", ("mental", "strateg")),
+        ("whole-number multiplication", ("whole",)),
+        ("like or related fractions", ("like", "related")),
+    ]
+    for label, markers in characteristics:
+        if any(marker in note_lower for marker in markers) and label not in named:
+            named.append(label)
+    selected = set(selected_refs)
+    per_entity: dict[str, list[str]] = {}
+    for label in named:
+        markers = [_stem_token(part) for part in re.findall(r"[a-z0-9]+", label.lower()) if len(part) > 3]
+        markers = [part for part in markers if part]
+        matched: list[str] = []
+        for item in candidates:
+            if item.get("entity_id") not in selected:
+                continue
+            blob = f"{item.get('name') or ''} {item.get('content') or ''}"
+            stems = set(_support_stems(blob))
+            if markers and all(marker in stems for marker in markers[:2]):
+                matched.append(item["entity_id"])
+        per_entity[label] = matched
+    return {
+        "named_entities": named,
+        "candidate_refs": [item.get("entity_id") for item in candidates],
+        "selected_refs": list(selected_refs),
+        "refs_per_named_entity": per_entity,
+    }
+
+
+NOTE_SMALLEST_SET_PROMPT = """You are reducing an evidence-note attribution to the smallest sufficient set.
+
+The note has already been written. Do not rewrite it.
+Return only candidate record ids.
+
+Every id you keep must support an identifiable part of the note.
+Do not cite several duplicate examples unless the note is about repetition across multiple records.
+If the note says one name is repeated, more than one record with that name may be necessary.
+If one representative record establishes the issue, return one record.
+Do not drop a record when the note refers to several distinct problems and that record is the only candidate for one of them.
+Use only the candidate ids listed below.
+If none of the already selected ids is needed, return the smallest set from the candidates.
+"""
+
+
+def build_smallest_set_messages(
+    *,
+    question: str,
+    claim_text: str,
+    candidates: list[dict[str, Any]],
+    selected_refs: list[str],
+) -> list[LLMMessage]:
+    selected = ", ".join(selected_refs) if selected_refs else "(none)"
+    user = (
+        f"QUESTION\n{question}\n\n"
+        f"EVIDENCE NOTE\n{claim_text}\n\n"
+        f"CURRENTLY SELECTED REFS\n{selected}\n\n"
+        "CANDIDATE RECORDS\n"
+        f"{_candidate_block(candidates)}\n\n"
+        "Return one JSON object with the smallest sufficient refs array.\n"
+        f"{CANDIDATE_CLAIM_REF_SCHEMA}"
+    )
+    return [
+        LLMMessage(role="system", content=NOTE_SMALLEST_SET_PROMPT),
+        LLMMessage(role="user", content=user),
+    ]
+
+
+def attribute_smallest_note_set(
+    llm: LLMProvider,
+    *,
+    question: str,
+    claim_text: str,
+    candidates: list[dict[str, Any]],
+    selected_refs: list[str],
+    evidence: list[CurriculumEvidence],
+) -> dict[str, Any]:
+    """Shadow pass for notes only. Does not replace the original selection."""
+    if not candidates:
+        return {"refs": [], "support_labels": []}
+    raw = llm.generate_structured(
+        build_smallest_set_messages(
+            question=question,
+            claim_text=claim_text,
+            candidates=candidates,
+            selected_refs=selected_refs,
+        ),
+        schema=CANDIDATE_CLAIM_REF_SCHEMA,
+        temperature=0.0,
+    )
+    refs = list(raw.get("refs") or []) if isinstance(raw, dict) else []
+    classified = classify_claim_selection(
+        claim_text=claim_text,
+        model_refs=refs,
+        candidates=candidates,
+        evidence=evidence,
+        kind="evidence_note",
+    )
+    return {
+        "refs": classified["model_refs"],
+        "support_labels": classified["support_labels"],
+        "discarded_answer_field": raw.get("answer") if isinstance(raw, dict) else None,
+    }
 
 
 def build_candidate_messages(

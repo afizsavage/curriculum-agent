@@ -311,6 +311,112 @@ def test_relaxed_checker_accepts_short_spans_and_rejects_a_different_operation()
     assert relaxed_record_supports(water, "Add like fractions.") is False
 
 
+def test_morphology_and_number_words_stay_narrow():
+    from app.agent.candidate_attribution import relaxed_record_supports
+
+    length = CurriculumEvidence(
+        entity_type="unit",
+        entity_id="length",
+        name="Measurement And Estimation LENGTH",
+        content="Measurement And Estimation LENGTH",
+    )
+    claim = "Measure and estimate length"
+    assert relaxed_record_supports(length, claim) is True
+    volume = _outcome("LO_VOL", "Estimation of volume using standard measures.")
+    assert relaxed_record_supports(volume, claim) is False
+    temperature = _outcome("LO_TEMP", "Measurement of temperature.")
+    assert relaxed_record_supports(temperature, "Measure and estimate length") is False
+
+    operations = _outcome(
+        "LO_OPS",
+        "Convert mixed fractions and improper fractions. Use the 4 operations on fractions. (+,-,x,/).",
+    )
+    four = (
+        "Use the four operations on fractions "
+        "(addition, subtraction, multiplication and division)."
+    )
+    assert relaxed_record_supports(operations, four) is True
+    assert relaxed_record_supports(operations, "Use the five operations on fractions.") is False
+    assert relaxed_record_supports(
+        _outcome("LO_TWO", "Use the two operations on fractions."),
+        "Use the four operations on fractions.",
+    ) is False
+    assert relaxed_record_supports(
+        _outcome("LO_FRAC", "Use the 4 fractions on the number line."),
+        "Use the 4 operations on fractions.",
+    ) is False
+    assert relaxed_record_supports(
+        _outcome("LO_FIVE", "Count five objects."),
+        "Count four objects.",
+    ) is False
+    assert relaxed_record_supports(
+        _outcome("LO_DIV", "Divide like fractions."),
+        "Multiply like fractions.",
+    ) is False
+    assert relaxed_record_supports(
+        _outcome("LO_BACK", "Count backwards from 100 to 10."),
+        "Count forward from 10.",
+    ) is False
+    assert relaxed_record_supports(
+        _outcome("LO_SOLVE", "Solve word problems involving unit fractions."),
+        "Identify unit fractions.",
+    ) is False
+    assert relaxed_record_supports(
+        _outcome("LO_DEC", "Convert decimals to percentages."),
+        "Convert fractions to percentages.",
+    ) is False
+
+
+def test_evidence_note_protects_a_named_decimal_outcome_from_the_cap():
+    fillers = [
+        _outcome(
+            f"LO_FILL_{index}",
+            f"This affects multiplication outcomes in several statements example {index}.",
+        )
+        for index in range(8)
+    ]
+    decimal = _outcome("LO_DEC", "Multiply decimal to 1 decimal place by")
+    divide_decimal = _outcome("LO_DIV_DEC", "Divide decimal to 1 decimal place by")
+    unrelated = _outcome("LO_LONG", "Use long multiplication for 3-digit numbers by a 1-digit number.")
+    note = (
+        "Some learning outcome statements are incomplete or repeated. "
+        "This affects the decimal multiplication outcomes."
+    )
+    selected = select_candidates(
+        {"text": note, "kind": "evidence_note", "heading": "Curriculum Evidence Note"},
+        [*fillers, unrelated, decimal, divide_decimal],
+        [],
+        max_candidates=2,
+    )
+    ids = [item["entity_id"] for item in selected["candidates"]]
+    assert "LO_DEC" in ids
+    assert "LO_DEC" in selected["note_protected_candidates_that_would_have_been_truncated"]
+    assert "LO_LONG" not in selected["note_protected_candidates"]
+    assert "LO_DIV_DEC" not in selected["note_protected_candidates"]
+
+
+def test_repeated_unit_name_protection_does_not_keep_every_related_name():
+    fillers = [
+        _outcome(f"LO_FILL_{index}", f"Unrelated counting skill number {index} with no shared title.")
+        for index in range(8)
+    ]
+    plain = _outcome("UNIT_PLAIN", "Number and Numeration", name="Number and Numeration")
+    longer = _outcome("UNIT_LONG", "Number and Numeration FRACTION", name="Number and Numeration FRACTION")
+    note = (
+        'Several unit records carry the same name (for example, multiple units named "Number and Numeration"). '
+        "The exact distinction between these repeated units is not clear."
+    )
+    selected = select_candidates(
+        {"text": note, "kind": "evidence_note", "heading": "Curriculum Evidence Note"},
+        [*fillers, longer, plain],
+        [],
+        max_candidates=2,
+    )
+    protected = selected["note_protected_candidates"]
+    assert "UNIT_PLAIN" in protected
+    assert "UNIT_LONG" not in protected
+
+
 def test_two_outcome_claim_keeps_both_records_available():
     evidence = _primary3_fractions_evidence()
     selected = select_candidates(
