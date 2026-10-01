@@ -253,6 +253,64 @@ def test_production_prompt_is_unchanged():
     assert "CANDIDATE RECORDS" not in production
 
 
+def test_duplicate_generic_units_do_not_crowd_out_a_specific_record():
+    generic = [
+        CurriculumEvidence(
+            entity_type="unit",
+            entity_id=f"unit-{index}",
+            name="Everyday Arithmetic",
+            content="Everyday Arithmetic",
+            grade="CLASS_2",
+            subject="MATHEMATICS",
+        )
+        for index in range(8)
+    ]
+    specific = CurriculumEvidence(
+        entity_type="unit",
+        entity_id="unit-patterns",
+        name="Everyday Arithmetic NUMBER PARTERN",
+        content="Everyday Arithmetic NUMBER PARTERN",
+        grade="CLASS_2",
+        subject="MATHEMATICS",
+    )
+    selected = select_candidates(
+        {
+            "text": "Pupils learn everyday arithmetic, including number patterns.",
+            "kind": "section_statement",
+            "heading": "Everyday Arithmetic",
+        },
+        [*generic, specific],
+        [],
+    )
+    ids = [item["entity_id"] for item in selected["candidates"]]
+    assert "unit-patterns" in ids
+    assert selected["candidates_removed_as_duplicates"] == 7
+    assert sum(1 for item in selected["candidates"] if item["name"] == "Everyday Arithmetic") == 1
+
+
+def test_relaxed_checker_accepts_short_spans_and_rejects_a_different_operation():
+    from app.agent.answer_generator import _record_supports_text
+    from app.agent.candidate_attribution import relaxed_record_supports
+
+    reading = _outcome(
+        "LO_READ",
+        "Identify words in sentences, read independently and answer questions on passages read.",
+    )
+    assert _record_supports_text(reading, "Identify words in sentences.") is False
+    assert relaxed_record_supports(reading, "Identify words in sentences.") is True
+    subject = CurriculumEvidence(
+        entity_type="subject",
+        entity_id="agricultural",
+        name="Agricultural Science",
+        content="Agricultural Science",
+    )
+    assert relaxed_record_supports(subject, "Agricultural") is True
+    subtract = _outcome("LO_SUB", "Subtract like fractions.")
+    assert relaxed_record_supports(subtract, "Add like fractions.") is False
+    water = _outcome("LO_WATER", "Describe the water cycle in the local environment.")
+    assert relaxed_record_supports(water, "Add like fractions.") is False
+
+
 def test_two_outcome_claim_keeps_both_records_available():
     evidence = _primary3_fractions_evidence()
     selected = select_candidates(
