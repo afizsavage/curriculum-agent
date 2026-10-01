@@ -45,9 +45,10 @@ Core rules:
    strands, or curriculum terminology not supported by the evidence.
 3. EVIDENCE LIMITATIONS: If evidence is insufficient, state that clearly. Do not
    fill gaps from general knowledge for MBSSE-specific facts.
-4. EVIDENCE REFERENCES: Every curriculum-specific claim in your answer should
-   appear in the evidence array with a valid entity_id from the provided records.
-   Never invent entity IDs.
+4. EVIDENCE REFERENCES: Return a refs array of entity_id values copied from
+   the supplied evidence. Include only records this answer actually used,
+   including a record used only to support a curriculum evidence note.
+   Never invent entity IDs. Do not put those IDs in the answer prose.
 5. CONFIDENCE: Assign high only when exact topic/objective evidence answers the
    question; medium when interpretation is needed; low when evidence is partial.
 6. STYLE: Write for pupils, teachers, and education users. Synthesize the
@@ -108,6 +109,13 @@ class AnswerGenerator:
                         "summary": _one_line_summary(cleaned) or result.summary,
                     }
                 )
+        if state.metadata.get("live_attribution") is not None and self.llm.name != "stub":
+            returned = state.metadata["live_attribution"].get("returned_refs") or []
+            state.metadata["live_attribution"] = attribute_live_model_refs(
+                returned,
+                state.evidence,
+                answer=result.answer or "",
+            ).as_dict()
         latency_ms = (time.perf_counter() - started) * 1000
         quality = analyze_answer_quality(
             result.answer or "",
@@ -197,7 +205,8 @@ class AnswerGenerator:
             "INSTRUCTIONS\n"
             "Answer the question using ONLY the curriculum evidence above.\n"
             "Do not invent curriculum information.\n"
-            "Reference entity_id values from the evidence records in your evidence array.\n"
+            "Return refs: the entity_id values of supplied records this answer "
+            "actually used. Do not invent IDs and do not include unused records.\n"
             "Set limitations when evidence is partial, ambiguous, or source text is damaged.\n"
         )
         if question_requests_identifiers(state.question):
@@ -224,7 +233,11 @@ class AnswerGenerator:
                 "Do not copy learning-objective codes, unit codes, entity IDs, "
                 "database IDs, retrieval IDs, or grade_curriculum_id into the answer.\n"
                 "AUDIT\n"
-                "Keep entity_id values in the evidence array only.\n"
+                "Return a refs array containing only entity_id values from the "
+                "supplied evidence that this answer actually used, including a "
+                "record used only to support a curriculum evidence note. "
+                "Do not invent IDs. Do not include retrieved records the answer "
+                "does not use. Keep those IDs out of the answer prose.\n"
             )
         user_content += f"{EVIDENCE_CONSERVATIVE_USER_APPENDIX}\n"
         if state.metadata.get("conservative_regeneration"):
@@ -280,8 +293,8 @@ class AnswerGenerator:
                         "`answer`). Reply with ONE compact JSON object only — no "
                         "markdown fences, no prose. The `answer` field MUST be a "
                         "non-empty markdown string grounded in the evidence. Keep "
-                        "`answer` under 1200 characters, at most 8 evidence refs, "
-                        "and short limitations."
+                        "`answer` under 1200 characters. Include refs for every "
+                        "supplied entity_id the answer uses, and short limitations."
                     ),
                 )
             )
@@ -364,7 +377,6 @@ class AnswerGenerator:
         except ValueError:
             confidence = AnswerConfidence.MEDIUM
 
-        refs = self._validate_evidence_refs(raw.get("evidence") or [], evidence)
         answer = _extract_answer_text(raw)
         if not answer:
             if evidence and state is not None:
@@ -377,6 +389,12 @@ class AnswerGenerator:
                 )
                 return fallback.model_copy(update={"limitations": limitations})
             raise LLMProviderError("LLM returned empty answer")
+
+        raw_refs = _raw_attribution_refs(raw)
+        attribution = attribute_live_model_refs(raw_refs, evidence, answer=answer)
+        refs = attribution.refs
+        if state is not None:
+            state.metadata["live_attribution"] = attribution.as_dict()
 
         limitations = [str(x) for x in (raw.get("limitations") or []) if x]
         summary = raw.get("summary")
@@ -393,27 +411,7 @@ class AnswerGenerator:
         refs: list[Any],
         evidence: list[CurriculumEvidence],
     ) -> list[AnswerEvidenceRef]:
-        by_id = {e.entity_id: e for e in evidence if e.entity_id}
-        validated: list[AnswerEvidenceRef] = []
-        for ref in refs:
-            if not isinstance(ref, dict):
-                continue
-            entity_id = str(ref.get("entity_id") or "")
-            if not entity_id or entity_id not in by_id:
-                continue
-            source = by_id[entity_id]
-            validated.append(
-                AnswerEvidenceRef(
-                    entity_id=entity_id,
-                    entity_type=str(ref.get("entity_type") or source.entity_type),
-                    claim=str(ref.get("claim") or ""),
-                    name=source.name,
-                    grade=source.grade,
-                    subject=source.subject,
-                    topic=source.topic,
-                )
-            )
-        return validated
+        return attribute_live_model_refs(refs, evidence, answer="").refs
 
     def _apply_evidence_constraints(
         self,
@@ -446,10 +444,11 @@ class AnswerGenerator:
         if state.evidence_status == EvidenceStatus.PARTIAL and confidence == AnswerConfidence.HIGH:
             confidence = AnswerConfidence.MEDIUM
 
-        if not answer.evidence and state.evidence and confidence != AnswerConfidence.LOW:
-            confidence = AnswerConfidence.MEDIUM
+        if not answer.evidence and state.evidence and _answer_has_substantive_claim(answer.answer):
+            confidence = AnswerConfidence.LOW
             limitations.append(
-                "Answer could not be linked to specific curriculum entity references."
+                "The answer was not linked to the specific curriculum records "
+                "used to write it, so attribution is incomplete."
             )
 
         return answer.model_copy(
@@ -479,6 +478,262 @@ class AnswerGenerator:
         for msg in prior:
             lines.append(f"{msg.role.value}: {msg.content[:500]}")
         return "\n".join(lines)
+
+
+class LiveAttribution:
+    """Deterministic reading of the refs a live model returned."""
+
+    def __init__(
+        self,
+        *,
+        refs: list[AnswerEvidenceRef],
+        returned_refs: list[Any],
+        valid_ids: list[str],
+        invalid_refs: list[str],
+        duplicate_count: int,
+        unused_ids: list[str],
+        unsupported_ids: list[str],
+        substantive_claim_count: int,
+        claims_with_supporting_refs: int,
+    ) -> None:
+        self.refs = refs
+        self.returned_refs = returned_refs
+        self.valid_ids = valid_ids
+        self.invalid_refs = invalid_refs
+        self.duplicate_count = duplicate_count
+        self.unused_ids = unused_ids
+        self.unsupported_ids = unsupported_ids
+        self.substantive_claim_count = substantive_claim_count
+        self.claims_with_supporting_refs = claims_with_supporting_refs
+
+    def as_dict(self) -> dict[str, Any]:
+        total = self.substantive_claim_count
+        supported = self.claims_with_supporting_refs
+        if total and not self.valid_ids:
+            status = "missing"
+        elif self.unsupported_ids:
+            status = "unsupported"
+        elif total and supported < total:
+            status = "incomplete"
+        elif self.valid_ids:
+            status = "valid"
+        else:
+            status = "empty"
+        completeness = (supported / total) if total else None
+        return {
+            "status": status,
+            "returned_refs": self.returned_refs,
+            "valid_refs": list(self.valid_ids),
+            "invalid_refs": list(self.invalid_refs),
+            "duplicate_ref_count": self.duplicate_count,
+            "unused_evidence_ids": list(self.unused_ids),
+            "unsupported_ref_ids": list(self.unsupported_ids),
+            "substantive_claim_count": total,
+            "claims_with_supporting_refs": supported,
+            "attribution_completeness": completeness,
+        }
+
+
+def _raw_attribution_refs(raw: dict[str, Any]) -> list[Any]:
+    """Prefer an explicit refs list. Fall back to the evidence array only when refs is absent."""
+    if "refs" in raw and raw.get("refs") is not None:
+        value = raw.get("refs")
+        if isinstance(value, list):
+            return list(value)
+        return [value]
+    evidence = raw.get("evidence") or []
+    return list(evidence) if isinstance(evidence, list) else []
+
+
+def _ref_identity(item: Any) -> str:
+    if isinstance(item, str):
+        return item.strip()
+    if isinstance(item, dict):
+        return str(item.get("entity_id") or "").strip()
+    return ""
+
+
+_ATTRIBUTION_STOPWORDS = {
+    "what",
+    "which",
+    "learning",
+    "objective",
+    "objectives",
+    "code",
+    "codes",
+    "primary",
+    "junior",
+    "senior",
+    "class",
+    "grade",
+    "pupil",
+    "pupils",
+    "this",
+    "that",
+    "from",
+    "with",
+    "about",
+    "should",
+    "learn",
+    "taught",
+    "curriculum",
+    "into",
+    "main",
+    "areas",
+    "note",
+    "outcome",
+    "particular",
+    "available",
+    "cannot",
+    "confirmed",
+    "incomplete",
+    "source",
+    "exact",
+    "wording",
+    "therefore",
+    "these",
+    "using",
+    "their",
+}
+
+
+def _distinctive_tokens(text: str) -> list[str]:
+    seen: list[str] = []
+    for raw in re.findall(r"[a-z0-9]+", (text or "").lower()):
+        if len(raw) < 5 or raw in _ATTRIBUTION_STOPWORDS:
+            continue
+        if raw not in seen:
+            seen.append(raw)
+    return seen
+
+
+def _answer_has_substantive_claim(answer: str) -> bool:
+    text = (answer or "").strip()
+    if not text:
+        return False
+    return "couldn't find sufficient" not in text.lower()
+
+
+def _substantive_segments(answer: str) -> list[str]:
+    if not _answer_has_substantive_claim(answer):
+        return []
+    segments: list[str] = []
+    for line in answer.splitlines():
+        stripped = line.strip()
+        if re.match(r"^[\*\-]\s+\S", stripped):
+            segments.append(stripped)
+    note_match = re.search(
+        r"### Curriculum Evidence Note\s*\n+(.*)\Z",
+        answer,
+        re.S,
+    )
+    if note_match and note_match.group(1).strip():
+        segments.append(note_match.group(1).strip())
+    if segments:
+        return segments
+    prose = [
+        line.strip()
+        for line in answer.splitlines()
+        if line.strip() and not line.strip().startswith("#")
+    ]
+    if prose:
+        return [" ".join(prose)]
+    return [answer.strip()]
+
+
+def _record_supports_text(item: CurriculumEvidence, text: str) -> bool:
+    """Lexical overlap only. This is not claim-level proof."""
+    content = (item.content or "").strip()
+    if not content:
+        return False
+    tokens = _distinctive_tokens(content)
+    hay = (text or "").lower()
+    if len(tokens) >= 2:
+        hits = sum(1 for token in tokens if token in hay)
+        return hits >= max(2, (len(tokens) + 1) // 2)
+    short = [
+        token
+        for token in re.findall(r"[a-z0-9]+", content.lower())
+        if token not in _ATTRIBUTION_STOPWORDS and token not in tokens and len(token) >= 3
+    ]
+    if len(tokens) == 1:
+        if short:
+            return tokens[0] in hay and all(token in hay for token in short)
+        return tokens[0] in hay and content.lower().rstrip(".") in hay
+    return content.lower().rstrip(".") in hay
+
+
+def attribute_live_model_refs(
+    raw_refs: list[Any],
+    evidence: list[CurriculumEvidence],
+    *,
+    answer: str,
+) -> LiveAttribution:
+    """Keep only supplied records the model cited, and measure obvious mismatches.
+
+    Unknown ids are dropped. Retrieved records the model did not cite stay out of
+    answer evidence. A cited record whose wording does not appear in the answer
+    is reported as unsupported but is not replaced with a different record.
+    """
+    by_id = {item.entity_id: item for item in evidence if item.entity_id}
+    refs: list[AnswerEvidenceRef] = []
+    valid_ids: list[str] = []
+    invalid_refs: list[str] = []
+    seen: set[str] = set()
+    duplicate_count = 0
+    for item in raw_refs:
+        identity = _ref_identity(item)
+        if not identity or identity not in by_id:
+            label = identity or "<empty>"
+            if label not in invalid_refs:
+                invalid_refs.append(label)
+            continue
+        if identity in seen:
+            duplicate_count += 1
+            continue
+        seen.add(identity)
+        source = by_id[identity]
+        claim = ""
+        if isinstance(item, dict):
+            claim = str(item.get("claim") or "").strip()
+        if not claim:
+            claim = (source.content or source.name or "").strip()
+        valid_ids.append(identity)
+        refs.append(
+            AnswerEvidenceRef(
+                entity_id=identity,
+                entity_type=source.entity_type,
+                claim=claim,
+                name=source.name,
+                grade=source.grade,
+                subject=source.subject,
+                topic=source.topic,
+            )
+        )
+
+    unsupported_ids = [
+        entity_id
+        for entity_id in valid_ids
+        if len(_distinctive_tokens(by_id[entity_id].content or "")) >= 2
+        and not _record_supports_text(by_id[entity_id], answer)
+    ]
+    segments = _substantive_segments(answer)
+    supported_claims = 0
+    for segment in segments:
+        if any(_record_supports_text(by_id[entity_id], segment) for entity_id in valid_ids):
+            supported_claims += 1
+    unused_ids = [item.entity_id for item in evidence if item.entity_id and item.entity_id not in seen]
+    return LiveAttribution(
+        refs=refs,
+        returned_refs=list(raw_refs),
+        valid_ids=valid_ids,
+        invalid_refs=invalid_refs,
+        duplicate_count=duplicate_count,
+        unused_ids=unused_ids,
+        unsupported_ids=unsupported_ids,
+        substantive_claim_count=len(segments),
+        claims_with_supporting_refs=supported_claims,
+    )
 
 
 def _looks_garbled_source_text(text: str) -> bool:
@@ -871,19 +1126,7 @@ def _curriculum_evidence_note(records: list[dict[str, str]]) -> str:
     )
 
 
-_NOTE_VERBS = {
-    "identify",
-    "locate",
-    "represent",
-    "work",
-    "add",
-    "subtract",
-    "solve",
-    "simplify",
-    "compare",
-    "multiply",
-    "order",
-}
+_NOTE_VERBS = {"identify", "identifying", "work", "working"}
 
 
 def _note_subject(record: dict[str, str]) -> str:

@@ -52,6 +52,15 @@ GROUNDED_ANSWER_JSON_SCHEMA: dict = {
             "type": "string",
             "description": "Optional one-line summary of the answer.",
         },
+        "refs": {
+            "type": "array",
+            "description": (
+                "Entity IDs from the supplied evidence that this answer actually "
+                "used. Do not invent IDs. Omit retrieved records the answer does "
+                "not use. Include a record used only for a curriculum evidence note."
+            ),
+            "items": {"type": "string"},
+        },
         "evidence": {
             "type": "array",
             "items": {

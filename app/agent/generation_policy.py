@@ -71,10 +71,9 @@ G. User-facing structure (when the evidence justifies it)
 - Do not show evidence-quality flags, database fields, or diagnostic terms.
 
 H. Audit and provenance stay structured
-- Identifiers remain on the evidence records and in the evidence array
-  (entity_id). Do not invent codes.
-- The evidence array is the audit surface. The answer field is the user-facing
-  synthesis.
+- Identifiers remain on the evidence records. Return them in refs: only
+  entity_id values from the supplied evidence that the answer actually used.
+- Do not invent codes. The answer field is the user-facing synthesis.
 - If the user explicitly asks for an LO code, unit code, entity ID, or similar
   identifier, include that identifier in the answer.
 
@@ -90,8 +89,9 @@ a short introduction when several areas are present, concept headings, and
 bullets for distinct learning expectations. No internal identifiers unless the
 question explicitly asks for a code or id.
 Use `### Curriculum Evidence Note` only when source text is materially limited.
-The evidence array is the audit surface: reference entity_id values from the
-evidence records there. Do not remove provenance from that array.
+Return refs containing only entity_id values from the supplied evidence that
+the answer actually used, including a damaged record cited by an evidence note.
+Do not invent IDs and do not list retrieved records the answer does not use.
 Set limitations when source records are incomplete, duplicated, garbled, or ambiguous.
 Do not reconstruct damaged source text.
 """

@@ -281,6 +281,9 @@ def test_primary4_fractions_is_synthesized():
     )
     assert 1 < len(sections) < outcome_count
     assert "### Curriculum Evidence Note" in answer
+    note = answer.split("### Curriculum Evidence Note", 1)[1].lower()
+    assert "multiply" in note
+    assert "concerning like fractions" not in note
     assert "denominators up to multiply" not in lowered
     assert "related fractions" not in lowered
     combined = lowered + " " + " ".join(result.limitations).lower()
