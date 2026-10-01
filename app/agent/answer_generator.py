@@ -19,6 +19,7 @@ from app.schemas.answer import (
     AnswerConfidence,
     AnswerEvidenceRef,
     GroundedAnswer,
+    shadow_claim_generation_schema,
 )
 
 from app.agent.generation_policy import (
@@ -60,6 +61,23 @@ Core rules:
 
 # Backward compatibility for V2.3 diagnostic experiment arm B.
 CONSTRAINED_GENERATION_APPENDIX = EVIDENCE_CONSERVATIVE_USER_APPENDIX
+
+# Shadow-only. Production generation does not append this, and it does not
+# make `claims` part of the production contract.
+CLAIM_SHADOW_APPENDIX = """
+SHADOW CLAIM ATTRIBUTION (diagnostic only; do not change the answer to fit it)
+Also return a claims array. This does not replace the natural-language answer.
+- text must be copied verbatim from answer. Do not paraphrase.
+- Preserve punctuation, wording, singular and plural forms, and Markdown wording.
+- A leading bullet marker in answer does not need to be repeated in text.
+- Include every substantive curriculum bullet.
+- Include a curriculum evidence note when the answer has one.
+- Do not emit titles, introductions, or "Pupils learn to:" as claims.
+- One claim may cite multiple supplied records when the sentence uses more than one.
+- Do not cite a record the claim did not use.
+- refs must be entity IDs copied from the supplied evidence. Do not invent IDs.
+- Do not rewrite the answer so that it quotes internal evidence wording.
+"""
 
 
 class AnswerGenerator:
@@ -260,10 +278,17 @@ class AnswerGenerator:
             )
         if state.metadata.get("generation_mode") == "constrained":
             user_content += CONSTRAINED_GENERATION_APPENDIX
+        schema = (
+            shadow_claim_generation_schema()
+            if state.metadata.get("claim_shadow")
+            else GROUNDED_ANSWER_JSON_SCHEMA
+        )
+        if state.metadata.get("claim_shadow"):
+            user_content += CLAIM_SHADOW_APPENDIX
         user_content += (
             "\nJSON OUTPUT\n"
             "Respond with a single JSON object (no markdown code fences) matching this schema:\n"
-            f"{json.dumps(GROUNDED_ANSWER_JSON_SCHEMA, indent=2)}"
+            f"{json.dumps(schema, indent=2)}"
         )
         return [
             LLMMessage(role="system", content=SYSTEM_PROMPT),
@@ -277,9 +302,14 @@ class AnswerGenerator:
         conversation: ConversationContext | None,
     ) -> GroundedAnswer:
         messages = self.build_messages(state, conversation=conversation)
+        schema = (
+            shadow_claim_generation_schema()
+            if state.metadata.get("claim_shadow")
+            else GROUNDED_ANSWER_JSON_SCHEMA
+        )
         try:
             raw = self.llm.generate_structured(
-                messages, schema=GROUNDED_ANSWER_JSON_SCHEMA, temperature=0.0
+                messages, schema=schema, temperature=0.0
             )
             return self._parse_structured(raw, state.evidence, state=state)
         except LLMProviderError as first_exc:
@@ -310,7 +340,7 @@ class AnswerGenerator:
             )
             try:
                 raw = self.llm.generate_structured(
-                    compact, schema=GROUNDED_ANSWER_JSON_SCHEMA, temperature=0.0
+                    compact, schema=schema, temperature=0.0
                 )
                 return self._parse_structured(raw, state.evidence, state=state)
             except LLMProviderError:
@@ -404,7 +434,12 @@ class AnswerGenerator:
         attribution = attribute_live_model_refs(raw_refs, evidence, answer=answer)
         refs = attribution.refs
         claim_attribution = None
-        if "claims" in raw and raw.get("claims") is not None:
+        if (
+            state is not None
+            and state.metadata.get("claim_shadow")
+            and "claims" in raw
+            and raw.get("claims") is not None
+        ):
             claim_attribution = attribute_claim_mappings(
                 raw.get("claims") or [],
                 evidence,

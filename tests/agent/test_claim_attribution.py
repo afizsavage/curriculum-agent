@@ -63,6 +63,7 @@ def _ask(evidence: list[CurriculumEvidence], payload: dict, *, grade: str = "CLA
     state.subject = "MATHEMATICS"
     state.evidence = evidence
     state.evidence_status = EvidenceStatus.FOUND
+    state.metadata["claim_shadow"] = True
     result = AnswerGenerator(_FakeModel(payload)).generate(state)
     return state, result
 
@@ -85,6 +86,30 @@ def _bullets(answer: str) -> list[str]:
         for line in answer.splitlines()
         if re.match(r"^\s*[\*\-]\s+", line)
     ]
+
+
+def test_production_generate_ignores_claim_mappings():
+    evidence = [_outcome("LO_A", "Add like fractions.")]
+    answer = "Pupils learn to:\n\n* Add like fractions."
+    state = CurriculumQAState.initial(question="What should pupils learn about fractions?")
+    state.grade = "CLASS_3"
+    state.subject = "MATHEMATICS"
+    state.evidence = evidence
+    state.evidence_status = EvidenceStatus.FOUND
+    result = AnswerGenerator(
+        _FakeModel(
+            _body(
+                answer,
+                refs=["LO_A"],
+                claims=[{"text": "Pupils learn decimal numbers.", "refs": ["FAKE_REF"]}],
+            )
+        )
+    ).generate(state)
+    assert result.answer == answer
+    assert [ref.entity_id for ref in result.evidence] == ["LO_A"]
+    assert "claim_attribution" not in state.metadata
+    user = AnswerGenerator(StubLLMProvider()).build_messages(state)[1].content or ""
+    assert "SHADOW CLAIM ATTRIBUTION" not in user
 
 
 def test_claim_schema_is_experimental_and_not_required_in_production():
@@ -395,6 +420,7 @@ def test_claim_path_passes_the_same_prose_to_the_verifier():
     state.subject = "MATHEMATICS"
     state.evidence = evidence
     state.evidence_status = EvidenceStatus.FOUND
+    state.metadata["claim_shadow"] = True
     settings = Settings()
     model = _FakeModel(
         _body(

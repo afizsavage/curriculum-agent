@@ -119,3 +119,20 @@ EXPERIMENTAL_CLAIM_MAPPING_SCHEMA: dict = {
     "required": ["answer", "claims"],
     "additionalProperties": False,
 }
+
+
+def shadow_claim_generation_schema() -> dict:
+    """Production grounded-answer schema plus an optional claims array.
+
+    Used only by the shadow experiment. `claims` is not required, and this
+    schema is not sent by the production generator.
+    """
+    schema = {
+        "title": "ShadowClaimAnswer",
+        "type": "object",
+        "properties": dict(GROUNDED_ANSWER_JSON_SCHEMA["properties"]),
+        "required": list(GROUNDED_ANSWER_JSON_SCHEMA["required"]),
+        "additionalProperties": False,
+    }
+    schema["properties"]["claims"] = EXPERIMENTAL_CLAIM_MAPPING_SCHEMA["properties"]["claims"]
+    return schema
