@@ -1,0 +1,574 @@
+{
+  "summary": {
+    "ordinary_claims": 208,
+    "ordinary_claim_ref_changes": 0,
+    "evidence_notes": 11,
+    "current_refs": {
+      "average": 2.3636363636363638,
+      "median": 1,
+      "maximum": 8
+    },
+    "deterministic_refs": {
+      "average": 1.9090909090909092,
+      "median": 1,
+      "maximum": 5
+    },
+    "refs_removed": 5,
+    "refs_added": 0,
+    "current_human": {
+      "refs": 26,
+      "necessary_refs": 21,
+      "redundant_refs": 4,
+      "unsupported_refs": 1,
+      "supported_refs": 25,
+      "necessary_ref_rate": 0.8076923076923077,
+      "redundant_ref_rate": 0.15384615384615385,
+      "unsupported_ref_rate": 0.038461538461538464,
+      "supported_ref_rate": 0.9615384615384616
+    },
+    "deterministic_human": {
+      "refs": 21,
+      "necessary_refs": 21,
+      "redundant_refs": 0,
+      "unsupported_refs": 0,
+      "supported_refs": 21,
+      "necessary_ref_rate": 1.0,
+      "redundant_ref_rate": 0.0,
+      "unsupported_ref_rate": 0.0,
+      "supported_ref_rate": 1.0
+    },
+    "invariants": {
+      "substantive_claims": 219,
+      "model_coverage": 1.0,
+      "exact_span_compliance": 1.0,
+      "relaxed_support_coverage": 1.0,
+      "unknown_ids": 0,
+      "refs_outside_candidates": 0,
+      "empty_content_refs": 0,
+      "production_answer_preservation": 1.0,
+      "production_refs_preservation": 1.0
+    }
+  },
+  "notes": [
+    {
+      "case_id": "topics-p4-math",
+      "note": "Several unit records in the evidence carry the same or very similar names (for example, multiple units named \"Number and Numeration\", \"Everyday Arithmetic\", and \"Measurement and Estimation\"). The exact distinction between these repeated units is not clear from the supplied evidence, so the topics are grouped by their named area rather than listed unit by unit.",
+      "current_refs": [
+        "f293e00a-bae7-44db-ad55-3c1263e20387",
+        "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+        "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+        "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "152b4a5a-c080-403c-a780-9940c818bc4b",
+        "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+        "29558081-a6cf-4721-b52c-f6f3e59b12a7"
+      ],
+      "deterministic_refs": [
+        "f293e00a-bae7-44db-ad55-3c1263e20387",
+        "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+        "152b4a5a-c080-403c-a780-9940c818bc4b",
+        "c0a9dc68-e3f3-424e-8873-d2642e7cc71b"
+      ],
+      "refs_removed": [
+        "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+        "29558081-a6cf-4721-b52c-f6f3e59b12a7"
+      ],
+      "refs_added": [],
+      "named_issues": [
+        "Number and Numeration",
+        "Everyday Arithmetic",
+        "Measurement and Estimation"
+      ],
+      "refs_per_issue": {
+        "Number and Numeration": [
+          "f293e00a-bae7-44db-ad55-3c1263e20387",
+          "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+        ],
+        "Everyday Arithmetic": [
+          "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+          "152b4a5a-c080-403c-a780-9940c818bc4b"
+        ],
+        "Measurement and Estimation": [
+          "c0a9dc68-e3f3-424e-8873-d2642e7cc71b"
+        ]
+      },
+      "grouping_status": "resolved",
+      "unmatched_issues": [],
+      "support_failures": [],
+      "human_review": [
+        {
+          "ref": "f293e00a-bae7-44db-ad55-3c1263e20387",
+          "name": "Number and Numeration",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+          "name": "Everyday Arithmetic",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+          "name": "Measurement and Estimation",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "name": "Number and Numeration FRACTION",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "152b4a5a-c080-403c-a780-9940c818bc4b",
+          "name": "Everyday Arithmetic DIVISION",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "name": "Everyday Arithmetic Money",
+          "in_current": true,
+          "in_deterministic": false,
+          "label": "SUPPORTED BUT REDUNDANT"
+        },
+        {
+          "ref": "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+          "name": "Number and Numeration. Approximation.",
+          "in_current": true,
+          "in_deterministic": false,
+          "label": "SUPPORTED BUT REDUNDANT"
+        },
+        {
+          "ref": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+          "name": "Everyday Arithmetic Multiplication and Decimal.",
+          "in_current": true,
+          "in_deterministic": false,
+          "label": "SUPPORTED BUT REDUNDANT"
+        }
+      ]
+    },
+    {
+      "case_id": "fractions-p4",
+      "note": "The exact wording of one multiplication learning expectation is unreliable because the source text is repeated and incomplete; only the clearly stated parts are reported above.",
+      "current_refs": [
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+      ],
+      "deterministic_refs": [
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+      ],
+      "refs_removed": [],
+      "refs_added": [],
+      "named_issues": [
+        "incomplete multiplication outcome"
+      ],
+      "refs_per_issue": {
+        "incomplete multiplication outcome": [
+          "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+        ]
+      },
+      "grouping_status": "resolved",
+      "unmatched_issues": [],
+      "support_failures": [],
+      "human_review": [
+        {
+          "ref": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+          "name": "C4U06-LO02",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        }
+      ]
+    },
+    {
+      "case_id": "fractions-p3",
+      "note": "The exact wording of some source statements is incomplete or unclear, so those parts are not restated here.",
+      "current_refs": [
+        "1dd051f9-b841-4733-bf6b-704c819c46ba"
+      ],
+      "deterministic_refs": [
+        "1dd051f9-b841-4733-bf6b-704c819c46ba"
+      ],
+      "refs_removed": [],
+      "refs_added": [],
+      "named_issues": [],
+      "refs_per_issue": {},
+      "grouping_status": "unresolved",
+      "unmatched_issues": [],
+      "support_failures": [],
+      "human_review": [
+        {
+          "ref": "1dd051f9-b841-4733-bf6b-704c819c46ba",
+          "name": "C3U08-LO03",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        }
+      ]
+    },
+    {
+      "case_id": "fractions-p5",
+      "note": "Some source statements are incomplete or unclear in their wording. One outcome combines solving problems on like fractions with comparing and ordering fractions in a way that is not fully clear, and another refers to using the four operations on fractions without further detail. The exact intended wording of these statements cannot be confirmed from the evidence.",
+      "current_refs": [
+        "610e543f-0a3b-46ee-8d39-acc2480c5805",
+        "e4710e7b-a33c-487f-91ac-636fa21fdb15"
+      ],
+      "deterministic_refs": [
+        "610e543f-0a3b-46ee-8d39-acc2480c5805"
+      ],
+      "refs_removed": [
+        "e4710e7b-a33c-487f-91ac-636fa21fdb15"
+      ],
+      "refs_added": [],
+      "named_issues": [
+        "problems on like fractions with comparing and ordering",
+        "four operations on fractions"
+      ],
+      "refs_per_issue": {
+        "problems on like fractions with comparing and ordering": [
+          "610e543f-0a3b-46ee-8d39-acc2480c5805"
+        ],
+        "four operations on fractions": []
+      },
+      "grouping_status": "resolved",
+      "unmatched_issues": [
+        "four operations on fractions"
+      ],
+      "support_failures": [],
+      "human_review": [
+        {
+          "ref": "610e543f-0a3b-46ee-8d39-acc2480c5805",
+          "name": "C5U05-LO01",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "e4710e7b-a33c-487f-91ac-636fa21fdb15",
+          "name": "C5U06-LO02",
+          "in_current": true,
+          "in_deterministic": false,
+          "label": "UNSUPPORTED"
+        }
+      ]
+    },
+    {
+      "case_id": "time-p3",
+      "note": "One learning outcome record contains only an introductory statement (\"After completing this unit, the pupils should be able to.\") rather than a specific learning expectation, so it does not add a distinct skill to the list above.",
+      "current_refs": [
+        "2ce1b82d-edf6-4287-a229-b15b999eb8e4"
+      ],
+      "deterministic_refs": [
+        "2ce1b82d-edf6-4287-a229-b15b999eb8e4"
+      ],
+      "refs_removed": [],
+      "refs_added": [],
+      "named_issues": [
+        "After completing this unit, the pupils should be able to."
+      ],
+      "refs_per_issue": {
+        "After completing this unit, the pupils should be able to.": [
+          "2ce1b82d-edf6-4287-a229-b15b999eb8e4"
+        ]
+      },
+      "grouping_status": "resolved",
+      "unmatched_issues": [],
+      "support_failures": [],
+      "human_review": [
+        {
+          "ref": "2ce1b82d-edf6-4287-a229-b15b999eb8e4",
+          "name": "C3U32-LO01",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        }
+      ]
+    },
+    {
+      "case_id": "numbers-p1",
+      "note": "Some of the source statements for reading, writing and representing numbers are incomplete or run together, so the exact full wording of those particular expectations is unreliable. Only the clearly readable parts are summarised above.",
+      "current_refs": [
+        "1a97eec4-aa71-435f-98c0-99490e47eda6",
+        "95b34608-df73-40b9-89d7-9e50e1e12054",
+        "a79eb6ea-b0e7-4ff0-9e5d-aeeb98f8f80a"
+      ],
+      "deterministic_refs": [
+        "1a97eec4-aa71-435f-98c0-99490e47eda6",
+        "95b34608-df73-40b9-89d7-9e50e1e12054"
+      ],
+      "refs_removed": [
+        "a79eb6ea-b0e7-4ff0-9e5d-aeeb98f8f80a"
+      ],
+      "refs_added": [],
+      "named_issues": [
+        "reading numbers",
+        "writing numbers",
+        "representing numbers"
+      ],
+      "refs_per_issue": {
+        "reading numbers": [
+          "1a97eec4-aa71-435f-98c0-99490e47eda6"
+        ],
+        "writing numbers": [
+          "1a97eec4-aa71-435f-98c0-99490e47eda6"
+        ],
+        "representing numbers": [
+          "95b34608-df73-40b9-89d7-9e50e1e12054"
+        ]
+      },
+      "grouping_status": "resolved",
+      "unmatched_issues": [],
+      "support_failures": [],
+      "human_review": [
+        {
+          "ref": "1a97eec4-aa71-435f-98c0-99490e47eda6",
+          "name": "C1U06-LO01",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "95b34608-df73-40b9-89d7-9e50e1e12054",
+          "name": "C1U03-LO01",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "a79eb6ea-b0e7-4ff0-9e5d-aeeb98f8f80a",
+          "name": "C1U02-LO02",
+          "in_current": true,
+          "in_deterministic": false,
+          "label": "SUPPORTED BUT REDUNDANT"
+        }
+      ]
+    },
+    {
+      "case_id": "multiplication-p4",
+      "note": "Some learning outcome statements in the evidence are incomplete or repeated, so the exact full wording of those expectations cannot be reliably stated. This affects the mental strategies outcome, the whole-number and decimal multiplication outcomes, and the outcome on multiplying like and related fractions.",
+      "current_refs": [
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+        "351ef533-e32c-4582-8cd0-ecad956377e8",
+        "36d36607-fa63-431b-9fd5-dedc3db40322",
+        "0731389e-56b3-4f6f-a530-8c173659bee1"
+      ],
+      "deterministic_refs": [
+        "351ef533-e32c-4582-8cd0-ecad956377e8",
+        "36d36607-fa63-431b-9fd5-dedc3db40322",
+        "0731389e-56b3-4f6f-a530-8c173659bee1",
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+      ],
+      "refs_removed": [],
+      "refs_added": [],
+      "named_issues": [
+        "mental strategies",
+        "whole-number multiplication",
+        "decimal multiplication",
+        "like or related fractions"
+      ],
+      "refs_per_issue": {
+        "mental strategies": [
+          "351ef533-e32c-4582-8cd0-ecad956377e8"
+        ],
+        "whole-number multiplication": [
+          "36d36607-fa63-431b-9fd5-dedc3db40322"
+        ],
+        "decimal multiplication": [
+          "0731389e-56b3-4f6f-a530-8c173659bee1"
+        ],
+        "like or related fractions": [
+          "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+        ]
+      },
+      "grouping_status": "resolved",
+      "unmatched_issues": [],
+      "support_failures": [],
+      "human_review": [
+        {
+          "ref": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+          "name": "C4U06-LO02",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "351ef533-e32c-4582-8cd0-ecad956377e8",
+          "name": "C4U19-LO05",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "36d36607-fa63-431b-9fd5-dedc3db40322",
+          "name": "C4U19-LO01",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "0731389e-56b3-4f6f-a530-8c173659bee1",
+          "name": "C4U19-LO02",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        }
+      ]
+    },
+    {
+      "case_id": "number-p2",
+      "note": "Some source statements are incomplete or contain stray fragments, so the exact wording of a few expectations is unreliable. The reliable parts are reflected above.",
+      "current_refs": [
+        "8f782c51-1f25-429a-ba31-538834471f7e"
+      ],
+      "deterministic_refs": [
+        "8f782c51-1f25-429a-ba31-538834471f7e"
+      ],
+      "refs_removed": [],
+      "refs_added": [],
+      "named_issues": [],
+      "refs_per_issue": {},
+      "grouping_status": "unresolved",
+      "unmatched_issues": [],
+      "support_failures": [],
+      "human_review": [
+        {
+          "ref": "8f782c51-1f25-429a-ba31-538834471f7e",
+          "name": "C2U01-LO02",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        }
+      ]
+    },
+    {
+      "case_id": "topics-p2-math",
+      "note": "The evidence lists these topic areas as unit names, but the individual learning objectives within each unit are not included in the supplied records. Some unit names are repeated across multiple records, and a few names include additional wording (for example, fractions and number patterns).",
+      "current_refs": [
+        "660d3ebd-6809-4940-ba31-90a5c88da348",
+        "0f85f7a4-9eee-435f-96d8-22899075d761",
+        "82734b4a-42b3-483e-ba76-24a0f10762d1"
+      ],
+      "deterministic_refs": [
+        "660d3ebd-6809-4940-ba31-90a5c88da348",
+        "82734b4a-42b3-483e-ba76-24a0f10762d1",
+        "0f85f7a4-9eee-435f-96d8-22899075d761"
+      ],
+      "refs_removed": [],
+      "refs_added": [],
+      "named_issues": [
+        "fractions",
+        "number patterns",
+        "unit name without included objectives"
+      ],
+      "refs_per_issue": {
+        "fractions": [
+          "660d3ebd-6809-4940-ba31-90a5c88da348"
+        ],
+        "number patterns": [
+          "82734b4a-42b3-483e-ba76-24a0f10762d1"
+        ],
+        "unit name without included objectives": [
+          "0f85f7a4-9eee-435f-96d8-22899075d761"
+        ]
+      },
+      "grouping_status": "resolved",
+      "unmatched_issues": [],
+      "support_failures": [],
+      "human_review": [
+        {
+          "ref": "660d3ebd-6809-4940-ba31-90a5c88da348",
+          "name": "Number and Numeration FRACTION",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "0f85f7a4-9eee-435f-96d8-22899075d761",
+          "name": "Number and Numeration.",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        },
+        {
+          "ref": "82734b4a-42b3-483e-ba76-24a0f10762d1",
+          "name": "Everyday Arithmetic NUMBER PARTERN",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        }
+      ]
+    },
+    {
+      "case_id": "fixture-p3-fractions",
+      "note": "One learning outcome about identifying equivalent fractions is incomplete in the source: the wording stops after \"with denominators up to\" and does not state the denominator range. The exact wording of that outcome is unreliable, so it is not included above.",
+      "current_refs": [
+        "lo-p3-equivalent-incomplete"
+      ],
+      "deterministic_refs": [
+        "lo-p3-equivalent-incomplete"
+      ],
+      "refs_removed": [],
+      "refs_added": [],
+      "named_issues": [
+        "with denominators up to"
+      ],
+      "refs_per_issue": {
+        "with denominators up to": [
+          "lo-p3-equivalent-incomplete"
+        ]
+      },
+      "grouping_status": "resolved",
+      "unmatched_issues": [],
+      "support_failures": [],
+      "human_review": [
+        {
+          "ref": "lo-p3-equivalent-incomplete",
+          "name": "C3U06-LO05",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        }
+      ]
+    },
+    {
+      "case_id": "fixture-p4-fractions",
+      "note": "The learning outcome describing multiplication of fractions is repeated and incomplete in the source, so the exact wording of that expectation is unreliable. Only the general topic of multiplying fractions is stated here.",
+      "current_refs": [
+        "lo-multiply-garbled"
+      ],
+      "deterministic_refs": [
+        "lo-multiply-garbled"
+      ],
+      "refs_removed": [],
+      "refs_added": [],
+      "named_issues": [
+        "incomplete multiplication outcome"
+      ],
+      "refs_per_issue": {
+        "incomplete multiplication outcome": [
+          "lo-multiply-garbled"
+        ]
+      },
+      "grouping_status": "resolved",
+      "unmatched_issues": [],
+      "support_failures": [],
+      "human_review": [
+        {
+          "ref": "lo-multiply-garbled",
+          "name": "C4U06-LO02",
+          "in_current": true,
+          "in_deterministic": true,
+          "label": "NECESSARY"
+        }
+      ]
+    }
+  ]
+}

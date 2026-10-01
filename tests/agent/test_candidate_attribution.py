@@ -417,6 +417,147 @@ def test_repeated_unit_name_protection_does_not_keep_every_related_name():
     assert "UNIT_LONG" not in protected
 
 
+def _candidate(entity_id: str, name: str, content: str, *, entity_type: str = "unit") -> dict:
+    return {
+        "entity_id": entity_id,
+        "entity_type": entity_type,
+        "name": name,
+        "content": content,
+        "generic_structural": entity_type == "unit",
+        "empty_content": not content.strip(),
+    }
+
+
+def test_deterministic_note_grouping_keeps_two_records_for_a_repeated_name():
+    from app.agent.candidate_attribution import select_deterministic_note_refs
+
+    note = (
+        'Several unit records carry the same or very similar names '
+        '(for example, multiple units named "Number and Numeration", "Everyday Arithmetic", '
+        'and "Measurement and Estimation").'
+    )
+    candidates = [
+        _candidate("nn", "Number and Numeration", "Number and Numeration"),
+        _candidate("nn-frac", "Number and Numeration FRACTION", "Number and Numeration FRACTION"),
+        _candidate("nn-approx", "Number and Numeration. Approximation.", "Number and Numeration. Approximation."),
+        _candidate("ea", "Everyday Arithmetic", "Everyday Arithmetic"),
+        _candidate("ea-div", "Everyday Arithmetic DIVISION", "Everyday Arithmetic DIVISION"),
+        _candidate("ea-money", "Everyday Arithmetic Money", "Everyday Arithmetic Money"),
+        _candidate("meas", "Measurement and Estimation", "Measurement and Estimation"),
+    ]
+    result = select_deterministic_note_refs(note, candidates, [item["entity_id"] for item in candidates])
+    assert result["note_grouping_status"] == "resolved"
+    assert result["deterministic_refs"] == ["nn", "nn-frac", "ea", "ea-div", "meas"]
+    assert result["refs_removed"] == ["nn-approx", "ea-money"]
+    assert result["refs_added"] == []
+
+
+def test_deterministic_note_grouping_keeps_additional_wording_variants():
+    from app.agent.candidate_attribution import select_deterministic_note_refs
+
+    note = (
+        "The evidence lists these topic areas as unit names, but the individual learning "
+        "objectives within each unit are not included in the supplied records. Some unit "
+        "names are repeated across multiple records, and a few names include additional "
+        "wording (for example, fractions and number patterns)."
+    )
+    candidates = [
+        _candidate("frac", "Number and Numeration FRACTION", "Number and Numeration FRACTION"),
+        _candidate("plain", "Number and Numeration.", "Number and Numeration."),
+        _candidate("pattern", "Everyday Arithmetic NUMBER PARTERN", "Everyday Arithmetic NUMBER PARTERN"),
+    ]
+    result = select_deterministic_note_refs(note, candidates, ["frac", "plain", "pattern"])
+    assert result["note_grouping_status"] == "resolved"
+    assert result["deterministic_refs"] == ["frac", "pattern", "plain"]
+    assert result["refs_removed"] == []
+
+
+def test_deterministic_note_grouping_keeps_each_named_damaged_outcome():
+    from app.agent.candidate_attribution import select_deterministic_note_refs
+
+    note = (
+        "Some learning outcome statements are incomplete or repeated. This affects the "
+        "mental strategies outcome, the whole-number and decimal multiplication outcomes, "
+        "and the outcome on multiplying like and related fractions."
+    )
+    candidates = [
+        _candidate("like", "C4U06-LO02", "Multiply like fractions with denominators up to multiply related fractions", entity_type="learning_outcome"),
+        _candidate("mental", "C4U19-LO05", "Mental strategies for multiplication and division by", entity_type="learning_outcome"),
+        _candidate("whole", "C4U19-LO01", "Multiply whole numbers up to 5 digits by", entity_type="learning_outcome"),
+        _candidate("decimal", "C4U19-LO02", "Multiply decimal to 1 decimal place by", entity_type="learning_outcome"),
+        _candidate("divide-decimal", "C4U19-LO04", "Divide decimal to 1 decimal place by", entity_type="learning_outcome"),
+        _candidate("long", "C4U13-LO05", "Use long Multiplication --3-digit numbers by 1-digit number without renaming.", entity_type="learning_outcome"),
+    ]
+    result = select_deterministic_note_refs(
+        note,
+        candidates,
+        ["like", "mental", "whole", "decimal"],
+    )
+    assert result["deterministic_refs"] == ["mental", "whole", "decimal", "like"]
+    assert "divide-decimal" not in result["deterministic_refs"]
+    assert "long" not in result["deterministic_refs"]
+    assert result["refs_removed"] == []
+
+
+def test_deterministic_note_grouping_does_not_cite_a_readable_nearby_outcome():
+    from app.agent.candidate_attribution import select_deterministic_note_refs
+
+    note = (
+        "One outcome combines solving problems on like fractions with comparing and ordering "
+        "fractions in a way that is not fully clear, and another refers to using the four "
+        "operations on fractions without further detail."
+    )
+    candidates = [
+        _candidate(
+            "damaged",
+            "C5U05-LO01",
+            "Solve problems on like fractions with denominators up to compare and order fractions.",
+            entity_type="learning_outcome",
+        ),
+        _candidate(
+            "readable",
+            "C5U06-LO02",
+            "Convert mixed fractions and improper fractions. Use the 4 operations on fractions.",
+            entity_type="learning_outcome",
+        ),
+    ]
+    result = select_deterministic_note_refs(note, candidates, ["damaged", "readable"])
+    assert result["deterministic_refs"] == ["damaged"]
+    assert result["refs_removed"] == ["readable"]
+    assert result["unmatched_issues"] == ["four operations on fractions"]
+
+
+def test_vague_evidence_note_keeps_the_model_selection():
+    from app.agent.candidate_attribution import select_deterministic_note_refs
+
+    note = "Some source statements are incomplete or contain stray fragments."
+    candidates = [
+        _candidate("frag", "C2U01-LO02", "Count in multiples of 2 to count in multiples of 5 to", entity_type="learning_outcome"),
+    ]
+    result = select_deterministic_note_refs(note, candidates, ["frag"])
+    assert result["note_grouping_status"] == "unresolved"
+    assert result["deterministic_refs"] == ["frag"]
+
+
+def test_grouped_record_that_fails_support_is_not_replaced_from_another_issue():
+    from app.agent.candidate_attribution import select_deterministic_note_refs
+
+    note = 'One record stops after the quoted fragment "purple widgets".'
+    candidates = [
+        _candidate("bad", "C9-LO01", "purple widgets are nearby", entity_type="learning_outcome"),
+        _candidate("other", "C9-LO02", "Count objects up to 10.", entity_type="learning_outcome"),
+    ]
+    result = select_deterministic_note_refs(
+        note,
+        candidates,
+        ["bad"],
+        support_by_id={"bad": False, "other": True},
+    )
+    assert result["note_grouping_status"] == "rejected_by_support_validator"
+    assert "bad" not in result["deterministic_refs"]
+    assert "other" not in result["deterministic_refs"]
+
+
 def test_two_outcome_claim_keeps_both_records_available():
     evidence = _primary3_fractions_evidence()
     selected = select_candidates(

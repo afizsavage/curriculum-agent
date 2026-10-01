@@ -688,6 +688,337 @@ def group_evidence_note(
     }
 
 
+_NAME_REPETITION_PHRASES = (
+    "same or very similar names",
+    "names are repeated",
+    "unit names are repeated",
+    "multiple units named",
+    "repeated units",
+    "same name",
+)
+
+
+def _edit_distance(left: str, right: str) -> int:
+    if left == right:
+        return 0
+    if not left:
+        return len(right)
+    if not right:
+        return len(left)
+    previous = list(range(len(right) + 1))
+    for index, char in enumerate(left, start=1):
+        current = [index]
+        for other_index, other in enumerate(right, start=1):
+            current.append(min(
+                current[-1] + 1,
+                previous[other_index] + 1,
+                previous[other_index - 1] + (char != other),
+            ))
+        previous = current
+    return previous[-1]
+
+
+def _stems_close(left: str, right: str) -> bool:
+    """Equal stems, or a one-character difference on a long token such as partern/pattern."""
+    if left == right:
+        return True
+    return len(left) >= 6 and len(right) >= 6 and _edit_distance(left, right) <= 1
+
+
+def _phrase_covered(phrase: str, blob: str) -> bool:
+    wanted = _support_stems(phrase)
+    if not wanted:
+        return False
+    present = _support_stems(blob)
+    return all(any(_stems_close(stem, candidate) for candidate in present) for stem in wanted)
+
+
+def _note_names_are_repeated(note: str) -> bool:
+    lowered = (note or "").lower()
+    return any(phrase in lowered for phrase in _NAME_REPETITION_PHRASES)
+
+
+def _looks_truncated_outcome(content: str) -> bool:
+    """A note-grouping signal for a damaged outcome. Not used on ordinary claims."""
+    if _limited_source(content):
+        return True
+    text = (content or "").strip().rstrip(".").lower()
+    return bool(re.search(r"\b(by|to|and|of|with|for)$", text))
+
+
+def _candidate_evidence(item: dict[str, Any]) -> CurriculumEvidence:
+    return CurriculumEvidence(
+        entity_type=str(item.get("entity_type") or "learning_outcome"),
+        entity_id=item.get("entity_id"),
+        name=item.get("name"),
+        content=item.get("content") or "",
+    )
+
+
+def _family_match(name: str, quote: str) -> str | None:
+    normalized_name = _norm_label(name)
+    normalized_quote = _norm_label(quote)
+    if not normalized_quote or not normalized_name:
+        return None
+    if normalized_name == normalized_quote:
+        return "exact"
+    if normalized_name.startswith(normalized_quote + " "):
+        return "variant"
+    return None
+
+
+def _extract_note_issues(note: str, candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Named issues a limitation note actually states. No issue is inferred from topic alone."""
+    text = note or ""
+    lowered = text.lower()
+    issues: list[dict[str, Any]] = []
+    seen: set[str] = set()
+
+    def add(issue: dict[str, Any]) -> None:
+        if issue["label"] in seen:
+            return
+        seen.add(issue["label"])
+        issues.append(issue)
+
+    for quoted in re.findall(r"\"([^\"]+)\"|“([^”]+)”", text):
+        label = " ".join(next(part for part in quoted if part).split())
+        if not label:
+            continue
+        name_hits = [item for item in candidates if _family_match(str(item.get("name") or ""), label)]
+        content_hits = [
+            item for item in candidates
+            if _norm_label(label) and _norm_label(label) in _norm_label(item.get("content") or "")
+        ]
+        if name_hits and _note_names_are_repeated(lowered):
+            add({
+                "label": label,
+                "kind": "repeated_name",
+                "key": label,
+                "keep": 2,
+            })
+        elif content_hits and not name_hits:
+            add({
+                "label": label,
+                "kind": "quoted_fragment",
+                "key": label,
+                "keep": 1,
+            })
+
+    if "additional wording" in lowered or "extra wording" in lowered:
+        for example in re.findall(r"for example, ([^.)]+)", lowered):
+            for part in re.split(r",| and ", example):
+                phrase = " ".join(part.split())
+                if phrase and phrase not in {"multiple units named"}:
+                    add({
+                        "label": phrase,
+                        "kind": "additional_wording",
+                        "key": phrase,
+                        "keep": 1,
+                    })
+
+    objectives_absent = "learning objective" in lowered and "not included" in lowered
+    if objectives_absent or "as unit names" in lowered:
+        add({
+            "label": "unit name without included objectives",
+            "kind": "plain_unit",
+            "key": "",
+            "keep": 1,
+        })
+
+    if "mental" in lowered and "strateg" in lowered:
+        add({"label": "mental strategies", "kind": "damaged", "key": "mental strategies", "keep": 1})
+    if re.search(r"whole[- ]number", lowered) and "multipl" in lowered:
+        add({
+            "label": "whole-number multiplication",
+            "kind": "damaged",
+            "key": "multiply whole numbers",
+            "keep": 1,
+        })
+    if "decimal" in lowered and "multipl" in lowered:
+        add({"label": "decimal multiplication", "kind": "damaged", "key": "multiply decimal", "keep": 1})
+    if "like" in lowered and "related" in lowered and "fraction" in lowered:
+        add({
+            "label": "like or related fractions",
+            "kind": "damaged",
+            "key": "multiply like related fractions",
+            "keep": 1,
+        })
+    if "reading" in lowered and "writing" in lowered and "representing" in lowered:
+        for phrase in ("reading numbers", "writing numbers", "representing numbers"):
+            add({"label": phrase, "kind": "damaged", "key": phrase, "keep": 1})
+    if "solv" in lowered and "like" in lowered and "fraction" in lowered and ("compar" in lowered or "order" in lowered):
+        add({
+            "label": "problems on like fractions with comparing and ordering",
+            "kind": "damaged",
+            "key": "solve problems like fractions compare order",
+            "keep": 1,
+        })
+    if ("four operation" in lowered or "4 operation" in lowered) and "fraction" in lowered:
+        add({
+            "label": "four operations on fractions",
+            "kind": "damaged",
+            "key": "4 operations fractions",
+            "keep": 1,
+        })
+    specific_damage = any(issue["kind"] == "damaged" for issue in issues)
+    if not specific_damage and re.search(r"multiplicat|multiplying", lowered) and re.search(r"incomplete|repeated", lowered):
+        add({
+            "label": "incomplete multiplication outcome",
+            "kind": "damaged",
+            "key": "multiply fractions",
+            "keep": 1,
+        })
+    return issues
+
+
+def _issue_candidates(issue: dict[str, Any], candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    kind = issue["kind"]
+    matched: list[dict[str, Any]] = []
+    example_phrases = []
+    if kind == "plain_unit":
+        example_phrases = []
+    for item in candidates:
+        name = str(item.get("name") or "")
+        content = str(item.get("content") or "")
+        blob = f"{name} {content}"
+        if kind == "repeated_name":
+            if _family_match(name, issue["key"]):
+                matched.append(item)
+        elif kind == "quoted_fragment":
+            if _norm_label(issue["key"]) in _norm_label(content):
+                matched.append(item)
+        elif kind == "additional_wording":
+            if _phrase_covered(issue["key"], name):
+                matched.append(item)
+        elif kind == "plain_unit":
+            evidence = _candidate_evidence(item)
+            if _is_generic_structural(evidence):
+                matched.append(item)
+        elif kind == "damaged":
+            if not _looks_truncated_outcome(content):
+                continue
+            if issue["label"] == "like or related fractions":
+                stems = set(_support_stems(blob))
+                if "fraction" in stems and ("like" in blob.lower() or "related" in blob.lower()) and "multiply" in stems:
+                    matched.append(item)
+                continue
+            if _phrase_covered(issue["key"], blob):
+                matched.append(item)
+    return matched
+
+
+def _exclude_additional_wording(item: dict[str, Any], issues: list[dict[str, Any]]) -> bool:
+    name = str(item.get("name") or "")
+    for issue in issues:
+        if issue["kind"] == "additional_wording" and _phrase_covered(issue["key"], name):
+            return True
+    return False
+
+
+def _rank_issue_candidates(issue: dict[str, Any], matched: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    def sort_key(item: dict[str, Any]) -> tuple:
+        name = str(item.get("name") or "")
+        content = str(item.get("content") or "")
+        entity_type = (item.get("entity_type") or "").lower()
+        outcome = 1 if entity_type == "learning_outcome" and content.strip() else 0
+        exact = 1 if issue["kind"] == "repeated_name" and _family_match(name, issue["key"]) == "exact" else 0
+        truncated = 1 if _looks_truncated_outcome(content) else 0
+        focus = -len(_support_stems(content or name))
+        return (-exact, -outcome, -truncated, focus, name.lower(), str(item.get("entity_id") or ""))
+
+    ranked = sorted(matched, key=sort_key)
+    if issue["kind"] == "repeated_name":
+        exact = [item for item in ranked if _family_match(str(item.get("name") or ""), issue["key"]) == "exact"]
+        variants = [item for item in ranked if _family_match(str(item.get("name") or ""), issue["key"]) == "variant"]
+        variants.sort(key=lambda item: (str(item.get("name") or "").lower(), str(item.get("entity_id") or "")))
+        return [*exact, *variants]
+    return ranked
+
+
+def select_deterministic_note_refs(
+    note: str,
+    candidates: list[dict[str, Any]],
+    model_refs: list[str],
+    *,
+    support_by_id: dict[str, bool] | None = None,
+) -> dict[str, Any]:
+    """Smallest evidence-note provenance derived from named issues.
+
+    Ordinary claims never call this. It does not rewrite the note or the answer.
+    A record is kept only when it is the representative of a named issue and the
+    relaxed support check accepts it.
+    """
+    current = [ref for ref in model_refs if ref]
+    issues = _extract_note_issues(note, candidates)
+    if not issues:
+        return {
+            "note_grouping_status": "unresolved",
+            "named_issues": [],
+            "refs_per_issue": {},
+            "deterministic_refs": list(current),
+            "current_refs": list(current),
+            "refs_removed": [],
+            "refs_added": [],
+            "unmatched_issues": [],
+            "support_failures": [],
+        }
+
+    by_id = {item.get("entity_id"): item for item in candidates if item.get("entity_id")}
+    known_support = support_by_id or {}
+
+    def supported(item: dict[str, Any]) -> bool:
+        identity = item.get("entity_id")
+        if identity in known_support:
+            return bool(known_support[identity])
+        return relaxed_record_supports(_candidate_evidence(item), note, kind="evidence_note")
+
+    refs_per_issue: dict[str, list[str]] = {}
+    chosen: list[str] = []
+    unmatched: list[str] = []
+    failures: list[str] = []
+    for issue in issues:
+        pool = _issue_candidates(issue, candidates)
+        if issue["kind"] == "plain_unit":
+            pool = [item for item in pool if not _exclude_additional_wording(item, issues)]
+        ranked = _rank_issue_candidates(issue, pool)
+        picked: list[str] = []
+        if issue["kind"] != "repeated_name":
+            reused = [
+                identity for identity in chosen
+                if identity in {item.get("entity_id") for item in ranked}
+            ]
+            if reused:
+                picked = [reused[0]]
+        for item in ranked:
+            if len(picked) >= int(issue["keep"]):
+                break
+            identity = item.get("entity_id")
+            if not identity or identity in picked:
+                continue
+            if not supported(item):
+                failures.append(identity)
+                continue
+            picked.append(identity)
+            if identity not in chosen:
+                chosen.append(identity)
+        refs_per_issue[issue["label"]] = picked
+        if len(picked) < 1:
+            unmatched.append(issue["label"])
+
+    status = "rejected_by_support_validator" if failures else "resolved"
+    return {
+        "note_grouping_status": status,
+        "named_issues": [issue["label"] for issue in issues],
+        "refs_per_issue": refs_per_issue,
+        "deterministic_refs": chosen,
+        "current_refs": list(current),
+        "refs_removed": [ref for ref in current if ref not in set(chosen)],
+        "refs_added": [ref for ref in chosen if ref not in set(current)],
+        "unmatched_issues": unmatched,
+        "support_failures": failures,
+    }
+
+
 NOTE_SMALLEST_SET_PROMPT = """You are reducing an evidence-note attribution to the smallest sufficient set.
 
 The note has already been written. Do not rewrite it.
