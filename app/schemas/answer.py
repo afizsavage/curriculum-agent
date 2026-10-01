@@ -86,3 +86,36 @@ GROUNDED_ANSWER_JSON_SCHEMA: dict = {
     "required": ["answer", "evidence", "limitations", "confidence"],
     "additionalProperties": False,
 }
+
+
+# Experimental only. Not part of the production generation schema: exact claim
+# text is too brittle to require from the live model until that failure rate
+# is measured. The parser accepts this shape when a response includes it.
+EXPERIMENTAL_CLAIM_MAPPING_SCHEMA: dict = {
+    "title": "ExperimentalClaimMapping",
+    "type": "object",
+    "properties": {
+        "answer": {"type": "string"},
+        "claims": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "text": {
+                        "type": "string",
+                        "description": "Exact span copied from the answer.",
+                    },
+                    "refs": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "Supplied evidence ids that support that span.",
+                    },
+                },
+                "required": ["text", "refs"],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": ["answer", "claims"],
+    "additionalProperties": False,
+}

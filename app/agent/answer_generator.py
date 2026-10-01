@@ -116,6 +116,16 @@ class AnswerGenerator:
                 state.evidence,
                 answer=result.answer or "",
             ).as_dict()
+        if state.metadata.get("claim_attribution") is not None and self.llm.name != "stub":
+            returned_claims = state.metadata["claim_attribution"].get("returned_claims")
+            if returned_claims is not None:
+                claim_attribution = attribute_claim_mappings(
+                    returned_claims,
+                    state.evidence,
+                    answer=result.answer or "",
+                )
+                state.metadata["claim_attribution"] = claim_attribution.as_dict()
+                result = result.model_copy(update={"evidence": claim_attribution.refs})
         latency_ms = (time.perf_counter() - started) * 1000
         quality = analyze_answer_quality(
             result.answer or "",
@@ -393,10 +403,28 @@ class AnswerGenerator:
         raw_refs = _raw_attribution_refs(raw)
         attribution = attribute_live_model_refs(raw_refs, evidence, answer=answer)
         refs = attribution.refs
+        claim_attribution = None
+        if "claims" in raw and raw.get("claims") is not None:
+            claim_attribution = attribute_claim_mappings(
+                raw.get("claims") or [],
+                evidence,
+                answer=answer,
+            )
+            refs = claim_attribution.refs
         if state is not None:
             state.metadata["live_attribution"] = attribution.as_dict()
+            if claim_attribution is not None:
+                state.metadata["claim_attribution"] = claim_attribution.as_dict()
 
         limitations = [str(x) for x in (raw.get("limitations") or []) if x]
+        if (
+            claim_attribution is not None
+            and claim_attribution.unattributed_claims
+            and claim_attribution.valid_claims
+        ):
+            limitations.append("Claim-level attribution is incomplete.")
+            if confidence == AnswerConfidence.HIGH:
+                confidence = AnswerConfidence.MEDIUM
         summary = raw.get("summary")
         return GroundedAnswer(
             answer=answer,
@@ -733,6 +761,208 @@ def attribute_live_model_refs(
         unsupported_ids=unsupported_ids,
         substantive_claim_count=len(segments),
         claims_with_supporting_refs=supported_claims,
+    )
+
+
+class ClaimAttribution:
+    """Exact claim-text mappings returned by the experimental contract."""
+
+    def __init__(
+        self,
+        *,
+        refs: list[AnswerEvidenceRef],
+        returned_claims: list[Any],
+        valid_claims: list[dict[str, Any]],
+        absent_claims: list[dict[str, Any]],
+        unknown_ref_claims: list[dict[str, Any]],
+        unsupported_claims: list[dict[str, Any]],
+        invalid_refs: list[str],
+        unattributed_claims: list[str],
+        substantive_claim_count: int,
+    ) -> None:
+        self.refs = refs
+        self.returned_claims = returned_claims
+        self.valid_claims = valid_claims
+        self.absent_claims = absent_claims
+        self.unknown_ref_claims = unknown_ref_claims
+        self.unsupported_claims = unsupported_claims
+        self.invalid_refs = invalid_refs
+        self.unattributed_claims = unattributed_claims
+        self.substantive_claim_count = substantive_claim_count
+
+    def as_dict(self) -> dict[str, Any]:
+        valid_count = len(self.valid_claims)
+        if self.substantive_claim_count and not valid_count and self.unsupported_claims:
+            status = "unsupported"
+        elif self.substantive_claim_count and not valid_count:
+            status = "missing"
+        elif self.unattributed_claims:
+            status = "incomplete"
+        elif self.unsupported_claims:
+            status = "unsupported"
+        elif valid_count:
+            status = "valid"
+        else:
+            status = "empty"
+        multi_record_claims = sum(1 for claim in self.valid_claims if len(claim["refs"]) >= 2)
+        return {
+            "status": status,
+            "returned_claims": self.returned_claims,
+            "valid_claims": self.valid_claims,
+            "absent_claims": self.absent_claims,
+            "unknown_ref_claims": self.unknown_ref_claims,
+            "unsupported_claims": self.unsupported_claims,
+            "invalid_refs": list(self.invalid_refs),
+            "unattributed_claims": list(self.unattributed_claims),
+            "substantive_claim_count": self.substantive_claim_count,
+            "valid_claim_count": valid_count,
+            "multi_record_claim_count": multi_record_claims,
+            "valid_refs": [ref.entity_id for ref in self.refs],
+        }
+
+
+def _presentation_normalize(text: str) -> str:
+    """Drop bullet markers and collapse whitespace. Do not rewrite words."""
+    lines: list[str] = []
+    for line in (text or "").splitlines():
+        stripped = re.sub(r"^[\*\-]\s+", "", line.strip())
+        if stripped:
+            lines.append(stripped)
+    compact = " ".join(lines) if lines else (text or "").strip()
+    return re.sub(r"\s+", " ", compact).strip()
+
+
+def _span_key(text: str) -> str:
+    return _presentation_normalize(text).rstrip(".").strip()
+
+
+def _sentence_keys(text: str) -> list[str]:
+    normalized = _presentation_normalize(text)
+    parts = re.split(r"(?<=[.])\s+", normalized)
+    return [part.rstrip(".").strip() for part in parts if part.strip()]
+
+
+def _claim_occurs(claim: str, answer: str) -> bool:
+    """True when the claim is an exact span of the answer, not a shortened word."""
+    needle = _span_key(claim)
+    if not needle:
+        return False
+    hay = _span_key(answer)
+    if needle == hay:
+        return True
+    return re.search(rf"(?<!\w){re.escape(needle)}(?!\w)", hay) is not None
+
+
+def _mapping_covers_segment(claim: str, segment: str) -> bool:
+    claim_key = _span_key(claim)
+    if not claim_key:
+        return False
+    if claim_key == _span_key(segment):
+        return True
+    return claim_key in _sentence_keys(segment)
+
+
+def attribute_claim_mappings(
+    raw_claims: list[Any],
+    evidence: list[CurriculumEvidence],
+    *,
+    answer: str,
+) -> ClaimAttribution:
+    """Validate experimental claim → ref mappings by exact answer text.
+
+    A mapping is kept only when its text occurs in the answer and at least one
+    ref is a supplied record whose wording supports that text. Unknown refs and
+    mappings whose text is absent are rejected. Unrelated refs are reported and
+    are not treated as valid support. Retrieved records are never attached to a
+    claim the model did not map.
+    """
+    if not isinstance(raw_claims, list):
+        raw_claims = []
+    by_id = {item.entity_id: item for item in evidence if item.entity_id}
+    valid_claims: list[dict[str, Any]] = []
+    absent_claims: list[dict[str, Any]] = []
+    unknown_ref_claims: list[dict[str, Any]] = []
+    unsupported_claims: list[dict[str, Any]] = []
+    invalid_refs: list[str] = []
+    refs: list[AnswerEvidenceRef] = []
+    seen_ids: set[str] = set()
+
+    for item in raw_claims:
+        if not isinstance(item, dict):
+            absent_claims.append({"text": "", "refs": []})
+            continue
+        text = str(item.get("text") or "").strip()
+        raw_refs = item.get("refs") or []
+        if not isinstance(raw_refs, list):
+            raw_refs = [raw_refs]
+        identities = [_ref_identity(ref) for ref in raw_refs]
+        if not text or not _claim_occurs(text, answer):
+            for identity in identities:
+                label = identity or "<empty>"
+                if label not in by_id and label not in invalid_refs:
+                    invalid_refs.append(label)
+            absent_claims.append({"text": text, "refs": [identity for identity in identities if identity]})
+            continue
+
+        accepted: list[str] = []
+        unsupported: list[str] = []
+        unknown: list[str] = []
+        seen_local: set[str] = set()
+        for identity in identities:
+            if not identity or identity not in by_id:
+                label = identity or "<empty>"
+                if label not in unknown:
+                    unknown.append(label)
+                if label not in invalid_refs:
+                    invalid_refs.append(label)
+                continue
+            if identity in seen_local:
+                continue
+            seen_local.add(identity)
+            if _record_supports_text(by_id[identity], text):
+                accepted.append(identity)
+            else:
+                unsupported.append(identity)
+
+        if accepted:
+            valid_claims.append({"text": text, "refs": accepted})
+            for identity in accepted:
+                if identity in seen_ids:
+                    continue
+                seen_ids.add(identity)
+                source = by_id[identity]
+                refs.append(
+                    AnswerEvidenceRef(
+                        entity_id=identity,
+                        entity_type=source.entity_type,
+                        claim=text,
+                        name=source.name,
+                        grade=source.grade,
+                        subject=source.subject,
+                        topic=source.topic,
+                    )
+                )
+        if unsupported:
+            unsupported_claims.append({"text": text, "refs": unsupported})
+        if unknown and not accepted:
+            unknown_ref_claims.append({"text": text, "refs": unknown})
+
+    segments = _substantive_segments(answer)
+    unattributed = [
+        _span_key(segment)
+        for segment in segments
+        if not any(_mapping_covers_segment(claim["text"], segment) for claim in valid_claims)
+    ]
+    return ClaimAttribution(
+        refs=refs,
+        returned_claims=list(raw_claims),
+        valid_claims=valid_claims,
+        absent_claims=absent_claims,
+        unknown_ref_claims=unknown_ref_claims,
+        unsupported_claims=unsupported_claims,
+        invalid_refs=invalid_refs,
+        unattributed_claims=unattributed,
+        substantive_claim_count=len(segments),
     )
 
 
