@@ -121,6 +121,17 @@ EXPERIMENTAL_CLAIM_MAPPING_SCHEMA: dict = {
 }
 
 
+POST_GENERATION_CLAIM_SCHEMA: dict = {
+    "title": "PostGenerationClaimAttribution",
+    "type": "object",
+    "properties": {
+        "claims": EXPERIMENTAL_CLAIM_MAPPING_SCHEMA["properties"]["claims"],
+    },
+    "required": ["claims"],
+    "additionalProperties": False,
+}
+
+
 def shadow_claim_generation_schema() -> dict:
     """Production grounded-answer schema plus an optional claims array.
 
