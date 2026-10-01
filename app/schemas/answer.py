@@ -121,6 +121,21 @@ EXPERIMENTAL_CLAIM_MAPPING_SCHEMA: dict = {
 }
 
 
+CANDIDATE_CLAIM_REF_SCHEMA: dict = {
+    "title": "CandidateClaimRefs",
+    "type": "object",
+    "properties": {
+        "refs": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "Candidate record ids that directly support the supplied claim.",
+        },
+    },
+    "required": ["refs"],
+    "additionalProperties": False,
+}
+
+
 POST_GENERATION_CLAIM_SCHEMA: dict = {
     "title": "PostGenerationClaimAttribution",
     "type": "object",
