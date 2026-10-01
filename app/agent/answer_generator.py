@@ -253,9 +253,11 @@ class AnswerGenerator:
                 "### 1. Concept name\n"
                 "Pupils learn to:\n"
                 "* one grounded learning expectation\n"
-                "### Curriculum Evidence Note\n"
-                "Include the evidence note only when source text is incomplete, "
-                "duplicated, or garbled. Omit it when the evidence is intact.\n"
+                "Include a ### Curriculum Evidence Note section only when the "
+                "supplied evidence is incomplete, duplicated, garbled, conflicting, "
+                "or otherwise requires an explanation. Do not output that heading "
+                "when no note is necessary. Clean, complete curriculum topic or "
+                "unit evidence must not include an Evidence Note section.\n"
                 "A question with only one or two relevant records stays short, "
                 "without a long multi-section document.\n"
                 "Do not copy learning-objective codes, unit codes, entity IDs, "
@@ -1793,6 +1795,42 @@ def format_evidence_for_prompt(
     return "\n\n".join(blocks)
 
 
+def _unit_generation_key(name: str) -> str:
+    """Case, spacing, and trailing punctuation, plus a final plural s.
+
+    This is the same lightweight normalization already used for labels.
+    It does not merge distinct names such as shapes vs angles.
+    """
+    tokens = re.findall(r"[a-z0-9]+", (name or "").lower())
+    if tokens:
+        last = tokens[-1]
+        if len(last) > 4 and last.endswith("s") and not last.endswith("ss"):
+            tokens[-1] = last[:-1]
+    return " ".join(tokens)
+
+
+def dedupe_units_for_generation(
+    evidence: list[CurriculumEvidence],
+) -> list[CurriculumEvidence]:
+    """Keep the first unit for each normalized name. Other records stay.
+
+    Returns a new list. The caller's evidence bag is not modified.
+    """
+    seen: set[str] = set()
+    kept: list[CurriculumEvidence] = []
+    for item in evidence:
+        if (item.entity_type or "").lower() != "unit":
+            kept.append(item)
+            continue
+        key = _unit_generation_key(item.name or "")
+        if key and key in seen:
+            continue
+        if key:
+            seen.add(key)
+        kept.append(item)
+    return kept
+
+
 def select_evidence_for_prompt(
     evidence: list[CurriculumEvidence],
     *,
@@ -1802,7 +1840,8 @@ def select_evidence_for_prompt(
     """Return ranked evidence rows supplied to the generator (and their ids)."""
     if not evidence:
         return [], []
-    ranked = _rank_evidence(evidence, question=question)[:max_records]
+    prepared = dedupe_units_for_generation(evidence)
+    ranked = _rank_evidence(prepared, question=question)[:max_records]
     ids = [item.entity_id for item in ranked if item.entity_id]
     return ranked, ids
 

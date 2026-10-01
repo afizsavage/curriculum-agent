@@ -89,6 +89,7 @@ a short introduction when several areas are present, concept headings, and
 bullets for distinct learning expectations. No internal identifiers unless the
 question explicitly asks for a code or id.
 Use `### Curriculum Evidence Note` only when source text is materially limited.
+Do not output that heading when the evidence is complete and no note is necessary.
 Return refs containing only entity_id values from the supplied evidence that
 the answer actually used, including a damaged record cited by an evidence note.
 Do not invent IDs and do not list retrieved records the answer does not use.
