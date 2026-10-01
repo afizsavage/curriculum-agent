@@ -1019,6 +1019,87 @@ def select_deterministic_note_refs(
     }
 
 
+def integrate_shadow_claim(
+    *,
+    claim_text: str,
+    kind: str | None,
+    candidates: list[dict[str, Any]],
+    frozen_model_refs: list[str],
+    support_by_id: dict[str, bool] | None = None,
+) -> dict[str, Any]:
+    """Route one frozen claim through the shadow attribution design.
+
+    Ordinary claims keep the existing model refs. Evidence notes use
+    deterministic grouping and are not sent to a model. Neither path rewrites
+    the claim text.
+    """
+    frozen_refs = [ref for ref in frozen_model_refs if ref]
+    if kind != "evidence_note":
+        return {
+            "path": "model",
+            "claim_text": claim_text,
+            "final_refs": list(frozen_refs),
+            "frozen_model_refs": list(frozen_refs),
+            "ref_change": False,
+            "note_grouping_status": None,
+            "named_issues": [],
+            "refs_per_issue": {},
+            "refs_removed": [],
+            "refs_added": [],
+            "unmatched_issues": [],
+            "support_failures": [],
+            "support": [],
+        }
+    grouped = select_deterministic_note_refs(
+        claim_text,
+        candidates,
+        frozen_refs,
+        support_by_id=support_by_id,
+    )
+    by_id = {item.get("entity_id"): item for item in candidates if item.get("entity_id")}
+    known = support_by_id or {}
+    support_rows: list[dict[str, Any]] = []
+    supported: list[str] = []
+    unsupported: list[str] = []
+    for ref in grouped["deterministic_refs"]:
+        item = by_id.get(ref)
+        recomputed = bool(
+            item and relaxed_record_supports(_candidate_evidence(item), claim_text, kind="evidence_note")
+        )
+        frozen_result = known.get(ref)
+        # A ref already judged on the full source keeps that validator result.
+        # A ref the model never selected is judged on the candidate text alone.
+        passed = recomputed if frozen_result is None else bool(frozen_result)
+        row = {
+            "ref": ref,
+            "recomputed_on_candidate_text": recomputed,
+            "frozen_full_evidence": frozen_result,
+            "supported": passed,
+        }
+        support_rows.append(row)
+        if passed:
+            supported.append(ref)
+        else:
+            unsupported.append(ref)
+    return {
+        "path": "deterministic_note",
+        "claim_text": claim_text,
+        "final_refs": list(grouped["deterministic_refs"]),
+        "frozen_model_refs": list(frozen_refs),
+        "ref_change": list(grouped["deterministic_refs"]) != list(frozen_refs),
+        "note_grouping_status": grouped["note_grouping_status"],
+        "named_issues": grouped["named_issues"],
+        "refs_per_issue": grouped["refs_per_issue"],
+        "refs_removed": grouped["refs_removed"],
+        "refs_added": grouped["refs_added"],
+        "unmatched_issues": grouped["unmatched_issues"],
+        "support_failures": grouped["support_failures"],
+        "support": support_rows,
+        "supported_refs": supported,
+        "unsupported_refs": unsupported,
+    }
+
+
 NOTE_SMALLEST_SET_PROMPT = """You are reducing an evidence-note attribution to the smallest sufficient set.
 
 The note has already been written. Do not rewrite it.

@@ -558,6 +558,39 @@ def test_grouped_record_that_fails_support_is_not_replaced_from_another_issue():
     assert "other" not in result["deterministic_refs"]
 
 
+def test_shadow_integration_routes_notes_and_leaves_ordinary_claims():
+    from app.agent.candidate_attribution import integrate_shadow_claim
+
+    ordinary = integrate_shadow_claim(
+        claim_text="Add like fractions.",
+        kind="bullet",
+        candidates=[_candidate("lo-add", "Add like fractions.", "Add like fractions.", entity_type="learning_outcome")],
+        frozen_model_refs=["lo-add"],
+    )
+    assert ordinary["path"] == "model"
+    assert ordinary["final_refs"] == ["lo-add"]
+    assert ordinary["ref_change"] is False
+
+    note = (
+        'Several unit records carry the same or very similar names '
+        '(for example, multiple units named "Number and Numeration").'
+    )
+    routed = integrate_shadow_claim(
+        claim_text=note,
+        kind="evidence_note",
+        candidates=[
+            _candidate("nn", "Number and Numeration", "Number and Numeration"),
+            _candidate("nn-frac", "Number and Numeration FRACTION", "Number and Numeration FRACTION"),
+            _candidate("nn-approx", "Number and Numeration. Approximation.", "Number and Numeration. Approximation."),
+        ],
+        frozen_model_refs=["nn", "nn-frac", "nn-approx"],
+        support_by_id={"nn": True, "nn-frac": True, "nn-approx": True},
+    )
+    assert routed["path"] == "deterministic_note"
+    assert routed["final_refs"] == ["nn", "nn-frac"]
+    assert routed["unsupported_refs"] == []
+
+
 def test_two_outcome_claim_keeps_both_records_available():
     evidence = _primary3_fractions_evidence()
     selected = select_candidates(
