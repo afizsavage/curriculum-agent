@@ -74,6 +74,10 @@ def run_deterministic_checks(state: CurriculumQAState) -> VerificationResult:
                 detail="No retrieved evidence.",
             )
         )
+        recommendation = _clarify_or_retrieve(state)
+        clarification = None
+        if recommendation == VerificationRecommendation.CLARIFY:
+            clarification = "Which grade or level would you like me to check?"
         return _result(
             passed=False,
             score=0.1,
@@ -82,7 +86,8 @@ def run_deterministic_checks(state: CurriculumQAState) -> VerificationResult:
             incorrect=incorrect,
             missing=missing,
             claims=claims,
-            recommendation=_clarify_or_retrieve(state),
+            recommendation=recommendation,
+            clarification=clarification,
             metadata={"source": "deterministic", "no_evidence": True},
         )
 
@@ -287,6 +292,14 @@ def _looks_ambiguous(state: CurriculumQAState) -> bool:
     q = state.question.lower()
     if state.grade:
         return False
+    # Classification is grade-scoped — never silently pick a grade.
+    if state.classification:
+        return True
+    if re.search(
+        r"\b(core|non[-\s]?core|optional|elective)\s+subjects?\b",
+        q,
+    ):
+        return True
     broad = any(
         phrase in q
         for phrase in (

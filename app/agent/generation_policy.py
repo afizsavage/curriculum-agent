@@ -222,14 +222,29 @@ def redact_internal_identifiers(
     """Remove internal ids from user-facing prose. Evidence objects are unchanged."""
     text = answer or ""
     needles: list[str] = []
+    exact_needles: list[str] = []
     for item in evidence or []:
         if item.entity_id and len(str(item.entity_id)) >= 4:
             needles.append(str(item.entity_id))
         code = (item.metadata or {}).get("code")
         if code:
-            needles.append(str(code))
+            code_text = str(code)
+            # Subject codes such as ENGLISH match the display name "English"
+            # when matching ignores case. Remove only the raw code.
+            if re.fullmatch(r"[A-Z][A-Z0-9_]{1,40}", code_text):
+                exact_needles.append(code_text)
+            else:
+                needles.append(code_text)
         if item.name and _INTERNAL_IDENTIFIER_RE.search(str(item.name)):
             needles.append(str(item.name).strip())
+    for needle in sorted(set(exact_needles), key=len, reverse=True):
+        if len(needle) < 3:
+            continue
+        text = re.sub(
+            rf"(?<![A-Za-z0-9]){re.escape(needle)}(?![A-Za-z0-9])",
+            "",
+            text,
+        )
     for needle in sorted(set(needles), key=len, reverse=True):
         if len(needle) < 3:
             continue

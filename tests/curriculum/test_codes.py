@@ -1,8 +1,16 @@
 from app.curriculum.codes import (
     extract_filters_from_question,
+    normalize_classification,
     normalize_grade_code,
     normalize_subject_code,
 )
+
+
+def test_normalize_classification_variants():
+    assert normalize_classification("core") == "CORE"
+    assert normalize_classification("non-core") == "NON_CORE"
+    assert normalize_classification("NON_CORE") == "NON_CORE"
+    assert normalize_classification("optional") == "OPTIONAL"
 
 
 def test_normalize_grade_variants():
@@ -24,3 +32,12 @@ def test_extract_filters_from_question():
     )
     assert filters["grade"] == "CLASS_4"
     assert filters["subject"] == "MATHEMATICS"
+    assert filters["classification"] is None
+
+
+def test_extract_core_classification_filter():
+    filters = extract_filters_from_question(
+        "What are the core subjects in Primary 3?"
+    )
+    assert filters["grade"] == "CLASS_3"
+    assert filters["classification"] == "CORE"

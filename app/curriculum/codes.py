@@ -23,6 +23,7 @@ _SUBJECT_ALIASES: dict[str, str] = {
     "science": "SCIENCE",
     "social studies": "SOCIAL_STUDIES",
     "agricultural science": "AGRICULTURAL_SCIENCE",
+    "ict literacy": "ICT_LITERACY",
     "ict": "ICT",
     "fundamentals of mathematics": "FUNDAMENTALS_MATHEMATICS",
     "fundamentals mathematics": "FUNDAMENTALS_MATHEMATICS",
@@ -95,6 +96,43 @@ def default_curriculum_for_grade(grade_code: str | None) -> tuple[str, str]:
     return "MBSSE-BEC", "2020"
 
 
+# Canonical GradeSubject classifications plus NON_CORE (agent-side: not CORE).
+_CLASSIFICATIONS = frozenset({"CORE", "OPTIONAL", "ELECTIVE", "AVAILABLE", "NON_CORE"})
+
+
+def normalize_classification(value: str | None) -> str | None:
+    """Map NL / enum text to a grade-subject classification constraint."""
+    if not value:
+        return None
+    text = value.strip().upper().replace("-", "_").replace(" ", "_")
+    if text in _CLASSIFICATIONS:
+        return text
+    if text in {"NONCORE", "NON_CORE_SUBJECT", "NON_CORE_SUBJECTS"}:
+        return "NON_CORE"
+    return None
+
+
+def extract_classification_from_question(question: str) -> str | None:
+    """Detect CORE / NON_CORE / OPTIONAL / ELECTIVE constraints in a question.
+
+    Grade-subject classification is grade-scoped metadata. Extraction alone does
+    not imply a grade; callers must keep grade + classification paired.
+    """
+    lower = question.lower()
+    # Prefer explicit non-core before bare "core" (non-core contains "core").
+    if re.search(r"\bnon[-\s]?core\b", lower):
+        return "NON_CORE"
+    if re.search(r"\boptional\b", lower):
+        return "OPTIONAL"
+    if re.search(r"\belective\b", lower):
+        return "ELECTIVE"
+    if re.search(r"\bcore\b", lower):
+        return "CORE"
+    if re.search(r"\bavailable\b", lower) and re.search(r"\bsubjects?\b", lower):
+        return "AVAILABLE"
+    return None
+
+
 def extract_filters_from_question(question: str) -> dict[str, Optional[str]]:
     """Lightweight heuristic filters for understand() / stub tool calling."""
     grade = normalize_grade_code(question)
@@ -114,9 +152,11 @@ def extract_filters_from_question(question: str) -> dict[str, Optional[str]]:
         topic = "fractions"
     elif "measurement" in lower:
         topic = "measurement"
+    classification = extract_classification_from_question(question)
     return {
         "grade": grade,
         "subject": subject,
         "level": level,
         "topic": topic,
+        "classification": classification,
     }

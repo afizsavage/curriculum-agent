@@ -9,7 +9,7 @@ from typing import Any, Optional
 
 from app.agent.context import ConversationContext
 from app.agent.state import CurriculumQAState
-from app.curriculum.codes import normalize_grade_code
+from app.curriculum.codes import normalize_classification, normalize_grade_code
 from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus
 from app.exceptions import LLMProviderError
 from app.llm.base import LLMMessage, LLMProvider
@@ -55,6 +55,9 @@ Core rules:
 6. STYLE: Write for pupils, teachers, and education users. Synthesize the
    evidence into concise natural language. Do not expose internal curriculum
    identifiers unless the question asks for them.
+7. SUBJECT NAMES: Use human-readable subject names only (e.g. English, Mathematics).
+   Never include subject codes such as ENGLISH, MATHEMATICS, or "(Code: …)" in the
+   answer text.
 
 {EVIDENCE_CONSERVATIVE_RULES}
 """
@@ -236,6 +239,8 @@ class AnswerGenerator:
             "Return refs: the entity_id values of supplied records this answer "
             "actually used. Do not invent IDs and do not include unused records.\n"
             "Set limitations when evidence is partial, ambiguous, or source text is damaged.\n"
+            "Use subject display names only — never include subject codes "
+            "(e.g. ENGLISH, MATHEMATICS) or '(Code: …)' in the answer.\n"
         )
         if question_requests_identifiers(state.question):
             user_content += (
@@ -488,7 +493,9 @@ class AnswerGenerator:
         confidence = answer.confidence
 
         if not state.evidence:
-            return answer
+            return answer.model_copy(
+                update={"answer": _strip_subject_codes(answer.answer)}
+            )
 
         question_grade = normalize_grade_code(state.grade or state.question)
         evidence_grades = {
@@ -516,8 +523,14 @@ class AnswerGenerator:
                 "used to write it, so attribution is incomplete."
             )
 
+        cleaned = _strip_subject_codes(answer.answer)
+        cleaned = _ensure_subject_list_scope_heading(state, cleaned)
         return answer.model_copy(
-            update={"limitations": limitations, "confidence": confidence}
+            update={
+                "answer": cleaned,
+                "limitations": limitations,
+                "confidence": confidence,
+            }
         )
 
     @staticmethod
@@ -528,6 +541,7 @@ class AnswerGenerator:
             "grade": state.grade,
             "subject": state.subject,
             "topic": state.topic,
+            "classification": state.classification,
         }
         return json.dumps({k: v for k, v in payload.items() if v}, indent=2)
 
@@ -1110,8 +1124,13 @@ def _render_stub_answer(
         named = [s for s in subjects if s.name and _public_name(s.name)]
         names = sorted({s.name for s in named if s.name})
         if names:
+            heading = subject_list_heading(
+                grade_code=state.grade or _first_attr(evidence, "grade"),
+                classification=state.classification,
+            )
+            if heading:
+                lines = [f"## {heading}"]
             lines.append("")
-            lines.append("Subjects include:")
             lines.extend(f"* {name}" for name in names)
             used = named
     elif outcomes:
@@ -1739,6 +1758,25 @@ def _best_content_matches(
     return [item for score, item in scored if score == best]
 
 
+_SUBJECT_CODE_PAREN = re.compile(
+    r"\s*\(\s*[Cc]ode\s*:\s*[A-Z][A-Z0-9_]{1,40}\s*\)"
+)
+_SUBJECT_CODE_LINE = re.compile(
+    r"(?m)^\s*[Cc]ode\s*:\s*[A-Z][A-Z0-9_]{1,40}\s*$"
+)
+
+
+def _strip_subject_codes(text: str) -> str:
+    """Remove subject-code annotations from user-facing answer text."""
+    if not text:
+        return text
+    cleaned = _SUBJECT_CODE_PAREN.sub("", text)
+    cleaned = _SUBJECT_CODE_LINE.sub("", cleaned)
+    cleaned = re.sub(r"[ \t]+\n", "\n", cleaned)
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    return cleaned.strip()
+
+
 def format_evidence_for_prompt(
     evidence: list[CurriculumEvidence],
     *,
@@ -1772,7 +1810,8 @@ def format_evidence_for_prompt(
         if item.source_reference:
             lines.append(f"Source: {item.source_reference}")
         code = item.metadata.get("code") if item.metadata else None
-        if code:
+        # Subject codes (e.g. ENGLISH) belong in filters, not user-facing answers.
+        if code and (item.entity_type or "").lower() != "subject":
             lines.append(f"Code: {code}")
         eq = (item.metadata or {}).get("evidence_quality")
         if isinstance(eq, dict):
@@ -1918,6 +1957,129 @@ def _display_grade(code: str | None) -> str | None:
     if code.startswith("SSS_"):
         return f"SSS {code.split('_', 1)[1]}"
     return code
+
+
+def _display_classification(classification: str | None) -> str | None:
+    """Human label for a resolved GradeSubject classification constraint."""
+    normalized = normalize_classification(classification)
+    if not normalized:
+        return None
+    labels = {
+        "CORE": "Core",
+        "NON_CORE": "Non-Core",
+        "OPTIONAL": "Optional",
+        "ELECTIVE": "Elective",
+        "AVAILABLE": "Available",
+    }
+    return labels.get(normalized, normalized.replace("_", "-").title())
+
+
+def subject_list_heading(
+    *,
+    grade_code: str | None,
+    classification: str | None = None,
+) -> str | None:
+    """Authoritative subject-list heading from resolved grade + classification.
+
+    Derived only from structured resolved context — never from answer text or
+    LLM inference. Omits a classification qualifier when none was resolved.
+    """
+    grade_label = _display_grade(normalize_grade_code(grade_code) or grade_code)
+    if not grade_label:
+        return None
+    class_label = _display_classification(classification)
+    if class_label:
+        return f"{class_label} Subjects Listed for {grade_label}"
+    return f"Subjects Listed for {grade_label}"
+
+
+_SUBJECT_SCOPE_HEADING = re.compile(
+    r"(?im)^(#{1,3}\s*)("
+    r"(?:primary|class|jss|sss)\s*\d+\s+subjects?\b.*"
+    r"|"
+    r".*\bsubjects?\b.*\b(?:primary|class|jss|sss)\s*\d+\b.*"
+    r"|"
+    r"subjects?\s+include\b.*"
+    r"|"
+    r"(?:core|non[-\s]?core|optional|elective|available)\s+subjects?\b.*"
+    r")\s*$"
+)
+
+
+def _ensure_subject_list_scope_heading(
+    state: CurriculumQAState, text: str
+) -> str:
+    """Rewrite subject-list headings so they match resolved evidence scope.
+
+    Invariant: the heading must not describe a broader curriculum scope than
+    the resolved grade (+ optional classification) that produced the evidence.
+    """
+    if not text or not text.strip():
+        return text
+
+    subject_evidence = [
+        e for e in state.evidence if (e.entity_type or "").lower() == "subject"
+    ]
+    if not subject_evidence:
+        return text
+
+    # Topic / LO answers are not subject-catalogue scopes.
+    other_types = {
+        (e.entity_type or "").lower()
+        for e in state.evidence
+        if (e.entity_type or "").lower()
+        in {"topic", "subtopic", "unit", "strand", "learning_outcome"}
+    }
+    if other_types and not state.classification:
+        return text
+
+    # Single-subject identity questions without a classification constraint.
+    if state.subject and not state.classification:
+        q = (state.question or "").lower()
+        if not re.search(r"\bsubjects?\b", q):
+            return text
+
+    heading = subject_list_heading(
+        grade_code=state.grade or _first_attr(state.evidence, "grade"),
+        classification=state.classification,
+    )
+    if not heading:
+        return text
+
+    lines = text.splitlines()
+    # Skip leading blank lines when locating the title.
+    idx = 0
+    while idx < len(lines) and not lines[idx].strip():
+        idx += 1
+    if idx >= len(lines):
+        return text
+
+    first = lines[idx]
+    match = _SUBJECT_SCOPE_HEADING.match(first)
+    if match:
+        hashes = re.match(r"^(#{1,3})\s*", first)
+        marker = f"{hashes.group(1)} " if hashes else "## "
+        lines[idx] = f"{marker}{heading}"
+        return "\n".join(lines)
+
+    # LLM sometimes uses a plain first line without markdown hashes.
+    plain = first.strip()
+    grade_label = _display_grade(
+        normalize_grade_code(state.grade) or state.grade
+    )
+    if re.search(r"\bsubjects?\b", plain, re.I) and grade_label and (
+        grade_label.lower() in plain.lower()
+    ):
+        lines[idx] = f"## {heading}"
+        return "\n".join(lines)
+
+    # Classification-constrained subject catalogues must not keep a broader title;
+    # if no replaceable heading exists, prepend the authoritative one.
+    if state.classification and len(subject_evidence) >= 2:
+        body = "\n".join(lines[idx:]).lstrip()
+        return f"## {heading}\n\n{body}"
+
+    return text
 
 
 def _display_subject(code: str | None) -> str | None:

@@ -45,6 +45,9 @@ class CurriculumQAState(BaseModel):
     grade: Optional[str] = None
     subject: Optional[str] = None
     topic: Optional[str] = None
+    # GradeSubject.classification constraint (CORE / OPTIONAL / … / NON_CORE).
+    # Always interpreted within the resolved grade — never as a global subject property.
+    classification: Optional[str] = None
 
     plan: Optional[list[PlanStep]] = None
     retrieved_context: list[RetrievedContextItem] = Field(default_factory=list)
