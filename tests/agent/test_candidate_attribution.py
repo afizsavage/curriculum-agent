@@ -1,0 +1,607 @@
+"""Constrained candidate attribution reads frozen claims and does not rewrite them."""
+
+from app.agent.answer_generator import AnswerGenerator
+from app.agent.candidate_attribution import (
+    CANDIDATE_ATTRIBUTION_PROMPT,
+    attribute_one_claim,
+    extract_answer_claims,
+    measure_candidate_case,
+    select_candidates,
+)
+from app.agent.state import CurriculumQAState
+from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus
+from app.llm.base import LLMProvider, LLMResponse
+from app.llm.provider import StubLLMProvider
+from app.schemas.answer import CANDIDATE_CLAIM_REF_SCHEMA, GROUNDED_ANSWER_JSON_SCHEMA
+from tests.agent.test_answer_synthesis import (
+    _primary3_fractions_evidence,
+    _primary4_fractions_evidence,
+)
+
+
+class _RefModel(LLMProvider):
+    def __init__(self, payload: dict) -> None:
+        self._payload = payload
+
+    @property
+    def name(self) -> str:
+        return "openai"
+
+    @property
+    def model(self) -> str:
+        return "candidate-fake"
+
+    def generate(self, messages, *, temperature=0.0, max_tokens=None) -> LLMResponse:
+        return LLMResponse(content="unused")
+
+    def generate_structured(self, messages, *, schema, temperature=0.0) -> dict:
+        self.schema = schema
+        self.messages = messages
+        return self._payload
+
+    def generate_with_tools(self, messages, *, tools, temperature=0.0) -> LLMResponse:
+        return LLMResponse(content="unused")
+
+
+def _outcome(entity_id: str, content: str, *, name: str | None = None) -> CurriculumEvidence:
+    return CurriculumEvidence(
+        entity_type="learning_outcome",
+        entity_id=entity_id,
+        name=name or entity_id,
+        grade="CLASS_4",
+        subject="MATHEMATICS",
+        topic="Fractions",
+        content=content,
+    )
+
+
+def test_extractor_keeps_bullets_and_notes_and_skips_presentation():
+    answer = """# Primary 2 Mathematics — Topics
+
+The Primary 2 Mathematics curriculum covers the following areas:
+
+### 1. Everyday Arithmetic
+Pupils learn everyday arithmetic, including number patterns.
+
+### 2. Operations
+Pupils learn to:
+* Add like fractions.
+*
+
+### Curriculum Evidence Note
+One learning outcome is incomplete in the source.
+"""
+    claims = extract_answer_claims(answer)
+    texts = [item["text"] for item in claims]
+    assert texts == [
+        "Pupils learn everyday arithmetic, including number patterns.",
+        "Add like fractions.",
+        "One learning outcome is incomplete in the source.",
+    ]
+    assert [item["kind"] for item in claims] == [
+        "section_statement",
+        "bullet",
+        "evidence_note",
+    ]
+    headings_only = """# Primary 4 Social Studies — Topics
+
+Primary 4 Social Studies covers the following units:
+
+### 1. Healthy Living
+### 2. Our Natural Resources
+"""
+    assert extract_answer_claims(headings_only) == []
+
+
+def test_candidates_prefer_the_garbled_outcome_over_the_empty_unit():
+    evidence = _primary4_fractions_evidence()
+    claim = {
+        "text": "Multiply fractions.",
+        "kind": "bullet",
+        "heading": "Fraction Multiplication",
+    }
+    selected = select_candidates(claim, evidence, ["lo-multiply-garbled", "unit-multiplication"])
+    ids = [item["entity_id"] for item in selected["candidates"]]
+    assert "lo-multiply-garbled" in ids
+    assert ids[0] == "lo-multiply-garbled"
+    assert "unit-multiplication" in ids
+    assert selected["candidate_count"] <= 8
+
+
+def test_unrelated_records_and_bare_production_refs_stay_out():
+    evidence = [
+        _outcome("LO_ADD", "Add like fractions."),
+        _outcome("LO_WATER", "Describe the water cycle in the local environment."),
+        _outcome("LO_SUB", "Subtract like fractions."),
+    ]
+    evidence[1] = evidence[1].model_copy(update={"topic": "Water"})
+    selected = select_candidates(
+        {"text": "Add like fractions.", "kind": "bullet", "heading": "Operations"},
+        evidence,
+        ["LO_ADD", "LO_WATER"],
+    )
+    ids = [item["entity_id"] for item in selected["candidates"]]
+    assert ids[0] == "LO_ADD"
+    assert "LO_WATER" not in ids
+    assert "LO_SUB" in ids
+
+
+def test_candidate_truncation_is_recorded():
+    evidence = [
+        _outcome(f"LO_{index}", f"Add like fractions item {index}.")
+        for index in range(9)
+    ]
+    selected = select_candidates(
+        {"text": "Add like fractions.", "kind": "bullet", "heading": None},
+        evidence,
+        [],
+    )
+    assert selected["truncated"] is True
+    assert selected["candidate_count"] == 8
+    assert selected["candidate_count_before_cap"] == 9
+    assert len(selected["omitted_ids"]) == 1
+
+
+def test_model_selection_is_kept_when_the_lexical_check_rejects_it():
+    evidence = [
+        _outcome("LO_ADD", "Add like fractions."),
+        _outcome("LO_NEAR", "Identify unit fractions with denominators 1-5."),
+    ]
+    claim = {"text": "Add like fractions.", "kind": "bullet", "heading": "Operations"}
+    selected = select_candidates(claim, evidence, ["LO_ADD"])
+    result = attribute_one_claim(
+        _RefModel({"answer": "Add fractions.", "refs": ["LO_NEAR", "FAKE", "LO_ADD"]}),
+        question="What should pupils learn?",
+        claim_text=claim["text"],
+        candidates=selected["candidates"],
+        evidence=evidence,
+    )
+    assert result["model_refs"] == ["LO_NEAR", "FAKE", "LO_ADD"]
+    assert result["model-selected-valid-lexically"] == ["LO_ADD"]
+    assert "LO_NEAR" in result["model-selected-but-lexically-rejected"]
+    assert result["model-selected-unknown"] == ["FAKE"]
+    assert result["discarded_answer_field"] == "Add fractions."
+    assert "answer" not in CANDIDATE_CLAIM_REF_SCHEMA["properties"]
+    messages = build_messages_for(claim["text"], selected["candidates"])
+    assert "Prefer the smallest sufficient set" in (messages[0].content or "")
+    assert "Add like fractions." in (messages[1].content or "")
+    assert "LO_WATER" not in (messages[1].content or "")
+    assert "DO NOT rewrite" in CANDIDATE_ATTRIBUTION_PROMPT
+
+
+def build_messages_for(claim_text, candidates):
+    from app.agent.candidate_attribution import build_candidate_messages
+
+    return build_candidate_messages(
+        question="What should pupils learn?",
+        claim_text=claim_text,
+        candidates=candidates,
+    )
+
+
+def test_empty_selection_is_distinct_from_a_missing_candidate_set():
+    evidence = [_outcome("LO_ADD", "Add like fractions.")]
+    empty = attribute_one_claim(
+        _RefModel({"refs": []}),
+        question="What should pupils learn?",
+        claim_text="Add like fractions.",
+        candidates=select_candidates(
+            {"text": "Add like fractions.", "kind": "bullet", "heading": None},
+            evidence,
+            [],
+        )["candidates"],
+        evidence=evidence,
+    )
+    assert empty["model-selected-empty"] is True
+    omitted = attribute_one_claim(
+        _RefModel({"refs": ["LO_ADD"]}),
+        question="What should pupils learn?",
+        claim_text="Describe the water cycle.",
+        candidates=[],
+        evidence=evidence,
+    )
+    assert omitted["no_candidates"] is True
+    assert omitted["model_called"] is False
+    metrics = measure_candidate_case(
+        answer="* Add like fractions.",
+        claim_rows=[
+            {
+                "text": "Add like fractions.",
+                "kind": "bullet",
+                "candidate_count": 1,
+                "truncated": False,
+                "selection": empty,
+            },
+            {
+                "text": "Describe the water cycle.",
+                "kind": "bullet",
+                "candidate_count": 0,
+                "truncated": False,
+                "selection": omitted,
+            },
+        ],
+    )
+    assert metrics["empty_mappings"] == 1
+    assert metrics["no_candidate_claims"] == 1
+    assert metrics["covered_claims"] == 0
+
+
+def test_primary3_note_candidate_includes_the_incomplete_record():
+    evidence = _primary3_fractions_evidence()
+    note = (
+        "One learning outcome about identifying equivalent fractions is incomplete "
+        'in the source: the wording stops after "with denominators up to" and does '
+        "not state the denominator range."
+    )
+    selected = select_candidates(
+        {"text": note, "kind": "evidence_note", "heading": "Curriculum Evidence Note"},
+        evidence,
+        ["lo-p3-equivalent-incomplete"],
+    )
+    ids = [item["entity_id"] for item in selected["candidates"]]
+    assert "lo-p3-equivalent-incomplete" in ids
+
+
+def test_production_prompt_is_unchanged():
+    assert "refs" in CANDIDATE_CLAIM_REF_SCHEMA["properties"]
+    assert "claims" not in GROUNDED_ANSWER_JSON_SCHEMA["properties"]
+    state = CurriculumQAState.initial(question="What should pupils learn?")
+    state.evidence = [_outcome("LO_ADD", "Add like fractions.")]
+    state.evidence_status = EvidenceStatus.FOUND
+    production = AnswerGenerator(StubLLMProvider()).build_messages(state)[1].content or ""
+    assert "smallest sufficient set" not in production
+    assert "CANDIDATE RECORDS" not in production
+
+
+def test_duplicate_generic_units_do_not_crowd_out_a_specific_record():
+    generic = [
+        CurriculumEvidence(
+            entity_type="unit",
+            entity_id=f"unit-{index}",
+            name="Everyday Arithmetic",
+            content="Everyday Arithmetic",
+            grade="CLASS_2",
+            subject="MATHEMATICS",
+        )
+        for index in range(8)
+    ]
+    specific = CurriculumEvidence(
+        entity_type="unit",
+        entity_id="unit-patterns",
+        name="Everyday Arithmetic NUMBER PARTERN",
+        content="Everyday Arithmetic NUMBER PARTERN",
+        grade="CLASS_2",
+        subject="MATHEMATICS",
+    )
+    selected = select_candidates(
+        {
+            "text": "Pupils learn everyday arithmetic, including number patterns.",
+            "kind": "section_statement",
+            "heading": "Everyday Arithmetic",
+        },
+        [*generic, specific],
+        [],
+    )
+    ids = [item["entity_id"] for item in selected["candidates"]]
+    assert "unit-patterns" in ids
+    assert selected["candidates_removed_as_duplicates"] == 7
+    assert sum(1 for item in selected["candidates"] if item["name"] == "Everyday Arithmetic") == 1
+
+
+def test_relaxed_checker_accepts_short_spans_and_rejects_a_different_operation():
+    from app.agent.answer_generator import _record_supports_text
+    from app.agent.candidate_attribution import relaxed_record_supports
+
+    reading = _outcome(
+        "LO_READ",
+        "Identify words in sentences, read independently and answer questions on passages read.",
+    )
+    assert _record_supports_text(reading, "Identify words in sentences.") is False
+    assert relaxed_record_supports(reading, "Identify words in sentences.") is True
+    subject = CurriculumEvidence(
+        entity_type="subject",
+        entity_id="agricultural",
+        name="Agricultural Science",
+        content="Agricultural Science",
+    )
+    assert relaxed_record_supports(subject, "Agricultural") is True
+    subtract = _outcome("LO_SUB", "Subtract like fractions.")
+    assert relaxed_record_supports(subtract, "Add like fractions.") is False
+    water = _outcome("LO_WATER", "Describe the water cycle in the local environment.")
+    assert relaxed_record_supports(water, "Add like fractions.") is False
+
+
+def test_morphology_and_number_words_stay_narrow():
+    from app.agent.candidate_attribution import relaxed_record_supports
+
+    length = CurriculumEvidence(
+        entity_type="unit",
+        entity_id="length",
+        name="Measurement And Estimation LENGTH",
+        content="Measurement And Estimation LENGTH",
+    )
+    claim = "Measure and estimate length"
+    assert relaxed_record_supports(length, claim) is True
+    volume = _outcome("LO_VOL", "Estimation of volume using standard measures.")
+    assert relaxed_record_supports(volume, claim) is False
+    temperature = _outcome("LO_TEMP", "Measurement of temperature.")
+    assert relaxed_record_supports(temperature, "Measure and estimate length") is False
+
+    operations = _outcome(
+        "LO_OPS",
+        "Convert mixed fractions and improper fractions. Use the 4 operations on fractions. (+,-,x,/).",
+    )
+    four = (
+        "Use the four operations on fractions "
+        "(addition, subtraction, multiplication and division)."
+    )
+    assert relaxed_record_supports(operations, four) is True
+    assert relaxed_record_supports(operations, "Use the five operations on fractions.") is False
+    assert relaxed_record_supports(
+        _outcome("LO_TWO", "Use the two operations on fractions."),
+        "Use the four operations on fractions.",
+    ) is False
+    assert relaxed_record_supports(
+        _outcome("LO_FRAC", "Use the 4 fractions on the number line."),
+        "Use the 4 operations on fractions.",
+    ) is False
+    assert relaxed_record_supports(
+        _outcome("LO_FIVE", "Count five objects."),
+        "Count four objects.",
+    ) is False
+    assert relaxed_record_supports(
+        _outcome("LO_DIV", "Divide like fractions."),
+        "Multiply like fractions.",
+    ) is False
+    assert relaxed_record_supports(
+        _outcome("LO_BACK", "Count backwards from 100 to 10."),
+        "Count forward from 10.",
+    ) is False
+    assert relaxed_record_supports(
+        _outcome("LO_SOLVE", "Solve word problems involving unit fractions."),
+        "Identify unit fractions.",
+    ) is False
+    assert relaxed_record_supports(
+        _outcome("LO_DEC", "Convert decimals to percentages."),
+        "Convert fractions to percentages.",
+    ) is False
+
+
+def test_evidence_note_protects_a_named_decimal_outcome_from_the_cap():
+    fillers = [
+        _outcome(
+            f"LO_FILL_{index}",
+            f"This affects multiplication outcomes in several statements example {index}.",
+        )
+        for index in range(8)
+    ]
+    decimal = _outcome("LO_DEC", "Multiply decimal to 1 decimal place by")
+    divide_decimal = _outcome("LO_DIV_DEC", "Divide decimal to 1 decimal place by")
+    unrelated = _outcome("LO_LONG", "Use long multiplication for 3-digit numbers by a 1-digit number.")
+    note = (
+        "Some learning outcome statements are incomplete or repeated. "
+        "This affects the decimal multiplication outcomes."
+    )
+    selected = select_candidates(
+        {"text": note, "kind": "evidence_note", "heading": "Curriculum Evidence Note"},
+        [*fillers, unrelated, decimal, divide_decimal],
+        [],
+        max_candidates=2,
+    )
+    ids = [item["entity_id"] for item in selected["candidates"]]
+    assert "LO_DEC" in ids
+    assert "LO_DEC" in selected["note_protected_candidates_that_would_have_been_truncated"]
+    assert "LO_LONG" not in selected["note_protected_candidates"]
+    assert "LO_DIV_DEC" not in selected["note_protected_candidates"]
+
+
+def test_repeated_unit_name_protection_does_not_keep_every_related_name():
+    fillers = [
+        _outcome(f"LO_FILL_{index}", f"Unrelated counting skill number {index} with no shared title.")
+        for index in range(8)
+    ]
+    plain = _outcome("UNIT_PLAIN", "Number and Numeration", name="Number and Numeration")
+    longer = _outcome("UNIT_LONG", "Number and Numeration FRACTION", name="Number and Numeration FRACTION")
+    note = (
+        'Several unit records carry the same name (for example, multiple units named "Number and Numeration"). '
+        "The exact distinction between these repeated units is not clear."
+    )
+    selected = select_candidates(
+        {"text": note, "kind": "evidence_note", "heading": "Curriculum Evidence Note"},
+        [*fillers, longer, plain],
+        [],
+        max_candidates=2,
+    )
+    protected = selected["note_protected_candidates"]
+    assert "UNIT_PLAIN" in protected
+    assert "UNIT_LONG" not in protected
+
+
+def _candidate(entity_id: str, name: str, content: str, *, entity_type: str = "unit") -> dict:
+    return {
+        "entity_id": entity_id,
+        "entity_type": entity_type,
+        "name": name,
+        "content": content,
+        "generic_structural": entity_type == "unit",
+        "empty_content": not content.strip(),
+    }
+
+
+def test_deterministic_note_grouping_keeps_two_records_for_a_repeated_name():
+    from app.agent.candidate_attribution import select_deterministic_note_refs
+
+    note = (
+        'Several unit records carry the same or very similar names '
+        '(for example, multiple units named "Number and Numeration", "Everyday Arithmetic", '
+        'and "Measurement and Estimation").'
+    )
+    candidates = [
+        _candidate("nn", "Number and Numeration", "Number and Numeration"),
+        _candidate("nn-frac", "Number and Numeration FRACTION", "Number and Numeration FRACTION"),
+        _candidate("nn-approx", "Number and Numeration. Approximation.", "Number and Numeration. Approximation."),
+        _candidate("ea", "Everyday Arithmetic", "Everyday Arithmetic"),
+        _candidate("ea-div", "Everyday Arithmetic DIVISION", "Everyday Arithmetic DIVISION"),
+        _candidate("ea-money", "Everyday Arithmetic Money", "Everyday Arithmetic Money"),
+        _candidate("meas", "Measurement and Estimation", "Measurement and Estimation"),
+    ]
+    result = select_deterministic_note_refs(note, candidates, [item["entity_id"] for item in candidates])
+    assert result["note_grouping_status"] == "resolved"
+    assert result["deterministic_refs"] == ["nn", "nn-frac", "ea", "ea-div", "meas"]
+    assert result["refs_removed"] == ["nn-approx", "ea-money"]
+    assert result["refs_added"] == []
+
+
+def test_deterministic_note_grouping_keeps_additional_wording_variants():
+    from app.agent.candidate_attribution import select_deterministic_note_refs
+
+    note = (
+        "The evidence lists these topic areas as unit names, but the individual learning "
+        "objectives within each unit are not included in the supplied records. Some unit "
+        "names are repeated across multiple records, and a few names include additional "
+        "wording (for example, fractions and number patterns)."
+    )
+    candidates = [
+        _candidate("frac", "Number and Numeration FRACTION", "Number and Numeration FRACTION"),
+        _candidate("plain", "Number and Numeration.", "Number and Numeration."),
+        _candidate("pattern", "Everyday Arithmetic NUMBER PARTERN", "Everyday Arithmetic NUMBER PARTERN"),
+    ]
+    result = select_deterministic_note_refs(note, candidates, ["frac", "plain", "pattern"])
+    assert result["note_grouping_status"] == "resolved"
+    assert result["deterministic_refs"] == ["frac", "pattern", "plain"]
+    assert result["refs_removed"] == []
+
+
+def test_deterministic_note_grouping_keeps_each_named_damaged_outcome():
+    from app.agent.candidate_attribution import select_deterministic_note_refs
+
+    note = (
+        "Some learning outcome statements are incomplete or repeated. This affects the "
+        "mental strategies outcome, the whole-number and decimal multiplication outcomes, "
+        "and the outcome on multiplying like and related fractions."
+    )
+    candidates = [
+        _candidate("like", "C4U06-LO02", "Multiply like fractions with denominators up to multiply related fractions", entity_type="learning_outcome"),
+        _candidate("mental", "C4U19-LO05", "Mental strategies for multiplication and division by", entity_type="learning_outcome"),
+        _candidate("whole", "C4U19-LO01", "Multiply whole numbers up to 5 digits by", entity_type="learning_outcome"),
+        _candidate("decimal", "C4U19-LO02", "Multiply decimal to 1 decimal place by", entity_type="learning_outcome"),
+        _candidate("divide-decimal", "C4U19-LO04", "Divide decimal to 1 decimal place by", entity_type="learning_outcome"),
+        _candidate("long", "C4U13-LO05", "Use long Multiplication --3-digit numbers by 1-digit number without renaming.", entity_type="learning_outcome"),
+    ]
+    result = select_deterministic_note_refs(
+        note,
+        candidates,
+        ["like", "mental", "whole", "decimal"],
+    )
+    assert result["deterministic_refs"] == ["mental", "whole", "decimal", "like"]
+    assert "divide-decimal" not in result["deterministic_refs"]
+    assert "long" not in result["deterministic_refs"]
+    assert result["refs_removed"] == []
+
+
+def test_deterministic_note_grouping_does_not_cite_a_readable_nearby_outcome():
+    from app.agent.candidate_attribution import select_deterministic_note_refs
+
+    note = (
+        "One outcome combines solving problems on like fractions with comparing and ordering "
+        "fractions in a way that is not fully clear, and another refers to using the four "
+        "operations on fractions without further detail."
+    )
+    candidates = [
+        _candidate(
+            "damaged",
+            "C5U05-LO01",
+            "Solve problems on like fractions with denominators up to compare and order fractions.",
+            entity_type="learning_outcome",
+        ),
+        _candidate(
+            "readable",
+            "C5U06-LO02",
+            "Convert mixed fractions and improper fractions. Use the 4 operations on fractions.",
+            entity_type="learning_outcome",
+        ),
+    ]
+    result = select_deterministic_note_refs(note, candidates, ["damaged", "readable"])
+    assert result["deterministic_refs"] == ["damaged"]
+    assert result["refs_removed"] == ["readable"]
+    assert result["unmatched_issues"] == ["four operations on fractions"]
+
+
+def test_vague_evidence_note_keeps_the_model_selection():
+    from app.agent.candidate_attribution import select_deterministic_note_refs
+
+    note = "Some source statements are incomplete or contain stray fragments."
+    candidates = [
+        _candidate("frag", "C2U01-LO02", "Count in multiples of 2 to count in multiples of 5 to", entity_type="learning_outcome"),
+    ]
+    result = select_deterministic_note_refs(note, candidates, ["frag"])
+    assert result["note_grouping_status"] == "unresolved"
+    assert result["deterministic_refs"] == ["frag"]
+
+
+def test_grouped_record_that_fails_support_is_not_replaced_from_another_issue():
+    from app.agent.candidate_attribution import select_deterministic_note_refs
+
+    note = 'One record stops after the quoted fragment "purple widgets".'
+    candidates = [
+        _candidate("bad", "C9-LO01", "purple widgets are nearby", entity_type="learning_outcome"),
+        _candidate("other", "C9-LO02", "Count objects up to 10.", entity_type="learning_outcome"),
+    ]
+    result = select_deterministic_note_refs(
+        note,
+        candidates,
+        ["bad"],
+        support_by_id={"bad": False, "other": True},
+    )
+    assert result["note_grouping_status"] == "rejected_by_support_validator"
+    assert "bad" not in result["deterministic_refs"]
+    assert "other" not in result["deterministic_refs"]
+
+
+def test_shadow_integration_routes_notes_and_leaves_ordinary_claims():
+    from app.agent.candidate_attribution import integrate_shadow_claim
+
+    ordinary = integrate_shadow_claim(
+        claim_text="Add like fractions.",
+        kind="bullet",
+        candidates=[_candidate("lo-add", "Add like fractions.", "Add like fractions.", entity_type="learning_outcome")],
+        frozen_model_refs=["lo-add"],
+    )
+    assert ordinary["path"] == "model"
+    assert ordinary["final_refs"] == ["lo-add"]
+    assert ordinary["ref_change"] is False
+
+    note = (
+        'Several unit records carry the same or very similar names '
+        '(for example, multiple units named "Number and Numeration").'
+    )
+    routed = integrate_shadow_claim(
+        claim_text=note,
+        kind="evidence_note",
+        candidates=[
+            _candidate("nn", "Number and Numeration", "Number and Numeration"),
+            _candidate("nn-frac", "Number and Numeration FRACTION", "Number and Numeration FRACTION"),
+            _candidate("nn-approx", "Number and Numeration. Approximation.", "Number and Numeration. Approximation."),
+        ],
+        frozen_model_refs=["nn", "nn-frac", "nn-approx"],
+        support_by_id={"nn": True, "nn-frac": True, "nn-approx": True},
+    )
+    assert routed["path"] == "deterministic_note"
+    assert routed["final_refs"] == ["nn", "nn-frac"]
+    assert routed["unsupported_refs"] == []
+
+
+def test_two_outcome_claim_keeps_both_records_available():
+    evidence = _primary3_fractions_evidence()
+    selected = select_candidates(
+        {
+            "text": "Identify unit fractions with denominators 1-5 and denominators 6-10.",
+            "kind": "bullet",
+            "heading": "Unit Fractions",
+        },
+        evidence,
+        ["lo-p3-den-1-5", "lo-p3-den-6-10"],
+    )
+    ids = [item["entity_id"] for item in selected["candidates"]]
+    assert "lo-p3-den-1-5" in ids
+    assert "lo-p3-den-6-10" in ids

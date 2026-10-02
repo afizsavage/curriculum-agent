@@ -1,0 +1,3702 @@
+{
+  "result": "PASS",
+  "failures": [],
+  "corpus_counts": {
+    "evidence_bearing_cases": 24,
+    "substantive_claims": 219,
+    "ordinary_claims": 208,
+    "evidence_notes": 11
+  },
+  "ordinary_claim_invariants": {
+    "ordinary_claims": 208,
+    "ordinary_ref_changes": 0,
+    "path": "model"
+  },
+  "corpus_invariants": {
+    "substantive_claims": 219,
+    "model_coverage": "219/219",
+    "exact_span_compliance": "219/219",
+    "relaxed_support_coverage": "219/219",
+    "unknown_ids": 0,
+    "refs_outside_candidates": 0,
+    "empty_content_refs": 0,
+    "exact_spans_unmodified": 219
+  },
+  "evidence_note_invariants": {
+    "current_model_refs": 26,
+    "deterministic_refs": 21,
+    "removed": 5,
+    "added": 0,
+    "expected_counts": {
+      "topics-p4-math": {
+        "expected": 5,
+        "actual": 5
+      },
+      "fractions-p4": {
+        "expected": 1,
+        "actual": 1
+      },
+      "fractions-p3": {
+        "expected": 1,
+        "actual": 1
+      },
+      "fractions-p5": {
+        "expected": 1,
+        "actual": 1
+      },
+      "time-p3": {
+        "expected": 1,
+        "actual": 1
+      },
+      "numbers-p1": {
+        "expected": 2,
+        "actual": 2
+      },
+      "multiplication-p4": {
+        "expected": 4,
+        "actual": 4
+      },
+      "number-p2": {
+        "expected": 1,
+        "actual": 1
+      },
+      "topics-p2-math": {
+        "expected": 3,
+        "actual": 3
+      },
+      "fixture-p3-fractions": {
+        "expected": 1,
+        "actual": 1
+      },
+      "fixture-p4-fractions": {
+        "expected": 1,
+        "actual": 1
+      }
+    }
+  },
+  "support_validation": {
+    "deterministic_note_refs": 21,
+    "supported": 21,
+    "unsupported": 0,
+    "rejected_by_support_validator": 0
+  },
+  "unresolved_notes": [
+    {
+      "case_id": "fractions-p3",
+      "grouping_status": "unresolved",
+      "named_issues": [],
+      "final_refs": [
+        "1dd051f9-b841-4733-bf6b-704c819c46ba"
+      ],
+      "final_names": [
+        "C3U08-LO03"
+      ]
+    },
+    {
+      "case_id": "number-p2",
+      "grouping_status": "unresolved",
+      "named_issues": [],
+      "final_refs": [
+        "8f782c51-1f25-429a-ba31-538834471f7e"
+      ],
+      "final_names": [
+        "C2U01-LO02"
+      ]
+    }
+  ],
+  "primary_4_topics": {
+    "case_id": "topics-p4-math",
+    "kind": "evidence_note",
+    "text": "Several unit records in the evidence carry the same or very similar names (for example, multiple units named \"Number and Numeration\", \"Everyday Arithmetic\", and \"Measurement and Estimation\"). The exact distinction between these repeated units is not clear from the supplied evidence, so the topics are grouped by their named area rather than listed unit by unit.",
+    "path": "deterministic_note",
+    "frozen_model_refs": [
+      "f293e00a-bae7-44db-ad55-3c1263e20387",
+      "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+      "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+      "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "152b4a5a-c080-403c-a780-9940c818bc4b",
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+      "29558081-a6cf-4721-b52c-f6f3e59b12a7"
+    ],
+    "final_refs": [
+      "f293e00a-bae7-44db-ad55-3c1263e20387",
+      "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+      "152b4a5a-c080-403c-a780-9940c818bc4b",
+      "c0a9dc68-e3f3-424e-8873-d2642e7cc71b"
+    ],
+    "ref_change": true,
+    "final_names": [
+      "Number and Numeration",
+      "Number and Numeration FRACTION",
+      "Everyday Arithmetic",
+      "Everyday Arithmetic DIVISION",
+      "Measurement and Estimation"
+    ],
+    "removed_names": [
+      "Everyday Arithmetic Money",
+      "Number and Numeration. Approximation.",
+      "Everyday Arithmetic Multiplication and Decimal."
+    ],
+    "grouping_status": "resolved",
+    "named_issues": [
+      "Number and Numeration",
+      "Everyday Arithmetic",
+      "Measurement and Estimation"
+    ],
+    "refs_per_issue": {
+      "Number and Numeration": [
+        "f293e00a-bae7-44db-ad55-3c1263e20387",
+        "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+      ],
+      "Everyday Arithmetic": [
+        "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+        "152b4a5a-c080-403c-a780-9940c818bc4b"
+      ],
+      "Measurement and Estimation": [
+        "c0a9dc68-e3f3-424e-8873-d2642e7cc71b"
+      ]
+    },
+    "refs_removed": [
+      "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+      "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+      "29558081-a6cf-4721-b52c-f6f3e59b12a7"
+    ],
+    "refs_added": [],
+    "unmatched_issues": [],
+    "support_failures": [],
+    "support": [
+      {
+        "ref": "f293e00a-bae7-44db-ad55-3c1263e20387",
+        "recomputed_on_candidate_text": true,
+        "frozen_full_evidence": true,
+        "supported": true
+      },
+      {
+        "ref": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "recomputed_on_candidate_text": true,
+        "frozen_full_evidence": true,
+        "supported": true
+      },
+      {
+        "ref": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+        "recomputed_on_candidate_text": true,
+        "frozen_full_evidence": true,
+        "supported": true
+      },
+      {
+        "ref": "152b4a5a-c080-403c-a780-9940c818bc4b",
+        "recomputed_on_candidate_text": true,
+        "frozen_full_evidence": true,
+        "supported": true
+      },
+      {
+        "ref": "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+        "recomputed_on_candidate_text": true,
+        "frozen_full_evidence": true,
+        "supported": true
+      }
+    ],
+    "supported_refs": [
+      "f293e00a-bae7-44db-ad55-3c1263e20387",
+      "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+      "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+      "152b4a5a-c080-403c-a780-9940c818bc4b",
+      "c0a9dc68-e3f3-424e-8873-d2642e7cc71b"
+    ],
+    "unsupported_refs": []
+  },
+  "primary_2_topics": {
+    "case_id": "topics-p2-math",
+    "kind": "evidence_note",
+    "text": "The evidence lists these topic areas as unit names, but the individual learning objectives within each unit are not included in the supplied records. Some unit names are repeated across multiple records, and a few names include additional wording (for example, fractions and number patterns).",
+    "path": "deterministic_note",
+    "frozen_model_refs": [
+      "660d3ebd-6809-4940-ba31-90a5c88da348",
+      "0f85f7a4-9eee-435f-96d8-22899075d761",
+      "82734b4a-42b3-483e-ba76-24a0f10762d1"
+    ],
+    "final_refs": [
+      "660d3ebd-6809-4940-ba31-90a5c88da348",
+      "82734b4a-42b3-483e-ba76-24a0f10762d1",
+      "0f85f7a4-9eee-435f-96d8-22899075d761"
+    ],
+    "ref_change": true,
+    "final_names": [
+      "Number and Numeration FRACTION",
+      "Everyday Arithmetic NUMBER PARTERN",
+      "Number and Numeration."
+    ],
+    "removed_names": [],
+    "grouping_status": "resolved",
+    "named_issues": [
+      "fractions",
+      "number patterns",
+      "unit name without included objectives"
+    ],
+    "refs_per_issue": {
+      "fractions": [
+        "660d3ebd-6809-4940-ba31-90a5c88da348"
+      ],
+      "number patterns": [
+        "82734b4a-42b3-483e-ba76-24a0f10762d1"
+      ],
+      "unit name without included objectives": [
+        "0f85f7a4-9eee-435f-96d8-22899075d761"
+      ]
+    },
+    "refs_removed": [],
+    "refs_added": [],
+    "unmatched_issues": [],
+    "support_failures": [],
+    "support": [
+      {
+        "ref": "660d3ebd-6809-4940-ba31-90a5c88da348",
+        "recomputed_on_candidate_text": true,
+        "frozen_full_evidence": true,
+        "supported": true
+      },
+      {
+        "ref": "82734b4a-42b3-483e-ba76-24a0f10762d1",
+        "recomputed_on_candidate_text": true,
+        "frozen_full_evidence": true,
+        "supported": true
+      },
+      {
+        "ref": "0f85f7a4-9eee-435f-96d8-22899075d761",
+        "recomputed_on_candidate_text": true,
+        "frozen_full_evidence": true,
+        "supported": true
+      }
+    ],
+    "supported_refs": [
+      "660d3ebd-6809-4940-ba31-90a5c88da348",
+      "82734b4a-42b3-483e-ba76-24a0f10762d1",
+      "0f85f7a4-9eee-435f-96d8-22899075d761"
+    ],
+    "unsupported_refs": []
+  },
+  "primary_4_multiplication": {
+    "case_id": "multiplication-p4",
+    "kind": "evidence_note",
+    "text": "Some learning outcome statements in the evidence are incomplete or repeated, so the exact full wording of those expectations cannot be reliably stated. This affects the mental strategies outcome, the whole-number and decimal multiplication outcomes, and the outcome on multiplying like and related fractions.",
+    "path": "deterministic_note",
+    "frozen_model_refs": [
+      "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+      "351ef533-e32c-4582-8cd0-ecad956377e8",
+      "36d36607-fa63-431b-9fd5-dedc3db40322",
+      "0731389e-56b3-4f6f-a530-8c173659bee1"
+    ],
+    "final_refs": [
+      "351ef533-e32c-4582-8cd0-ecad956377e8",
+      "36d36607-fa63-431b-9fd5-dedc3db40322",
+      "0731389e-56b3-4f6f-a530-8c173659bee1",
+      "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+    ],
+    "ref_change": true,
+    "final_names": [
+      "C4U19-LO05",
+      "C4U19-LO01",
+      "C4U19-LO02",
+      "C4U06-LO02"
+    ],
+    "removed_names": [],
+    "grouping_status": "resolved",
+    "named_issues": [
+      "mental strategies",
+      "whole-number multiplication",
+      "decimal multiplication",
+      "like or related fractions"
+    ],
+    "refs_per_issue": {
+      "mental strategies": [
+        "351ef533-e32c-4582-8cd0-ecad956377e8"
+      ],
+      "whole-number multiplication": [
+        "36d36607-fa63-431b-9fd5-dedc3db40322"
+      ],
+      "decimal multiplication": [
+        "0731389e-56b3-4f6f-a530-8c173659bee1"
+      ],
+      "like or related fractions": [
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+      ]
+    },
+    "refs_removed": [],
+    "refs_added": [],
+    "unmatched_issues": [],
+    "support_failures": [],
+    "support": [
+      {
+        "ref": "351ef533-e32c-4582-8cd0-ecad956377e8",
+        "recomputed_on_candidate_text": true,
+        "frozen_full_evidence": true,
+        "supported": true
+      },
+      {
+        "ref": "36d36607-fa63-431b-9fd5-dedc3db40322",
+        "recomputed_on_candidate_text": true,
+        "frozen_full_evidence": true,
+        "supported": true
+      },
+      {
+        "ref": "0731389e-56b3-4f6f-a530-8c173659bee1",
+        "recomputed_on_candidate_text": true,
+        "frozen_full_evidence": true,
+        "supported": true
+      },
+      {
+        "ref": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+        "recomputed_on_candidate_text": true,
+        "frozen_full_evidence": true,
+        "supported": true
+      }
+    ],
+    "supported_refs": [
+      "351ef533-e32c-4582-8cd0-ecad956377e8",
+      "36d36607-fa63-431b-9fd5-dedc3db40322",
+      "0731389e-56b3-4f6f-a530-8c173659bee1",
+      "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+    ],
+    "unsupported_refs": []
+  },
+  "production_preservation": {
+    "production_answers_preserved": "24/24",
+    "production_refs_preserved": "24/24",
+    "production_answer_evidence_changed": 0,
+    "production_verifier_behavior_changed": 0,
+    "attribution_written_to_production_state": false
+  },
+  "notes": [
+    {
+      "case_id": "topics-p4-math",
+      "kind": "evidence_note",
+      "text": "Several unit records in the evidence carry the same or very similar names (for example, multiple units named \"Number and Numeration\", \"Everyday Arithmetic\", and \"Measurement and Estimation\"). The exact distinction between these repeated units is not clear from the supplied evidence, so the topics are grouped by their named area rather than listed unit by unit.",
+      "path": "deterministic_note",
+      "frozen_model_refs": [
+        "f293e00a-bae7-44db-ad55-3c1263e20387",
+        "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+        "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+        "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "152b4a5a-c080-403c-a780-9940c818bc4b",
+        "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+        "29558081-a6cf-4721-b52c-f6f3e59b12a7"
+      ],
+      "final_refs": [
+        "f293e00a-bae7-44db-ad55-3c1263e20387",
+        "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+        "152b4a5a-c080-403c-a780-9940c818bc4b",
+        "c0a9dc68-e3f3-424e-8873-d2642e7cc71b"
+      ],
+      "ref_change": true,
+      "final_names": [
+        "Number and Numeration",
+        "Number and Numeration FRACTION",
+        "Everyday Arithmetic",
+        "Everyday Arithmetic DIVISION",
+        "Measurement and Estimation"
+      ],
+      "removed_names": [
+        "Everyday Arithmetic Money",
+        "Number and Numeration. Approximation.",
+        "Everyday Arithmetic Multiplication and Decimal."
+      ],
+      "grouping_status": "resolved",
+      "named_issues": [
+        "Number and Numeration",
+        "Everyday Arithmetic",
+        "Measurement and Estimation"
+      ],
+      "refs_per_issue": {
+        "Number and Numeration": [
+          "f293e00a-bae7-44db-ad55-3c1263e20387",
+          "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+        ],
+        "Everyday Arithmetic": [
+          "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+          "152b4a5a-c080-403c-a780-9940c818bc4b"
+        ],
+        "Measurement and Estimation": [
+          "c0a9dc68-e3f3-424e-8873-d2642e7cc71b"
+        ]
+      },
+      "refs_removed": [
+        "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+        "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+        "29558081-a6cf-4721-b52c-f6f3e59b12a7"
+      ],
+      "refs_added": [],
+      "unmatched_issues": [],
+      "support_failures": [],
+      "support": [
+        {
+          "ref": "f293e00a-bae7-44db-ad55-3c1263e20387",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        },
+        {
+          "ref": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        },
+        {
+          "ref": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        },
+        {
+          "ref": "152b4a5a-c080-403c-a780-9940c818bc4b",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        },
+        {
+          "ref": "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        }
+      ],
+      "supported_refs": [
+        "f293e00a-bae7-44db-ad55-3c1263e20387",
+        "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+        "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+        "152b4a5a-c080-403c-a780-9940c818bc4b",
+        "c0a9dc68-e3f3-424e-8873-d2642e7cc71b"
+      ],
+      "unsupported_refs": []
+    },
+    {
+      "case_id": "fractions-p4",
+      "kind": "evidence_note",
+      "text": "The exact wording of one multiplication learning expectation is unreliable because the source text is repeated and incomplete; only the clearly stated parts are reported above.",
+      "path": "deterministic_note",
+      "frozen_model_refs": [
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+      ],
+      "final_refs": [
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+      ],
+      "ref_change": false,
+      "final_names": [
+        "C4U06-LO02"
+      ],
+      "removed_names": [],
+      "grouping_status": "resolved",
+      "named_issues": [
+        "incomplete multiplication outcome"
+      ],
+      "refs_per_issue": {
+        "incomplete multiplication outcome": [
+          "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+        ]
+      },
+      "refs_removed": [],
+      "refs_added": [],
+      "unmatched_issues": [],
+      "support_failures": [],
+      "support": [
+        {
+          "ref": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        }
+      ],
+      "supported_refs": [
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+      ],
+      "unsupported_refs": []
+    },
+    {
+      "case_id": "fractions-p3",
+      "kind": "evidence_note",
+      "text": "The exact wording of some source statements is incomplete or unclear, so those parts are not restated here.",
+      "path": "deterministic_note",
+      "frozen_model_refs": [
+        "1dd051f9-b841-4733-bf6b-704c819c46ba"
+      ],
+      "final_refs": [
+        "1dd051f9-b841-4733-bf6b-704c819c46ba"
+      ],
+      "ref_change": false,
+      "final_names": [
+        "C3U08-LO03"
+      ],
+      "removed_names": [],
+      "grouping_status": "unresolved",
+      "named_issues": [],
+      "refs_per_issue": {},
+      "refs_removed": [],
+      "refs_added": [],
+      "unmatched_issues": [],
+      "support_failures": [],
+      "support": [
+        {
+          "ref": "1dd051f9-b841-4733-bf6b-704c819c46ba",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        }
+      ],
+      "supported_refs": [
+        "1dd051f9-b841-4733-bf6b-704c819c46ba"
+      ],
+      "unsupported_refs": []
+    },
+    {
+      "case_id": "fractions-p5",
+      "kind": "evidence_note",
+      "text": "Some source statements are incomplete or unclear in their wording. One outcome combines solving problems on like fractions with comparing and ordering fractions in a way that is not fully clear, and another refers to using the four operations on fractions without further detail. The exact intended wording of these statements cannot be confirmed from the evidence.",
+      "path": "deterministic_note",
+      "frozen_model_refs": [
+        "610e543f-0a3b-46ee-8d39-acc2480c5805",
+        "e4710e7b-a33c-487f-91ac-636fa21fdb15"
+      ],
+      "final_refs": [
+        "610e543f-0a3b-46ee-8d39-acc2480c5805"
+      ],
+      "ref_change": true,
+      "final_names": [
+        "C5U05-LO01"
+      ],
+      "removed_names": [
+        "C5U06-LO02"
+      ],
+      "grouping_status": "resolved",
+      "named_issues": [
+        "problems on like fractions with comparing and ordering",
+        "four operations on fractions"
+      ],
+      "refs_per_issue": {
+        "problems on like fractions with comparing and ordering": [
+          "610e543f-0a3b-46ee-8d39-acc2480c5805"
+        ],
+        "four operations on fractions": []
+      },
+      "refs_removed": [
+        "e4710e7b-a33c-487f-91ac-636fa21fdb15"
+      ],
+      "refs_added": [],
+      "unmatched_issues": [
+        "four operations on fractions"
+      ],
+      "support_failures": [],
+      "support": [
+        {
+          "ref": "610e543f-0a3b-46ee-8d39-acc2480c5805",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        }
+      ],
+      "supported_refs": [
+        "610e543f-0a3b-46ee-8d39-acc2480c5805"
+      ],
+      "unsupported_refs": []
+    },
+    {
+      "case_id": "time-p3",
+      "kind": "evidence_note",
+      "text": "One learning outcome record contains only an introductory statement (\"After completing this unit, the pupils should be able to.\") rather than a specific learning expectation, so it does not add a distinct skill to the list above.",
+      "path": "deterministic_note",
+      "frozen_model_refs": [
+        "2ce1b82d-edf6-4287-a229-b15b999eb8e4"
+      ],
+      "final_refs": [
+        "2ce1b82d-edf6-4287-a229-b15b999eb8e4"
+      ],
+      "ref_change": false,
+      "final_names": [
+        "C3U32-LO01"
+      ],
+      "removed_names": [],
+      "grouping_status": "resolved",
+      "named_issues": [
+        "After completing this unit, the pupils should be able to."
+      ],
+      "refs_per_issue": {
+        "After completing this unit, the pupils should be able to.": [
+          "2ce1b82d-edf6-4287-a229-b15b999eb8e4"
+        ]
+      },
+      "refs_removed": [],
+      "refs_added": [],
+      "unmatched_issues": [],
+      "support_failures": [],
+      "support": [
+        {
+          "ref": "2ce1b82d-edf6-4287-a229-b15b999eb8e4",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        }
+      ],
+      "supported_refs": [
+        "2ce1b82d-edf6-4287-a229-b15b999eb8e4"
+      ],
+      "unsupported_refs": []
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "evidence_note",
+      "text": "Some of the source statements for reading, writing and representing numbers are incomplete or run together, so the exact full wording of those particular expectations is unreliable. Only the clearly readable parts are summarised above.",
+      "path": "deterministic_note",
+      "frozen_model_refs": [
+        "1a97eec4-aa71-435f-98c0-99490e47eda6",
+        "95b34608-df73-40b9-89d7-9e50e1e12054",
+        "a79eb6ea-b0e7-4ff0-9e5d-aeeb98f8f80a"
+      ],
+      "final_refs": [
+        "1a97eec4-aa71-435f-98c0-99490e47eda6",
+        "95b34608-df73-40b9-89d7-9e50e1e12054"
+      ],
+      "ref_change": true,
+      "final_names": [
+        "C1U06-LO01",
+        "C1U03-LO01"
+      ],
+      "removed_names": [
+        "C1U02-LO02"
+      ],
+      "grouping_status": "resolved",
+      "named_issues": [
+        "reading numbers",
+        "writing numbers",
+        "representing numbers"
+      ],
+      "refs_per_issue": {
+        "reading numbers": [
+          "1a97eec4-aa71-435f-98c0-99490e47eda6"
+        ],
+        "writing numbers": [
+          "1a97eec4-aa71-435f-98c0-99490e47eda6"
+        ],
+        "representing numbers": [
+          "95b34608-df73-40b9-89d7-9e50e1e12054"
+        ]
+      },
+      "refs_removed": [
+        "a79eb6ea-b0e7-4ff0-9e5d-aeeb98f8f80a"
+      ],
+      "refs_added": [],
+      "unmatched_issues": [],
+      "support_failures": [],
+      "support": [
+        {
+          "ref": "1a97eec4-aa71-435f-98c0-99490e47eda6",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        },
+        {
+          "ref": "95b34608-df73-40b9-89d7-9e50e1e12054",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        }
+      ],
+      "supported_refs": [
+        "1a97eec4-aa71-435f-98c0-99490e47eda6",
+        "95b34608-df73-40b9-89d7-9e50e1e12054"
+      ],
+      "unsupported_refs": []
+    },
+    {
+      "case_id": "multiplication-p4",
+      "kind": "evidence_note",
+      "text": "Some learning outcome statements in the evidence are incomplete or repeated, so the exact full wording of those expectations cannot be reliably stated. This affects the mental strategies outcome, the whole-number and decimal multiplication outcomes, and the outcome on multiplying like and related fractions.",
+      "path": "deterministic_note",
+      "frozen_model_refs": [
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+        "351ef533-e32c-4582-8cd0-ecad956377e8",
+        "36d36607-fa63-431b-9fd5-dedc3db40322",
+        "0731389e-56b3-4f6f-a530-8c173659bee1"
+      ],
+      "final_refs": [
+        "351ef533-e32c-4582-8cd0-ecad956377e8",
+        "36d36607-fa63-431b-9fd5-dedc3db40322",
+        "0731389e-56b3-4f6f-a530-8c173659bee1",
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+      ],
+      "ref_change": true,
+      "final_names": [
+        "C4U19-LO05",
+        "C4U19-LO01",
+        "C4U19-LO02",
+        "C4U06-LO02"
+      ],
+      "removed_names": [],
+      "grouping_status": "resolved",
+      "named_issues": [
+        "mental strategies",
+        "whole-number multiplication",
+        "decimal multiplication",
+        "like or related fractions"
+      ],
+      "refs_per_issue": {
+        "mental strategies": [
+          "351ef533-e32c-4582-8cd0-ecad956377e8"
+        ],
+        "whole-number multiplication": [
+          "36d36607-fa63-431b-9fd5-dedc3db40322"
+        ],
+        "decimal multiplication": [
+          "0731389e-56b3-4f6f-a530-8c173659bee1"
+        ],
+        "like or related fractions": [
+          "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+        ]
+      },
+      "refs_removed": [],
+      "refs_added": [],
+      "unmatched_issues": [],
+      "support_failures": [],
+      "support": [
+        {
+          "ref": "351ef533-e32c-4582-8cd0-ecad956377e8",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        },
+        {
+          "ref": "36d36607-fa63-431b-9fd5-dedc3db40322",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        },
+        {
+          "ref": "0731389e-56b3-4f6f-a530-8c173659bee1",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        },
+        {
+          "ref": "51c4c17f-6b68-49bb-b025-f377e4e6f8a5",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        }
+      ],
+      "supported_refs": [
+        "351ef533-e32c-4582-8cd0-ecad956377e8",
+        "36d36607-fa63-431b-9fd5-dedc3db40322",
+        "0731389e-56b3-4f6f-a530-8c173659bee1",
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+      ],
+      "unsupported_refs": []
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "evidence_note",
+      "text": "Some source statements are incomplete or contain stray fragments, so the exact wording of a few expectations is unreliable. The reliable parts are reflected above.",
+      "path": "deterministic_note",
+      "frozen_model_refs": [
+        "8f782c51-1f25-429a-ba31-538834471f7e"
+      ],
+      "final_refs": [
+        "8f782c51-1f25-429a-ba31-538834471f7e"
+      ],
+      "ref_change": false,
+      "final_names": [
+        "C2U01-LO02"
+      ],
+      "removed_names": [],
+      "grouping_status": "unresolved",
+      "named_issues": [],
+      "refs_per_issue": {},
+      "refs_removed": [],
+      "refs_added": [],
+      "unmatched_issues": [],
+      "support_failures": [],
+      "support": [
+        {
+          "ref": "8f782c51-1f25-429a-ba31-538834471f7e",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        }
+      ],
+      "supported_refs": [
+        "8f782c51-1f25-429a-ba31-538834471f7e"
+      ],
+      "unsupported_refs": []
+    },
+    {
+      "case_id": "topics-p2-math",
+      "kind": "evidence_note",
+      "text": "The evidence lists these topic areas as unit names, but the individual learning objectives within each unit are not included in the supplied records. Some unit names are repeated across multiple records, and a few names include additional wording (for example, fractions and number patterns).",
+      "path": "deterministic_note",
+      "frozen_model_refs": [
+        "660d3ebd-6809-4940-ba31-90a5c88da348",
+        "0f85f7a4-9eee-435f-96d8-22899075d761",
+        "82734b4a-42b3-483e-ba76-24a0f10762d1"
+      ],
+      "final_refs": [
+        "660d3ebd-6809-4940-ba31-90a5c88da348",
+        "82734b4a-42b3-483e-ba76-24a0f10762d1",
+        "0f85f7a4-9eee-435f-96d8-22899075d761"
+      ],
+      "ref_change": true,
+      "final_names": [
+        "Number and Numeration FRACTION",
+        "Everyday Arithmetic NUMBER PARTERN",
+        "Number and Numeration."
+      ],
+      "removed_names": [],
+      "grouping_status": "resolved",
+      "named_issues": [
+        "fractions",
+        "number patterns",
+        "unit name without included objectives"
+      ],
+      "refs_per_issue": {
+        "fractions": [
+          "660d3ebd-6809-4940-ba31-90a5c88da348"
+        ],
+        "number patterns": [
+          "82734b4a-42b3-483e-ba76-24a0f10762d1"
+        ],
+        "unit name without included objectives": [
+          "0f85f7a4-9eee-435f-96d8-22899075d761"
+        ]
+      },
+      "refs_removed": [],
+      "refs_added": [],
+      "unmatched_issues": [],
+      "support_failures": [],
+      "support": [
+        {
+          "ref": "660d3ebd-6809-4940-ba31-90a5c88da348",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        },
+        {
+          "ref": "82734b4a-42b3-483e-ba76-24a0f10762d1",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        },
+        {
+          "ref": "0f85f7a4-9eee-435f-96d8-22899075d761",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        }
+      ],
+      "supported_refs": [
+        "660d3ebd-6809-4940-ba31-90a5c88da348",
+        "82734b4a-42b3-483e-ba76-24a0f10762d1",
+        "0f85f7a4-9eee-435f-96d8-22899075d761"
+      ],
+      "unsupported_refs": []
+    },
+    {
+      "case_id": "fixture-p3-fractions",
+      "kind": "evidence_note",
+      "text": "One learning outcome about identifying equivalent fractions is incomplete in the source: the wording stops after \"with denominators up to\" and does not state the denominator range. The exact wording of that outcome is unreliable, so it is not included above.",
+      "path": "deterministic_note",
+      "frozen_model_refs": [
+        "lo-p3-equivalent-incomplete"
+      ],
+      "final_refs": [
+        "lo-p3-equivalent-incomplete"
+      ],
+      "ref_change": false,
+      "final_names": [
+        "C3U06-LO05"
+      ],
+      "removed_names": [],
+      "grouping_status": "resolved",
+      "named_issues": [
+        "with denominators up to"
+      ],
+      "refs_per_issue": {
+        "with denominators up to": [
+          "lo-p3-equivalent-incomplete"
+        ]
+      },
+      "refs_removed": [],
+      "refs_added": [],
+      "unmatched_issues": [],
+      "support_failures": [],
+      "support": [
+        {
+          "ref": "lo-p3-equivalent-incomplete",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        }
+      ],
+      "supported_refs": [
+        "lo-p3-equivalent-incomplete"
+      ],
+      "unsupported_refs": []
+    },
+    {
+      "case_id": "fixture-p4-fractions",
+      "kind": "evidence_note",
+      "text": "The learning outcome describing multiplication of fractions is repeated and incomplete in the source, so the exact wording of that expectation is unreliable. Only the general topic of multiplying fractions is stated here.",
+      "path": "deterministic_note",
+      "frozen_model_refs": [
+        "lo-multiply-garbled"
+      ],
+      "final_refs": [
+        "lo-multiply-garbled"
+      ],
+      "ref_change": false,
+      "final_names": [
+        "C4U06-LO02"
+      ],
+      "removed_names": [],
+      "grouping_status": "resolved",
+      "named_issues": [
+        "incomplete multiplication outcome"
+      ],
+      "refs_per_issue": {
+        "incomplete multiplication outcome": [
+          "lo-multiply-garbled"
+        ]
+      },
+      "refs_removed": [],
+      "refs_added": [],
+      "unmatched_issues": [],
+      "support_failures": [],
+      "support": [
+        {
+          "ref": "lo-multiply-garbled",
+          "recomputed_on_candidate_text": true,
+          "frozen_full_evidence": true,
+          "supported": true
+        }
+      ],
+      "supported_refs": [
+        "lo-multiply-garbled"
+      ],
+      "unsupported_refs": []
+    }
+  ],
+  "ordinary_claims": [
+    {
+      "case_id": "subjects-p3",
+      "kind": "bullet",
+      "text": "Civic Education",
+      "path": "model",
+      "frozen_model_refs": [
+        "be2bec7d-db04-4307-8300-466dc896466f"
+      ],
+      "final_refs": [
+        "be2bec7d-db04-4307-8300-466dc896466f"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p3",
+      "kind": "bullet",
+      "text": "Social Studies",
+      "path": "model",
+      "frozen_model_refs": [
+        "13bc18c0-c518-47ef-911c-8c7174d05555"
+      ],
+      "final_refs": [
+        "13bc18c0-c518-47ef-911c-8c7174d05555"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p3",
+      "kind": "bullet",
+      "text": "Environmental Science",
+      "path": "model",
+      "frozen_model_refs": [
+        "be9b0c63-ee1a-4797-b67b-ee3eb3cfa7c7"
+      ],
+      "final_refs": [
+        "be9b0c63-ee1a-4797-b67b-ee3eb3cfa7c7"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p3",
+      "kind": "bullet",
+      "text": "Physical Health Education",
+      "path": "model",
+      "frozen_model_refs": [
+        "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24"
+      ],
+      "final_refs": [
+        "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p3",
+      "kind": "bullet",
+      "text": "Music and Other Expressive Arts",
+      "path": "model",
+      "frozen_model_refs": [
+        "c049057b-ea42-4baf-a902-d3e6c63dc320"
+      ],
+      "final_refs": [
+        "c049057b-ea42-4baf-a902-d3e6c63dc320"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p3",
+      "kind": "bullet",
+      "text": "French Appreciation",
+      "path": "model",
+      "frozen_model_refs": [
+        "44c8b694-3fdd-473c-a256-bc22fd926da1"
+      ],
+      "final_refs": [
+        "44c8b694-3fdd-473c-a256-bc22fd926da1"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p3",
+      "kind": "bullet",
+      "text": "Home Economics",
+      "path": "model",
+      "frozen_model_refs": [
+        "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736"
+      ],
+      "final_refs": [
+        "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p3",
+      "kind": "bullet",
+      "text": "Practical Arts",
+      "path": "model",
+      "frozen_model_refs": [
+        "04b05a43-1208-4fd9-b6c3-31eed3d40063"
+      ],
+      "final_refs": [
+        "04b05a43-1208-4fd9-b6c3-31eed3d40063"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p3",
+      "kind": "bullet",
+      "text": "Religious and Moral Education",
+      "path": "model",
+      "frozen_model_refs": [
+        "236bd50f-63f3-44bb-8c16-c2aa5e3441ea"
+      ],
+      "final_refs": [
+        "236bd50f-63f3-44bb-8c16-c2aa5e3441ea"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p3",
+      "kind": "bullet",
+      "text": "Sierra Leone National Languages",
+      "path": "model",
+      "frozen_model_refs": [
+        "5b7bcdd9-4984-49d5-9b99-c1653a1470bf"
+      ],
+      "final_refs": [
+        "5b7bcdd9-4984-49d5-9b99-c1653a1470bf"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p3",
+      "kind": "bullet",
+      "text": "ICT Literacy",
+      "path": "model",
+      "frozen_model_refs": [
+        "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1"
+      ],
+      "final_refs": [
+        "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p3",
+      "kind": "bullet",
+      "text": "Agricultural Science",
+      "path": "model",
+      "frozen_model_refs": [
+        "c09f3006-e982-4696-b0c5-47b9c4eb4dab"
+      ],
+      "final_refs": [
+        "c09f3006-e982-4696-b0c5-47b9c4eb4dab"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p4",
+      "kind": "bullet",
+      "text": "English Language",
+      "path": "model",
+      "frozen_model_refs": [
+        "9da3f7f7-60c2-49c6-8950-fd20a1913661"
+      ],
+      "final_refs": [
+        "9da3f7f7-60c2-49c6-8950-fd20a1913661"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p4",
+      "kind": "bullet",
+      "text": "Civic Education",
+      "path": "model",
+      "frozen_model_refs": [
+        "be2bec7d-db04-4307-8300-466dc896466f"
+      ],
+      "final_refs": [
+        "be2bec7d-db04-4307-8300-466dc896466f"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p4",
+      "kind": "bullet",
+      "text": "Social Studies",
+      "path": "model",
+      "frozen_model_refs": [
+        "13bc18c0-c518-47ef-911c-8c7174d05555"
+      ],
+      "final_refs": [
+        "13bc18c0-c518-47ef-911c-8c7174d05555"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p4",
+      "kind": "bullet",
+      "text": "Religious and Moral Education",
+      "path": "model",
+      "frozen_model_refs": [
+        "236bd50f-63f3-44bb-8c16-c2aa5e3441ea"
+      ],
+      "final_refs": [
+        "236bd50f-63f3-44bb-8c16-c2aa5e3441ea"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p4",
+      "kind": "bullet",
+      "text": "Physical Health Education",
+      "path": "model",
+      "frozen_model_refs": [
+        "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24"
+      ],
+      "final_refs": [
+        "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p4",
+      "kind": "bullet",
+      "text": "Music and Other Expressive Arts",
+      "path": "model",
+      "frozen_model_refs": [
+        "c049057b-ea42-4baf-a902-d3e6c63dc320"
+      ],
+      "final_refs": [
+        "c049057b-ea42-4baf-a902-d3e6c63dc320"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p4",
+      "kind": "bullet",
+      "text": "French Appreciation",
+      "path": "model",
+      "frozen_model_refs": [
+        "44c8b694-3fdd-473c-a256-bc22fd926da1"
+      ],
+      "final_refs": [
+        "44c8b694-3fdd-473c-a256-bc22fd926da1"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p4",
+      "kind": "bullet",
+      "text": "ICT Literacy",
+      "path": "model",
+      "frozen_model_refs": [
+        "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1"
+      ],
+      "final_refs": [
+        "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p4",
+      "kind": "bullet",
+      "text": "Home Economics",
+      "path": "model",
+      "frozen_model_refs": [
+        "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736"
+      ],
+      "final_refs": [
+        "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p4",
+      "kind": "bullet",
+      "text": "Practical Arts",
+      "path": "model",
+      "frozen_model_refs": [
+        "04b05a43-1208-4fd9-b6c3-31eed3d40063"
+      ],
+      "final_refs": [
+        "04b05a43-1208-4fd9-b6c3-31eed3d40063"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p4",
+      "kind": "bullet",
+      "text": "Sierra Leone National Languages",
+      "path": "model",
+      "frozen_model_refs": [
+        "5b7bcdd9-4984-49d5-9b99-c1653a1470bf"
+      ],
+      "final_refs": [
+        "5b7bcdd9-4984-49d5-9b99-c1653a1470bf"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "subjects-p4",
+      "kind": "bullet",
+      "text": "Agricultural",
+      "path": "model",
+      "frozen_model_refs": [
+        "c09f3006-e982-4696-b0c5-47b9c4eb4dab"
+      ],
+      "final_refs": [
+        "c09f3006-e982-4696-b0c5-47b9c4eb4dab"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p4-math",
+      "kind": "bullet",
+      "text": "Read and write numbers",
+      "path": "model",
+      "frozen_model_refs": [
+        "a66a8931-bd82-48eb-82f8-c004e95a2e62"
+      ],
+      "final_refs": [
+        "a66a8931-bd82-48eb-82f8-c004e95a2e62"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p4-math",
+      "kind": "bullet",
+      "text": "Work with approximation",
+      "path": "model",
+      "frozen_model_refs": [
+        "20b6fae8-05d2-4c27-9b2b-2d04f91e7422"
+      ],
+      "final_refs": [
+        "20b6fae8-05d2-4c27-9b2b-2d04f91e7422"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p4-math",
+      "kind": "bullet",
+      "text": "Understand fractions",
+      "path": "model",
+      "frozen_model_refs": [
+        "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+      ],
+      "final_refs": [
+        "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p4-math",
+      "kind": "bullet",
+      "text": "Carry out operations on fractions, including multiplication",
+      "path": "model",
+      "frozen_model_refs": [
+        "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+      ],
+      "final_refs": [
+        "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p4-math",
+      "kind": "bullet",
+      "text": "Add and subtract",
+      "path": "model",
+      "frozen_model_refs": [
+        "13202e14-75a9-455e-9f58-baad27d672b4"
+      ],
+      "final_refs": [
+        "13202e14-75a9-455e-9f58-baad27d672b4"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p4-math",
+      "kind": "bullet",
+      "text": "Multiply",
+      "path": "model",
+      "frozen_model_refs": [
+        "d0d5d322-9a0d-4f49-823d-0f80049e9b5b"
+      ],
+      "final_refs": [
+        "d0d5d322-9a0d-4f49-823d-0f80049e9b5b"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p4-math",
+      "kind": "bullet",
+      "text": "Divide",
+      "path": "model",
+      "frozen_model_refs": [
+        "152b4a5a-c080-403c-a780-9940c818bc4b"
+      ],
+      "final_refs": [
+        "152b4a5a-c080-403c-a780-9940c818bc4b"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p4-math",
+      "kind": "bullet",
+      "text": "Work with money",
+      "path": "model",
+      "frozen_model_refs": [
+        "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+      ],
+      "final_refs": [
+        "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p4-math",
+      "kind": "bullet",
+      "text": "Multiply with decimals",
+      "path": "model",
+      "frozen_model_refs": [
+        "29558081-a6cf-4721-b52c-f6f3e59b12a7"
+      ],
+      "final_refs": [
+        "29558081-a6cf-4721-b52c-f6f3e59b12a7"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p4-math",
+      "kind": "bullet",
+      "text": "Measure and estimate length",
+      "path": "model",
+      "frozen_model_refs": [
+        "6252f434-14ed-42cc-8415-ea870de24273"
+      ],
+      "final_refs": [
+        "6252f434-14ed-42cc-8415-ea870de24273"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p4-math",
+      "kind": "bullet",
+      "text": "Explore geometry, including lines and angles",
+      "path": "model",
+      "frozen_model_refs": [
+        "e5a83dd4-d400-49f9-903a-c5e2e15471e4"
+      ],
+      "final_refs": [
+        "e5a83dd4-d400-49f9-903a-c5e2e15471e4"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p4",
+      "kind": "bullet",
+      "text": "Simplify like fractions with common denominators.",
+      "path": "model",
+      "frozen_model_refs": [
+        "4cb80e72-796a-4513-ac92-68e14fcb630f"
+      ],
+      "final_refs": [
+        "4cb80e72-796a-4513-ac92-68e14fcb630f"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p4",
+      "kind": "bullet",
+      "text": "Compare and order like fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f"
+      ],
+      "final_refs": [
+        "c711ed5f-5dbb-4a28-9d92-b8a9cea68f2f"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p4",
+      "kind": "bullet",
+      "text": "Identify equivalent fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "6926032f-39b7-4ad6-8278-085bae23318b"
+      ],
+      "final_refs": [
+        "6926032f-39b7-4ad6-8278-085bae23318b"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p4",
+      "kind": "bullet",
+      "text": "Relate fractions with denominators to compare equivalent fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "686a96c2-6b45-49d2-aeab-2fa1f7b15704"
+      ],
+      "final_refs": [
+        "686a96c2-6b45-49d2-aeab-2fa1f7b15704"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p4",
+      "kind": "bullet",
+      "text": "Add equivalent fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "c9fa3ea4-72dd-442f-bc27-5e7992b72f72"
+      ],
+      "final_refs": [
+        "c9fa3ea4-72dd-442f-bc27-5e7992b72f72"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p4",
+      "kind": "bullet",
+      "text": "Subtract equivalent fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "0cc3886d-2320-4795-8c91-e407e3372b5c"
+      ],
+      "final_refs": [
+        "0cc3886d-2320-4795-8c91-e407e3372b5c"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p4",
+      "kind": "bullet",
+      "text": "Solve both addition and subtraction of equivalent fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "714546a5-7e71-4888-80cb-cd73ec617d8e"
+      ],
+      "final_refs": [
+        "714546a5-7e71-4888-80cb-cd73ec617d8e"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p4",
+      "kind": "bullet",
+      "text": "Solve word problems involving addition and subtraction of equivalent fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "5af8401e-1c30-4890-b76b-d507a0f0c8a2"
+      ],
+      "final_refs": [
+        "5af8401e-1c30-4890-b76b-d507a0f0c8a2"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p4",
+      "kind": "bullet",
+      "text": "Multiply equivalent fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "ee43f087-3372-411e-9495-21859368099e"
+      ],
+      "final_refs": [
+        "ee43f087-3372-411e-9495-21859368099e"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p4",
+      "kind": "bullet",
+      "text": "Multiply like fractions and related fractions with denominators.",
+      "path": "model",
+      "frozen_model_refs": [
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+      ],
+      "final_refs": [
+        "51c4c17f-6b68-49bb-b025-f377e4e6f8a5"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p3",
+      "kind": "bullet",
+      "text": "Identify unit fractions with denominators 1\u20135 using pictorial representation.",
+      "path": "model",
+      "frozen_model_refs": [
+        "d1bf6cd6-a852-4516-b50f-876f6034733e"
+      ],
+      "final_refs": [
+        "d1bf6cd6-a852-4516-b50f-876f6034733e"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p3",
+      "kind": "bullet",
+      "text": "Identify unit fractions with denominators 6\u201310 using pictorial representation.",
+      "path": "model",
+      "frozen_model_refs": [
+        "150bf678-6e8c-413d-bbd3-b82968a57ce3"
+      ],
+      "final_refs": [
+        "150bf678-6e8c-413d-bbd3-b82968a57ce3"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p3",
+      "kind": "bullet",
+      "text": "Locate unit fractions on the number line.",
+      "path": "model",
+      "frozen_model_refs": [
+        "3406be56-e0cf-4b5a-9f39-88f0ad488b33"
+      ],
+      "final_refs": [
+        "3406be56-e0cf-4b5a-9f39-88f0ad488b33"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p3",
+      "kind": "bullet",
+      "text": "Identify non-unit fractions with denominators 2\u201310 using pictorial representation.",
+      "path": "model",
+      "frozen_model_refs": [
+        "efd697f9-a066-407a-8155-2559004faaa3"
+      ],
+      "final_refs": [
+        "efd697f9-a066-407a-8155-2559004faaa3"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p3",
+      "kind": "bullet",
+      "text": "Identify unit and non-unit fractions with denominators 2\u201310 on the number line.",
+      "path": "model",
+      "frozen_model_refs": [
+        "62dba2a6-4e84-4697-aedf-774c25ce48b8"
+      ],
+      "final_refs": [
+        "62dba2a6-4e84-4697-aedf-774c25ce48b8"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p3",
+      "kind": "bullet",
+      "text": "Discuss equivalent fractions with denominators from 6.",
+      "path": "model",
+      "frozen_model_refs": [
+        "9a23e937-0284-4d69-80e5-3bea9eb4d4cb"
+      ],
+      "final_refs": [
+        "9a23e937-0284-4d69-80e5-3bea9eb4d4cb"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p3",
+      "kind": "bullet",
+      "text": "Add like fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "acb34f40-8e0e-4fe3-955e-cda5937a24a7"
+      ],
+      "final_refs": [
+        "acb34f40-8e0e-4fe3-955e-cda5937a24a7"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p3",
+      "kind": "bullet",
+      "text": "Subtract like fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "f5937377-f1c6-49f4-8e61-de6b8f8afbf0"
+      ],
+      "final_refs": [
+        "f5937377-f1c6-49f4-8e61-de6b8f8afbf0"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p3",
+      "kind": "bullet",
+      "text": "Solve word problems involving addition and subtraction of like fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "acb34f40-8e0e-4fe3-955e-cda5937a24a7"
+      ],
+      "final_refs": [
+        "acb34f40-8e0e-4fe3-955e-cda5937a24a7"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p5",
+      "kind": "bullet",
+      "text": "Identify equivalent fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "6d59df90-4634-4fa7-a0e2-b4c914d65046"
+      ],
+      "final_refs": [
+        "6d59df90-4634-4fa7-a0e2-b4c914d65046"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p5",
+      "kind": "bullet",
+      "text": "Compare equivalent fractions and fractions greater than one.",
+      "path": "model",
+      "frozen_model_refs": [
+        "ce7e49d4-ddc5-47b7-ac2e-959b7d2fcc34"
+      ],
+      "final_refs": [
+        "ce7e49d4-ddc5-47b7-ac2e-959b7d2fcc34"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p5",
+      "kind": "bullet",
+      "text": "Compare and order fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "610e543f-0a3b-46ee-8d39-acc2480c5805"
+      ],
+      "final_refs": [
+        "610e543f-0a3b-46ee-8d39-acc2480c5805"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p5",
+      "kind": "bullet",
+      "text": "Add and subtract like fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "17642966-95c6-4164-a9b7-aa92325598a0"
+      ],
+      "final_refs": [
+        "17642966-95c6-4164-a9b7-aa92325598a0"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p5",
+      "kind": "bullet",
+      "text": "Add and subtract equivalent fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "6f22fa90-bd5b-4aca-9c78-25963b7c8399"
+      ],
+      "final_refs": [
+        "6f22fa90-bd5b-4aca-9c78-25963b7c8399"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p5",
+      "kind": "bullet",
+      "text": "Convert mixed fractions and improper fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "e4710e7b-a33c-487f-91ac-636fa21fdb15"
+      ],
+      "final_refs": [
+        "e4710e7b-a33c-487f-91ac-636fa21fdb15"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p5",
+      "kind": "bullet",
+      "text": "Use the four operations on fractions (addition, subtraction, multiplication and division).",
+      "path": "model",
+      "frozen_model_refs": [
+        "e4710e7b-a33c-487f-91ac-636fa21fdb15"
+      ],
+      "final_refs": [
+        "e4710e7b-a33c-487f-91ac-636fa21fdb15"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p5",
+      "kind": "bullet",
+      "text": "Convert from fractions to decimals and from decimals to fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "59edb9a8-6f14-4d84-9f00-c35545f4398b"
+      ],
+      "final_refs": [
+        "59edb9a8-6f14-4d84-9f00-c35545f4398b"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p5",
+      "kind": "bullet",
+      "text": "Convert from fractions to percentages and from percentages to fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "36c083dd-2c65-4aba-8d4c-68fd11ab22b2"
+      ],
+      "final_refs": [
+        "36c083dd-2c65-4aba-8d4c-68fd11ab22b2"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p5",
+      "kind": "bullet",
+      "text": "Convert from decimals to percentages and from percentages to decimals.",
+      "path": "model",
+      "frozen_model_refs": [
+        "23f59480-8f4e-4a18-91d7-246b7a1c57a0"
+      ],
+      "final_refs": [
+        "23f59480-8f4e-4a18-91d7-246b7a1c57a0"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fractions-p5",
+      "kind": "bullet",
+      "text": "Solve percentage of a quantity, from simple problems to more complex problems.",
+      "path": "model",
+      "frozen_model_refs": [
+        "7b4ec341-c0f1-464a-8158-b6b750d84264"
+      ],
+      "final_refs": [
+        "7b4ec341-c0f1-464a-8158-b6b750d84264"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "money-p4",
+      "kind": "bullet",
+      "text": "Solve word problems involving the four operations and money.",
+      "path": "model",
+      "frozen_model_refs": [
+        "8e91780d-814a-4829-ba39-289274e7af19"
+      ],
+      "final_refs": [
+        "8e91780d-814a-4829-ba39-289274e7af19"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "money-p4",
+      "kind": "bullet",
+      "text": "Order operations using BODMAS.",
+      "path": "model",
+      "frozen_model_refs": [
+        "5a3e84bc-fce5-43a3-a369-3d8088786185"
+      ],
+      "final_refs": [
+        "5a3e84bc-fce5-43a3-a369-3d8088786185"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "money-p4",
+      "kind": "bullet",
+      "text": "Use estimation strategies to check answers for reasonableness.",
+      "path": "model",
+      "frozen_model_refs": [
+        "ad257603-967d-4ec3-bc33-666776b57790"
+      ],
+      "final_refs": [
+        "ad257603-967d-4ec3-bc33-666776b57790"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "money-p4",
+      "kind": "bullet",
+      "text": "Use inverse operations to check answers for reasonableness.",
+      "path": "model",
+      "frozen_model_refs": [
+        "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+      ],
+      "final_refs": [
+        "5fbb62a9-742e-40a8-8169-ba81607f69b2"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "time-p3",
+      "kind": "bullet",
+      "text": "Tell the time in hours and half hours",
+      "path": "model",
+      "frozen_model_refs": [
+        "666caf64-895d-4f3a-b597-28ec86304559"
+      ],
+      "final_refs": [
+        "666caf64-895d-4f3a-b597-28ec86304559"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "time-p3",
+      "kind": "bullet",
+      "text": "Tell the time in quarters of an hour",
+      "path": "model",
+      "frozen_model_refs": [
+        "fe22ddc7-1831-474d-825d-2260b3da6e45"
+      ],
+      "final_refs": [
+        "fe22ddc7-1831-474d-825d-2260b3da6e45"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "time-p3",
+      "kind": "bullet",
+      "text": "Tell the time to 5 minutes",
+      "path": "model",
+      "frozen_model_refs": [
+        "2d18e215-af9f-4f8a-9809-1b8f595ecbfd"
+      ],
+      "final_refs": [
+        "2d18e215-af9f-4f8a-9809-1b8f595ecbfd"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "time-p3",
+      "kind": "bullet",
+      "text": "Tell the time to the nearest minute",
+      "path": "model",
+      "frozen_model_refs": [
+        "8c808613-f57b-4bde-92b8-38c9b2b4bdeb"
+      ],
+      "final_refs": [
+        "8c808613-f57b-4bde-92b8-38c9b2b4bdeb"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "time-p3",
+      "kind": "bullet",
+      "text": "State the units of time: second, minute, hour",
+      "path": "model",
+      "frozen_model_refs": [
+        "fedf1859-4a05-47af-8ce7-53c730308afc"
+      ],
+      "final_refs": [
+        "fedf1859-4a05-47af-8ce7-53c730308afc"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "time-p3",
+      "kind": "bullet",
+      "text": "State the units of time: weeks, months, years",
+      "path": "model",
+      "frozen_model_refs": [
+        "1ff6e6a7-ce81-4ce2-bf90-c3d782072ec2"
+      ],
+      "final_refs": [
+        "1ff6e6a7-ce81-4ce2-bf90-c3d782072ec2"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "time-p3",
+      "kind": "bullet",
+      "text": "Estimate and measure time in seconds, minutes, hours",
+      "path": "model",
+      "frozen_model_refs": [
+        "72e84449-4707-4247-8ec7-308b70eb5d36"
+      ],
+      "final_refs": [
+        "72e84449-4707-4247-8ec7-308b70eb5d36"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "time-p3",
+      "kind": "bullet",
+      "text": "Estimate and measure time in weeks, months, years",
+      "path": "model",
+      "frozen_model_refs": [
+        "1a6b4a31-1c3e-4f88-b85b-7a6d50e023f4"
+      ],
+      "final_refs": [
+        "1a6b4a31-1c3e-4f88-b85b-7a6d50e023f4"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "time-p3",
+      "kind": "bullet",
+      "text": "Compare time activities",
+      "path": "model",
+      "frozen_model_refs": [
+        "b0d6c5ef-84a6-491a-9422-693b4976b597"
+      ],
+      "final_refs": [
+        "b0d6c5ef-84a6-491a-9422-693b4976b597"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "time-p3",
+      "kind": "bullet",
+      "text": "Solve word problems on time",
+      "path": "model",
+      "frozen_model_refs": [
+        "0428a57e-8d92-476d-a188-84e48d87f601"
+      ],
+      "final_refs": [
+        "0428a57e-8d92-476d-a188-84e48d87f601"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Measure lengths of objects in centimetres.",
+      "path": "model",
+      "frozen_model_refs": [
+        "2ce28489-a10e-4cf8-9a85-b489d125495a"
+      ],
+      "final_refs": [
+        "2ce28489-a10e-4cf8-9a85-b489d125495a"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Measure lengths of objects in metres.",
+      "path": "model",
+      "frozen_model_refs": [
+        "155f3f23-7fce-472a-9a67-2aa9290ed13e"
+      ],
+      "final_refs": [
+        "155f3f23-7fce-472a-9a67-2aa9290ed13e"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Solve word problems about the length of small objects in centimetres.",
+      "path": "model",
+      "frozen_model_refs": [
+        "79d5c534-d1f8-406f-ae16-77aa3e5689e5"
+      ],
+      "final_refs": [
+        "79d5c534-d1f8-406f-ae16-77aa3e5689e5"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Measure the perimeter of objects using centimetres and metres.",
+      "path": "model",
+      "frozen_model_refs": [
+        "32735624-ae6e-4bd7-8566-a3e013dca588"
+      ],
+      "final_refs": [
+        "32735624-ae6e-4bd7-8566-a3e013dca588"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Calculate the perimeter of rectangles, squares and triangles in centimetres.",
+      "path": "model",
+      "frozen_model_refs": [
+        "53e91681-6b1c-43fb-a169-8fcf471552a5"
+      ],
+      "final_refs": [
+        "53e91681-6b1c-43fb-a169-8fcf471552a5"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Calculate the area of objects by counting squares.",
+      "path": "model",
+      "frozen_model_refs": [
+        "e777ca9a-8a8f-47ba-aa4a-b2a4a9b09cbe"
+      ],
+      "final_refs": [
+        "e777ca9a-8a8f-47ba-aa4a-b2a4a9b09cbe"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Calculate the area of rectangles in cm\u00b2 and m\u00b2.",
+      "path": "model",
+      "frozen_model_refs": [
+        "7d1338d5-6810-4e10-80e5-91c1f42a1a2a"
+      ],
+      "final_refs": [
+        "7d1338d5-6810-4e10-80e5-91c1f42a1a2a"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Solve word problems about area and perimeter.",
+      "path": "model",
+      "frozen_model_refs": [
+        "80a22861-6d16-4351-b33e-db9bdab1af03"
+      ],
+      "final_refs": [
+        "80a22861-6d16-4351-b33e-db9bdab1af03"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Estimate mass comparatively using non-standard measurement.",
+      "path": "model",
+      "frozen_model_refs": [
+        "88271072-2df9-48c3-b308-46d1a27be7d2"
+      ],
+      "final_refs": [
+        "88271072-2df9-48c3-b308-46d1a27be7d2"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Calculate mass using kilograms.",
+      "path": "model",
+      "frozen_model_refs": [
+        "d497876d-f1a0-4180-a4aa-6af3c40ebad6"
+      ],
+      "final_refs": [
+        "d497876d-f1a0-4180-a4aa-6af3c40ebad6"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Convert kilogram and local measurement.",
+      "path": "model",
+      "frozen_model_refs": [
+        "cafd6302-3dc1-4ab8-975c-cc3d100de150"
+      ],
+      "final_refs": [
+        "cafd6302-3dc1-4ab8-975c-cc3d100de150"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Solve word problems about mass using the four operations (+, \u2212, \u00d7, \u00f7).",
+      "path": "model",
+      "frozen_model_refs": [
+        "70a8f8ca-14b8-4ee4-8539-149387206c76"
+      ],
+      "final_refs": [
+        "70a8f8ca-14b8-4ee4-8539-149387206c76"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Estimate volume and capacity.",
+      "path": "model",
+      "frozen_model_refs": [
+        "de8436ef-54b8-4d0f-a305-21de1697ff1d"
+      ],
+      "final_refs": [
+        "de8436ef-54b8-4d0f-a305-21de1697ff1d"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Estimate volume using standard measure (no conversion).",
+      "path": "model",
+      "frozen_model_refs": [
+        "ba256aef-d629-4183-8ce1-685168b8818b"
+      ],
+      "final_refs": [
+        "ba256aef-d629-4183-8ce1-685168b8818b"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Tell the time to the nearest minute on the analogue clock.",
+      "path": "model",
+      "frozen_model_refs": [
+        "a28da8ec-ad58-466b-84fe-152e7a3affcd"
+      ],
+      "final_refs": [
+        "a28da8ec-ad58-466b-84fe-152e7a3affcd"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Identify and draw horizontal and vertical lines.",
+      "path": "model",
+      "frozen_model_refs": [
+        "8e0b6b3a-3b65-4a78-84a0-cfdbff6bcb3f"
+      ],
+      "final_refs": [
+        "8e0b6b3a-3b65-4a78-84a0-cfdbff6bcb3f"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "measurement-p4",
+      "kind": "bullet",
+      "text": "Identify and draw perpendicular and parallel lines.",
+      "path": "model",
+      "frozen_model_refs": [
+        "0df86872-e0b5-4873-a0c4-71b716946103"
+      ],
+      "final_refs": [
+        "0df86872-e0b5-4873-a0c4-71b716946103"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "decimals-p5",
+      "kind": "bullet",
+      "text": "Convert from fractions to decimals and from decimals to fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "59edb9a8-6f14-4d84-9f00-c35545f4398b"
+      ],
+      "final_refs": [
+        "59edb9a8-6f14-4d84-9f00-c35545f4398b"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "decimals-p5",
+      "kind": "bullet",
+      "text": "Convert from decimals to percentage and from percentages to decimals.",
+      "path": "model",
+      "frozen_model_refs": [
+        "23f59480-8f4e-4a18-91d7-246b7a1c57a0"
+      ],
+      "final_refs": [
+        "23f59480-8f4e-4a18-91d7-246b7a1c57a0"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "reading-p3",
+      "kind": "bullet",
+      "text": "Identify words in sentences.",
+      "path": "model",
+      "frozen_model_refs": [
+        "91bfbc94-387c-4b70-b878-e7ed8247bd54"
+      ],
+      "final_refs": [
+        "91bfbc94-387c-4b70-b878-e7ed8247bd54"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "reading-p3",
+      "kind": "bullet",
+      "text": "Read independently and answer questions on passages read.",
+      "path": "model",
+      "frozen_model_refs": [
+        "91bfbc94-387c-4b70-b878-e7ed8247bd54"
+      ],
+      "final_refs": [
+        "91bfbc94-387c-4b70-b878-e7ed8247bd54"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "plants-p4",
+      "kind": "bullet",
+      "text": "Identify some plants in their environment.",
+      "path": "model",
+      "frozen_model_refs": [
+        "0df7a75d-87f6-4446-aa65-f621cd3e314b"
+      ],
+      "final_refs": [
+        "0df7a75d-87f6-4446-aa65-f621cd3e314b"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "plants-p4",
+      "kind": "bullet",
+      "text": "Classify plants in their environment into different groups.",
+      "path": "model",
+      "frozen_model_refs": [
+        "a8d8c671-5cf7-4f93-bd90-2e924456b109"
+      ],
+      "final_refs": [
+        "a8d8c671-5cf7-4f93-bd90-2e924456b109"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "plants-p4",
+      "kind": "bullet",
+      "text": "State ways people can benefit from planting trees and plants, such as providing food and fruits, shade, clean air (oxygen), water, and preventing soil erosion and natural disasters like mud slides.",
+      "path": "model",
+      "frozen_model_refs": [
+        "5f05404a-9e86-4735-975a-f5f26a7400a7"
+      ],
+      "final_refs": [
+        "5f05404a-9e86-4735-975a-f5f26a7400a7"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "plants-p4",
+      "kind": "bullet",
+      "text": "Draw and label a named flowering plant.",
+      "path": "model",
+      "frozen_model_refs": [
+        "cc62a3c1-2f34-430d-9db6-84f1cbff7f3e"
+      ],
+      "final_refs": [
+        "cc62a3c1-2f34-430d-9db6-84f1cbff7f3e"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "plants-p4",
+      "kind": "bullet",
+      "text": "State the functions of parts of a flowering plant.",
+      "path": "model",
+      "frozen_model_refs": [
+        "88f10a7b-6293-421f-916a-aab1de7387d7"
+      ],
+      "final_refs": [
+        "88f10a7b-6293-421f-916a-aab1de7387d7"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "plants-p4",
+      "kind": "bullet",
+      "text": "List the uses of parts of a flowering plant.",
+      "path": "model",
+      "frozen_model_refs": [
+        "fc559a14-3cba-4278-97f5-2f0434e598be"
+      ],
+      "final_refs": [
+        "fc559a14-3cba-4278-97f5-2f0434e598be"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "plants-p4",
+      "kind": "bullet",
+      "text": "Identify life cycles of plants and animals.",
+      "path": "model",
+      "frozen_model_refs": [
+        "51d0c1bf-9e39-4b42-ba5a-e5e2fcfb0310"
+      ],
+      "final_refs": [
+        "51d0c1bf-9e39-4b42-ba5a-e5e2fcfb0310"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "plants-p4",
+      "kind": "bullet",
+      "text": "Describe life cycles of some plants and animals.",
+      "path": "model",
+      "frozen_model_refs": [
+        "74f10529-3f26-4d69-aa65-0782444e44aa"
+      ],
+      "final_refs": [
+        "74f10529-3f26-4d69-aa65-0782444e44aa"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "plants-p4",
+      "kind": "bullet",
+      "text": "Draw life cycles of plants and animals.",
+      "path": "model",
+      "frozen_model_refs": [
+        "32a27d6b-9357-48e4-aa97-256c4d299f62"
+      ],
+      "final_refs": [
+        "32a27d6b-9357-48e4-aa97-256c4d299f62"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "water-p4",
+      "kind": "bullet",
+      "text": "Identify different papers that can be soaked in water.",
+      "path": "model",
+      "frozen_model_refs": [
+        "c3b3411c-901d-46c9-9532-83bdde795330"
+      ],
+      "final_refs": [
+        "c3b3411c-901d-46c9-9532-83bdde795330"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "water-p4",
+      "kind": "bullet",
+      "text": "Describe the effect of soaking different types of paper in water.",
+      "path": "model",
+      "frozen_model_refs": [
+        "7aeba75e-2565-40e5-a394-da3cb8195697"
+      ],
+      "final_refs": [
+        "7aeba75e-2565-40e5-a394-da3cb8195697"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "water-p4",
+      "kind": "bullet",
+      "text": "Identify and indicate which strip of paper soaks more in water.",
+      "path": "model",
+      "frozen_model_refs": [
+        "3939730f-9848-4476-a57d-4c2abe08564f"
+      ],
+      "final_refs": [
+        "3939730f-9848-4476-a57d-4c2abe08564f"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "water-p4",
+      "kind": "bullet",
+      "text": "State some uses of paper soaked in water.",
+      "path": "model",
+      "frozen_model_refs": [
+        "67856f27-54a8-4beb-ae1d-edf1f56e9eb8"
+      ],
+      "final_refs": [
+        "67856f27-54a8-4beb-ae1d-edf1f56e9eb8"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Count up to 10 objects.",
+      "path": "model",
+      "frozen_model_refs": [
+        "d75764dd-cf5f-4d6b-8db4-2dff25198667"
+      ],
+      "final_refs": [
+        "d75764dd-cf5f-4d6b-8db4-2dff25198667"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Count from 1 up to 10 forwards and backwards.",
+      "path": "model",
+      "frozen_model_refs": [
+        "470a44dd-60a3-491f-86c1-650caea9cc92"
+      ],
+      "final_refs": [
+        "470a44dd-60a3-491f-86c1-650caea9cc92"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Count up to 100 forwards and backwards.",
+      "path": "model",
+      "frozen_model_refs": [
+        "606c6268-9607-4136-bdc6-ac68cbfb2b4e"
+      ],
+      "final_refs": [
+        "606c6268-9607-4136-bdc6-ac68cbfb2b4e"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Use rhymes, songs and games to count numbers and group objects in 10s.",
+      "path": "model",
+      "frozen_model_refs": [
+        "bb291d10-19ff-4556-9a86-8b229e750691"
+      ],
+      "final_refs": [
+        "bb291d10-19ff-4556-9a86-8b229e750691"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Count objects up to 50 outside the classroom.",
+      "path": "model",
+      "frozen_model_refs": [
+        "1a97eec4-aa71-435f-98c0-99490e47eda6"
+      ],
+      "final_refs": [
+        "1a97eec4-aa71-435f-98c0-99490e47eda6"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Count up to 10 objects and write the numbers.",
+      "path": "model",
+      "frozen_model_refs": [
+        "09f00934-2fdc-45ab-b3ee-f4b113872559"
+      ],
+      "final_refs": [
+        "09f00934-2fdc-45ab-b3ee-f4b113872559"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Use pictorial representation to count and write numbers.",
+      "path": "model",
+      "frozen_model_refs": [
+        "a79eb6ea-b0e7-4ff0-9e5d-aeeb98f8f80a"
+      ],
+      "final_refs": [
+        "a79eb6ea-b0e7-4ff0-9e5d-aeeb98f8f80a"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Write numbers up to 100 in words.",
+      "path": "model",
+      "frozen_model_refs": [
+        "bc7fa3a0-4048-4fe2-bcfb-9bff681261b0"
+      ],
+      "final_refs": [
+        "bc7fa3a0-4048-4fe2-bcfb-9bff681261b0"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Use different representations for numbers.",
+      "path": "model",
+      "frozen_model_refs": [
+        "95b34608-df73-40b9-89d7-9e50e1e12054"
+      ],
+      "final_refs": [
+        "95b34608-df73-40b9-89d7-9e50e1e12054"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Use real objects to represent and count numbers.",
+      "path": "model",
+      "frozen_model_refs": [
+        "95b34608-df73-40b9-89d7-9e50e1e12054"
+      ],
+      "final_refs": [
+        "95b34608-df73-40b9-89d7-9e50e1e12054"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Locate numbers up to 100 on the 100 chart.",
+      "path": "model",
+      "frozen_model_refs": [
+        "bd1ccb9b-df7c-4778-8933-301ec9a8221a"
+      ],
+      "final_refs": [
+        "bd1ccb9b-df7c-4778-8933-301ec9a8221a"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Locate numbers up to 100 on the number line.",
+      "path": "model",
+      "frozen_model_refs": [
+        "c546b9db-1e52-439f-b600-84ca177fe170"
+      ],
+      "final_refs": [
+        "c546b9db-1e52-439f-b600-84ca177fe170"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Compare and order numbers up to 100 using the 100 chart.",
+      "path": "model",
+      "frozen_model_refs": [
+        "43b89434-ced3-4e14-83d6-d7f11d0a16b7"
+      ],
+      "final_refs": [
+        "43b89434-ced3-4e14-83d6-d7f11d0a16b7"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Order numbers up to 100 using the number line.",
+      "path": "model",
+      "frozen_model_refs": [
+        "f186f002-e42e-4362-9529-e6d2c87f0480"
+      ],
+      "final_refs": [
+        "f186f002-e42e-4362-9529-e6d2c87f0480"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Identify halves using pictures.",
+      "path": "model",
+      "frozen_model_refs": [
+        "4f8d3c62-f6c7-4a25-81df-1696cdb08e3d"
+      ],
+      "final_refs": [
+        "4f8d3c62-f6c7-4a25-81df-1696cdb08e3d"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Make stories by drawing halves in pictures.",
+      "path": "model",
+      "frozen_model_refs": [
+        "5492684c-6b12-464e-92dd-426a95575347"
+      ],
+      "final_refs": [
+        "5492684c-6b12-464e-92dd-426a95575347"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Identify quarters using pictures.",
+      "path": "model",
+      "frozen_model_refs": [
+        "1fe31383-f23e-46b9-8823-ac7cf1ef81d8"
+      ],
+      "final_refs": [
+        "1fe31383-f23e-46b9-8823-ac7cf1ef81d8"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Make stories by drawing quarters in pictures.",
+      "path": "model",
+      "frozen_model_refs": [
+        "370ffe66-3928-479b-9f23-cc2f029ec503"
+      ],
+      "final_refs": [
+        "370ffe66-3928-479b-9f23-cc2f029ec503"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "numbers-p1",
+      "kind": "bullet",
+      "text": "Share using halves and quarters.",
+      "path": "model",
+      "frozen_model_refs": [
+        "4f407e62-47a2-4980-a00e-e182224fcd22"
+      ],
+      "final_refs": [
+        "4f407e62-47a2-4980-a00e-e182224fcd22"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "length-p4",
+      "kind": "bullet",
+      "text": "Measure lengths of objects in centimetres.",
+      "path": "model",
+      "frozen_model_refs": [
+        "2ce28489-a10e-4cf8-9a85-b489d125495a"
+      ],
+      "final_refs": [
+        "2ce28489-a10e-4cf8-9a85-b489d125495a"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "length-p4",
+      "kind": "bullet",
+      "text": "Measure lengths of objects in metres.",
+      "path": "model",
+      "frozen_model_refs": [
+        "155f3f23-7fce-472a-9a67-2aa9290ed13e"
+      ],
+      "final_refs": [
+        "155f3f23-7fce-472a-9a67-2aa9290ed13e"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "length-p4",
+      "kind": "bullet",
+      "text": "Measure lengths of objects in feet.",
+      "path": "model",
+      "frozen_model_refs": [
+        "13b33892-139f-4d38-8c59-37c63b2b8cb5"
+      ],
+      "final_refs": [
+        "13b33892-139f-4d38-8c59-37c63b2b8cb5"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "length-p4",
+      "kind": "bullet",
+      "text": "Solve word problems about the length of small objects in centimetres.",
+      "path": "model",
+      "frozen_model_refs": [
+        "79d5c534-d1f8-406f-ae16-77aa3e5689e5"
+      ],
+      "final_refs": [
+        "79d5c534-d1f8-406f-ae16-77aa3e5689e5"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "length-p4",
+      "kind": "bullet",
+      "text": "Measure the perimeter of objects using centimetres and metres.",
+      "path": "model",
+      "frozen_model_refs": [
+        "32735624-ae6e-4bd7-8566-a3e013dca588"
+      ],
+      "final_refs": [
+        "32735624-ae6e-4bd7-8566-a3e013dca588"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "length-p4",
+      "kind": "bullet",
+      "text": "Calculate the perimeter of rectangles, squares and triangles in centimetres.",
+      "path": "model",
+      "frozen_model_refs": [
+        "53e91681-6b1c-43fb-a169-8fcf471552a5"
+      ],
+      "final_refs": [
+        "53e91681-6b1c-43fb-a169-8fcf471552a5"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "multiplication-p4",
+      "kind": "bullet",
+      "text": "Multiply using the 7 and 8 times table.",
+      "path": "model",
+      "frozen_model_refs": [
+        "c9ab959b-d85f-40a3-8620-9b7ad1784841"
+      ],
+      "final_refs": [
+        "c9ab959b-d85f-40a3-8620-9b7ad1784841"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "multiplication-p4",
+      "kind": "bullet",
+      "text": "Multiply using the 9 and 10 times table.",
+      "path": "model",
+      "frozen_model_refs": [
+        "caa36555-0670-4c67-9c83-a266b50a5226"
+      ],
+      "final_refs": [
+        "caa36555-0670-4c67-9c83-a266b50a5226"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "multiplication-p4",
+      "kind": "bullet",
+      "text": "Use long multiplication for 2-digit numbers by a 1-digit number, without renaming.",
+      "path": "model",
+      "frozen_model_refs": [
+        "64317bdd-fcc7-4b9b-b099-af0e0f90288a"
+      ],
+      "final_refs": [
+        "64317bdd-fcc7-4b9b-b099-af0e0f90288a"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "multiplication-p4",
+      "kind": "bullet",
+      "text": "Use long multiplication for 2-digit numbers by a 1-digit number, with renaming.",
+      "path": "model",
+      "frozen_model_refs": [
+        "8bf5d11d-a14e-4941-b72b-8c99e0606620"
+      ],
+      "final_refs": [
+        "8bf5d11d-a14e-4941-b72b-8c99e0606620"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "multiplication-p4",
+      "kind": "bullet",
+      "text": "Use long multiplication for 3-digit numbers by a 1-digit number, without and with renaming.",
+      "path": "model",
+      "frozen_model_refs": [
+        "39340737-a628-43fe-81bd-eb1c7c586443"
+      ],
+      "final_refs": [
+        "39340737-a628-43fe-81bd-eb1c7c586443"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "multiplication-p4",
+      "kind": "bullet",
+      "text": "Use long multiplication for 3-digit numbers by 2-digit numbers, without renaming.",
+      "path": "model",
+      "frozen_model_refs": [
+        "f2fade44-f5f4-4cd0-b714-568c5097999f"
+      ],
+      "final_refs": [
+        "f2fade44-f5f4-4cd0-b714-568c5097999f"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "multiplication-p4",
+      "kind": "bullet",
+      "text": "Use long multiplication for 4-digit numbers by a 1-digit number, without and with renaming.",
+      "path": "model",
+      "frozen_model_refs": [
+        "784b3e8f-d188-494b-981c-154e82f02796"
+      ],
+      "final_refs": [
+        "784b3e8f-d188-494b-981c-154e82f02796"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "multiplication-p4",
+      "kind": "bullet",
+      "text": "Use mental strategies for multiplication and division.",
+      "path": "model",
+      "frozen_model_refs": [
+        "351ef533-e32c-4582-8cd0-ecad956377e8"
+      ],
+      "final_refs": [
+        "351ef533-e32c-4582-8cd0-ecad956377e8"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "multiplication-p4",
+      "kind": "bullet",
+      "text": "Multiply equivalent fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "ee43f087-3372-411e-9495-21859368099e"
+      ],
+      "final_refs": [
+        "ee43f087-3372-411e-9495-21859368099e"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "multiplication-p4",
+      "kind": "bullet",
+      "text": "Multiply whole numbers up to 5 digits.",
+      "path": "model",
+      "frozen_model_refs": [
+        "36d36607-fa63-431b-9fd5-dedc3db40322"
+      ],
+      "final_refs": [
+        "36d36607-fa63-431b-9fd5-dedc3db40322"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "multiplication-p4",
+      "kind": "bullet",
+      "text": "Multiply a decimal to 1 decimal place.",
+      "path": "model",
+      "frozen_model_refs": [
+        "0731389e-56b3-4f6f-a530-8c173659bee1"
+      ],
+      "final_refs": [
+        "0731389e-56b3-4f6f-a530-8c173659bee1"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Count forward from 10 and count backwards from 100 to 10.",
+      "path": "model",
+      "frozen_model_refs": [
+        "eff49d8b-38ad-4856-aa2a-795161373491"
+      ],
+      "final_refs": [
+        "eff49d8b-38ad-4856-aa2a-795161373491"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Count in multiples of 2, 5 and 10.",
+      "path": "model",
+      "frozen_model_refs": [
+        "8f782c51-1f25-429a-ba31-538834471f7e"
+      ],
+      "final_refs": [
+        "8f782c51-1f25-429a-ba31-538834471f7e"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Count from 0 to 1000 forward and from 1000 to 0 backwards.",
+      "path": "model",
+      "frozen_model_refs": [
+        "8ecb2862-0b04-45d3-ace7-eaae205e6c0d",
+        "aa24f799-5e34-4789-9c34-9d1b491ce269"
+      ],
+      "final_refs": [
+        "8ecb2862-0b04-45d3-ace7-eaae205e6c0d",
+        "aa24f799-5e34-4789-9c34-9d1b491ce269"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Count in multiples of 2 and of 5 from 0 to 1000.",
+      "path": "model",
+      "frozen_model_refs": [
+        "300c7aa6-f6e6-462a-b086-7a331fb6366b",
+        "bb691d7f-a238-4205-941f-9a8dfc106a42"
+      ],
+      "final_refs": [
+        "300c7aa6-f6e6-462a-b086-7a331fb6366b",
+        "bb691d7f-a238-4205-941f-9a8dfc106a42"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Read and write numerals in words from 10 to 100 using place value.",
+      "path": "model",
+      "frozen_model_refs": [
+        "3b07a7b2-ff88-49da-8002-7e12f4807800"
+      ],
+      "final_refs": [
+        "3b07a7b2-ff88-49da-8002-7e12f4807800"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Read and write numerals in words up to 1,000.",
+      "path": "model",
+      "frozen_model_refs": [
+        "fa0cdb21-3475-4c43-ae0c-192de6b841dc"
+      ],
+      "final_refs": [
+        "fa0cdb21-3475-4c43-ae0c-192de6b841dc"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Write numbers in words from 100 to 500 as numerals using place value.",
+      "path": "model",
+      "frozen_model_refs": [
+        "7d299862-de93-40c5-a4eb-cb11715ee03d"
+      ],
+      "final_refs": [
+        "7d299862-de93-40c5-a4eb-cb11715ee03d"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Order whole numbers from 10 and locate numbers from 0 to 100 on a number line.",
+      "path": "model",
+      "frozen_model_refs": [
+        "d6fab115-f938-420d-8b4e-c9ee96dbc5e0"
+      ],
+      "final_refs": [
+        "d6fab115-f938-420d-8b4e-c9ee96dbc5e0"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Compare numbers up to 100 using a number line.",
+      "path": "model",
+      "frozen_model_refs": [
+        "783330d8-d742-465a-9559-06883234e428"
+      ],
+      "final_refs": [
+        "783330d8-d742-465a-9559-06883234e428"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Order whole numbers from 0 to 1,000.",
+      "path": "model",
+      "frozen_model_refs": [
+        "4d6b3b57-9ea0-4de6-97a4-0cbf5ae60335"
+      ],
+      "final_refs": [
+        "4d6b3b57-9ea0-4de6-97a4-0cbf5ae60335"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Locate numbers from 0 to 1,000 using a number line.",
+      "path": "model",
+      "frozen_model_refs": [
+        "0232453d-641c-4bda-8d70-3b09897ef47f"
+      ],
+      "final_refs": [
+        "0232453d-641c-4bda-8d70-3b09897ef47f"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Compare numbers up to 1,000 using a number line.",
+      "path": "model",
+      "frozen_model_refs": [
+        "30365a0f-24a3-476a-9d8e-b4646a11f647"
+      ],
+      "final_refs": [
+        "30365a0f-24a3-476a-9d8e-b4646a11f647"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Identify halves using pictures and make stories by drawing halves in pictures.",
+      "path": "model",
+      "frozen_model_refs": [
+        "74831d25-ae01-4d4f-9c5f-55728d26c846",
+        "2ca18a32-da9b-4ca2-b4fa-ca027ba338a0"
+      ],
+      "final_refs": [
+        "74831d25-ae01-4d4f-9c5f-55728d26c846",
+        "2ca18a32-da9b-4ca2-b4fa-ca027ba338a0"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Identify quarters using pictures.",
+      "path": "model",
+      "frozen_model_refs": [
+        "08df3f1b-6101-44b5-b45c-f5a73d3a80ac"
+      ],
+      "final_refs": [
+        "08df3f1b-6101-44b5-b45c-f5a73d3a80ac"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Identify unit fractions with denominators 2, 4 and 8 using pictorial representation.",
+      "path": "model",
+      "frozen_model_refs": [
+        "2e07186e-10eb-468e-96a4-34ebecbb61d2"
+      ],
+      "final_refs": [
+        "2e07186e-10eb-468e-96a4-34ebecbb61d2"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Identify unit fractions with denominators 3, 6 and 9 using pictorial representation.",
+      "path": "model",
+      "frozen_model_refs": [
+        "73330088-c2f8-47eb-91d1-1e939ccb6f07"
+      ],
+      "final_refs": [
+        "73330088-c2f8-47eb-91d1-1e939ccb6f07"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Identify unit fractions with denominators 5 and 10 using pictorial representation.",
+      "path": "model",
+      "frozen_model_refs": [
+        "45c72854-b5f5-4a8a-9c84-db0075a2b163"
+      ],
+      "final_refs": [
+        "45c72854-b5f5-4a8a-9c84-db0075a2b163"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Identify unit fractions with denominators from 2 to 10 using pictorial representation.",
+      "path": "model",
+      "frozen_model_refs": [
+        "ec804e13-beb1-4f3c-8bc9-afda767c720d"
+      ],
+      "final_refs": [
+        "ec804e13-beb1-4f3c-8bc9-afda767c720d"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Recognise and make repeated patterns in pictures.",
+      "path": "model",
+      "frozen_model_refs": [
+        "d8a8b859-a7c5-4b25-914e-6635c69631bd"
+      ],
+      "final_refs": [
+        "d8a8b859-a7c5-4b25-914e-6635c69631bd"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Recognise and make repeated patterns in pictures involving addition.",
+      "path": "model",
+      "frozen_model_refs": [
+        "041efa80-8934-4c94-97a9-2a255f782e9e"
+      ],
+      "final_refs": [
+        "041efa80-8934-4c94-97a9-2a255f782e9e"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "number-p2",
+      "kind": "bullet",
+      "text": "Recognise and make repeated patterns using sound.",
+      "path": "model",
+      "frozen_model_refs": [
+        "004c7f0c-bbe6-4f8e-b6c5-6e592e5bc6d6"
+      ],
+      "final_refs": [
+        "004c7f0c-bbe6-4f8e-b6c5-6e592e5bc6d6"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "ratio-p6",
+      "kind": "bullet",
+      "text": "Solve problems on proportion and ratio.",
+      "path": "model",
+      "frozen_model_refs": [
+        "93731005-d10c-4d89-b81b-df0b14b44cc9"
+      ],
+      "final_refs": [
+        "93731005-d10c-4d89-b81b-df0b14b44cc9"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "ratio-p6",
+      "kind": "bullet",
+      "text": "Solve problems on equivalent ratio.",
+      "path": "model",
+      "frozen_model_refs": [
+        "260d254b-914a-4b8a-b9c9-b11bd086896d"
+      ],
+      "final_refs": [
+        "260d254b-914a-4b8a-b9c9-b11bd086896d"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "ratio-p6",
+      "kind": "bullet",
+      "text": "Write ratio in the simplest form.",
+      "path": "model",
+      "frozen_model_refs": [
+        "924c94db-8806-47a4-899f-d84c1914d755"
+      ],
+      "final_refs": [
+        "924c94db-8806-47a4-899f-d84c1914d755"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "ratio-p6",
+      "kind": "bullet",
+      "text": "Share quantities using ratio.",
+      "path": "model",
+      "frozen_model_refs": [
+        "ab05f13e-17ac-43bb-9d81-cc33ef3191a0"
+      ],
+      "final_refs": [
+        "ab05f13e-17ac-43bb-9d81-cc33ef3191a0"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "ratio-p6",
+      "kind": "bullet",
+      "text": "Solve word problems with ratio.",
+      "path": "model",
+      "frozen_model_refs": [
+        "209fb343-ee16-4424-a658-88dcef666c4d"
+      ],
+      "final_refs": [
+        "209fb343-ee16-4424-a658-88dcef666c4d"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "ratio-p6",
+      "kind": "bullet",
+      "text": "Multiply number patterns with a common ratio.",
+      "path": "model",
+      "frozen_model_refs": [
+        "fcf0306e-7435-479b-8ad3-50798fcad152"
+      ],
+      "final_refs": [
+        "fcf0306e-7435-479b-8ad3-50798fcad152"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "ratio-p6",
+      "kind": "bullet",
+      "text": "Multiply number patterns without a common ratio.",
+      "path": "model",
+      "frozen_model_refs": [
+        "fcf0306e-7435-479b-8ad3-50798fcad152"
+      ],
+      "final_refs": [
+        "fcf0306e-7435-479b-8ad3-50798fcad152"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "geometry-p5",
+      "kind": "bullet",
+      "text": "Identify acute and obtuse angles using degrees.",
+      "path": "model",
+      "frozen_model_refs": [
+        "b744e766-5dde-4417-906a-c1173f871221"
+      ],
+      "final_refs": [
+        "b744e766-5dde-4417-906a-c1173f871221"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "geometry-p5",
+      "kind": "bullet",
+      "text": "Measure acute and obtuse angles.",
+      "path": "model",
+      "frozen_model_refs": [
+        "6ace0cbc-cbb9-4273-b453-be95e4c3a18b"
+      ],
+      "final_refs": [
+        "6ace0cbc-cbb9-4273-b453-be95e4c3a18b"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "geometry-p5",
+      "kind": "bullet",
+      "text": "Compare angles using degrees.",
+      "path": "model",
+      "frozen_model_refs": [
+        "0393d957-b98d-4831-8085-ad1e0b10bd63"
+      ],
+      "final_refs": [
+        "0393d957-b98d-4831-8085-ad1e0b10bd63"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "geometry-p5",
+      "kind": "bullet",
+      "text": "Estimate acute and obtuse angles using degrees.",
+      "path": "model",
+      "frozen_model_refs": [
+        "cc8e7870-c583-4659-b7a0-819c6de221c4"
+      ],
+      "final_refs": [
+        "cc8e7870-c583-4659-b7a0-819c6de221c4"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "geometry-p5",
+      "kind": "bullet",
+      "text": "Estimate angles up to 180 degrees.",
+      "path": "model",
+      "frozen_model_refs": [
+        "4fdb899a-7e65-49d7-8e45-8e070c371e6f"
+      ],
+      "final_refs": [
+        "4fdb899a-7e65-49d7-8e45-8e070c371e6f"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "geometry-p5",
+      "kind": "bullet",
+      "text": "Draw and identify properties of squares, including angles and lines of symmetry.",
+      "path": "model",
+      "frozen_model_refs": [
+        "de90c6f2-4d35-4d94-a129-eb9a207c6c98"
+      ],
+      "final_refs": [
+        "de90c6f2-4d35-4d94-a129-eb9a207c6c98"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "geometry-p5",
+      "kind": "bullet",
+      "text": "Draw and identify properties of rectangles, including angles and lines of symmetry.",
+      "path": "model",
+      "frozen_model_refs": [
+        "94d489b7-b3ae-444c-86ee-4dcf4da2783c"
+      ],
+      "final_refs": [
+        "94d489b7-b3ae-444c-86ee-4dcf4da2783c"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "geometry-p5",
+      "kind": "bullet",
+      "text": "Draw and identify part of a circle.",
+      "path": "model",
+      "frozen_model_refs": [
+        "b2f9c081-ef33-4b84-ad22-283302cc0598"
+      ],
+      "final_refs": [
+        "b2f9c081-ef33-4b84-ad22-283302cc0598"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "geometry-p5",
+      "kind": "bullet",
+      "text": "Compare and contrast properties of different shapes.",
+      "path": "model",
+      "frozen_model_refs": [
+        "33bb78c3-c4df-4e4f-8305-6558f972768f"
+      ],
+      "final_refs": [
+        "33bb78c3-c4df-4e4f-8305-6558f972768f"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p2-math",
+      "kind": "section_statement",
+      "text": "Pupils learn about number and numeration, including work on fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "2ab9cc6a-04db-4d06-a745-53d3daa6c9fe",
+        "660d3ebd-6809-4940-ba31-90a5c88da348"
+      ],
+      "final_refs": [
+        "2ab9cc6a-04db-4d06-a745-53d3daa6c9fe",
+        "660d3ebd-6809-4940-ba31-90a5c88da348"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p2-math",
+      "kind": "section_statement",
+      "text": "Pupils learn everyday arithmetic, including number patterns.",
+      "path": "model",
+      "frozen_model_refs": [
+        "204e2c32-7eed-41f8-ab74-79f51b54206f",
+        "82734b4a-42b3-483e-ba76-24a0f10762d1"
+      ],
+      "final_refs": [
+        "204e2c32-7eed-41f8-ab74-79f51b54206f",
+        "82734b4a-42b3-483e-ba76-24a0f10762d1"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "topics-p2-math",
+      "kind": "section_statement",
+      "text": "Pupils learn about measurement and estimation.",
+      "path": "model",
+      "frozen_model_refs": [
+        "557d1a9d-8fcf-40e5-9f23-c06f1795837d"
+      ],
+      "final_refs": [
+        "557d1a9d-8fcf-40e5-9f23-c06f1795837d"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "statistics-p4",
+      "kind": "bullet",
+      "text": "Make up a plan for data collection",
+      "path": "model",
+      "frozen_model_refs": [
+        "ad794655-aa15-4aa7-a2c6-894cba61b54e"
+      ],
+      "final_refs": [
+        "ad794655-aa15-4aa7-a2c6-894cba61b54e"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "statistics-p4",
+      "kind": "bullet",
+      "text": "Put the data collection plan into action",
+      "path": "model",
+      "frozen_model_refs": [
+        "5c960573-06d4-4dde-957c-cc7660f1bd1d"
+      ],
+      "final_refs": [
+        "5c960573-06d4-4dde-957c-cc7660f1bd1d"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "statistics-p4",
+      "kind": "bullet",
+      "text": "Devise a plan for a statistical report with the findings of the survey",
+      "path": "model",
+      "frozen_model_refs": [
+        "0d634dc1-e87f-4a04-b066-3d302992c21c"
+      ],
+      "final_refs": [
+        "0d634dc1-e87f-4a04-b066-3d302992c21c"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "statistics-p4",
+      "kind": "bullet",
+      "text": "Write a statistical report with the findings of the survey",
+      "path": "model",
+      "frozen_model_refs": [
+        "bd8ab95e-f2f6-4575-b1a4-a2522f19802b"
+      ],
+      "final_refs": [
+        "bd8ab95e-f2f6-4575-b1a4-a2522f19802b"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p3-fractions",
+      "kind": "bullet",
+      "text": "Identify unit fractions with denominators 1\u20135 using pictorial representations.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-p3-den-1-5"
+      ],
+      "final_refs": [
+        "lo-p3-den-1-5"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p3-fractions",
+      "kind": "bullet",
+      "text": "Identify unit fractions with denominators 6\u201310 using pictorial representations.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-p3-den-6-10"
+      ],
+      "final_refs": [
+        "lo-p3-den-6-10"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p3-fractions",
+      "kind": "bullet",
+      "text": "Locate unit fractions on the number line.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-p3-number-line"
+      ],
+      "final_refs": [
+        "lo-p3-number-line"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p3-fractions",
+      "kind": "bullet",
+      "text": "Identify unit and non-unit fractions with denominators 2\u201310.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-p3-non-unit"
+      ],
+      "final_refs": [
+        "lo-p3-non-unit"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p3-fractions",
+      "kind": "bullet",
+      "text": "Represent these fractions pictorially.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-p3-pictorial"
+      ],
+      "final_refs": [
+        "lo-p3-pictorial"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p3-fractions",
+      "kind": "bullet",
+      "text": "Locate and identify fractions on the number line.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-p3-locate"
+      ],
+      "final_refs": [
+        "lo-p3-locate"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p3-fractions",
+      "kind": "bullet",
+      "text": "Work with equivalent fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-p3-equivalent"
+      ],
+      "final_refs": [
+        "lo-p3-equivalent"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p3-fractions",
+      "kind": "bullet",
+      "text": "Add like fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-p3-add"
+      ],
+      "final_refs": [
+        "lo-p3-add"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p3-fractions",
+      "kind": "bullet",
+      "text": "Subtract like fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-p3-subtract"
+      ],
+      "final_refs": [
+        "lo-p3-subtract"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p3-fractions",
+      "kind": "bullet",
+      "text": "Solve word problems involving addition and subtraction of like fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-p3-word-problems"
+      ],
+      "final_refs": [
+        "lo-p3-word-problems"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p4-fractions",
+      "kind": "bullet",
+      "text": "Simplify like fractions with common denominators.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-simplify"
+      ],
+      "final_refs": [
+        "lo-simplify"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p4-fractions",
+      "kind": "bullet",
+      "text": "Compare and order fractions and identify equivalent fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-equivalent"
+      ],
+      "final_refs": [
+        "lo-equivalent"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p4-fractions",
+      "kind": "bullet",
+      "text": "Add and subtract fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-add"
+      ],
+      "final_refs": [
+        "lo-add"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p4-fractions",
+      "kind": "bullet",
+      "text": "Solve problems involving addition and subtraction of fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-problems"
+      ],
+      "final_refs": [
+        "lo-problems"
+      ],
+      "ref_change": false
+    },
+    {
+      "case_id": "fixture-p4-fractions",
+      "kind": "bullet",
+      "text": "Multiply fractions.",
+      "path": "model",
+      "frozen_model_refs": [
+        "lo-multiply-garbled"
+      ],
+      "final_refs": [
+        "lo-multiply-garbled"
+      ],
+      "ref_change": false
+    }
+  ]
+}
