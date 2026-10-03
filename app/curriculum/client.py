@@ -229,6 +229,19 @@ class CurriculumAPIClient:
         """V2.1 read-only GradeCurriculum context resolve (additive; not V1)."""
         return self.get("api/v2/curriculum/context/resolve", params=params)
 
+    def list_sss_streams(self, curriculum_id: str, **params: Any) -> dict[str, Any]:
+        return self.get(
+            f"api/v1/curricula/{curriculum_id}/sss-streams", params=params
+        )
+
+    def get_sss_stream(self, stream_id: str) -> dict[str, Any]:
+        return self.get(f"api/v1/sss-streams/{stream_id}")
+
+    def list_sss_stream_subjects(
+        self, stream_id: str, **params: Any
+    ) -> dict[str, Any]:
+        return self.get(f"api/v1/sss-streams/{stream_id}/subjects", params=params)
+
     def resolve_curriculum_id(
         self, *, code: str, version: str | None = None
     ) -> Optional[str]:

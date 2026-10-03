@@ -19,6 +19,10 @@ from app.curriculum.errors import (
     CurriculumNotFoundError,
 )
 from app.curriculum.evidence import CurriculumEvidence
+from app.curriculum.sss_stream_intent import (
+    TOOL_GET_SSS_STREAM_SUBJECTS,
+    match_sss_stream,
+)
 from app.curriculum.normalize import (
     evidence_from_hit,
     evidence_from_outcome,
@@ -1173,6 +1177,195 @@ class GetLearningObjectivesTool(CurriculumTool):
             return _tool_error(exc)
 
 
+class GetSSSStreamSubjectsTool(CurriculumTool):
+    """Subjects assigned to a named Senior Secondary stream.
+
+    The stream-to-subject relationship is the evidence. Grade curriculum,
+    topics, and learning outcomes are not required.
+    """
+
+    @property
+    def name(self) -> str:
+        return TOOL_GET_SSS_STREAM_SUBJECTS
+
+    @property
+    def description(self) -> str:
+        return (
+            "List the subjects assigned to a named Senior Secondary (SSS) "
+            "stream, such as Sciences & Technologies. Use when the user asks "
+            "which subjects belong to, are in, or are contained by a named "
+            "SSS stream. Resolve the stream by name. Do not use this for "
+            "grade or topic questions."
+        )
+
+    @property
+    def input_schema(self) -> dict[str, Any]:
+        return {
+            "type": "object",
+            "properties": {
+                "stream_name": {
+                    "type": "string",
+                    "description": "SSS stream name, for example Sciences & Technologies",
+                },
+            },
+            "required": ["stream_name"],
+        }
+
+    def execute(self, **kwargs: Any) -> ToolResult:
+        stream_name = str(kwargs.get("stream_name") or "").strip()
+        if not stream_name:
+            return _tool_error(CurriculumInvalidQueryError("stream_name is required"))
+        try:
+            curriculum_id, _, _ = self._resolve_curriculum(grade_code="SSS_1")
+            streams = self._collect_pages(
+                lambda **params: self.client.list_sss_streams(curriculum_id, **params)
+            )
+            matched = match_sss_stream(streams, stream_name)
+            if matched is None or not matched.get("id"):
+                return _sss_stream_not_found(stream_name)
+            stream_id = str(matched["id"])
+            stream = self.client.get_sss_stream(stream_id)
+            assignments = self._collect_pages(
+                lambda **params: self.client.list_sss_stream_subjects(
+                    stream_id, **params
+                )
+            )
+        except CurriculumNotFoundError:
+            return _sss_stream_not_found(stream_name)
+        except CurriculumAPIError as exc:
+            return _tool_error(exc)
+
+        official_name = str(stream.get("name") or matched.get("name") or stream_name)
+        evidence = [_stream_evidence(stream, stream_id=stream_id)]
+        subjects: list[dict[str, Any]] = []
+        for assignment in sorted(
+            assignments,
+            key=lambda row: (
+                row.get("display_order")
+                if isinstance(row.get("display_order"), int)
+                else 0
+            ),
+        ):
+            subject_row = _subject_from_assignment(assignment, stream=stream, stream_id=stream_id)
+            if subject_row is None:
+                continue
+            subjects.append(subject_row["summary"])
+            evidence.append(subject_row["evidence"])
+
+        resolution = "found" if subjects else "no_subjects"
+        return ToolResult(
+            success=True,
+            data={
+                "stream": {
+                    "id": stream_id,
+                    "name": official_name,
+                    "code": stream.get("code"),
+                },
+                "subjects": subjects,
+                "evidence": [item.model_dump() for item in evidence],
+                "observability": {
+                    "sss_stream_resolution": resolution,
+                    "subject_count": len(subjects),
+                    "stream_name": official_name,
+                },
+            },
+        )
+
+    def _collect_pages(self, fetch: Any) -> list[dict[str, Any]]:
+        items: list[dict[str, Any]] = []
+        offset = 0
+        while True:
+            page = fetch(limit=200, offset=offset)
+            if not isinstance(page, dict):
+                break
+            batch = [
+                row for row in (page.get("items") or []) if isinstance(row, dict)
+            ]
+            items.extend(batch)
+            total = page.get("total")
+            if not batch:
+                break
+            offset += len(batch)
+            if isinstance(total, int) and offset >= total:
+                break
+            if not isinstance(total, int) and len(batch) < 200:
+                break
+        return items
+
+
+def _sss_stream_not_found(stream_name: str) -> ToolResult:
+    return ToolResult(
+        success=False,
+        error=f"SSS stream '{stream_name}' was not found",
+        data={
+            "error_code": "CURRICULUM_NOT_FOUND",
+            "observability": {
+                "sss_stream_resolution": "not_found",
+                "subject_count": 0,
+                "stream_name": stream_name,
+            },
+        },
+    )
+
+
+def _stream_evidence(stream: dict[str, Any], *, stream_id: str) -> CurriculumEvidence:
+    name = stream.get("name")
+    return CurriculumEvidence(
+        entity_type="sss_stream",
+        entity_id=stream_id,
+        name=name,
+        content=stream.get("description") or name,
+        metadata={
+            "code": stream.get("code"),
+            "source_type": "sss_stream",
+            "stream_id": stream_id,
+            "stream_name": name,
+        },
+        source_reference="sss_stream",
+    )
+
+
+def _subject_from_assignment(
+    assignment: dict[str, Any],
+    *,
+    stream: dict[str, Any],
+    stream_id: str,
+) -> dict[str, Any] | None:
+    subject = assignment.get("subject") if isinstance(assignment.get("subject"), dict) else {}
+    subject_id = subject.get("id") or assignment.get("subject_id")
+    name = subject.get("name")
+    if not subject_id or not name:
+        return None
+    stream_name = stream.get("name")
+    summary = {
+        "id": str(subject_id),
+        "name": name,
+        "code": subject.get("code"),
+        "subject_type": assignment.get("subject_type"),
+        "stream_id": stream_id,
+        "stream_name": stream_name,
+    }
+    evidence = CurriculumEvidence(
+        entity_type="subject",
+        entity_id=str(subject_id),
+        name=name,
+        subject=subject.get("code") or name,
+        content=name,
+        metadata={
+            "code": subject.get("code"),
+            "source_type": "sss_stream_subject",
+            "subject_type": assignment.get("subject_type"),
+            "stream_id": stream_id,
+            "stream_name": stream_name,
+            "assignment_id": (
+                str(assignment["id"]) if assignment.get("id") is not None else None
+            ),
+        },
+        source_reference="sss_stream.subjects",
+    )
+    return {"summary": summary, "evidence": evidence}
+
+
 def build_curriculum_tools(client: CurriculumAPIClient) -> list[Tool]:
     return [
         ResolveCurriculumContextTool(client),
@@ -1181,4 +1374,5 @@ def build_curriculum_tools(client: CurriculumAPIClient) -> list[Tool]:
         GetSubjectTool(client),
         GetTopicTool(client),
         GetLearningObjectivesTool(client),
+        GetSSSStreamSubjectsTool(client),
     ]

@@ -50,9 +50,11 @@ Only use the provided tools. Prefer resolve_curriculum_context when grade and
 subject (and ideally topic) are known — it resolves GradeCurriculum units and
 learning outcomes in one structured call. Fall back to get_curriculum_structure,
 get_topic, get_learning_objectives, and search_curriculum when needed. Use
-search_curriculum for concept discovery. Do not invent curriculum facts. When
-enough evidence exists, stop requesting tools and reply with a short note that
-retrieval is complete.
+search_curriculum for concept discovery. When the user asks which subjects
+belong to a named Senior Secondary stream, call get_sss_stream_subjects with
+that stream name instead of get_curriculum_structure. Do not invent curriculum
+facts. When enough evidence exists, stop requesting tools and reply with a
+short note that retrieval is complete.
 
 When verification feedback lists missing evidence, prioritize targeted tools that
 satisfy those gaps rather than repeating broad searches already executed.
@@ -156,8 +158,65 @@ class RetrievalNode:
         planned_calls: list[ToolCallRequest] = []
         plan_mode = "llm"
 
+        # Confident SSS stream-subject questions skip the model planner.
+        heuristic_calls = (
+            None
+            if follow_up
+            else self._plan_sss_stream_subjects(state, available)
+        )
+        if heuristic_calls:
+            plan_mode = "heuristic"
+            planned_calls = heuristic_calls
+            stream_name = state.metadata.get("stream_name")
+            log_agent_event(
+                logger,
+                "agent.retrieval.plan",
+                request_id=request_id,
+                conversation_id=state.conversation_id,
+                retrieval_plan_source="heuristic",
+                intent="SSS_STREAM_SUBJECTS",
+                stream_name=stream_name,
+                tool=planned_calls[0].name,
+            )
+            if trace is not None:
+                trace.emit(
+                    "agent.retrieval.plan",
+                    iteration=state.iteration,
+                    objective=objective,
+                    candidate_tools=[c.name for c in planned_calls],
+                    selected_tool=planned_calls[0].name,
+                    reason="Deterministic SSS stream subject routing",
+                    duplicate=False,
+                    expected_information_gain="high",
+                    plan_mode=plan_mode,
+                    retrieval_plan_source="heuristic",
+                    intent="SSS_STREAM_SUBJECTS",
+                    stream_name=stream_name,
+                    tool=planned_calls[0].name,
+                )
+            for call in planned_calls:
+                if state.tool_calls >= self.settings.agent_max_tool_calls:
+                    break
+                tools_attempted += 1
+                rs.targeted_retrievals += 1
+                added, rel, dupes, skipped = self._process_call(
+                    state,
+                    call,
+                    request_id=request_id,
+                    follow_up_round=False,
+                    objective=objective,
+                    selection_reason="Deterministic SSS stream subject routing",
+                    plan_source="heuristic",
+                )
+                if skipped:
+                    tools_skipped += 1
+                    continue
+                tools_executed += 1
+                new_evidence += added
+                new_relevant += rel
+                duplicate_evidence += dupes
         # V2.3: frozen resolve-only retrieval (no LLM planner, no legacy tools).
-        if frozen_retrieval_enabled(self.settings, state) and not follow_up:
+        elif frozen_retrieval_enabled(self.settings, state) and not follow_up:
             plan_mode = "v23_frozen_resolve"
             resolve_args: dict[str, Any] = {"grade": state.grade or "CLASS_4"}
             subject = state.subject or rs.resolved_subject
@@ -209,21 +268,29 @@ class RetrievalNode:
                 apply_v25_evidence_transform(state)
         elif follow_up:
             plan_mode = "targeted"
-            planned_calls = targeted_tool_calls_from_missing(
-                state.pending_missing_evidence,
-                available_tools=available,
-                grade=state.grade,
-                subject=subject,
-                topic=state.topic,
-                retrieval_state=rs,
-            )
+            # The stream relationship is authoritative. Do not continue into
+            # generic curriculum tools after an SSS stream-subject retrieval.
+            if state.intent == "SSS_STREAM_SUBJECTS":
+                planned_calls = []
+            else:
+                planned_calls = targeted_tool_calls_from_missing(
+                    state.pending_missing_evidence,
+                    available_tools=available,
+                    grade=state.grade,
+                    subject=subject,
+                    topic=state.topic,
+                    retrieval_state=rs,
+                )
             if not planned_calls:
                 rs.no_progress = True
-                rs.no_progress_reason = (
-                    "repeated_retrieval_objective"
-                    if repeated_objective
-                    else "no_non_duplicate_targeted_retrieval"
-                )
+                if state.intent == "SSS_STREAM_SUBJECTS":
+                    rs.no_progress_reason = "sss_stream_retrieval_complete"
+                else:
+                    rs.no_progress_reason = (
+                        "repeated_retrieval_objective"
+                        if repeated_objective
+                        else "no_non_duplicate_targeted_retrieval"
+                    )
                 rs.retrieval_rounds_without_progress += 1
                 if trace is not None:
                     trace.emit(
@@ -539,6 +606,75 @@ class RetrievalNode:
             state.metadata.update(record_boundary_metrics(state))
         return state
 
+    def _plan_sss_stream_subjects(
+        self,
+        state: CurriculumQAState,
+        available: set[str],
+    ) -> list[ToolCallRequest] | None:
+        """Route a confident stream-subject question without the model planner."""
+        from app.curriculum.sss_stream_intent import (
+            INTENT_SSS_STREAM_SUBJECTS,
+            TOOL_GET_SSS_STREAM_SUBJECTS,
+            detect_sss_stream_subjects,
+        )
+
+        if TOOL_GET_SSS_STREAM_SUBJECTS not in available:
+            return None
+        detected = detect_sss_stream_subjects(state.question)
+        if detected is None:
+            return None
+        state.intent = INTENT_SSS_STREAM_SUBJECTS
+        state.level = "senior_secondary"
+        # The stream title is not a grade subject. "Sciences" must not become
+        # a SCIENCE subject filter for generic curriculum retrieval.
+        state.grade = None
+        state.subject = None
+        state.topic = None
+        state.classification = None
+        state.metadata["retrieval_plan_source"] = "heuristic"
+        state.metadata["intent"] = INTENT_SSS_STREAM_SUBJECTS
+        state.metadata["stream_name"] = detected.stream_name
+        return [
+            ToolCallRequest(
+                id=str(uuid4()),
+                name=TOOL_GET_SSS_STREAM_SUBJECTS,
+                arguments={"stream_name": detected.stream_name},
+            )
+        ]
+
+    def _record_sss_stream_outcome(
+        self,
+        state: CurriculumQAState,
+        tool_name: str,
+        observability: dict[str, Any] | None,
+        *,
+        request_id: str | None,
+    ) -> None:
+        if not observability or "sss_stream_resolution" not in observability:
+            return
+        resolution = observability["sss_stream_resolution"]
+        subject_count = observability.get("subject_count", 0)
+        stream_name = observability.get("stream_name") or state.metadata.get(
+            "stream_name"
+        )
+        state.metadata["sss_stream_resolution"] = resolution
+        state.metadata["subject_count"] = subject_count
+        if stream_name and resolution in {"found", "no_subjects"}:
+            state.metadata["resolved_stream_name"] = stream_name
+        log_agent_event(
+            logger,
+            "agent.retrieval.sss_stream",
+            request_id=request_id,
+            conversation_id=state.conversation_id,
+            retrieval_plan_source=state.metadata.get("retrieval_plan_source")
+            or "heuristic",
+            intent=state.intent,
+            stream_name=stream_name,
+            tool=tool_name,
+            sss_stream_resolution=resolution,
+            subject_count=subject_count,
+        )
+
     def _process_call(
         self,
         state: CurriculumQAState,
@@ -547,6 +683,8 @@ class RetrievalNode:
         request_id: str | None,
         follow_up_round: bool,
         objective: str,
+        selection_reason: str | None = None,
+        plan_source: str | None = None,
     ) -> tuple[int, int, int, bool]:
         """Execute or skip a tool call. Returns (new, relevant, dupes, skipped)."""
         rs = state.retrieval_state
@@ -613,13 +751,21 @@ class RetrievalNode:
                 candidate_tools=[call.name],
                 selected_tool=call.name,
                 reason=(
-                    "Verifier-targeted gap"
-                    if follow_up_round
-                    else "LLM-selected retrieval"
+                    selection_reason
+                    or (
+                        "Verifier-targeted gap"
+                        if follow_up_round
+                        else "LLM-selected retrieval"
+                    )
                 ),
                 duplicate=False,
                 expected_information_gain="high" if follow_up_round else "medium",
                 fingerprint=fp,
+                **(
+                    {"retrieval_plan_source": plan_source}
+                    if plan_source
+                    else {}
+                ),
             )
 
         added, dupes = self._execute_call(state, call, request_id=request_id)
@@ -745,13 +891,18 @@ class RetrievalNode:
             result = self.tools.execute(call.name, **call_args)
             latency = timed_ms(started)
             state.bump_tool_calls()
+            if isinstance(result.data, dict):
+                raw_obs = result.data.get("observability")
+                if isinstance(raw_obs, dict):
+                    observability = raw_obs
+            self._record_sss_stream_outcome(
+                state,
+                call.name,
+                observability,
+                request_id=request_id,
+            )
             if result.success:
                 evidence_rows = (result.data or {}).get("evidence") or []
-                observability = (
-                    (result.data or {}).get("observability")
-                    if isinstance(result.data, dict)
-                    else None
-                )
                 for row in evidence_rows:
                     item = CurriculumEvidence.model_validate(row)
                     preview = evidence_preview(item)

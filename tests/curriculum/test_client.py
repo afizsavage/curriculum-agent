@@ -19,6 +19,30 @@ def _client(handler) -> CurriculumAPIClient:
     return CurriculumAPIClient(settings=settings, transport=transport)
 
 
+def test_client_sss_stream_routes():
+    seen: list[str] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        seen.append(request.url.path)
+        if request.url.path.endswith("/subjects"):
+            return httpx.Response(200, json={"items": [], "total": 0, "limit": 200, "offset": 0})
+        if request.url.path.endswith("/sss-streams/stream-1"):
+            return httpx.Response(
+                200, json={"id": "stream-1", "name": "Sciences & Technologies"}
+            )
+        return httpx.Response(
+            200, json={"items": [], "total": 0, "limit": 200, "offset": 0}
+        )
+
+    client = _client(handler)
+    client.list_sss_streams("curr-1", limit=200)
+    client.get_sss_stream("stream-1")
+    client.list_sss_stream_subjects("stream-1", limit=200)
+    assert seen[0].endswith("/api/v1/curricula/curr-1/sss-streams")
+    assert seen[1].endswith("/api/v1/sss-streams/stream-1")
+    assert seen[2].endswith("/api/v1/sss-streams/stream-1/subjects")
+
+
 def test_client_get_ok():
     def handler(request: httpx.Request) -> httpx.Response:
         assert request.url.path.endswith("/api/v1/curricula")

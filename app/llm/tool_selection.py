@@ -7,6 +7,10 @@ from typing import Any
 from uuid import uuid4
 
 from app.curriculum.codes import extract_filters_from_question, normalize_grade_code, normalize_subject_code
+from app.curriculum.sss_stream_intent import (
+    TOOL_GET_SSS_STREAM_SUBJECTS,
+    detect_sss_stream_subjects,
+)
 from app.llm.base import LLMMessage, ToolCallRequest
 
 
@@ -58,6 +62,17 @@ def select_tool_calls(
 
     def make(name: str, arguments: dict[str, Any]) -> ToolCallRequest:
         return ToolCallRequest(id=str(uuid4()), name=name, arguments=arguments)
+
+    # Named SSS stream → its subjects. Checked before grade subject lists so
+    # "what subjects are in the … stream" is not treated as a grade catalogue.
+    stream_intent = detect_sss_stream_subjects(question)
+    if stream_intent is not None and TOOL_GET_SSS_STREAM_SUBJECTS in available:
+        return [
+            make(
+                TOOL_GET_SSS_STREAM_SUBJECTS,
+                {"stream_name": stream_intent.stream_name},
+            )
+        ]
 
     # Classification of a named subject within a grade (grade-scoped metadata).
     if (

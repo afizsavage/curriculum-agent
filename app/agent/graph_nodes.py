@@ -18,6 +18,7 @@ from app.agent.trace import get_current_trace, timed_ms
 from app.agent.verify import VerificationNode
 from app.config import Settings
 from app.curriculum.codes import extract_filters_from_question, normalize_grade_code
+from app.curriculum.sss_stream_intent import detect_sss_stream_subjects
 from app.enums import AgentStatus
 from app.logging_utils import get_logger, log_agent_event
 from app.schemas.answer import AnswerConfidence
@@ -86,7 +87,18 @@ class GraphNodes:
             qa.grade = explicit_grade
             qa.level = filters.get("level") or qa.level
 
-        qa.intent = qa.intent or "retrieve_curriculum"
+        stream_intent = detect_sss_stream_subjects(qa.question)
+        if stream_intent is not None:
+            qa.intent = stream_intent.intent
+            qa.level = "senior_secondary"
+            qa.grade = None
+            qa.subject = None
+            qa.topic = None
+            qa.classification = None
+            qa.metadata["stream_name"] = stream_intent.stream_name
+            qa.metadata["retrieval_plan_source"] = "heuristic"
+        else:
+            qa.intent = qa.intent or "retrieve_curriculum"
         duration_ms = timed_ms(started)
         intent_payload = {
             "intent": qa.intent,
@@ -95,6 +107,7 @@ class GraphNodes:
             "subject": qa.subject,
             "topic": qa.topic,
             "classification": qa.classification,
+            "stream_name": qa.metadata.get("stream_name"),
             "requested_information": filters,
             "raw_filters": filters,
             "prior_filters": prior,
