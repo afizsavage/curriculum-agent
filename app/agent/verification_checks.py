@@ -76,6 +76,13 @@ def run_deterministic_checks(state: CurriculumQAState) -> VerificationResult:
         )
         recommendation = _clarify_or_retrieve(state)
         clarification = None
+        metadata: dict[str, Any] = {"source": "deterministic", "no_evidence": True}
+        if (
+            state.intent == "SSS_STREAM_SUBJECTS"
+            and state.metadata.get("sss_stream_resolution") == "not_found"
+        ):
+            recommendation = VerificationRecommendation.FALLBACK
+            metadata["stream_not_found"] = True
         if recommendation == VerificationRecommendation.CLARIFY:
             clarification = "Which grade or level would you like me to check?"
         return _result(
@@ -88,7 +95,7 @@ def run_deterministic_checks(state: CurriculumQAState) -> VerificationResult:
             claims=claims,
             recommendation=recommendation,
             clarification=clarification,
-            metadata={"source": "deterministic", "no_evidence": True},
+            metadata=metadata,
         )
 
     # Grade consistency

@@ -1073,6 +1073,44 @@ _IDENTIFIER_STOPWORDS = {
 }
 
 
+def _render_sss_stream_answer(
+    state: CurriculumQAState,
+) -> tuple[str, list[str], list[CurriculumEvidence]]:
+    """Answer only from the resolved SSS stream and its subject records."""
+    evidence = state.evidence
+    streams = [
+        item
+        for item in evidence
+        if (item.entity_type or "").lower() == "sss_stream"
+    ]
+    subjects = [
+        item
+        for item in evidence
+        if (item.entity_type or "").lower() == "subject"
+        and item.name
+        and _public_name(item.name)
+    ]
+    stream_name = (
+        state.metadata.get("resolved_stream_name")
+        or (streams[0].name if streams else None)
+        or state.metadata.get("stream_name")
+        or "requested"
+    )
+    resolution = state.metadata.get("sss_stream_resolution")
+    if resolution == "no_subjects" or (streams and not subjects):
+        text = (
+            f"The {stream_name} stream has no associated subjects in the "
+            "available MBSSE curriculum data."
+        )
+        return text, [], streams
+    names = list(dict.fromkeys(item.name for item in subjects if item.name))
+    if not names:
+        return "", [], []
+    lines = [f"## Subjects in the {stream_name} stream", ""]
+    lines.extend(f"* {name}" for name in names)
+    return "\n".join(lines), [], subjects
+
+
 def _render_stub_answer(
     state: CurriculumQAState,
     *,
@@ -1098,6 +1136,9 @@ def _render_stub_answer(
             subject_label=subject_label,
         )
         return text, limitations, used
+
+    if state.intent == "SSS_STREAM_SUBJECTS":
+        return _render_sss_stream_answer(state)
 
     if outcomes and not _is_catalogue_question(question):
         text, damaged, used = _render_outcome_synthesis(
@@ -1809,6 +1850,12 @@ def format_evidence_for_prompt(
             lines.append(f"Content: {content}")
         if item.source_reference:
             lines.append(f"Source: {item.source_reference}")
+        source_type = (item.metadata or {}).get("source_type")
+        if source_type:
+            lines.append(f"Source type: {source_type}")
+        stream_name = (item.metadata or {}).get("stream_name")
+        if stream_name and (item.entity_type or "").lower() != "sss_stream":
+            lines.append(f"SSS stream: {stream_name}")
         code = item.metadata.get("code") if item.metadata else None
         # Subject codes (e.g. ENGLISH) belong in filters, not user-facing answers.
         if code and (item.entity_type or "").lower() != "subject":
