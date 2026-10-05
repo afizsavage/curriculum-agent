@@ -34,6 +34,8 @@ class DeepSeekResponsesProvider(LLMProvider):
         if not base_url or base_url in {
             "https://api.openai.com/v1",
             "https://api.openai.com",
+            "https://openrouter.ai/api/v1",
+            "https://openrouter.ai/api",
         }:
             base_url = self.DEFAULT_BASE_URL
         # Responses API lives at /responses on the root base URL (not /v1).
