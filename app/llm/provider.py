@@ -95,25 +95,88 @@ class StubLLMProvider(LLMProvider):
         )
 
 
+# Base URLs that belong to another provider. OpenRouter replaces these so
+# LLM_PROVIDER can change without also editing LLM_BASE_URL.
+_OTHER_PROVIDER_BASE_URLS = {
+    "https://api.openai.com/v1",
+    "https://api.openai.com",
+    "https://api.deepseek.com",
+    "https://api.deepseek.com/v1",
+}
+OPENROUTER_DEFAULT_BASE_URL = "https://openrouter.ai/api/v1"
+# Free-model router: picks a free model that supports the request's features.
+OPENROUTER_FREE_MODEL = "openrouter/free"
+
+
+def resolve_openrouter_connection(
+    settings: Settings,
+) -> tuple[str, str, str, dict[str, str]]:
+    """API key, base URL, model, and optional ranking headers for OpenRouter.
+
+    ``OPENROUTER_API_KEY`` wins over ``LLM_API_KEY`` and ``OPENROUTER_MODEL``
+    wins over ``LLM_MODEL``, so the active provider can flip without replacing
+    the openai/deepseek key or model. The OpenAI default base URL is replaced
+    with OpenRouter's. A blank OpenRouter model becomes the free router, unless
+    ``LLM_MODEL`` is an explicit non-stub name.
+    """
+    api_key = (settings.openrouter_api_key or settings.llm_api_key or "").strip()
+    if not api_key:
+        raise ConfigurationError(
+            "LLM_API_KEY or OPENROUTER_API_KEY is required for openrouter provider"
+        )
+    base_url = (settings.llm_base_url or "").rstrip("/")
+    if not base_url or base_url in _OTHER_PROVIDER_BASE_URLS:
+        base_url = OPENROUTER_DEFAULT_BASE_URL
+    model = (settings.openrouter_model or "").strip()
+    if not model:
+        configured = (settings.llm_model or "").strip()
+        model = configured if configured and configured != "stub-model" else OPENROUTER_FREE_MODEL
+    headers: dict[str, str] = {}
+    referer = (settings.openrouter_http_referer or "").strip()
+    title = (settings.openrouter_app_title or "").strip()
+    if referer:
+        headers["HTTP-Referer"] = referer
+    if title:
+        headers["X-OpenRouter-Title"] = title
+    return api_key, base_url, model, headers
+
+
 class OpenAICompatibleProvider(LLMProvider):
     """OpenAI Chat Completions API (native tool/function calling)."""
 
-    def __init__(self, settings: Settings, *, provider_name: str = "openai") -> None:
-        if not settings.llm_api_key:
+    def __init__(
+        self,
+        settings: Settings,
+        *,
+        provider_name: str = "openai",
+        api_key: str | None = None,
+        base_url: str | None = None,
+        model: str | None = None,
+        extra_headers: dict[str, str] | None = None,
+        require_parameters: bool = False,
+    ) -> None:
+        key = settings.llm_api_key if api_key is None else api_key
+        if not key:
             raise ConfigurationError(
                 f"LLM_API_KEY is required for {provider_name} provider"
             )
         self._settings = settings
         self._provider_name = provider_name
-        self._model = settings.llm_model
-        base_url = settings.llm_base_url.rstrip("/") or "https://api.openai.com/v1"
+        self._model = settings.llm_model if model is None else model
+        self._require_parameters = require_parameters
+        resolved_base = (
+            settings.llm_base_url if base_url is None else base_url
+        ).rstrip("/") or "https://api.openai.com/v1"
+        headers = {
+            "Authorization": f"Bearer {key}",
+            "Content-Type": "application/json",
+        }
+        if extra_headers:
+            headers.update(extra_headers)
         self._client = httpx.Client(
-            base_url=base_url,
+            base_url=resolved_base,
             timeout=httpx.Timeout(settings.llm_timeout_seconds),
-            headers={
-                "Authorization": f"Bearer {settings.llm_api_key}",
-                "Content-Type": "application/json",
-            },
+            headers=headers,
         )
 
     @property
@@ -138,7 +201,7 @@ class OpenAICompatibleProvider(LLMProvider):
         }
         if max_tokens is not None:
             body["max_tokens"] = max_tokens
-        data = self._post("/chat/completions", body)
+        data = self._post("/chat/completions", body, require_parameters=False)
         choice = (data.get("choices") or [{}])[0]
         message = choice.get("message") or {}
         return LLMResponse(
@@ -167,7 +230,7 @@ class OpenAICompatibleProvider(LLMProvider):
                 },
             },
         }
-        data = self._post("/chat/completions", body)
+        data = self._post("/chat/completions", body, require_parameters=True)
         content = ((data.get("choices") or [{}])[0].get("message") or {}).get("content")
         if not content:
             raise LLMProviderError("Empty structured response from LLM")
@@ -202,7 +265,7 @@ class OpenAICompatibleProvider(LLMProvider):
             "tool_choice": "auto",
             "temperature": temperature,
         }
-        data = self._post("/chat/completions", body)
+        data = self._post("/chat/completions", body, require_parameters=True)
         message = ((data.get("choices") or [{}])[0].get("message") or {})
         calls: list[ToolCallRequest] = []
         for raw in message.get("tool_calls") or []:
@@ -228,9 +291,22 @@ class OpenAICompatibleProvider(LLMProvider):
             raw=data,
         )
 
-    def _post(self, path: str, body: dict[str, Any]) -> dict[str, Any]:
+    def _post(
+        self,
+        path: str,
+        body: dict[str, Any],
+        *,
+        require_parameters: bool = False,
+    ) -> dict[str, Any]:
+        payload = dict(body)
+        # OpenRouter treats response_format and tools as soft preferences unless
+        # this flag is set, which would drop structured output on some free routes.
+        if require_parameters and self._require_parameters:
+            prefs = dict(payload.get("provider") or {})
+            prefs["require_parameters"] = True
+            payload["provider"] = prefs
         try:
-            response = self._client.post(path, json=body)
+            response = self._client.post(path, json=payload)
         except httpx.TimeoutException as exc:
             raise LLMTimeoutError("LLM request timed out") from exc
         except httpx.RequestError as exc:
@@ -262,10 +338,23 @@ class ConfigurableLLMProvider(LLMProvider):
         elif provider in {"openai", "openai_compatible"}:
             name = "openai" if provider == "openai_compatible" else provider
             self._inner = OpenAICompatibleProvider(self._settings, provider_name=name)
+        elif provider == "openrouter":
+            api_key, base_url, model, headers = resolve_openrouter_connection(
+                self._settings
+            )
+            self._inner = OpenAICompatibleProvider(
+                self._settings,
+                provider_name="openrouter",
+                api_key=api_key,
+                base_url=base_url,
+                model=model,
+                extra_headers=headers,
+                require_parameters=True,
+            )
         else:
             raise ConfigurationError(
                 f"LLM provider '{self._settings.llm_provider}' is not supported. "
-                "Use LLM_PROVIDER=stub, openai, or deepseek."
+                "Use LLM_PROVIDER=stub, openai, deepseek, or openrouter."
             )
 
     @property
