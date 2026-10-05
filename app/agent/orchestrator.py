@@ -69,7 +69,12 @@ class CurriculumQAAgent:
         elif not verifier_model or verifier_model == self.settings.llm_model:
             self.verifier_llm = self.llm
         else:
-            override = self.settings.model_copy(update={"llm_model": verifier_model})
+            override = self.settings.model_copy(
+                update={
+                    "llm_model": verifier_model,
+                    "openrouter_model": verifier_model,
+                }
+            )
             self.verifier_llm = wrap_llm(build_llm_provider(override))
 
         self.tools = (
@@ -106,7 +111,12 @@ class CurriculumQAAgent:
         verifier_model = (self.settings.verifier_llm_model or "").strip()
         if not verifier_model or verifier_model == self.settings.llm_model:
             return self.llm
-        override = self.settings.model_copy(update={"llm_model": verifier_model})
+        override = self.settings.model_copy(
+            update={
+                "llm_model": verifier_model,
+                "openrouter_model": verifier_model,
+            }
+        )
         return wrap_llm(build_llm_provider(override))
 
     def ask(

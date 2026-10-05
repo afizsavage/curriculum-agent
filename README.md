@@ -79,8 +79,9 @@ V2.1 note: `resolve_curriculum_context` calls `GET /api/v2/curriculum/context/re
 | --- | --- |
 | `CURRICULUM_API_URL` | Curriculum Structure API base URL |
 | `CURRICULUM_API_TIMEOUT` | HTTP timeout seconds |
-| `LLM_PROVIDER` | `stub`, `openai` (Chat Completions), or `deepseek` (Responses API) |
-| `LLM_MODEL` / `LLM_API_KEY` / `LLM_BASE_URL` | Provider settings |
+| `LLM_PROVIDER` | `stub`, `openai` (Chat Completions), `deepseek` (Responses API), or `openrouter` (Chat Completions) |
+| `LLM_MODEL` / `LLM_API_KEY` / `LLM_BASE_URL` | Provider settings. OpenRouter defaults its base URL to `https://openrouter.ai/api/v1` |
+| `OPENROUTER_MODEL` / `OPENROUTER_API_KEY` | Used instead of `LLM_MODEL` / `LLM_API_KEY` when `LLM_PROVIDER=openrouter`. Model default is the free router `openrouter/free` |
 | `AGENT_MAX_ITERATIONS` | Retrieval loop iteration cap |
 | `AGENT_MAX_TOOL_CALLS` | Hard tool-call cap |
 | `AGENT_MAX_RETRIEVAL_ROUNDS` | Max retrieve→generate→verify cycles |
