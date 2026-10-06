@@ -63,18 +63,82 @@ def test_client_404():
 
 
 def test_client_500():
+    calls = {"n": 0}
+
     def handler(request: httpx.Request) -> httpx.Response:
+        calls["n"] += 1
         return httpx.Response(500, json={"detail": "boom"})
 
     client = _client(handler)
     with pytest.raises(CurriculumUnavailableError):
         client.list_curricula()
+    assert calls["n"] == 2
+    assert client.identity_lookups[-1]["status"] == "failed"
+    assert client.identity_lookups[-1]["retry_used"] is True
+    assert client.identity_lookups[-1]["curriculum_identity_attempts"] == 2
 
 
 def test_client_timeout():
+    calls = {"n": 0}
+
     def handler(request: httpx.Request) -> httpx.Response:
+        calls["n"] += 1
         raise httpx.ReadTimeout("slow")
 
     client = _client(handler)
     with pytest.raises(CurriculumTimeoutError):
         client.list_curricula()
+    assert calls["n"] == 2
+    assert client.identity_lookups[-1]["retry_used"] is True
+
+
+def test_curriculum_identity_retries_a_timeout_once():
+    calls = {"n": 0}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls["n"] += 1
+        if calls["n"] == 1:
+            raise httpx.ReadTimeout("slow")
+        return httpx.Response(
+            200, json={"items": [{"id": "c1", "code": "MBSSE-SSC"}], "total": 1}
+        )
+
+    client = _client(handler)
+    data = client.list_curricula(code="MBSSE-SSC", limit=20)
+    assert data["items"][0]["id"] == "c1"
+    assert calls["n"] == 2
+    record = client.identity_lookups[-1]
+    assert record["curriculum_identity_attempts"] == 2
+    assert record["retry_used"] is True
+    assert record["status"] == "recovered"
+    assert record["retry_duration_ms"] is not None
+
+
+def test_curriculum_identity_does_not_retry_not_found():
+    calls = {"n": 0}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls["n"] += 1
+        return httpx.Response(404, json={"detail": "missing"})
+
+    client = _client(handler)
+    with pytest.raises(CurriculumNotFoundError):
+        client.list_curricula()
+    assert calls["n"] == 1
+    assert client.identity_lookups[-1]["retry_used"] is False
+    assert client.identity_lookups[-1]["curriculum_identity_attempts"] == 1
+    assert client.identity_lookups[-1]["status"] == "failed"
+
+
+def test_other_curriculum_gets_do_not_retry_on_timeout():
+    calls = {"n": 0}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        calls["n"] += 1
+        raise httpx.ReadTimeout("slow")
+
+    client = _client(handler)
+    with pytest.raises(CurriculumTimeoutError):
+        client.list_sss_streams("curr-1")
+    assert calls["n"] == 1
+    assert client.identity_lookups == []
