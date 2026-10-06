@@ -91,11 +91,13 @@ class GraphNodes:
         if stream_intent is not None:
             qa.intent = stream_intent.intent
             qa.level = "senior_secondary"
-            qa.grade = None
+            qa.grade = stream_intent.grade
             qa.subject = None
             qa.topic = None
             qa.classification = None
             qa.metadata["stream_name"] = stream_intent.stream_name
+            qa.metadata["sss_focus"] = stream_intent.focus
+            qa.metadata["subject_name"] = stream_intent.subject_name
             qa.metadata["retrieval_plan_source"] = "heuristic"
         else:
             qa.intent = qa.intent or "retrieve_curriculum"
@@ -507,7 +509,15 @@ def apply_fallback(
     limitations = list(dict.fromkeys(x for x in limitations if x))
 
     draft = (state.draft_answer or state.final_answer or "").strip()
-    if reason.startswith("no_retrieval_progress") and draft:
+    stream_resolution = state.metadata.get("sss_stream_resolution")
+    keep_grounded_gap = stream_resolution in {
+        "subject_not_in_stream",
+        "ambiguous_subject",
+        "grade_content_missing",
+    }
+    if keep_grounded_gap and draft:
+        state.final_answer = draft
+    elif reason.startswith("no_retrieval_progress") and draft:
         # Evidence-aware finalize: keep grounded draft + limitations.
         limitation_note = (
             "\n\nNote: Some curriculum source records appear incomplete or "

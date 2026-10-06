@@ -18,6 +18,11 @@ def test_normalize_grade_variants():
     assert normalize_grade_code("CLASS_4") == "CLASS_4"
     assert normalize_grade_code("JSS 2") == "JSS_2"
     assert normalize_grade_code("SSS 1") == "SSS_1"
+    assert normalize_grade_code("SSS1") == "SSS_1"
+    assert normalize_grade_code("SSS-1") == "SSS_1"
+    assert normalize_grade_code("SSS_2") == "SSS_2"
+    assert normalize_grade_code("Senior Secondary 3") == "SSS_3"
+    assert normalize_grade_code("Senior Secondary School 1") == "SSS_1"
 
 
 def test_normalize_subject():

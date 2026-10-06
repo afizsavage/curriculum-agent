@@ -11,7 +11,10 @@ _PRIMARY = re.compile(
     re.I,
 )
 _JSS = re.compile(r"\b(?:jss|junior\s+secondary)\s*([1-3])\b|\bjss_([1-3])\b", re.I)
-_SSS = re.compile(r"\b(?:sss|senior\s+secondary)\s*([1-3])\b|\bsss_([1-3])\b", re.I)
+_SSS = re.compile(
+    r"\b(?:sss|senior\s+secondary(?:\s+school)?)\s*[-_]?\s*([1-3])\b",
+    re.I,
+)
 
 _SUBJECT_ALIASES: dict[str, str] = {
     "mathematics": "MATHEMATICS",
@@ -46,8 +49,7 @@ def normalize_grade_code(value: str | None) -> str | None:
         return f"JSS_{n}"
     match = _SSS.search(text)
     if match:
-        n = match.group(1) or match.group(2)
-        return f"SSS_{n}"
+        return f"SSS_{match.group(1)}"
     return None
 
 

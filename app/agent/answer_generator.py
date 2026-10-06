@@ -115,7 +115,7 @@ class AnswerGenerator:
 
         if not state.evidence or state.evidence_status == EvidenceStatus.NOT_FOUND:
             result = self._insufficient_evidence_answer(state)
-        elif self.llm.name == "stub":
+        elif self.llm.name == "stub" or state.intent == "SSS_STREAM_SUBJECTS":
             result = self._stub_generate(state)
         else:
             result = self._llm_generate(state, conversation=conversation)
@@ -1076,13 +1076,34 @@ _IDENTIFIER_STOPWORDS = {
 def _render_sss_stream_answer(
     state: CurriculumQAState,
 ) -> tuple[str, list[str], list[CurriculumEvidence]]:
-    """Answer only from the resolved SSS stream and its subject records."""
+    """Answer only from the resolved SSS stream, grade, and subject records."""
     evidence = state.evidence
-    streams = [
+    focus = state.metadata.get("sss_focus") or state.metadata.get("focus") or "subjects"
+    resolution = state.metadata.get("sss_stream_resolution")
+    stream_name = _sss_stream_name(state)
+    grade_label = _display_grade(state.metadata.get("grade") or state.grade)
+    if focus == "streams":
+        return _render_sss_stream_list(evidence, grade_label)
+    if resolution in {"subject_not_in_stream", "ambiguous_subject"}:
+        return _render_subject_not_in_stream(state, stream_name, grade_label)
+    if resolution == "grade_content_missing":
+        subject = state.metadata.get("subject_name") or "That subject"
+        text = (
+            f"{subject} is assigned to the {stream_name} stream, but the "
+            f"available MBSSE records do not include a {grade_label or 'requested grade'} "
+            "syllabus for it."
+        )
+        return text, [text], [item for item in evidence if item.entity_type == "subject"]
+    content = [
         item
         for item in evidence
-        if (item.entity_type or "").lower() == "sss_stream"
+        if (item.entity_type or "").lower() in {"theme", "topic", "learning_outcome"}
+        and _public_name(item.name)
     ]
+    if content and focus in {"coverage", "topics", "outcomes"}:
+        return _render_sss_grade_coverage(
+            state, content, stream_name, grade_label, focus
+        )
     subjects = [
         item
         for item in evidence
@@ -1090,25 +1111,232 @@ def _render_sss_stream_answer(
         and item.name
         and _public_name(item.name)
     ]
-    stream_name = (
+    if resolution == "no_subjects" or (
+        any((item.entity_type or "").lower() == "sss_stream" for item in evidence)
+        and not subjects
+        and not content
+    ):
+        grade_bit = f" for {grade_label}" if grade_label else ""
+        text = (
+            f"The {stream_name} stream has no associated subjects{grade_bit} in the "
+            "available MBSSE curriculum data."
+        )
+        return text, [], [
+            item for item in evidence if (item.entity_type or "").lower() == "sss_stream"
+        ]
+    if focus == "membership" and subjects:
+        subject = _public_name(subjects[0].name) or "The subject"
+        text = (
+            f"{subject} is part of the {stream_name} stream in the MBSSE "
+            "Senior Secondary curriculum."
+        )
+        if grade_label:
+            text += f" An {grade_label} syllabus record is included for that subject."
+        return text, [], subjects[:1]
+    names = list(dict.fromkeys(item.name for item in subjects if item.name))
+    if not names:
+        return "", [], []
+    heading = f"Subjects in the {stream_name} stream"
+    if grade_label:
+        heading = f"Subjects offered in {grade_label} {stream_name}"
+    lines = [f"## {heading}", ""]
+    lines.extend(f"* {name}" for name in names)
+    if grade_label:
+        lines.extend(
+            [
+                "",
+                "These subjects are assigned to the stream in the MBSSE Senior "
+                f"Secondary curriculum and have a {grade_label} syllabus record. "
+                "The stream itself is defined for Senior Secondary as a whole, "
+                "not as a separate stream for each grade.",
+            ]
+        )
+    return "\n".join(lines), [], subjects
+
+
+def _sss_stream_name(state: CurriculumQAState) -> str:
+    streams = [
+        item
+        for item in state.evidence
+        if (item.entity_type or "").lower() == "sss_stream" and _public_name(item.name)
+    ]
+    return (
         state.metadata.get("resolved_stream_name")
         or (streams[0].name if streams else None)
         or state.metadata.get("stream_name")
         or "requested"
     )
-    resolution = state.metadata.get("sss_stream_resolution")
-    if resolution == "no_subjects" or (streams and not subjects):
-        text = (
-            f"The {stream_name} stream has no associated subjects in the "
-            "available MBSSE curriculum data."
-        )
-        return text, [], streams
-    names = list(dict.fromkeys(item.name for item in subjects if item.name))
+
+
+def _render_sss_stream_list(
+    evidence: list[CurriculumEvidence], grade_label: str | None
+) -> tuple[str, list[str], list[CurriculumEvidence]]:
+    streams = [
+        item
+        for item in evidence
+        if (item.entity_type or "").lower() == "sss_stream" and _public_name(item.name)
+    ]
+    names = list(dict.fromkeys(item.name for item in streams if item.name))
     if not names:
         return "", [], []
-    lines = [f"## Subjects in the {stream_name} stream", ""]
+    lines = ["## SSS streams", ""]
     lines.extend(f"* {name}" for name in names)
-    return "\n".join(lines), [], subjects
+    lines.extend(
+        [
+            "",
+            "These streams are recorded for the MBSSE Senior Secondary curriculum. "
+            "The records do not define a different set of streams for SSS 1, SSS 2, "
+            "and SSS 3.",
+        ]
+    )
+    if grade_label:
+        lines.append(f"The question named {grade_label}; that grade does not have its own stream list.")
+    return "\n".join(lines), [], streams
+
+
+def _ambiguous_subject_lines(
+    *,
+    requested: str,
+    stream_name: str,
+    grade_label: str | None,
+    near: list[str],
+) -> list[str]:
+    """Explain a phrase that overlaps official subjects without naming either."""
+    named = [f"**{name}**" for name in near]
+    grade_phrase = grade_label or "requested grade"
+    if len(near) == 1:
+        return [
+            (
+                f"The {stream_name} stream does not list \"{requested}\" as a subject. "
+                f"It does include {named[0]}, but the curriculum data does not establish "
+                f"\"{requested}\" as an alternative name for that subject."
+            ),
+            "",
+            (
+                f"I have not used the {named[0]} syllabus. If you mean {named[0]}, "
+                f"I can provide the {grade_phrase} syllabus coverage."
+            ),
+        ]
+    if len(near) == 2:
+        included = f"both {named[0]} and {named[1]}"
+        relation = "either subject"
+        offer = (
+            f"If you mean {named[0]}, I can provide the {grade_phrase} syllabus coverage. "
+            f"If you mean {named[1]}, I can check that syllabus instead."
+        )
+    else:
+        included = ", ".join(named[:-1]) + f", and {named[-1]}"
+        relation = "any of those subjects"
+        offer = (
+            "Tell me which of those subjects you mean, and I can check its "
+            f"{grade_phrase} syllabus."
+        )
+    return [
+        (
+            f"In the SSS curriculum, the {stream_name} stream includes {included}. "
+            f"The curriculum data does not list \"{requested}\" as a separate subject "
+            f"or establish it as an alternative name for {relation}."
+        ),
+        "",
+        offer,
+    ]
+
+
+def _render_subject_not_in_stream(
+    state: CurriculumQAState,
+    stream_name: str,
+    grade_label: str | None,
+) -> tuple[str, list[str], list[CurriculumEvidence]]:
+    requested = state.metadata.get("requested_subject") or state.metadata.get(
+        "subject_name"
+    ) or "The requested subject"
+    near = [
+        name
+        for name in (state.metadata.get("near_subject_names") or [])
+        if _public_name(str(name))
+    ]
+    grade_bit = f" for {grade_label}" if grade_label else ""
+    if state.metadata.get("sss_stream_resolution") == "ambiguous_subject" and near:
+        lines = _ambiguous_subject_lines(
+            requested=str(requested),
+            stream_name=stream_name,
+            grade_label=grade_label,
+            near=near,
+        )
+    else:
+        lines = [
+            f'MBSSE does not assign a subject named "{requested}" to the '
+            f"{stream_name} stream{grade_bit}."
+        ]
+    limitation = " ".join(lines)
+    subjects = [
+        item
+        for item in state.evidence
+        if (item.entity_type or "").lower() == "subject" and item.name in set(near)
+    ]
+    return "\n".join(lines), [limitation], subjects
+
+
+def _render_sss_grade_coverage(
+    state: CurriculumQAState,
+    content: list[CurriculumEvidence],
+    stream_name: str,
+    grade_label: str | None,
+    focus: str,
+) -> tuple[str, list[str], list[CurriculumEvidence]]:
+    subject = (
+        state.metadata.get("subject_name")
+        or next((item.subject for item in content if item.subject), None)
+        or "Subject"
+    )
+    title_bits = [str(subject)]
+    if grade_label:
+        title_bits.append(grade_label)
+    title_bits.append(stream_name)
+    lines = [f"## {' — '.join(title_bits)}", ""]
+    themes = [item for item in content if (item.entity_type or "").lower() == "theme"]
+    topics = [item for item in content if (item.entity_type or "").lower() == "topic"]
+    outcomes = [
+        item for item in content if (item.entity_type or "").lower() == "learning_outcome"
+    ]
+    if themes or topics:
+        lines.append(f"{subject} covers:")
+        lines.append("")
+        if themes:
+            for theme in themes:
+                lines.append(f"* {theme.name}")
+                children = [
+                    topic.name
+                    for topic in topics
+                    if topic.metadata.get("parent_name") == theme.name and topic.name
+                ]
+                lines.extend(f"  * {name}" for name in children)
+        else:
+            lines.extend(f"* {topic.name}" for topic in topics if topic.name)
+    if focus == "outcomes":
+        if outcomes:
+            lines.extend(["", "Learning outcomes recorded for this grade:", ""])
+            lines.extend(f"* {item.name}" for item in outcomes if item.name)
+        else:
+            lines.extend(
+                [
+                    "",
+                    "The grade syllabus lists these topics. It does not include "
+                    "separate learning-outcome statements for this grade.",
+                ]
+            )
+    source = next((item.source_reference for item in content if item.source_reference), None)
+    provenance = f"the MBSSE {grade_label or 'Senior Secondary'} {subject} curriculum"
+    if source and not _looks_like_internal_id(str(source)):
+        provenance = f"{provenance} ({source})"
+    lines.extend(["", f"These areas are based on {provenance}."])
+    used = themes + topics + outcomes
+    limitations = []
+    if focus == "outcomes" and not outcomes:
+        limitations.append(
+            "No separate learning-outcome statements were recorded for this grade."
+        )
+    return "\n".join(lines), limitations, used
 
 
 def _render_stub_answer(
@@ -1813,6 +2041,7 @@ def _strip_subject_codes(text: str) -> str:
         return text
     cleaned = _SUBJECT_CODE_PAREN.sub("", text)
     cleaned = _SUBJECT_CODE_LINE.sub("", cleaned)
+    cleaned = re.sub(r"\(\s*\)", "", cleaned)
     cleaned = re.sub(r"[ \t]+\n", "\n", cleaned)
     cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
     return cleaned.strip()
@@ -2058,9 +2287,12 @@ def _ensure_subject_list_scope_heading(
 ) -> str:
     """Rewrite subject-list headings so they match resolved evidence scope.
 
-    Invariant: the heading must not describe a broader curriculum scope than
-    the resolved grade (+ optional classification) that produced the evidence.
+    SSS stream answers already name the stream and grade. Replacing that
+    heading with a grade-only catalogue title would drop the stream.
     """
+    if state.intent == "SSS_STREAM_SUBJECTS":
+        return text
+
     if not text or not text.strip():
         return text
 

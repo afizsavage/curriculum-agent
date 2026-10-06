@@ -215,6 +215,14 @@ def question_requests_identifiers(question: str | None) -> bool:
     return bool(_IDENTIFIER_REQUEST_RE.search(question or ""))
 
 
+def _code_in_public_name(code_text: str, names: list[str]) -> bool:
+    """True when the code is a whole word inside an official display name."""
+    pattern = re.compile(
+        rf"(?<![A-Za-z0-9]){re.escape(code_text)}(?![A-Za-z0-9])"
+    )
+    return any(pattern.search(name) for name in names)
+
+
 def redact_internal_identifiers(
     answer: str,
     evidence: list[CurriculumEvidence] | None = None,
@@ -223,6 +231,7 @@ def redact_internal_identifiers(
     text = answer or ""
     needles: list[str] = []
     exact_needles: list[str] = []
+    public_names = [str(item.name) for item in (evidence or []) if item.name]
     for item in evidence or []:
         if item.entity_id and len(str(item.entity_id)) >= 4:
             needles.append(str(item.entity_id))
@@ -231,8 +240,11 @@ def redact_internal_identifiers(
             code_text = str(code)
             # Subject codes such as ENGLISH match the display name "English"
             # when matching ignores case. Remove only the raw code.
+            # Keep a code that is already part of an official public name,
+            # such as "Information & Communication Technology (ICT)".
             if re.fullmatch(r"[A-Z][A-Z0-9_]{1,40}", code_text):
-                exact_needles.append(code_text)
+                if not _code_in_public_name(code_text, public_names):
+                    exact_needles.append(code_text)
             else:
                 needles.append(code_text)
         if item.name and _INTERNAL_IDENTIFIER_RE.search(str(item.name)):
@@ -255,6 +267,7 @@ def redact_internal_identifiers(
             flags=re.I,
         )
     text = _INTERNAL_IDENTIFIER_RE.sub("", text)
+    text = re.sub(r"\(\s*\)", "", text)
     text = re.sub(r"\*\*\s*\*\*", "", text)
     text = re.sub(r"(?m)^[ \t]*[-*][ \t]*[—–-][ \t]*", "- ", text)
     text = re.sub(r"[ \t]{2,}", " ", text)

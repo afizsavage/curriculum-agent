@@ -188,6 +188,12 @@ class AnswerVerifier:
                 return deterministic
             if deterministic.metadata.get("ambiguous"):
                 return deterministic
+            if deterministic.metadata.get("sss_stream_resolution") in {
+                "subject_not_in_stream",
+                "ambiguous_subject",
+                "grade_content_missing",
+            }:
+                return deterministic
 
         if not state.evidence:
             return VerificationResult(
@@ -303,7 +309,12 @@ class AnswerVerifier:
         llm_result: VerificationResult,
     ) -> VerificationResult:
         """Fail closed: deterministic hard fails override LLM accept."""
-        if deterministic.incorrect_claims or deterministic.metadata.get("no_evidence"):
+        if (
+            deterministic.incorrect_claims
+            or deterministic.metadata.get("no_evidence")
+            or deterministic.metadata.get("sss_stream_resolution")
+            in {"subject_not_in_stream", "ambiguous_subject", "grade_content_missing"}
+        ):
             # Prefer deterministic failure signals; enrich with LLM issues.
             issues = list(
                 dict.fromkeys(deterministic.issues + llm_result.issues)

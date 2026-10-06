@@ -67,12 +67,15 @@ def select_tool_calls(
     # "what subjects are in the … stream" is not treated as a grade catalogue.
     stream_intent = detect_sss_stream_subjects(question)
     if stream_intent is not None and TOOL_GET_SSS_STREAM_SUBJECTS in available:
-        return [
-            make(
-                TOOL_GET_SSS_STREAM_SUBJECTS,
-                {"stream_name": stream_intent.stream_name},
-            )
-        ]
+        arguments: dict[str, Any] = {
+            "stream_name": stream_intent.stream_name,
+            "focus": stream_intent.focus,
+        }
+        if stream_intent.grade:
+            arguments["grade"] = stream_intent.grade
+        if stream_intent.subject_name:
+            arguments["subject"] = stream_intent.subject_name
+        return [make(TOOL_GET_SSS_STREAM_SUBJECTS, arguments)]
 
     # Classification of a named subject within a grade (grade-scoped metadata).
     if (
