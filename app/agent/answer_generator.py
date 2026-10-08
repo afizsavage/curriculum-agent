@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 import time
+from collections import Counter
 from typing import Any, Optional
 
 from app.agent.context import ConversationContext
@@ -1277,6 +1278,81 @@ def _render_subject_not_in_stream(
     return "\n".join(lines), [limitation], subjects
 
 
+def _topic_parent_name(item: CurriculumEvidence) -> str | None:
+    raw = (item.metadata or {}).get("parent_name")
+    if raw is None:
+        return None
+    text = str(raw).strip()
+    return text or None
+
+
+def _sss_parentless_topics(
+    content: list[CurriculumEvidence],
+) -> list[CurriculumEvidence]:
+    """Topics with no parent, in source order.
+
+    They stay curriculum items. No parent is invented, and they are not
+    attached to a nearby theme.
+    """
+    return [
+        item
+        for item in content
+        if (item.entity_type or "").lower() == "topic"
+        and item.name
+        and _topic_parent_name(item) is None
+    ]
+
+
+def _sss_theme_occurrences(
+    content: list[CurriculumEvidence],
+) -> list[tuple[CurriculumEvidence, list[CurriculumEvidence]]]:
+    """Pair each theme record with the topics that belong to that record.
+
+    A theme name that occurs once keeps every topic whose parent is that
+    name. A repeated theme name keeps only the topics for which this record
+    is the nearest preceding theme of that name. A topic that names a
+    repeated theme but appears before every such record stays with the first
+    record, once. Empty records remain. Children are not copied onto another
+    record with the same name.
+    """
+    themes = [
+        (index, item)
+        for index, item in enumerate(content)
+        if (item.entity_type or "").lower() == "theme" and item.name
+    ]
+    topics = [
+        item
+        for item in content
+        if (item.entity_type or "").lower() == "topic" and item.name
+    ]
+    counts = Counter(item.name for _index, item in themes)
+    assigned: dict[int, list[CurriculumEvidence]] = {index: [] for index, _item in themes}
+    first_index = {}
+    last_seen: dict[str, int] = {}
+    for index, item in themes:
+        first_index.setdefault(item.name, index)
+    for index, item in enumerate(content):
+        kind = (item.entity_type or "").lower()
+        if kind == "theme" and item.name:
+            last_seen[item.name] = index
+            continue
+        if kind != "topic" or not item.name:
+            continue
+        parent = _topic_parent_name(item)
+        if not parent or counts.get(parent, 0) <= 1:
+            continue
+        owner = last_seen.get(parent, first_index.get(parent))
+        if owner is None:
+            continue
+        assigned[owner].append(item)
+    for index, item in themes:
+        if counts[item.name] == 1:
+            assigned[index] = [
+                topic for topic in topics if _topic_parent_name(topic) == item.name
+            ]
+    return [(item, assigned[index]) for index, item in themes]
+
+
 def _render_sss_grade_coverage(
     state: CurriculumQAState,
     content: list[CurriculumEvidence],
@@ -1303,14 +1379,11 @@ def _render_sss_grade_coverage(
         lines.append(f"{subject} covers:")
         lines.append("")
         if themes:
-            for theme in themes:
+            for theme, children in _sss_theme_occurrences(content):
                 lines.append(f"* {theme.name}")
-                children = [
-                    topic.name
-                    for topic in topics
-                    if topic.metadata.get("parent_name") == theme.name and topic.name
-                ]
-                lines.extend(f"  * {name}" for name in children)
+                lines.extend(f"  * {child.name}" for child in children if child.name)
+            for topic in _sss_parentless_topics(content):
+                lines.append(f"* {topic.name}")
         else:
             lines.extend(f"* {topic.name}" for topic in topics if topic.name)
     if focus == "outcomes":
