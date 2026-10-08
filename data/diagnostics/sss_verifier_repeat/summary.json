@@ -1,0 +1,29 @@
+{
+  "cases": 48,
+  "evaluations": 240,
+  "repeats": 5,
+  "model": "deepseek-v4-flash",
+  "temperature": 0.0,
+  "prompt_id": "0fff85779947ded0",
+  "roles": {
+    "official_verifier_failure": 19,
+    "retry_exposed_verifier_failure": 14,
+    "run_b_regression": 2,
+    "control": 13
+  },
+  "cases_always_accepted": 11,
+  "cases_always_rejected": 35,
+  "cases_flipped": 2,
+  "flip_rate": 0.042,
+  "acceptance_rate": 0.237,
+  "rejection_rate": 0.754,
+  "categories_first_rejection": {
+    "evidence_format_or_context": 21,
+    "theme_topic_confusion": 16,
+    "answer_wording_omits_evidence": 15,
+    "evidence_present_but_not_recognized": 3
+  },
+  "latency_p50": 6533.7,
+  "latency_p95": 16502.7,
+  "outcome_absent_rejections": 36
+}

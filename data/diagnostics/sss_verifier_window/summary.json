@@ -1,0 +1,25 @@
+{
+  "cases": 48,
+  "model": "deepseek-v4-flash",
+  "temperature": 0.0,
+  "prompt_id": "0fff85779947ded0",
+  "accepted": 24,
+  "rejected": 24,
+  "no_verdict": 0,
+  "latency_p50": 5713.9,
+  "latency_p95": 9096.2,
+  "truncated_rejects": 27,
+  "truncated_recovered": 13,
+  "truncated_still_rejected": 14,
+  "complete_still_rejected": 8,
+  "unexpected_acceptance": 0,
+  "regression": 1,
+  "classes": {
+    "truncated_recovered": 13,
+    "complete_evidence_still_rejected": 8,
+    "truncated_still_rejected": 14,
+    "other": 2,
+    "regression": 1,
+    "accepted_unchanged": 10
+  }
+}

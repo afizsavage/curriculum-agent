@@ -1,0 +1,568 @@
+{
+  "run": "A",
+  "questions": 286,
+  "decisions": {
+    "grounded": 115,
+    "fail_verification": 14,
+    "class:verification": 14,
+    "fail_contamination": 70,
+    "class:cross_context": 70,
+    "infra_failure": 54,
+    "class:infrastructure": 54,
+    "correct_rejection": 28,
+    "fail_resolution": 5,
+    "class:resolution": 5
+  },
+  "by_grade": {
+    "SSS_1": {
+      "grounded": 42,
+      "tested": 112,
+      "fail_verification": 6,
+      "fail_contamination": 22,
+      "infra_failure": 19,
+      "correct_rejection": 18,
+      "fail_resolution": 5
+    },
+    "SSS_2": {
+      "grounded": 34,
+      "tested": 89,
+      "fail_contamination": 27,
+      "fail_verification": 4,
+      "infra_failure": 17,
+      "correct_rejection": 7
+    },
+    "SSS_3": {
+      "grounded": 39,
+      "tested": 85,
+      "fail_contamination": 21,
+      "infra_failure": 18,
+      "fail_verification": 4,
+      "correct_rejection": 3
+    }
+  },
+  "by_stream": {
+    "Sciences & Technologies": {
+      "grounded": 34,
+      "tested": 76,
+      "fail_verification": 4,
+      "fail_contamination": 11,
+      "infra_failure": 20,
+      "correct_rejection": 7
+    },
+    "Mathematics & Numeracy": {
+      "infra_failure": 23,
+      "tested": 38,
+      "fail_contamination": 2,
+      "grounded": 5,
+      "fail_verification": 1,
+      "correct_rejection": 7
+    },
+    "Languages & Literatures": {
+      "grounded": 29,
+      "tested": 65,
+      "infra_failure": 11,
+      "fail_contamination": 16,
+      "fail_verification": 2,
+      "correct_rejection": 7
+    },
+    "Social & Cultural Studies": {
+      "grounded": 26,
+      "tested": 56,
+      "fail_contamination": 21,
+      "fail_verification": 5,
+      "correct_rejection": 3,
+      "fail_resolution": 1
+    },
+    "Economics, Business & Entrepreneurship": {
+      "fail_verification": 2,
+      "tested": 47,
+      "grounded": 21,
+      "fail_contamination": 20,
+      "correct_rejection": 4
+    },
+    "Science": {
+      "fail_resolution": 1,
+      "tested": 1
+    },
+    "Business": {
+      "fail_resolution": 1,
+      "tested": 1
+    },
+    "Humanities": {
+      "fail_resolution": 1,
+      "tested": 1
+    },
+    "Social Science": {
+      "fail_resolution": 1,
+      "tested": 1
+    }
+  },
+  "by_subject": {
+    "Integrated Science": {
+      "grounded": 4,
+      "tested": 5,
+      "correct_rejection": 1
+    },
+    "Biology": {
+      "grounded": 17,
+      "tested": 27,
+      "infra_failure": 1,
+      "correct_rejection": 5,
+      "fail_resolution": 4
+    },
+    "Chemistry": {
+      "fail_verification": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "Information & Communication Technology (ICT)": {
+      "grounded": 5,
+      "tested": 5
+    },
+    "Computer Science": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "grounded": 1
+    },
+    "Agricultural Science": {
+      "grounded": 3,
+      "tested": 3
+    },
+    "Robotics": {
+      "grounded": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "Physics": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "fail_verification": 1
+    },
+    "Climate Change Awareness, Preparedness and Resilience": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "infra_failure": 1
+    },
+    "Environmental Science": {
+      "fail_verification": 2,
+      "tested": 3,
+      "grounded": 1
+    },
+    "Health Science": {
+      "infra_failure": 1,
+      "tested": 3,
+      "grounded": 2
+    },
+    "Food Security": {
+      "fail_contamination": 1,
+      "tested": 3,
+      "infra_failure": 2
+    },
+    "Engineering Science": {
+      "infra_failure": 3,
+      "tested": 3
+    },
+    "Physical Health Education": {
+      "infra_failure": 3,
+      "tested": 3
+    },
+    "Adolescent Health and Life Skills": {
+      "infra_failure": 3,
+      "tested": 3
+    },
+    "Computer Literacy": {
+      "infra_failure": 3,
+      "tested": 3
+    },
+    "Popular Science": {
+      "infra_failure": 3,
+      "tested": 3
+    },
+    "Fundamentals of Mathematics": {
+      "infra_failure": 3,
+      "tested": 5,
+      "fail_verification": 1,
+      "correct_rejection": 1
+    },
+    "Further Mathematics": {
+      "infra_failure": 3,
+      "tested": 4,
+      "correct_rejection": 1
+    },
+    "Statistics and Probability": {
+      "infra_failure": 3,
+      "tested": 3
+    },
+    "Calculus": {
+      "infra_failure": 3,
+      "tested": 3
+    },
+    "Mathematics for Business and Enterprise": {
+      "infra_failure": 3,
+      "tested": 3
+    },
+    "Mathematics for STEAMM": {
+      "infra_failure": 3,
+      "tested": 3
+    },
+    "Computer Mathematics": {
+      "infra_failure": 1,
+      "tested": 3,
+      "fail_contamination": 1,
+      "grounded": 1
+    },
+    "Maths for Other Disciplines": {
+      "infra_failure": 3,
+      "tested": 3
+    },
+    "Introductory Statistics and Probability": {
+      "grounded": 3,
+      "tested": 3
+    },
+    "Functional Mathematics": {
+      "infra_failure": 1,
+      "tested": 3,
+      "fail_contamination": 1,
+      "grounded": 1
+    },
+    "English Language": {
+      "grounded": 2,
+      "tested": 5,
+      "infra_failure": 2,
+      "correct_rejection": 1
+    },
+    "African Literature": {
+      "infra_failure": 3,
+      "tested": 4,
+      "fail_resolution": 1
+    },
+    "English Literature": {
+      "infra_failure": 2,
+      "tested": 3,
+      "grounded": 1
+    },
+    "French as a Foreign Language": {
+      "infra_failure": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "Sierra Leone Literature": {
+      "infra_failure": 1,
+      "tested": 3,
+      "grounded": 2
+    },
+    "Mende Language": {
+      "grounded": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "Hulimba Language": {
+      "fail_verification": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "Kathemne Language": {
+      "grounded": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "Krio Language": {
+      "grounded": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "Creative Writing": {
+      "grounded": 2,
+      "tested": 3,
+      "fail_contamination": 1
+    },
+    "Business English": {
+      "fail_verification": 1,
+      "tested": 3,
+      "infra_failure": 1,
+      "grounded": 1
+    },
+    "French for Tourism": {
+      "grounded": 3,
+      "tested": 3
+    },
+    "Technical Writing": {
+      "fail_contamination": 3,
+      "tested": 3
+    },
+    "English for STEAMM": {
+      "grounded": 2,
+      "tested": 3,
+      "fail_contamination": 1
+    },
+    "French for Business and Marketing": {
+      "grounded": 2,
+      "tested": 3,
+      "infra_failure": 1
+    },
+    "Everyday Basic French": {
+      "grounded": 3,
+      "tested": 3
+    },
+    "Popular Literature Appreciation": {
+      "grounded": 3,
+      "tested": 3
+    },
+    "Arabic Language": {
+      "grounded": 2,
+      "tested": 3,
+      "fail_contamination": 1
+    },
+    "Fula": {
+      "grounded": 3,
+      "tested": 3
+    },
+    "History of Sierra Leone": {
+      "grounded": 4,
+      "tested": 5,
+      "correct_rejection": 1
+    },
+    "African History": {
+      "grounded": 3,
+      "tested": 4,
+      "correct_rejection": 1
+    },
+    "Geography": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "fail_verification": 1
+    },
+    "Music": {
+      "fail_contamination": 3,
+      "tested": 3
+    },
+    "Dance and Drama Studies": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "grounded": 1
+    },
+    "Politics and Governance": {
+      "fail_contamination": 1,
+      "tested": 3,
+      "grounded": 2
+    },
+    "Social Studies and Civics": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "grounded": 1
+    },
+    "Religious and Moral Education": {
+      "grounded": 2,
+      "tested": 3,
+      "fail_contamination": 1
+    },
+    "Geography and Environment": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "fail_verification": 1
+    },
+    "Music as Applied Subject": {
+      "grounded": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "Entertainment Industry": {
+      "grounded": 3,
+      "tested": 3
+    },
+    "Derivatives of Religious and Moral Education": {
+      "grounded": 2,
+      "tested": 3,
+      "fail_verification": 1
+    },
+    "Dance Performance and Appreciation": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "grounded": 1
+    },
+    "Mining Industry and the Environment": {
+      "grounded": 2,
+      "tested": 3,
+      "fail_verification": 1
+    },
+    "Fishing Industry and the Environment": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "grounded": 1
+    },
+    "Tourism and Conservation": {
+      "fail_contamination": 1,
+      "tested": 3,
+      "grounded": 2
+    },
+    "Living with Religious and Moral Education": {
+      "fail_contamination": 1,
+      "tested": 3,
+      "fail_verification": 1,
+      "grounded": 1
+    },
+    "Principles of Economics": {
+      "fail_verification": 1,
+      "tested": 5,
+      "grounded": 2,
+      "fail_contamination": 1,
+      "correct_rejection": 1
+    },
+    "Entrepreneurship": {
+      "fail_contamination": 3,
+      "tested": 4,
+      "correct_rejection": 1
+    },
+    "Principles of Accounting": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "grounded": 1
+    },
+    "Business Management Studies": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "grounded": 1
+    },
+    "Principles of Commerce": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "fail_verification": 1
+    },
+    "Principles of Marketing": {
+      "grounded": 3,
+      "tested": 3
+    },
+    "Business Accounting": {
+      "grounded": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "Clerical Office Duties": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "grounded": 1
+    },
+    "Insurance Management": {
+      "grounded": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "Business Economics": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "grounded": 1
+    },
+    "Business and Society": {
+      "grounded": 3,
+      "tested": 3
+    },
+    "Customer Relations Management": {
+      "grounded": 3,
+      "tested": 3
+    },
+    "Micro/Small/Medium Enterprise Management": {
+      "grounded": 2,
+      "tested": 3,
+      "fail_contamination": 1
+    },
+    "Business Ethics": {
+      "grounded": 2,
+      "tested": 3,
+      "fail_contamination": 1
+    },
+    "Genetics and Bio-Engineering": {
+      "correct_rejection": 3,
+      "tested": 3
+    },
+    "Mathematics Applications": {
+      "correct_rejection": 3,
+      "tested": 3
+    },
+    "Sierra Leone Languages": {
+      "correct_rejection": 3,
+      "tested": 3
+    },
+    "Basket Weaving": {
+      "correct_rejection": 5,
+      "tested": 5
+    },
+    "ICT literacy": {
+      "correct_rejection": 1,
+      "tested": 1
+    }
+  },
+  "by_formulation": {
+    "official": {
+      "grounded": 96,
+      "tested": 254,
+      "fail_verification": 13,
+      "fail_contamination": 69,
+      "infra_failure": 53,
+      "correct_rejection": 22,
+      "fail_resolution": 1
+    },
+    "spoken_stream": {
+      "grounded": 3,
+      "tested": 5,
+      "fail_verification": 1,
+      "fail_contamination": 1
+    },
+    "official_acronym": {
+      "grounded": 1,
+      "tested": 1
+    },
+    "name_without_acronym": {
+      "grounded": 1,
+      "tested": 1
+    },
+    "grade_variant": {
+      "grounded": 14,
+      "tested": 15,
+      "infra_failure": 1
+    },
+    "unsupported": {
+      "correct_rejection": 5,
+      "tested": 5
+    },
+    "ambiguous": {
+      "correct_rejection": 1,
+      "tested": 1
+    },
+    "unsupported_short_stream": {
+      "fail_resolution": 4,
+      "tested": 4
+    }
+  },
+  "latency_success_ms": {
+    "n": 143,
+    "median_ms": 20974.4,
+    "p75_ms": 25577.8,
+    "p90_ms": 32514.3,
+    "p95_ms": 37585.0,
+    "max_ms": 97643.8
+  },
+  "latency_timeout_ms": {
+    "n": 54,
+    "median_ms": 15050.0,
+    "p75_ms": 15059.9,
+    "p90_ms": 33057.0,
+    "p95_ms": 37291.3,
+    "max_ms": 97643.8
+  },
+  "latency_infra_ms": {
+    "n": 54,
+    "median_ms": 15050.0,
+    "p75_ms": 15059.9,
+    "p90_ms": 31385.3,
+    "p95_ms": 36088.8,
+    "max_ms": 75339.3
+  },
+  "latency_all_ms": {
+    "n": 286,
+    "median_ms": 21444.5,
+    "p75_ms": 26999.1,
+    "p90_ms": 34788.0,
+    "p95_ms": 41911.4,
+    "max_ms": 97643.8
+  }
+}
