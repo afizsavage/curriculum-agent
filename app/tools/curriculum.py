@@ -1383,6 +1383,8 @@ class GetSSSStreamSubjectsTool(CurriculumTool):
         resolved_subject = str(subject_row["summary"]["name"])
         resolution = "found"
         source_reference = None
+        coverage_expected = None
+        grade_curriculum_id = None
         if focus in {FOCUS_COVERAGE, FOCUS_TOPICS, FOCUS_OUTCOMES, FOCUS_MEMBERSHIP} and grade:
             try:
                 grade_row = self._grade_curriculum_for(grade, subject_id)
@@ -1392,8 +1394,10 @@ class GetSSSStreamSubjectsTool(CurriculumTool):
                 resolution = "grade_content_missing"
             elif focus != FOCUS_MEMBERSHIP:
                 source_reference = grade_row.get("source_reference")
+                grade_curriculum_id = str(grade_row["id"])
+                cited_source = str(source_reference) if source_reference else None
                 try:
-                    tree = self.client.get_grade_curriculum_content(str(grade_row["id"]))
+                    tree = self.client.get_grade_curriculum_content(grade_curriculum_id)
                 except CurriculumAPIError as exc:
                     return _tool_error(exc)
                 evidence.extend(
@@ -1402,8 +1406,16 @@ class GetSSSStreamSubjectsTool(CurriculumTool):
                         grade=grade,
                         subject=resolved_subject,
                         stream_name=official_name,
-                        source_reference=str(source_reference) if source_reference else None,
+                        source_reference=cited_source,
                     )
+                )
+                coverage_expected = coverage_expected_from_tree(
+                    tree,
+                    grade=grade,
+                    subject=resolved_subject,
+                    stream_name=official_name,
+                    source_reference=cited_source,
+                    grade_curriculum_id=grade_curriculum_id,
                 )
                 resolution = "found"
         observability = {
@@ -1415,6 +1427,8 @@ class GetSSSStreamSubjectsTool(CurriculumTool):
             "grade": grade,
             "focus": focus,
             "source_reference": source_reference,
+            "grade_curriculum_id": grade_curriculum_id,
+            "coverage_expected": coverage_expected,
         }
         return ToolResult(
             success=True,
@@ -1573,6 +1587,47 @@ def _subject_not_in_stream(
 # Rows the coverage answer lists. Sections stay context. Subtopics stay off
 # the evidence list so a large syllabus does not crowd the verifier window.
 _CONTENT_EVIDENCE_TYPES = {"THEME", "TOPIC", "LEARNING_OUTCOME"}
+# The coverage contract requires themes and topics. This census is taken from
+# the content tree itself, not from the evidence list later checked.
+_COVERAGE_CENSUS_TYPES = {"THEME", "TOPIC"}
+
+
+def coverage_expected_from_tree(
+    tree: list[Any],
+    *,
+    grade: str,
+    subject: str,
+    stream_name: str,
+    source_reference: str | None,
+    grade_curriculum_id: str | None,
+) -> dict[str, Any]:
+    """In-scope theme and topic ids from the content tree.
+
+    Sections and subtopics are not required coverage rows. Ids are copied
+    from the tree nodes. Display names are not used as identity.
+    """
+    entity_ids: list[str] = []
+
+    def walk(nodes: list[Any]) -> None:
+        for node in nodes or []:
+            if not isinstance(node, dict):
+                continue
+            content_type = str(node.get("content_type") or "").upper()
+            name = node.get("name") or node.get("statement") or node.get("description")
+            node_id = str(node["id"]) if node.get("id") is not None else None
+            if content_type in _COVERAGE_CENSUS_TYPES and name and node_id:
+                entity_ids.append(node_id)
+            walk(node.get("children") or [])
+
+    walk(tree if isinstance(tree, list) else [tree])
+    return {
+        "grade": grade,
+        "subject": subject,
+        "stream_name": stream_name,
+        "source_reference": str(source_reference) if source_reference else None,
+        "grade_curriculum_id": str(grade_curriculum_id) if grade_curriculum_id else None,
+        "entity_ids": entity_ids,
+    }
 
 
 def _content_evidence(

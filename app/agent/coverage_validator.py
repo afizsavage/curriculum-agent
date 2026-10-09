@@ -169,7 +169,22 @@ def validate(
 ) -> StructuralResult:
     started = time.perf_counter()
     scope = SCOPE[focus]
-    source = {row.entity_id: row for row in records if row.entity_type in scope}
+    scoped = [row for row in records if row.entity_type in scope]
+    duplicate_id = _first_duplicate_id(row.entity_id for row in scoped)
+    if duplicate_id:
+        elapsed_ms = (time.perf_counter() - started) * 1000
+        return StructuralResult(
+            passed=False,
+            errors=(
+                StructuralError(
+                    "duplicate_source_id",
+                    duplicate_id,
+                    f"Source records repeat entity id {duplicate_id}.",
+                ),
+            ),
+            latency_ms=elapsed_ms,
+        )
+    source = {row.entity_id: row for row in scoped}
     names: dict[str, list[str]] = {}
     for row in source.values():
         names.setdefault(row.name, []).append(row.entity_id)
@@ -271,8 +286,89 @@ def assess_coverage(state: CurriculumQAState) -> CoverageGate:
     records = source_records(state.evidence, focus=focus)
     if records is None:
         return CoverageGate("unavailable", "source_relationships_unresolved")
+    if _first_duplicate_id(row.entity_id for row in records):
+        return CoverageGate("unavailable", "duplicate_source_id")
+    census_reason = _census_reason(state, records)
+    if census_reason:
+        return CoverageGate("unavailable", census_reason)
     result = validate(records, blocks_from_payload(payload), focus=focus)
+    if any(error.code == "duplicate_source_id" for error in result.errors):
+        return CoverageGate("unavailable", "duplicate_source_id")
     return CoverageGate("authoritative", None, result)
+
+
+def _first_duplicate_id(entity_ids) -> str | None:
+    seen: set[str] = set()
+    for entity_id in entity_ids:
+        if entity_id in seen:
+            return entity_id
+        seen.add(entity_id)
+    return None
+
+
+def _census_reason(state: CurriculumQAState, records: list[SourceRecord]) -> str | None:
+    """Compare evidence with the content-tree census. None means it matches.
+
+    A missing or foreign census is ``evidence_incomplete`` or
+    ``evidence_scope_mismatch``. Neither result is a structural pass.
+    """
+    expected = state.metadata.get("sss_coverage_expected")
+    if not isinstance(expected, dict):
+        return "evidence_incomplete"
+    entity_ids = expected.get("entity_ids")
+    if not isinstance(entity_ids, list) or any(not isinstance(item, str) or not item for item in entity_ids):
+        return "evidence_incomplete"
+    if _first_duplicate_id(entity_ids):
+        return "evidence_incomplete"
+    for field in ("grade", "subject", "stream_name"):
+        if not expected.get(field):
+            return "evidence_incomplete"
+    if not expected.get("source_reference") and not expected.get("grade_curriculum_id"):
+        return "evidence_incomplete"
+    association = _request_association(state, expected)
+    if association:
+        return association
+    if _row_scope_mismatch(state.evidence, expected):
+        return "evidence_scope_mismatch"
+    if {row.entity_id for row in records} != set(entity_ids):
+        return "evidence_incomplete"
+    return None
+
+
+def _request_association(state: CurriculumQAState, expected: dict[str, Any]) -> str | None:
+    grade = state.grade or state.metadata.get("grade")
+    subject = state.metadata.get("subject_name")
+    stream_name = state.metadata.get("resolved_stream_name") or state.metadata.get("stream_name")
+    if not grade or not subject or not stream_name:
+        return "evidence_incomplete"
+    if str(grade) != str(expected["grade"]) or subject != expected["subject"] or stream_name != expected["stream_name"]:
+        return "evidence_scope_mismatch"
+    source_reference = state.metadata.get("source_reference")
+    grade_curriculum_id = state.metadata.get("grade_curriculum_id")
+    if not source_reference and not grade_curriculum_id:
+        return "evidence_incomplete"
+    if source_reference and expected.get("source_reference") and source_reference != expected["source_reference"]:
+        return "evidence_scope_mismatch"
+    if grade_curriculum_id and expected.get("grade_curriculum_id") and str(grade_curriculum_id) != str(expected["grade_curriculum_id"]):
+        return "evidence_scope_mismatch"
+    return None
+
+
+def _row_scope_mismatch(evidence: list[CurriculumEvidence], expected: dict[str, Any]) -> bool:
+    for item in evidence:
+        kind = (item.entity_type or "").upper()
+        if kind not in {"THEME", "TOPIC"} or not item.name:
+            continue
+        if item.grade and str(item.grade) != str(expected["grade"]):
+            return True
+        if item.subject and item.subject != expected["subject"]:
+            return True
+        stream_name = (item.metadata or {}).get("stream_name")
+        if stream_name and stream_name != expected["stream_name"]:
+            return True
+        if item.source_reference and expected.get("source_reference") and item.source_reference != expected["source_reference"]:
+            return True
+    return False
 
 
 def classify_verifier_payload(raw: Any) -> str:

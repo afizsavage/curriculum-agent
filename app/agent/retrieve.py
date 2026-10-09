@@ -685,10 +685,14 @@ class RetrievalNode:
             "requested_subject",
             "near_subject_names",
             "source_reference",
+            "grade_curriculum_id",
             "grade_specific_streams",
         ):
             if key in observability:
                 state.metadata[key] = observability.get(key)
+        expected = observability.get("coverage_expected")
+        if isinstance(expected, dict):
+            state.metadata["sss_coverage_expected"] = expected
         log_agent_event(
             logger,
             "agent.retrieval.sss_stream",

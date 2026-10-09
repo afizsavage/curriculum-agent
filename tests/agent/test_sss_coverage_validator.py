@@ -15,7 +15,7 @@ from app.agent.state import CurriculumQAState
 from app.agent.verifier import AnswerVerifier
 from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus
 from app.schemas.verification import VERIFICATION_RESULT_JSON_SCHEMA
-from app.tools.curriculum import _content_evidence
+from app.tools.curriculum import _content_evidence, coverage_expected_from_tree
 
 THEME_NAME = "Research, group or independent work on reading and revision"
 TERM_1 = "e38f5d99-7a16-4403-9281-26c8afa0e697"
@@ -204,6 +204,32 @@ def _render(state, stream, grade_label="SSS 3"):
     return text
 
 
+def _bind_expected(
+    state,
+    tree,
+    *,
+    subject,
+    stream,
+    grade="SSS_3",
+    source_reference="syllabus.pdf",
+    grade_curriculum_id="gc-test",
+):
+    state.grade = grade
+    state.metadata["subject_name"] = subject
+    state.metadata["stream_name"] = stream
+    state.metadata["resolved_stream_name"] = stream
+    state.metadata["source_reference"] = source_reference
+    state.metadata["grade_curriculum_id"] = grade_curriculum_id
+    state.metadata["sss_coverage_expected"] = coverage_expected_from_tree(
+        tree,
+        grade=grade,
+        subject=subject,
+        stream_name=stream,
+        source_reference=source_reference,
+        grade_curriculum_id=grade_curriculum_id,
+    )
+
+
 def _verify(state, payload):
     if not (state.final_answer or state.draft_answer):
         state.final_answer = "Syllabus coverage answer."
@@ -215,6 +241,7 @@ def test_d1_accepts_distinct_themes_and_keeps_the_rendered_wording():
     evidence = _evidence(_literature(), "African Literature", "Languages & Literatures")
     state = _state("What does African Literature cover?", evidence, subject="African Literature")
     text = _render(state, "Languages & Literatures")
+    _bind_expected(state, _literature(), subject="African Literature", stream="Languages & Literatures", grade_curriculum_id="gc-d1")
     result = _verify(state, {"passed": False, "score": 0.25, "recommendation": "retrieve_more", "issues": ["incomplete"]})
     assert result.passed
     assert result.metadata["coverage_decision"] == "accept"
@@ -250,6 +277,13 @@ def test_d2_accepts_the_section_parent_and_ignores_the_subtopic():
         subject="Environmental Science",
     )
     text = _render(state, "Sciences & Technologies")
+    _bind_expected(
+        state,
+        _environment(),
+        subject="Environmental Science",
+        stream="Sciences & Technologies",
+        grade_curriculum_id="gc-d2",
+    )
     result = _verify(state, {"passed": False, "score": 0.3, "recommendation": "retrieve_more", "issues": ["incomplete"]})
     assert result.passed
     assert result.metadata["coverage_decision"] == "accept"
@@ -265,6 +299,13 @@ def test_d3_and_d4_accept_repeated_names_and_parentless_topics():
     repeated = _evidence(_repeated_themes(), "Derivatives of Religious and Moral Education", "Social & Cultural Studies")
     repeated_state = _state("What does it cover?", repeated)
     _render(repeated_state, "Social & Cultural Studies")
+    _bind_expected(
+        repeated_state,
+        _repeated_themes(),
+        subject="Derivatives of Religious and Moral Education",
+        stream="Social & Cultural Studies",
+        grade_curriculum_id="gc-d3",
+    )
     repeated_result = _verify(repeated_state, {"passed": True, "score": 0.95, "recommendation": "accept"})
     assert repeated_result.passed
     assert len({block["entity_id"] for block in repeated_state.metadata["sss_coverage_blocks"]}) == 3
@@ -272,6 +313,13 @@ def test_d3_and_d4_accept_repeated_names_and_parentless_topics():
     parentless = _evidence(_parentless_topics(), "Fula", "Languages & Literatures")
     parentless_state = _state("What does Fula cover?", parentless, subject="Fula")
     _render(parentless_state, "Languages & Literatures")
+    _bind_expected(
+        parentless_state,
+        _parentless_topics(),
+        subject="Fula",
+        stream="Languages & Literatures",
+        grade_curriculum_id="gc-d4",
+    )
     parentless_result = _verify(parentless_state, {"passed": True, "score": 1, "recommendation": "accept"})
     assert parentless_result.passed
     assert all(block["children"] == [] for block in parentless_state.metadata["sss_coverage_blocks"])
@@ -282,6 +330,7 @@ def test_m1_rejects_the_missing_term_3_theme_and_the_moved_topics():
     evidence = _evidence(_literature(), "African Literature", "Languages & Literatures")
     state = _state("What does African Literature cover?", evidence, subject="African Literature")
     _render(state, "Languages & Literatures")
+    _bind_expected(state, _literature(), subject="African Literature", stream="Languages & Literatures", grade_curriculum_id="gc-d1")
     first, second, third = state.metadata["sss_coverage_blocks"]
     first["children"] = first["children"] + third["children"]
     state.metadata["sss_coverage_blocks"] = [first, second]
@@ -303,6 +352,13 @@ def test_m2_rejects_the_revision_topic_under_nuclear_energy():
     evidence = _evidence(_environment(), "Environmental Science", "Sciences & Technologies")
     state = _state("What does Environmental Science cover?", evidence, subject="Environmental Science")
     _render(state, "Sciences & Technologies")
+    _bind_expected(
+        state,
+        _environment(),
+        subject="Environmental Science",
+        stream="Sciences & Technologies",
+        grade_curriculum_id="gc-d2",
+    )
     theme, revision = state.metadata["sss_coverage_blocks"]
     theme["children"] = theme["children"] + [revision]
     state.metadata["sss_coverage_blocks"] = [theme]
@@ -320,6 +376,7 @@ def test_reordering_blocks_does_not_change_parent_associations():
     evidence = _evidence(_literature(), "African Literature", "Languages & Literatures")
     state = _state("What does African Literature cover?", evidence)
     _render(state, "Languages & Literatures")
+    _bind_expected(state, _literature(), subject="African Literature", stream="Languages & Literatures", grade_curriculum_id="gc-d1")
     state.metadata["sss_coverage_blocks"] = list(reversed(state.metadata["sss_coverage_blocks"]))
     result = _verify(state, {"passed": False, "score": 0.2, "recommendation": "retrieve_more"})
     assert result.passed
@@ -330,6 +387,13 @@ def test_missing_topic_is_rejected_and_a_subtopic_is_not_required():
     evidence = _evidence(_environment(), "Environmental Science", "Sciences & Technologies")
     state = _state("What does Environmental Science cover?", evidence)
     _render(state, "Sciences & Technologies")
+    _bind_expected(
+        state,
+        _environment(),
+        subject="Environmental Science",
+        stream="Sciences & Technologies",
+        grade_curriculum_id="gc-d2",
+    )
     theme, _revision = state.metadata["sss_coverage_blocks"]
     theme["children"] = []
     state.metadata["sss_coverage_blocks"] = [theme, _revision]
@@ -433,3 +497,137 @@ def test_schema_envelope_is_an_invalid_verifier_result_not_a_structure_error():
     assert result.metadata["verifier_invalid_reason"] == "schema_envelope"
     assert result.metadata.get("coverage_decision") is None
     assert "incorrect_parent" not in result.issues
+
+
+def _prepared_literature():
+    evidence = _evidence(_literature(), "African Literature", "Languages & Literatures")
+    state = _state("What does African Literature cover?", evidence, subject="African Literature")
+    _render(state, "Languages & Literatures")
+    _bind_expected(
+        state,
+        _literature(),
+        subject="African Literature",
+        stream="Languages & Literatures",
+        grade_curriculum_id="gc-d1",
+    )
+    return state
+
+
+def test_removing_a_required_theme_or_topic_is_evidence_incomplete():
+    accepting = {"passed": True, "score": 0.99, "recommendation": "accept", "issues": []}
+    theme_state = _prepared_literature()
+    theme_state.evidence = [item for item in theme_state.evidence if item.entity_id != THEME_3]
+    theme_state.metadata["sss_coverage_blocks"] = [
+        block for block in theme_state.metadata["sss_coverage_blocks"] if block["entity_id"] != THEME_3
+    ]
+    theme_result = _verify(theme_state, accepting)
+    assert not theme_result.passed
+    assert theme_result.metadata["coverage_decision"] == "unavailable"
+    assert theme_result.metadata["coverage_reason_codes"] == ["evidence_incomplete"]
+    assert theme_result.metadata["llm_verification"]["recommendation"] == "accept"
+
+    topic_state = _prepared_literature()
+    topic_state.evidence = [item for item in topic_state.evidence if item.entity_id != WHOLE_CLASS]
+    for block in topic_state.metadata["sss_coverage_blocks"]:
+        block["children"] = [child for child in block["children"] if child["entity_id"] != WHOLE_CLASS]
+    topic_result = _verify(topic_state, accepting)
+    assert not topic_result.passed
+    assert topic_result.metadata["coverage_reason_codes"] == ["evidence_incomplete"]
+
+
+def test_a_census_from_another_syllabus_cannot_validate_this_request():
+    state = _prepared_literature()
+    expected = dict(state.metadata["sss_coverage_expected"])
+    accepting = {"passed": True, "score": 1, "recommendation": "accept"}
+    for field, foreign in (
+        ("subject", "Biology"),
+        ("grade", "SSS_1"),
+        ("source_reference", "SSS-Syllabus-Biology.pdf"),
+        ("grade_curriculum_id", "gc-other"),
+    ):
+        state.metadata["sss_coverage_expected"] = {**expected, field: foreign}
+        result = _verify(state, accepting)
+        assert not result.passed
+        assert result.metadata["coverage_decision"] == "unavailable"
+        assert result.metadata["coverage_reason_codes"] == ["evidence_scope_mismatch"]
+    state.metadata["sss_coverage_expected"] = expected
+
+
+def test_omitted_sections_and_subtopics_do_not_make_evidence_incomplete():
+    evidence = _evidence(_environment(), "Environmental Science", "Sciences & Technologies")
+    state = _state("What does Environmental Science cover?", evidence, subject="Environmental Science")
+    _render(state, "Sciences & Technologies")
+    _bind_expected(
+        state,
+        _environment(),
+        subject="Environmental Science",
+        stream="Sciences & Technologies",
+        grade_curriculum_id="gc-d2",
+    )
+    census = set(state.metadata["sss_coverage_expected"]["entity_ids"])
+    assert "85423a42-f5ec-4c42-b0a7-5f1d955704e4" not in census
+    assert "920f1a1f-8833-46ea-ac17-ef2cb02a0ba9" not in census
+    result = _verify(state, {"passed": False, "score": 0.2, "recommendation": "retrieve_more", "issues": ["incomplete"]})
+    assert result.passed
+    assert result.metadata["coverage_reason_codes"] == []
+
+
+def test_duplicate_source_ids_are_unavailable_even_when_the_model_accepts():
+    shared = "same-id"
+    evidence = [
+        CurriculumEvidence(
+            entity_type="theme",
+            entity_id="theme-1",
+            name="Heat",
+            grade="SSS_3",
+            subject="African Literature",
+            metadata={"parent_id": None, "stream_name": "Languages & Literatures"},
+            source_reference="syllabus.pdf",
+        ),
+        CurriculumEvidence(
+            entity_type="topic",
+            entity_id=shared,
+            name="Alpha",
+            grade="SSS_3",
+            subject="African Literature",
+            metadata={"parent_id": "theme-1", "parent_entity_type": "THEME", "parent_in_evidence": True, "stream_name": "Languages & Literatures"},
+            source_reference="syllabus.pdf",
+        ),
+        CurriculumEvidence(
+            entity_type="topic",
+            entity_id=shared,
+            name="Beta",
+            grade="SSS_3",
+            subject="African Literature",
+            metadata={"parent_id": "theme-1", "parent_entity_type": "THEME", "parent_in_evidence": True, "stream_name": "Languages & Literatures"},
+            source_reference="syllabus.pdf",
+        ),
+    ]
+    state = _state("What does African Literature cover?", evidence, subject="African Literature")
+    state.metadata["stream_name"] = "Languages & Literatures"
+    state.metadata["resolved_stream_name"] = "Languages & Literatures"
+    state.metadata["sss_coverage_blocks"] = [
+        {
+            "entity_id": "theme-1",
+            "entity_type": "theme",
+            "name": "Heat",
+            "children": [{"entity_id": shared, "entity_type": "topic", "name": "Alpha", "children": []}],
+        }
+    ]
+    state.metadata["sss_coverage_expected"] = {
+        "grade": "SSS_3",
+        "subject": "African Literature",
+        "stream_name": "Languages & Literatures",
+        "source_reference": "syllabus.pdf",
+        "grade_curriculum_id": "gc-d1",
+        "entity_ids": ["theme-1", shared],
+    }
+    state.metadata["source_reference"] = "syllabus.pdf"
+    state.metadata["grade_curriculum_id"] = "gc-d1"
+    result = _verify(state, {"passed": True, "score": 0.95, "recommendation": "accept", "issues": []})
+    assert not result.passed
+    assert result.metadata["coverage_decision"] == "unavailable"
+    assert result.metadata["coverage_reason_codes"] == ["duplicate_source_id"]
+    assert result.metadata["llm_authoritative"] is False
+    assert result.metadata["llm_verification"]["recommendation"] == "accept"
+    assert "duplicate_entity" not in result.metadata["coverage_reason_codes"]
