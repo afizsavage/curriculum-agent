@@ -77,12 +77,18 @@ def run_deterministic_checks(state: CurriculumQAState) -> VerificationResult:
         recommendation = _clarify_or_retrieve(state)
         clarification = None
         metadata: dict[str, Any] = {"source": "deterministic", "no_evidence": True}
-        if (
-            state.intent == "SSS_STREAM_SUBJECTS"
-            and state.metadata.get("sss_stream_resolution") == "not_found"
-        ):
+        if state.intent == "SSS_STREAM_SUBJECTS" and state.metadata.get(
+            "sss_stream_resolution"
+        ) in {
+            "not_found",
+            "subject_not_in_stream",
+            "ambiguous_subject",
+            "grade_content_missing",
+        }:
             recommendation = VerificationRecommendation.FALLBACK
-            metadata["stream_not_found"] = True
+            metadata["stream_not_found"] = (
+                state.metadata.get("sss_stream_resolution") == "not_found"
+            )
         if recommendation == VerificationRecommendation.CLARIFY:
             clarification = "Which grade or level would you like me to check?"
         return _result(
@@ -96,6 +102,25 @@ def run_deterministic_checks(state: CurriculumQAState) -> VerificationResult:
             recommendation=recommendation,
             clarification=clarification,
             metadata=metadata,
+        )
+
+    if state.intent == "SSS_STREAM_SUBJECTS" and state.metadata.get(
+        "sss_stream_resolution"
+    ) in {"subject_not_in_stream", "ambiguous_subject", "grade_content_missing"}:
+        issues.append("The requested subject is not supported for that stream and grade.")
+        return _result(
+            passed=False,
+            score=0.1,
+            issues=issues,
+            unsupported=unsupported,
+            incorrect=incorrect,
+            missing=missing,
+            claims=claims,
+            recommendation=VerificationRecommendation.FALLBACK,
+            metadata={
+                "source": "deterministic",
+                "sss_stream_resolution": state.metadata.get("sss_stream_resolution"),
+            },
         )
 
     # Grade consistency

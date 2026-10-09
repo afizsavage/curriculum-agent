@@ -7,6 +7,7 @@ import time
 from typing import Any, Optional
 
 from app.agent.answer_generator import format_evidence_for_prompt
+from app.agent.coverage_validator import assess_coverage, classify_verifier_payload
 from app.agent.state import CurriculumQAState
 from app.agent.verification_checks import run_deterministic_checks
 from app.config import Settings
@@ -66,6 +67,7 @@ class AnswerVerifier:
     ) -> VerificationResult:
         started = time.perf_counter()
         deterministic = run_deterministic_checks(state)
+        coverage = assess_coverage(state)
 
         # Hard deterministic failures that already prescribe clarify/fallback
         # skip the LLM when recommendation is clear and fail-closed.
@@ -75,6 +77,10 @@ class AnswerVerifier:
             or deterministic.metadata.get("empty_answer")
         ):
             result = deterministic
+        elif coverage.status == "authoritative" and coverage.result is not None:
+            result = self._coverage_decision(state, deterministic, coverage.result)
+        elif coverage.status == "unavailable":
+            result = self._coverage_unavailable(state, deterministic, coverage.reason)
         elif self.llm.name == "stub":
             result = self._stub_verify(state, deterministic)
         else:
@@ -166,7 +172,123 @@ class AnswerVerifier:
             raise
         except Exception as exc:
             raise LLMProviderError(f"Verification failed: {exc}") from exc
-        return self._parse(raw)
+        result = self._parse(raw)
+        shape = classify_verifier_payload(raw)
+        result.metadata = {
+            **(result.metadata or {}),
+            "verifier_payload_shape": shape,
+        }
+        if shape == "schema_envelope":
+            result.metadata["verifier_result_invalid"] = True
+            result.metadata["verifier_invalid_reason"] = "schema_envelope"
+        return result
+
+    def _coverage_diagnostics(
+        self,
+        state: CurriculumQAState,
+        deterministic: VerificationResult,
+    ) -> dict[str, Any]:
+        """Record the generic verifier without letting it decide coverage."""
+        try:
+            if self.llm.name == "stub":
+                diagnosed = self._stub_verify(state, deterministic)
+            else:
+                diagnosed = self._llm_verify(state)
+        except LLMProviderError as exc:
+            return {
+                "verifier_result_invalid": True,
+                "verifier_invalid_reason": "llm_error",
+                "error": str(exc),
+            }
+        return {
+            "passed": diagnosed.passed,
+            "score": diagnosed.score,
+            "recommendation": diagnosed.recommendation.value,
+            "issues": list(diagnosed.issues),
+            "verifier_payload_shape": (diagnosed.metadata or {}).get(
+                "verifier_payload_shape"
+            ),
+            "verifier_result_invalid": bool(
+                (diagnosed.metadata or {}).get("verifier_result_invalid")
+            ),
+            "verifier_invalid_reason": (diagnosed.metadata or {}).get(
+                "verifier_invalid_reason"
+            ),
+            "authoritative": False,
+        }
+
+    def _coverage_decision(
+        self,
+        state: CurriculumQAState,
+        deterministic: VerificationResult,
+        structural,
+    ) -> VerificationResult:
+        diagnostics = self._coverage_diagnostics(state, deterministic)
+        codes = [error.code for error in structural.errors]
+        if structural.passed:
+            return VerificationResult(
+                passed=True,
+                score=1.0,
+                issues=[],
+                recommendation=VerificationRecommendation.ACCEPT,
+                notes="Syllabus coverage structure matches the source records.",
+                metadata={
+                    "source": "coverage_validator",
+                    "coverage_decision": "accept",
+                    "coverage_reason_codes": codes,
+                    "coverage_latency_ms": round(structural.latency_ms, 3),
+                    "llm_verification": diagnostics,
+                    "llm_authoritative": False,
+                },
+            )
+        messages = [error.message for error in structural.errors]
+        return VerificationResult(
+            passed=False,
+            score=0.0,
+            issues=messages,
+            incorrect_claims=messages,
+            recommendation=VerificationRecommendation.FALLBACK,
+            notes="Syllabus coverage structure does not match the source records.",
+            metadata={
+                "source": "coverage_validator",
+                "coverage_decision": "reject",
+                "coverage_reason_codes": codes,
+                "coverage_errors": [
+                    {
+                        "code": error.code,
+                        "entity_id": error.entity_id,
+                        "message": error.message,
+                    }
+                    for error in structural.errors
+                ],
+                "coverage_latency_ms": round(structural.latency_ms, 3),
+                "llm_verification": diagnostics,
+                "llm_authoritative": False,
+            },
+        )
+
+    def _coverage_unavailable(
+        self,
+        state: CurriculumQAState,
+        deterministic: VerificationResult,
+        reason: str | None,
+    ) -> VerificationResult:
+        diagnostics = self._coverage_diagnostics(state, deterministic)
+        detail = reason or "coverage_validation_unavailable"
+        return VerificationResult(
+            passed=False,
+            score=0.0,
+            issues=[f"Syllabus coverage could not be validated ({detail})."],
+            recommendation=VerificationRecommendation.FALLBACK,
+            notes="Structured coverage validation did not run.",
+            metadata={
+                "source": "coverage_validator",
+                "coverage_decision": "unavailable",
+                "coverage_reason_codes": [detail],
+                "llm_verification": diagnostics,
+                "llm_authoritative": False,
+            },
+        )
 
     def _stub_verify(
         self,
@@ -187,6 +309,12 @@ class AnswerVerifier:
             ):
                 return deterministic
             if deterministic.metadata.get("ambiguous"):
+                return deterministic
+            if deterministic.metadata.get("sss_stream_resolution") in {
+                "subject_not_in_stream",
+                "ambiguous_subject",
+                "grade_content_missing",
+            }:
                 return deterministic
 
         if not state.evidence:
@@ -303,7 +431,12 @@ class AnswerVerifier:
         llm_result: VerificationResult,
     ) -> VerificationResult:
         """Fail closed: deterministic hard fails override LLM accept."""
-        if deterministic.incorrect_claims or deterministic.metadata.get("no_evidence"):
+        if (
+            deterministic.incorrect_claims
+            or deterministic.metadata.get("no_evidence")
+            or deterministic.metadata.get("sss_stream_resolution")
+            in {"subject_not_in_stream", "ambiguous_subject", "grade_content_missing"}
+        ):
             # Prefer deterministic failure signals; enrich with LLM issues.
             issues = list(
                 dict.fromkeys(deterministic.issues + llm_result.issues)

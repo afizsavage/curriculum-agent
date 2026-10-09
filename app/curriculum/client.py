@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import time
 from typing import Any, Optional
 
 import httpx
 
 from app.config import Settings, get_settings
 from app.curriculum.errors import (
+    CurriculumAPIError,
     CurriculumAuthError,
     CurriculumInvalidQueryError,
     CurriculumNotFoundError,
@@ -18,6 +20,11 @@ from app.curriculum.errors import (
 from app.logging_utils import get_logger
 
 logger = get_logger(__name__)
+
+# Curriculum identity lookup. Paged reads already retry once; this exact
+# path did not. Subpaths such as /curricula/{id}/sss-streams are not included.
+_CURRICULUM_IDENTITY_PATH = "api/v1/curricula"
+_IDENTITY_RETRY_ERRORS = (CurriculumTimeoutError, CurriculumUnavailableError)
 
 
 class CurriculumAPIClient:
@@ -39,6 +46,7 @@ class CurriculumAPIClient:
             transport=transport,
             headers={"Accept": "application/json"},
         )
+        self.identity_lookups: list[dict[str, Any]] = []
 
     def close(self) -> None:
         self._client.close()
@@ -61,6 +69,19 @@ class CurriculumAPIClient:
         if request_id:
             headers["X-Request-ID"] = request_id
         url_path = path.lstrip("/")
+        if url_path == _CURRICULUM_IDENTITY_PATH:
+            return self._get_curriculum_identity(
+                url_path, cleaned=cleaned, headers=headers
+            )
+        return self._get_once(url_path, cleaned=cleaned, headers=headers)
+
+    def _get_once(
+        self,
+        url_path: str,
+        *,
+        cleaned: dict[str, Any],
+        headers: dict[str, str],
+    ) -> Any:
         try:
             response = self._client.get(url_path, params=cleaned, headers=headers)
         except httpx.TimeoutException as exc:
@@ -85,6 +106,74 @@ class CurriculumAPIClient:
             cleaned,
         )
         return self._parse(response, path=url_path)
+
+    def _get_curriculum_identity(
+        self,
+        url_path: str,
+        *,
+        cleaned: dict[str, Any],
+        headers: dict[str, str],
+    ) -> Any:
+        """One attempt, then exactly one retry, for the curriculum list lookup.
+
+        Each attempt uses the client's existing timeout. A 4xx response is
+        not retried. The record is kept even when the second attempt fails.
+        """
+        started = time.perf_counter()
+        first_ms = 0.0
+        retry_ms: float | None = None
+        status = "ok"
+        try:
+            attempt_started = time.perf_counter()
+            try:
+                result = self._get_once(url_path, cleaned=cleaned, headers=headers)
+                first_ms = (time.perf_counter() - attempt_started) * 1000
+                return result
+            except _IDENTITY_RETRY_ERRORS as first_error:
+                first_ms = (time.perf_counter() - attempt_started) * 1000
+                logger.warning(
+                    "curriculum_identity.retry path=%r error=%s first_attempt_duration_ms=%.1f",
+                    url_path,
+                    type(first_error).__name__,
+                    first_ms,
+                )
+                retry_started = time.perf_counter()
+                try:
+                    result = self._get_once(
+                        url_path, cleaned=cleaned, headers=headers
+                    )
+                    retry_ms = (time.perf_counter() - retry_started) * 1000
+                    status = "recovered"
+                    return result
+                except CurriculumAPIError:
+                    retry_ms = (time.perf_counter() - retry_started) * 1000
+                    status = "failed"
+                    raise
+            except CurriculumAPIError:
+                first_ms = (time.perf_counter() - attempt_started) * 1000
+                status = "failed"
+                raise
+        finally:
+            record = {
+                "curriculum_identity_attempts": 2 if retry_ms is not None else 1,
+                "first_attempt_duration_ms": round(first_ms, 1),
+                "retry_used": retry_ms is not None,
+                "retry_duration_ms": round(retry_ms, 1) if retry_ms is not None else None,
+                "status": status,
+                "total_duration_ms": round((time.perf_counter() - started) * 1000, 1),
+            }
+            self.identity_lookups.append(record)
+            logger.info(
+                "curriculum_identity.lookup attempts=%s retry_used=%s "
+                "first_attempt_duration_ms=%s retry_duration_ms=%s status=%s "
+                "total_duration_ms=%s",
+                record["curriculum_identity_attempts"],
+                record["retry_used"],
+                record["first_attempt_duration_ms"],
+                record["retry_duration_ms"],
+                record["status"],
+                record["total_duration_ms"],
+            )
 
     def _parse(self, response: httpx.Response, *, path: str) -> Any:
         status = response.status_code

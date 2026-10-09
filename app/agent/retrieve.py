@@ -51,14 +51,43 @@ subject (and ideally topic) are known — it resolves GradeCurriculum units and
 learning outcomes in one structured call. Fall back to get_curriculum_structure,
 get_topic, get_learning_objectives, and search_curriculum when needed. Use
 search_curriculum for concept discovery. When the user asks which subjects
-belong to a named Senior Secondary stream, call get_sss_stream_subjects with
-that stream name instead of get_curriculum_structure. Do not invent curriculum
+belong to a named Senior Secondary stream, or what a subject covers for one
+SSS grade in one stream, call get_sss_stream_subjects with the stream name and,
+when the question names them, the grade and subject. Do not invent curriculum
 facts. When enough evidence exists, stop requesting tools and reply with a
 short note that retrieval is complete.
 
 When verification feedback lists missing evidence, prioritize targeted tools that
 satisfy those gaps rather than repeating broad searches already executed.
 """
+
+
+def _install_coverage_census(
+    state: CurriculumQAState,
+    observability: dict[str, Any] | None,
+) -> None:
+    """Replace the census from this tool result, or drop the previous one.
+
+    A curriculum result that does not carry a census dict must not leave an
+    earlier syllabus's expected ids in place. Missing metadata is not stored
+    as an empty census.
+    """
+    expected = observability.get("coverage_expected") if isinstance(observability, dict) else None
+    if isinstance(expected, dict):
+        state.metadata["sss_coverage_expected"] = expected
+        return
+    state.metadata.pop("sss_coverage_expected", None)
+
+
+def _clear_coverage_census_after_failed_sss_load(
+    state: CurriculumQAState,
+    tool_name: str,
+) -> None:
+    """A failed syllabus load does not produce a census."""
+    from app.curriculum.sss_stream_intent import TOOL_GET_SSS_STREAM_SUBJECTS
+
+    if tool_name == TOOL_GET_SSS_STREAM_SUBJECTS:
+        state.metadata.pop("sss_coverage_expected", None)
 
 
 class RetrievalNode:
@@ -627,18 +656,28 @@ class RetrievalNode:
         state.level = "senior_secondary"
         # The stream title is not a grade subject. "Sciences" must not become
         # a SCIENCE subject filter for generic curriculum retrieval.
-        state.grade = None
+        state.grade = detected.grade
         state.subject = None
         state.topic = None
         state.classification = None
         state.metadata["retrieval_plan_source"] = "heuristic"
         state.metadata["intent"] = INTENT_SSS_STREAM_SUBJECTS
         state.metadata["stream_name"] = detected.stream_name
+        state.metadata["sss_focus"] = detected.focus
+        state.metadata["subject_name"] = detected.subject_name
+        arguments: dict[str, Any] = {
+            "stream_name": detected.stream_name,
+            "focus": detected.focus,
+        }
+        if detected.grade:
+            arguments["grade"] = detected.grade
+        if detected.subject_name:
+            arguments["subject"] = detected.subject_name
         return [
             ToolCallRequest(
                 id=str(uuid4()),
                 name=TOOL_GET_SSS_STREAM_SUBJECTS,
-                arguments={"stream_name": detected.stream_name},
+                arguments=arguments,
             )
         ]
 
@@ -659,8 +698,27 @@ class RetrievalNode:
         )
         state.metadata["sss_stream_resolution"] = resolution
         state.metadata["subject_count"] = subject_count
-        if stream_name and resolution in {"found", "no_subjects"}:
+        if stream_name and resolution in {
+            "found",
+            "no_subjects",
+            "subject_not_in_stream",
+            "ambiguous_subject",
+            "grade_content_missing",
+        }:
             state.metadata["resolved_stream_name"] = stream_name
+        for key in (
+            "grade",
+            "focus",
+            "subject_name",
+            "requested_subject",
+            "near_subject_names",
+            "source_reference",
+            "grade_curriculum_id",
+            "grade_specific_streams",
+        ):
+            if key in observability:
+                state.metadata[key] = observability.get(key)
+        _install_coverage_census(state, observability)
         log_agent_event(
             logger,
             "agent.retrieval.sss_stream",
@@ -982,6 +1040,7 @@ class RetrievalNode:
                     curriculum_api_status=200,
                 )
             else:
+                _clear_coverage_census_after_failed_sss_load(state, call.name)
                 error_code = (
                     (result.data or {}) if isinstance(result.data, dict) else {}
                 ).get("error_code")
@@ -1002,6 +1061,7 @@ class RetrievalNode:
                     curriculum_api_status=api_status,
                 )
         except CurriculumAPIError as exc:
+            _clear_coverage_census_after_failed_sss_load(state, call.name)
             latency = timed_ms(started)
             state.bump_tool_calls()
             record = ToolCallRecord(
@@ -1014,6 +1074,7 @@ class RetrievalNode:
                 curriculum_api_status=exc.status_code,
             )
         except Exception as exc:
+            _clear_coverage_census_after_failed_sss_load(state, call.name)
             latency = timed_ms(started)
             state.bump_tool_calls()
             record = ToolCallRecord(

@@ -1,0 +1,290 @@
+{
+  "run": "B",
+  "questions": 89,
+  "decisions": {
+    "grounded": 36,
+    "fail_contamination": 11,
+    "class:cross_context": 11,
+    "fail_verification": 7,
+    "class:verification": 7,
+    "infra_failure": 2,
+    "class:infrastructure": 2,
+    "correct_rejection": 28,
+    "fail_resolution": 5,
+    "class:resolution": 5
+  },
+  "by_grade": {
+    "SSS_1": {
+      "grounded": 17,
+      "tested": 46,
+      "fail_contamination": 3,
+      "fail_verification": 3,
+      "correct_rejection": 18,
+      "fail_resolution": 5
+    },
+    "SSS_2": {
+      "fail_contamination": 4,
+      "tested": 24,
+      "grounded": 10,
+      "infra_failure": 2,
+      "fail_verification": 1,
+      "correct_rejection": 7
+    },
+    "SSS_3": {
+      "fail_verification": 3,
+      "tested": 19,
+      "grounded": 9,
+      "fail_contamination": 4,
+      "correct_rejection": 3
+    }
+  },
+  "by_stream": {
+    "Economics, Business & Entrepreneurship": {
+      "grounded": 4,
+      "tested": 11,
+      "fail_contamination": 1,
+      "fail_verification": 2,
+      "correct_rejection": 4
+    },
+    "Languages & Literatures": {
+      "grounded": 3,
+      "tested": 14,
+      "fail_contamination": 2,
+      "infra_failure": 1,
+      "fail_verification": 1,
+      "correct_rejection": 7
+    },
+    "Mathematics & Numeracy": {
+      "fail_verification": 3,
+      "tested": 14,
+      "fail_contamination": 3,
+      "grounded": 1,
+      "correct_rejection": 7
+    },
+    "Sciences & Technologies": {
+      "grounded": 23,
+      "tested": 35,
+      "fail_contamination": 4,
+      "correct_rejection": 7,
+      "infra_failure": 1
+    },
+    "Social & Cultural Studies": {
+      "grounded": 5,
+      "tested": 11,
+      "fail_contamination": 1,
+      "fail_verification": 1,
+      "correct_rejection": 3,
+      "fail_resolution": 1
+    },
+    "Science": {
+      "fail_resolution": 1,
+      "tested": 1
+    },
+    "Business": {
+      "fail_resolution": 1,
+      "tested": 1
+    },
+    "Humanities": {
+      "fail_resolution": 1,
+      "tested": 1
+    },
+    "Social Science": {
+      "fail_resolution": 1,
+      "tested": 1
+    }
+  },
+  "by_subject": {
+    "Business Accounting": {
+      "grounded": 1,
+      "tested": 3,
+      "fail_contamination": 1,
+      "fail_verification": 1
+    },
+    "Principles of Marketing": {
+      "grounded": 3,
+      "tested": 3
+    },
+    "African Literature": {
+      "grounded": 2,
+      "tested": 4,
+      "fail_verification": 1,
+      "fail_resolution": 1
+    },
+    "Technical Writing": {
+      "fail_contamination": 2,
+      "tested": 3,
+      "infra_failure": 1
+    },
+    "Calculus": {
+      "fail_verification": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "Statistics and Probability": {
+      "fail_contamination": 1,
+      "tested": 3,
+      "grounded": 1,
+      "fail_verification": 1
+    },
+    "Adolescent Health and Life Skills": {
+      "grounded": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "Robotics": {
+      "grounded": 1,
+      "tested": 3,
+      "fail_contamination": 2
+    },
+    "African History": {
+      "grounded": 3,
+      "tested": 4,
+      "correct_rejection": 1
+    },
+    "Tourism and Conservation": {
+      "fail_contamination": 1,
+      "tested": 3,
+      "fail_verification": 1,
+      "grounded": 1
+    },
+    "Biology": {
+      "grounded": 18,
+      "tested": 27,
+      "correct_rejection": 5,
+      "fail_resolution": 4
+    },
+    "Integrated Science": {
+      "grounded": 1,
+      "tested": 2,
+      "correct_rejection": 1
+    },
+    "Fundamentals of Mathematics": {
+      "fail_verification": 1,
+      "tested": 2,
+      "correct_rejection": 1
+    },
+    "English Language": {
+      "grounded": 1,
+      "tested": 2,
+      "correct_rejection": 1
+    },
+    "History of Sierra Leone": {
+      "grounded": 1,
+      "tested": 2,
+      "correct_rejection": 1
+    },
+    "Principles of Economics": {
+      "fail_verification": 1,
+      "tested": 2,
+      "correct_rejection": 1
+    },
+    "Information & Communication Technology (ICT)": {
+      "grounded": 2,
+      "tested": 2
+    },
+    "Genetics and Bio-Engineering": {
+      "correct_rejection": 3,
+      "tested": 3
+    },
+    "Computer Literacy": {
+      "infra_failure": 1,
+      "tested": 1
+    },
+    "Mathematics Applications": {
+      "correct_rejection": 3,
+      "tested": 3
+    },
+    "Sierra Leone Languages": {
+      "correct_rejection": 3,
+      "tested": 3
+    },
+    "Further Mathematics": {
+      "correct_rejection": 1,
+      "tested": 1
+    },
+    "Entrepreneurship": {
+      "correct_rejection": 1,
+      "tested": 1
+    },
+    "Basket Weaving": {
+      "correct_rejection": 5,
+      "tested": 5
+    },
+    "ICT literacy": {
+      "correct_rejection": 1,
+      "tested": 1
+    }
+  },
+  "by_formulation": {
+    "official": {
+      "grounded": 16,
+      "tested": 57,
+      "fail_contamination": 11,
+      "fail_verification": 5,
+      "infra_failure": 2,
+      "correct_rejection": 22,
+      "fail_resolution": 1
+    },
+    "spoken_stream": {
+      "grounded": 3,
+      "tested": 5,
+      "fail_verification": 2
+    },
+    "official_acronym": {
+      "grounded": 1,
+      "tested": 1
+    },
+    "name_without_acronym": {
+      "grounded": 1,
+      "tested": 1
+    },
+    "grade_variant": {
+      "grounded": 15,
+      "tested": 15
+    },
+    "unsupported": {
+      "correct_rejection": 5,
+      "tested": 5
+    },
+    "ambiguous": {
+      "correct_rejection": 1,
+      "tested": 1
+    },
+    "unsupported_short_stream": {
+      "fail_resolution": 4,
+      "tested": 4
+    }
+  },
+  "latency_success_ms": {
+    "n": 64,
+    "median_ms": 18155.9,
+    "p75_ms": 20722.0,
+    "p90_ms": 26782.3,
+    "p95_ms": 29200.2,
+    "max_ms": 39547.0
+  },
+  "latency_timeout_ms": {
+    "n": 1,
+    "median_ms": 15039.7,
+    "p75_ms": 15039.7,
+    "p90_ms": 15039.7,
+    "p95_ms": 15039.7,
+    "max_ms": 15039.7
+  },
+  "latency_infra_ms": {
+    "n": 2,
+    "median_ms": 15039.7,
+    "p75_ms": 25796.5,
+    "p90_ms": 25796.5,
+    "p95_ms": 25796.5,
+    "max_ms": 25796.5
+  },
+  "latency_all_ms": {
+    "n": 89,
+    "median_ms": 19715.9,
+    "p75_ms": 23848.7,
+    "p90_ms": 29834.4,
+    "p95_ms": 39547.0,
+    "max_ms": 70262.6
+  }
+}

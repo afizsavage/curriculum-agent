@@ -1,0 +1,67 @@
+{
+  "questions": 58,
+  "cohorts": {
+    "identity_timeout": 40,
+    "identity_timeout_run_b_recovered": 4,
+    "multi_call_timeout": 8,
+    "control": 6
+  },
+  "baseline_decisions": {
+    "infra_failure": 52,
+    "grounded": 6
+  },
+  "decisions": {
+    "fail_verification": 14,
+    "grounded": 39,
+    "infra_failure": 5
+  },
+  "identity_timeout_questions": 44,
+  "identity_retries": 3,
+  "identity_recovered": 1,
+  "identity_still_failed": 2,
+  "retry_success_rate": 0.333,
+  "infrastructure_before": 52,
+  "infrastructure_after": 5,
+  "contamination_after": 0,
+  "latency_total_ms": {
+    "n": 58,
+    "median_ms": 26014.9,
+    "p75_ms": 31623.9,
+    "p90_ms": 43581.7,
+    "p95_ms": 52153.2,
+    "max_ms": 75162.5
+  },
+  "latency_identity_ms": {
+    "n": 58,
+    "median_ms": 2330.8,
+    "p75_ms": 3223.6,
+    "p90_ms": 5569.5,
+    "p95_ms": 9776.7,
+    "max_ms": 30032.3
+  },
+  "latency_retry_recovered_ms": {
+    "n": 1,
+    "median_ms": 57025.1,
+    "p75_ms": 57025.1,
+    "p90_ms": 57025.1,
+    "p95_ms": 57025.1,
+    "max_ms": 57025.1
+  },
+  "latency_no_retry_success_ms": {
+    "n": 39,
+    "median_ms": 25520.5,
+    "p75_ms": 27595.6,
+    "p90_ms": 35432.8,
+    "p95_ms": 43581.7,
+    "max_ms": 63356.6
+  },
+  "latency_infra_ms": {
+    "n": 5,
+    "median_ms": 30058.9,
+    "p75_ms": 40129.9,
+    "p90_ms": 57025.1,
+    "p95_ms": 57025.1,
+    "max_ms": 57025.1
+  },
+  "baseline_rows": 286
+}

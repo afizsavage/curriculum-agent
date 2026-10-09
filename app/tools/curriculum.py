@@ -17,11 +17,19 @@ from app.curriculum.errors import (
     CurriculumAPIError,
     CurriculumInvalidQueryError,
     CurriculumNotFoundError,
+    CurriculumTimeoutError,
 )
 from app.curriculum.evidence import CurriculumEvidence
 from app.curriculum.sss_stream_intent import (
+    FOCUS_COVERAGE,
+    FOCUS_MEMBERSHIP,
+    FOCUS_OUTCOMES,
+    FOCUS_STREAMS,
+    FOCUS_SUBJECTS,
+    FOCUS_TOPICS,
     TOOL_GET_SSS_STREAM_SUBJECTS,
     match_sss_stream,
+    match_stream_subject,
 )
 from app.curriculum.normalize import (
     evidence_from_hit,
@@ -1178,10 +1186,10 @@ class GetLearningObjectivesTool(CurriculumTool):
 
 
 class GetSSSStreamSubjectsTool(CurriculumTool):
-    """Subjects assigned to a named Senior Secondary stream.
+    """SSS streams, the subjects assigned to them, and one grade's syllabus.
 
-    The stream-to-subject relationship is the evidence. Grade curriculum,
-    topics, and learning outcomes are not required.
+    Streams are recorded for Senior Secondary as a whole. A grade syllabus is
+    loaded only after the subject is an exact assignment in the named stream.
     """
 
     @property
@@ -1191,11 +1199,11 @@ class GetSSSStreamSubjectsTool(CurriculumTool):
     @property
     def description(self) -> str:
         return (
-            "List the subjects assigned to a named Senior Secondary (SSS) "
-            "stream, such as Sciences & Technologies. Use when the user asks "
-            "which subjects belong to, are in, or are contained by a named "
-            "SSS stream. Resolve the stream by name. Do not use this for "
-            "grade or topic questions."
+            "Look up Senior Secondary (SSS) streams and the subjects assigned "
+            "to them. Use for which subjects belong to a named stream, which "
+            "streams exist at SSS, and what a subject covers for one SSS grade "
+            "in one stream. Pass grade and subject together when the question "
+            "names them. Do not use another grade's syllabus for the answer."
         )
 
     @property
@@ -1207,75 +1215,275 @@ class GetSSSStreamSubjectsTool(CurriculumTool):
                     "type": "string",
                     "description": "SSS stream name, for example Sciences & Technologies",
                 },
+                "grade": {
+                    "type": "string",
+                    "description": "SSS grade when the question names one, such as SSS1",
+                },
+                "subject": {
+                    "type": "string",
+                    "description": "Subject name when the question names one",
+                },
+                "focus": {
+                    "type": "string",
+                    "description": (
+                        "subjects, coverage, topics, outcomes, membership, or streams"
+                    ),
+                },
             },
-            "required": ["stream_name"],
+            "required": [],
         }
 
     def execute(self, **kwargs: Any) -> ToolResult:
+        focus = str(kwargs.get("focus") or FOCUS_SUBJECTS).strip().lower()
         stream_name = str(kwargs.get("stream_name") or "").strip()
+        grade = normalize_grade_code(str(kwargs.get("grade") or "")) or None
+        subject_name = str(kwargs.get("subject") or "").strip()
+        if focus == FOCUS_STREAMS:
+            return self._list_streams()
         if not stream_name:
             return _tool_error(CurriculumInvalidQueryError("stream_name is required"))
+        try:
+            resolved = self._load_stream(stream_name)
+        except CurriculumNotFoundError:
+            return _sss_stream_not_found(stream_name)
+        except CurriculumAPIError as exc:
+            return _tool_error(exc)
+        if resolved is None:
+            return _sss_stream_not_found(stream_name)
+        stream, stream_id, assignments = resolved
+        if subject_name:
+            return self._subject_context(
+                stream=stream,
+                stream_id=stream_id,
+                assignments=assignments,
+                subject_name=subject_name,
+                grade=grade,
+                focus=focus,
+            )
+        if grade:
+            return self._subjects_for_grade(
+                stream=stream,
+                stream_id=stream_id,
+                assignments=assignments,
+                grade=grade,
+            )
+        return _stream_subject_result(stream, stream_id, assignments)
+
+    def _list_streams(self) -> ToolResult:
         try:
             curriculum_id, _, _ = self._resolve_curriculum(grade_code="SSS_1")
             streams = self._collect_pages(
                 lambda **params: self.client.list_sss_streams(curriculum_id, **params)
             )
-            matched = match_sss_stream(streams, stream_name)
-            if matched is None or not matched.get("id"):
-                return _sss_stream_not_found(stream_name)
-            stream_id = str(matched["id"])
-            stream = self.client.get_sss_stream(stream_id)
-            assignments = self._collect_pages(
-                lambda **params: self.client.list_sss_stream_subjects(
-                    stream_id, **params
-                )
-            )
-        except CurriculumNotFoundError:
-            return _sss_stream_not_found(stream_name)
         except CurriculumAPIError as exc:
             return _tool_error(exc)
-
-        official_name = str(stream.get("name") or matched.get("name") or stream_name)
-        evidence = [_stream_evidence(stream, stream_id=stream_id)]
-        subjects: list[dict[str, Any]] = []
-        for assignment in sorted(
-            assignments,
-            key=lambda row: (
-                row.get("display_order")
-                if isinstance(row.get("display_order"), int)
-                else 0
-            ),
-        ):
-            subject_row = _subject_from_assignment(assignment, stream=stream, stream_id=stream_id)
-            if subject_row is None:
-                continue
-            subjects.append(subject_row["summary"])
-            evidence.append(subject_row["evidence"])
-
-        resolution = "found" if subjects else "no_subjects"
+        evidence = [
+            _stream_evidence(stream, stream_id=str(stream["id"]))
+            for stream in streams
+            if stream.get("id") and stream.get("name")
+        ]
         return ToolResult(
             success=True,
             data={
-                "stream": {
-                    "id": stream_id,
-                    "name": official_name,
-                    "code": stream.get("code"),
-                },
-                "subjects": subjects,
+                "streams": [
+                    {"id": item.entity_id, "name": item.name} for item in evidence
+                ],
                 "evidence": [item.model_dump() for item in evidence],
                 "observability": {
-                    "sss_stream_resolution": resolution,
-                    "subject_count": len(subjects),
-                    "stream_name": official_name,
+                    "sss_stream_resolution": "found" if evidence else "no_subjects",
+                    "subject_count": 0,
+                    "stream_count": len(evidence),
+                    "focus": FOCUS_STREAMS,
+                    "grade_specific_streams": False,
                 },
             },
         )
+
+    def _load_stream(
+        self, stream_name: str
+    ) -> tuple[dict[str, Any], str, list[dict[str, Any]]] | None:
+        curriculum_id, _, _ = self._resolve_curriculum(grade_code="SSS_1")
+        streams = self._collect_pages(
+            lambda **params: self.client.list_sss_streams(curriculum_id, **params)
+        )
+        matched = match_sss_stream(streams, stream_name)
+        if matched is None or not matched.get("id"):
+            return None
+        stream_id = str(matched["id"])
+        stream = self.client.get_sss_stream(stream_id)
+        assignments = self._collect_pages(
+            lambda **params: self.client.list_sss_stream_subjects(stream_id, **params)
+        )
+        return stream, stream_id, assignments
+
+    def _subjects_for_grade(
+        self,
+        *,
+        stream: dict[str, Any],
+        stream_id: str,
+        assignments: list[dict[str, Any]],
+        grade: str,
+    ) -> ToolResult:
+        try:
+            offered = self._subject_ids_for_grade(grade)
+        except CurriculumAPIError as exc:
+            return _tool_error(exc)
+        selected = [
+            row
+            for row in assignments
+            if _assignment_subject_id(row) in offered
+        ]
+        result = _stream_subject_result(stream, stream_id, selected, grade=grade)
+        result.data["observability"]["grade"] = grade
+        result.data["observability"]["focus"] = FOCUS_SUBJECTS
+        result.data["observability"]["grade_specific_streams"] = False
+        return result
+
+    def _subject_context(
+        self,
+        *,
+        stream: dict[str, Any],
+        stream_id: str,
+        assignments: list[dict[str, Any]],
+        subject_name: str,
+        grade: str | None,
+        focus: str,
+    ) -> ToolResult:
+        official_name = str(stream.get("name") or "")
+        matched, near, match_kind = match_stream_subject(assignments, subject_name)
+        if matched is None:
+            return _subject_not_in_stream(
+                stream,
+                stream_id,
+                requested_subject=subject_name,
+                near=near,
+                grade=grade,
+                resolution=(
+                    "ambiguous_subject"
+                    if match_kind == "ambiguous"
+                    else "subject_not_in_stream"
+                ),
+            )
+        subject_row = _subject_from_assignment(
+            matched, stream=stream, stream_id=stream_id, grade=grade
+        )
+        if subject_row is None:
+            return _subject_not_in_stream(
+                stream,
+                stream_id,
+                requested_subject=subject_name,
+                near=[],
+                grade=grade,
+            )
+        evidence = [
+            _stream_evidence(stream, stream_id=stream_id),
+            subject_row["evidence"],
+        ]
+        subject_id = str(subject_row["summary"]["id"])
+        resolved_subject = str(subject_row["summary"]["name"])
+        resolution = "found"
+        source_reference = None
+        coverage_expected = None
+        grade_curriculum_id = None
+        if focus in {FOCUS_COVERAGE, FOCUS_TOPICS, FOCUS_OUTCOMES, FOCUS_MEMBERSHIP} and grade:
+            try:
+                grade_row = self._grade_curriculum_for(grade, subject_id)
+            except CurriculumAPIError as exc:
+                return _tool_error(exc)
+            if grade_row is None:
+                resolution = "grade_content_missing"
+            elif focus != FOCUS_MEMBERSHIP:
+                source_reference = grade_row.get("source_reference")
+                grade_curriculum_id = str(grade_row["id"])
+                cited_source = str(source_reference) if source_reference else None
+                try:
+                    tree = self.client.get_grade_curriculum_content(grade_curriculum_id)
+                except CurriculumAPIError as exc:
+                    return _tool_error(exc)
+                evidence.extend(
+                    _content_evidence(
+                        tree,
+                        grade=grade,
+                        subject=resolved_subject,
+                        stream_name=official_name,
+                        source_reference=cited_source,
+                    )
+                )
+                coverage_expected = coverage_expected_from_tree(
+                    tree,
+                    grade=grade,
+                    subject=resolved_subject,
+                    stream_name=official_name,
+                    source_reference=cited_source,
+                    grade_curriculum_id=grade_curriculum_id,
+                )
+                resolution = "found"
+        observability = {
+            "sss_stream_resolution": resolution,
+            "subject_count": 1,
+            "stream_name": official_name,
+            "subject_name": resolved_subject,
+            "requested_subject": subject_name,
+            "grade": grade,
+            "focus": focus,
+            "source_reference": source_reference,
+            "grade_curriculum_id": grade_curriculum_id,
+            "coverage_expected": coverage_expected,
+        }
+        return ToolResult(
+            success=True,
+            data={
+                "stream": {"id": stream_id, "name": official_name, "code": stream.get("code")},
+                "subjects": [subject_row["summary"]],
+                "evidence": [item.model_dump() for item in evidence],
+                "observability": observability,
+            },
+        )
+
+    def _subject_ids_for_grade(self, grade: str) -> set[str]:
+        found: set[str] = set()
+        for row in self._grade_curriculum_rows():
+            grade_code = str((row.get("grade") or {}).get("code") or "").upper()
+            if grade_code != grade:
+                continue
+            subject_id = (row.get("subject") or {}).get("id") or row.get("subject_id")
+            if subject_id:
+                found.add(str(subject_id))
+        return found
+
+    def _grade_curriculum_for(
+        self, grade: str, subject_id: str
+    ) -> dict[str, Any] | None:
+        for row in self._grade_curriculum_rows():
+            grade_code = str((row.get("grade") or {}).get("code") or "").upper()
+            row_subject = (row.get("subject") or {}).get("id") or row.get("subject_id")
+            if grade_code == grade and str(row_subject) == subject_id:
+                return row
+        return None
+
+    def _grade_curriculum_rows(self) -> list[dict[str, Any]]:
+        cached = getattr(self, "_grade_curriculum_cache", None)
+        if cached is not None:
+            return cached
+        curriculum_id, _, _ = self._resolve_curriculum(grade_code="SSS_1")
+        rows = self._collect_pages(
+            lambda **params: self.client.list_curriculum_grade_curricula(
+                curriculum_id, **params
+            )
+        )
+        self._grade_curriculum_cache = rows
+        return rows
 
     def _collect_pages(self, fetch: Any) -> list[dict[str, Any]]:
         items: list[dict[str, Any]] = []
         offset = 0
         while True:
-            page = fetch(limit=200, offset=offset)
+            try:
+                page = fetch(limit=200, offset=offset)
+            except CurriculumTimeoutError:
+                # Grade-curriculum lists are large. One slow page should not
+                # drop a resolved grade, stream, and subject.
+                page = fetch(limit=200, offset=offset)
             if not isinstance(page, dict):
                 break
             batch = [
@@ -1291,6 +1499,249 @@ class GetSSSStreamSubjectsTool(CurriculumTool):
             if not isinstance(total, int) and len(batch) < 200:
                 break
         return items
+
+
+def _stream_subject_result(
+    stream: dict[str, Any],
+    stream_id: str,
+    assignments: list[dict[str, Any]],
+    *,
+    grade: str | None = None,
+) -> ToolResult:
+    official_name = str(stream.get("name") or "")
+    evidence = [_stream_evidence(stream, stream_id=stream_id)]
+    subjects: list[dict[str, Any]] = []
+    for assignment in sorted(
+        assignments,
+        key=lambda row: (
+            row.get("display_order") if isinstance(row.get("display_order"), int) else 0
+        ),
+    ):
+        subject_row = _subject_from_assignment(
+            assignment, stream=stream, stream_id=stream_id, grade=grade
+        )
+        if subject_row is None:
+            continue
+        subjects.append(subject_row["summary"])
+        evidence.append(subject_row["evidence"])
+    resolution = "found" if subjects else "no_subjects"
+    return ToolResult(
+        success=True,
+        data={
+            "stream": {
+                "id": stream_id,
+                "name": official_name,
+                "code": stream.get("code"),
+            },
+            "subjects": subjects,
+            "evidence": [item.model_dump() for item in evidence],
+            "observability": {
+                "sss_stream_resolution": resolution,
+                "subject_count": len(subjects),
+                "stream_name": official_name,
+                "grade": grade,
+                "focus": FOCUS_SUBJECTS,
+            },
+        },
+    )
+
+
+def _subject_not_in_stream(
+    stream: dict[str, Any],
+    stream_id: str,
+    *,
+    requested_subject: str,
+    near: list[dict[str, Any]],
+    grade: str | None,
+    resolution: str = "subject_not_in_stream",
+) -> ToolResult:
+    official_name = str(stream.get("name") or "")
+    evidence = [_stream_evidence(stream, stream_id=stream_id)]
+    near_names: list[str] = []
+    for assignment in near:
+        subject_row = _subject_from_assignment(
+            assignment, stream=stream, stream_id=stream_id, grade=grade
+        )
+        if subject_row is None:
+            continue
+        near_names.append(str(subject_row["summary"]["name"]))
+        evidence.append(subject_row["evidence"])
+    return ToolResult(
+        success=True,
+        data={
+            "stream": {"id": stream_id, "name": official_name, "code": stream.get("code")},
+            "subjects": [],
+            "evidence": [item.model_dump() for item in evidence],
+            "observability": {
+                "sss_stream_resolution": resolution,
+                "subject_count": 0,
+                "stream_name": official_name,
+                "requested_subject": requested_subject,
+                "near_subject_names": near_names,
+                "grade": grade,
+            },
+        },
+    )
+
+
+# Rows the coverage answer lists. Sections stay context. Subtopics stay off
+# the evidence list so a large syllabus does not crowd the verifier window.
+_CONTENT_EVIDENCE_TYPES = {"THEME", "TOPIC", "LEARNING_OUTCOME"}
+# The coverage contract requires themes and topics. This census is taken from
+# the content tree itself, not from the evidence list later checked.
+_COVERAGE_CENSUS_TYPES = {"THEME", "TOPIC"}
+
+
+def coverage_expected_from_tree(
+    tree: list[Any],
+    *,
+    grade: str,
+    subject: str,
+    stream_name: str,
+    source_reference: str | None,
+    grade_curriculum_id: str | None,
+) -> dict[str, Any]:
+    """In-scope theme and topic ids from the content tree.
+
+    Sections and subtopics are not required coverage rows. Ids are copied
+    from the tree nodes. Display names are not used as identity.
+    """
+    entity_ids: list[str] = []
+
+    def walk(nodes: list[Any]) -> None:
+        for node in nodes or []:
+            if not isinstance(node, dict):
+                continue
+            content_type = str(node.get("content_type") or "").upper()
+            name = node.get("name") or node.get("statement") or node.get("description")
+            node_id = str(node["id"]) if node.get("id") is not None else None
+            if content_type in _COVERAGE_CENSUS_TYPES and name and node_id:
+                entity_ids.append(node_id)
+            walk(node.get("children") or [])
+
+    walk(tree if isinstance(tree, list) else [tree])
+    return {
+        "grade": grade,
+        "subject": subject,
+        "stream_name": stream_name,
+        "source_reference": str(source_reference) if source_reference else None,
+        "grade_curriculum_id": str(grade_curriculum_id) if grade_curriculum_id else None,
+        "entity_ids": entity_ids,
+    }
+
+
+def _content_evidence(
+    tree: list[Any],
+    *,
+    grade: str,
+    subject: str,
+    stream_name: str,
+    source_reference: str | None,
+) -> list[CurriculumEvidence]:
+    rows: list[CurriculumEvidence] = []
+
+    def walk(
+        nodes: list[Any],
+        theme_name: str | None,
+        parent_node: dict[str, Any] | None,
+        section: dict[str, Any] | None,
+    ) -> None:
+        for node in nodes or []:
+            if not isinstance(node, dict):
+                continue
+            content_type = str(node.get("content_type") or "").upper()
+            name = node.get("name") or node.get("statement") or node.get("description")
+            node_id = str(node["id"]) if node.get("id") is not None else None
+            current = {
+                "id": node_id,
+                "content_type": content_type,
+                "name": str(name) if name else None,
+            }
+            next_section = section
+            if content_type == "SECTION" and name:
+                next_section = {
+                    "id": node_id,
+                    "entity_type": "SECTION",
+                    "name": str(name),
+                }
+            next_theme_name = theme_name
+            if content_type == "THEME" and name:
+                next_theme_name = str(name)
+            if content_type in _CONTENT_EVIDENCE_TYPES and name:
+                raw_parent_id = node.get("parent_id")
+                parent_id = str(raw_parent_id) if raw_parent_id else None
+                parent_entity_type = None
+                parent_display_name = None
+                parent_in_evidence = None
+                # Copy the API parent only. Do not invent one from a shared name.
+                if parent_id and parent_node and parent_node.get("id") == parent_id:
+                    parent_entity_type = parent_node.get("content_type") or None
+                    parent_display_name = parent_node.get("name")
+                    parent_in_evidence = parent_entity_type in _CONTENT_EVIDENCE_TYPES
+                elif parent_id:
+                    parent_in_evidence = False
+                omitted_children = []
+                for child in node.get("children") or []:
+                    if not isinstance(child, dict):
+                        continue
+                    child_type = str(child.get("content_type") or "").upper()
+                    if not child_type or child_type in _CONTENT_EVIDENCE_TYPES or child_type == "SECTION":
+                        continue
+                    child_id = child.get("id")
+                    omitted_children.append(
+                        {
+                            "id": str(child_id) if child_id is not None else None,
+                            "content_type": child_type,
+                        }
+                    )
+                metadata: dict[str, Any] = {
+                    "source_type": "grade_curriculum_content",
+                    "content_type": content_type,
+                    "stream_name": stream_name,
+                    "parent_name": theme_name,
+                    "parent_id": parent_id,
+                    "parent_in_evidence": parent_in_evidence,
+                }
+                if parent_entity_type:
+                    metadata["parent_entity_type"] = parent_entity_type
+                if parent_display_name:
+                    metadata["parent_display_name"] = parent_display_name
+                if section and section.get("id"):
+                    metadata["section_id"] = section["id"]
+                    metadata["section_name"] = section["name"]
+                    metadata["section_entity_type"] = section["entity_type"]
+                if omitted_children:
+                    metadata["omitted_child_count"] = len(omitted_children)
+                    metadata["omitted_child_types"] = sorted(
+                        {item["content_type"] for item in omitted_children}
+                    )
+                    metadata["omitted_child_ids"] = [
+                        item["id"] for item in omitted_children if item["id"]
+                    ]
+                rows.append(
+                    CurriculumEvidence(
+                        entity_type=content_type.lower(),
+                        entity_id=node_id,
+                        name=str(name),
+                        grade=grade,
+                        level="senior_secondary",
+                        subject=subject,
+                        topic=theme_name if content_type != "THEME" else None,
+                        content=node.get("description") or str(name),
+                        metadata=metadata,
+                        source_reference=source_reference or "grade_curriculum.content",
+                    )
+                )
+            walk(node.get("children") or [], next_theme_name, current, next_section)
+
+    walk(tree if isinstance(tree, list) else [tree], None, None, None)
+    return rows
+
+
+def _assignment_subject_id(row: dict[str, Any]) -> str | None:
+    subject = row.get("subject") if isinstance(row.get("subject"), dict) else {}
+    subject_id = subject.get("id") or row.get("subject_id")
+    return str(subject_id) if subject_id else None
 
 
 def _sss_stream_not_found(stream_name: str) -> ToolResult:
@@ -1330,6 +1781,7 @@ def _subject_from_assignment(
     *,
     stream: dict[str, Any],
     stream_id: str,
+    grade: str | None = None,
 ) -> dict[str, Any] | None:
     subject = assignment.get("subject") if isinstance(assignment.get("subject"), dict) else {}
     subject_id = subject.get("id") or assignment.get("subject_id")
@@ -1344,11 +1796,14 @@ def _subject_from_assignment(
         "subject_type": assignment.get("subject_type"),
         "stream_id": stream_id,
         "stream_name": stream_name,
+        "grade": grade,
     }
     evidence = CurriculumEvidence(
         entity_type="subject",
         entity_id=str(subject_id),
         name=name,
+        grade=grade,
+        level="senior_secondary" if grade else None,
         subject=subject.get("code") or name,
         content=name,
         metadata={

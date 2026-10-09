@@ -1,0 +1,1674 @@
+{
+  "cases": 14,
+  "classifications": {
+    "ANSWER_OMITS_VALID_TOPICS": 10,
+    "OTHER": 4
+  },
+  "source_duplication": 5,
+  "answer_omissions": 10,
+  "records": [
+    {
+      "grade": "SSS_3",
+      "subject": "French as a Foreign Language",
+      "stream": "Languages & Literatures",
+      "source_document": "SSS-Syllabus-French-as-a-Foreign-Language-1.pdf",
+      "question": "What does French as a Foreign Language cover for SSS3 Languages & Literatures?",
+      "answer_hash": "8be5672229ff73012ee93881eb6cd7df3f42117e08d4a91701deb80e958a7672",
+      "frozen_answer_hash": "8be5672229ff73012ee93881eb6cd7df3f42117e08d4a91701deb80e958a7672",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "c982da0e5a7870f8523f009f4504b665c72db9e46d6650c6775c752df9d60b4e",
+      "prior_verifier_reason": [
+        "The answer presents only the four thematic areas and omits the many other SSS 3 French as a Foreign Language topics present in the evidence (e.g., Colloquial French, Presentation, Topic conversation, General conversation, Reading and pronunciation, Comprehension, Research, Debate, Essay, Official letter, Non official letter, Literary, Non literary, and the listed literary works).",
+        "The answer implies the listed thematic areas are the complete coverage of the subject, which is not supported by the evidence.",
+        "The answer cites a source file (SSS-Syllabus-French-as-a-Foreign-Language-1.pdf) but provides no answer evidence refs, and the evidence records have unknown entity IDs, so the specific source attribution cannot be independently verified from the provided evidence."
+      ],
+      "source_theme_count": 4,
+      "source_theme_rows": 4,
+      "source_topic_count": 21,
+      "source_topic_rows": 21,
+      "source_repeated_themes": [],
+      "source_repeated_topic_names": [],
+      "answer_themes": [
+        "Economy, governance and politics",
+        "Colonization and culture",
+        "Youth, globalization and modern technology",
+        "Economic, social and political integration, African culture and development"
+      ],
+      "answer_repeated_themes": [],
+      "omitted_topics": [
+        {
+          "name": "Presentation",
+          "parent": null
+        },
+        {
+          "name": "Topic conversation",
+          "parent": null
+        },
+        {
+          "name": "General conversation",
+          "parent": null
+        },
+        {
+          "name": "Colloquial French (Year 3 only)",
+          "parent": null
+        },
+        {
+          "name": "Reading and pronunciation",
+          "parent": null
+        },
+        {
+          "name": "Comprehension",
+          "parent": null
+        },
+        {
+          "name": "Research",
+          "parent": null
+        },
+        {
+          "name": "Debate",
+          "parent": null
+        },
+        {
+          "name": "Essay",
+          "parent": null
+        },
+        {
+          "name": "Official letter",
+          "parent": null
+        },
+        {
+          "name": "Non official letter",
+          "parent": null
+        },
+        {
+          "name": "Literary",
+          "parent": null
+        },
+        {
+          "name": "Aminata Sow Fall, La grève des battus",
+          "parent": null
+        },
+        {
+          "name": "Mariam Ba, Une si longue lettre",
+          "parent": null
+        },
+        {
+          "name": "Stendhal, Le rouge et le noir",
+          "parent": null
+        },
+        {
+          "name": "Les Fables de La Fontaine",
+          "parent": null
+        },
+        {
+          "name": "Non literary",
+          "parent": null
+        }
+      ],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "French as a Foreign Language covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 3 French as a Foreign Language curriculum (SSS-Syllabus-French-as-a-Foreign-Language-1.pdf).",
+      "answer_excerpt": "## French as a Foreign Language — SSS 3 — Languages & Literatures\n\nFrench as a Foreign Language covers:\n\n* Economy, governance and politics\n * Quelle démocratie pour l’Afrique?\n* Colonization and culture\n * Et ça continue, la colonisation…? Les influences de l’Occident et de la Chine en Afrique",
+      "primary_classification": "ANSWER_OMITS_VALID_TOPICS"
+    },
+    {
+      "grade": "SSS_3",
+      "subject": "Mining Industry and the Environment",
+      "stream": "Social & Cultural Studies",
+      "source_document": "SSS-Syllabus-Mining-Industry-the-Environment.pdf",
+      "question": "What does Mining Industry and the Environment cover for SSS3 Social & Cultural Studies?",
+      "answer_hash": "9bd73b26d6867b3d9eb014d27d78dea7203cb28a36d3261811780e7815846b8d",
+      "frozen_answer_hash": "9bd73b26d6867b3d9eb014d27d78dea7203cb28a36d3261811780e7815846b8d",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "af291681c19eb282358f40f9d2e722d83f5a89c6c7e09fd60c465fc88be542f5",
+      "prior_verifier_reason": [
+        "The generated answer omits several curriculum topics that are present in the evidence: 'The mining Act of Sierra Leone', 'Resettlement and Relocation of Residents in Mining Areas', and 'The role of civil society in mining'.",
+        "The answer presents the listed areas as a complete coverage of the subject, but the evidence shows additional topics not included.",
+        "The answer cites a source file (SSS-Syllabus-Mining-Industry-the-Environment.pdf) but provides no evidence references, and the evidence records have unknown entity IDs, making traceability weak."
+      ],
+      "source_theme_count": 6,
+      "source_theme_rows": 6,
+      "source_topic_count": 23,
+      "source_topic_rows": 23,
+      "source_repeated_themes": [],
+      "source_repeated_topic_names": [],
+      "answer_themes": [
+        "Geology of Sierra Leone",
+        "The basement",
+        "The super crustal",
+        "Artisanal Mining in Sierra Leone",
+        "Health and the safety in mining",
+        "Minerals: A blessing or curse"
+      ],
+      "answer_repeated_themes": [],
+      "omitted_topics": [
+        {
+          "name": "The mining Act of Sierra Leone",
+          "parent": null
+        },
+        {
+          "name": "Resettlement and Relocation of Residents in Mining Areas",
+          "parent": null
+        },
+        {
+          "name": "The role of civil society in mining",
+          "parent": null
+        }
+      ],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Mining Industry and the Environment covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 3 Mining Industry and the Environment curriculum (SSS-Syllabus-Mining-Industry-the-Environment.pdf).",
+      "answer_excerpt": "## Mining Industry and the Environment — SSS 3 — Social & Cultural Studies\n\nMining Industry and the Environment covers:\n\n* Geology of Sierra Leone\n * The intrusive\n * Mining activities in Sierra Leone\n* The basement",
+      "primary_classification": "ANSWER_OMITS_VALID_TOPICS"
+    },
+    {
+      "grade": "SSS_2",
+      "subject": "Business Accounting",
+      "stream": "Economics, Business & Entrepreneurship",
+      "source_document": "SSS-Syllabus-Business-Accounting.pdf",
+      "question": "What does Business Accounting cover for SSS2 Economics, Business & Entrepreneurship?",
+      "answer_hash": "0733e8fa6c4906fd7218e405e851e1f519182950cd8d5dc3348a5c6d1253a28b",
+      "frozen_answer_hash": "0733e8fa6c4906fd7218e405e851e1f519182950cd8d5dc3348a5c6d1253a28b",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "958b618882269d7e07c4a3f4bd4c895709a1e594b76f9be21a032e1989bc5c56",
+      "prior_verifier_reason": [
+        "The answer omits several SSS 2 Business Accounting topics present in the evidence: Departmental and Branch Accounting, Accounting for Goods and Service Tax, and Accounting for Material.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is incomplete and does not specify what is being referred to, matching the truncated evidence but not providing a clear curriculum claim.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is incomplete and does not specify the beneficiary, matching the truncated evidence but not providing a clear curriculum claim.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is incomplete and does not specify what is being regulated, matching the truncated evidence but not providing a clear curriculum claim.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is incomplete and does not specify what the components belong to, matching the truncated evidence but not providing a clear curriculum claim.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Requirements for accessing the capital market' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Benefits of capital market to' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Types, features and reasons for regulation' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning, functions and features of' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Meaning and components' is supported but the answer does not mention that this is part of the Financial System theme.",
+        "The answer's 'Financial System' sub-bullet 'Methods of raising funds from the capital market' is supported but the answer does not mention"
+      ],
+      "source_theme_count": 5,
+      "source_theme_rows": 5,
+      "source_topic_count": 22,
+      "source_topic_rows": 22,
+      "source_repeated_themes": [],
+      "source_repeated_topic_names": [],
+      "answer_themes": [
+        "Control Accounts",
+        "Manufacturing Accounts",
+        "Capital and Revenue Expenditure",
+        "Accounting for Labour",
+        "Financial System"
+      ],
+      "answer_repeated_themes": [],
+      "omitted_topics": [
+        {
+          "name": "Departmental and Branch Accounting",
+          "parent": null
+        },
+        {
+          "name": "Accounting for Goods and Service Tax",
+          "parent": null
+        },
+        {
+          "name": "Accounting for Material",
+          "parent": null
+        }
+      ],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Business Accounting covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 2 Business Accounting curriculum (SSS-Syllabus-Business-Accounting.pdf).",
+      "answer_excerpt": "## Business Accounting — SSS 2 — Economics, Business & Entrepreneurship\n\nBusiness Accounting covers:\n\n* Control Accounts\n * Types\n * Purposes\n * Preparation",
+      "primary_classification": "ANSWER_OMITS_VALID_TOPICS"
+    },
+    {
+      "grade": "SSS_1",
+      "subject": "Calculus",
+      "stream": "Mathematics & Numeracy",
+      "source_document": "SSS-Syllabus-Calculus.pdf",
+      "question": "What does Calculus cover for SSS1 Mathematics & Numeracy?",
+      "answer_hash": "ed531c156b25d22ceef757bd6ae4177a34f8927aa4840238400cded7a62de2cc",
+      "frozen_answer_hash": "ed531c156b25d22ceef757bd6ae4177a34f8927aa4840238400cded7a62de2cc",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "4c7de2f1bee164253247e8455d12b0a4829f236563472c4f4d2282fc0437ae4f",
+      "prior_verifier_reason": [
+        "The generated answer omits the theme 'Introduction to Derivatives' (Record 19), which is part of the SSS 1 Calculus curriculum evidence.",
+        "The generated answer's claim that 'A polynomial function has a degree more than 2' is a direct restatement of a topic title, but it is presented as a definitional fact; the evidence only lists it as a topic, not as a definition, so the phrasing may overstate what the curriculum evidence supports.",
+        "The generated answer cites 'SSS-Syllabus-Calculus.pdf' as the source, which is consistent with the evidence, but the answer's evidence refs array is empty, indicating no explicit evidence IDs were attached."
+      ],
+      "source_theme_count": 8,
+      "source_theme_rows": 8,
+      "source_topic_count": 17,
+      "source_topic_rows": 17,
+      "source_repeated_themes": [],
+      "source_repeated_topic_names": [],
+      "answer_themes": [
+        "Inequalities",
+        "Indices",
+        "Standard Form",
+        "Surds",
+        "Functions",
+        "Composite Functions",
+        "Polynomial functions",
+        "Limits"
+      ],
+      "answer_repeated_themes": [],
+      "omitted_topics": [
+        {
+          "name": "Introduction to Derivatives",
+          "parent": null
+        }
+      ],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Calculus covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 1 Calculus curriculum (SSS-Syllabus-Calculus.pdf).",
+      "answer_excerpt": "## Calculus — SSS 1 — Mathematics & Numeracy\n\nCalculus covers:\n\n* Inequalities\n * Drawing graphs of equations involving inequalities\n * Finding the area inside a shaded region\n* Indices",
+      "primary_classification": "ANSWER_OMITS_VALID_TOPICS"
+    },
+    {
+      "grade": "SSS_1",
+      "subject": "Fundamentals of Mathematics",
+      "stream": "Mathematics & Numeracy",
+      "source_document": "SSS-Syllabus-Fundamentals-of-Mathematics-Sylabus.pdf",
+      "question": "What does Fundamentals of Mathematics cover for SSS1 Mathematics & Numeracy?",
+      "answer_hash": "f0a57e8ff5eb1586f09a014e510dc9b6f0a99fbac9f07b7760ab5349e95051f0",
+      "frozen_answer_hash": "f0a57e8ff5eb1586f09a014e510dc9b6f0a99fbac9f07b7760ab5349e95051f0",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "5b899e3070813ce927b0bf3535c72f031f778c6ee344586cf0c1f31dfded140d",
+      "prior_verifier_reason": [
+        "The generated answer presents a partial list of topics but omits many SSS 1 Fundamentals of Mathematics topics present in the evidence (e.g., Integers, Fractions/Decimals/Percentages, Ratio/Proportion/Rates, Powers and Roots, Indices, Standard Form, Algebraic Expressions, Algebraic Manipulation, Number Bases, Equations and Formulae [change of subject], Undefined Algebraic fractions).",
+        "The answer is framed as a complete coverage statement ('Fundamentals of Mathematics covers:') but only lists a subset of the curriculum evidence, which is misleading.",
+        "The answer cites a source file (SSS-Syllabus-Fundamentals-of-Mathematics-Sylabus.pdf) but provides no answer evidence refs, and the evidence records have unknown entity IDs, so traceability is weak."
+      ],
+      "source_theme_count": 4,
+      "source_theme_rows": 4,
+      "source_topic_count": 22,
+      "source_topic_rows": 22,
+      "source_repeated_themes": [],
+      "source_repeated_topic_names": [],
+      "answer_themes": [
+        "Equations – Linear, Quadratic, Simultaneous",
+        "Statistics",
+        "Statistical Measures",
+        "Probability"
+      ],
+      "answer_repeated_themes": [],
+      "omitted_topics": [
+        {
+          "name": "Integers",
+          "parent": null
+        },
+        {
+          "name": "Fractions, Decimals and Percentages",
+          "parent": null
+        },
+        {
+          "name": "Ratio, Proportion and Rates",
+          "parent": null
+        },
+        {
+          "name": "Powers and Roots",
+          "parent": null
+        },
+        {
+          "name": "Indices",
+          "parent": null
+        },
+        {
+          "name": "Standard Form",
+          "parent": null
+        },
+        {
+          "name": "Algebraic Expressions",
+          "parent": null
+        },
+        {
+          "name": "Algebraic Manipulation",
+          "parent": null
+        },
+        {
+          "name": "Number Bases",
+          "parent": null
+        },
+        {
+          "name": "Equations and Formulae [change of subject]",
+          "parent": null
+        },
+        {
+          "name": "Undefined Algebraic fractions",
+          "parent": null
+        }
+      ],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Fundamentals of Mathematics covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 1 Fundamentals of Mathematics curriculum (SSS-Syllabus-Fundamentals-of-Mathematics-Sylabus.pdf).",
+      "answer_excerpt": "## Fundamentals of Mathematics — SSS 1 — Mathematics & Numeracy\n\nFundamentals of Mathematics covers:\n\n* Equations – Linear, Quadratic, Simultaneous\n * Linear\n * Quadratic\n * Simultaneous",
+      "primary_classification": "ANSWER_OMITS_VALID_TOPICS"
+    },
+    {
+      "grade": "SSS_3",
+      "subject": "Further Mathematics",
+      "stream": "Mathematics & Numeracy",
+      "source_document": "SSS-Syllabus-Further-Mathematics-Sylabus-Template-v3.pdf",
+      "question": "What does Further Mathematics cover for SSS3 Mathematics & Numeracy?",
+      "answer_hash": "79d1694cc904d5762c3ea83c549c62b53d4fbb508a1db74d2390b964d8fdc39f",
+      "frozen_answer_hash": "79d1694cc904d5762c3ea83c549c62b53d4fbb508a1db74d2390b964d8fdc39f",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "64e3c370c71dbf7c68aa60e5578cbc26b8870931736702985187f52ff4f7b4ba",
+      "prior_verifier_reason": [
+        "The generated answer omits two SSS 3 Further Mathematics topics present in the evidence: 'Kinematics of a particle' (Record 12) and 'Matrices' (Record 19).",
+        "The generated answer omits the SSS 3 Further Mathematics topic 'Linear Transformations' (Record 20).",
+        "The answer presents itself as a complete coverage list ('Further Mathematics covers:') but is incomplete relative to the retrieved curriculum evidence.",
+        "The answer cites a source file but provides no answer evidence references (ANSWER EVIDENCE REFS is empty), so traceability is weak."
+      ],
+      "source_theme_count": 5,
+      "source_theme_rows": 5,
+      "source_topic_count": 24,
+      "source_topic_rows": 24,
+      "source_repeated_themes": [],
+      "source_repeated_topic_names": [],
+      "answer_themes": [
+        "Vectors",
+        "Statics",
+        "Dynamics",
+        "Statistics",
+        "Probability"
+      ],
+      "answer_repeated_themes": [],
+      "omitted_topics": [
+        {
+          "name": "Kinematics of a particle",
+          "parent": null
+        },
+        {
+          "name": "Matrices",
+          "parent": null
+        },
+        {
+          "name": "Linear Transformations",
+          "parent": null
+        }
+      ],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Further Mathematics covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 3 Further Mathematics curriculum (SSS-Syllabus-Further-Mathematics-Sylabus-Template-v3.pdf).",
+      "answer_excerpt": "## Further Mathematics — SSS 3 — Mathematics & Numeracy\n\nFurther Mathematics covers:\n\n* Vectors\n * Vectors and scalars\n * Properties of vectors (representing vectors, equal vectors, null or zero vector)\n * The magnitude and direction of a vector",
+      "primary_classification": "ANSWER_OMITS_VALID_TOPICS"
+    },
+    {
+      "grade": "SSS_2",
+      "subject": "Maths for Other Disciplines",
+      "stream": "Mathematics & Numeracy",
+      "source_document": "SSS-Syllabus-Mathematics-in-Other-Disciplines.pdf",
+      "question": "What does Maths for Other Disciplines cover for SSS2 Mathematics & Numeracy?",
+      "answer_hash": "8c08c92fc62338c6b59183e0bdb32904c4a618b1cb3e24e8180bae3cc6805e78",
+      "frozen_answer_hash": "8c08c92fc62338c6b59183e0bdb32904c4a618b1cb3e24e8180bae3cc6805e78",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "46756a6e8400333114e8851d9a9d0902615886c8cd756cafe55602a29af08fe5",
+      "prior_verifier_reason": [
+        "The answer presents a partial list of topics but omits several topics present in the evidence (Set Theory, Grouping data, Graphs of Linear and Quadratic functions, Linear inequalities, Relations Mapping, Sequence and Series).",
+        "The answer does not indicate that the list is incomplete, which could mislead the user into thinking it is exhaustive.",
+        "The answer cites a source file (SSS-Syllabus-Mathematics-in-Other-Disciplines.pdf) but provides no evidence references (ANSWER EVIDENCE REFS is empty), so the source attribution is not verifiable from the provided evidence."
+      ],
+      "source_theme_count": 4,
+      "source_theme_rows": 4,
+      "source_topic_count": 20,
+      "source_topic_rows": 20,
+      "source_repeated_themes": [],
+      "source_repeated_topic_names": [],
+      "answer_themes": [
+        "Representation of Data: Pictogram, Bar charts, Pie charts",
+        "Statistical Measures",
+        "Tabulation and Representation",
+        "Shape, Space, Measure"
+      ],
+      "answer_repeated_themes": [],
+      "omitted_topics": [
+        {
+          "name": "Set Theory",
+          "parent": null
+        },
+        {
+          "name": "Grouping data",
+          "parent": null
+        },
+        {
+          "name": "Graphs of Linear and Quadratic functions",
+          "parent": null
+        },
+        {
+          "name": "Linear inequalities",
+          "parent": null
+        },
+        {
+          "name": "Relations Mapping",
+          "parent": null
+        },
+        {
+          "name": "Sequence and Series",
+          "parent": null
+        }
+      ],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Maths for Other Disciplines covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 2 Maths for Other Disciplines curriculum (SSS-Syllabus-Mathematics-in-Other-Disciplines.pdf).",
+      "answer_excerpt": "## Maths for Other Disciplines — SSS 2 — Mathematics & Numeracy\n\nMaths for Other Disciplines covers:\n\n* Representation of Data: Pictogram, Bar charts, Pie charts\n * Pictogram\n * Bar charts\n * Pie charts",
+      "primary_classification": "ANSWER_OMITS_VALID_TOPICS"
+    },
+    {
+      "grade": "SSS_2",
+      "subject": "Statistics and Probability",
+      "stream": "Mathematics & Numeracy",
+      "source_document": "SSS-Syllabus-Statistics-and-Probability.pdf",
+      "question": "What does Statistics and Probability cover for SSS2 Mathematics & Numeracy?",
+      "answer_hash": "e1f59066ba682bde404560b6eea9d9fff87a8359bb2835083d4660f0a18c8936",
+      "frozen_answer_hash": "e1f59066ba682bde404560b6eea9d9fff87a8359bb2835083d4660f0a18c8936",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "c03fad6f0f5fa543ea1d1eafdd7e923c41aa382819edf6594d547e8b6acd4a8b",
+      "prior_verifier_reason": [
+        "The answer presents a complete topic list but omits several SSS 2 Statistics and Probability topics present in the evidence: Conditional probability, The equation of a line of best fit, Outliers, Misleading data/presentations/statements, Deciles and percentiles, Cumulative frequency polygons, Cumulative frequency step polygons, and Statistical investigation – project work.",
+        "The answer claims to be based on 'the MBSSE SSS 2 Statistics and Probability curriculum (SSS-Syllabus-Statistics-and-Probability.pdf)' but provides no answer evidence refs, so the completeness of the list cannot be verified from the cited evidence.",
+        "The answer does not acknowledge that the evidence contains additional topics beyond those listed, which may mislead the user into thinking the list is exhaustive."
+      ],
+      "source_theme_count": 6,
+      "source_theme_rows": 6,
+      "source_topic_count": 24,
+      "source_topic_rows": 24,
+      "source_repeated_themes": [],
+      "source_repeated_topic_names": [],
+      "answer_themes": [
+        "Scatter graphs and correlation",
+        "Further representation and interpretation of data (1, 2, 3)",
+        "Histograms",
+        "Tabulation and curves",
+        "Theoretical and experimental probability",
+        "Probability and independent events"
+      ],
+      "answer_repeated_themes": [],
+      "omitted_topics": [
+        {
+          "name": "The equation of a line of best fit",
+          "parent": null
+        },
+        {
+          "name": "Outliers",
+          "parent": null
+        },
+        {
+          "name": "Misleading data, presentations and statements",
+          "parent": null
+        },
+        {
+          "name": "Deciles and percentiles",
+          "parent": null
+        },
+        {
+          "name": "Cumulative frequency polygons",
+          "parent": null
+        },
+        {
+          "name": "Cumulative frequency step polygons",
+          "parent": null
+        },
+        {
+          "name": "Conditional probability",
+          "parent": null
+        },
+        {
+          "name": "Statistical investigation – project work",
+          "parent": null
+        }
+      ],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Statistics and Probability covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 2 Statistics and Probability curriculum (SSS-Syllabus-Statistics-and-Probability.pdf).",
+      "answer_excerpt": "## Statistics and Probability — SSS 2 — Mathematics & Numeracy\n\nStatistics and Probability covers:\n\n* Scatter graphs and correlation\n * Scatter graphs\n * Positive, negative and no [zero] correlation\n * Lines of best fit",
+      "primary_classification": "ANSWER_OMITS_VALID_TOPICS"
+    },
+    {
+      "grade": "SSS_2",
+      "subject": "Integrated Science",
+      "stream": "Sciences & Technologies",
+      "source_document": "SSS-Syllabus-Integrated-Science.pdf",
+      "question": "What does Integrated Science cover for SSS2 Sciences & Technologies?",
+      "answer_hash": "d0e962c1bec47fb26a4e415d9b97a353b7eb9e4943736639429e0122a6eaa8ae",
+      "frozen_answer_hash": "d0e962c1bec47fb26a4e415d9b97a353b7eb9e4943736639429e0122a6eaa8ae",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "886adac3785fd6156ad2be34ad925878e615f275257ae49bff61d85842be25d7",
+      "prior_verifier_reason": [
+        "The answer omits the theme 'Definition of basic atomic structure' (Record 6), which is a distinct SSS 2 Integrated Science topic not nested under 'Periodic table'.",
+        "The answer's bullet 'Definition of mutation and evolution' is presented as a covered item but the evidence shows it is a theme (Record 33) with sub-topics; the answer does not clearly distinguish theme vs. sub-topic.",
+        "The answer's bullet 'Definition of acid bases and salts' is a theme (Record 35), not a topic; the answer lists it alongside sub-topics without indicating hierarchy.",
+        "The answer's bullet 'Definition of Gravimetric techniques' is a theme (Record 36), not a topic; same hierarchy issue.",
+        "The answer's bullet 'Definition of Crude oil and its Separation' is a theme (Record 37), not a topic; same hierarchy issue.",
+        "The answer's bullet 'Periodic table' is a theme (Record 34), not a topic; same hierarchy issue.",
+        "The answer does not include the standalone topic 'Definition of basic atomic structure' (Record 6), which is a separate SSS 2 Integrated Science topic.",
+        "The answer's phrasing 'These areas are based on the MBSSE SSS 2 Integrated Science curriculum (SSS-Syllabus-Integrated-Science.pdf)' is a source attribution claim; the evidence records cite the same source, so this is supported, but the answer provides no evidence refs (ANSWER EVIDENCE REFS is empty)."
+      ],
+      "source_theme_count": 5,
+      "source_theme_rows": 5,
+      "source_topic_count": 30,
+      "source_topic_rows": 30,
+      "source_repeated_themes": [],
+      "source_repeated_topic_names": [],
+      "answer_themes": [
+        "Definition of mutation and evolution",
+        "Periodic table",
+        "Definition of acid bases and salts",
+        "Definition of Gravimetric techniques",
+        "Definition of Crude oil and its Separation"
+      ],
+      "answer_repeated_themes": [],
+      "omitted_topics": [
+        {
+          "name": "Definition of basic atomic structure",
+          "parent": null
+        }
+      ],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Integrated Science covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 2 Integrated Science curriculum (SSS-Syllabus-Integrated-Science.pdf).",
+      "answer_excerpt": "## Integrated Science — SSS 2 — Sciences & Technologies\n\nIntegrated Science covers:\n\n* Definition of mutation and evolution\n * Role of mutation in evolution\n * Mutation and evolution relationship\n * Mutation evolution examples",
+      "primary_classification": "ANSWER_OMITS_VALID_TOPICS"
+    },
+    {
+      "grade": "SSS_3",
+      "subject": "Creative Writing",
+      "stream": "Languages & Literatures",
+      "source_document": "SSS-Syllabus-Creative-Writing-.pdf",
+      "question": "What does Creative Writing cover for SSS3 Languages & Literatures?",
+      "answer_hash": "0beeaebf4861c49b81079f06c674039d3050d0eeb8230e40395cfbdac6ac1859",
+      "frozen_answer_hash": "0beeaebf4861c49b81079f06c674039d3050d0eeb8230e40395cfbdac6ac1859",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "2f98a15a559f475148a5d5137c095bac68212990b8f4e386320abcdf8204ecb1",
+      "prior_verifier_reason": [
+        "The generated answer is heavily duplicated, repeating the same theme blocks (Recap, Writing workshops, Motivational Talk) multiple times, which is not supported by the evidence structure.",
+        "The answer presents the content as a single flat list of 'what Creative Writing covers' without distinguishing the four term-based themes (Recap, Writing workshops, Motivational Talk by a Resource Person, Motivational Talk by another Resource Person, Writing Workshops & Exam Preparation, Exam / Assessment Preparations) as separate term placements.",
+        "The answer does not clearly attribute the short story, poems, and play script outcomes to their respective terms (Term One, Term Two, Term Three) in a coherent way; the evidence shows Term One = short story, Term Two = poems, Term Three = play script.",
+        "The answer includes 'Exam / Assessment Preparations' content but does not clearly separate it from the term themes, and the evidence shows it as a distinct theme.",
+        "The answer's opening line 'Creative Writing covers:' is vague and does not reflect that the evidence is structured by term themes and topics.",
+        "The answer does not mention that the evidence is from the SSS-Syllabus-Creative-Writing-.pdf source, though it does cite the source at the end.",
+        "The answer's claim that 'These areas are based on the MBSSE SSS 3 Creative Writing curriculum' is supported by the evidence source, but the answer's structure and duplication reduce reliability."
+      ],
+      "source_theme_count": 6,
+      "source_theme_rows": 10,
+      "source_topic_count": 15,
+      "source_topic_rows": 26,
+      "source_repeated_themes": [
+        {
+          "theme": "Recap every unit covered from SS1 – SS2",
+          "occurrences": 3,
+          "child_counts": [
+            2,
+            2,
+            2
+          ],
+          "identical_children": true,
+          "overlap": "identical",
+          "child_topics": [
+            "Introduce the key focus of the term:",
+            "Basic computer skills – Microsoft word, spell-checking and track changing a document a document, Microsoft Publisher, blogging, hyper texting etc.",
+            "Introduce the key focus of the term:",
+            "Basic computer skills – Microsoft word, spell-checking and track changing a document a document, Microsoft Publisher, blogging, hyper texting etc.",
+            "Introduce the key focus of the term:",
+            "Basic computer skills – Microsoft Word, spell-checking and track changing a document a document, Microsoft Publisher, blogging, hyper texting etc."
+          ]
+        },
+        {
+          "theme": "Writing workshops",
+          "occurrences": 2,
+          "child_counts": [
+            4,
+            4
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "During the Writing Workshops, pupils could work independently, or in groups, on a project – writing or polishing a short story they had already written.",
+            "Mixed ability groupings could be more productive at this stage, with more-able pupils playing supportive roles to the less-able ones.",
+            "Teacher interventions, which should be limited, should focus on Assessment for Learning for all the students.",
+            "Also, teacher should challenge the more-able pupils to extend their learning through extension activities that could progress their learning further.",
+            "During the Writing Workshops, pupils could work independently, or in groups, on a project – writing or polishing poems they had already written.",
+            "Mixed ability groupings could be more productive at this stage, with the more-able pupils playing supportive roles to the less-able ones.",
+            "Teacher interventions, which should be limited, should focus on Assessment for Learning for all the students.",
+            "Also, teacher should challenge the more-able pupils to extend their learning through extension activities that could progress their learning further."
+          ]
+        },
+        {
+          "theme": "Motivational Talk by a Resource Person",
+          "occurrences": 2,
+          "child_counts": [
+            2,
+            2
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "With availability of funds, a Resource person (like a local publisher) could be invited for a motivational talk to the pupils on the importance of writing and publishing.",
+            "The outcome of the writing workshops for Term One is a polished short story ready for publishing on a writer’s blog, or by a local publisher.",
+            "With availability of funds, a Resource person (like a local publisher) could be invited for a motivational talk to the pupils on the importance of writing and publishing.",
+            "The outcome of the writing workshops for Term Three is a collection of a polished play script ready for publishing on a writer’s blog, or by a local publisher."
+          ]
+        }
+      ],
+      "source_repeated_topic_names": [
+        "Introduce the key focus of the term:",
+        "Basic computer skills – Microsoft word, spell-checking and track changing a document a document, Microsoft Publisher, blogging, hyper texting etc.",
+        "Teacher interventions, which should be limited, should focus on Assessment for Learning for all the students.",
+        "Also, teacher should challenge the more-able pupils to extend their learning through extension activities that could progress their learning further.",
+        "With availability of funds, a Resource person (like a local publisher) could be invited for a motivational talk to the pupils on the importance of writing and publishing.",
+        "Mixed ability groupings could be more productive at this stage, with the more-able pupils playing supportive roles to the less-able ones."
+      ],
+      "answer_themes": [
+        "Recap every unit covered from SS1 – SS2",
+        "Writing workshops",
+        "Motivational Talk by a Resource Person",
+        "Recap every unit covered from SS1 – SS2",
+        "Writing workshops",
+        "Motivational Talk by another Resource Person",
+        "Recap every unit covered from SS1 – SS2",
+        "Writing Workshops & Exam Preparation",
+        "Motivational Talk by a Resource Person",
+        "Exam / Assessment Preparations"
+      ],
+      "answer_repeated_themes": [
+        {
+          "theme": "Recap every unit covered from SS1 – SS2",
+          "topics": [
+            "Introduce the key focus of the term:",
+            "Basic computer skills – Microsoft word, spell-checking and track changing a document a document, Microsoft Publisher, blogging, hyper texting etc.",
+            "Introduce the key focus of the term:",
+            "Basic computer skills – Microsoft word, spell-checking and track changing a document a document, Microsoft Publisher, blogging, hyper texting etc.",
+            "Introduce the key focus of the term:",
+            "Basic computer skills – Microsoft Word, spell-checking and track changing a document a document, Microsoft Publisher, blogging, hyper texting etc."
+          ],
+          "times": 3
+        },
+        {
+          "theme": "Writing workshops",
+          "topics": [
+            "During the Writing Workshops, pupils could work independently, or in groups, on a project – writing or polishing a short story they had already written.",
+            "Mixed ability groupings could be more productive at this stage, with more-able pupils playing supportive roles to the less-able ones.",
+            "Teacher interventions, which should be limited, should focus on Assessment for Learning for all the students.",
+            "Also, teacher should challenge the more-able pupils to extend their learning through extension activities that could progress their learning further.",
+            "During the Writing Workshops, pupils could work independently, or in groups, on a project – writing or polishing poems they had already written.",
+            "Mixed ability groupings could be more productive at this stage, with the more-able pupils playing supportive roles to the less-able ones.",
+            "Teacher interventions, which should be limited, should focus on Assessment for Learning for all the students.",
+            "Also, teacher should challenge the more-able pupils to extend their learning through extension activities that could progress their learning further."
+          ],
+          "times": 2
+        },
+        {
+          "theme": "Motivational Talk by a Resource Person",
+          "topics": [
+            "With availability of funds, a Resource person (like a local publisher) could be invited for a motivational talk to the pupils on the importance of writing and publishing.",
+            "The outcome of the writing workshops for Term One is a polished short story ready for publishing on a writer’s blog, or by a local publisher.",
+            "With availability of funds, a Resource person (like a local publisher) could be invited for a motivational talk to the pupils on the importance of writing and publishing.",
+            "The outcome of the writing workshops for Term Three is a collection of a polished play script ready for publishing on a writer’s blog, or by a local publisher."
+          ],
+          "times": 2
+        }
+      ],
+      "omitted_topics": [],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Creative Writing covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 3 Creative Writing curriculum (SSS-Syllabus-Creative-Writing-.pdf).",
+      "answer_excerpt": "## Creative Writing — SSS 3 — Languages & Literatures\n\nCreative Writing covers:\n\n* Recap every unit covered from SS1 – SS2\n * Introduce the key focus of the term:\n * Basic computer skills – Microsoft word, spell-checking and track changing a document a document, Microsoft Publisher, blogging, hyper texting etc.\n * Introduce the key focus of the term:",
+      "primary_classification": "OTHER"
+    },
+    {
+      "grade": "SSS_1",
+      "subject": "Music",
+      "stream": "Social & Cultural Studies",
+      "source_document": "SSS-Syllabus-Music.pdf",
+      "question": "What does Music cover for SSS1 Social & Cultural Studies?",
+      "answer_hash": "fda728e6b7e705754812b7c70014983ebaf66092eddce7c74a014fa2bc84c273",
+      "frozen_answer_hash": "fda728e6b7e705754812b7c70014983ebaf66092eddce7c74a014fa2bc84c273",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "0a25f3dcb1e6766cdd1e91676dff60496658710fd1743b47cc0e802949088564",
+      "prior_verifier_reason": [
+        "The answer presents a single flat list of Music content for SSS 1 without distinguishing the three terms/units, even though the evidence shows repeated themes (Elements 1/2/3, Musical instruments 1/2/3, Indigenous music repeated, Western tradition repeated, Composing 1/2).",
+        "The answer duplicates large blocks of content (Western tradition and Indigenous music repeated three times) without explaining that these correspond to different terms/units, which may mislead the user.",
+        "The answer omits the theme 'The place of music in human development in the region' (Record 11) and 'The place of music in human development in the world' (Record 20), which are distinct topics under the place of music theme.",
+        "The answer's heading 'The place of music in human development' lists only 'In the country' but the evidence also includes 'in the region' and 'in the world' as separate topics.",
+        "The answer does not clearly attribute content to the SSS stream 'Social & Cultural Studies' beyond a final note; the evidence consistently shows Music under the Social & Cultural Studies stream for SSS 1, so this is broadly consistent but not explicitly verified in the answer body."
+      ],
+      "source_theme_count": 12,
+      "source_theme_rows": 17,
+      "source_topic_count": 29,
+      "source_topic_rows": 34,
+      "source_repeated_themes": [
+        {
+          "theme": "Western tradition",
+          "occurrences": 4,
+          "child_counts": [
+            3,
+            1,
+            1,
+            1
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "Introduction to instruments",
+            "Simple scales, exercises and tunes for the instrument/voice",
+            "Sight reading/singing",
+            "As for the first term",
+            "As terms 1 and 2 with some performance",
+            "Continue to develop skills from terms 1 and 2 with the introduction of body percussion"
+          ]
+        },
+        {
+          "theme": "Indigenous music",
+          "occurrences": 3,
+          "child_counts": [
+            4,
+            3,
+            3
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "The goombay from the Krio people",
+            "The Goboi mask",
+            "Playing by ear, three songs",
+            "The place of music in human development in the region",
+            "Strengthening playing by ear skills",
+            "The bubu genre",
+            "The Nafali mask",
+            "The Milo genre",
+            "The Matorma mask",
+            "Solo and group performance"
+          ]
+        }
+      ],
+      "source_repeated_topic_names": [
+        "Pitch",
+        "Rhythm",
+        "Dynamics",
+        "Texture",
+        "Tempo"
+      ],
+      "answer_themes": [
+        "The place of music in human development",
+        "Elements, or building blocks, of music: 1 (western tradition)",
+        "Musical instruments (practical lessons): 1",
+        "Western tradition",
+        "Indigenous music",
+        "Elements, or building blocks, of music: 2 (western tradition)",
+        "Musical instruments (practical lessons): 2",
+        "Western tradition",
+        "Indigenous music",
+        "Composing: 1",
+        "Elements, or building blocks, of music: 3 (western tradition)",
+        "Musical instruments (practical lessons): 3",
+        "Western tradition",
+        "Indigenous music",
+        "Composing: 2",
+        "Western tradition",
+        "Contemporary music tradition"
+      ],
+      "answer_repeated_themes": [
+        {
+          "theme": "Western tradition",
+          "topics": [
+            "Introduction to instruments",
+            "Simple scales, exercises and tunes for the instrument/voice",
+            "Sight reading/singing",
+            "As for the first term",
+            "As terms 1 and 2 with some performance",
+            "Continue to develop skills from terms 1 and 2 with the introduction of body percussion"
+          ],
+          "times": 4
+        },
+        {
+          "theme": "Indigenous music",
+          "topics": [
+            "The goombay from the Krio people",
+            "The Goboi mask",
+            "Playing by ear, three songs",
+            "Strengthening playing by ear skills",
+            "The bubu genre",
+            "The Nafali mask",
+            "The Milo genre",
+            "The Matorma mask",
+            "Solo and group performance"
+          ],
+          "times": 3
+        }
+      ],
+      "omitted_topics": [
+        {
+          "name": "The place of music in human development in the region",
+          "parent": null
+        },
+        {
+          "name": "The place of music in human development in the world",
+          "parent": null
+        }
+      ],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Music covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 1 Music curriculum (SSS-Syllabus-Music.pdf).",
+      "answer_excerpt": "## Music — SSS 1 — Social & Cultural Studies\n\nMusic covers:\n\n* The place of music in human development\n * In the country\n* Elements, or building blocks, of music: 1 (western tradition)\n * Pitch",
+      "primary_classification": "ANSWER_OMITS_VALID_TOPICS"
+    },
+    {
+      "grade": "SSS_1",
+      "subject": "Mathematics for STEAMM",
+      "stream": "Mathematics & Numeracy",
+      "source_document": "SSS-Syllabus-Mathematics-for-STEAMM.pdf",
+      "question": "What does Mathematics for STEAMM cover for SSS1 Mathematics & Numeracy?",
+      "answer_hash": "66b2105b088e24249dcb5afbf634069fc028356773bea625dd719be7a47e117b",
+      "frozen_answer_hash": "66b2105b088e24249dcb5afbf634069fc028356773bea625dd719be7a47e117b",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "1278a19a15cb1d717276e5655c29134c7d5383735ee9b21bc6ebfafdeea934c0",
+      "prior_verifier_reason": [
+        "The generated answer is highly repetitive, listing the same themes and topics multiple times, which does not match the structured curriculum evidence.",
+        "The answer presents 'General Topics' as a theme containing topics such as Integers, Fractions, etc., but the evidence shows these topics are directly under 'Mathematics For Steamm' with 'General Topics' as a theme; the hierarchy is not clearly represented.",
+        "The answer includes 'Polynomial Functions' as a theme with topics, but the evidence shows 'Polynomial Functions' as a theme with topics like General characteristics, Partial fraction, etc., which is supported, but the answer duplicates this section.",
+        "The answer lists 'for Engineering Students only' and 'for Physical Sciences Students only' as themes with topics, which is supported by evidence, but the repetition and ordering are confusing.",
+        "The answer includes 'Sets' and 'Co-ordinate Geometry' and 'Trigonometry' themes with topics, which are supported by evidence, but the answer's structure is messy and includes duplicate entries.",
+        "The answer does not include all topics from the evidence, e.g., 'Algebraic Expressions (simplification)' and 'Algebraic function and graph – Linear, Quadratic, Simultaneous and Cubic Functions' are listed under General Topics, but the evidence shows them as separate topics under General Topics; the answer includes them but in a repetitive manner.",
+        "The answer's claim that these areas are based on the MBSSE SSS 1 Mathematics for STEAMM curriculum is supported by the source, but the answer's content is not a clean representation of the evidence."
+      ],
+      "source_theme_count": 7,
+      "source_theme_rows": 15,
+      "source_topic_count": 30,
+      "source_topic_rows": 37,
+      "source_repeated_themes": [
+        {
+          "theme": "General Topics",
+          "occurrences": 3,
+          "child_counts": [
+            4,
+            4,
+            0
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "Integers",
+            "Fractions, Decimals and Percentages",
+            "Ratio, Proportion and Rates",
+            "Powers and Roots",
+            "Approximation/Estimation",
+            "Number Bases",
+            "Indices",
+            "Surds"
+          ]
+        },
+        {
+          "theme": "for Engineering Students only",
+          "occurrences": 3,
+          "child_counts": [
+            4,
+            0,
+            0
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "Logarithm (laws of log. without logbook)",
+            "Inequalities in linear programming",
+            "Logical reasoning",
+            "Complex numbers"
+          ]
+        },
+        {
+          "theme": "for Physical Sciences Students only",
+          "occurrences": 3,
+          "child_counts": [
+            2,
+            0,
+            0
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "Logarithm (laws of log. without logbook)",
+            "Logical reasoning"
+          ]
+        },
+        {
+          "theme": "Polynomial Functions",
+          "occurrences": 3,
+          "child_counts": [
+            5,
+            3,
+            2
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "General characteristics",
+            "Partial fraction",
+            "Exponential function",
+            "Logarithmic function",
+            "The Binomial Theorem",
+            "General characteristics",
+            "Partial fraction",
+            "Exponential function",
+            "Logarithmic function",
+            "The Binomial theorem"
+          ]
+        }
+      ],
+      "source_repeated_topic_names": [
+        "Logarithm (laws of log. without logbook)",
+        "Logical reasoning",
+        "General characteristics",
+        "Partial fraction",
+        "Exponential function",
+        "Logarithmic function",
+        "The Binomial Theorem"
+      ],
+      "answer_themes": [
+        "General Topics",
+        "for Engineering Students only",
+        "for Physical Sciences Students only",
+        "General Topics",
+        "for Engineering Students only",
+        "Polynomial Functions",
+        "for Physical Sciences Students only",
+        "Polynomial Functions",
+        "General Topics",
+        "Sets",
+        "for Engineering Students only",
+        "Co-ordinate Geometry",
+        "Trigonometry",
+        "for Physical Sciences Students only",
+        "Polynomial Functions"
+      ],
+      "answer_repeated_themes": [
+        {
+          "theme": "General Topics",
+          "topics": [
+            "Integers",
+            "Fractions, Decimals and Percentages",
+            "Ratio, Proportion and Rates",
+            "Powers and Roots",
+            "Approximation/Estimation",
+            "Number Bases",
+            "Indices",
+            "Surds",
+            "Algebraic Expressions (simplification)",
+            "Algebraic function and graph – Linear, Quadratic, Simultaneous and Cubic Functions"
+          ],
+          "times": 3
+        },
+        {
+          "theme": "for Engineering Students only",
+          "topics": [
+            "Logarithm (laws of log. without logbook)",
+            "Inequalities in linear programming",
+            "Logical reasoning",
+            "Complex numbers"
+          ],
+          "times": 3
+        },
+        {
+          "theme": "for Physical Sciences Students only",
+          "topics": [
+            "Logarithm (laws of log. without logbook)",
+            "Logical reasoning"
+          ],
+          "times": 3
+        },
+        {
+          "theme": "Polynomial Functions",
+          "topics": [
+            "General characteristics",
+            "Partial fraction",
+            "Exponential function",
+            "Logarithmic function",
+            "The Binomial Theorem",
+            "General characteristics",
+            "Partial fraction",
+            "Exponential function",
+            "Logarithmic function",
+            "The Binomial theorem"
+          ],
+          "times": 3
+        }
+      ],
+      "omitted_topics": [],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Mathematics for STEAMM covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 1 Mathematics for STEAMM curriculum (SSS-Syllabus-Mathematics-for-STEAMM.pdf).",
+      "answer_excerpt": "## Mathematics for STEAMM — SSS 1 — Mathematics & Numeracy\n\nMathematics for STEAMM covers:\n\n* General Topics\n * Integers\n * Fractions, Decimals and Percentages\n * Ratio, Proportion and Rates",
+      "primary_classification": "OTHER"
+    },
+    {
+      "grade": "SSS_2",
+      "subject": "Mathematics for STEAMM",
+      "stream": "Mathematics & Numeracy",
+      "source_document": "SSS-Syllabus-Mathematics-for-STEAMM.pdf",
+      "question": "What does Mathematics for STEAMM cover for SSS2 Mathematics & Numeracy?",
+      "answer_hash": "fdab92f981d9c78c809c67bf293ababa4e72ce766a9611340f9bcb0f07395244",
+      "frozen_answer_hash": "fdab92f981d9c78c809c67bf293ababa4e72ce766a9611340f9bcb0f07395244",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "c18a259ff2fa95b10436a87e7f65455d74083bfa647f6093b15139e4452b00c3",
+      "prior_verifier_reason": [
+        "The answer is massively duplicated: the same General Topics, Engineering-only, Calculus, Statics, Kinematics, and Dynamics lists are repeated multiple times, which is not supported by the evidence and makes the answer unreliable.",
+        "The answer presents 'Calculus' as a theme under both Engineering and Physical Sciences sections, but the evidence only shows Calculus as a theme with Differentiation, Applications of Differentiation, Integration, and Applications of Integration; the placement under Engineering/Physical Sciences is not clearly supported.",
+        "The answer lists 'Statics' and 'Kinematics of a particle' / 'Dynamics' under 'for Physical Sciences Students only', but the evidence does not clearly establish that these themes are exclusive to Physical Sciences students; the hierarchy shows them as separate themes.",
+        "The answer omits the distinction that some topics are under 'for Engineering Students only' and others under 'for Physical Sciences Students only' in a clean, non-duplicated way.",
+        "The answer includes 'Calculus' topics under 'for Physical Sciences Students only' but the evidence shows Calculus as a separate theme, not necessarily nested under Physical Sciences.",
+        "The answer's structure implies all listed topics are part of SSS2 Mathematics for STEAMM, but the evidence shows some are under specific streams (Engineering only, Physical Sciences only), which the answer does not clearly separate without duplication."
+      ],
+      "source_theme_count": 7,
+      "source_theme_rows": 17,
+      "source_topic_count": 36,
+      "source_topic_rows": 50,
+      "source_repeated_themes": [
+        {
+          "theme": "General Topics",
+          "occurrences": 3,
+          "child_counts": [
+            5,
+            5,
+            3
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "Equations and Formulae [change of subject]",
+            "Algebraic fractions",
+            "Linear inequalities and Quadratic Inequalities.",
+            "Relations, Mapping",
+            "Sequence and Series",
+            "Angles, Line and Triangles",
+            "Polygons and Congruency",
+            "Lines of Symmetry and rotational symmetry",
+            "Pythagoras’ Theorem (right angle triangle)",
+            "Basic Trigonometry ratio in right angle triangle",
+            "Mensuration of 2D and 3D shapes",
+            "Construction including Loci",
+            "Circles"
+          ]
+        },
+        {
+          "theme": "for Engineering Students only",
+          "occurrences": 3,
+          "child_counts": [
+            0,
+            7,
+            0
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "Angles of elevation/depression",
+            "Bearings",
+            "Circle theorems",
+            "Area of sector and length of arc",
+            "Similarities",
+            "Graphs of trigonometric functions",
+            "Trigonometric Identities and proofs"
+          ]
+        },
+        {
+          "theme": "Calculus",
+          "occurrences": 2,
+          "child_counts": [
+            4,
+            4
+          ],
+          "identical_children": true,
+          "overlap": "identical",
+          "child_topics": [
+            "Differentiation",
+            "Applications of Differentiation",
+            "Integration",
+            "Applications of Integration",
+            "Differentiation",
+            "Applications of Differentiation",
+            "Integration",
+            "Applications of Integration"
+          ]
+        },
+        {
+          "theme": "for Physical Sciences Students only",
+          "occurrences": 3,
+          "child_counts": [
+            0,
+            0,
+            0
+          ],
+          "identical_children": true,
+          "overlap": "identical",
+          "child_topics": []
+        },
+        {
+          "theme": "Statics",
+          "occurrences": 2,
+          "child_counts": [
+            4,
+            4
+          ],
+          "identical_children": true,
+          "overlap": "identical",
+          "child_topics": [
+            "Resultant and resolving forces into components",
+            "Equilibrium of coplanar forces",
+            "Types of forces (weight, tension, and trust)",
+            "Friction and coefficient of friction",
+            "Resultant and resolving forces into components",
+            "Equilibrium of coplanar forces",
+            "Types of forces (weight, tension, and trust)",
+            "Friction and coefficient of friction"
+          ]
+        },
+        {
+          "theme": "Kinematics of a particle",
+          "occurrences": 2,
+          "child_counts": [
+            1,
+            1
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "Speed, time distance velocity and acceleration.",
+            "Speed, time distance velocity and acceleration"
+          ]
+        },
+        {
+          "theme": "Dynamics",
+          "occurrences": 2,
+          "child_counts": [
+            6,
+            6
+          ],
+          "identical_children": true,
+          "overlap": "identical",
+          "child_topics": [
+            "moment of inertia of a particle and rigid body",
+            "Newton’s laws of motion",
+            "Motion of two connected particles",
+            "Momentum and impulse",
+            "Sum of moments",
+            "Equilibrium of a lamina under parallel forces",
+            "moment of inertia of a particle and rigid body",
+            "Newton’s laws of motion",
+            "Motion of two connected particles",
+            "Momentum and impulse",
+            "Sum of moments",
+            "Equilibrium of a lamina under parallel forces"
+          ]
+        }
+      ],
+      "source_repeated_topic_names": [
+        "Differentiation",
+        "Applications of Differentiation",
+        "Integration",
+        "Applications of Integration",
+        "Resultant and resolving forces into components",
+        "Equilibrium of coplanar forces",
+        "Types of forces (weight, tension, and trust)",
+        "Friction and coefficient of friction",
+        "moment of inertia of a particle and rigid body",
+        "Newton’s laws of motion",
+        "Motion of two connected particles",
+        "Momentum and impulse",
+        "Sum of moments",
+        "Equilibrium of a lamina under parallel forces"
+      ],
+      "answer_themes": [
+        "General Topics",
+        "for Engineering Students only",
+        "Calculus",
+        "for Physical Sciences Students only",
+        "Calculus",
+        "General Topics",
+        "for Engineering Students only",
+        "for Physical Sciences Students only",
+        "Statics",
+        "General Topics",
+        "for Engineering Students only",
+        "Statics",
+        "Kinematics of a particle",
+        "Dynamics",
+        "for Physical Sciences Students only",
+        "Kinematics of a particle",
+        "Dynamics"
+      ],
+      "answer_repeated_themes": [
+        {
+          "theme": "General Topics",
+          "topics": [
+            "Equations and Formulae [change of subject]",
+            "Algebraic fractions",
+            "Linear inequalities and Quadratic Inequalities.",
+            "Relations, Mapping",
+            "Sequence and Series",
+            "Angles, Line and Triangles",
+            "Polygons and Congruency",
+            "Lines of Symmetry and rotational symmetry",
+            "Pythagoras’ Theorem (right angle triangle)",
+            "Basic Trigonometry ratio in right angle triangle",
+            "Mensuration of 2D and 3D shapes",
+            "Construction including Loci",
+            "Circles"
+          ],
+          "times": 3
+        },
+        {
+          "theme": "for Engineering Students only",
+          "topics": [
+            "Angles of elevation/depression",
+            "Bearings",
+            "Circle theorems",
+            "Area of sector and length of arc",
+            "Similarities",
+            "Graphs of trigonometric functions",
+            "Trigonometric Identities and proofs"
+          ],
+          "times": 3
+        },
+        {
+          "theme": "Calculus",
+          "topics": [
+            "Differentiation",
+            "Applications of Differentiation",
+            "Integration",
+            "Applications of Integration",
+            "Differentiation",
+            "Applications of Differentiation",
+            "Integration",
+            "Applications of Integration"
+          ],
+          "times": 2
+        },
+        {
+          "theme": "for Physical Sciences Students only",
+          "topics": [],
+          "times": 3
+        },
+        {
+          "theme": "Statics",
+          "topics": [
+            "Resultant and resolving forces into components",
+            "Equilibrium of coplanar forces",
+            "Types of forces (weight, tension, and trust)",
+            "Friction and coefficient of friction",
+            "Resultant and resolving forces into components",
+            "Equilibrium of coplanar forces",
+            "Types of forces (weight, tension, and trust)",
+            "Friction and coefficient of friction"
+          ],
+          "times": 2
+        },
+        {
+          "theme": "Kinematics of a particle",
+          "topics": [
+            "Speed, time distance velocity and acceleration.",
+            "Speed, time distance velocity and acceleration"
+          ],
+          "times": 2
+        },
+        {
+          "theme": "Dynamics",
+          "topics": [
+            "moment of inertia of a particle and rigid body",
+            "Newton’s laws of motion",
+            "Motion of two connected particles",
+            "Momentum and impulse",
+            "Sum of moments",
+            "Equilibrium of a lamina under parallel forces",
+            "moment of inertia of a particle and rigid body",
+            "Newton’s laws of motion",
+            "Motion of two connected particles",
+            "Momentum and impulse",
+            "Sum of moments",
+            "Equilibrium of a lamina under parallel forces"
+          ],
+          "times": 2
+        }
+      ],
+      "omitted_topics": [],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Mathematics for STEAMM covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 2 Mathematics for STEAMM curriculum (SSS-Syllabus-Mathematics-for-STEAMM.pdf).",
+      "answer_excerpt": "## Mathematics for STEAMM — SSS 2 — Mathematics & Numeracy\n\nMathematics for STEAMM covers:\n\n* General Topics\n * Equations and Formulae [change of subject]\n * Algebraic fractions\n * Linear inequalities and Quadratic Inequalities.",
+      "primary_classification": "OTHER"
+    },
+    {
+      "grade": "SSS_2",
+      "subject": "Engineering Science",
+      "stream": "Sciences & Technologies",
+      "source_document": "SSS-Syllabus-Engineering-Science.pdf",
+      "question": "What does Engineering Science cover for SSS2 Sciences & Technologies?",
+      "answer_hash": "d9f08920c7d8b1367a9736794da7f3aa3d8bf36c56052b0f154dc5a4eceec6cf",
+      "frozen_answer_hash": "d9f08920c7d8b1367a9736794da7f3aa3d8bf36c56052b0f154dc5a4eceec6cf",
+      "answer_hash_matches": true,
+      "syllabus_sha256": "1751ae9abf18c71ad79d395c3614c26ea1e836bf285b513d82e25e1f91e46d5f",
+      "prior_verifier_reason": [
+        "The answer duplicates the 'Heat' theme and its topics (appears twice) and duplicates the 'Electricity' theme and its topics (appears twice), which is not supported by the curriculum structure.",
+        "The answer places 'Simple Machines', 'Law of Machine', 'Gear drive', 'Belt drive', and 'Chain drives' under the 'Thermodynamics' theme, matching the evidence hierarchy, but this grouping is unusual; it is nonetheless consistent with the retrieved evidence.",
+        "The answer omits the 'Stress on Solid Material' theme's topic 'Forces Applied to Solid Materials' as a distinct theme heading, though it lists the topic under a separate 'Stress on Solid Material' heading — this is acceptable but the theme name is not explicitly shown as a theme.",
+        "The answer's claim that the content is 'based on the MBSSE SSS 2 Engineering Science curriculum (SSS-Syllabus-Engineering-Science.pdf)' is supported by the source metadata in the evidence.",
+        "No evidence IDs were provided in the answer's evidence refs, but the curriculum evidence records support the listed topics."
+      ],
+      "source_theme_count": 13,
+      "source_theme_rows": 15,
+      "source_topic_count": 66,
+      "source_topic_rows": 66,
+      "source_repeated_themes": [
+        {
+          "theme": "Heat",
+          "occurrences": 2,
+          "child_counts": [
+            9,
+            2
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "Introduction to Thermal Expansion",
+            "Solid Expansion",
+            "Liquid Expansion",
+            "Gas Expansion",
+            "Measurement of Thermal Expansion",
+            "Linear Expansion",
+            "Area Expansion (Superficial Expansion)",
+            "Volume Expansion (Cubical Expansion)",
+            "Applications of Thermal Expansion",
+            "Measurement of heat",
+            "Change of State"
+          ]
+        },
+        {
+          "theme": "Electricity",
+          "occurrences": 2,
+          "child_counts": [
+            7,
+            2
+          ],
+          "identical_children": false,
+          "overlap": "distinct",
+          "child_topics": [
+            "Static Electricity",
+            "Current Electricity",
+            "Electric Current",
+            "Voltage",
+            "Ohm's Law",
+            "Resistance",
+            "Electric Cells",
+            "Electrical energy and Power",
+            "Electricity Consumption"
+          ]
+        }
+      ],
+      "source_repeated_topic_names": [],
+      "answer_themes": [
+        "Heat",
+        "Electricity",
+        "Basic Electronics",
+        "Electricity and Magnetism",
+        "Forces",
+        "Angular Motion",
+        "Rotational Forces",
+        "Periodic motion",
+        "Projectile Motion",
+        "Heat",
+        "Thermodynamics",
+        "Strengths and Properties of Materials",
+        "Stress on Solid Material",
+        "Light (Curved mirrors)",
+        "Electricity"
+      ],
+      "answer_repeated_themes": [
+        {
+          "theme": "Heat",
+          "topics": [
+            "Introduction to Thermal Expansion",
+            "Solid Expansion",
+            "Liquid Expansion",
+            "Gas Expansion",
+            "Measurement of Thermal Expansion",
+            "Linear Expansion",
+            "Area Expansion (Superficial Expansion)",
+            "Volume Expansion (Cubical Expansion)",
+            "Applications of Thermal Expansion",
+            "Measurement of heat",
+            "Change of State"
+          ],
+          "times": 2
+        },
+        {
+          "theme": "Electricity",
+          "topics": [
+            "Static Electricity",
+            "Current Electricity",
+            "Electric Current",
+            "Voltage",
+            "Ohm's Law",
+            "Resistance",
+            "Electric Cells",
+            "Electrical energy and Power",
+            "Electricity Consumption"
+          ],
+          "times": 2
+        }
+      ],
+      "omitted_topics": [],
+      "omitted_themes": [],
+      "claims_coverage": true,
+      "coverage_sentence": "Engineering Science covers:",
+      "closing_sentence": "These areas are based on the MBSSE SSS 2 Engineering Science curriculum (SSS-Syllabus-Engineering-Science.pdf).",
+      "answer_excerpt": "## Engineering Science — SSS 2 — Sciences & Technologies\n\nEngineering Science covers:\n\n* Heat\n * Introduction to Thermal Expansion\n * Solid Expansion\n * Liquid Expansion",
+      "primary_classification": "OTHER"
+    }
+  ]
+}
