@@ -346,3 +346,84 @@ def test_music_renders_parentless_topics_and_separate_theme_occurrences():
     assert [section["name"] for section in sections[-2:]] == parentless
     for section in sections[:-2]:
         assert "The place of music in human development in the world" not in section["topics"]
+
+
+def test_environmental_science_sss3_keeps_the_parentless_revision_topic():
+    content = _content("Environmental Science", "SSS_3")
+    occurrences = _sss_theme_occurrences(content)
+    assert [(theme.name, [child.name for child in children]) for theme, children in occurrences] == [
+        ("Nuclear Energy", ["Sources:"])
+    ]
+    parentless = [item.name for item in _sss_parentless_topics(content)]
+    assert parentless == [
+        "Revision of the entire syllabus and preparation for WASSCE exams"
+    ]
+    assert all(
+        child.name not in parentless
+        for _theme, children in occurrences
+        for child in children
+    )
+    answer = _render("Environmental Science", "SSS_3", content)
+    assert "Environmental Science covers:" in answer
+    assert "These areas are based on the MBSSE" in answer
+    assert "parentless" not in answer.casefold()
+    sections = _sections(answer)
+    assert sections[-1]["name"] == parentless[0]
+    assert sections[-1]["topics"] == []
+    assert sections[0]["topics"] == ["Sources:"]
+
+
+def test_african_literature_sss3_keeps_three_research_records():
+    content = _content("African Literature", "SSS_3")
+    shared = [
+        "Review knowledge and skills covered in SS1 & SS2",
+        "Teacher introduces the research and independent / group task",
+        "Exam Preparation",
+    ]
+    whole_class = [
+        "Review knowledge and skills covered in SS1 & SS2",
+        "Teacher introduces the whole class task",
+        "Exam Preparation",
+    ]
+    occurrences = _sss_theme_occurrences(content)
+    rendered = [
+        (theme.name, [child.name for child in children]) for theme, children in occurrences
+    ]
+    assert rendered == [
+        ("Research, group or independent work on reading and revision", shared),
+        ("Research, group or independent work on reading and revision", shared),
+        ("Research, group or independent work on reading and revision", whole_class),
+    ]
+    attached = [child for _theme, children in occurrences for child in children]
+    assert len(attached) == len({id(child) for child in attached}) == 9
+    assert _sss_parentless_topics(content) == []
+    answer = _render("African Literature", "SSS_3", content)
+    assert "African Literature covers:" in answer
+    assert "These areas are based on the MBSSE" in answer
+    assert "theme occurrence" not in answer.casefold()
+    assert [section["topics"] for section in _sections(answer)] == [
+        shared,
+        shared,
+        whole_class,
+    ]
+
+
+def test_topic_before_first_matching_theme_stays_with_the_first_record():
+    content = [
+        _item("topic", "Early", "Heat"),
+        _item("theme", "Heat"),
+        _item("topic", "A1", "Heat"),
+        _item("theme", "Heat"),
+        _item("topic", "B1", "Heat"),
+    ]
+    occurrences = _sss_theme_occurrences(content)
+    assert [child.name for child in occurrences[0][1]] == ["Early", "A1"]
+    assert [child.name for child in occurrences[1][1]] == ["B1"]
+    attached = [child for _theme, children in occurrences for child in children]
+    assert [child.name for child in attached].count("Early") == 1
+    assert len(attached) == len({id(child) for child in attached})
+    assert _sss_parentless_topics(content) == []
+    answer = _render("Engineering Science", "SSS_2", content)
+    sections = _sections(answer)
+    assert [section["topics"] for section in sections] == [["Early", "A1"], ["B1"]]
+    assert "Engineering Science covers:" in answer
