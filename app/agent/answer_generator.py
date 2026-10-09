@@ -1353,6 +1353,50 @@ def _sss_theme_occurrences(
     return [(item, assigned[index]) for index, item in themes]
 
 
+def _sss_coverage_blocks(content: list[CurriculumEvidence]) -> list[CoverageBlock]:
+    """The grouping the coverage text is rendered from.
+
+    Theme membership still follows the existing occurrence rules. Each block
+    keeps the evidence row's own id and source parent id.
+    """
+    from app.agent.coverage_validator import coverage_block_from_evidence
+
+    has_theme = any((item.entity_type or "").lower() == "theme" for item in content)
+    if has_theme:
+        blocks = [
+            coverage_block_from_evidence(
+                theme,
+                tuple(
+                    coverage_block_from_evidence(child)
+                    for child in children
+                    if child.name
+                ),
+            )
+            for theme, children in _sss_theme_occurrences(content)
+        ]
+        blocks.extend(
+            coverage_block_from_evidence(topic)
+            for topic in _sss_parentless_topics(content)
+            if topic.name
+        )
+        return blocks
+    return [
+        coverage_block_from_evidence(topic)
+        for topic in content
+        if (topic.entity_type or "").lower() == "topic" and topic.name
+    ]
+
+
+def _coverage_block_lines(blocks: list[CoverageBlock]) -> list[str]:
+    lines: list[str] = []
+    for block in blocks:
+        if not block.name:
+            continue
+        lines.append(f"* {block.name}")
+        lines.extend(f"  * {child.name}" for child in block.children if child.name)
+    return lines
+
+
 def _render_sss_grade_coverage(
     state: CurriculumQAState,
     content: list[CurriculumEvidence],
@@ -1375,17 +1419,19 @@ def _render_sss_grade_coverage(
     outcomes = [
         item for item in content if (item.entity_type or "").lower() == "learning_outcome"
     ]
+    blocks = _sss_coverage_blocks(content)
+    if focus in {"coverage", "topics"}:
+        state.metadata["sss_coverage_blocks"] = [block.as_dict() for block in blocks]
+        state.metadata.pop("sss_coverage_scope", None)
+    elif focus == "outcomes":
+        # Outcomes are still printed as a flat list. Their parents are not
+        # in the answer blocks, so this focus is not structurally validated.
+        state.metadata["sss_coverage_scope"] = "outcomes_not_routed"
+        state.metadata.pop("sss_coverage_blocks", None)
     if themes or topics:
         lines.append(f"{subject} covers:")
         lines.append("")
-        if themes:
-            for theme, children in _sss_theme_occurrences(content):
-                lines.append(f"* {theme.name}")
-                lines.extend(f"  * {child.name}" for child in children if child.name)
-            for topic in _sss_parentless_topics(content):
-                lines.append(f"* {topic.name}")
-        else:
-            lines.extend(f"* {topic.name}" for topic in topics if topic.name)
+        lines.extend(_coverage_block_lines(blocks))
     if focus == "outcomes":
         if outcomes:
             lines.extend(["", "Learning outcomes recorded for this grade:", ""])
@@ -2120,6 +2166,45 @@ def _strip_subject_codes(text: str) -> str:
     return cleaned.strip()
 
 
+def _evidence_relationship_lines(item: CurriculumEvidence) -> list[str]:
+    """Parent and section facts copied from the source record.
+
+    Ranking may separate a topic from its theme. These lines keep the
+    association on the record. Absent keys mean an older evidence row, and
+    nothing is inferred from the display name.
+    """
+    metadata = item.metadata or {}
+    if "parent_id" not in metadata and "section_id" not in metadata:
+        return []
+    lines: list[str] = []
+    if "parent_id" in metadata:
+        lines.append(f"Parent ID: {metadata.get('parent_id') or 'none'}")
+    parent_type = metadata.get("parent_entity_type")
+    if parent_type:
+        lines.append(f"Parent type: {parent_type}")
+    parent_display = metadata.get("parent_display_name")
+    if parent_display:
+        lines.append(f"Parent name: {parent_display}")
+    if metadata.get("parent_id"):
+        included = metadata.get("parent_in_evidence")
+        if included is True:
+            lines.append("Parent in evidence: yes")
+        elif included is False:
+            lines.append("Parent in evidence: no")
+    if metadata.get("section_id"):
+        lines.append(f"Section ID: {metadata['section_id']}")
+        if metadata.get("section_name"):
+            lines.append(f"Section: {metadata['section_name']}")
+    omitted = metadata.get("omitted_child_count")
+    if omitted:
+        kinds = ", ".join(metadata.get("omitted_child_types") or [])
+        suffix = f" {kinds}" if kinds else ""
+        lines.append(
+            f"Omitted child records: {omitted}{suffix} not included in this payload"
+        )
+    return lines
+
+
 def format_evidence_for_prompt(
     evidence: list[CurriculumEvidence],
     *,
@@ -2145,6 +2230,7 @@ def format_evidence_for_prompt(
             lines.append(f"Name: {item.name}")
         if hierarchy:
             lines.append(f"Hierarchy: {' → '.join(hierarchy)}")
+        lines.extend(_evidence_relationship_lines(item))
         if item.content and item.content != item.name:
             content = str(item.content)
             if len(content) > 500:

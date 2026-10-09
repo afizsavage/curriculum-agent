@@ -91,13 +91,20 @@ def _grade_row(row_id: str, grade: str, subject_id: str, name: str, source: str)
 
 
 def _tree(theme: str, topics: list[str]) -> list[dict]:
+    theme_id = f"theme-{theme}"
     return [
         {
-            "id": f"theme-{theme}",
+            "id": theme_id,
             "content_type": "THEME",
             "name": theme,
             "children": [
-                {"id": f"topic-{topic}", "content_type": "TOPIC", "name": topic, "children": []}
+                {
+                    "id": f"topic-{topic}",
+                    "parent_id": theme_id,
+                    "content_type": "TOPIC",
+                    "name": topic,
+                    "children": [],
+                }
                 for topic in topics
             ],
         }

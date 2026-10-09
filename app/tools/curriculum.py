@@ -1570,6 +1570,11 @@ def _subject_not_in_stream(
     )
 
 
+# Rows the coverage answer lists. Sections stay context. Subtopics stay off
+# the evidence list so a large syllabus does not crowd the verifier window.
+_CONTENT_EVIDENCE_TYPES = {"THEME", "TOPIC", "LEARNING_OUTCOME"}
+
+
 def _content_evidence(
     tree: list[Any],
     *,
@@ -1580,38 +1585,101 @@ def _content_evidence(
 ) -> list[CurriculumEvidence]:
     rows: list[CurriculumEvidence] = []
 
-    def walk(nodes: list[Any], parent_name: str | None) -> None:
+    def walk(
+        nodes: list[Any],
+        theme_name: str | None,
+        parent_node: dict[str, Any] | None,
+        section: dict[str, Any] | None,
+    ) -> None:
         for node in nodes or []:
             if not isinstance(node, dict):
                 continue
             content_type = str(node.get("content_type") or "").upper()
             name = node.get("name") or node.get("statement") or node.get("description")
-            next_parent = parent_name
-            if content_type in {"THEME", "TOPIC", "LEARNING_OUTCOME"} and name:
-                if content_type == "THEME":
-                    next_parent = str(name)
+            node_id = str(node["id"]) if node.get("id") is not None else None
+            current = {
+                "id": node_id,
+                "content_type": content_type,
+                "name": str(name) if name else None,
+            }
+            next_section = section
+            if content_type == "SECTION" and name:
+                next_section = {
+                    "id": node_id,
+                    "entity_type": "SECTION",
+                    "name": str(name),
+                }
+            next_theme_name = theme_name
+            if content_type == "THEME" and name:
+                next_theme_name = str(name)
+            if content_type in _CONTENT_EVIDENCE_TYPES and name:
+                raw_parent_id = node.get("parent_id")
+                parent_id = str(raw_parent_id) if raw_parent_id else None
+                parent_entity_type = None
+                parent_display_name = None
+                parent_in_evidence = None
+                # Copy the API parent only. Do not invent one from a shared name.
+                if parent_id and parent_node and parent_node.get("id") == parent_id:
+                    parent_entity_type = parent_node.get("content_type") or None
+                    parent_display_name = parent_node.get("name")
+                    parent_in_evidence = parent_entity_type in _CONTENT_EVIDENCE_TYPES
+                elif parent_id:
+                    parent_in_evidence = False
+                omitted_children = []
+                for child in node.get("children") or []:
+                    if not isinstance(child, dict):
+                        continue
+                    child_type = str(child.get("content_type") or "").upper()
+                    if not child_type or child_type in _CONTENT_EVIDENCE_TYPES or child_type == "SECTION":
+                        continue
+                    child_id = child.get("id")
+                    omitted_children.append(
+                        {
+                            "id": str(child_id) if child_id is not None else None,
+                            "content_type": child_type,
+                        }
+                    )
+                metadata: dict[str, Any] = {
+                    "source_type": "grade_curriculum_content",
+                    "content_type": content_type,
+                    "stream_name": stream_name,
+                    "parent_name": theme_name,
+                    "parent_id": parent_id,
+                    "parent_in_evidence": parent_in_evidence,
+                }
+                if parent_entity_type:
+                    metadata["parent_entity_type"] = parent_entity_type
+                if parent_display_name:
+                    metadata["parent_display_name"] = parent_display_name
+                if section and section.get("id"):
+                    metadata["section_id"] = section["id"]
+                    metadata["section_name"] = section["name"]
+                    metadata["section_entity_type"] = section["entity_type"]
+                if omitted_children:
+                    metadata["omitted_child_count"] = len(omitted_children)
+                    metadata["omitted_child_types"] = sorted(
+                        {item["content_type"] for item in omitted_children}
+                    )
+                    metadata["omitted_child_ids"] = [
+                        item["id"] for item in omitted_children if item["id"]
+                    ]
                 rows.append(
                     CurriculumEvidence(
                         entity_type=content_type.lower(),
-                        entity_id=str(node["id"]) if node.get("id") is not None else None,
+                        entity_id=node_id,
                         name=str(name),
                         grade=grade,
                         level="senior_secondary",
                         subject=subject,
-                        topic=parent_name if content_type != "THEME" else None,
+                        topic=theme_name if content_type != "THEME" else None,
                         content=node.get("description") or str(name),
-                        metadata={
-                            "source_type": "grade_curriculum_content",
-                            "content_type": content_type,
-                            "stream_name": stream_name,
-                            "parent_name": parent_name,
-                        },
+                        metadata=metadata,
                         source_reference=source_reference or "grade_curriculum.content",
                     )
                 )
-            walk(node.get("children") or [], next_parent)
+            walk(node.get("children") or [], next_theme_name, current, next_section)
 
-    walk(tree if isinstance(tree, list) else [tree], None)
+    walk(tree if isinstance(tree, list) else [tree], None, None, None)
     return rows
 
 
