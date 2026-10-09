@@ -62,6 +62,34 @@ satisfy those gaps rather than repeating broad searches already executed.
 """
 
 
+def _install_coverage_census(
+    state: CurriculumQAState,
+    observability: dict[str, Any] | None,
+) -> None:
+    """Replace the census from this tool result, or drop the previous one.
+
+    A curriculum result that does not carry a census dict must not leave an
+    earlier syllabus's expected ids in place. Missing metadata is not stored
+    as an empty census.
+    """
+    expected = observability.get("coverage_expected") if isinstance(observability, dict) else None
+    if isinstance(expected, dict):
+        state.metadata["sss_coverage_expected"] = expected
+        return
+    state.metadata.pop("sss_coverage_expected", None)
+
+
+def _clear_coverage_census_after_failed_sss_load(
+    state: CurriculumQAState,
+    tool_name: str,
+) -> None:
+    """A failed syllabus load does not produce a census."""
+    from app.curriculum.sss_stream_intent import TOOL_GET_SSS_STREAM_SUBJECTS
+
+    if tool_name == TOOL_GET_SSS_STREAM_SUBJECTS:
+        state.metadata.pop("sss_coverage_expected", None)
+
+
 class RetrievalNode:
     """UNDERSTAND → RETRIEVE multi-step tool loop with hard limits."""
 
@@ -690,9 +718,7 @@ class RetrievalNode:
         ):
             if key in observability:
                 state.metadata[key] = observability.get(key)
-        expected = observability.get("coverage_expected")
-        if isinstance(expected, dict):
-            state.metadata["sss_coverage_expected"] = expected
+        _install_coverage_census(state, observability)
         log_agent_event(
             logger,
             "agent.retrieval.sss_stream",
@@ -1014,6 +1040,7 @@ class RetrievalNode:
                     curriculum_api_status=200,
                 )
             else:
+                _clear_coverage_census_after_failed_sss_load(state, call.name)
                 error_code = (
                     (result.data or {}) if isinstance(result.data, dict) else {}
                 ).get("error_code")
@@ -1034,6 +1061,7 @@ class RetrievalNode:
                     curriculum_api_status=api_status,
                 )
         except CurriculumAPIError as exc:
+            _clear_coverage_census_after_failed_sss_load(state, call.name)
             latency = timed_ms(started)
             state.bump_tool_calls()
             record = ToolCallRecord(
@@ -1046,6 +1074,7 @@ class RetrievalNode:
                 curriculum_api_status=exc.status_code,
             )
         except Exception as exc:
+            _clear_coverage_census_after_failed_sss_load(state, call.name)
             latency = timed_ms(started)
             state.bump_tool_calls()
             record = ToolCallRecord(

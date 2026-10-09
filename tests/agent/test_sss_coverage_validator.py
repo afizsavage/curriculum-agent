@@ -11,8 +11,10 @@ from app.agent.coverage_validator import (
     source_records,
     validate,
 )
+from app.agent.retrieve import RetrievalNode
 from app.agent.state import CurriculumQAState
 from app.agent.verifier import AnswerVerifier
+from app.llm.base import ToolCallRequest
 from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus
 from app.schemas.verification import VERIFICATION_RESULT_JSON_SCHEMA
 from app.tools.curriculum import _content_evidence, coverage_expected_from_tree
@@ -445,7 +447,11 @@ def test_outcome_parent_contract_is_checked_but_not_routed():
             metadata={"parent_id": "theme-1", "parent_entity_type": "THEME"},
         )
     ]
-    state = _state("What are the learning outcomes?", evidence, focus="outcomes")
+    state = _state(
+        "What are the learning outcomes for African Literature for SSS 3 Languages & Literatures?",
+        evidence,
+        focus="outcomes",
+    )
     gate = assess_coverage(state)
     assert gate.status == "not_applicable"
     assert gate.reason == "outcomes_hierarchy_not_represented"
@@ -462,7 +468,11 @@ def test_ordinary_and_non_sss_questions_use_the_generic_verifier():
     assert result.metadata.get("source") != "coverage_validator"
     assert result.recommendation.value == "clarify"
 
-    subjects = _state("Which subjects are in the stream?", evidence, focus="subjects")
+    subjects = _state(
+        "What subjects are in the Languages & Literatures stream?",
+        evidence,
+        focus="subjects",
+    )
     listed = _verify(subjects, {"passed": True, "score": 0.9, "recommendation": "accept"})
     assert listed.metadata.get("coverage_decision") is None
     assert listed.passed
@@ -631,3 +641,470 @@ def test_duplicate_source_ids_are_unavailable_even_when_the_model_accepts():
     assert result.metadata["llm_authoritative"] is False
     assert result.metadata["llm_verification"]["recommendation"] == "accept"
     assert "duplicate_entity" not in result.metadata["coverage_reason_codes"]
+
+
+ACCEPTING = {"passed": True, "score": 0.99, "recommendation": "accept", "issues": []}
+COVERAGE_QUESTION = "What does African Literature cover for SSS 3 Languages & Literatures?"
+
+
+def _coverage_state():
+    evidence = _evidence(_literature(), "African Literature", "Languages & Literatures")
+    state = _state(COVERAGE_QUESTION, evidence, subject="African Literature")
+    _render(state, "Languages & Literatures")
+    _bind_expected(
+        state,
+        _literature(),
+        subject="African Literature",
+        stream="Languages & Literatures",
+        grade_curriculum_id="gc-d1",
+    )
+    return state
+
+
+def _drop_theme(state):
+    state.evidence = [item for item in state.evidence if item.entity_id != THEME_3]
+    state.metadata["sss_coverage_blocks"] = [
+        block for block in state.metadata["sss_coverage_blocks"] if block["entity_id"] != THEME_3
+    ]
+
+
+def test_missing_or_invalid_focus_cannot_accept_incomplete_coverage():
+    missing = _coverage_state()
+    _drop_theme(missing)
+    missing.metadata.pop("sss_focus")
+    missing.metadata.pop("focus", None)
+    missing_gate = assess_coverage(missing)
+    missing_result = _verify(missing, ACCEPTING)
+    assert missing_gate.status == "unavailable"
+    assert missing_gate.reason == "evidence_incomplete"
+    assert not missing_result.passed
+    assert missing_result.metadata["coverage_decision"] == "unavailable"
+    assert missing_result.metadata["coverage_reason_codes"] == ["evidence_incomplete"]
+    assert missing_result.metadata["llm_authoritative"] is False
+
+    invalid = _coverage_state()
+    _drop_theme(invalid)
+    invalid.metadata["sss_focus"] = "banana"
+    invalid.metadata["focus"] = "coverage"
+    invalid_gate = assess_coverage(invalid)
+    invalid_result = _verify(invalid, ACCEPTING)
+    assert invalid_gate.status == "unavailable"
+    assert invalid_gate.reason == "evidence_incomplete"
+    assert not invalid_result.passed
+    assert invalid_result.metadata["coverage_reason_codes"] == ["evidence_incomplete"]
+
+    copied = _coverage_state()
+    _drop_theme(copied)
+    copied.question = "What does African Literature cover?"
+    copied.metadata.pop("sss_focus")
+    copied.metadata["focus"] = "coverage"
+    copied_gate = assess_coverage(copied)
+    copied_result = _verify(copied, ACCEPTING)
+    assert copied_gate.reason == "evidence_incomplete"
+    assert not copied_result.passed
+    assert copied_result.metadata["coverage_reason_codes"] == ["evidence_incomplete"]
+
+
+def test_reclassification_keeps_outcomes_subjects_and_ordinary_questions_generic():
+    outcomes = _state(
+        "What are the learning outcomes for African Literature for SSS 3 Languages & Literatures?",
+        _evidence(_literature(), "African Literature", "Languages & Literatures"),
+        subject="African Literature",
+    )
+    outcomes.metadata.pop("sss_focus")
+    outcomes.metadata.pop("focus", None)
+    outcomes_gate = assess_coverage(outcomes)
+    outcomes_result = _verify(
+        outcomes,
+        {"passed": False, "score": 0.4, "recommendation": "retrieve_more", "issues": ["generic"]},
+    )
+    assert outcomes_gate.status == "not_applicable"
+    assert outcomes_gate.reason == "outcomes_hierarchy_not_represented"
+    assert outcomes_result.metadata.get("coverage_decision") is None
+    assert outcomes_result.recommendation.value == "retrieve_more"
+
+    subjects = _state(
+        "What subjects are in the Languages & Literatures stream?",
+        [CurriculumEvidence(entity_type="subject", entity_id="subj", name="African Literature")],
+        focus=None,
+    )
+    subjects.metadata.pop("sss_focus")
+    subjects_gate = assess_coverage(subjects)
+    subjects_result = _verify(subjects, ACCEPTING)
+    assert subjects_gate.status == "not_applicable"
+    assert subjects_gate.reason == "focus_outside_coverage_contract"
+    assert subjects_result.metadata.get("coverage_decision") is None
+    assert subjects_result.passed
+
+    ordinary = _state(
+        "What is a fraction?",
+        [CurriculumEvidence(entity_type="topic", entity_id="t1", name="Fractions", metadata={"parent_id": None})],
+        intent="CURRICULUM_QA",
+        focus=None,
+    )
+    ordinary.metadata.pop("sss_focus")
+    ordinary_gate = assess_coverage(ordinary)
+    ordinary_result = _verify(
+        ordinary,
+        {"passed": False, "score": 0.4, "recommendation": "clarify", "issues": ["which grade"]},
+    )
+    assert ordinary_gate.reason == "not_sss_stream_subjects"
+    assert ordinary_result.metadata.get("coverage_decision") is None
+    assert ordinary_result.recommendation.value == "clarify"
+
+
+def test_recognized_but_wrong_focus_cannot_bypass_coverage():
+    subjects = _coverage_state()
+    _drop_theme(subjects)
+    subjects.metadata["sss_focus"] = "subjects"
+    subjects.metadata["focus"] = "subjects"
+    subjects_gate = assess_coverage(subjects)
+    subjects_result = _verify(subjects, ACCEPTING)
+    assert subjects_gate.status == "unavailable"
+    assert subjects_gate.reason == "evidence_incomplete"
+    assert not subjects_result.passed
+    assert subjects_result.metadata["coverage_decision"] == "unavailable"
+    assert subjects_result.metadata["coverage_reason_codes"] == ["evidence_incomplete"]
+    assert subjects_result.metadata["llm_authoritative"] is False
+
+    for stored in ("outcomes", "membership", "streams"):
+        state = _coverage_state()
+        _drop_theme(state)
+        state.metadata["sss_focus"] = stored
+        state.metadata["focus"] = stored
+        gate = assess_coverage(state)
+        result = _verify(state, ACCEPTING)
+        assert gate.reason == "evidence_incomplete", stored
+        assert not result.passed
+        assert result.metadata["coverage_reason_codes"] == ["evidence_incomplete"]
+
+
+def test_classified_non_coverage_questions_stay_outside_the_contract():
+    listed = _state(
+        "What subjects are in the Languages & Literatures stream?",
+        [CurriculumEvidence(entity_type="subject", entity_id="subj", name="African Literature")],
+        focus="subjects",
+    )
+    listed_gate = assess_coverage(listed)
+    listed_result = _verify(listed, ACCEPTING)
+    assert listed_gate.status == "not_applicable"
+    assert listed_gate.reason == "focus_outside_coverage_contract"
+    assert listed_result.metadata.get("coverage_decision") is None
+    assert listed_result.passed
+
+    outcomes = _state(
+        "What are the learning outcomes for African Literature for SSS 3 Languages & Literatures?",
+        _evidence(_literature(), "African Literature", "Languages & Literatures"),
+        focus="coverage",
+    )
+    outcomes_gate = assess_coverage(outcomes)
+    outcomes_result = _verify(
+        outcomes,
+        {"passed": False, "score": 0.4, "recommendation": "retrieve_more", "issues": ["generic"]},
+    )
+    assert outcomes_gate.reason == "outcomes_hierarchy_not_represented"
+    assert outcomes_result.metadata.get("coverage_decision") is None
+    assert outcomes_result.recommendation.value == "retrieve_more"
+
+    membership = _state(
+        "Is African Literature part of the Languages & Literatures stream?",
+        [CurriculumEvidence(entity_type="subject", entity_id="subj", name="African Literature")],
+        focus="coverage",
+    )
+    membership_gate = assess_coverage(membership)
+    membership_result = _verify(membership, ACCEPTING)
+    assert membership_gate.reason == "focus_outside_coverage_contract"
+    assert membership_result.metadata.get("coverage_decision") is None
+    assert membership_result.passed
+
+    streams = _state(
+        "What streams are available at SSS?",
+        [CurriculumEvidence(entity_type="sss_stream", entity_id="stream-1", name="Languages & Literatures")],
+        focus="coverage",
+    )
+    streams_gate = assess_coverage(streams)
+    streams_result = _verify(streams, ACCEPTING)
+    assert streams_gate.reason == "focus_outside_coverage_contract"
+    assert streams_result.metadata.get("coverage_decision") is None
+    assert streams_result.passed
+
+
+def test_unclassified_question_with_a_non_coverage_focus_fails_closed():
+    state = _coverage_state()
+    _drop_theme(state)
+    state.question = "Explain this syllabus"
+    state.metadata["sss_focus"] = "subjects"
+    state.metadata["focus"] = "subjects"
+    gate = assess_coverage(state)
+    result = _verify(state, ACCEPTING)
+    assert gate.status == "unavailable"
+    assert gate.reason == "coverage_focus_unresolved"
+    assert not result.passed
+    assert result.metadata["coverage_reason_codes"] == ["coverage_focus_unresolved"]
+    assert result.metadata["llm_verification"]["recommendation"] == "accept"
+
+
+def test_unresolved_focus_cannot_authorize_generic_acceptance():
+    state = _coverage_state()
+    _drop_theme(state)
+    state.question = "Explain this syllabus"
+    state.metadata.pop("sss_focus")
+    state.metadata.pop("focus", None)
+    gate = assess_coverage(state)
+    result = _verify(state, ACCEPTING)
+    assert gate.status == "unavailable"
+    assert gate.reason == "coverage_focus_unresolved"
+    assert not result.passed
+    assert result.metadata["coverage_decision"] == "unavailable"
+    assert result.metadata["coverage_reason_codes"] == ["coverage_focus_unresolved"]
+    assert result.metadata["llm_verification"]["recommendation"] == "accept"
+
+
+def test_subject_row_with_a_census_is_evidence_incomplete():
+    state = _coverage_state()
+    state.evidence = [
+        CurriculumEvidence(
+            entity_type="subject",
+            entity_id="subj-1",
+            name="African Literature",
+            grade="SSS_3",
+            subject="African Literature",
+        )
+    ]
+    state.metadata["sss_coverage_blocks"] = []
+    gate = assess_coverage(state)
+    result = _verify(state, ACCEPTING)
+    assert gate.status == "unavailable"
+    assert gate.reason == "evidence_incomplete"
+    assert not result.passed
+    assert result.metadata["coverage_reason_codes"] == ["evidence_incomplete"]
+
+    emptied = _coverage_state()
+    emptied.evidence = []
+    emptied.metadata["sss_coverage_blocks"] = []
+    emptied.evidence_status = EvidenceStatus.NOT_FOUND
+    empty_result = _verify(emptied, ACCEPTING)
+    assert not empty_result.passed
+    assert empty_result.recommendation.value == "retrieve_more"
+    assert empty_result.metadata.get("source") == "deterministic"
+    assert empty_result.metadata.get("no_evidence") is True
+
+    removed = _coverage_state()
+    removed.metadata.pop("sss_coverage_expected")
+    removed_result = _verify(removed, ACCEPTING)
+    assert not removed_result.passed
+    assert removed_result.metadata["coverage_reason_codes"] == ["evidence_incomplete"]
+
+
+def test_syllabus_identifiers_must_agree_on_both_sides():
+    def decide(state):
+        gate = assess_coverage(state)
+        result = _verify(state, ACCEPTING)
+        return gate, result
+
+    crossed_source = _coverage_state()
+    crossed_source.metadata.pop("grade_curriculum_id")
+    crossed_source.metadata["sss_coverage_expected"] = {
+        **crossed_source.metadata["sss_coverage_expected"],
+        "source_reference": None,
+        "grade_curriculum_id": "gc-other",
+    }
+    gate, result = decide(crossed_source)
+    assert gate.reason == "evidence_scope_mismatch"
+    assert not result.passed
+    assert result.metadata["coverage_reason_codes"] == ["evidence_scope_mismatch"]
+
+    crossed_id = _coverage_state()
+    crossed_id.metadata["source_reference"] = None
+    crossed_id.metadata["sss_coverage_expected"] = {
+        **crossed_id.metadata["sss_coverage_expected"],
+        "source_reference": "other.pdf",
+        "grade_curriculum_id": None,
+    }
+    gate, result = decide(crossed_id)
+    assert not result.passed
+    assert result.metadata["coverage_reason_codes"] == ["evidence_scope_mismatch"]
+
+    contradictory_source = _coverage_state()
+    contradictory_source.metadata["sss_coverage_expected"] = {
+        **contradictory_source.metadata["sss_coverage_expected"],
+        "source_reference": "other.pdf",
+    }
+    _, result = decide(contradictory_source)
+    assert not result.passed
+    assert result.metadata["coverage_reason_codes"] == ["evidence_scope_mismatch"]
+
+    contradictory_id = _coverage_state()
+    contradictory_id.metadata["sss_coverage_expected"] = {
+        **contradictory_id.metadata["sss_coverage_expected"],
+        "grade_curriculum_id": "gc-other",
+    }
+    _, result = decide(contradictory_id)
+    assert not result.passed
+    assert result.metadata["coverage_reason_codes"] == ["evidence_scope_mismatch"]
+
+    missing_grade = _coverage_state()
+    missing_grade.grade = None
+    missing_grade.metadata.pop("grade", None)
+    _, result = decide(missing_grade)
+    assert not result.passed
+    assert result.metadata["coverage_reason_codes"] == ["evidence_scope_mismatch"]
+
+    missing_stream = _coverage_state()
+    missing_stream.metadata["sss_coverage_expected"] = {
+        **missing_stream.metadata["sss_coverage_expected"],
+        "stream_name": None,
+    }
+    _, result = decide(missing_stream)
+    assert not result.passed
+    assert result.metadata["coverage_reason_codes"] == ["evidence_scope_mismatch"]
+
+    source_only = _coverage_state()
+    source_only.metadata["grade_curriculum_id"] = None
+    source_only.metadata["sss_coverage_expected"] = {
+        **source_only.metadata["sss_coverage_expected"],
+        "grade_curriculum_id": None,
+    }
+    _, result = decide(source_only)
+    assert result.passed
+    assert result.metadata["coverage_decision"] == "accept"
+
+    identifier_only = _coverage_state()
+    identifier_only.metadata["source_reference"] = None
+    identifier_only.metadata["sss_coverage_expected"] = {
+        **identifier_only.metadata["sss_coverage_expected"],
+        "source_reference": None,
+    }
+    _, result = decide(identifier_only)
+    assert result.passed
+    assert result.metadata["coverage_decision"] == "accept"
+
+    matched = _coverage_state()
+    _, result = decide(matched)
+    assert result.passed
+    assert result.metadata["coverage_reason_codes"] == []
+
+
+def _record(state, observability):
+    RetrievalNode._record_sss_stream_outcome(
+        RetrievalNode.__new__(RetrievalNode),
+        state,
+        "get_sss_stream_subjects",
+        observability,
+        request_id="audit",
+    )
+
+
+def test_a_later_tool_result_cannot_reuse_an_earlier_census():
+    stale = _coverage_state()
+    _record(
+        stale,
+        {
+            "sss_stream_resolution": "found",
+            "subject_count": 1,
+            "stream_name": "Languages & Literatures",
+            "focus": "coverage",
+        },
+    )
+    assert "sss_coverage_expected" not in stale.metadata
+    stale_result = _verify(stale, ACCEPTING)
+    assert not stale_result.passed
+    assert stale_result.metadata["coverage_reason_codes"] == ["evidence_incomplete"]
+
+    replaced = _coverage_state()
+    _record(
+        replaced,
+        {
+            "sss_stream_resolution": "found",
+            "subject_count": 1,
+            "stream_name": "Sciences & Technologies",
+            "subject_name": "Environmental Science",
+            "grade": "SSS_1",
+            "focus": "coverage",
+            "source_reference": "env.pdf",
+            "grade_curriculum_id": "gc-env",
+            "coverage_expected": {
+                "grade": "SSS_1",
+                "subject": "Environmental Science",
+                "stream_name": "Sciences & Technologies",
+                "source_reference": "env.pdf",
+                "grade_curriculum_id": "gc-env",
+                "entity_ids": ["only-env"],
+            },
+        },
+    )
+    assert replaced.metadata["sss_coverage_expected"]["grade_curriculum_id"] == "gc-env"
+    replaced_result = _verify(replaced, ACCEPTING)
+    assert not replaced_result.passed
+    assert replaced_result.metadata["coverage_reason_codes"] == ["evidence_scope_mismatch"]
+
+    not_in_stream = _coverage_state()
+    _record(
+        not_in_stream,
+        {
+            "sss_stream_resolution": "subject_not_in_stream",
+            "subject_count": 0,
+            "stream_name": "Languages & Literatures",
+            "requested_subject": "Biology",
+            "grade": "SSS_3",
+        },
+    )
+    assert "sss_coverage_expected" not in not_in_stream.metadata
+    not_in_stream_result = _verify(not_in_stream, ACCEPTING)
+    assert not not_in_stream_result.passed
+    assert not_in_stream_result.metadata["coverage_reason_codes"] == ["evidence_incomplete"]
+
+    missing_grade = _coverage_state()
+    _record(
+        missing_grade,
+        {
+            "sss_stream_resolution": "grade_content_missing",
+            "subject_count": 1,
+            "stream_name": "Languages & Literatures",
+            "subject_name": "African Literature",
+            "grade": "SSS_2",
+            "focus": "coverage",
+            "source_reference": None,
+            "grade_curriculum_id": None,
+            "coverage_expected": None,
+        },
+    )
+    assert "sss_coverage_expected" not in missing_grade.metadata
+    missing_result = _verify(missing_grade, ACCEPTING)
+    assert not missing_result.passed
+    assert missing_result.metadata["coverage_decision"] == "unavailable"
+
+    kept = _coverage_state()
+    _record(kept, {"tool": "get_topic"})
+    assert kept.metadata["sss_coverage_expected"]["grade_curriculum_id"] == "gc-d1"
+    kept_result = _verify(kept, {"passed": False, "score": 0.2, "recommendation": "retrieve_more"})
+    assert kept_result.passed
+    assert kept_result.metadata["coverage_decision"] == "accept"
+
+    fresh_a = CurriculumQAState.initial(question=COVERAGE_QUESTION)
+    fresh_b = CurriculumQAState.initial(
+        question="What does Environmental Science cover for SSS 1 Sciences & Technologies?"
+    )
+    fresh_a.metadata["sss_coverage_expected"] = {"entity_ids": ["theme-a"]}
+    assert "sss_coverage_expected" not in fresh_b.metadata
+    assert fresh_a.metadata is not fresh_b.metadata
+
+
+def test_a_failed_syllabus_load_clears_the_previous_census():
+    class _Boom:
+        def execute(self, name, **kwargs):
+            raise RuntimeError("syllabus load failed")
+
+    state = _coverage_state()
+    node = RetrievalNode.__new__(RetrievalNode)
+    node.tools = _Boom()
+    node.settings = None
+    node._execute_call(
+        state,
+        ToolCallRequest(id="load", name="get_sss_stream_subjects", arguments={}),
+        request_id="audit",
+    )
+    assert "sss_coverage_expected" not in state.metadata
+    result = _verify(state, ACCEPTING)
+    assert not result.passed
+    assert result.metadata["coverage_reason_codes"] == ["evidence_incomplete"]

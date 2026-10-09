@@ -22,9 +22,13 @@ from app.agent.state import CurriculumQAState
 from app.curriculum.evidence import CurriculumEvidence
 from app.curriculum.sss_stream_intent import (
     FOCUS_COVERAGE,
+    FOCUS_MEMBERSHIP,
     FOCUS_OUTCOMES,
+    FOCUS_STREAMS,
+    FOCUS_SUBJECTS,
     FOCUS_TOPICS,
     INTENT_SSS_STREAM_SUBJECTS,
+    detect_sss_stream_subjects,
 )
 
 SCOPE = {
@@ -33,6 +37,16 @@ SCOPE = {
     FOCUS_OUTCOMES: frozenset({"THEME", "TOPIC", "LEARNING_OUTCOME"}),
 }
 ROUTED_FOCUSES = frozenset({FOCUS_COVERAGE, FOCUS_TOPICS})
+KNOWN_FOCUSES = frozenset(
+    {
+        FOCUS_COVERAGE,
+        FOCUS_TOPICS,
+        FOCUS_OUTCOMES,
+        FOCUS_SUBJECTS,
+        FOCUS_MEMBERSHIP,
+        FOCUS_STREAMS,
+    }
+)
 
 
 @dataclass(frozen=True)
@@ -265,10 +279,16 @@ def assess_coverage(state: CurriculumQAState) -> CoverageGate:
 
     Outcome questions stay on the generic verifier. The outcome parent
     contract is tested directly, and the rendered answer does not carry it.
+    The question classifier decides the focus, including when stored
+    ``sss_focus`` is a recognized but different value. If the question
+    matches none of the known shapes, only an explicit coverage or topics
+    focus still enters the contract. Any other stored focus fails closed.
     """
     if state.intent != INTENT_SSS_STREAM_SUBJECTS:
         return CoverageGate("not_applicable", "not_sss_stream_subjects")
-    focus = state.metadata.get("sss_focus") or state.metadata.get("focus")
+    focus, unresolved = _contract_focus(state)
+    if unresolved:
+        return CoverageGate("unavailable", unresolved)
     if focus == FOCUS_OUTCOMES:
         return CoverageGate("not_applicable", "outcomes_hierarchy_not_represented")
     if focus not in ROUTED_FOCUSES:
@@ -279,6 +299,9 @@ def assess_coverage(state: CurriculumQAState) -> CoverageGate:
         if (item.entity_type or "").upper() in SCOPE[focus] and item.name
     ]
     if not in_scope:
+        missing = _missing_in_scope_reason(state)
+        if missing:
+            return CoverageGate("unavailable", missing)
         return CoverageGate("not_applicable", "no_in_scope_records")
     payload = state.metadata.get("sss_coverage_blocks")
     if not isinstance(payload, list):
@@ -306,6 +329,51 @@ def _first_duplicate_id(entity_ids) -> str | None:
     return None
 
 
+def _contract_focus(state: CurriculumQAState) -> tuple[str | None, str | None]:
+    """Return ``(focus, unresolved_reason)``.
+
+    A classified question wins over stored metadata. ``subjects`` on a
+    coverage question therefore still enters the coverage contract. When the
+    question matches no known shape, coverage or topics metadata can still
+    enter the contract. A stored outcomes, subject-list, membership, or
+    stream focus does not prove the question is outside it, so that case is
+    ``coverage_focus_unresolved``.
+    """
+    detected = detect_sss_stream_subjects(state.question)
+    if detected is not None and detected.focus in KNOWN_FOCUSES:
+        return detected.focus, None
+    stored = state.metadata.get("sss_focus")
+    copied = state.metadata.get("focus")
+    if stored in ROUTED_FOCUSES:
+        return str(stored), None
+    if stored in (None, "") and copied in ROUTED_FOCUSES:
+        return str(copied), None
+    return None, "coverage_focus_unresolved"
+
+
+def _missing_in_scope_reason(state: CurriculumQAState) -> str | None:
+    """Non-empty census with no theme or topic rows.
+
+    ``None`` means there is no census to enforce, so the caller keeps the
+    no-syllabus path. A census is not treated as empty-and-valid when it is
+    missing.
+    """
+    expected = state.metadata.get("sss_coverage_expected")
+    if not isinstance(expected, dict):
+        return None
+    entity_ids = expected.get("entity_ids")
+    if not isinstance(entity_ids, list) or not entity_ids:
+        return None
+    if any(not isinstance(item, str) or not item for item in entity_ids):
+        return "evidence_incomplete"
+    if _first_duplicate_id(entity_ids):
+        return "evidence_incomplete"
+    association = _request_association(state, expected)
+    if association:
+        return association
+    return "evidence_incomplete"
+
+
 def _census_reason(state: CurriculumQAState, records: list[SourceRecord]) -> str | None:
     """Compare evidence with the content-tree census. None means it matches.
 
@@ -320,11 +388,6 @@ def _census_reason(state: CurriculumQAState, records: list[SourceRecord]) -> str
         return "evidence_incomplete"
     if _first_duplicate_id(entity_ids):
         return "evidence_incomplete"
-    for field in ("grade", "subject", "stream_name"):
-        if not expected.get(field):
-            return "evidence_incomplete"
-    if not expected.get("source_reference") and not expected.get("grade_curriculum_id"):
-        return "evidence_incomplete"
     association = _request_association(state, expected)
     if association:
         return association
@@ -335,21 +398,56 @@ def _census_reason(state: CurriculumQAState, records: list[SourceRecord]) -> str
     return None
 
 
+def _syllabus_token(value: Any) -> str | None:
+    if value is None:
+        return None
+    text = str(value).strip()
+    return text or None
+
+
 def _request_association(state: CurriculumQAState, expected: dict[str, Any]) -> str | None:
-    grade = state.grade or state.metadata.get("grade")
-    subject = state.metadata.get("subject_name")
-    stream_name = state.metadata.get("resolved_stream_name") or state.metadata.get("stream_name")
-    if not grade or not subject or not stream_name:
-        return "evidence_incomplete"
-    if str(grade) != str(expected["grade"]) or subject != expected["subject"] or stream_name != expected["stream_name"]:
+    """Match grade, subject, stream, and syllabus identity.
+
+    A dimension missing on either side does not count as a match. Source
+    reference and grade-curriculum id agree only when the same identifier is
+    present on both sides. One identifier of each kind, with no shared value,
+    is ``evidence_scope_mismatch``.
+    """
+    grade = _syllabus_token(state.grade or state.metadata.get("grade"))
+    subject = _syllabus_token(state.metadata.get("subject_name"))
+    stream_name = _syllabus_token(
+        state.metadata.get("resolved_stream_name") or state.metadata.get("stream_name")
+    )
+    expected_grade = _syllabus_token(expected.get("grade"))
+    expected_subject = _syllabus_token(expected.get("subject"))
+    expected_stream = _syllabus_token(expected.get("stream_name"))
+    if not all((grade, subject, stream_name, expected_grade, expected_subject, expected_stream)):
         return "evidence_scope_mismatch"
-    source_reference = state.metadata.get("source_reference")
-    grade_curriculum_id = state.metadata.get("grade_curriculum_id")
-    if not source_reference and not grade_curriculum_id:
-        return "evidence_incomplete"
-    if source_reference and expected.get("source_reference") and source_reference != expected["source_reference"]:
+    if grade != expected_grade or subject != expected_subject or stream_name != expected_stream:
         return "evidence_scope_mismatch"
-    if grade_curriculum_id and expected.get("grade_curriculum_id") and str(grade_curriculum_id) != str(expected["grade_curriculum_id"]):
+    request_source = _syllabus_token(state.metadata.get("source_reference"))
+    request_grade_curriculum = _syllabus_token(state.metadata.get("grade_curriculum_id"))
+    expected_source = _syllabus_token(expected.get("source_reference"))
+    expected_grade_curriculum = _syllabus_token(expected.get("grade_curriculum_id"))
+    if not request_source and not request_grade_curriculum:
+        return "evidence_scope_mismatch"
+    if not expected_source and not expected_grade_curriculum:
+        return "evidence_scope_mismatch"
+    if request_source and expected_source and request_source != expected_source:
+        return "evidence_scope_mismatch"
+    if (
+        request_grade_curriculum
+        and expected_grade_curriculum
+        and request_grade_curriculum != expected_grade_curriculum
+    ):
+        return "evidence_scope_mismatch"
+    shared_source = bool(request_source and expected_source and request_source == expected_source)
+    shared_grade_curriculum = bool(
+        request_grade_curriculum
+        and expected_grade_curriculum
+        and request_grade_curriculum == expected_grade_curriculum
+    )
+    if not shared_source and not shared_grade_curriculum:
         return "evidence_scope_mismatch"
     return None
 
