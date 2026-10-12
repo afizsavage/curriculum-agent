@@ -230,6 +230,29 @@ def run_deterministic_checks(state: CurriculumQAState) -> VerificationResult:
                 )
                 incorrect.append(f"Unsupported grade mention: {mentioned}")
 
+    if state.evidence and answer:
+        from app.agent.coverage_guard import assess_coverage
+
+        coverage = assess_coverage(
+            state, answer=answer, refs=list(state.answer_evidence)
+        )
+        state.metadata["coverage_guard"] = coverage.as_dict()
+        if coverage.decision == "reject" and (
+            coverage.claims_complete_coverage
+            or coverage.stated_counts_match is False
+            or coverage.unsupported_outcomes
+            or not coverage.multiplicity_ok
+            or coverage.unsupported_headings
+            or not coverage.grade_scope_ok
+            or coverage.unsafe_retrieval_presentation
+            or not coverage.retrieval_disclosure_ok
+            or coverage.silent_catalogue_omission
+        ):
+            issues.append(
+                "The answer's coverage claim does not match the retrieved records."
+            )
+            incorrect.extend(coverage.reasons or ["Unsupported coverage claim."])
+
     hard_fail = bool(incorrect) or (
         bool(unsupported) and not any(c.verdict == ClaimVerdict.SUPPORTED for c in claims)
     )

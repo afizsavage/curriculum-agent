@@ -260,6 +260,9 @@ def test_model_path_discloses_a_partial_window():
     state.evidence = evidence
     state.evidence_status = EvidenceStatus.FOUND
     result = AnswerGenerator(_CompleteClaimLLM()).generate(state)
+    assert "covers every" not in result.answer.lower()
     assert "24 of 30" in result.answer
     assert "It does not include every retrieved record." in result.answer
     assert any("does not include every retrieved record" in item for item in result.limitations)
+    assert state.metadata["coverage_guard_before"]["decision"] == "reject"
+    assert state.metadata["coverage_guard"]["decision"] == "pass_partial"

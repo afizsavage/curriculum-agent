@@ -410,6 +410,9 @@ class AnswerGenerator:
                         "summary": _one_line_summary(cleaned) or result.summary,
                     }
                 )
+        from app.agent.coverage_guard import apply_coverage_guard
+
+        result = apply_coverage_guard(state, result)
         if state.metadata.get("live_attribution") is not None and self.llm.name != "stub":
             returned = state.metadata["live_attribution"].get("returned_refs") or []
             state.metadata["live_attribution"] = attribute_live_model_refs(
