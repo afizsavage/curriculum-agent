@@ -84,6 +84,279 @@ Also return a claims array. This does not replace the natural-language answer.
 """
 
 
+def _render_titles_without_model(evidence: list[CurriculumEvidence]) -> bool:
+    """List several title-only records directly. One record can still be synthesized."""
+    if not _is_title_only_evidence(evidence):
+        return False
+    titles = [
+        item for item in evidence if (item.entity_type or "").lower() in _UNIT_TYPES
+    ]
+    return len(titles) > 1 or len(_evidence_grade_codes(titles)) > 1
+
+
+def _is_title_only_evidence(evidence: list[CurriculumEvidence]) -> bool:
+    """Unit or topic titles with no explicit learning outcomes."""
+    types = {(item.entity_type or "").lower() for item in evidence}
+    has_titles = bool(types & _UNIT_TYPES)
+    return has_titles and "learning_outcome" not in types
+
+
+def _evidence_grade_codes(evidence: list[CurriculumEvidence]) -> list[str]:
+    found: list[str] = []
+    for item in evidence:
+        code = normalize_grade_code(item.grade) or (item.grade.strip() if item.grade else None)
+        if code and code not in found:
+            found.append(code)
+    return sorted(found, key=_grade_rank)
+
+
+def _grade_rank(code: str) -> tuple[int, int, str]:
+    normalized = normalize_grade_code(code) or code
+    match = re.fullmatch(r"(CLASS|JSS|SSS)_(\d+)", normalized or "")
+    family = {"CLASS": 0, "JSS": 1, "SSS": 2}.get(match.group(1) if match else "", 9)
+    number = int(match.group(2)) if match else 0
+    return (family, number, normalized or "")
+
+
+def mentioned_grade_codes(question: str | None) -> list[str]:
+    """Grades named in the question, without changing the single-grade filter.
+
+    A number is collected only while it still belongs to a class, primary,
+    JSS, or SSS designation. This does not select a subject or a stream.
+    """
+    if not question:
+        return []
+    text = question.replace("–", "-").replace("—", "-")
+    found: list[str] = []
+
+    def add(code: str) -> None:
+        if code not in found:
+            found.append(code)
+
+    for match in re.finditer(r"\b(CLASS|JSS|SSS)_([1-6])\b", text, re.I):
+        add(f"{match.group(1).upper()}_{match.group(2)}")
+
+    designation = re.compile(
+        r"\b(classes|class|primary|jss|junior secondary|sss|senior secondary(?: school)?)\b",
+        re.I,
+    )
+    for match in designation.finditer(text):
+        kind = match.group(1).lower()
+        if kind in {"class", "classes", "primary"}:
+            prefix, max_n = "CLASS", 6
+        elif "sss" in kind or "senior" in kind:
+            prefix, max_n = "SSS", 3
+        else:
+            prefix, max_n = "JSS", 3
+        tail = text[match.end() : match.end() + 48]
+        pos = 0
+        while pos < len(tail):
+            spacer = re.match(r"[\s,;:&]+", tail[pos:])
+            if spacer:
+                pos += spacer.end()
+                continue
+            span = re.match(r"(\d+)\s*-\s*(\d+)", tail[pos:])
+            if span:
+                start, end = int(span.group(1)), int(span.group(2))
+                if not (1 <= start <= max_n and 1 <= end <= max_n):
+                    break
+                step = 1 if end >= start else -1
+                for number in range(start, end + step, step):
+                    add(f"{prefix}_{number}")
+                pos += span.end()
+                continue
+            single = re.match(r"(\d+)", tail[pos:])
+            if single:
+                number = int(single.group(1))
+                if not 1 <= number <= max_n:
+                    break
+                add(f"{prefix}_{number}")
+                pos += single.end()
+                continue
+            filler = re.match(r"(?:and|or|to|through)\b", tail[pos:], re.I)
+            if filler:
+                pos += filler.end()
+                continue
+            break
+    return found
+
+
+def _retrieval_gap_lines(state: CurriculumQAState) -> list[str]:
+    """Specific missing-grade sentences. A timeout is not called a missing syllabus."""
+    lines = _scope_retrieval_limitations(state)
+    evidence_grades = set(_evidence_grade_codes(state.evidence))
+    history_grades: set[str] = set()
+    for record in state.retrieval_history:
+        grade = normalize_grade_code(str((record.arguments or {}).get("grade") or ""))
+        if grade:
+            history_grades.add(grade)
+    for grade in mentioned_grade_codes(state.question):
+        if grade in evidence_grades or grade in history_grades:
+            continue
+        label = _display_grade(grade) or grade
+        lines.append(f"No curriculum records were retrieved for {label}.")
+    return lines
+
+
+def _source_group_heading(item: CurriculumEvidence) -> str | None:
+    """Parent or section heading copied from the record. Names are not parents."""
+    metadata = item.metadata or {}
+    own = " ".join((item.name or "").split())
+    for key in ("section_name", "parent_display_name"):
+        value = metadata.get(key)
+        if not value:
+            continue
+        text = " ".join(str(value).split())
+        if text and text != own:
+            return text
+    return None
+
+
+def _omitted_child_note(items: list[CurriculumEvidence]) -> str | None:
+    omitted = 0
+    kinds: set[str] = set()
+    for item in items:
+        metadata = item.metadata or {}
+        count = metadata.get("omitted_child_count")
+        if not count:
+            continue
+        omitted += int(count)
+        kinds.update(str(kind) for kind in (metadata.get("omitted_child_types") or []))
+    if not omitted:
+        return None
+    suffix = f" ({', '.join(sorted(kinds))})" if kinds else ""
+    return (
+        f"{omitted} child record{'s' if omitted != 1 else ''}{suffix} "
+        "were not included in the retrieved evidence for this grade."
+    )
+
+
+def _cover_each_grade(
+    evidence: list[CurriculumEvidence], max_records: int
+) -> list[CurriculumEvidence]:
+    """Fill a capped window without dropping an entire retrieved grade."""
+    grouped: dict[str, list[CurriculumEvidence]] = {}
+    order: list[str] = []
+    for item in evidence:
+        grade = normalize_grade_code(item.grade) or item.grade or ""
+        if grade not in grouped:
+            grouped[grade] = []
+            order.append(grade)
+        grouped[grade].append(item)
+    chosen: list[CurriculumEvidence] = []
+    while len(chosen) < max_records and any(grouped.values()):
+        for grade in order:
+            bucket = grouped[grade]
+            if not bucket or len(chosen) >= max_records:
+                continue
+            chosen.append(bucket.pop(0))
+    return chosen
+
+
+def assess_topic_grounding(
+    answer: str, evidence: list[CurriculumEvidence]
+) -> list[str]:
+    """Deterministic grade, title, and outcome checks for a generated answer."""
+    issues: list[str] = []
+    titles = [item for item in evidence if (item.entity_type or "").lower() in _UNIT_TYPES]
+    outcomes = [
+        item for item in evidence if (item.entity_type or "").lower() == "learning_outcome"
+    ]
+    if titles and not outcomes and re.search(
+        r"pupils\s+(?:learn|will be able)\s+to\b", answer or "", re.I
+    ):
+        issues.append("Unit titles were rewritten as learning outcomes.")
+    grades = _evidence_grade_codes(evidence)
+    if len(grades) > 1:
+        for grade in grades:
+            label = _display_grade(grade) or grade
+            if label.lower() not in (answer or "").lower():
+                issues.append(f"Missing grade section for {label}.")
+        sections = re.split(r"(?m)^###\s+", answer or "")
+        parsed: list[tuple[str, str]] = []
+        for section in sections[1:]:
+            heading, _, body = section.partition("\n")
+            parsed.append((heading.strip(), body))
+        if titles and not outcomes:
+            for heading, _body in parsed:
+                if not any(
+                    (_display_grade(grade) or grade).lower() in heading.lower()
+                    for grade in grades
+                ):
+                    issues.append(f"Heading is not a retrieved grade: {heading}.")
+        names_by_grade: dict[str, set[str]] = {}
+        for item in titles:
+            grade = normalize_grade_code(item.grade) or item.grade or ""
+            public = _public_name(item.name)
+            if not public:
+                continue
+            names_by_grade.setdefault(grade, set()).add(_unit_generation_key(public))
+        for heading, body in parsed:
+            matched = [
+                grade
+                for grade in grades
+                if (_display_grade(grade) or grade).lower() in heading.lower()
+            ]
+            if not matched:
+                continue
+            grade = matched[0]
+            other_names = {
+                name
+                for key, names in names_by_grade.items()
+                if key != grade
+                for name in names
+            }
+            own_names = names_by_grade.get(grade, set())
+            other_titles = {
+                _public_name(item.name)
+                for item in titles
+                if (normalize_grade_code(item.grade) or item.grade or "") != grade
+                and _public_name(item.name)
+                and _unit_generation_key(_public_name(item.name) or "") not in own_names
+            }
+            for bullet in re.findall(r"(?m)^\s*[-*]\s+(.*\S)\s*$", body):
+                key = _unit_generation_key(bullet)
+                if key in own_names:
+                    continue
+                borrowed = key in other_names
+                if not borrowed:
+                    borrowed = any(
+                        re.search(rf"\b{re.escape(title)}\b", bullet, re.I)
+                        for title in other_titles
+                        if title
+                    )
+                if borrowed:
+                    issues.append(
+                        f"{bullet} is listed under {heading} but was retrieved for another grade."
+                    )
+    return issues
+
+
+def _scope_retrieval_limitations(state: CurriculumQAState) -> list[str]:
+    """Name grades whose lookup failed, separately from grades confirmed absent."""
+    retrieved = {item.grade for item in state.evidence if item.grade}
+    unavailable: list[str] = []
+    absent: list[str] = []
+    for record in state.retrieval_history:
+        grade = str((record.arguments or {}).get("grade") or record.tool)
+        if grade in retrieved:
+            continue
+        if record.status == "error" and grade not in unavailable:
+            unavailable.append(grade)
+        elif record.status == "not_found" and grade not in absent:
+            absent.append(grade)
+    notes: list[str] = []
+    if unavailable:
+        notes.append(
+            "Curriculum retrieval could not be completed for "
+            + ", ".join(unavailable)
+            + "."
+        )
+    if absent:
+        notes.append("No syllabus was found for " + ", ".join(absent) + ".")
+    return notes
+
+
 class AnswerGenerator:
     """Builds grounded prompts and produces structured answers from evidence."""
 
@@ -116,7 +389,13 @@ class AnswerGenerator:
 
         if not state.evidence or state.evidence_status == EvidenceStatus.NOT_FOUND:
             result = self._insufficient_evidence_answer(state)
-        elif self.llm.name == "stub" or state.intent == "SSS_STREAM_SUBJECTS":
+        elif (
+            self.llm.name == "stub"
+            or state.intent == "SSS_STREAM_SUBJECTS"
+            or _render_titles_without_model(state.evidence)
+        ):
+            # Several title-only records are listed from their grades and names.
+            # A model rewrite is what turns those titles into outcomes.
             result = self._stub_generate(state)
         else:
             result = self._llm_generate(state, conversation=conversation)
@@ -252,13 +531,33 @@ class AnswerGenerator:
         else:
             user_content += (
                 "USER-FACING ANSWER\n"
-                "Write a concise natural-language synthesis for pupils and teachers.\n"
-                "When several learning areas are present, use this shape:\n"
-                "# Grade Subject — Topic\n"
-                "A short introduction that names only those areas.\n"
-                "### 1. Concept name\n"
-                "Pupils learn to:\n"
-                "* one grounded learning expectation\n"
+                "Write a concise synthesis for pupils and teachers using only "
+                "the supplied records.\n"
+            )
+            if len(_evidence_grade_codes(state.evidence)) > 1:
+                user_content += (
+                    "The records cover more than one grade. Use a separate heading "
+                    "for each grade and keep every topic under the grade on its "
+                    "record. Do not merge topics across grades.\n"
+                )
+            if _is_title_only_evidence(state.evidence):
+                user_content += (
+                    "These records are unit or topic titles, not learning outcomes. "
+                    "List the titles. Do not write 'Pupils learn to' or "
+                    "'Pupils will be able to'. Do not invent a curriculum category "
+                    "that is not a record title, parent name, or section name.\n"
+                )
+            else:
+                user_content += (
+                    "When learning outcomes are present, summarize those outcomes. "
+                    "Use 'Pupils learn to:' only for explicit outcome statements. "
+                    "Group them under a heading only when that heading is the "
+                    "outcome's unit, parent, or section in the evidence.\n"
+                )
+            user_content += (
+                "If a requested grade has no records, name that grade and say "
+                "whether retrieval failed or no syllabus was found. Do not "
+                "describe a timeout or service error as a missing syllabus.\n"
                 "Include a ### Curriculum Evidence Note section only when the "
                 "supplied evidence is incomplete, duplicated, garbled, conflicting, "
                 "or otherwise requires an explanation. Do not output that heading "
@@ -360,7 +659,12 @@ class AnswerGenerator:
     def _stub_generate(self, state: CurriculumQAState) -> GroundedAnswer:
         """Deterministic grounded synthesis for tests without a model call."""
         evidence = state.evidence
-        grade_label = _display_grade(state.grade or _first_attr(evidence, "grade"))
+        grade_codes = _evidence_grade_codes(evidence)
+        grade_label = (
+            None
+            if len(grade_codes) > 1
+            else _display_grade(state.grade or _first_attr(evidence, "grade"))
+        )
         subject_label = _display_subject(
             state.subject or _first_attr(evidence, "subject")
         )
@@ -396,11 +700,22 @@ class AnswerGenerator:
     def _insufficient_evidence_answer(
         self, state: CurriculumQAState
     ) -> GroundedAnswer:
+        if state.evidence_status == EvidenceStatus.ERROR:
+            return GroundedAnswer(
+                answer=(
+                    "The curriculum service timed out or was unavailable, so "
+                    "this question could not be checked against the syllabus."
+                ),
+                summary=None,
+                evidence=[],
+                limitations=[
+                    "Curriculum retrieval failed before absence could be established."
+                ],
+                confidence=AnswerConfidence.LOW,
+            )
         limitations = [
             "No relevant curriculum evidence was retrieved from the MBSSE Curriculum API."
         ]
-        if state.evidence_status == EvidenceStatus.ERROR:
-            limitations.append("Curriculum retrieval encountered errors.")
         return GroundedAnswer(
             answer=self.INSUFFICIENT_EVIDENCE_ANSWER,
             summary=None,
@@ -516,6 +831,7 @@ class AnswerGenerator:
 
         if state.evidence_status == EvidenceStatus.PARTIAL and confidence == AnswerConfidence.HIGH:
             confidence = AnswerConfidence.MEDIUM
+        limitations.extend(_scope_retrieval_limitations(state))
 
         if not answer.evidence and state.evidence and _answer_has_substantive_claim(answer.answer):
             confidence = AnswerConfidence.LOW
@@ -1488,13 +1804,12 @@ def _render_stub_answer(
         return _render_sss_stream_answer(state)
 
     if outcomes and not _is_catalogue_question(question):
-        text, damaged, used = _render_outcome_synthesis(
-            question,
+        text, damaged, used = _render_outcomes_by_grade(
+            state,
             outcomes=outcomes,
             topics=topics,
             grade_label=grade_label,
             subject_label=subject_label,
-            topic_hint=state.topic,
         )
         if damaged:
             limitations.append(
@@ -1506,8 +1821,14 @@ def _render_stub_answer(
     lines = _heading_lines(grade_label, subject_label, focus=None)
     used: list[CurriculumEvidence] = []
     if topics:
-        catalogue, used = _render_topic_catalogue(question, topics, subject_label)
+        catalogue, used = _render_topic_catalogue(
+            question,
+            topics,
+            subject_label,
+            multi_grade=len(_evidence_grade_codes(topics)) > 1,
+        )
         lines.extend(catalogue)
+        lines.extend(_retrieval_gap_lines(state))
     elif subjects:
         named = [s for s in subjects if s.name and _public_name(s.name)]
         names = sorted({s.name for s in named if s.name})
@@ -1522,13 +1843,12 @@ def _render_stub_answer(
             lines.extend(f"* {name}" for name in names)
             used = named
     elif outcomes:
-        text, damaged, used = _render_outcome_synthesis(
-            question,
+        text, damaged, used = _render_outcomes_by_grade(
+            state,
             outcomes=outcomes,
             topics=topics,
             grade_label=grade_label,
             subject_label=subject_label,
-            topic_hint=state.topic,
         )
         if damaged:
             limitations.append(
@@ -1887,36 +2207,129 @@ def _render_identifier_answer(
     return "\n".join(lines).strip(), matches
 
 
+def _render_outcomes_by_grade(
+    state: CurriculumQAState,
+    *,
+    outcomes: list[CurriculumEvidence],
+    topics: list[CurriculumEvidence],
+    grade_label: str | None,
+    subject_label: str | None,
+) -> tuple[str, bool, list[CurriculumEvidence]]:
+    """Keep explicit outcomes, split by grade when more than one grade is present."""
+    grades = _evidence_grade_codes(outcomes)
+    if len(grades) <= 1:
+        return _render_outcome_synthesis(
+            state.question or "",
+            outcomes=outcomes,
+            topics=topics,
+            grade_label=grade_label,
+            subject_label=subject_label,
+            topic_hint=state.topic,
+        )
+    sections: list[str] = []
+    damaged = False
+    used: list[CurriculumEvidence] = []
+    for grade in grades:
+        grade_outcomes = [
+            item
+            for item in outcomes
+            if (normalize_grade_code(item.grade) or item.grade) == grade
+        ]
+        grade_topics = [
+            item
+            for item in topics
+            if (normalize_grade_code(item.grade) or item.grade) == grade
+        ]
+        text, grade_damaged, grade_used = _render_outcome_synthesis(
+            state.question or "",
+            outcomes=grade_outcomes,
+            topics=grade_topics,
+            grade_label=_display_grade(grade),
+            subject_label=subject_label,
+            topic_hint=state.topic,
+        )
+        damaged = damaged or grade_damaged
+        sections.append(text)
+        for item in grade_used:
+            _remember(used, item)
+    gap = _retrieval_gap_lines(state)
+    if gap:
+        sections.append("\n".join(gap))
+    return "\n\n".join(section for section in sections if section).strip(), damaged, used
+
+
 def _render_topic_catalogue(
     question: str,
     topics: list[CurriculumEvidence],
     subject_label: str | None,
+    *,
+    multi_grade: bool = False,
 ) -> tuple[list[str], list[CurriculumEvidence]]:
     lines: list[str] = [""]
     used: list[CurriculumEvidence] = []
-    list_mode = _is_catalogue_question(question) or len(topics) > 1
-    if list_mode:
-        lines.append("The MBSSE curriculum includes these units/topics:")
-        seen: set[str] = set()
-        for topic in topics[:40]:
-            name = _display_heading(topic.name or "", focus=None) if _public_name(topic.name) else ""
-            public = _public_name(topic.name)
-            if not public or public in seen:
-                continue
-            seen.add(public)
-            lines.append(f"* {name or public}")
-            _remember(used, topic)
+    list_mode = _is_catalogue_question(question) or len(topics) > 1 or multi_grade
+    if not list_mode:
+        topic = topics[0]
+        name = _public_name(topic.name) or "this topic"
+        lines.append(
+            f"The MBSSE curriculum includes **{name}**"
+            + (f" under {subject_label}." if subject_label else ".")
+        )
+        _remember(used, topic)
+        if topic.content and topic.content != topic.name and _public_name(topic.content):
+            lines.append("")
+            lines.append(_strip_leading_code(topic.content))
+        omitted = _omitted_child_note([topic])
+        if omitted:
+            lines.append("")
+            lines.append(omitted)
         return lines, used
-    topic = topics[0]
-    name = _public_name(topic.name) or "this topic"
+
+    if multi_grade:
+        where = subject_label or "the subject"
+        lines.append(
+            f"The retrieved curriculum records list the following {where} topics."
+        )
+    else:
+        lines.append("The retrieved curriculum records list these topics:")
+    for grade in _evidence_grade_codes(topics) or [None]:
+        grade_topics = [
+            topic
+            for topic in topics
+            if grade is None
+            or (normalize_grade_code(topic.grade) or topic.grade) == grade
+        ]
+        if multi_grade and grade:
+            lines.append("")
+            lines.append(f"### {_display_grade(grade) or grade}")
+        seen: set[str] = set()
+        heading: str | None = None
+        for topic in grade_topics:
+            public = _public_name(topic.name)
+            if not public:
+                continue
+            key = _unit_generation_key(public)
+            source_heading = _source_group_heading(topic)
+            if key in seen:
+                continue
+            seen.add(key)
+            if source_heading != heading:
+                heading = source_heading
+                if heading:
+                    lines.append("")
+                    lines.append(f"**{heading}**")
+            lines.append(f"* {public}")
+            _remember(used, topic)
+        omitted = _omitted_child_note(grade_topics)
+        if omitted:
+            lines.append("")
+            lines.append(omitted)
+    lines.append("")
     lines.append(
-        f"The MBSSE curriculum includes **{name}**"
-        + (f" under {subject_label}." if subject_label else ".")
+        "This is a summary of the retrieved curriculum unit titles, not a "
+        "verified complete syllabus. The titles identify the topics listed in "
+        "the records; they do not, by themselves, establish specific learning outcomes."
     )
-    _remember(used, topic)
-    if topic.content and topic.content != topic.name and _public_name(topic.content):
-        lines.append("")
-        lines.append(_strip_leading_code(topic.content))
     return lines, used
 
 
@@ -2296,10 +2709,11 @@ def dedupe_units_for_generation(
         if (item.entity_type or "").lower() != "unit":
             kept.append(item)
             continue
-        key = _unit_generation_key(item.name or "")
-        if key and key in seen:
+        grade = normalize_grade_code(item.grade) or (item.grade or "")
+        key = (grade, _unit_generation_key(item.name or ""))
+        if key[1] and key in seen:
             continue
-        if key:
+        if key[1]:
             seen.add(key)
         kept.append(item)
     return kept
@@ -2315,7 +2729,11 @@ def select_evidence_for_prompt(
     if not evidence:
         return [], []
     prepared = dedupe_units_for_generation(evidence)
-    ranked = _rank_evidence(prepared, question=question)[:max_records]
+    ranked = _rank_evidence(prepared, question=question)
+    if len(_evidence_grade_codes(ranked)) > 1 and len(ranked) > max_records:
+        ranked = _cover_each_grade(ranked, max_records)
+    else:
+        ranked = ranked[:max_records]
     ids = [item.entity_id for item in ranked if item.entity_id]
     return ranked, ids
 
@@ -2523,7 +2941,13 @@ def _ensure_subject_list_scope_heading(
 def _display_subject(code: str | None) -> str | None:
     if not code:
         return None
-    return code.replace("_", " ").title()
+    parts: list[str] = []
+    for part in code.split("_"):
+        if part.isupper() and 2 <= len(part) <= 4:
+            parts.append(part)
+        elif part:
+            parts.append(part[:1].upper() + part[1:].lower())
+    return " ".join(parts) or None
 
 
 def _first_attr(items: list[CurriculumEvidence], attr: str) -> str | None:

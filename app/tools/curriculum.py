@@ -296,7 +296,10 @@ class CurriculumTool(Tool):
                     "id": str(grade_curriculum["id"]),
                     "source_reference": "grade_curriculum.content",
                 }
-        except CurriculumAPIError:
+        except CurriculumNotFoundError:
+            # A completed lookup found no grade-curriculum row or content.
+            # Timeouts and other infrastructure errors must not fall through
+            # into a syllabus miss, which would report the content as absent.
             pass
 
         syllabus = self._find_syllabus(
@@ -501,7 +504,7 @@ class GetCurriculumStructureTool(CurriculumTool):
                         evidence_from_subject(subject, grade=grade_code)
                         for subject in subjects
                     ]
-                except CurriculumAPIError:
+                except CurriculumNotFoundError:
                     if classification is not None:
                         raise
                     subjects = []
@@ -942,9 +945,32 @@ class ResolveCurriculumContextTool(CurriculumTool):
             subject_label = subject.get("code") or subject_code
 
             evidence: list[CurriculumEvidence] = []
-            for node in list(units) + list(topics):
-                if not isinstance(node, dict):
-                    continue
+            source_nodes = [
+                node
+                for node in list(units) + list(topics)
+                if isinstance(node, dict)
+            ]
+            nodes_by_id = {
+                str(node["id"]): node for node in source_nodes if node.get("id")
+            }
+            for node in source_nodes:
+                metadata = {
+                    "code": node.get("code"),
+                    "content_type": node.get("content_type"),
+                    "grade_curriculum_id": payload.get("grade_curriculum_id"),
+                    "authority": resolution.get("authority") or "grade_curriculum",
+                }
+                parent_id = node.get("parent_id")
+                if parent_id:
+                    metadata["parent_id"] = str(parent_id)
+                    parent = nodes_by_id.get(str(parent_id))
+                    if parent is None:
+                        metadata["parent_in_evidence"] = False
+                    else:
+                        metadata["parent_in_evidence"] = True
+                        metadata["parent_entity_type"] = parent.get("content_type")
+                        if parent.get("name"):
+                            metadata["parent_display_name"] = parent.get("name")
                 evidence.append(
                     CurriculumEvidence(
                         entity_type=str(
@@ -956,13 +982,7 @@ class ResolveCurriculumContextTool(CurriculumTool):
                         subject=subject_label,
                         topic=node.get("name"),
                         content=node.get("name"),
-                        metadata={
-                            "code": node.get("code"),
-                            "content_type": node.get("content_type"),
-                            "grade_curriculum_id": payload.get("grade_curriculum_id"),
-                            "authority": resolution.get("authority")
-                            or "grade_curriculum",
-                        },
+                        metadata=metadata,
                         source_reference="v2.curriculum.context.resolve",
                     )
                 )

@@ -388,8 +388,53 @@ def _clean_stream_name(raw: str) -> str:
     return " ".join(name.split()).strip(" \t?.!,;:")
 
 
+_CLASS_DESIGNATIONS = frozenset({"class", "classes", "primary"})
+_CLASS_FILLERS = frozenset({"and", "to", "through"})
+
+
+def _primary_class_list_kind(name: str) -> str | None:
+    """Classify a captured name that contains no stream title.
+
+    ``list`` is only a primary class designation plus class numbers 1–6.
+    ``malformed`` is that same shape with a number outside 1–6.
+    ``None`` means some other word is present, so stream rules still apply.
+    """
+    text = name.strip().lower().replace("&", " and ")
+    text = text.replace("–", "-").replace("—", "-")
+    text = re.sub(r"[,:;]+", " ", text)
+    text = re.sub(
+        r"\b(\d+)\s*-\s*(\d+)\b",
+        lambda match: f" {match.group(1)} {match.group(2)} ",
+        text,
+    )
+    tokens = text.split()
+    if not tokens:
+        return None
+    numbers: list[int] = []
+    saw_designation = False
+    for token in tokens:
+        if token in _CLASS_DESIGNATIONS:
+            saw_designation = True
+            continue
+        if token in _CLASS_FILLERS:
+            continue
+        if token.isdigit():
+            numbers.append(int(token))
+            continue
+        return None
+    if not saw_designation or not numbers:
+        return None
+    if all(1 <= number <= 6 for number in numbers):
+        return "list"
+    return "malformed"
+
+
 def _confident_stream_name(name: str, question: str) -> bool:
     if not name:
+        return False
+    # "classes 1, 2, and 3" is a primary grade list. The conjunction that makes
+    # a real stream title confident must not pull that list onto the SSS route.
+    if _primary_class_list_kind(name) is not None:
         return False
     # A captured name that is only a grade stays on the grade catalogue route.
     # Search-style grade detection would also match a stream title that merely

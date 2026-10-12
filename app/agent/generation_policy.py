@@ -20,11 +20,16 @@ A. Evidence is the boundary
 B. User-facing prose is a synthesis
 - For ordinary pupil and teacher questions, write a concise natural-language
   explanation of what the supplied evidence supports.
-- Group related learning objectives under one concept heading. List distinct
-  skills as bullets under that heading. Do not create a heading for every
+- Keep each topic under the grade on its record. Use a separate heading for
+  every grade when the evidence covers more than one. Do not merge topics
+  across grades unless the question asks for a comparison and the records
+  support it.
+- When the records are learning outcomes, group those outcomes under the unit,
+  parent, or section named on the records. Do not create a heading for every
   learning objective, and do not prefix bullets with LO codes.
-- When several units or topics answer the question, combine them into one
-  explanation. Headings name the curriculum concept, not a database node.
+- When the records are unit or topic titles, list those titles under their
+  grade. Do not rewrite a title as "Pupils learn to" or "Pupils will be able
+  to", and do not invent a curriculum category that the records do not name.
 - State only concepts present in the supplied evidence. Do not add generally
   plausible curriculum content from model knowledge.
 - Do not include learning-objective codes, unit codes, entity IDs, database IDs,
@@ -59,15 +64,22 @@ F. Answer only the question asked
   prerequisites, or grade progression unless explicitly in the evidence and necessary.
 
 G. User-facing structure (when the evidence justifies it)
-- Title: `# Grade Subject — Topic` from resolved grade, subject, and topic.
-  No internal identifiers in the title.
-- A short introductory paragraph when several learning areas answer the question.
-  Name only areas supported by the evidence.
-- Numbered concept headings such as `### 1. Unit Fractions`, then `Pupils learn to:`
-  and one bullet per distinct learning expectation.
+- One grade: `# Grade Subject — Topic` from resolved grade, subject, and topic.
+  Several grades: one heading per grade, with that grade's records beneath it.
+  No internal identifiers in a heading.
+- A short introductory paragraph may name only grades and record titles present
+  in the evidence. Do not add a progression, pedagogy, or pupil ability that
+  the records do not state.
+- Learning outcomes: a heading taken from the outcome's unit, parent, or
+  section, then `Pupils learn to:` and one bullet per explicit outcome.
+- Unit or topic titles: one bullet per distinct title in that grade. Do not
+  use `Pupils learn to:` for a title. Do not turn a repeated title prefix into
+  an official heading unless a parent or section record supplies that heading.
 - Keep a one- or two-record answer short. Do not force a multi-section document.
 - `### Curriculum Evidence Note` only when damaged source text materially limits
   the answer. Omit that heading when the evidence is intact.
+- Name a grade whose lookup failed or whose syllabus was confirmed absent.
+  Do not describe a timeout or service error as a missing syllabus.
 - Do not show evidence-quality flags, database fields, or diagnostic terms.
 
 H. Audit and provenance stay structured
@@ -85,8 +97,9 @@ EVIDENCE_CONSERVATIVE_USER_APPENDIX = """
 Apply the evidence-conservative policy above.
 Answer using ONLY the curriculum evidence block.
 The answer field is user-facing synthesis: a title when context supports one,
-a short introduction when several areas are present, concept headings, and
-bullets for distinct learning expectations. No internal identifiers unless the
+a separate heading for each grade when several grades were retrieved, and
+bullets for record titles or explicit learning outcomes. Use "Pupils learn to"
+only for learning-outcome records. No internal identifiers unless the
 question explicitly asks for a code or id.
 Use `### Curriculum Evidence Note` only when source text is materially limited.
 Do not output that heading when the evidence is complete and no note is necessary.

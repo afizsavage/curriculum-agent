@@ -62,6 +62,26 @@ def run_deterministic_checks(state: CurriculumQAState) -> VerificationResult:
             metadata={"source": "deterministic", "empty_answer": True},
         )
 
+    if state.evidence_status == EvidenceStatus.ERROR and not state.evidence:
+        issues.append(
+            "Curriculum retrieval failed before absence could be established."
+        )
+        return _result(
+            passed=False,
+            score=0.1,
+            issues=issues,
+            unsupported=unsupported,
+            incorrect=incorrect,
+            missing=missing,
+            claims=claims,
+            recommendation=VerificationRecommendation.FALLBACK,
+            metadata={
+                "source": "deterministic",
+                "retrieval_error": True,
+                "absence_established": False,
+            },
+        )
+
     if not state.evidence or state.evidence_status == EvidenceStatus.NOT_FOUND:
         issues.append("No curriculum evidence supports the answer.")
         missing.append(
