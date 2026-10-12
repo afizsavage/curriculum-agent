@@ -68,21 +68,26 @@ def test_primary3_topic_window_keeps_every_distinct_unit_name():
     evidence = _p3_evidence()
     assert len(evidence) == 39
     prepared = dedupe_units_for_generation(evidence)
-    assert len(prepared) == 9
+    assert len(prepared) == 14
     assert _names(prepared) == [
         "Number and Numeration",
+        "Number and Numeration.",
         "Number and Numeration writing numbers",
         "Fraction.",
+        "Fraction",
         "Everyday Arithmetic",
         "Measurement and estimation",
+        "Measurement and estimation.",
+        "Measurement and Estimation.",
         "Time",
         "GEOMETRY (SHAPES)",
         "GEOMETRY (ANGLES)",
         "Number patterns.",
+        "NUMBER PATTERNS.",
     ]
     selected, _ids = select_evidence_for_prompt(evidence, question=_QUESTION)
     block = format_evidence_for_prompt(evidence, question=_QUESTION)
-    assert len(selected) == 9
+    assert len(selected) == 14
     for name in (
         "Measurement and estimation",
         "Time",
@@ -104,8 +109,9 @@ def test_distinct_unit_names_are_not_merged():
     assert "Number and Numeration" in names
     assert "Number and Numeration writing numbers" in names
     assert names.count("Fraction.") == 1
-    assert "Fractions" not in names
-    assert len(prepared) == 9
+    assert names.count("Fraction") == 1
+    assert "Fractions" in names
+    assert len(prepared) == 15
 
 
 def test_full_audit_evidence_is_not_replaced():
@@ -115,7 +121,7 @@ def test_full_audit_evidence_is_not_replaced():
     assert len(evidence) == 39
     assert [item.entity_id for item in evidence] == original_ids
     assert selected is not evidence
-    assert len(selected) == 9
+    assert len(selected) == 14
 
 
 def test_generation_cap_stays_at_24_distinct_records():
@@ -129,7 +135,7 @@ def test_generation_cap_stays_at_24_distinct_records():
     assert len(selected) == 24
     p3 = _p3_evidence()
     window, _ids = select_evidence_for_prompt(p3, question=_QUESTION, max_records=24)
-    assert len(window) == 9
+    assert len(window) == 14
     assert len(window) < 24
 
 
@@ -176,3 +182,84 @@ def test_damaged_evidence_can_still_include_an_evidence_note():
     state.evidence_status = EvidenceStatus.FOUND
     result = AnswerGenerator(StubLLMProvider()).generate(state)
     assert "### Curriculum Evidence Note" in result.answer
+
+
+def test_prompt_dedupe_keeps_punctuation_case_and_parent_apart():
+    evidence = [
+        _unit("C3-U08", "Fraction"),
+        _unit("C3-U07", "Fraction."),
+        _unit("C3-U40", "Fractions"),
+        _unit("C3-U38", "Number patterns."),
+        _unit("C3-U39", "NUMBER PATTERNS."),
+        _unit("C3-U10", "Everyday Arithmetic"),
+        _unit("C3-U11", "Everyday Arithmetic"),
+    ]
+    prepared = dedupe_units_for_generation(evidence)
+    assert [item.entity_id for item in prepared] == [
+        "c3-u08",
+        "c3-u07",
+        "c3-u40",
+        "c3-u38",
+        "c3-u39",
+        "c3-u10",
+    ]
+    block = format_evidence_for_prompt(evidence, question=_QUESTION)
+    assert "Exact copies not repeated in this prompt: 1" in block
+    assert "It does not include every retrieved record." in block
+
+
+def test_window_selection_does_not_depend_on_input_order():
+    evidence = []
+    for grade in (1, 2, 3):
+        for index in range(20):
+            item = _unit(f"C{grade}-U{index:02d}", f"Grade {grade} topic {index}")
+            item.grade = f"CLASS_{grade}"
+            evidence.append(item)
+    _forward, forward_ids = select_evidence_for_prompt(evidence, question=_QUESTION)
+    _reverse, reverse_ids = select_evidence_for_prompt(
+        list(reversed(evidence)), question=_QUESTION
+    )
+    assert forward_ids == reverse_ids
+    assert len(forward_ids) == 24
+    assert {item.grade for item in evidence if item.entity_id in forward_ids} == {
+        "CLASS_1",
+        "CLASS_2",
+        "CLASS_3",
+    }
+
+
+class _CompleteClaimLLM:
+    name = "echo-harness"
+    model = "echo-harness"
+
+    def generate_structured(self, messages, *, schema, temperature=0.0):
+        return {
+            "answer": "This covers every Mathematics topic in Primary 3.",
+            "summary": "partial",
+            "refs": [],
+            "limitations": [],
+            "confidence": "high",
+        }
+
+
+def test_model_path_discloses_a_partial_window():
+    evidence = [
+        CurriculumEvidence(
+            entity_type="learning_outcome",
+            entity_id=f"lo-{index:02d}",
+            name=f"outcome {index}",
+            grade="CLASS_3",
+            subject="MATHEMATICS",
+            content=f"outcome {index} is stated in the record",
+        )
+        for index in range(30)
+    ]
+    state = CurriculumQAState.initial(question=_QUESTION)
+    state.grade = "CLASS_3"
+    state.subject = "MATHEMATICS"
+    state.evidence = evidence
+    state.evidence_status = EvidenceStatus.FOUND
+    result = AnswerGenerator(_CompleteClaimLLM()).generate(state)
+    assert "24 of 30" in result.answer
+    assert "It does not include every retrieved record." in result.answer
+    assert any("does not include every retrieved record" in item for item in result.limitations)

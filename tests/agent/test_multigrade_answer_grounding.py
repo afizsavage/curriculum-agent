@@ -31,6 +31,7 @@ def _unit(
     grade: str,
     *,
     subject: str = "MATHEMATICS",
+    content: str | None = None,
     **metadata: object,
 ) -> CurriculumEvidence:
     return CurriculumEvidence(
@@ -40,7 +41,7 @@ def _unit(
         grade=grade,
         subject=subject,
         topic=name,
-        content=name,
+        content=name if content is None else content,
         metadata=dict(metadata),
         source_reference="grade_curriculum.content",
     )
@@ -446,3 +447,98 @@ def test_model_overstatement_is_rejected_by_the_grade_check():
 )
 def test_single_grade_filter_remains_one_grade(question: str, grade: str):
     assert extract_filters_from_question(question)["grade"] == grade
+
+
+def test_same_exact_title_keeps_every_record_id():
+    evidence = [
+        _unit("unit-a", "Everyday Arithmetic", "CLASS_1"),
+        _unit("unit-b", "Everyday Arithmetic", "CLASS_1"),
+    ]
+    result = _generate("What does Mathematics cover in Class 1?", evidence, grade="CLASS_1")
+    assert "2 separate records share this exact title" in result.answer
+    assert {ref.entity_id for ref in result.evidence} == {"unit-a", "unit-b"}
+
+
+def test_punctuation_and_case_are_not_treated_as_the_same_record():
+    evidence = [
+        _unit("fraction-plain", "Fraction", "CLASS_3"),
+        _unit("fraction-dot", "Fraction.", "CLASS_3"),
+        _unit("count-upper", "Counting", "CLASS_1"),
+        _unit("count-lower", "counting", "CLASS_1"),
+    ]
+    result = _generate(
+        "What does Mathematics cover in classes 1 and 3?",
+        evidence,
+    )
+    assert "* Fraction." in result.answer
+    assert "* Fraction\n" in result.answer
+    assert "* Counting" in result.answer
+    assert "* counting" in result.answer
+    assert {ref.entity_id for ref in result.evidence} == {
+        "fraction-plain",
+        "fraction-dot",
+        "count-upper",
+        "count-lower",
+    }
+
+
+def test_same_title_with_different_parents_or_content_stays_separate():
+    evidence = [
+        _unit("len-m", "Length", "CLASS_1", parent_id="p1", parent_display_name="Measurement"),
+        _unit("len-g", "Length", "CLASS_1", parent_id="p2", parent_display_name="Geometry"),
+        _unit(
+            "shape-a",
+            "Shapes",
+            "CLASS_2",
+            content="circle and square",
+        ),
+        _unit("shape-b", "Shapes", "CLASS_2", content="triangle"),
+    ]
+    result = _generate("What does Mathematics cover in classes 1 and 2?", evidence)
+    assert "**Measurement**" in result.answer
+    assert "**Geometry**" in result.answer
+    assert "circle and square" in result.answer
+    assert "triangle" in result.answer
+    assert {ref.entity_id for ref in result.evidence} == {
+        "len-m",
+        "len-g",
+        "shape-a",
+        "shape-b",
+    }
+
+
+def test_title_list_cites_every_record_past_the_model_window():
+    evidence = [
+        _unit(f"c{grade}-{index}", f"Topic {grade} {index}", f"CLASS_{grade}")
+        for grade in (1, 2, 3)
+        for index in range(30)
+    ]
+    result = _generate(
+        "What does Mathematics cover in classes 1, 2, and 3?",
+        evidence,
+    )
+    assert {ref.entity_id for ref in result.evidence} == {item.entity_id for item in evidence}
+    assert "### Primary 1" in result.answer
+    assert "### Primary 3" in result.answer
+    window, _ids = select_evidence_for_prompt(
+        evidence,
+        question="What does Mathematics cover in classes 1, 2, and 3?",
+    )
+    assert len(window) == 24
+    assert "pupils learn to" not in result.answer.lower()
+
+
+def test_record_order_does_not_change_which_ids_are_cited():
+    evidence = [
+        _unit("a", "Counting", "CLASS_1"),
+        _unit("b", "Counting", "CLASS_1"),
+        _unit("c", "Time", "CLASS_2"),
+    ]
+    forward = _generate("What does Mathematics cover in classes 1 and 2?", evidence)
+    backward = _generate(
+        "What does Mathematics cover in classes 1 and 2?",
+        list(reversed(evidence)),
+    )
+    assert {ref.entity_id for ref in forward.evidence} == {
+        ref.entity_id for ref in backward.evidence
+    } == {"a", "b", "c"}

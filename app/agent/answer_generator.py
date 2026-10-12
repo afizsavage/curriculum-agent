@@ -540,6 +540,12 @@ class AnswerGenerator:
                     "for each grade and keep every topic under the grade on its "
                     "record. Do not merge topics across grades.\n"
                 )
+            if len(ranked) < len(state.evidence):
+                user_content += (
+                    "The evidence block is a subset of the retrieved records. "
+                    "Repeat its scope limitation in the answer. Do not say the "
+                    "answer covers every retrieved record or every topic.\n"
+                )
             if _is_title_only_evidence(state.evidence):
                 user_content += (
                     "These records are unit or topic titles, not learning outcomes. "
@@ -658,6 +664,7 @@ class AnswerGenerator:
 
     def _stub_generate(self, state: CurriculumQAState) -> GroundedAnswer:
         """Deterministic grounded synthesis for tests without a model call."""
+        state.metadata["generation_path"] = "direct"
         evidence = state.evidence
         grade_codes = _evidence_grade_codes(evidence)
         grade_label = (
@@ -784,6 +791,8 @@ class AnswerGenerator:
             if confidence == AnswerConfidence.HIGH:
                 confidence = AnswerConfidence.MEDIUM
         summary = raw.get("summary")
+        if state is not None:
+            state.metadata["generation_path"] = "model"
         return GroundedAnswer(
             answer=answer,
             summary=str(summary) if summary else None,
@@ -842,6 +851,12 @@ class AnswerGenerator:
 
         cleaned = _strip_subject_codes(answer.answer)
         cleaned = _ensure_subject_list_scope_heading(state, cleaned)
+        scope_note = _model_answer_scope_note(state)
+        if scope_note:
+            if scope_note not in limitations:
+                limitations.append(scope_note)
+            if scope_note not in cleaned:
+                cleaned = f"{cleaned.rstrip()}\n\n{scope_note}"
         return answer.model_copy(
             update={
                 "answer": cleaned,
@@ -2302,35 +2317,81 @@ def _render_topic_catalogue(
         if multi_grade and grade:
             lines.append("")
             lines.append(f"### {_display_grade(grade) or grade}")
-        seen: set[str] = set()
-        heading: str | None = None
-        for topic in grade_topics:
-            public = _public_name(topic.name)
-            if not public:
-                continue
-            key = _unit_generation_key(public)
-            source_heading = _source_group_heading(topic)
-            if key in seen:
-                continue
-            seen.add(key)
-            if source_heading != heading:
-                heading = source_heading
+        current_heading: str | None = None
+        for group in _title_groups(grade_topics):
+            heading = group["heading"]
+            if heading != current_heading:
+                current_heading = heading
                 if heading:
                     lines.append("")
                     lines.append(f"**{heading}**")
-            lines.append(f"* {public}")
-            _remember(used, topic)
+            records = group["records"]
+            title = group["title"]
+            extra = group["extra"]
+            if extra:
+                lines.append(f"* {title} — {extra}")
+            elif len(records) == 1:
+                lines.append(f"* {title}")
+            else:
+                lines.append(
+                    f"* {title} ({len(records)} separate records share this "
+                    "exact title and have no further description)"
+                )
+            for topic in records:
+                _remember(used, topic)
         omitted = _omitted_child_note(grade_topics)
         if omitted:
             lines.append("")
             lines.append(omitted)
+    unnamed = [
+        topic for topic in topics if not _public_name(topic.name)
+    ]
     lines.append("")
+    if unnamed:
+        lines.append(
+            f"{len(unnamed)} retrieved records have no public title and are "
+            "not listed."
+        )
     lines.append(
-        "This is a summary of the retrieved curriculum unit titles, not a "
-        "verified complete syllabus. The titles identify the topics listed in "
-        "the records; they do not, by themselves, establish specific learning outcomes."
+        f"All {len(used)} listed records are accounted for. A repeated exact "
+        "title includes how many separate records share it. These titles do "
+        "not, by themselves, establish specific learning outcomes."
     )
     return lines, used
+
+
+def _title_groups(topics: list[CurriculumEvidence]) -> list[dict[str, Any]]:
+    """Group only records with the same exact title and no other distinction.
+
+    Punctuation, case, parent, source, and extra content stay separate.
+    A shared exact title does not make two record IDs the same unit.
+    """
+    groups: list[dict[str, Any]] = []
+    index: dict[tuple[str, str, str, str, str], int] = {}
+    for topic in topics:
+        title = _public_name(topic.name)
+        if not title:
+            continue
+        heading = _source_group_heading(topic) or ""
+        parent_id = str((topic.metadata or {}).get("parent_id") or "")
+        content = " ".join(str(topic.content or "").split())
+        extra = "" if content == title else content
+        source = topic.source_reference or ""
+        key = (title, heading, parent_id, extra, source)
+        slot = index.get(key)
+        if slot is None:
+            index[key] = len(groups)
+            groups.append(
+                {
+                    "title": title,
+                    "heading": heading or None,
+                    "extra": extra,
+                    "records": [topic],
+                }
+            )
+        else:
+            groups[slot]["records"].append(topic)
+    return groups
 
 
 def _heading_lines(
@@ -2672,13 +2733,20 @@ def format_evidence_for_prompt(
         es = (item.metadata or {}).get("evidence_state")
         if es:
             lines.append(f"Evidence state: {es}")
+        identity = _exact_unit_identity(item)
+        if identity is not None:
+            copies = sum(
+                1
+                for other in evidence
+                if other.entity_id != item.entity_id
+                and _exact_unit_identity(other) == identity
+            )
+            if copies:
+                lines.append(f"Exact copies not repeated in this prompt: {copies}")
         blocks.append("\n".join(lines))
-    omitted = len(evidence) - len(ranked)
-    if omitted > 0:
-        blocks.append(
-            f"(omitted {omitted} additional evidence records; "
-            "prefer the most relevant records above)"
-        )
+    scope_note = _retrieval_scope_note(evidence, ranked)
+    if scope_note:
+        blocks.append(scope_note)
     return "\n\n".join(blocks)
 
 
@@ -2696,27 +2764,117 @@ def _unit_generation_key(name: str) -> str:
     return " ".join(tokens)
 
 
+def _exact_unit_identity(
+    item: CurriculumEvidence,
+) -> tuple[str, str, str, str, str, str] | None:
+    """Identity for prompt dedupe. Case, punctuation, parent, and content stay distinct.
+
+    Only a repeated exact title with the same grade, parent, extra content, and
+    source is the same prompt row. Other entity types are not folded in here.
+    """
+    if (item.entity_type or "").lower() != "unit":
+        return None
+    title = _public_name(item.name)
+    if not title:
+        return None
+    grade = normalize_grade_code(item.grade) or (item.grade or "")
+    heading = _source_group_heading(item) or ""
+    parent_id = str((item.metadata or {}).get("parent_id") or "")
+    content = " ".join(str(item.content or "").split())
+    extra = "" if content == title else content
+    source = item.source_reference or ""
+    return (grade, title, heading, parent_id, extra, source)
+
+
 def dedupe_units_for_generation(
     evidence: list[CurriculumEvidence],
 ) -> list[CurriculumEvidence]:
-    """Keep the first unit for each normalized name. Other records stay.
+    """Keep the first unit for each exact record identity. Other records stay.
 
     Returns a new list. The caller's evidence bag is not modified.
     """
-    seen: set[str] = set()
+    seen: set[tuple[str, str, str, str, str, str]] = set()
     kept: list[CurriculumEvidence] = []
     for item in evidence:
-        if (item.entity_type or "").lower() != "unit":
-            kept.append(item)
+        key = _exact_unit_identity(item)
+        if key is not None and key in seen:
             continue
-        grade = normalize_grade_code(item.grade) or (item.grade or "")
-        key = (grade, _unit_generation_key(item.name or ""))
-        if key[1] and key in seen:
-            continue
-        if key[1]:
+        if key is not None:
             seen.add(key)
         kept.append(item)
     return kept
+
+
+def _retrieval_scope_note(
+    evidence: list[CurriculumEvidence],
+    selected: list[CurriculumEvidence],
+) -> str | None:
+    """Say which retrieved records the prompt or answer does not contain."""
+    if not evidence or len(selected) >= len(evidence):
+        return None
+    retrieved = _grade_tally(evidence)
+    kept = _grade_tally(selected)
+    parts = [
+        f"{_display_grade(grade) or grade}: {kept.get(grade, 0)} of {retrieved[grade]}"
+        for grade in sorted(retrieved, key=_grade_rank)
+    ]
+    note = (
+        f"This answer includes {len(selected)} of {len(evidence)} retrieved records "
+        f"({'; '.join(parts)}). It does not include every retrieved record."
+    )
+    copies = _exact_copy_notes(evidence, selected)
+    if copies:
+        note += " Not repeated separately: " + "; ".join(copies) + "."
+    note += " A record left out is not covered by another record with a similar title."
+    return note
+
+
+def _grade_tally(evidence: list[CurriculumEvidence]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for item in evidence:
+        grade = normalize_grade_code(item.grade) or item.grade or "unspecified"
+        counts[grade] = counts.get(grade, 0) + 1
+    return counts
+
+
+def _exact_copy_notes(
+    evidence: list[CurriculumEvidence],
+    selected: list[CurriculumEvidence],
+) -> list[str]:
+    selected_ids = {item.entity_id for item in selected if item.entity_id}
+    notes: list[str] = []
+    seen: set[tuple[str, str, str, str, str, str]] = set()
+    for item in selected:
+        identity = _exact_unit_identity(item)
+        if identity is None or identity in seen:
+            continue
+        seen.add(identity)
+        copies = sum(
+            1
+            for other in evidence
+            if other.entity_id not in selected_ids and _exact_unit_identity(other) == identity
+        )
+        if not copies:
+            continue
+        label = _display_grade(item.grade) or item.grade or "Unspecified"
+        suffix = "s" if copies != 1 else ""
+        notes.append(
+            f"{label} \"{identity[1]}\" ({copies} other retrieved record{suffix} "
+            "with this exact title and content)"
+        )
+    return notes
+
+
+def _model_answer_scope_note(state: CurriculumQAState) -> str | None:
+    """Append the prompt-window limit only when the model path actually used it."""
+    if state.metadata.get("generation_path") != "model":
+        return None
+    selected_ids = list(state.metadata.get("generation_evidence_ids") or [])
+    if not selected_ids or len(selected_ids) >= len(state.evidence):
+        return None
+    by_id = {item.entity_id: item for item in state.evidence if item.entity_id}
+    selected = [by_id[entity_id] for entity_id in selected_ids if entity_id in by_id]
+    return _retrieval_scope_note(state.evidence, selected)
 
 
 def select_evidence_for_prompt(
@@ -2773,7 +2931,11 @@ def _rank_evidence(
         } else 0
         return (hits, type_bonus)
 
-    return sorted(evidence, key=score, reverse=True)
+    return sorted(
+        evidence,
+        key=lambda item: (*score(item), item.entity_id or ""),
+        reverse=True,
+    )
 
 
 def _extract_answer_text(raw: dict[str, Any]) -> str:
