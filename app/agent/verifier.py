@@ -499,6 +499,24 @@ class AnswerVerifier:
         state: CurriculumQAState,
         result: VerificationResult,
     ) -> VerificationResult:
+        from app.curriculum.structure_scope import drop_resolved_absent_code_requests
+
+        kept, resolved = drop_resolved_absent_code_requests(
+            evidence=list(state.evidence),
+            grade=state.grade,
+            subject=state.subject,
+            curriculum_version=(state.metadata or {}).get("curriculum_version"),
+            answer=state.final_answer or state.draft_answer or "",
+            missing=list(result.missing_evidence),
+            unsupported_claims=list(result.unsupported_claims or []),
+            incorrect_claims=list(result.incorrect_claims or []),
+        )
+        if resolved:
+            metadata = dict(result.metadata or {})
+            metadata["resolved_absent_codes"] = resolved
+            result = result.model_copy(
+                update={"missing_evidence": kept, "metadata": metadata}
+            )
         if result.missing_evidence and (
             result.passed
             or result.recommendation == VerificationRecommendation.ACCEPT

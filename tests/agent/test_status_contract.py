@@ -11,6 +11,7 @@ from app.agent.verifier import AnswerVerifier
 from app.config import Settings
 from app.curriculum.evidence import CurriculumEvidence
 from app.curriculum.normalize import evidence_from_hit, iter_content_nodes, node_to_search_hit
+from app.curriculum.structure_scope import should_stamp_grade_curriculum_content
 from app.enums import AgentStatus
 from app.llm.provider import StubLLMProvider
 from app.schemas.verification import (
@@ -478,3 +479,480 @@ def test_same_name_dedupe_can_still_be_accepted_when_missing_evidence_is_empty()
         missing_evidence=[],
     )
     assert _route(qa) == "finish"
+
+
+def _exhaustive_tree(
+    subject: str,
+    grade: str,
+    version: str,
+    units: list[tuple[str, str]],
+    *,
+    source_reference: str = "grade_curriculum.content",
+    exhaustive: bool = True,
+    curriculum_code: str = "MBSSE-BEC",
+) -> list[CurriculumEvidence]:
+    return [
+        CurriculumEvidence(
+            entity_type="unit",
+            entity_id=f"{subject}-{code}".lower(),
+            name=name,
+            grade=grade,
+            subject=subject,
+            source_reference=source_reference,
+            metadata={
+                "code": code,
+                "curriculum_code": curriculum_code,
+                "curriculum_version": version,
+                "grade_curriculum_id": f"gc-{subject}-{grade}-{version}",
+                "structure_scope": "grade_curriculum_content",
+                "structure_exhaustive": exhaustive,
+            },
+        )
+        for code, name in units
+    ]
+
+
+def _normalize(qa: CurriculumQAState, result: VerificationResult) -> VerificationResult:
+    verifier = AnswerVerifier(llm=StubLLMProvider(), settings=_settings())
+    return verifier._normalize_recommendation(qa, result)
+
+
+def test_grade_curriculum_content_is_the_only_exhaustive_stamp():
+    coded = [
+        CurriculumEvidence(
+            entity_type="unit",
+            entity_id="u1",
+            name="Plants",
+            metadata={"code": "AG-U01"},
+        )
+    ]
+    assert should_stamp_grade_curriculum_content(
+        {"source": "grade_curriculum", "id": "gc-1"}, coded
+    )
+    assert not should_stamp_grade_curriculum_content(
+        {"source": "syllabus", "id": "sy-1"}, coded
+    )
+    assert not should_stamp_grade_curriculum_content(
+        {"source": "grade_curriculum", "id": "gc-1"},
+        [CurriculumEvidence(entity_type="unit", entity_id="u1", name="Plants")],
+    )
+
+
+def test_exhaustive_tree_does_not_keep_requesting_an_absent_code():
+    qa = CurriculumQAState.initial(
+        question="Give the content code and name of every published Class 4 Mathematics unit."
+    )
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.metadata["curriculum_version"] = "2020"
+    qa.evidence = _exhaustive_tree(
+        "MATHEMATICS",
+        "CLASS_4",
+        "2020",
+        [
+            ("C4-U01", "Number and Numeration"),
+            ("C4-U11", "Everyday Arithmetic"),
+            ("C4-U13", "Everyday Arithmetic Multiplication"),
+        ],
+    )
+    qa.draft_answer = "The evidence does not include a unit with the code C4-U12."
+    result = _normalize(
+        qa,
+        VerificationResult(
+            passed=False,
+            score=0.95,
+            recommendation=VerificationRecommendation.RETRIEVE_MORE,
+            issues=[
+                "The answer correctly notes that C4-U12 is absent from the evidence; this is not an error in the answer."
+            ],
+            missing_evidence=[
+                MissingEvidenceRequest(
+                    type="unit",
+                    subject="MATHEMATICS",
+                    grade="CLASS_4",
+                    topic="C4-U12",
+                    detail="No evidence record exists for a Class 4 Mathematics unit with code C4-U12.",
+                )
+            ],
+        ),
+    )
+    assert result.missing_evidence == []
+    assert result.metadata["resolved_absent_codes"] == ["C4-U12"]
+    assert result.passed is False
+    qa.verification = result
+    qa.pending_missing_evidence = list(result.missing_evidence)
+    assert _route(qa) == "fallback"
+    assert (
+        targeted_tool_calls_from_missing(
+            qa.pending_missing_evidence,
+            available_tools=_TOOLS,
+            grade=qa.grade,
+            subject=qa.subject,
+            topic=qa.topic,
+            retrieval_state=qa.retrieval_state,
+        )
+        == []
+    )
+    out = apply_fallback(qa, reason="no_retrieval_progress")
+    assert out.status == AgentStatus.INSUFFICIENT_EVIDENCE
+
+
+def test_absent_code_rule_applies_to_another_subject_grade_and_version():
+    qa = CurriculumQAState.initial(question="List every published Class 2 Agriculture unit.")
+    qa.grade = "CLASS_2"
+    qa.subject = "AGRICULTURE"
+    qa.metadata["curriculum_version"] = "2019"
+    qa.evidence = _exhaustive_tree(
+        "AGRICULTURE",
+        "CLASS_2",
+        "2019",
+        [("AG-U01", "Soils"), ("AG-U02", "Crops")],
+    )
+    qa.draft_answer = "The Class 2 Agriculture tree does not include AG-U09."
+    result = _normalize(
+        qa,
+        VerificationResult(
+            passed=False,
+            score=0.9,
+            recommendation=VerificationRecommendation.RETRIEVE_MORE,
+            missing_evidence=[
+                MissingEvidenceRequest(
+                    type="unit",
+                    subject="AGRICULTURE",
+                    grade="CLASS_2",
+                    topic="AG-U09",
+                )
+            ],
+        ),
+    )
+    assert result.missing_evidence == []
+    assert result.metadata["resolved_absent_codes"] == ["AG-U09"]
+
+
+def test_supported_answer_completes_after_the_absent_code_request_is_resolved():
+    qa = CurriculumQAState.initial(question="List every published Class 2 Agriculture unit.")
+    qa.grade = "CLASS_2"
+    qa.subject = "AGRICULTURE"
+    qa.metadata["curriculum_version"] = "2019"
+    qa.evidence = _exhaustive_tree(
+        "AGRICULTURE",
+        "CLASS_2",
+        "2019",
+        [("AG-U01", "Soils"), ("AG-U02", "Crops")],
+    )
+    qa.draft_answer = "AG-U01 Soils. AG-U02 Crops. The tree does not include AG-U09."
+    result = _normalize(
+        qa,
+        VerificationResult(
+            passed=True,
+            score=1.0,
+            recommendation=VerificationRecommendation.ACCEPT,
+            missing_evidence=[
+                MissingEvidenceRequest(
+                    type="unit",
+                    subject="AGRICULTURE",
+                    grade="CLASS_2",
+                    topic="AG-U09",
+                )
+            ],
+        ),
+    )
+    assert result.passed is True
+    assert result.recommendation == VerificationRecommendation.ACCEPT
+    assert result.missing_evidence == []
+    qa.verification = result
+    assert _route(qa) == "finish"
+    finished = GraphNodes.finish(
+        object.__new__(GraphNodes), {"qa": qa, "visited_nodes": []}
+    )
+    assert finished["qa"].status == AgentStatus.COMPLETED
+
+
+def test_failed_lookup_without_an_exhaustive_tree_does_not_establish_absence():
+    qa = CurriculumQAState.initial(question="List the Class 4 Mathematics units.")
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.draft_answer = "The evidence does not include C4-U12."
+    result = _normalize(
+        qa,
+        VerificationResult(
+            passed=True,
+            score=0.8,
+            recommendation=VerificationRecommendation.ACCEPT,
+            missing_evidence=[
+                MissingEvidenceRequest(
+                    type="unit",
+                    subject="MATHEMATICS",
+                    grade="CLASS_4",
+                    topic="C4-U12",
+                )
+            ],
+        ),
+    )
+    assert result.passed is False
+    assert result.recommendation == VerificationRecommendation.RETRIEVE_MORE
+    assert result.missing_evidence[0].topic == "C4-U12"
+
+
+def test_wrong_version_or_non_authoritative_tree_does_not_resolve_absence():
+    request = MissingEvidenceRequest(
+        type="unit",
+        subject="MATHEMATICS",
+        grade="CLASS_4",
+        topic="C4-U12",
+    )
+    qa = CurriculumQAState.initial(question="List the Class 4 Mathematics units.")
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.metadata["curriculum_version"] = "2020"
+    qa.draft_answer = "The evidence does not include C4-U12."
+    qa.evidence = _exhaustive_tree(
+        "MATHEMATICS",
+        "CLASS_4",
+        "2018",
+        [("C4-U01", "Number and Numeration")],
+    )
+    wrong_version = _normalize(
+        qa,
+        VerificationResult(
+            passed=True,
+            recommendation=VerificationRecommendation.ACCEPT,
+            missing_evidence=[request],
+        ),
+    )
+    assert wrong_version.missing_evidence[0].topic == "C4-U12"
+
+    qa.evidence = _exhaustive_tree(
+        "MATHEMATICS",
+        "CLASS_4",
+        "2020",
+        [("C4-U01", "Number and Numeration")],
+        source_reference="syllabus.content.tree",
+    )
+    syllabus = _normalize(
+        qa,
+        VerificationResult(
+            passed=True,
+            recommendation=VerificationRecommendation.ACCEPT,
+            missing_evidence=[request],
+        ),
+    )
+    assert syllabus.missing_evidence[0].topic == "C4-U12"
+
+    qa.evidence = _exhaustive_tree(
+        "MATHEMATICS",
+        "CLASS_4",
+        "2020",
+        [("C4-U01", "Number and Numeration")],
+        exhaustive=False,
+    )
+    incomplete = _normalize(
+        qa,
+        VerificationResult(
+            passed=True,
+            recommendation=VerificationRecommendation.ACCEPT,
+            missing_evidence=[request],
+        ),
+    )
+    assert incomplete.missing_evidence[0].topic == "C4-U12"
+
+
+def test_science_code_is_not_imported_as_mathematics_evidence():
+    qa = CurriculumQAState.initial(question="List every Class 4 Mathematics unit.")
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.metadata["curriculum_version"] = "2020"
+    qa.evidence = _exhaustive_tree(
+        "MATHEMATICS",
+        "CLASS_4",
+        "2020",
+        [
+            ("C4-U01", "Number and Numeration"),
+            ("C4-U13", "Everyday Arithmetic Multiplication"),
+        ],
+    ) + _exhaustive_tree(
+        "SCIENCE",
+        "CLASS_4",
+        "2020",
+        [("C4-U12", "Feeding in Humans")],
+    )
+    qa.draft_answer = "The Mathematics evidence does not include C4-U12."
+    result = _normalize(
+        qa,
+        VerificationResult(
+            passed=False,
+            recommendation=VerificationRecommendation.RETRIEVE_MORE,
+            missing_evidence=[
+                MissingEvidenceRequest(
+                    type="unit",
+                    subject="MATHEMATICS",
+                    grade="CLASS_4",
+                    topic="C4-U12",
+                )
+            ],
+        ),
+    )
+    assert result.missing_evidence == []
+    assert result.metadata["resolved_absent_codes"] == ["C4-U12"]
+    science = next(item for item in qa.evidence if item.subject == "SCIENCE")
+    assert science.metadata["code"] == "C4-U12"
+    assert not any(
+        item.subject == "MATHEMATICS" and item.metadata.get("code") == "C4-U12"
+        for item in qa.evidence
+    )
+
+
+def test_asserting_the_absent_code_is_not_cleared_by_the_tree():
+    qa = CurriculumQAState.initial(question="List every Class 4 Mathematics unit.")
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.metadata["curriculum_version"] = "2020"
+    qa.evidence = _exhaustive_tree(
+        "MATHEMATICS",
+        "CLASS_4",
+        "2020",
+        [
+            ("C4-U01", "Number and Numeration"),
+            ("C4-U13", "Everyday Arithmetic Multiplication"),
+        ],
+    )
+    qa.draft_answer = "C4-U12 is a Class 4 Mathematics unit named Feeding in Humans."
+    result = _normalize(
+        qa,
+        VerificationResult(
+            passed=True,
+            score=0.4,
+            recommendation=VerificationRecommendation.ACCEPT,
+            missing_evidence=[
+                MissingEvidenceRequest(
+                    type="unit",
+                    subject="MATHEMATICS",
+                    grade="CLASS_4",
+                    topic="C4-U12",
+                )
+            ],
+        ),
+    )
+    assert result.passed is False
+    assert result.recommendation == VerificationRecommendation.RETRIEVE_MORE
+    assert result.missing_evidence[0].topic == "C4-U12"
+    qa.verification = result
+    qa.pending_missing_evidence = list(result.missing_evidence)
+    assert _route(qa) != "finish"
+
+
+def test_absent_unit_code_does_not_suppress_outcome_or_parent_requests():
+    qa = CurriculumQAState.initial(question="What are the Class 4 Mathematics outcomes?")
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.metadata["curriculum_version"] = "2020"
+    qa.evidence = _exhaustive_tree(
+        "MATHEMATICS",
+        "CLASS_4",
+        "2020",
+        [("C4-U01", "Number and Numeration")],
+    )
+    qa.draft_answer = "Count up to 5000 using a number line."
+    result = _normalize(
+        qa,
+        VerificationResult(
+            passed=True,
+            recommendation=VerificationRecommendation.ACCEPT,
+            missing_evidence=[
+                MissingEvidenceRequest(
+                    type="learning_outcome",
+                    subject="MATHEMATICS",
+                    grade="CLASS_4",
+                    topic="C4U01-LO01",
+                    detail="The outcome text is not in the answer.",
+                ),
+                MissingEvidenceRequest(
+                    type="unit_term_mapping",
+                    subject="MATHEMATICS",
+                    grade="CLASS_4",
+                    topic="C4-T1",
+                    detail="No record links the unit to its parent section.",
+                ),
+            ],
+        ),
+    )
+    assert [item.topic for item in result.missing_evidence] == ["C4U01-LO01", "C4-T1"]
+    assert result.recommendation == VerificationRecommendation.RETRIEVE_MORE
+
+
+def test_unrelated_missing_evidence_remains_after_an_absent_code_is_resolved():
+    qa = CurriculumQAState.initial(question="List every Class 2 Agriculture unit.")
+    qa.grade = "CLASS_2"
+    qa.subject = "AGRICULTURE"
+    qa.metadata["curriculum_version"] = "2019"
+    qa.evidence = _exhaustive_tree(
+        "AGRICULTURE",
+        "CLASS_2",
+        "2019",
+        [("AG-U01", "Soils")],
+    )
+    qa.draft_answer = "AG-U01 Soils. The tree does not include AG-U09."
+    result = _normalize(
+        qa,
+        VerificationResult(
+            passed=True,
+            recommendation=VerificationRecommendation.ACCEPT,
+            missing_evidence=[
+                MissingEvidenceRequest(
+                    type="unit",
+                    subject="AGRICULTURE",
+                    grade="CLASS_2",
+                    topic="AG-U09",
+                ),
+                MissingEvidenceRequest(
+                    type="learning_outcome",
+                    subject="AGRICULTURE",
+                    grade="CLASS_2",
+                    topic="soil types",
+                    detail="Need the learning outcome for soil types.",
+                ),
+            ],
+        ),
+    )
+    assert result.passed is False
+    assert result.recommendation == VerificationRecommendation.RETRIEVE_MORE
+    assert [item.topic for item in result.missing_evidence] == ["soil types"]
+    qa.verification = result
+    qa.pending_missing_evidence = list(result.missing_evidence)
+    assert _route(qa) == "retrieve_more"
+
+
+def test_unsupported_claims_still_block_when_an_absent_code_is_also_requested():
+    qa = CurriculumQAState.initial(question="List every Class 2 Agriculture unit.")
+    qa.grade = "CLASS_2"
+    qa.subject = "AGRICULTURE"
+    qa.metadata["curriculum_version"] = "2019"
+    qa.evidence = _exhaustive_tree(
+        "AGRICULTURE",
+        "CLASS_2",
+        "2019",
+        [("AG-U01", "Soils")],
+    )
+    qa.draft_answer = "AG-U01 Soils. Pupils explore crops that are not in the evidence."
+    result = _normalize(
+        qa,
+        VerificationResult(
+            passed=True,
+            recommendation=VerificationRecommendation.ACCEPT,
+            unsupported_claims=["Pupils explore crops that are not in the evidence."],
+            missing_evidence=[
+                MissingEvidenceRequest(
+                    type="unit",
+                    subject="AGRICULTURE",
+                    grade="CLASS_2",
+                    topic="AG-U09",
+                )
+            ],
+        ),
+    )
+    assert result.passed is False
+    assert result.recommendation == VerificationRecommendation.RETRIEVE_MORE
+    assert result.missing_evidence[0].topic == "AG-U09"
+    qa.verification = result
+    qa.pending_missing_evidence = list(result.missing_evidence)
+    assert _route(qa) != "finish"

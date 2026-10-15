@@ -40,6 +40,10 @@ from app.curriculum.normalize import (
     match_query,
     node_to_search_hit,
 )
+from app.curriculum.structure_scope import (
+    should_stamp_grade_curriculum_content,
+    stamp_exhaustive_grade_curriculum,
+)
 from app.tools.base import Tool, ToolResult
 
 
@@ -574,6 +578,13 @@ class GetCurriculumStructureTool(CurriculumTool):
                 flat.append(hit.model_dump())
                 evidence.append(
                     evidence_from_hit(hit, source_reference=source_ref)
+                )
+            if should_stamp_grade_curriculum_content(source, evidence):
+                stamp_exhaustive_grade_curriculum(
+                    evidence,
+                    curriculum_code=curr_code,
+                    curriculum_version=version,
+                    grade_curriculum_id=str(source["id"]),
                 )
             return ToolResult(
                 success=True,
