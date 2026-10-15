@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import math
 import time
 from typing import Any, Optional
 
@@ -17,10 +16,13 @@ from app.agent.absence_evidence import (
 from app.agent.answer_generator import format_evidence_for_prompt, select_evidence_for_prompt
 from app.agent.trace import get_current_trace
 from app.agent.verifier_diagnostics import (
+    claim_item_ok,
     classify_schema,
     field_report,
     fingerprint,
+    missing_evidence_item_ok,
     sanitize_exception,
+    score_is_valid,
 )
 from app.agent.coverage_validator import assess_coverage, classify_verifier_payload
 from app.agent.state import CurriculumQAState
@@ -93,13 +95,7 @@ def _json_boolean(raw: dict[str, Any], key: str, problems: list[str]) -> bool:
 
 def _finite_score(raw: dict[str, Any], problems: list[str]) -> float:
     value = raw.get("score")
-    if (
-        "score" not in raw
-        or isinstance(value, bool)
-        or not isinstance(value, (int, float))
-        or not math.isfinite(value)
-        or not 0 <= float(value) <= 1
-    ):
+    if "score" not in raw or not score_is_valid(value):
         problems.append("score")
         return 0.0
     return float(value)
@@ -119,9 +115,8 @@ def _recommendation_value(
 
 
 def _string_list(raw: dict[str, Any], key: str, problems: list[str]) -> list[str]:
-    if key not in raw:
-        return []
-    value = raw[key]
+    # Required by the schema: an omitted list is not the same as an empty one.
+    value = raw.get(key)
     if isinstance(value, list) and all(isinstance(item, str) for item in value):
         return list(value)
     problems.append(key)
@@ -131,30 +126,20 @@ def _string_list(raw: dict[str, Any], key: str, problems: list[str]) -> list[str
 def _missing_evidence_list(
     raw: dict[str, Any], problems: list[str]
 ) -> list[MissingEvidenceRequest | str]:
-    if "missing_evidence" not in raw:
-        return []
-    value = raw["missing_evidence"]
-    if not isinstance(value, list):
+    value = raw.get("missing_evidence")
+    if not isinstance(value, list) or not all(
+        missing_evidence_item_ok(item) for item in value
+    ):
         problems.append("missing_evidence")
         return []
-    parsed: list[MissingEvidenceRequest | str] = []
-    for item in value:
-        if isinstance(item, str):
-            parsed.append(item)
-            continue
-        if isinstance(item, dict) and all(
-            item_value is None or isinstance(item_value, str)
-            for item_value in item.values()
-        ):
-            parsed.append(
-                MissingEvidenceRequest(
-                    **{key: item.get(key) for key in _MISSING_EVIDENCE_KEYS}
-                )
-            )
-            continue
-        problems.append("missing_evidence")
-        return []
-    return parsed
+    return [
+        item
+        if isinstance(item, str)
+        else MissingEvidenceRequest(
+            **{key: item.get(key) for key in _MISSING_EVIDENCE_KEYS}
+        )
+        for item in value
+    ]
 
 
 def _optional_text(raw: dict[str, Any], key: str, problems: list[str]) -> str | None:
@@ -174,21 +159,18 @@ def _claim_assessments(raw: dict[str, Any], problems: list[str]) -> list[ClaimAs
     if not isinstance(items, list):
         problems.append("claims")
         return []
+    if not all(claim_item_ok(item) for item in items):
+        problems.append("claims")
+        return []
     claims: list[ClaimAssessment] = []
     for item in items:
-        if not isinstance(item, dict) or not item.get("claim"):
+        if not item["claim"]:
             continue
-        if not isinstance(item.get("claim"), str):
-            problems.append("claims")
-            return []
         try:
             verdict = ClaimVerdict(str(item.get("verdict") or "unsupported"))
         except ValueError:
             verdict = ClaimVerdict.UNSUPPORTED
         evidence_ids = item.get("evidence_ids") or []
-        if not isinstance(evidence_ids, list):
-            problems.append("claims")
-            return []
         claims.append(
             ClaimAssessment(
                 claim=item["claim"],
@@ -258,14 +240,19 @@ class AnswerVerifier:
         elif self.llm.name == "stub":
             result = self._stub_verify(state, deterministic)
         else:
-            result = self._merge(
-                deterministic,
-                self._llm_verify(state),
-            )
+            llm_result = self._llm_verify(state)
+            result = self._merge(deterministic, llm_result)
+            llm_metadata = llm_result.metadata or {}
+            if llm_metadata.get("verifier_result_invalid"):
+                result.metadata = {
+                    **(result.metadata or {}),
+                    "verifier_result_invalid": True,
+                    "verifier_invalid_reason": llm_metadata.get("verifier_invalid_reason"),
+                }
 
         before = result.recommendation.value
         result = self._normalize_recommendation(state, result)
-        self._record_normalization(before, result.recommendation.value)
+        self._diagnose(self._record_normalization, before, result.recommendation.value)
         latency_ms = (time.perf_counter() - started) * 1000
         result.metadata = {
             **(result.metadata or {}),
@@ -345,21 +332,30 @@ class AnswerVerifier:
 
     def _llm_verify(self, state: CurriculumQAState) -> VerificationResult:
         messages = self.build_messages(state)
-        self._record_verifier_input(state, messages)
+        self._diagnose(self._record_verifier_input, state, messages)
         try:
             raw = self.llm.generate_structured(
                 messages, schema=VERIFICATION_RESULT_JSON_SCHEMA, temperature=0.0
             )
         except LLMProviderError as exc:
-            self._record_verifier_failure(exc)
+            self._diagnose(self._record_verifier_failure, exc)
             # Prefer deterministic verdict over failing the whole turn on bad JSON.
+            # No model verdict was read, so the result is marked invalid and
+            # cannot be accepted on the deterministic checks alone.
             if "invalid json" in str(exc).lower() or "empty structured" in str(exc).lower():
-                return run_deterministic_checks(state)
+                result = run_deterministic_checks(state)
+                result.metadata = {
+                    **(result.metadata or {}),
+                    "verifier_result_invalid": True,
+                    "verifier_invalid_reason": "unreadable_response",
+                }
+                self._diagnose(self._record_parser_outcome, result)
+                return result
             raise
         except Exception as exc:
-            self._record_verifier_failure(exc)
+            self._diagnose(self._record_verifier_failure, exc)
             raise LLMProviderError(f"Verification failed: {exc}") from exc
-        self._record_parsed_payload(raw)
+        self._diagnose(self._record_parsed_payload, raw)
         result = self._parse(raw)
         shape = classify_verifier_payload(raw)
         result.metadata = {
@@ -369,7 +365,28 @@ class AnswerVerifier:
         if shape == "schema_envelope":
             result.metadata["verifier_result_invalid"] = True
             result.metadata["verifier_invalid_reason"] = "schema_envelope"
+        self._diagnose(self._record_parser_outcome, result)
         return result
+
+    def _diagnose(self, record, *args: Any) -> None:
+        """Trace recording must not change the verdict, so its errors are contained."""
+        try:
+            record(*args)
+        except Exception as exc:  # noqa: BLE001
+            log_agent_event(
+                logger,
+                "agent.verification.diagnostics_failed",
+                request_id=None,
+                exception_category=type(exc).__name__,
+            )
+
+    def _record_parser_outcome(self, result: VerificationResult) -> None:
+        event = self._payload_event()
+        if event is None:
+            return
+        metadata = result.metadata or {}
+        event["verifier_result_invalid"] = bool(metadata.get("verifier_result_invalid"))
+        event["verifier_invalid_reason"] = metadata.get("verifier_invalid_reason")
 
     def _coverage_diagnostics(
         self,

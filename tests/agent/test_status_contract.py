@@ -14,7 +14,7 @@ from app.agent.retrieval_state import targeted_tool_calls_from_missing, tool_fin
 from app.agent.state import CurriculumQAState
 from app.agent.verifier import AnswerVerifier
 from app.config import Settings
-from app.curriculum.evidence import CurriculumEvidence
+from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus
 from app.curriculum.normalize import evidence_from_hit, iter_content_nodes, node_to_search_hit
 from app.curriculum.structure_scope import should_stamp_grade_curriculum_content
 from app.enums import AgentStatus
@@ -972,6 +972,127 @@ def test_unsupported_claims_still_block_when_an_absent_code_is_also_requested():
     qa.verification = result
     qa.pending_missing_evidence = list(result.missing_evidence)
     assert _route(qa) != "finish"
+
+
+class _PayloadLLM(StubLLMProvider):
+    """Returns one raw verifier payload so the parser runs before the 12D rule."""
+
+    def __init__(self, payload: dict) -> None:
+        super().__init__()
+        self.payload = payload
+
+    @property
+    def name(self) -> str:
+        return "scripted"
+
+    def generate_structured(self, messages, *, schema, temperature=0.0):
+        return self.payload
+
+
+def _agriculture_tree_state(*, exhaustive: bool = True) -> CurriculumQAState:
+    qa = CurriculumQAState.initial(question="List every published Class 2 Agriculture unit.")
+    qa.grade = "CLASS_2"
+    qa.subject = "AGRICULTURE"
+    qa.metadata["curriculum_version"] = "2019"
+    qa.evidence_status = EvidenceStatus.FOUND
+    qa.evidence = _exhaustive_tree(
+        "AGRICULTURE",
+        "CLASS_2",
+        "2019",
+        [("AG-U01", "Soils"), ("AG-U02", "Crops")],
+        exhaustive=exhaustive,
+    )
+    qa.draft_answer = "AG-U01 Soils. AG-U02 Crops."
+    return qa
+
+
+def _code_payload(*requests: dict, **overrides) -> dict:
+    payload = {
+        "passed": True,
+        "score": 1.0,
+        "issues": [],
+        "unsupported_claims": [],
+        "incorrect_claims": [],
+        "missing_evidence": list(requests)
+        or [{"type": "unit", "subject": "AGRICULTURE", "grade": "CLASS_2", "topic": "AG-U09"}],
+        "recommendation": "accept",
+    }
+    payload.update(overrides)
+    return payload
+
+
+def _verify_payload(qa: CurriculumQAState, payload: dict) -> tuple[VerificationResult, str]:
+    result = AnswerVerifier(_PayloadLLM(payload), settings=_settings()).verify(qa)
+    qa.verification = result
+    qa.pending_missing_evidence = list(result.missing_evidence)
+    return result, _route(qa)
+
+
+def test_parsed_absent_code_request_is_resolved_end_to_end():
+    qa = _agriculture_tree_state()
+    result, route = _verify_payload(qa, _code_payload())
+    assert result.metadata["resolved_absent_codes"] == ["AG-U09"]
+    assert result.missing_evidence == []
+    assert result.recommendation == VerificationRecommendation.ACCEPT
+    assert route == "finish"
+
+
+def test_omitted_claim_lists_cannot_reach_the_absent_code_rule():
+    for key in ("unsupported_claims", "incorrect_claims"):
+        payload = {name: value for name, value in _code_payload().items() if name != key}
+        result, route = _verify_payload(_agriculture_tree_state(), payload)
+        assert result.metadata["verifier_result_invalid"] is True
+        assert "resolved_absent_codes" not in result.metadata
+        assert result.recommendation == VerificationRecommendation.FALLBACK
+        assert route == "fallback"
+
+
+def test_invalid_payload_with_a_code_request_does_not_resolve_absence():
+    result, route = _verify_payload(_agriculture_tree_state(), _code_payload(passed="yes"))
+    assert result.metadata["verifier_result_invalid"] is True
+    assert "resolved_absent_codes" not in result.metadata
+    assert result.recommendation == VerificationRecommendation.FALLBACK
+    assert route == "fallback"
+
+
+def test_parsed_requests_outside_the_absent_code_rule_stay_blocking():
+    cases = [
+        (
+            _agriculture_tree_state(),
+            _code_payload(unsupported_claims=["Pupils explore crops beyond the evidence."]),
+        ),
+        (
+            _agriculture_tree_state(),
+            _code_payload(
+                {"type": "learning_outcome", "subject": "AGRICULTURE", "grade": "CLASS_2", "topic": "AG-U09"}
+            ),
+        ),
+        (
+            _agriculture_tree_state(),
+            _code_payload(
+                {"type": "unit_term_mapping", "subject": "AGRICULTURE", "grade": "CLASS_2", "topic": "AG-T1"}
+            ),
+        ),
+        (
+            _agriculture_tree_state(exhaustive=False),
+            _code_payload(),
+        ),
+        (
+            _agriculture_tree_state(),
+            _code_payload({"type": "unit", "subject": "SCIENCE", "grade": "CLASS_2", "topic": "AG-U09"}),
+        ),
+        (
+            _agriculture_tree_state(),
+            _code_payload("AG-U09"),
+        ),
+    ]
+    for qa, payload in cases:
+        result, route = _verify_payload(qa, payload)
+        assert "resolved_absent_codes" not in result.metadata
+        assert len(result.missing_evidence) == 1
+        assert result.passed is False
+        assert result.recommendation == VerificationRecommendation.RETRIEVE_MORE
+        assert route != "finish"
 
 
 def _same_name_units_with_outcomes() -> list[CurriculumEvidence]:

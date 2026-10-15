@@ -88,12 +88,53 @@ def classify_schema(raw: Any) -> dict[str, Any]:
     }
 
 
-def _missing_evidence_item_ok(item: Any) -> bool:
+def score_is_valid(value: Any) -> bool:
+    """A JSON number from 0 to 1. Booleans, NaN, and infinity are not scores.
+
+    Integers are compared without float conversion, which overflows for very
+    large JSON integers.
+    """
+    if isinstance(value, bool):
+        return False
+    if isinstance(value, int):
+        return 0 <= value <= 1
+    if isinstance(value, float):
+        return math.isfinite(value) and 0.0 <= value <= 1.0
+    return False
+
+
+def missing_evidence_item_ok(item: Any) -> bool:
+    """A legacy string request, or an object whose values are strings or null."""
     if isinstance(item, str):
         return True
     if not isinstance(item, dict):
         return False
     return all(value is None or isinstance(value, str) for value in item.values())
+
+
+def claim_item_ok(item: Any) -> bool:
+    if not isinstance(item, dict) or not isinstance(item.get("claim"), str):
+        return False
+    evidence_ids = item.get("evidence_ids")
+    return evidence_ids is None or isinstance(evidence_ids, list)
+
+
+def _item_properties(key: str) -> set[str]:
+    properties = VERIFICATION_RESULT_JSON_SCHEMA.get("properties") or {}
+    items = (properties.get(key) or {}).get("items") or {}
+    return set(items.get("properties") or {})
+
+
+def _unexpected_item_keys(raw: dict[str, Any], key: str) -> list[str]:
+    value = raw.get(key)
+    if not isinstance(value, list):
+        return []
+    allowed = _item_properties(key)
+    extra: set[str] = set()
+    for item in value:
+        if isinstance(item, dict):
+            extra.update(set(item) - allowed)
+    return [f"unexpected:{key}.{name}" for name in sorted(extra)]
 
 
 def schema_problems(raw: Any) -> list[str]:
@@ -115,9 +156,7 @@ def schema_problems(raw: Any) -> list[str]:
     score = raw.get("score")
     if "score" in raw and (isinstance(score, bool) or not isinstance(score, (int, float))):
         problems.append("score_not_number")
-    elif isinstance(score, (int, float)) and not isinstance(score, bool) and (
-        not math.isfinite(score) or not 0 <= float(score) <= 1
-    ):
+    elif "score" in raw and not score_is_valid(score):
         problems.append("score_out_of_range")
     for key in ("issues", "unsupported_claims", "incorrect_claims"):
         value = raw.get(key)
@@ -131,15 +170,22 @@ def schema_problems(raw: Any) -> list[str]:
         missing = raw.get("missing_evidence")
         if not isinstance(missing, list):
             problems.append("missing_evidence_not_array")
-        elif any(not _missing_evidence_item_ok(item) for item in missing):
+        elif any(not missing_evidence_item_ok(item) for item in missing):
             problems.append("missing_evidence_item_invalid")
-    if "notes" in raw and raw.get("notes") is not None and not isinstance(raw.get("notes"), str):
-        problems.append("notes_not_string")
-    if "claims" in raw and not isinstance(raw.get("claims"), list):
-        problems.append("claims_not_array")
+    for key in ("notes", "clarification"):
+        if key in raw and raw.get(key) is not None and not isinstance(raw.get(key), str):
+            problems.append(f"{key}_not_string")
+    if "claims" in raw:
+        claims = raw.get("claims")
+        if not isinstance(claims, list):
+            problems.append("claims_not_array")
+        elif any(not claim_item_ok(item) for item in claims):
+            problems.append("claims_item_invalid")
     extra = sorted(set(raw) - set(properties))
     for key in extra:
         problems.append(f"unexpected:{key}")
+    problems.extend(_unexpected_item_keys(raw, "missing_evidence"))
+    problems.extend(_unexpected_item_keys(raw, "claims"))
     return problems
 
 

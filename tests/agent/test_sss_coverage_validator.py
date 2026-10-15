@@ -50,6 +50,16 @@ class _ScriptedLLM:
     model = "scripted"
 
     def __init__(self, payload: dict):
+        # Verdict fixtures state only the fields under test. The schema requires
+        # the four lists, so fill those that are omitted with explicit empties.
+        if "passed" in payload or "recommendation" in payload:
+            payload = {
+                "issues": [],
+                "unsupported_claims": [],
+                "incorrect_claims": [],
+                "missing_evidence": [],
+                **payload,
+            }
         self.payload = payload
 
     def generate_structured(self, messages, *, schema, temperature: float = 0.0):

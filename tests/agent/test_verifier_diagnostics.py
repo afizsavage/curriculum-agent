@@ -567,6 +567,270 @@ def test_fallback_with_a_string_passed_cannot_become_accept():
     assert event["safely_interpretable"] is False
 
 
+# Field order, types, and the echoed title match the five recorded 12H replay
+# responses. Claim text and notes are shortened.
+_RECORDED_SHAPE = {
+    "title": "VerificationResult",
+    "passed": True,
+    "score": 1.0,
+    "issues": [],
+    "unsupported_claims": [],
+    "missing_evidence": [],
+    "incorrect_claims": [],
+    "recommendation": "accept",
+    "claims": [
+        {
+            "claim": "Living and Non – living Things — C4-U01",
+            "verdict": "supported",
+            "evidence_ids": ["unit-1"],
+            "notes": "Matches the record.",
+        }
+    ],
+    "clarification": "",
+    "notes": "All listed units match the evidence.",
+}
+
+
+def test_recorded_provider_shape_keeps_its_accept():
+    result, decision, event = _verdict(dict(_RECORDED_SHAPE))
+    assert result.passed is True
+    assert result.score == 1.0
+    assert result.recommendation == VerificationRecommendation.ACCEPT
+    assert len(result.claims) == 1
+    assert decision == "finish"
+    assert event["schema_valid"] is False
+    assert event["extra_fields"] == ["title"]
+    assert event["safely_interpretable"] is True
+    assert event["verifier_result_invalid"] is False
+    assert event["recommendation_after_normalize"] == "accept"
+    assert event["final_route"] == "finish"
+
+
+def test_missing_and_null_required_lists_are_not_read_as_empty():
+    for key in ("issues", "unsupported_claims", "incorrect_claims", "missing_evidence"):
+        omitted = {name: value for name, value in _complete().items() if name != key}
+        missing, missing_route, missing_event = _verdict(omitted)
+        null, null_route, null_event = _verdict(_complete(**{key: None}))
+        assert missing.recommendation == VerificationRecommendation.FALLBACK
+        assert null.recommendation == VerificationRecommendation.FALLBACK
+        assert missing_route == null_route == "fallback"
+        assert missing_event["fields"][key] == "missing"
+        assert null_event["fields"][key] == "null"
+        assert f"missing:{key}" in missing_event["interpretation_problems"]
+        assert f"{key}_not_array" in null_event["interpretation_problems"]
+        for event in (missing_event, null_event):
+            assert event["safely_interpretable"] is False
+            assert event["verifier_result_invalid"] is True
+            assert key in event["verifier_invalid_reason"]
+
+
+def test_string_and_object_missing_evidence_both_block_accept():
+    for request in (
+        "C4U09 learning outcomes",
+        {"type": "learning_outcome", "topic": "C4U09", "query": "C4U09 learning outcomes"},
+    ):
+        result, _decision, event = _verdict(_complete(missing_evidence=[request]))
+        assert result.passed is False
+        assert result.recommendation == VerificationRecommendation.RETRIEVE_MORE
+        assert len(result.missing_evidence) == 1
+        kept = result.missing_evidence[0]
+        if isinstance(request, str):
+            assert kept == request
+        else:
+            assert isinstance(kept, MissingEvidenceRequest)
+            assert kept.topic == "C4U09"
+        assert event["safely_interpretable"] is True
+        assert event["verifier_result_invalid"] is False
+
+
+def test_malformed_missing_evidence_items_fall_back_and_are_reported():
+    for items in ([5], [["C4U09"]], [{"topic": 9}], ["C4U09", None]):
+        result, decision, event = _verdict(
+            _complete(passed=False, score=0.2, recommendation="retrieve_more", missing_evidence=items)
+        )
+        assert result.passed is False
+        assert result.recommendation == VerificationRecommendation.FALLBACK
+        assert decision == "fallback"
+        assert event["parsed_missing_evidence"] == items
+        assert "missing_evidence_item_invalid" in event["interpretation_problems"]
+        assert event["safely_interpretable"] is False
+        assert event["verifier_result_invalid"] is True
+
+
+def test_extra_keys_inside_items_are_schema_warnings_not_rejections():
+    payload = _complete(
+        passed=False,
+        score=0.2,
+        recommendation="retrieve_more",
+        missing_evidence=[{"topic": "C4U09", "reason": "outcomes absent"}],
+        claims=[{"claim": "C4-U01", "verdict": "supported", "source": "x"}],
+    )
+    result, _decision, event = _verdict(payload)
+    assert result.recommendation == VerificationRecommendation.RETRIEVE_MORE
+    assert result.missing_evidence[0].topic == "C4U09"
+    assert event["schema_valid"] is False
+    assert event["safely_interpretable"] is True
+    assert event["extra_fields"] == ["missing_evidence.reason", "claims.source"]
+
+
+def test_parser_and_diagnostics_agree_on_malformed_optional_fields():
+    for payload, problem in (
+        (_complete(clarification=5), "clarification_not_string"),
+        (_complete(notes=["x"]), "notes_not_string"),
+        (_complete(claims=["C4-U01"]), "claims_item_invalid"),
+        (_complete(claims=[{"claim": 5, "verdict": "supported"}]), "claims_item_invalid"),
+        (_complete(claims=[{"claim": "C4-U01", "evidence_ids": "unit-1"}]), "claims_item_invalid"),
+        (_complete(claims="C4-U01"), "claims_not_array"),
+    ):
+        result, decision, event = _verdict(payload)
+        assert result.recommendation == VerificationRecommendation.FALLBACK
+        assert decision == "fallback"
+        assert problem in event["interpretation_problems"]
+        assert event["safely_interpretable"] is False
+        assert event["verifier_result_invalid"] is True
+
+
+def test_oversized_integer_score_falls_back_without_raising():
+    payload = json.loads(
+        '{"passed": true, "score": 1' + "0" * 400 + ', "issues": [], '
+        '"unsupported_claims": [], "incorrect_claims": [], '
+        '"missing_evidence": [], "recommendation": "accept"}'
+    )
+    result, decision, event = _verdict(payload)
+    assert result.recommendation == VerificationRecommendation.FALLBACK
+    assert decision == "fallback"
+    assert "score_out_of_range" in event["interpretation_problems"]
+    untraced = AnswerVerifier(_ScriptedLLM(payload), settings=_settings()).verify(_state())
+    assert untraced.recommendation == VerificationRecommendation.FALLBACK
+
+
+def test_diagnostic_failure_does_not_change_the_verdict_or_route(monkeypatch):
+    import app.agent.verifier as verifier_module
+
+    def broken(_raw):
+        raise RuntimeError("diagnostics broke")
+
+    monkeypatch.setattr(verifier_module, "classify_schema", broken)
+    accepted, accept_route, _event = _verdict(_complete())
+    assert accepted.recommendation == VerificationRecommendation.ACCEPT
+    assert accept_route == "finish"
+    invalid, invalid_route, _invalid_event = _verdict(_complete(passed="yes"))
+    assert invalid.recommendation == VerificationRecommendation.FALLBACK
+    assert invalid_route == "fallback"
+
+
+def _verdict_from(llm: LLMProvider, qa: CurriculumQAState | None = None):
+    qa = qa or _state()
+    with start_agent_run(question="science units", request_id="req-l", persist=False) as trace:
+        result = AnswerVerifier(llm, settings=_settings()).verify(qa)
+        qa.verification = result
+        qa.pending_missing_evidence = list(result.missing_evidence)
+        decision = route_after_verification({"qa": qa}, settings=_settings())
+    return result, decision, trace.latest_event("agent.verification.payload")
+
+
+def test_unreadable_response_cannot_finish_on_deterministic_checks_alone():
+    for error, raw_text in (
+        (LLMProviderError("Empty structured response from LLM"), None),
+        (LLMProviderError("LLM returned invalid JSON"), "not json"),
+    ):
+        llm = _ScriptedLLM(error=error, raw_text=raw_text, json_extracted=False, record_raw=True)
+        result, decision, event = _verdict_from(llm)
+        assert result.passed is False
+        assert result.recommendation == VerificationRecommendation.FALLBACK
+        assert result.metadata["source"] == "deterministic"
+        assert result.metadata["verifier_result_invalid"] is True
+        assert result.metadata["verifier_invalid_reason"] == "unreadable_response"
+        assert decision == "fallback"
+        assert event["safely_interpretable"] is False
+        assert event["verifier_result_invalid"] is True
+        assert event["final_route"] == "fallback"
+        assert event["fallback_reason"] == "verification_fallback"
+
+
+def test_invalid_flag_survives_a_deterministic_hard_failure_merge():
+    qa = _state()
+    qa.grade = "CLASS_5"
+    result, decision, event = _verdict_from(_ScriptedLLM(_complete(passed="yes")), qa)
+    assert result.metadata["source"] == "merged"
+    assert result.metadata["verifier_result_invalid"] is True
+    assert result.recommendation == VerificationRecommendation.FALLBACK
+    assert decision == "fallback"
+    assert event["verifier_result_invalid"] is True
+
+
+def test_route_falls_back_for_an_invalid_result_even_if_marked_passed():
+    qa = _state()
+    qa.verification = VerificationResult(
+        passed=True,
+        score=1.0,
+        recommendation=VerificationRecommendation.ACCEPT,
+        metadata={"verifier_result_invalid": True, "verifier_invalid_reason": "uninterpretable:passed"},
+    )
+    assert route_after_verification({"qa": qa}, settings=_settings()) == "fallback"
+    for recommendation in (
+        VerificationRecommendation.RETRIEVE_MORE,
+        VerificationRecommendation.CLARIFY,
+    ):
+        qa.verification = VerificationResult(
+            passed=False,
+            recommendation=recommendation,
+            missing_evidence=[MissingEvidenceRequest(type="learning_outcome", topic="C4U09")],
+            metadata={"verifier_result_invalid": True},
+        )
+        assert route_after_verification({"qa": qa}, settings=_settings()) == "fallback"
+
+
+def test_diagnostics_parser_normalization_and_route_agree():
+    without_issues = {key: value for key, value in _complete().items() if key != "issues"}
+    cases = [
+        ("valid accept", _complete(), True, True, False, "accept", "finish"),
+        ("valid fallback", _complete(passed=False, score=0.0, recommendation="fallback"), True, True, False, "fallback", "fallback"),
+        ("missing list", without_issues, False, False, True, "fallback", "fallback"),
+        ("malformed field", _complete(score="high"), False, False, True, "fallback", "fallback"),
+        ("extra top-level", _complete(title="VerificationResult"), False, True, False, "accept", "finish"),
+        (
+            "extra nested",
+            _complete(claims=[{"claim": "C4-U01", "verdict": "supported", "source": "x"}]),
+            False,
+            True,
+            False,
+            "accept",
+            "finish",
+        ),
+    ]
+    for label, payload, schema_valid, interpretable, invalid, after, route in cases:
+        result, decision, event = _verdict(payload)
+        assert event["schema_valid"] is schema_valid, label
+        assert event["safely_interpretable"] is interpretable, label
+        assert event["verifier_result_invalid"] is invalid, label
+        assert bool(event["verifier_invalid_reason"]) is invalid, label
+        assert event["recommendation_after_normalize"] == after, label
+        assert result.recommendation.value == after, label
+        assert decision == event["final_route"] == route, label
+
+
+def test_trace_write_failure_keeps_the_verdict_and_route(monkeypatch):
+    import app.agent.verifier as verifier_module
+
+    def broken(self, *args):
+        raise RuntimeError("trace write failed")
+
+    for name in (
+        "_record_verifier_input",
+        "_record_parsed_payload",
+        "_record_parser_outcome",
+        "_record_normalization",
+    ):
+        monkeypatch.setattr(verifier_module.AnswerVerifier, name, broken)
+    accepted, accept_route, _event = _verdict(_complete())
+    assert accepted.recommendation == VerificationRecommendation.ACCEPT
+    assert accept_route == "finish"
+    invalid, invalid_route, _invalid_event = _verdict(_complete(issues=None))
+    assert invalid.recommendation == VerificationRecommendation.FALLBACK
+    assert invalid_route == "fallback"
+
+
 def test_missing_diagnostic_event_does_not_change_the_route():
     qa = _state()
     qa.verification = VerificationResult(

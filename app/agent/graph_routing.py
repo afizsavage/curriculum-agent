@@ -54,6 +54,9 @@ def route_after_verification(
         reason = "absence_records_unchecked"
         qa.metadata["fallback_reason"] = reason
         qa.metadata["termination_reason"] = reason
+    elif (result.metadata or {}).get("verifier_result_invalid"):
+        route = "fallback"
+        reason = "verification_fallback"
     elif result.passed or result.recommendation == VerificationRecommendation.ACCEPT:
         route = "finish"
         reason = "verification_passed"
