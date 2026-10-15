@@ -21,9 +21,10 @@ _SUBJECT_ALIASES: dict[str, str] = {
     "maths": "MATHEMATICS",
     "math": "MATHEMATICS",
     "english": "ENGLISH",
-    "english language": "ENGLISH",
+    "english language": "ENGLISH_LANGUAGE",
     "language arts": "ENGLISH",
     "science": "SCIENCE",
+    "integrated science": "INTEGRATED_SCIENCE",
     "social studies": "SOCIAL_STUDIES",
     "agricultural science": "AGRICULTURAL_SCIENCE",
     "ict literacy": "ICT_LITERACY",
@@ -62,11 +63,18 @@ def normalize_subject_code(value: str | None) -> str | None:
     key = re.sub(r"\s+", " ", text.lower())
     if key in _SUBJECT_ALIASES:
         return _SUBJECT_ALIASES[key]
-    # Soft match: contained alias
+    # Longest whole-phrase alias. Two different codes at that length are
+    # ambiguous and must not be guessed.
+    matches: list[tuple[int, str]] = []
     for alias, code in _SUBJECT_ALIASES.items():
-        if alias in key:
-            return code
-    # Fallback: slugify
+        if re.search(rf"(?<![a-z0-9]){re.escape(alias)}(?![a-z0-9])", key):
+            matches.append((len(alias), code))
+    if matches:
+        best_len = max(length for length, _code in matches)
+        codes = {code for length, code in matches if length == best_len}
+        if len(codes) == 1:
+            return next(iter(codes))
+        return None
     slug = re.sub(r"[^a-z0-9]+", "_", key).strip("_").upper()
     return slug or None
 

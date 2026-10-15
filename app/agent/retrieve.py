@@ -35,6 +35,7 @@ from app.agent.trace import (
     timed_ms,
 )
 from app.config import Settings
+from app.curriculum.codes import normalize_subject_code
 from app.curriculum.evidence import CurriculumEvidence, EvidenceStatus, ToolCallRecord
 from app.curriculum.errors import CurriculumAPIError
 from app.enums import AgentStatus
@@ -88,6 +89,34 @@ def _clear_coverage_census_after_failed_sss_load(
 
     if tool_name == TOOL_GET_SSS_STREAM_SUBJECTS:
         state.metadata.pop("sss_coverage_expected", None)
+
+
+def _arguments_for_call(
+    state: CurriculumQAState,
+    tool_name: str,
+    arguments: dict[str, Any],
+) -> dict[str, Any]:
+    """Apply the subject resolved at understand() before a structure call.
+
+    Grade and curriculum selection stay on the arguments already chosen.
+    A planner subject is replaced only when it is not that resolved code.
+    """
+    call_args = dict(arguments)
+    if tool_name != "get_curriculum_structure":
+        return call_args
+    if state.grade and not call_args.get("grade"):
+        call_args["grade"] = state.grade
+    if state.subject:
+        planned = normalize_subject_code(
+            str(call_args.get("subject")) if call_args.get("subject") else None
+        )
+        if planned != state.subject:
+            call_args["subject"] = state.subject
+    if state.classification and not call_args.get("classification"):
+        call_args["classification"] = state.classification
+    if state.level and not call_args.get("level"):
+        call_args["level"] = state.level
+    return call_args
 
 
 class RetrievalNode:
@@ -915,6 +944,7 @@ class RetrievalNode:
         api_status = None
         trace = get_current_trace()
         tool_call_number = state.tool_calls + 1
+        call.arguments = _arguments_for_call(state, call.name, call.arguments or {})
         key = tool_call_key(call.name, call.arguments)
         fp = tool_fingerprint(call.name, call.arguments)
         duplicate_seen = bool(trace and key in trace.seen_tool_keys)
@@ -936,17 +966,7 @@ class RetrievalNode:
         result_previews: list[dict[str, Any]] = []
         observability: dict[str, Any] | None = None
         try:
-            # Ensure grade-scoped classification constraints from understand()
-            # reach structured retrieval even if the planner omitted them.
-            call_args = dict(call.arguments or {})
-            if call.name == "get_curriculum_structure":
-                if state.grade and not call_args.get("grade"):
-                    call_args["grade"] = state.grade
-                if state.classification and not call_args.get("classification"):
-                    call_args["classification"] = state.classification
-                if state.level and not call_args.get("level"):
-                    call_args["level"] = state.level
-            result = self.tools.execute(call.name, **call_args)
+            result = self.tools.execute(call.name, **(call.arguments or {}))
             latency = timed_ms(started)
             state.bump_tool_calls()
             if isinstance(result.data, dict):

@@ -29,6 +29,12 @@ def test_normalize_subject():
     assert normalize_subject_code("Mathematics") == "MATHEMATICS"
     assert normalize_subject_code("maths") == "MATHEMATICS"
     assert normalize_subject_code("ENGLISH") == "ENGLISH"
+    assert normalize_subject_code("English") == "ENGLISH"
+    assert normalize_subject_code("Science") == "SCIENCE"
+    assert normalize_subject_code("Biology") == "BIOLOGY"
+    assert normalize_subject_code("English Language") == "ENGLISH_LANGUAGE"
+    assert normalize_subject_code("Integrated Science") == "INTEGRATED_SCIENCE"
+    assert normalize_subject_code("English Science") is None
 
 
 def test_extract_filters_from_question():
