@@ -92,6 +92,7 @@ class AgentRunTrace:
         }
     )
     final: dict[str, Any] = field(default_factory=dict)
+    verifier_model_stash: dict[str, Any] | None = field(default=None, repr=False)
     _lock: threading.Lock = field(default_factory=threading.Lock, repr=False)
 
     def emit(self, event: str, **fields: Any) -> None:
@@ -117,6 +118,31 @@ class AgentRunTrace:
             question=question,
             **fields,
         )
+
+    def record_trace_only(self, event: str, **fields: Any) -> dict[str, Any]:
+        """Append an event to the trace file without writing it to application logs.
+
+        Null values are kept so a missing key can be told apart from an explicit
+        null. Callers use this for answer-bearing verifier payloads.
+        """
+        payload = {
+            "event": event,
+            "agent_run_id": self.agent_run_id,
+            "request_id": self.request_id,
+            "conversation_id": self.conversation_id,
+            "ts": datetime.now(timezone.utc).isoformat(),
+            **fields,
+        }
+        with self._lock:
+            self.events.append(payload)
+        return payload
+
+    def latest_event(self, event: str) -> dict[str, Any] | None:
+        with self._lock:
+            for payload in reversed(self.events):
+                if payload.get("event") == event:
+                    return payload
+        return None
 
     def ensure_iteration(self, iteration: int) -> dict[str, Any]:
         with self._lock:

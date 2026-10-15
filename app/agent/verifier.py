@@ -14,6 +14,13 @@ from app.agent.absence_evidence import (
     serialized_entity_ids,
 )
 from app.agent.answer_generator import format_evidence_for_prompt, select_evidence_for_prompt
+from app.agent.trace import get_current_trace
+from app.agent.verifier_diagnostics import (
+    field_report,
+    fingerprint,
+    sanitize_exception,
+    schema_problems,
+)
 from app.agent.coverage_validator import assess_coverage, classify_verifier_payload
 from app.agent.state import CurriculumQAState
 from app.agent.verification_checks import run_deterministic_checks
@@ -118,7 +125,9 @@ class AnswerVerifier:
                 self._llm_verify(state),
             )
 
+        before = result.recommendation.value
         result = self._normalize_recommendation(state, result)
+        self._record_normalization(before, result.recommendation.value)
         latency_ms = (time.perf_counter() - started) * 1000
         result.metadata = {
             **(result.metadata or {}),
@@ -198,17 +207,21 @@ class AnswerVerifier:
 
     def _llm_verify(self, state: CurriculumQAState) -> VerificationResult:
         messages = self.build_messages(state)
+        self._record_verifier_input(state, messages)
         try:
             raw = self.llm.generate_structured(
                 messages, schema=VERIFICATION_RESULT_JSON_SCHEMA, temperature=0.0
             )
         except LLMProviderError as exc:
+            self._record_verifier_failure(exc)
             # Prefer deterministic verdict over failing the whole turn on bad JSON.
             if "invalid json" in str(exc).lower() or "empty structured" in str(exc).lower():
                 return run_deterministic_checks(state)
             raise
         except Exception as exc:
+            self._record_verifier_failure(exc)
             raise LLMProviderError(f"Verification failed: {exc}") from exc
+        self._record_parsed_payload(raw)
         result = self._parse(raw)
         shape = classify_verifier_payload(raw)
         result.metadata = {
@@ -460,6 +473,110 @@ class AnswerVerifier:
             ),
             notes=str(raw["notes"]) if raw.get("notes") else None,
             metadata={"source": "llm"},
+        )
+
+    def _payload_event(self) -> dict[str, Any] | None:
+        trace = get_current_trace()
+        if trace is None:
+            return None
+        event = trace.latest_event("agent.verification.payload")
+        if event is None:
+            event = trace.record_trace_only("agent.verification.payload")
+        return event
+
+    def _record_verifier_input(
+        self, state: CurriculumQAState, messages: list[LLMMessage]
+    ) -> None:
+        event = self._payload_event()
+        if event is None:
+            return
+        prompt = "\n\n".join(message.content for message in messages)
+        event.update(
+            {
+                "prompt_sha256": fingerprint(prompt),
+                "prompt_length": len(prompt),
+                "evidence_ids": list(
+                    (state.metadata or {}).get("verification_evidence_ids") or []
+                ),
+                "provider": self.llm.name,
+                "model": self.llm.model,
+                "temperature": 0.0,
+            }
+        )
+
+    def _record_parsed_payload(self, raw: Any) -> None:
+        event = self._payload_event()
+        if event is None:
+            return
+        trace = get_current_trace()
+        stash = (trace.verifier_model_stash or {}) if trace is not None else {}
+        problems = schema_problems(raw)
+        report = field_report(raw if isinstance(raw, dict) else None)
+        event.update(stash)
+        event.update(
+            {
+                "schema_valid": not problems,
+                "schema_problems": problems,
+                "fields": report,
+                "parsed_recommendation": (
+                    raw.get("recommendation") if isinstance(raw, dict) else None
+                ),
+                "parsed_passed": raw.get("passed") if isinstance(raw, dict) else None,
+                "parsed_score": raw.get("score") if isinstance(raw, dict) else None,
+                "parsed_notes": raw.get("notes") if isinstance(raw, dict) else None,
+                "parsed_issues": raw.get("issues") if isinstance(raw, dict) else None,
+                "parsed_unsupported_claims": (
+                    raw.get("unsupported_claims") if isinstance(raw, dict) else None
+                ),
+                "parsed_incorrect_claims": (
+                    raw.get("incorrect_claims") if isinstance(raw, dict) else None
+                ),
+                "parsed_missing_evidence": (
+                    raw.get("missing_evidence") if isinstance(raw, dict) else None
+                ),
+            }
+        )
+
+    def _record_verifier_failure(self, exc: BaseException) -> None:
+        event = self._payload_event()
+        if event is None:
+            return
+        trace = get_current_trace()
+        stash = (trace.verifier_model_stash or {}) if trace is not None else {}
+        event.update(stash)
+        event["exception"] = sanitize_exception(exc)
+        if "json_extracted" not in event:
+            event["json_extracted"] = False
+        event["schema_valid"] = False
+        self._log_payload_summary(event)
+
+    def _record_normalization(self, before: str, after: str) -> None:
+        event = self._payload_event()
+        if event is None:
+            return
+        event["recommendation_before_normalize"] = before
+        event["recommendation_after_normalize"] = after
+        self._log_payload_summary(event)
+
+    def _log_payload_summary(self, event: dict[str, Any]) -> None:
+        log_agent_event(
+            logger,
+            "agent.verification.payload",
+            request_id=None,
+            raw_response_present=event.get("raw_response_present"),
+            raw_response_length=event.get("raw_response_length"),
+            raw_response_fingerprint=event.get("raw_response_fingerprint"),
+            json_extracted=event.get("json_extracted"),
+            schema_valid=event.get("schema_valid"),
+            parsed_recommendation=event.get("parsed_recommendation"),
+            parsed_passed=event.get("parsed_passed"),
+            recommendation_before_normalize=event.get(
+                "recommendation_before_normalize"
+            ),
+            recommendation_after_normalize=event.get("recommendation_after_normalize"),
+            exception_category=(event.get("exception") or {}).get("category")
+            if isinstance(event.get("exception"), dict)
+            else None,
         )
 
     def _merge(

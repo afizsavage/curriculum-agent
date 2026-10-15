@@ -152,6 +152,10 @@ def route_after_verification(
             verification_attempts=qa.verification_attempts,
             tool_calls=qa.tool_calls,
         )
+        payload = trace.latest_event("agent.verification.payload")
+        if payload is not None:
+            payload["final_route"] = route
+            payload["fallback_reason"] = reason if route == "fallback" else None
 
     log_agent_event(
         logger,

@@ -11,6 +11,7 @@ import httpx
 from app.config import Settings
 from app.exceptions import ConfigurationError, LLMProviderError, LLMTimeoutError
 from app.llm.base import LLMMessage, LLMProvider, LLMResponse, ToolCallRequest
+from app.agent.verifier_diagnostics import fingerprint
 from app.llm.json_utils import parse_llm_json
 from app.logging_utils import get_logger
 
@@ -107,18 +108,41 @@ class DeepSeekResponsesProvider(LLMProvider):
                 )
                 content = self._extract_output_text(data)
                 if not content:
+                    self._stash_verifier_text(
+                        schema,
+                        None,
+                        temperature=temperature,
+                        json_extracted=False,
+                        error=LLMProviderError("Empty structured response from LLM"),
+                    )
                     raise LLMProviderError("Empty structured response from LLM")
                 try:
-                    return parse_llm_json(content)
+                    parsed = parse_llm_json(content)
                 except json.JSONDecodeError as exc:
+                    self._stash_verifier_text(
+                        schema,
+                        content,
+                        temperature=temperature,
+                        json_extracted=False,
+                        error=exc,
+                    )
                     logger.warning(
-                        "deepseek.structured_json_parse_failed preview=%r",
-                        content[:240],
+                        "deepseek.structured_json_parse_failed length=%s fingerprint=%s",
+                        len(content),
+                        fingerprint(content),
                     )
                     # Fall through to the next text format / raise below.
                     last_error = LLMProviderError("LLM returned invalid JSON")
                     last_error.__cause__ = exc
                     continue
+                self._stash_verifier_text(
+                    schema,
+                    content,
+                    temperature=temperature,
+                    json_extracted=True,
+                    error=None,
+                )
+                return parsed
             except LLMProviderError as exc:
                 last_error = exc
                 detail = str(exc).lower()
@@ -128,6 +152,29 @@ class DeepSeekResponsesProvider(LLMProvider):
         if last_error is not None:
             raise last_error
         raise LLMProviderError("LLM returned invalid JSON")
+
+    def _stash_verifier_text(
+        self,
+        schema: dict[str, Any],
+        content: str | None,
+        *,
+        temperature: float,
+        json_extracted: bool,
+        error: BaseException | None,
+    ) -> None:
+        if str((schema or {}).get("title") or "") != "VerificationResult":
+            return
+        from app.agent.verifier_diagnostics import stash_verifier_model_text
+
+        stash_verifier_model_text(
+            content,
+            provider=self.name,
+            model=self.model,
+            temperature=temperature,
+            max_output_tokens=8192,
+            json_extracted=json_extracted,
+            error=error,
+        )
 
     def generate_with_tools(
         self,
