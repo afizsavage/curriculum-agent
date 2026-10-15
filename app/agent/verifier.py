@@ -16,10 +16,10 @@ from app.agent.absence_evidence import (
 from app.agent.answer_generator import format_evidence_for_prompt, select_evidence_for_prompt
 from app.agent.trace import get_current_trace
 from app.agent.verifier_diagnostics import (
+    classify_schema,
     field_report,
     fingerprint,
     sanitize_exception,
-    schema_problems,
 )
 from app.agent.coverage_validator import assess_coverage, classify_verifier_payload
 from app.agent.state import CurriculumQAState
@@ -510,13 +510,11 @@ class AnswerVerifier:
             return
         trace = get_current_trace()
         stash = (trace.verifier_model_stash or {}) if trace is not None else {}
-        problems = schema_problems(raw)
         report = field_report(raw if isinstance(raw, dict) else None)
         event.update(stash)
+        event.update(classify_schema(raw))
         event.update(
             {
-                "schema_valid": not problems,
-                "schema_problems": problems,
                 "fields": report,
                 "parsed_recommendation": (
                     raw.get("recommendation") if isinstance(raw, dict) else None
@@ -548,6 +546,7 @@ class AnswerVerifier:
         if "json_extracted" not in event:
             event["json_extracted"] = False
         event["schema_valid"] = False
+        event["safely_interpretable"] = False
         self._log_payload_summary(event)
 
     def _record_normalization(self, before: str, after: str) -> None:

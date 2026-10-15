@@ -29,6 +29,12 @@ _TRACKED_FIELDS = (
 
 
 def fingerprint(text: str | None) -> str | None:
+    """SHA-256 of the text that is stored.
+
+    Callers pass the redacted response. The hash is not of the pre-redaction
+    provider text, so a secret removed before persistence cannot be recovered
+    from the fingerprint.
+    """
     if text is None:
         return None
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
@@ -58,6 +64,27 @@ def field_presence(raw: dict[str, Any] | None, key: str) -> str:
 
 def field_report(raw: dict[str, Any] | None) -> dict[str, str]:
     return {key: field_presence(raw, key) for key in _TRACKED_FIELDS}
+
+
+def classify_schema(raw: Any) -> dict[str, Any]:
+    """Separate extra instance fields from problems that block a safe reading.
+
+    ``title`` on a response object is not a permitted VerificationResult
+    property. It is a JSON Schema annotation on the schema document. An
+    echoed ``title`` stays in ``schema_problems`` as ``unexpected:title``.
+    Required-field and type problems are listed separately and are what make
+    ``safely_interpretable`` false. Neither list changes parsing.
+    """
+    problems = schema_problems(raw)
+    extra = [item.split(":", 1)[1] for item in problems if item.startswith("unexpected:")]
+    blocking = [item for item in problems if not item.startswith("unexpected:")]
+    return {
+        "schema_problems": problems,
+        "extra_fields": extra,
+        "interpretation_problems": blocking,
+        "schema_valid": not problems,
+        "safely_interpretable": isinstance(raw, dict) and not blocking,
+    }
 
 
 def schema_problems(raw: Any) -> list[str]:
@@ -116,9 +143,10 @@ def stash_verifier_model_text(
         "model": model,
         "temperature": temperature,
         "max_output_tokens": max_output_tokens,
-        "raw_response_present": content is not None and content != "",
-        "raw_response_length": len(content or ""),
+        "raw_response_present": bool(redacted),
+        "raw_response_length": len(redacted or ""),
         "raw_response_fingerprint": fingerprint(redacted),
+        "fingerprint_basis": "redacted_stored_text",
         "raw_response": redacted,
         "json_extracted": json_extracted,
         "json_error": sanitize_exception(error) if error is not None else None,

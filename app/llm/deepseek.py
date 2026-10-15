@@ -11,7 +11,7 @@ import httpx
 from app.config import Settings
 from app.exceptions import ConfigurationError, LLMProviderError, LLMTimeoutError
 from app.llm.base import LLMMessage, LLMProvider, LLMResponse, ToolCallRequest
-from app.agent.verifier_diagnostics import fingerprint
+from app.agent.verifier_diagnostics import fingerprint, redact_text
 from app.llm.json_utils import parse_llm_json
 from app.logging_utils import get_logger
 
@@ -129,7 +129,7 @@ class DeepSeekResponsesProvider(LLMProvider):
                     logger.warning(
                         "deepseek.structured_json_parse_failed length=%s fingerprint=%s",
                         len(content),
-                        fingerprint(content),
+                        fingerprint(redact_text(content)),
                     )
                     # Fall through to the next text format / raise below.
                     last_error = LLMProviderError("LLM returned invalid JSON")
