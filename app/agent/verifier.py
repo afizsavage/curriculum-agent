@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import time
 from typing import Any, Optional
 
@@ -61,6 +62,143 @@ def _verification_evidence(
     block = format_evidence_for_prompt(state.evidence, question=state.question)
     _ranked, ids = select_evidence_for_prompt(state.evidence, question=state.question)
     return block, ids
+
+_MISSING_EVIDENCE_KEYS = ("type", "grade", "subject", "topic", "query", "detail")
+
+
+def _uninterpretable_verifier_result(fields: list[str]) -> VerificationResult:
+    """Conservative result for a payload whose verdict cannot be read.
+
+    This is the existing fallback outcome. It must not be promoted to accept.
+    """
+    return VerificationResult(
+        passed=False,
+        score=0.0,
+        recommendation=VerificationRecommendation.FALLBACK,
+        metadata={
+            "source": "llm",
+            "verifier_result_invalid": True,
+            "verifier_invalid_reason": "uninterpretable:" + ",".join(fields),
+        },
+    )
+
+
+def _json_boolean(raw: dict[str, Any], key: str, problems: list[str]) -> bool:
+    value = raw.get(key)
+    if isinstance(value, bool):
+        return value
+    problems.append(key)
+    return False
+
+
+def _finite_score(raw: dict[str, Any], problems: list[str]) -> float:
+    value = raw.get("score")
+    if (
+        "score" not in raw
+        or isinstance(value, bool)
+        or not isinstance(value, (int, float))
+        or not math.isfinite(value)
+        or not 0 <= float(value) <= 1
+    ):
+        problems.append("score")
+        return 0.0
+    return float(value)
+
+
+def _recommendation_value(
+    raw: dict[str, Any], problems: list[str]
+) -> VerificationRecommendation:
+    value = raw.get("recommendation")
+    if isinstance(value, str):
+        try:
+            return VerificationRecommendation(value)
+        except ValueError:
+            pass
+    problems.append("recommendation")
+    return VerificationRecommendation.FALLBACK
+
+
+def _string_list(raw: dict[str, Any], key: str, problems: list[str]) -> list[str]:
+    if key not in raw:
+        return []
+    value = raw[key]
+    if isinstance(value, list) and all(isinstance(item, str) for item in value):
+        return list(value)
+    problems.append(key)
+    return []
+
+
+def _missing_evidence_list(
+    raw: dict[str, Any], problems: list[str]
+) -> list[MissingEvidenceRequest | str]:
+    if "missing_evidence" not in raw:
+        return []
+    value = raw["missing_evidence"]
+    if not isinstance(value, list):
+        problems.append("missing_evidence")
+        return []
+    parsed: list[MissingEvidenceRequest | str] = []
+    for item in value:
+        if isinstance(item, str):
+            parsed.append(item)
+            continue
+        if isinstance(item, dict) and all(
+            item_value is None or isinstance(item_value, str)
+            for item_value in item.values()
+        ):
+            parsed.append(
+                MissingEvidenceRequest(
+                    **{key: item.get(key) for key in _MISSING_EVIDENCE_KEYS}
+                )
+            )
+            continue
+        problems.append("missing_evidence")
+        return []
+    return parsed
+
+
+def _optional_text(raw: dict[str, Any], key: str, problems: list[str]) -> str | None:
+    if key not in raw or raw[key] is None:
+        return None
+    value = raw[key]
+    if isinstance(value, str):
+        return value or None
+    problems.append(key)
+    return None
+
+
+def _claim_assessments(raw: dict[str, Any], problems: list[str]) -> list[ClaimAssessment]:
+    if "claims" not in raw:
+        return []
+    items = raw["claims"]
+    if not isinstance(items, list):
+        problems.append("claims")
+        return []
+    claims: list[ClaimAssessment] = []
+    for item in items:
+        if not isinstance(item, dict) or not item.get("claim"):
+            continue
+        if not isinstance(item.get("claim"), str):
+            problems.append("claims")
+            return []
+        try:
+            verdict = ClaimVerdict(str(item.get("verdict") or "unsupported"))
+        except ValueError:
+            verdict = ClaimVerdict.UNSUPPORTED
+        evidence_ids = item.get("evidence_ids") or []
+        if not isinstance(evidence_ids, list):
+            problems.append("claims")
+            return []
+        claims.append(
+            ClaimAssessment(
+                claim=item["claim"],
+                verdict=verdict,
+                evidence_ids=[str(entry) for entry in evidence_ids],
+                notes=item["notes"] if isinstance(item.get("notes"), str) else None,
+            )
+        )
+    return claims
+
 
 VERIFIER_SYSTEM_PROMPT = """You are the MBSSE Curriculum Q&A Agent verifier.
 
@@ -415,63 +553,32 @@ class AnswerVerifier:
     def _parse(self, raw: dict[str, Any]) -> VerificationResult:
         if not isinstance(raw, dict):
             raise LLMProviderError("Verifier returned non-object JSON")
-        recommendation_raw = str(raw.get("recommendation") or "fallback").lower()
-        try:
-            recommendation = VerificationRecommendation(recommendation_raw)
-        except ValueError:
-            recommendation = VerificationRecommendation.FALLBACK
-
-        claims: list[ClaimAssessment] = []
-        for item in raw.get("claims") or []:
-            if not isinstance(item, dict) or not item.get("claim"):
-                continue
-            try:
-                verdict = ClaimVerdict(str(item.get("verdict") or "unsupported"))
-            except ValueError:
-                verdict = ClaimVerdict.UNSUPPORTED
-            claims.append(
-                ClaimAssessment(
-                    claim=str(item["claim"]),
-                    verdict=verdict,
-                    evidence_ids=[str(x) for x in (item.get("evidence_ids") or [])],
-                    notes=str(item["notes"]) if item.get("notes") else None,
-                )
-            )
-
-        missing: list[MissingEvidenceRequest | str] = []
-        for item in raw.get("missing_evidence") or []:
-            if isinstance(item, str):
-                missing.append(item)
-            elif isinstance(item, dict):
-                missing.append(MissingEvidenceRequest(**{
-                    k: item.get(k)
-                    for k in (
-                        "type",
-                        "grade",
-                        "subject",
-                        "topic",
-                        "query",
-                        "detail",
-                    )
-                }))
-
+        problems: list[str] = []
+        passed = _json_boolean(raw, "passed", problems)
+        score = _finite_score(raw, problems)
+        recommendation = _recommendation_value(raw, problems)
+        issues = _string_list(raw, "issues", problems)
+        unsupported = _string_list(raw, "unsupported_claims", problems)
+        incorrect = _string_list(raw, "incorrect_claims", problems)
+        missing = _missing_evidence_list(raw, problems)
+        claims = _claim_assessments(raw, problems)
+        clarification = _optional_text(raw, "clarification", problems)
+        notes = _optional_text(raw, "notes", problems)
+        if problems:
+            # Required verdict fields that cannot be read must not fall through
+            # to defaults that normalization can promote to accept.
+            return _uninterpretable_verifier_result(problems)
         return VerificationResult(
-            passed=bool(raw.get("passed")),
-            score=float(raw.get("score") or 0.0),
-            issues=[str(x) for x in (raw.get("issues") or []) if x],
-            unsupported_claims=[
-                str(x) for x in (raw.get("unsupported_claims") or []) if x
-            ],
-            incorrect_claims=[
-                str(x) for x in (raw.get("incorrect_claims") or []) if x
-            ],
+            passed=passed,
+            score=score,
+            issues=issues,
+            unsupported_claims=unsupported,
+            incorrect_claims=incorrect,
             missing_evidence=missing,
             claims=claims,
             recommendation=recommendation,
-            clarification=(
-                str(raw["clarification"]) if raw.get("clarification") else None
-            ),
-            notes=str(raw["notes"]) if raw.get("notes") else None,
+            clarification=clarification,
+            notes=notes,
             metadata={"source": "llm"},
         )
 
@@ -669,6 +776,13 @@ class AnswerVerifier:
             metadata["resolved_absent_codes"] = resolved
             result = result.model_copy(
                 update={"missing_evidence": kept, "metadata": metadata}
+            )
+        if (result.metadata or {}).get("verifier_result_invalid"):
+            return result.model_copy(
+                update={
+                    "passed": False,
+                    "recommendation": VerificationRecommendation.FALLBACK,
+                }
             )
         if result.missing_evidence and (
             result.passed

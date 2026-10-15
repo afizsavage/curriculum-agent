@@ -7,6 +7,7 @@ agent trace is active, recording is a no-op.
 from __future__ import annotations
 
 import hashlib
+import math
 import re
 from typing import Any
 
@@ -87,6 +88,14 @@ def classify_schema(raw: Any) -> dict[str, Any]:
     }
 
 
+def _missing_evidence_item_ok(item: Any) -> bool:
+    if isinstance(item, str):
+        return True
+    if not isinstance(item, dict):
+        return False
+    return all(value is None or isinstance(value, str) for value in item.values())
+
+
 def schema_problems(raw: Any) -> list[str]:
     """Local check of the verifier JSON schema. Does not reject the payload."""
     if not isinstance(raw, dict):
@@ -103,13 +112,31 @@ def schema_problems(raw: Any) -> list[str]:
         problems.append("recommendation_not_in_enum")
     if "passed" in raw and not isinstance(raw.get("passed"), bool):
         problems.append("passed_not_boolean")
-    if "score" in raw and not isinstance(raw.get("score"), (int, float)):
+    score = raw.get("score")
+    if "score" in raw and (isinstance(score, bool) or not isinstance(score, (int, float))):
         problems.append("score_not_number")
-    elif isinstance(raw.get("score"), (int, float)) and not 0 <= float(raw["score"]) <= 1:
+    elif isinstance(score, (int, float)) and not isinstance(score, bool) and (
+        not math.isfinite(score) or not 0 <= float(score) <= 1
+    ):
         problems.append("score_out_of_range")
-    for key in ("issues", "unsupported_claims", "incorrect_claims", "missing_evidence"):
-        if key in raw and not isinstance(raw.get(key), list):
+    for key in ("issues", "unsupported_claims", "incorrect_claims"):
+        value = raw.get(key)
+        if key not in raw:
+            continue
+        if not isinstance(value, list):
             problems.append(f"{key}_not_array")
+        elif any(not isinstance(item, str) for item in value):
+            problems.append(f"{key}_item_not_string")
+    if "missing_evidence" in raw:
+        missing = raw.get("missing_evidence")
+        if not isinstance(missing, list):
+            problems.append("missing_evidence_not_array")
+        elif any(not _missing_evidence_item_ok(item) for item in missing):
+            problems.append("missing_evidence_item_invalid")
+    if "notes" in raw and raw.get("notes") is not None and not isinstance(raw.get("notes"), str):
+        problems.append("notes_not_string")
+    if "claims" in raw and not isinstance(raw.get("claims"), list):
+        problems.append("claims_not_array")
     extra = sorted(set(raw) - set(properties))
     for key in extra:
         problems.append(f"unexpected:{key}")

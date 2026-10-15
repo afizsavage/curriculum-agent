@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import logging
+import math
 from typing import Any
 
 from app.agent.graph_routing import route_after_verification
@@ -390,6 +391,180 @@ def test_redacted_text_is_what_the_trace_stores_and_hashes(caplog):
     assert secret not in caplog.text
     assert "abcdefghijklmnop" not in caplog.text
     assert stored not in caplog.text
+
+
+def _verdict(payload: dict[str, Any]):
+    qa = _state()
+    qa.topic = "fractions"
+    with start_agent_run(question="science units", request_id="req-strict", persist=False) as trace:
+        result = AnswerVerifier(_ScriptedLLM(payload), settings=_settings()).verify(qa)
+        qa.verification = result
+        decision = route_after_verification({"qa": qa}, settings=_settings())
+    return result, decision, trace.latest_event("agent.verification.payload")
+
+
+def test_string_passed_cannot_become_accept():
+    result, decision, event = _verdict(
+        _complete(passed="yes", score=0, recommendation="approve")
+    )
+    assert result.passed is False
+    assert result.recommendation == VerificationRecommendation.FALLBACK
+    assert result.recommendation != VerificationRecommendation.ACCEPT
+    assert decision == "fallback"
+    assert event["fields"]["passed"] == "present"
+    assert event["parsed_passed"] == "yes"
+    assert event["parsed_recommendation"] == "approve"
+    assert event["safely_interpretable"] is False
+    assert "passed_not_boolean" in event["interpretation_problems"]
+    assert "recommendation_not_in_enum" in event["interpretation_problems"]
+    assert result.metadata["verifier_result_invalid"] is True
+
+
+def test_numeric_passed_is_not_a_json_boolean():
+    for value in (1, 0):
+        result, decision, event = _verdict(_complete(passed=value, recommendation="accept"))
+        assert result.passed is False
+        assert result.recommendation == VerificationRecommendation.FALLBACK
+        assert decision == "fallback"
+        assert event["parsed_passed"] == value
+        assert "passed_not_boolean" in event["interpretation_problems"]
+        assert event["safely_interpretable"] is False
+
+
+def test_missing_and_null_passed_stay_distinct_from_explicit_false():
+    missing, _, missing_event = _verdict(
+        {key: value for key, value in _complete(recommendation="accept").items() if key != "passed"}
+    )
+    null_result, _, null_event = _verdict(_complete(passed=None, recommendation="accept"))
+    explicit, explicit_route, explicit_event = _verdict(
+        _complete(passed=False, score=0.2, recommendation="accept")
+    )
+    assert missing_event["fields"]["passed"] == "missing"
+    assert null_event["fields"]["passed"] == "null"
+    assert explicit_event["fields"]["passed"] == "present"
+    assert explicit_event["parsed_passed"] is False
+    assert missing_event["parsed_passed"] is None
+    assert null_event["parsed_passed"] is None
+    assert missing.recommendation == VerificationRecommendation.FALLBACK
+    assert null_result.recommendation == VerificationRecommendation.FALLBACK
+    assert explicit.passed is False
+    assert explicit.recommendation == VerificationRecommendation.RETRIEVE_MORE
+    assert explicit_route != "finish"
+    assert explicit_event["safely_interpretable"] is True
+    assert missing_event["safely_interpretable"] is False
+    assert null_event["safely_interpretable"] is False
+
+
+def test_unknown_recommendation_cannot_normalize_to_accept():
+    result, decision, event = _verdict(_complete(passed=True, recommendation="approve"))
+    assert result.passed is False
+    assert result.recommendation == VerificationRecommendation.FALLBACK
+    assert decision == "fallback"
+    assert event["parsed_passed"] is True
+    assert event["parsed_recommendation"] == "approve"
+    assert event["recommendation_after_normalize"] == "fallback"
+    assert event["safely_interpretable"] is False
+
+
+def test_valid_accept_and_valid_false_keep_their_routes():
+    accepted, accept_route, accept_event = _verdict(_complete(title="VerificationResult"))
+    assert accepted.passed is True
+    assert accepted.recommendation == VerificationRecommendation.ACCEPT
+    assert accepted.score == 1.0
+    assert accept_route == "finish"
+    assert accept_event["schema_valid"] is False
+    assert accept_event["safely_interpretable"] is True
+
+    rejected, reject_route, _event = _verdict(
+        _complete(passed=False, score=0.0, recommendation="fallback")
+    )
+    assert rejected.passed is False
+    assert rejected.recommendation == VerificationRecommendation.FALLBACK
+    assert reject_route == "fallback"
+
+    retrieve, retrieve_route, _retrieve_event = _verdict(
+        _complete(
+            passed=False,
+            score=0.2,
+            recommendation="retrieve_more",
+            missing_evidence=[
+                {
+                    "type": "learning_outcome",
+                    "topic": "C4U09",
+                    "query": "C4U09 learning objectives",
+                }
+            ],
+        )
+    )
+    assert retrieve.passed is False
+    assert retrieve.recommendation == VerificationRecommendation.RETRIEVE_MORE
+    assert retrieve_route == "retrieve_more"
+
+
+def test_explicit_zero_score_stays_zero_and_invalid_scores_do_not_accept():
+    zero, _, zero_event = _verdict(_complete(score=0))
+    assert zero.passed is True
+    assert zero.score == 0.0
+    assert zero.recommendation == VerificationRecommendation.ACCEPT
+    assert zero_event["fields"]["score"] == "present"
+    assert zero_event["parsed_score"] == 0
+
+    omitted = {key: value for key, value in _complete().items() if key != "score"}
+    missing_score, _, missing_event = _verdict(omitted)
+    assert missing_score.recommendation == VerificationRecommendation.FALLBACK
+    assert missing_event["fields"]["score"] == "missing"
+    assert missing_event["parsed_score"] is None
+
+    for value in (True, False, "1", float("nan"), float("inf"), float("-inf"), 1.5, -0.1):
+        result, decision, event = _verdict(_complete(score=value))
+        assert result.passed is False
+        assert result.recommendation == VerificationRecommendation.FALLBACK
+        assert decision == "fallback"
+        assert event["parsed_score"] is value or (
+            isinstance(value, float) and math.isnan(value) and math.isnan(event["parsed_score"])
+        )
+        assert event["safely_interpretable"] is False
+        assert event["fields"]["score"] == "present"
+
+
+def test_malformed_lists_do_not_become_empty_and_hide_a_failure():
+    string_issues, _, string_event = _verdict(
+        _complete(issues="the answer invents a unit")
+    )
+    assert string_issues.recommendation == VerificationRecommendation.FALLBACK
+    assert string_issues.passed is False
+    assert string_issues.issues == []
+    assert string_event["fields"]["issues"] == "present"
+    assert string_event["parsed_issues"] == "the answer invents a unit"
+    assert "issues_not_array" in string_event["interpretation_problems"]
+
+    null_missing, _, null_event = _verdict(_complete(missing_evidence=None))
+    assert null_missing.recommendation == VerificationRecommendation.FALLBACK
+    assert null_event["fields"]["missing_evidence"] == "null"
+    assert null_event["parsed_missing_evidence"] is None
+
+    numbers, _, number_event = _verdict(_complete(unsupported_claims=[1, 2]))
+    assert numbers.recommendation == VerificationRecommendation.FALLBACK
+    assert numbers.unsupported_claims == []
+    assert number_event["parsed_unsupported_claims"] == [1, 2]
+    assert "unsupported_claims_item_not_string" in number_event["interpretation_problems"]
+
+    valid_empty, _, empty_event = _verdict(_complete(issues=[]))
+    assert valid_empty.recommendation == VerificationRecommendation.ACCEPT
+    assert empty_event["fields"]["issues"] == "empty_array"
+
+
+def test_fallback_with_a_string_passed_cannot_become_accept():
+    result, decision, event = _verdict(
+        _complete(passed="yes", score=0, recommendation="fallback")
+    )
+    assert result.passed is False
+    assert result.recommendation == VerificationRecommendation.FALLBACK
+    assert decision == "fallback"
+    assert event["parsed_passed"] == "yes"
+    assert event["parsed_recommendation"] == "fallback"
+    assert event["recommendation_after_normalize"] == "fallback"
+    assert event["safely_interpretable"] is False
 
 
 def test_missing_diagnostic_event_does_not_change_the_route():
