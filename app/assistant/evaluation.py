@@ -901,8 +901,9 @@ def _report(
                 "correct": None,
                 "denominator": None,
                 "reason": (
-                    "Unmeasured. No gold set has been verified against "
-                    "authoritative curriculum records."
+                    "Unmeasured in this behaviour run. Gold facts are in "
+                    "curriculum_qa_gold_v1 and are scored separately. "
+                    "This suite does not call the QA agent."
                 ),
             },
             "conversation_isolation": {

@@ -1,0 +1,2433 @@
+{
+  "version": "curriculum-qa-gold-v1",
+  "scoring_version": "curriculum-qa-gold-scoring-v1",
+  "enumerated_on": "2026-10-15",
+  "source": {
+    "service": "curriculum-structure",
+    "curricula": [
+      {
+        "id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+        "code": "MBSSE-BEC",
+        "version": "2020",
+        "status": "ACTIVE"
+      },
+      {
+        "id": "8c7e0aed-97a1-4f39-a269-187bd338049d",
+        "code": "MBSSE-SSC",
+        "version": "2021",
+        "status": "ACTIVE"
+      }
+    ],
+    "notes": [
+      "Facts were read from the published grade-curriculum content API. They were not taken from model answers.",
+      "The Class 4 grade row 0f392a75-cf81-4c62-94e4-6041c23baf0b is INACTIVE. The grade curricula cited here are ACTIVE.",
+      "Class 4 Mathematics codes skip C4-U12. C4-U28 is named Unit 28.",
+      "Class 4 subject rows do not include FRENCH, ENGLISH, or INTEGRATED_SCIENCE.",
+      "No live model output is stored in this file."
+    ]
+  },
+  "cases": [
+    {
+      "expected_route": "curriculum",
+      "factual_scoring": true,
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Science",
+        "SCIENCE"
+      ],
+      "required_facts": [
+        {
+          "fact_id": "c4-sci-c4-u01",
+          "kind": "content_record",
+          "text": "C4-U01",
+          "match_any": [
+            "C4-U01",
+            "Living and Non – living Things"
+          ],
+          "source_ids": [
+            "c29a01f8-4009-4f27-a455-165e46b01a52"
+          ],
+          "source_code": "C4-U01",
+          "record_name": "Living and Non – living Things",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u02",
+          "kind": "content_record",
+          "text": "C4-U02",
+          "match_any": [
+            "C4-U02",
+            "Plants in the Environment"
+          ],
+          "source_ids": [
+            "f3b2b68c-4031-462a-8538-f2cac358dc59"
+          ],
+          "source_code": "C4-U02",
+          "record_name": "Plants in the Environment",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u03",
+          "kind": "content_record",
+          "text": "C4-U03",
+          "match_any": [
+            "C4-U03",
+            "Animals in the Environment"
+          ],
+          "source_ids": [
+            "275f8b84-34c0-4e3b-a04c-c21907ad888f"
+          ],
+          "source_code": "C4-U03",
+          "record_name": "Animals in the Environment",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u04",
+          "kind": "content_record",
+          "text": "C4-U04",
+          "match_any": [
+            "C4-U04",
+            "Life cycles of Some Plants and Animals"
+          ],
+          "source_ids": [
+            "7c152419-5b53-4465-95ee-d33302a5b804"
+          ],
+          "source_code": "C4-U04",
+          "record_name": "Life cycles of Some Plants and Animals",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u05",
+          "kind": "content_record",
+          "text": "C4-U05",
+          "match_any": [
+            "C4-U05",
+            "Identification of Common Substances in the Environment"
+          ],
+          "source_ids": [
+            "a0e53faf-7340-4936-95d6-1d4f7dcab860"
+          ],
+          "source_code": "C4-U05",
+          "record_name": "Identification of Common Substances in the Environment",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u06",
+          "kind": "content_record",
+          "text": "C4-U06",
+          "match_any": [
+            "C4-U06",
+            "Grouping Materials"
+          ],
+          "source_ids": [
+            "162fa692-3ee5-4b7d-8745-042c73cdc8b0"
+          ],
+          "source_code": "C4-U06",
+          "record_name": "Grouping Materials",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u07",
+          "kind": "content_record",
+          "text": "C4-U07",
+          "match_any": [
+            "C4-U07",
+            "Changes in Materials (Effect of Water on Paper)"
+          ],
+          "source_ids": [
+            "abd93422-53eb-429c-a419-bc00103cece7"
+          ],
+          "source_code": "C4-U07",
+          "record_name": "Changes in Materials (Effect of Water on Paper)",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u08",
+          "kind": "content_record",
+          "text": "C4-U08",
+          "match_any": [
+            "C4-U08",
+            "Properties of Materials Before and after Heating"
+          ],
+          "source_ids": [
+            "5d010416-8e0a-4a04-87a2-c4a7e7b3fb7a"
+          ],
+          "source_code": "C4-U08",
+          "record_name": "Properties of Materials Before and after Heating",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u09",
+          "kind": "content_record",
+          "text": "C4-U09",
+          "match_any": [
+            "C4-U09",
+            "Processes that Result in the Formation of New Materials"
+          ],
+          "source_ids": [
+            "8d424b11-5a40-4435-bfa3-905b80da7ac7"
+          ],
+          "source_code": "C4-U09",
+          "record_name": "Processes that Result in the Formation of New Materials",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u10",
+          "kind": "content_record",
+          "text": "C4-U10",
+          "match_any": [
+            "C4-U10",
+            "Separating Mixtures of Materials"
+          ],
+          "source_ids": [
+            "93afc2bd-91b2-438d-b806-cecde44f9be9"
+          ],
+          "source_code": "C4-U10",
+          "record_name": "Separating Mixtures of Materials",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-t11",
+          "kind": "content_record",
+          "text": "C4-T11",
+          "match_any": [
+            "C4-T11",
+            "Balancing and Weighing"
+          ],
+          "source_ids": [
+            "d33d9d5c-51c9-4d76-89a9-6a0b7178eac4"
+          ],
+          "source_code": "C4-T11",
+          "record_name": "Balancing and Weighing",
+          "content_type": "THEME"
+        },
+        {
+          "fact_id": "c4-sci-c4-u12",
+          "kind": "content_record",
+          "text": "C4-U12",
+          "match_any": [
+            "C4-U12",
+            "Feeding in Humans"
+          ],
+          "source_ids": [
+            "b20312ef-d7de-48c8-a885-d9b0bf169816"
+          ],
+          "source_code": "C4-U12",
+          "record_name": "Feeding in Humans",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u13",
+          "kind": "content_record",
+          "text": "C4-U13",
+          "match_any": [
+            "C4-U13",
+            "Excretion ( Getting Rid of Waste Products) in Humans"
+          ],
+          "source_ids": [
+            "0cce96c6-bb05-47ff-8d68-f5b3b908d352"
+          ],
+          "source_code": "C4-U13",
+          "record_name": "Excretion ( Getting Rid of Waste Products) in Humans",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-t14",
+          "kind": "content_record",
+          "text": "C4-T14",
+          "match_any": [
+            "C4-T14",
+            "The Earth, The Solar System and the Moon"
+          ],
+          "source_ids": [
+            "fabc7c01-ed57-4ad9-ac2f-fe4c01f9b1a9"
+          ],
+          "source_code": "C4-T14",
+          "record_name": "The Earth, The Solar System and the Moon",
+          "content_type": "THEME"
+        },
+        {
+          "fact_id": "c4-sci-c4-u15",
+          "kind": "content_record",
+          "text": "C4-U15",
+          "match_any": [
+            "C4-U15",
+            "Light"
+          ],
+          "source_ids": [
+            "8b80ce48-bc4c-4b32-b833-7401e187ae15"
+          ],
+          "source_code": "C4-U15",
+          "record_name": "Light",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u16",
+          "kind": "content_record",
+          "text": "C4-U16",
+          "match_any": [
+            "C4-U16",
+            "Sound"
+          ],
+          "source_ids": [
+            "77c4e43b-49c1-42ff-90a8-3e92168b1b6b"
+          ],
+          "source_code": "C4-U16",
+          "record_name": "Sound",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-t17",
+          "kind": "content_record",
+          "text": "C4-T17",
+          "match_any": [
+            "C4-T17",
+            "Electricity"
+          ],
+          "source_ids": [
+            "f41d3072-3fc9-483c-b066-9a5d573541cf"
+          ],
+          "source_code": "C4-T17",
+          "record_name": "Electricity",
+          "content_type": "THEME"
+        },
+        {
+          "fact_id": "c4-sci-c4-t18",
+          "kind": "content_record",
+          "text": "C4-T18",
+          "match_any": [
+            "C4-T18",
+            "Local Industries in our Community"
+          ],
+          "source_ids": [
+            "7767e2f0-da92-4a78-8ab9-811f6e2931b0"
+          ],
+          "source_code": "C4-T18",
+          "record_name": "Local Industries in our Community",
+          "content_type": "THEME"
+        },
+        {
+          "fact_id": "c4-sci-c4-u19",
+          "kind": "content_record",
+          "text": "C4-U19",
+          "match_any": [
+            "C4-U19",
+            "Body Odour"
+          ],
+          "source_ids": [
+            "ca963ea1-b3a1-4e83-8247-417503928649"
+          ],
+          "source_code": "C4-U19",
+          "record_name": "Body Odour",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u20",
+          "kind": "content_record",
+          "text": "C4-U20",
+          "match_any": [
+            "C4-U20",
+            "Care of the Skin"
+          ],
+          "source_ids": [
+            "b76ada7e-c869-412e-b9bd-a22dad6c54ab"
+          ],
+          "source_code": "C4-U20",
+          "record_name": "Care of the Skin",
+          "content_type": "UNIT"
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "source_records": [
+        {
+          "entity_type": "unit",
+          "id": "c29a01f8-4009-4f27-a455-165e46b01a52",
+          "code": "C4-U01",
+          "name": "Living and Non – living Things"
+        },
+        {
+          "entity_type": "unit",
+          "id": "f3b2b68c-4031-462a-8538-f2cac358dc59",
+          "code": "C4-U02",
+          "name": "Plants in the Environment"
+        },
+        {
+          "entity_type": "unit",
+          "id": "275f8b84-34c0-4e3b-a04c-c21907ad888f",
+          "code": "C4-U03",
+          "name": "Animals in the Environment"
+        },
+        {
+          "entity_type": "unit",
+          "id": "7c152419-5b53-4465-95ee-d33302a5b804",
+          "code": "C4-U04",
+          "name": "Life cycles of Some Plants and Animals"
+        },
+        {
+          "entity_type": "unit",
+          "id": "a0e53faf-7340-4936-95d6-1d4f7dcab860",
+          "code": "C4-U05",
+          "name": "Identification of Common Substances in the Environment"
+        },
+        {
+          "entity_type": "unit",
+          "id": "162fa692-3ee5-4b7d-8745-042c73cdc8b0",
+          "code": "C4-U06",
+          "name": "Grouping Materials"
+        },
+        {
+          "entity_type": "unit",
+          "id": "abd93422-53eb-429c-a419-bc00103cece7",
+          "code": "C4-U07",
+          "name": "Changes in Materials (Effect of Water on Paper)"
+        },
+        {
+          "entity_type": "unit",
+          "id": "5d010416-8e0a-4a04-87a2-c4a7e7b3fb7a",
+          "code": "C4-U08",
+          "name": "Properties of Materials Before and after Heating"
+        },
+        {
+          "entity_type": "unit",
+          "id": "8d424b11-5a40-4435-bfa3-905b80da7ac7",
+          "code": "C4-U09",
+          "name": "Processes that Result in the Formation of New Materials"
+        },
+        {
+          "entity_type": "unit",
+          "id": "93afc2bd-91b2-438d-b806-cecde44f9be9",
+          "code": "C4-U10",
+          "name": "Separating Mixtures of Materials"
+        },
+        {
+          "entity_type": "theme",
+          "id": "d33d9d5c-51c9-4d76-89a9-6a0b7178eac4",
+          "code": "C4-T11",
+          "name": "Balancing and Weighing"
+        },
+        {
+          "entity_type": "unit",
+          "id": "b20312ef-d7de-48c8-a885-d9b0bf169816",
+          "code": "C4-U12",
+          "name": "Feeding in Humans"
+        },
+        {
+          "entity_type": "unit",
+          "id": "0cce96c6-bb05-47ff-8d68-f5b3b908d352",
+          "code": "C4-U13",
+          "name": "Excretion ( Getting Rid of Waste Products) in Humans"
+        },
+        {
+          "entity_type": "theme",
+          "id": "fabc7c01-ed57-4ad9-ac2f-fe4c01f9b1a9",
+          "code": "C4-T14",
+          "name": "The Earth, The Solar System and the Moon"
+        },
+        {
+          "entity_type": "unit",
+          "id": "8b80ce48-bc4c-4b32-b833-7401e187ae15",
+          "code": "C4-U15",
+          "name": "Light"
+        },
+        {
+          "entity_type": "unit",
+          "id": "77c4e43b-49c1-42ff-90a8-3e92168b1b6b",
+          "code": "C4-U16",
+          "name": "Sound"
+        },
+        {
+          "entity_type": "theme",
+          "id": "f41d3072-3fc9-483c-b066-9a5d573541cf",
+          "code": "C4-T17",
+          "name": "Electricity"
+        },
+        {
+          "entity_type": "theme",
+          "id": "7767e2f0-da92-4a78-8ab9-811f6e2931b0",
+          "code": "C4-T18",
+          "name": "Local Industries in our Community"
+        },
+        {
+          "entity_type": "unit",
+          "id": "ca963ea1-b3a1-4e83-8247-417503928649",
+          "code": "C4-U19",
+          "name": "Body Odour"
+        },
+        {
+          "entity_type": "unit",
+          "id": "b76ada7e-c869-412e-b9bd-a22dad6c54ab",
+          "code": "C4-U20",
+          "name": "Care of the Skin"
+        }
+      ],
+      "minimum_evidence": "All 20 top-level Class 4 Science content rows on grade curriculum 8ed57ab3-e539-453c-93a9-e1782f084599. A subset is not a complete list.",
+      "absence": null,
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "id": "gold-c4-science-content-complete",
+      "question": "List every published Class 4 Science unit and theme, with its content code.",
+      "support": "answerable",
+      "grade_code": "CLASS_4",
+      "subject_code": "SCIENCE",
+      "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+      "curriculum_code": "MBSSE-BEC",
+      "curriculum_version": "2020",
+      "grade_curriculum_id": "8ed57ab3-e539-453c-93a9-e1782f084599",
+      "subject_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+      "rationale": "The published Class 4 Science tree has 20 top-level rows. Names are unique in this scope. Themes and units are both included because both are top-level records. Integrated Science is a different subject and is not in this list."
+    },
+    {
+      "expected_route": "curriculum",
+      "factual_scoring": true,
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "required_facts": [
+        {
+          "fact_id": "c4-math-c4-u01",
+          "kind": "content_record",
+          "text": "C4-U01",
+          "match_any": [
+            "C4-U01",
+            "Number and Numeration"
+          ],
+          "source_ids": [
+            "f293e00a-bae7-44db-ad55-3c1263e20387"
+          ],
+          "source_code": "C4-U01",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u02",
+          "kind": "content_record",
+          "text": "C4-U02",
+          "match_any": [
+            "C4-U02",
+            "Number and Numeration Reading And Writing"
+          ],
+          "source_ids": [
+            "a66a8931-bd82-48eb-82f8-c004e95a2e62"
+          ],
+          "source_code": "C4-U02",
+          "record_name": "Number and Numeration Reading And Writing",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u03",
+          "kind": "content_record",
+          "text": "C4-U03",
+          "match_any": [
+            "C4-U03",
+            "Number and Numeration. Approximation."
+          ],
+          "source_ids": [
+            "20b6fae8-05d2-4c27-9b2b-2d04f91e7422"
+          ],
+          "source_code": "C4-U03",
+          "record_name": "Number and Numeration. Approximation.",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u04",
+          "kind": "content_record",
+          "text": "C4-U04",
+          "match_any": [
+            "C4-U04",
+            "Number and Numeration FRACTION"
+          ],
+          "source_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+          ],
+          "source_code": "C4-U04",
+          "record_name": "Number and Numeration FRACTION",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u05",
+          "kind": "content_record",
+          "text": "C4-U05",
+          "match_any": [
+            "C4-U05",
+            "Number and Numeration OPERATION ON FRACTIONS."
+          ],
+          "source_ids": [
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+          ],
+          "source_code": "C4-U05",
+          "record_name": "Number and Numeration OPERATION ON FRACTIONS.",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u06",
+          "kind": "content_record",
+          "text": "C4-U06",
+          "match_any": [
+            "C4-U06",
+            "Number and Numeration Operation on Fraction. (Multiplication)"
+          ],
+          "source_ids": [
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "source_code": "C4-U06",
+          "record_name": "Number and Numeration Operation on Fraction. (Multiplication)",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u07",
+          "kind": "content_record",
+          "text": "C4-U07",
+          "match_any": [
+            "C4-U07",
+            "Number and Numeration"
+          ],
+          "source_ids": [
+            "6b0d1465-d397-4b27-ba73-2696eeb5d3c5"
+          ],
+          "source_code": "C4-U07",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u08",
+          "kind": "content_record",
+          "text": "C4-U08",
+          "match_any": [
+            "C4-U08",
+            "Number and Numeration"
+          ],
+          "source_ids": [
+            "c148074c-fac8-4771-94de-01de1805f585"
+          ],
+          "source_code": "C4-U08",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u09",
+          "kind": "content_record",
+          "text": "C4-U09",
+          "match_any": [
+            "C4-U09",
+            "Number and Numeration"
+          ],
+          "source_ids": [
+            "4e356892-e6e8-46e2-ae4f-f0a141649a09"
+          ],
+          "source_code": "C4-U09",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u10",
+          "kind": "content_record",
+          "text": "C4-U10",
+          "match_any": [
+            "C4-U10",
+            "Number and Numeration"
+          ],
+          "source_ids": [
+            "6031fbb0-19cd-48c6-9cd8-901a40eb8590"
+          ],
+          "source_code": "C4-U10",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u11",
+          "kind": "content_record",
+          "text": "C4-U11",
+          "match_any": [
+            "C4-U11",
+            "Everyday Arithmetic Addition and Subtraction"
+          ],
+          "source_ids": [
+            "a06e3216-dd97-4d5f-af49-f1afec6def85"
+          ],
+          "source_code": "C4-U11",
+          "record_name": "Everyday Arithmetic Addition and Subtraction",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u13",
+          "kind": "content_record",
+          "text": "C4-U13",
+          "match_any": [
+            "C4-U13",
+            "Everyday Arithmetic Multiplication"
+          ],
+          "source_ids": [
+            "d0d5d322-9a0d-4f49-823d-0f80049e9b5b"
+          ],
+          "source_code": "C4-U13",
+          "record_name": "Everyday Arithmetic Multiplication",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u14",
+          "kind": "content_record",
+          "text": "C4-U14",
+          "match_any": [
+            "C4-U14",
+            "Everyday Arithmetic DIVISION"
+          ],
+          "source_ids": [
+            "152b4a5a-c080-403c-a780-9940c818bc4b"
+          ],
+          "source_code": "C4-U14",
+          "record_name": "Everyday Arithmetic DIVISION",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u15",
+          "kind": "content_record",
+          "text": "C4-U15",
+          "match_any": [
+            "C4-U15",
+            "Everyday Arithmetic"
+          ],
+          "source_ids": [
+            "eae26572-dc3f-4b85-a924-3d139e5de9ca"
+          ],
+          "source_code": "C4-U15",
+          "record_name": "Everyday Arithmetic",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u16",
+          "kind": "content_record",
+          "text": "C4-U16",
+          "match_any": [
+            "C4-U16",
+            "Everyday Arithmetic Addition and Subtraction."
+          ],
+          "source_ids": [
+            "13202e14-75a9-455e-9f58-baad27d672b4"
+          ],
+          "source_code": "C4-U16",
+          "record_name": "Everyday Arithmetic Addition and Subtraction.",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u17",
+          "kind": "content_record",
+          "text": "C4-U17",
+          "match_any": [
+            "C4-U17",
+            "Everyday Arithmetic"
+          ],
+          "source_ids": [
+            "684ebd01-8dc0-459b-a610-9d8dfea454ff"
+          ],
+          "source_code": "C4-U17",
+          "record_name": "Everyday Arithmetic",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u18",
+          "kind": "content_record",
+          "text": "C4-U18",
+          "match_any": [
+            "C4-U18",
+            "Everyday Arithmetic Money"
+          ],
+          "source_ids": [
+            "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+          ],
+          "source_code": "C4-U18",
+          "record_name": "Everyday Arithmetic Money",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u19",
+          "kind": "content_record",
+          "text": "C4-U19",
+          "match_any": [
+            "C4-U19",
+            "Everyday Arithmetic Multiplication and Decimal."
+          ],
+          "source_ids": [
+            "29558081-a6cf-4721-b52c-f6f3e59b12a7"
+          ],
+          "source_code": "C4-U19",
+          "record_name": "Everyday Arithmetic Multiplication and Decimal.",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u20",
+          "kind": "content_record",
+          "text": "C4-U20",
+          "match_any": [
+            "C4-U20",
+            "Measurement And Estimation LENGTH"
+          ],
+          "source_ids": [
+            "6252f434-14ed-42cc-8415-ea870de24273"
+          ],
+          "source_code": "C4-U20",
+          "record_name": "Measurement And Estimation LENGTH",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u21",
+          "kind": "content_record",
+          "text": "C4-U21",
+          "match_any": [
+            "C4-U21",
+            "Measurement And Estimation LENGTH"
+          ],
+          "source_ids": [
+            "6ec53325-5983-421a-8b3e-9690e6da159f"
+          ],
+          "source_code": "C4-U21",
+          "record_name": "Measurement And Estimation LENGTH",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u22",
+          "kind": "content_record",
+          "text": "C4-U22",
+          "match_any": [
+            "C4-U22",
+            "Measurement and Estimation."
+          ],
+          "source_ids": [
+            "82bbb7f0-58fe-4d25-bcba-74973cc373e9"
+          ],
+          "source_code": "C4-U22",
+          "record_name": "Measurement and Estimation.",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u23",
+          "kind": "content_record",
+          "text": "C4-U23",
+          "match_any": [
+            "C4-U23",
+            "Measurement and Estimation"
+          ],
+          "source_ids": [
+            "c0a9dc68-e3f3-424e-8873-d2642e7cc71b"
+          ],
+          "source_code": "C4-U23",
+          "record_name": "Measurement and Estimation",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u24",
+          "kind": "content_record",
+          "text": "C4-U24",
+          "match_any": [
+            "C4-U24",
+            "Measurement and Estimation"
+          ],
+          "source_ids": [
+            "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90"
+          ],
+          "source_code": "C4-U24",
+          "record_name": "Measurement and Estimation",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u25",
+          "kind": "content_record",
+          "text": "C4-U25",
+          "match_any": [
+            "C4-U25",
+            "Measurement and Estimation GEOMETRY Lines and Angles"
+          ],
+          "source_ids": [
+            "e5a83dd4-d400-49f9-903a-c5e2e15471e4"
+          ],
+          "source_code": "C4-U25",
+          "record_name": "Measurement and Estimation GEOMETRY Lines and Angles",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u26",
+          "kind": "content_record",
+          "text": "C4-U26",
+          "match_any": [
+            "C4-U26",
+            "Measurement and Estimation Time"
+          ],
+          "source_ids": [
+            "36924334-8856-4c53-8f48-d4e6eed8cf12"
+          ],
+          "source_code": "C4-U26",
+          "record_name": "Measurement and Estimation Time",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u27",
+          "kind": "content_record",
+          "text": "C4-U27",
+          "match_any": [
+            "C4-U27",
+            "STATISTICS Data Collection Plan"
+          ],
+          "source_ids": [
+            "00d27bae-413d-4841-9a1b-23020b50567d"
+          ],
+          "source_code": "C4-U27",
+          "record_name": "STATISTICS Data Collection Plan",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u28",
+          "kind": "content_record",
+          "text": "C4-U28",
+          "match_any": [
+            "C4-U28",
+            "Unit 28"
+          ],
+          "source_ids": [
+            "b1587bd8-a2da-493e-8872-4b404108c235"
+          ],
+          "source_code": "C4-U28",
+          "record_name": "Unit 28",
+          "content_type": "UNIT"
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "source_records": [
+        {
+          "entity_type": "unit",
+          "id": "f293e00a-bae7-44db-ad55-3c1263e20387",
+          "code": "C4-U01",
+          "name": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "id": "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+          "code": "C4-U02",
+          "name": "Number and Numeration Reading And Writing"
+        },
+        {
+          "entity_type": "unit",
+          "id": "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+          "code": "C4-U03",
+          "name": "Number and Numeration. Approximation."
+        },
+        {
+          "entity_type": "unit",
+          "id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "code": "C4-U04",
+          "name": "Number and Numeration FRACTION"
+        },
+        {
+          "entity_type": "unit",
+          "id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "code": "C4-U05",
+          "name": "Number and Numeration OPERATION ON FRACTIONS."
+        },
+        {
+          "entity_type": "unit",
+          "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "code": "C4-U06",
+          "name": "Number and Numeration Operation on Fraction. (Multiplication)"
+        },
+        {
+          "entity_type": "unit",
+          "id": "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+          "code": "C4-U07",
+          "name": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "id": "c148074c-fac8-4771-94de-01de1805f585",
+          "code": "C4-U08",
+          "name": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "id": "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+          "code": "C4-U09",
+          "name": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "id": "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+          "code": "C4-U10",
+          "name": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "id": "a06e3216-dd97-4d5f-af49-f1afec6def85",
+          "code": "C4-U11",
+          "name": "Everyday Arithmetic Addition and Subtraction"
+        },
+        {
+          "entity_type": "unit",
+          "id": "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+          "code": "C4-U13",
+          "name": "Everyday Arithmetic Multiplication"
+        },
+        {
+          "entity_type": "unit",
+          "id": "152b4a5a-c080-403c-a780-9940c818bc4b",
+          "code": "C4-U14",
+          "name": "Everyday Arithmetic DIVISION"
+        },
+        {
+          "entity_type": "unit",
+          "id": "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+          "code": "C4-U15",
+          "name": "Everyday Arithmetic"
+        },
+        {
+          "entity_type": "unit",
+          "id": "13202e14-75a9-455e-9f58-baad27d672b4",
+          "code": "C4-U16",
+          "name": "Everyday Arithmetic Addition and Subtraction."
+        },
+        {
+          "entity_type": "unit",
+          "id": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+          "code": "C4-U17",
+          "name": "Everyday Arithmetic"
+        },
+        {
+          "entity_type": "unit",
+          "id": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "code": "C4-U18",
+          "name": "Everyday Arithmetic Money"
+        },
+        {
+          "entity_type": "unit",
+          "id": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+          "code": "C4-U19",
+          "name": "Everyday Arithmetic Multiplication and Decimal."
+        },
+        {
+          "entity_type": "unit",
+          "id": "6252f434-14ed-42cc-8415-ea870de24273",
+          "code": "C4-U20",
+          "name": "Measurement And Estimation LENGTH"
+        },
+        {
+          "entity_type": "unit",
+          "id": "6ec53325-5983-421a-8b3e-9690e6da159f",
+          "code": "C4-U21",
+          "name": "Measurement And Estimation LENGTH"
+        },
+        {
+          "entity_type": "unit",
+          "id": "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+          "code": "C4-U22",
+          "name": "Measurement and Estimation."
+        },
+        {
+          "entity_type": "unit",
+          "id": "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+          "code": "C4-U23",
+          "name": "Measurement and Estimation"
+        },
+        {
+          "entity_type": "unit",
+          "id": "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+          "code": "C4-U24",
+          "name": "Measurement and Estimation"
+        },
+        {
+          "entity_type": "unit",
+          "id": "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+          "code": "C4-U25",
+          "name": "Measurement and Estimation GEOMETRY Lines and Angles"
+        },
+        {
+          "entity_type": "unit",
+          "id": "36924334-8856-4c53-8f48-d4e6eed8cf12",
+          "code": "C4-U26",
+          "name": "Measurement and Estimation Time"
+        },
+        {
+          "entity_type": "unit",
+          "id": "00d27bae-413d-4841-9a1b-23020b50567d",
+          "code": "C4-U27",
+          "name": "STATISTICS Data Collection Plan"
+        },
+        {
+          "entity_type": "unit",
+          "id": "b1587bd8-a2da-493e-8872-4b404108c235",
+          "code": "C4-U28",
+          "name": "Unit 28"
+        }
+      ],
+      "minimum_evidence": "All 27 published Class 4 Mathematics unit rows. Several units share the name Number and Numeration, so the content code is required to show completeness. C4-U12 is not in this published set.",
+      "absence": null,
+      "must_be_complete": true,
+      "uncertainty": "state_limits",
+      "id": "gold-c4-math-units-complete",
+      "question": "Give the content code and name of every published Class 4 Mathematics unit.",
+      "support": "answerable",
+      "grade_code": "CLASS_4",
+      "subject_code": "MATHEMATICS",
+      "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+      "curriculum_code": "MBSSE-BEC",
+      "curriculum_version": "2020",
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "rationale": "Names collide, and the published codes skip C4-U12. C4-U28 is published with the name Unit 28. A sample of familiar topics such as fractions or measurement is not the complete set.",
+      "source_limitations": [
+        "Published codes skip C4-U12.",
+        "C4-U28 is stored with the name Unit 28.",
+        "The Class 4 grade row status is INACTIVE. These unit rows belong to an ACTIVE grade curriculum."
+      ]
+    },
+    {
+      "expected_route": "curriculum",
+      "factual_scoring": true,
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "required_facts": [
+        {
+          "fact_id": "c4-u01-c4u01-lo01",
+          "kind": "learning_outcome",
+          "text": "Count up to 5000 using a number line.",
+          "match_any": [
+            "Count up to 5000 using a number line."
+          ],
+          "source_ids": [
+            "e3e82bfc-285f-4ef7-992d-534afcb8b63e"
+          ],
+          "source_code": "C4U01-LO01",
+          "record_name": "Count up to 5000 using a number line."
+        },
+        {
+          "fact_id": "c4-u01-c4u01-lo02",
+          "kind": "learning_outcome",
+          "text": "Count up to 10,000 using a number line.",
+          "match_any": [
+            "Count up to 10,000 using a number line."
+          ],
+          "source_ids": [
+            "1f924af2-802d-4f13-af41-528cc9fc44f1"
+          ],
+          "source_code": "C4U01-LO02",
+          "record_name": "Count up to 10,000 using a number line."
+        },
+        {
+          "fact_id": "c4-u01-c4u01-lo03",
+          "kind": "learning_outcome",
+          "text": "Compare numbers up to 10,000 using number line.",
+          "match_any": [
+            "Compare numbers up to 10,000 using number line."
+          ],
+          "source_ids": [
+            "057877f7-cc6f-4a9b-bdac-33c47f307262"
+          ],
+          "source_code": "C4U01-LO03",
+          "record_name": "Compare numbers up to 10,000 using number line."
+        },
+        {
+          "fact_id": "c4-u01-c4u01-lo04",
+          "kind": "learning_outcome",
+          "text": "Read and write numbers in numerals up to 10,000 using place value.",
+          "match_any": [
+            "Read and write numbers in numerals up to 10,000 using place value."
+          ],
+          "source_ids": [
+            "d801249e-6f42-4ce7-a578-1e3f9bdc9642"
+          ],
+          "source_code": "C4U01-LO04",
+          "record_name": "Read and write numbers in numerals up to 10,000 using place value."
+        },
+        {
+          "fact_id": "c4-u01-c4u01-lo05",
+          "kind": "learning_outcome",
+          "text": "Use place value system up to 10,000,000.",
+          "match_any": [
+            "Use place value system up to 10,000,000."
+          ],
+          "source_ids": [
+            "e05ee042-e278-4003-a0e7-44e8dc986b65"
+          ],
+          "source_code": "C4U01-LO05",
+          "record_name": "Use place value system up to 10,000,000."
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "source_records": [
+        {
+          "entity_type": "unit",
+          "id": "f293e00a-bae7-44db-ad55-3c1263e20387",
+          "code": "C4-U01",
+          "name": "Number and Numeration"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "e3e82bfc-285f-4ef7-992d-534afcb8b63e",
+          "code": "C4U01-LO01",
+          "name": "Count up to 5000 using a number line."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "1f924af2-802d-4f13-af41-528cc9fc44f1",
+          "code": "C4U01-LO02",
+          "name": "Count up to 10,000 using a number line."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "057877f7-cc6f-4a9b-bdac-33c47f307262",
+          "code": "C4U01-LO03",
+          "name": "Compare numbers up to 10,000 using number line."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "d801249e-6f42-4ce7-a578-1e3f9bdc9642",
+          "code": "C4U01-LO04",
+          "name": "Read and write numbers in numerals up to 10,000 using place value."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "e05ee042-e278-4003-a0e7-44e8dc986b65",
+          "code": "C4U01-LO05",
+          "name": "Use place value system up to 10,000,000."
+        }
+      ],
+      "minimum_evidence": "The five learning outcomes on content id f293e00a-bae7-44db-ad55-3c1263e20387.",
+      "absence": null,
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "id": "gold-c4-math-u01-outcomes-complete",
+      "question": "What are all the learning outcomes for Class 4 Mathematics unit C4-U01, Number and Numeration?",
+      "support": "answerable",
+      "grade_code": "CLASS_4",
+      "subject_code": "MATHEMATICS",
+      "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+      "curriculum_code": "MBSSE-BEC",
+      "curriculum_version": "2020",
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "rationale": "This unit has exactly five published outcomes. Other Class 4 units are also named Number and Numeration, so the unit code identifies the scope."
+    },
+    {
+      "expected_route": "curriculum",
+      "factual_scoring": true,
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "English Language",
+        "ENGLISH_LANGUAGE"
+      ],
+      "required_facts": [
+        {
+          "fact_id": "c4-ela-t1-c4-u01",
+          "kind": "content_record",
+          "text": "C4-U01",
+          "match_any": [
+            "C4-U01",
+            "My family"
+          ],
+          "source_ids": [
+            "f583efc3-228b-44ff-a096-792f5ec85788"
+          ],
+          "source_code": "C4-U01",
+          "record_name": "My family",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u02",
+          "kind": "content_record",
+          "text": "C4-U02",
+          "match_any": [
+            "C4-U02",
+            "Fun with Maths and Science"
+          ],
+          "source_ids": [
+            "1b80e24a-36f3-44ac-b10c-9c41f8b98af4"
+          ],
+          "source_code": "C4-U02",
+          "record_name": "Fun with Maths and Science",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u03",
+          "kind": "content_record",
+          "text": "C4-U03",
+          "match_any": [
+            "C4-U03",
+            "The seasons in Sierra Leone"
+          ],
+          "source_ids": [
+            "8e463e73-cb89-4703-9108-cfe7e52997b1"
+          ],
+          "source_code": "C4-U03",
+          "record_name": "The seasons in Sierra Leone",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u04",
+          "kind": "content_record",
+          "text": "C4-U04",
+          "match_any": [
+            "C4-U04",
+            "Flying"
+          ],
+          "source_ids": [
+            "3b79e89d-6113-4e62-9ac0-e8052c9b1074"
+          ],
+          "source_code": "C4-U04",
+          "record_name": "Flying",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u05",
+          "kind": "content_record",
+          "text": "C4-U05",
+          "match_any": [
+            "C4-U05",
+            "Crops"
+          ],
+          "source_ids": [
+            "adfdc60b-d380-4348-8268-d9b9022bf07d"
+          ],
+          "source_code": "C4-U05",
+          "record_name": "Crops",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u06",
+          "kind": "content_record",
+          "text": "C4-U06",
+          "match_any": [
+            "C4-U06",
+            "Seeds"
+          ],
+          "source_ids": [
+            "1c031ed1-d524-4664-b089-0e3caf102a5f"
+          ],
+          "source_code": "C4-U06",
+          "record_name": "Seeds",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u07",
+          "kind": "content_record",
+          "text": "C4-U07",
+          "match_any": [
+            "C4-U07",
+            "The River Sewa"
+          ],
+          "source_ids": [
+            "7574b891-99ff-4f24-a917-c013245e2931"
+          ],
+          "source_code": "C4-U07",
+          "record_name": "The River Sewa",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u08",
+          "kind": "content_record",
+          "text": "C4-U08",
+          "match_any": [
+            "C4-U08",
+            "Travelling to Freetown"
+          ],
+          "source_ids": [
+            "ce770023-d448-42e5-81ff-644acb9d6f97"
+          ],
+          "source_code": "C4-U08",
+          "record_name": "Travelling to Freetown",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u09",
+          "kind": "content_record",
+          "text": "C4-U09",
+          "match_any": [
+            "C4-U09",
+            "Men on the moon"
+          ],
+          "source_ids": [
+            "7619175c-5402-46ae-ae71-252bd58db056"
+          ],
+          "source_code": "C4-U09",
+          "record_name": "Men on the moon",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u10",
+          "kind": "content_record",
+          "text": "C4-U10",
+          "match_any": [
+            "C4-U10",
+            "Looking after the classroom"
+          ],
+          "source_ids": [
+            "7544d1d6-7128-4b0f-91fa-7274010be3d7"
+          ],
+          "source_code": "C4-U10",
+          "record_name": "Looking after the classroom",
+          "content_type": "UNIT"
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "source_records": [
+        {
+          "entity_type": "section",
+          "id": "6eb64218-8429-4217-94e2-48b5ad72fb48",
+          "code": "C4-T1",
+          "name": "Class 4 — 1st Term"
+        },
+        {
+          "entity_type": "unit",
+          "id": "f583efc3-228b-44ff-a096-792f5ec85788",
+          "code": "C4-U01",
+          "name": "My family"
+        },
+        {
+          "entity_type": "unit",
+          "id": "1b80e24a-36f3-44ac-b10c-9c41f8b98af4",
+          "code": "C4-U02",
+          "name": "Fun with Maths and Science"
+        },
+        {
+          "entity_type": "unit",
+          "id": "8e463e73-cb89-4703-9108-cfe7e52997b1",
+          "code": "C4-U03",
+          "name": "The seasons in Sierra Leone"
+        },
+        {
+          "entity_type": "unit",
+          "id": "3b79e89d-6113-4e62-9ac0-e8052c9b1074",
+          "code": "C4-U04",
+          "name": "Flying"
+        },
+        {
+          "entity_type": "unit",
+          "id": "adfdc60b-d380-4348-8268-d9b9022bf07d",
+          "code": "C4-U05",
+          "name": "Crops"
+        },
+        {
+          "entity_type": "unit",
+          "id": "1c031ed1-d524-4664-b089-0e3caf102a5f",
+          "code": "C4-U06",
+          "name": "Seeds"
+        },
+        {
+          "entity_type": "unit",
+          "id": "7574b891-99ff-4f24-a917-c013245e2931",
+          "code": "C4-U07",
+          "name": "The River Sewa"
+        },
+        {
+          "entity_type": "unit",
+          "id": "ce770023-d448-42e5-81ff-644acb9d6f97",
+          "code": "C4-U08",
+          "name": "Travelling to Freetown"
+        },
+        {
+          "entity_type": "unit",
+          "id": "7619175c-5402-46ae-ae71-252bd58db056",
+          "code": "C4-U09",
+          "name": "Men on the moon"
+        },
+        {
+          "entity_type": "unit",
+          "id": "7544d1d6-7128-4b0f-91fa-7274010be3d7",
+          "code": "C4-U10",
+          "name": "Looking after the classroom"
+        }
+      ],
+      "minimum_evidence": "The ten child units of section C4-T1. Second and third term units are outside this complete-list scope.",
+      "absence": null,
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "id": "gold-c4-ela-term1-units-complete",
+      "question": "What units are published for the Class 4 English Language first term?",
+      "support": "answerable",
+      "grade_code": "CLASS_4",
+      "subject_code": "ENGLISH_LANGUAGE",
+      "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+      "curriculum_code": "MBSSE-BEC",
+      "curriculum_version": "2020",
+      "grade_curriculum_id": "78c09b83-9ee9-49ea-91fa-079ad218fd05",
+      "subject_id": "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+      "rationale": "Class 4 publishes English Language, not the separate English subject used in earlier classes. The complete first-term list is the ten units under section C4-T1."
+    },
+    {
+      "expected_route": "curriculum",
+      "factual_scoring": true,
+      "grade_labels": [
+        "SSS 1",
+        "SSS1",
+        "SSS_1"
+      ],
+      "subject_labels": [
+        "Biology",
+        "BIOLOGY"
+      ],
+      "required_facts": [
+        {
+          "fact_id": "sss1-bio-intro-s1-t1-01-01",
+          "kind": "content_record",
+          "text": "S1-T1-01-01",
+          "match_any": [
+            "S1-T1-01-01",
+            "Living and non-living things"
+          ],
+          "source_ids": [
+            "ed17c858-fca0-405e-b108-1684ff241c0e"
+          ],
+          "source_code": "S1-T1-01-01",
+          "record_name": "Living and non-living things",
+          "content_type": "TOPIC"
+        },
+        {
+          "fact_id": "sss1-bio-intro-s1-t1-01-02",
+          "kind": "content_record",
+          "text": "S1-T1-01-02",
+          "match_any": [
+            "S1-T1-01-02",
+            "Diversity of living things"
+          ],
+          "source_ids": [
+            "2561f622-b44d-437f-8b90-109d88cf9b13"
+          ],
+          "source_code": "S1-T1-01-02",
+          "record_name": "Diversity of living things",
+          "content_type": "TOPIC"
+        },
+        {
+          "fact_id": "sss1-bio-intro-s1-t1-01-03",
+          "kind": "content_record",
+          "text": "S1-T1-01-03",
+          "match_any": [
+            "S1-T1-01-03",
+            "Classification"
+          ],
+          "source_ids": [
+            "52e52f37-c983-4667-bc9c-fb3a130991cb"
+          ],
+          "source_code": "S1-T1-01-03",
+          "record_name": "Classification",
+          "content_type": "TOPIC"
+        }
+      ],
+      "forbidden_substitutions": [
+        {
+          "text": "Cell theory",
+          "match_any": [
+            "Cell theory",
+            "S1-T1-02"
+          ],
+          "reason": "Cell theory is theme S1-T1-02, a sibling of Introduction to Biology, not one of its topics."
+        }
+      ],
+      "unsupported_patterns": [],
+      "source_records": [
+        {
+          "entity_type": "theme",
+          "id": "e44cea1e-b646-4d02-9453-9954ad1500f1",
+          "code": "S1-T1-01",
+          "name": "Introduction to Biology"
+        },
+        {
+          "entity_type": "topic",
+          "id": "ed17c858-fca0-405e-b108-1684ff241c0e",
+          "code": "S1-T1-01-01",
+          "name": "Living and non-living things"
+        },
+        {
+          "entity_type": "topic",
+          "id": "2561f622-b44d-437f-8b90-109d88cf9b13",
+          "code": "S1-T1-01-02",
+          "name": "Diversity of living things"
+        },
+        {
+          "entity_type": "topic",
+          "id": "52e52f37-c983-4667-bc9c-fb3a130991cb",
+          "code": "S1-T1-01-03",
+          "name": "Classification"
+        }
+      ],
+      "minimum_evidence": "The three TOPIC children of theme S1-T1-01. Subtopics under Diversity of living things are not additional themes topics for this question. Theme learning outcomes are a separate record set and are not required here.",
+      "absence": null,
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "id": "gold-sss1-bio-intro-topics-complete",
+      "question": "What topics are listed under the SSS 1 Biology theme Introduction to Biology?",
+      "support": "answerable",
+      "grade_code": "SSS_1",
+      "subject_code": "BIOLOGY",
+      "curriculum_id": "8c7e0aed-97a1-4f39-a269-187bd338049d",
+      "curriculum_code": "MBSSE-SSC",
+      "curriculum_version": "2021",
+      "grade_curriculum_id": "969b56ad-c621-40c4-9095-3386878470a5",
+      "subject_id": "6e32e488-d10b-4c0b-9ecb-6f3eadf8c83c",
+      "rationale": "The theme has exactly three topic rows. Cell theory is the next theme, not a topic of Introduction to Biology."
+    },
+    {
+      "expected_route": "curriculum",
+      "factual_scoring": true,
+      "grade_labels": [
+        "Class 3",
+        "Primary 3",
+        "CLASS_3"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "required_facts": [
+        {
+          "fact_id": "c3-u15-c3u15-lo01",
+          "kind": "learning_outcome",
+          "text": "Multiply by 8, up to 40, using a multiplication table.",
+          "match_any": [
+            "Multiply by 8, up to 40, using a multiplication table."
+          ],
+          "source_ids": [
+            "6199963b-c852-4264-adfd-afa9b95ad405"
+          ],
+          "source_code": "C3U15-LO01",
+          "record_name": "Multiply by 8, up to 40, using a multiplication table."
+        },
+        {
+          "fact_id": "c3-u15-c3u15-lo02",
+          "kind": "learning_outcome",
+          "text": "Multiply by 8, up to 80, using a multiplication table.",
+          "match_any": [
+            "Multiply by 8, up to 80, using a multiplication table."
+          ],
+          "source_ids": [
+            "a6934eb2-c9cc-4541-8179-863d99fd44a6"
+          ],
+          "source_code": "C3U15-LO02",
+          "record_name": "Multiply by 8, up to 80, using a multiplication table."
+        },
+        {
+          "fact_id": "c3-u15-c3u15-lo03",
+          "kind": "learning_outcome",
+          "text": "Multiply by 3 and 6 using counters",
+          "match_any": [
+            "Multiply by 3 and 6 using counters"
+          ],
+          "source_ids": [
+            "523b777f-1623-4411-ba0b-1501aa947061"
+          ],
+          "source_code": "C3U15-LO03",
+          "record_name": "Multiply by 3 and 6 using counters"
+        },
+        {
+          "fact_id": "c3-u15-c3u15-lo04",
+          "kind": "learning_outcome",
+          "text": "Write Multiplication table of 3 and 6",
+          "match_any": [
+            "Write Multiplication table of 3 and 6"
+          ],
+          "source_ids": [
+            "ed3e486d-2f0e-4686-9f7a-2be0ef0357d7"
+          ],
+          "source_code": "C3U15-LO04",
+          "record_name": "Write Multiplication table of 3 and 6"
+        },
+        {
+          "fact_id": "c3-u15-c3u15-lo05",
+          "kind": "learning_outcome",
+          "text": "Write Division table of 3 and 6",
+          "match_any": [
+            "Write Division table of 3 and 6"
+          ],
+          "source_ids": [
+            "255f999d-b51e-4bfb-8cde-dbc63c36125a"
+          ],
+          "source_code": "C3U15-LO05",
+          "record_name": "Write Division table of 3 and 6"
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "source_records": [
+        {
+          "entity_type": "unit",
+          "id": "9df0324c-08ed-45d2-8b3b-b2715fd7e8df",
+          "code": "C3-U15",
+          "name": "Everyday Arithmetic"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "6199963b-c852-4264-adfd-afa9b95ad405",
+          "code": "C3U15-LO01",
+          "name": "Multiply by 8, up to 40, using a multiplication table."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "a6934eb2-c9cc-4541-8179-863d99fd44a6",
+          "code": "C3U15-LO02",
+          "name": "Multiply by 8, up to 80, using a multiplication table."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "523b777f-1623-4411-ba0b-1501aa947061",
+          "code": "C3U15-LO03",
+          "name": "Multiply by 3 and 6 using counters"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "ed3e486d-2f0e-4686-9f7a-2be0ef0357d7",
+          "code": "C3U15-LO04",
+          "name": "Write Multiplication table of 3 and 6"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "255f999d-b51e-4bfb-8cde-dbc63c36125a",
+          "code": "C3U15-LO05",
+          "name": "Write Division table of 3 and 6"
+        }
+      ],
+      "minimum_evidence": "The five learning outcomes on content id 9df0324c-08ed-45d2-8b3b-b2715fd7e8df. The unit name Everyday Arithmetic is shared by other Class 3 units, so the code identifies the scope.",
+      "absence": null,
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "id": "gold-c3-math-u15-outcomes-complete",
+      "question": "What are all the learning outcomes for Class 3 Mathematics unit C3-U15?",
+      "support": "answerable",
+      "grade_code": "CLASS_3",
+      "subject_code": "MATHEMATICS",
+      "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+      "curriculum_code": "MBSSE-BEC",
+      "curriculum_version": "2020",
+      "grade_curriculum_id": "8ed61c35-44c8-4cd7-918f-0417b3c10103",
+      "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "rationale": "C3-U15 contains five outcomes, including multiplication by 8, 3 and 6, and the division table of 3 and 6. Listing only the multiplication lines would omit a published outcome."
+    },
+    {
+      "expected_route": "curriculum",
+      "factual_scoring": true,
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Science",
+        "SCIENCE"
+      ],
+      "required_facts": [
+        {
+          "fact_id": "c4-solar-c4t14-lo01",
+          "kind": "learning_outcome",
+          "text": "Identify the components of the solar system.",
+          "match_any": [
+            "Identify the components of the solar system."
+          ],
+          "source_ids": [
+            "26475bc6-5606-4502-b730-1c158b2b91f0"
+          ],
+          "source_code": "C4T14-LO01",
+          "record_name": "Identify the components of the solar system."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo02",
+          "kind": "learning_outcome",
+          "text": "Explain that the sun, moon and the earth form part of the solar system.",
+          "match_any": [
+            "Explain that the sun, moon and the earth form part of the solar system."
+          ],
+          "source_ids": [
+            "d6b5dec8-e8d6-4067-a49b-ebc4b3d8cc77"
+          ],
+          "source_code": "C4T14-LO02",
+          "record_name": "Explain that the sun, moon and the earth form part of the solar system."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo03",
+          "kind": "learning_outcome",
+          "text": "Describe movement of the moon round the earth.",
+          "match_any": [
+            "Describe movement of the moon round the earth."
+          ],
+          "source_ids": [
+            "4c1d01b0-9b99-4d57-9fad-e3b5175cd0e6"
+          ],
+          "source_code": "C4T14-LO03",
+          "record_name": "Describe movement of the moon round the earth."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo04",
+          "kind": "learning_outcome",
+          "text": "State and describe members of the solar system.",
+          "match_any": [
+            "State and describe members of the solar system."
+          ],
+          "source_ids": [
+            "85674a38-cbc7-49bf-8159-31b1f69214a7"
+          ],
+          "source_code": "C4T14-LO04",
+          "record_name": "State and describe members of the solar system."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo05",
+          "kind": "learning_outcome",
+          "text": "Explain whether the moon is a planet or star.",
+          "match_any": [
+            "Explain whether the moon is a planet or star."
+          ],
+          "source_ids": [
+            "dc0a0bea-1946-475a-a40b-9dfb8d23f49e"
+          ],
+          "source_code": "C4T14-LO05",
+          "record_name": "Explain whether the moon is a planet or star."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo06",
+          "kind": "learning_outcome",
+          "text": "Discuss the phases of the moon.",
+          "match_any": [
+            "Discuss the phases of the moon."
+          ],
+          "source_ids": [
+            "c9193c29-1107-4166-9bd2-234f72ffec70"
+          ],
+          "source_code": "C4T14-LO06",
+          "record_name": "Discuss the phases of the moon."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo07",
+          "kind": "learning_outcome",
+          "text": "State the uses of the moon.",
+          "match_any": [
+            "State the uses of the moon."
+          ],
+          "source_ids": [
+            "44b51e14-9cd4-420f-8506-f04c0d39744d"
+          ],
+          "source_code": "C4T14-LO07",
+          "record_name": "State the uses of the moon."
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "source_records": [
+        {
+          "entity_type": "theme",
+          "id": "fabc7c01-ed57-4ad9-ac2f-fe4c01f9b1a9",
+          "code": "C4-T14",
+          "name": "The Earth, The Solar System and the Moon"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "26475bc6-5606-4502-b730-1c158b2b91f0",
+          "code": "C4T14-LO01",
+          "name": "Identify the components of the solar system."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "d6b5dec8-e8d6-4067-a49b-ebc4b3d8cc77",
+          "code": "C4T14-LO02",
+          "name": "Explain that the sun, moon and the earth form part of the solar system."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "4c1d01b0-9b99-4d57-9fad-e3b5175cd0e6",
+          "code": "C4T14-LO03",
+          "name": "Describe movement of the moon round the earth."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "85674a38-cbc7-49bf-8159-31b1f69214a7",
+          "code": "C4T14-LO04",
+          "name": "State and describe members of the solar system."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "dc0a0bea-1946-475a-a40b-9dfb8d23f49e",
+          "code": "C4T14-LO05",
+          "name": "Explain whether the moon is a planet or star."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "c9193c29-1107-4166-9bd2-234f72ffec70",
+          "code": "C4T14-LO06",
+          "name": "Discuss the phases of the moon."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "44b51e14-9cd4-420f-8506-f04c0d39744d",
+          "code": "C4T14-LO07",
+          "name": "State the uses of the moon."
+        }
+      ],
+      "minimum_evidence": "The seven learning outcomes on theme C4-T14. This is not an astronomy subject and it is not a Class 4 Mathematics unit.",
+      "absence": null,
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "id": "gold-c4-science-solar-outcomes-complete",
+      "question": "What learning outcomes are published for the Class 4 Science theme The Earth, The Solar System and the Moon?",
+      "support": "answerable",
+      "grade_code": "CLASS_4",
+      "subject_code": "SCIENCE",
+      "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+      "curriculum_code": "MBSSE-BEC",
+      "curriculum_version": "2020",
+      "grade_curriculum_id": "8ed57ab3-e539-453c-93a9-e1782f084599",
+      "subject_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+      "rationale": "The theme publishes seven outcomes. The word astronomy does not appear in the Class 4 Science text that was enumerated."
+    },
+    {
+      "expected_route": "curriculum",
+      "factual_scoring": true,
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Science",
+        "SCIENCE"
+      ],
+      "required_facts": [
+        {
+          "fact_id": "c4-sci-first-c4-u01",
+          "kind": "content_record",
+          "text": "C4-U01",
+          "match_any": [
+            "C4-U01",
+            "Living and Non – living Things"
+          ],
+          "source_ids": [
+            "c29a01f8-4009-4f27-a455-165e46b01a52"
+          ],
+          "source_code": "C4-U01",
+          "record_name": "Living and Non – living Things",
+          "content_type": "UNIT"
+        }
+      ],
+      "forbidden_substitutions": [
+        {
+          "text": "Meaning, branches and Importance of Science",
+          "match_any": [
+            "Meaning, branches and Importance of Science",
+            "J1-U01"
+          ],
+          "reason": "That is the first unit of JSS 1 Integrated Science, subject code INTEGRATED_SCIENCE, not Class 4 Science."
+        }
+      ],
+      "unsupported_patterns": [],
+      "source_records": [
+        {
+          "entity_type": "unit",
+          "id": "c29a01f8-4009-4f27-a455-165e46b01a52",
+          "code": "C4-U01",
+          "name": "Living and Non – living Things"
+        }
+      ],
+      "minimum_evidence": "Content row C4-U01 on the Class 4 Science grade curriculum, display order 1.",
+      "absence": null,
+      "must_be_complete": false,
+      "uncertainty": "not_applicable",
+      "id": "gold-c4-science-not-integrated",
+      "question": "What is the first published unit of Class 4 Science?",
+      "support": "answerable",
+      "grade_code": "CLASS_4",
+      "subject_code": "SCIENCE",
+      "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+      "curriculum_code": "MBSSE-BEC",
+      "curriculum_version": "2020",
+      "grade_curriculum_id": "8ed57ab3-e539-453c-93a9-e1782f084599",
+      "subject_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+      "rationale": "Class 4 Science and JSS 1 Integrated Science are different subjects. The first Class 4 Science unit is Living and Non-living Things."
+    },
+    {
+      "expected_route": "curriculum",
+      "factual_scoring": true,
+      "grade_labels": [
+        "JSS 1",
+        "JSS1",
+        "JSS_1"
+      ],
+      "subject_labels": [
+        "Integrated Science",
+        "INTEGRATED_SCIENCE"
+      ],
+      "required_facts": [
+        {
+          "fact_id": "jss1-is-first-j1-u01",
+          "kind": "content_record",
+          "text": "J1-U01",
+          "match_any": [
+            "J1-U01",
+            "Meaning, branches and Importance of Science"
+          ],
+          "source_ids": [
+            "83b85707-2bfc-429e-bbff-9c2be76dd28a"
+          ],
+          "source_code": "J1-U01",
+          "record_name": "Meaning, branches and Importance of Science",
+          "content_type": "UNIT"
+        }
+      ],
+      "forbidden_substitutions": [
+        {
+          "text": "Living and Non – living Things",
+          "match_any": [
+            "Living and Non – living Things",
+            "Living and Non-living Things",
+            "C4-U01"
+          ],
+          "reason": "C4-U01 is the first Class 4 Science unit, not the first JSS 1 Integrated Science unit."
+        }
+      ],
+      "unsupported_patterns": [],
+      "source_records": [
+        {
+          "entity_type": "unit",
+          "id": "83b85707-2bfc-429e-bbff-9c2be76dd28a",
+          "code": "J1-U01",
+          "name": "Meaning, branches and Importance of Science"
+        }
+      ],
+      "minimum_evidence": "Content row J1-U01 on grade curriculum 08346358-7b6f-4e73-aef1-b9028e670cba.",
+      "absence": null,
+      "must_be_complete": false,
+      "uncertainty": "not_applicable",
+      "id": "gold-jss1-integrated-science-first-unit",
+      "question": "What is the first published unit of JSS 1 Integrated Science?",
+      "support": "answerable",
+      "grade_code": "JSS_1",
+      "subject_code": "INTEGRATED_SCIENCE",
+      "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+      "curriculum_code": "MBSSE-BEC",
+      "curriculum_version": "2020",
+      "grade_curriculum_id": "08346358-7b6f-4e73-aef1-b9028e670cba",
+      "subject_id": "0b3a9469-be19-4164-994c-45f4df62fcd0",
+      "rationale": "The first published JSS 1 Integrated Science unit is Meaning, branches and Importance of Science. Class 4 does not publish an Integrated Science grade curriculum."
+    },
+    {
+      "expected_route": "curriculum",
+      "factual_scoring": true,
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "French",
+        "FRENCH"
+      ],
+      "required_facts": [],
+      "forbidden_substitutions": [
+        {
+          "text": "Ordinal Numbers (premier, deuxième etc.)",
+        "match_any": [
+          "Ordinal Numbers (premier, deuxième etc.)",
+          "Quelle heure est-il?"
+        ],
+          "reason": "Those rows belong to Class 4 French Appreciation, subject code FRENCH_APPRECIATION, not to a Class 4 French subject."
+        }
+      ],
+      "unsupported_patterns": [],
+      "source_records": [
+        {
+          "entity_type": "subject_catalogue_check",
+          "id": "5ace24b1-5676-4d05-bce4-65ca15529f44",
+          "code": "FRENCH",
+          "name": "French"
+        }
+      ],
+      "minimum_evidence": "The 14 ACTIVE Class 4 grade curricula under MBSSE-BEC 2020. None uses subject code FRENCH.",
+      "absence": {
+        "claim": "Class 4 has a published French subject syllabus.",
+        "searched": "All MBSSE-BEC grade curricula whose grade code is CLASS_4.",
+        "found_instead": "Class 4 publishes FRENCH_APPRECIATION. Subject code FRENCH is not among the 14 Class 4 subject rows. JSS 1 does publish FRENCH.",
+        "why_insufficient": "No Class 4 grade curriculum supports a unit list for subject code FRENCH. French Appreciation records cannot be substituted for that claim."
+      },
+      "must_be_complete": false,
+      "uncertainty": "abstain",
+      "id": "gold-c4-french-subject-absent",
+      "question": "What units does the Class 4 French subject cover?",
+      "support": "insufficient",
+      "grade_code": "CLASS_4",
+      "subject_code": "FRENCH",
+      "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+      "curriculum_code": "MBSSE-BEC",
+      "curriculum_version": "2020",
+      "grade_curriculum_id": null,
+      "subject_id": "5ace24b1-5676-4d05-bce4-65ca15529f44",
+      "rationale": "The requested subject and grade combination is absent. Naming French Appreciation units as the Class 4 French syllabus would assign another subject's records to this question."
+    },
+    {
+      "expected_route": "curriculum",
+      "factual_scoring": true,
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "required_facts": [],
+      "forbidden_substitutions": [
+        {
+          "text": "The Earth, The Solar System and the Moon",
+          "match_any": [
+            "The Earth, The Solar System and the Moon",
+            "C4-T14"
+          ],
+          "reason": "That theme is Class 4 Science, not Class 4 Mathematics. The Mathematics content that was enumerated does not contain the word astronomy."
+        }
+      ],
+      "unsupported_patterns": [],
+      "source_records": [
+        {
+          "entity_type": "unit",
+          "id": "f293e00a-bae7-44db-ad55-3c1263e20387",
+          "code": "C4-U01",
+          "name": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "id": "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+          "code": "C4-U02",
+          "name": "Number and Numeration Reading And Writing"
+        },
+        {
+          "entity_type": "unit",
+          "id": "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+          "code": "C4-U03",
+          "name": "Number and Numeration. Approximation."
+        },
+        {
+          "entity_type": "unit",
+          "id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "code": "C4-U04",
+          "name": "Number and Numeration FRACTION"
+        },
+        {
+          "entity_type": "unit",
+          "id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "code": "C4-U05",
+          "name": "Number and Numeration OPERATION ON FRACTIONS."
+        },
+        {
+          "entity_type": "unit",
+          "id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "code": "C4-U06",
+          "name": "Number and Numeration Operation on Fraction. (Multiplication)"
+        },
+        {
+          "entity_type": "unit",
+          "id": "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+          "code": "C4-U07",
+          "name": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "id": "c148074c-fac8-4771-94de-01de1805f585",
+          "code": "C4-U08",
+          "name": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "id": "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+          "code": "C4-U09",
+          "name": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "id": "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+          "code": "C4-U10",
+          "name": "Number and Numeration"
+        },
+        {
+          "entity_type": "unit",
+          "id": "a06e3216-dd97-4d5f-af49-f1afec6def85",
+          "code": "C4-U11",
+          "name": "Everyday Arithmetic Addition and Subtraction"
+        },
+        {
+          "entity_type": "unit",
+          "id": "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+          "code": "C4-U13",
+          "name": "Everyday Arithmetic Multiplication"
+        },
+        {
+          "entity_type": "unit",
+          "id": "152b4a5a-c080-403c-a780-9940c818bc4b",
+          "code": "C4-U14",
+          "name": "Everyday Arithmetic DIVISION"
+        },
+        {
+          "entity_type": "unit",
+          "id": "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+          "code": "C4-U15",
+          "name": "Everyday Arithmetic"
+        },
+        {
+          "entity_type": "unit",
+          "id": "13202e14-75a9-455e-9f58-baad27d672b4",
+          "code": "C4-U16",
+          "name": "Everyday Arithmetic Addition and Subtraction."
+        },
+        {
+          "entity_type": "unit",
+          "id": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+          "code": "C4-U17",
+          "name": "Everyday Arithmetic"
+        },
+        {
+          "entity_type": "unit",
+          "id": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "code": "C4-U18",
+          "name": "Everyday Arithmetic Money"
+        },
+        {
+          "entity_type": "unit",
+          "id": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+          "code": "C4-U19",
+          "name": "Everyday Arithmetic Multiplication and Decimal."
+        },
+        {
+          "entity_type": "unit",
+          "id": "6252f434-14ed-42cc-8415-ea870de24273",
+          "code": "C4-U20",
+          "name": "Measurement And Estimation LENGTH"
+        },
+        {
+          "entity_type": "unit",
+          "id": "6ec53325-5983-421a-8b3e-9690e6da159f",
+          "code": "C4-U21",
+          "name": "Measurement And Estimation LENGTH"
+        },
+        {
+          "entity_type": "unit",
+          "id": "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+          "code": "C4-U22",
+          "name": "Measurement and Estimation."
+        },
+        {
+          "entity_type": "unit",
+          "id": "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+          "code": "C4-U23",
+          "name": "Measurement and Estimation"
+        },
+        {
+          "entity_type": "unit",
+          "id": "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+          "code": "C4-U24",
+          "name": "Measurement and Estimation"
+        },
+        {
+          "entity_type": "unit",
+          "id": "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+          "code": "C4-U25",
+          "name": "Measurement and Estimation GEOMETRY Lines and Angles"
+        },
+        {
+          "entity_type": "unit",
+          "id": "36924334-8856-4c53-8f48-d4e6eed8cf12",
+          "code": "C4-U26",
+          "name": "Measurement and Estimation Time"
+        },
+        {
+          "entity_type": "unit",
+          "id": "00d27bae-413d-4841-9a1b-23020b50567d",
+          "code": "C4-U27",
+          "name": "STATISTICS Data Collection Plan"
+        },
+        {
+          "entity_type": "unit",
+          "id": "b1587bd8-a2da-493e-8872-4b404108c235",
+          "code": "C4-U28",
+          "name": "Unit 28"
+        }
+      ],
+      "minimum_evidence": "The names and learning-outcome descriptions of all 27 published Class 4 Mathematics units were scanned. None contains astronomy.",
+      "absence": {
+        "claim": "Class 4 Mathematics publishes astronomy content.",
+        "searched": "Unit names and learning-outcome descriptions on grade curriculum b1bcff00-3d07-4e92-b426-97e3bfee12ec.",
+        "found_instead": "Class 4 Science theme C4-T14 covers the Earth, the solar system and the Moon. That theme was not used as a Mathematics fact.",
+        "why_insufficient": "The requested claim is not supported by the Class 4 Mathematics records. A Science theme about the solar system does not establish a Mathematics astronomy statement."
+      },
+      "must_be_complete": false,
+      "uncertainty": "abstain",
+      "id": "gold-c4-math-astronomy-absent",
+      "question": "What does the Class 4 Mathematics syllabus say about astronomy?",
+      "support": "insufficient",
+      "grade_code": "CLASS_4",
+      "subject_code": "MATHEMATICS",
+      "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+      "curriculum_code": "MBSSE-BEC",
+      "curriculum_version": "2020",
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "rationale": "Absence was checked against the enumerated Mathematics records. The nearby Science theme is a confusion risk and is not evidence for this question."
+    },
+    {
+      "expected_route": "curriculum",
+      "factual_scoring": true,
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "required_facts": [
+        {
+          "fact_id": "c4-u01-partial-c4u01-lo01",
+          "kind": "learning_outcome",
+          "text": "Count up to 5000 using a number line.",
+          "match_any": [
+            "Count up to 5000 using a number line."
+          ],
+          "source_ids": [
+            "e3e82bfc-285f-4ef7-992d-534afcb8b63e"
+          ],
+          "source_code": "C4U01-LO01",
+          "record_name": "Count up to 5000 using a number line."
+        },
+        {
+          "fact_id": "c4-u01-partial-c4u01-lo02",
+          "kind": "learning_outcome",
+          "text": "Count up to 10,000 using a number line.",
+          "match_any": [
+            "Count up to 10,000 using a number line."
+          ],
+          "source_ids": [
+            "1f924af2-802d-4f13-af41-528cc9fc44f1"
+          ],
+          "source_code": "C4U01-LO02",
+          "record_name": "Count up to 10,000 using a number line."
+        },
+        {
+          "fact_id": "c4-u01-partial-c4u01-lo03",
+          "kind": "learning_outcome",
+          "text": "Compare numbers up to 10,000 using number line.",
+          "match_any": [
+            "Compare numbers up to 10,000 using number line."
+          ],
+          "source_ids": [
+            "057877f7-cc6f-4a9b-bdac-33c47f307262"
+          ],
+          "source_code": "C4U01-LO03",
+          "record_name": "Compare numbers up to 10,000 using number line."
+        },
+        {
+          "fact_id": "c4-u01-partial-c4u01-lo04",
+          "kind": "learning_outcome",
+          "text": "Read and write numbers in numerals up to 10,000 using place value.",
+          "match_any": [
+            "Read and write numbers in numerals up to 10,000 using place value."
+          ],
+          "source_ids": [
+            "d801249e-6f42-4ce7-a578-1e3f9bdc9642"
+          ],
+          "source_code": "C4U01-LO04",
+          "record_name": "Read and write numbers in numerals up to 10,000 using place value."
+        },
+        {
+          "fact_id": "c4-u01-partial-c4u01-lo05",
+          "kind": "learning_outcome",
+          "text": "Use place value system up to 10,000,000.",
+          "match_any": [
+            "Use place value system up to 10,000,000."
+          ],
+          "source_ids": [
+            "e05ee042-e278-4003-a0e7-44e8dc986b65"
+          ],
+          "source_code": "C4U01-LO05",
+          "record_name": "Use place value system up to 10,000,000."
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [
+        "\\b\\d+\\s+recommended periods\\b",
+        "\\b\\d+\\s+periods\\b"
+      ],
+      "source_records": [
+        {
+          "entity_type": "unit",
+          "id": "f293e00a-bae7-44db-ad55-3c1263e20387",
+          "code": "C4-U01",
+          "name": "Number and Numeration"
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "e3e82bfc-285f-4ef7-992d-534afcb8b63e",
+          "code": "C4U01-LO01",
+          "name": "Count up to 5000 using a number line."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "1f924af2-802d-4f13-af41-528cc9fc44f1",
+          "code": "C4U01-LO02",
+          "name": "Count up to 10,000 using a number line."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "057877f7-cc6f-4a9b-bdac-33c47f307262",
+          "code": "C4U01-LO03",
+          "name": "Compare numbers up to 10,000 using number line."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "d801249e-6f42-4ce7-a578-1e3f9bdc9642",
+          "code": "C4U01-LO04",
+          "name": "Read and write numbers in numerals up to 10,000 using place value."
+        },
+        {
+          "entity_type": "learning_outcome",
+          "id": "e05ee042-e278-4003-a0e7-44e8dc986b65",
+          "code": "C4U01-LO05",
+          "name": "Use place value system up to 10,000,000."
+        }
+      ],
+      "minimum_evidence": "The five outcomes on C4-U01. The same content row has recommended_periods null, so no period count is a gold fact.",
+      "absence": {
+        "claim": "Unit C4-U01 assigns a recommended period count.",
+        "searched": "recommended_periods on content id f293e00a-bae7-44db-ad55-3c1263e20387.",
+        "found_instead": "The field is null. The five learning outcomes are present.",
+        "why_insufficient": "The period-count part of the question cannot be supported. The outcome part can."
+      },
+      "must_be_complete": true,
+      "uncertainty": "state_missing_part",
+      "id": "gold-c4-math-u01-periods-partial",
+      "question": "What are the learning outcomes for Class 4 Mathematics unit C4-U01, and how many recommended periods does that unit assign?",
+      "support": "partially_answerable",
+      "grade_code": "CLASS_4",
+      "subject_code": "MATHEMATICS",
+      "curriculum_id": "74a9310e-4aed-47c5-9981-a0a65ba27093",
+      "curriculum_code": "MBSSE-BEC",
+      "curriculum_version": "2020",
+      "grade_curriculum_id": "b1bcff00-3d07-4e92-b426-97e3bfee12ec",
+      "subject_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+      "rationale": "The outcomes are a complete published list. Any stated period count would be an invented figure because the authoritative field is null.",
+      "source_limitations": [
+        "recommended_periods is null on the inspected Class 4 Mathematics units."
+      ]
+    }
+  ]
+}
