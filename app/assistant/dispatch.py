@@ -1,6 +1,7 @@
-"""Apply a resolved route without calling production QA or an LLM.
+"""Apply a resolved route.
 
-Handlers are injected. Clarify never calls them. A mixed turn calls general
+Handlers are injected. Pass qa_agent to call CurriculumQAAgent.ask in process.
+Clarify never calls QA or general generation. A mixed turn calls general
 generation only after QA returns an outcome that may carry separate advice.
 """
 
@@ -17,6 +18,7 @@ from app.assistant.contract import (
     CurriculumOutcome,
     GeneralExecutionFailure,
 )
+from app.assistant.qa_adapter import CurriculumAskAgent, CurriculumQAAdapter
 from app.assistant.router import CLARIFICATION_PROMPT, RouteClassifier, resolve_route
 from app.curriculum.errors import CurriculumTimeoutError
 from app.exceptions import AgentError, LLMProviderError, LLMTimeoutError
@@ -33,10 +35,15 @@ def dispatch_turn(
     request: AssistantTurnRequest,
     *,
     qa: QAHandler | None = None,
+    qa_agent: CurriculumAskAgent | None = None,
     general: GeneralHandler | None = None,
     classifier: RouteClassifier | None = None,
 ) -> AssistantTurnResponse:
     """Resolve a route, call only the handlers that route allows, then compose."""
+    if qa is not None and qa_agent is not None:
+        raise AssistantDispatchError("pass qa or qa_agent, not both")
+    if qa is None and qa_agent is not None:
+        qa = CurriculumQAAdapter(qa_agent)
     routing = resolve_route(request, classifier=classifier)
     route = routing.route
 

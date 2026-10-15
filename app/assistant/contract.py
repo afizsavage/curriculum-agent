@@ -53,6 +53,7 @@ class AssistantTurnRequest(BaseModel):
 
     question: str = Field(..., min_length=1, max_length=4000)
     conversation_id: Optional[str] = None
+    request_id: Optional[str] = None
     grade: Optional[str] = None
     subject: Optional[str] = None
     task: Optional[str] = None
@@ -93,8 +94,8 @@ class GeneralExecutionFailure(BaseModel):
 class CurriculumOutcome(BaseModel):
     """Fake or future in-process QA result consumed by the composer.
 
-    ``coverage_decision`` is assistant provenance copied from verifier metadata
-    when a caller has it. It is not a field on ``AskResponse``.
+    ``coverage_decision`` is read from in-process verifier metadata when a
+    caller has the QA state. ``AskResponse.verification`` does not include it.
     """
 
     response: Optional[AskResponse] = None
