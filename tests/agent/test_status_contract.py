@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from app.agent.absence_evidence import select_records_for_absence_verification
 from app.agent.answer_generator import format_evidence_for_prompt, select_evidence_for_prompt
 from app.agent.graph_nodes import GraphNodes, apply_fallback
 from app.agent.graph_routing import route_after_verification
@@ -442,10 +443,11 @@ def test_material_unsupported_claims_do_not_finish_when_nothing_more_can_be_retr
 
 
 def test_same_name_dedupe_can_still_be_accepted_when_missing_evidence_is_empty():
-    """Current contract: an accept with no missing-evidence list finishes.
+    """Ordinary dedupe still drops same-name units. An absence accept does not.
 
-    Same-name deduplication can remove retrieved units from the generation
-    context. An accept in that state is not proof that absence was established.
+    The generation window may omit those units. Certification requires the
+    verifier's checked ids to include them. ACCEPT with an empty missing
+    list is not that check.
     """
     evidence = [
         CurriculumEvidence(
@@ -467,8 +469,11 @@ def test_same_name_dedupe_can_still_be_accepted_when_missing_evidence_is_empty()
     assert "Code: C4-U01" in prompt
     assert "Code: C4-U05" not in prompt
     qa = CurriculumQAState.initial(question=question)
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
     qa.evidence = evidence
     qa.draft_answer = "Astronomy is not among the topics shown in this evidence."
+    qa.metadata["verification_evidence_ids"] = [selected[0].entity_id]
     qa.verification = VerificationResult(
         passed=True,
         score=0.7,
@@ -478,7 +483,11 @@ def test_same_name_dedupe_can_still_be_accepted_when_missing_evidence_is_empty()
         ],
         missing_evidence=[],
     )
-    assert _route(qa) == "finish"
+    assert _route(qa) == "fallback"
+    assert qa.metadata["fallback_reason"] == "absence_records_unchecked"
+    out = apply_fallback(qa, reason="absence_records_unchecked")
+    assert out.status == AgentStatus.INSUFFICIENT_EVIDENCE
+    assert "not certified" in (out.final_answer or "")
 
 
 def _exhaustive_tree(
@@ -956,3 +965,154 @@ def test_unsupported_claims_still_block_when_an_absent_code_is_also_requested():
     qa.verification = result
     qa.pending_missing_evidence = list(result.missing_evidence)
     assert _route(qa) != "finish"
+
+
+def _same_name_units_with_outcomes() -> list[CurriculumEvidence]:
+    units = [
+        CurriculumEvidence(
+            entity_type="unit",
+            entity_id=f"unit-{index}",
+            name="Number and Numeration",
+            grade="CLASS_4",
+            subject="MATHEMATICS",
+            content="Number and Numeration",
+            metadata={"code": f"C4-U{index:02d}"},
+        )
+        for index in (1, 7)
+    ]
+    outcomes = [
+        CurriculumEvidence(
+            entity_type="learning_outcome",
+            entity_id="outcome-1",
+            name="C4U01-LO01",
+            grade="CLASS_4",
+            subject="MATHEMATICS",
+            topic="unit-1",
+            content="Count up to 5000 using a number line.",
+            metadata={"parent_id": "unit-1"},
+        ),
+        CurriculumEvidence(
+            entity_type="learning_outcome",
+            entity_id="outcome-7",
+            name="C4U07-LO01",
+            grade="CLASS_4",
+            subject="MATHEMATICS",
+            topic="unit-7",
+            content="Describe how sailors used the stars to navigate.",
+            metadata={"parent_id": "unit-7"},
+        ),
+    ]
+    return units + outcomes
+
+
+def test_checked_absence_records_can_finish_when_the_claim_is_scoped():
+    evidence = _same_name_units_with_outcomes()
+    question = "What does the Class 4 Mathematics syllabus say about astronomy?"
+    checked = select_records_for_absence_verification(
+        evidence, grade="CLASS_4", subject="MATHEMATICS"
+    )
+    assert {item.entity_id for item in checked} == {
+        "unit-1",
+        "unit-7",
+        "outcome-1",
+        "outcome-7",
+    }
+    prompt = format_evidence_for_prompt(checked, question=question, prepared=checked)
+    assert "Count up to 5000 using a number line." in prompt
+    assert "Describe how sailors used the stars to navigate." in prompt
+    qa = CurriculumQAState.initial(question=question)
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.evidence = evidence
+    qa.draft_answer = (
+        "Astronomy is not among the Class 4 Mathematics records that were checked."
+    )
+    qa.metadata["verification_evidence_ids"] = [item.entity_id for item in checked]
+    qa.verification = VerificationResult(
+        passed=True,
+        score=0.9,
+        recommendation=VerificationRecommendation.ACCEPT,
+        missing_evidence=[],
+    )
+    assert _route(qa) == "finish"
+    finished = GraphNodes.finish(
+        object.__new__(GraphNodes), {"qa": qa, "visited_nodes": []}
+    )
+    assert finished["qa"].status == AgentStatus.COMPLETED
+
+
+def test_ordinary_questions_still_dedupe_same_name_units():
+    evidence = _same_name_units_with_outcomes()
+    question = "What topics are taught in Class 4 Mathematics?"
+    selected, _ids = select_evidence_for_prompt(evidence, question=question)
+    unit_ids = [item.entity_id for item in selected if item.entity_type == "unit"]
+    assert unit_ids == ["unit-1"]
+    assert question_needs_absence_context(question) is False
+    absence = select_records_for_absence_verification(
+        evidence, grade="CLASS_4", subject="MATHEMATICS"
+    )
+    assert {item.entity_id for item in absence if item.entity_type == "unit"} == {
+        "unit-1",
+        "unit-7",
+    }
+
+
+def question_needs_absence_context(question: str) -> bool:
+    from app.agent.absence_evidence import question_probes_topic_presence
+
+    return question_probes_topic_presence(question)
+
+
+def test_different_outcome_text_is_unchecked_when_the_unit_is_deduped():
+    evidence = _same_name_units_with_outcomes()
+    qa = CurriculumQAState.initial(
+        question="What does the Class 4 Mathematics syllabus say about astronomy?"
+    )
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.evidence = evidence
+    qa.draft_answer = "Astronomy is not among the records shown in this evidence."
+    qa.metadata["verification_evidence_ids"] = ["unit-1", "outcome-1"]
+    qa.verification = VerificationResult(
+        passed=True,
+        recommendation=VerificationRecommendation.ACCEPT,
+        missing_evidence=[],
+    )
+    assert _route(qa) == "fallback"
+    assert qa.metadata["fallback_reason"] == "absence_records_unchecked"
+
+
+def test_failed_topic_lookup_does_not_certify_global_absence():
+    qa = CurriculumQAState.initial(
+        question="What does the Class 4 Mathematics syllabus say about astronomy?"
+    )
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.draft_answer = "Astronomy is absent from the entire MBSSE curriculum."
+    qa.metadata["verification_evidence_ids"] = []
+    qa.verification = VerificationResult(
+        passed=True,
+        recommendation=VerificationRecommendation.ACCEPT,
+        missing_evidence=[],
+    )
+    assert _route(qa) == "fallback"
+    out = apply_fallback(qa, reason="absence_records_unchecked")
+    assert out.status == AgentStatus.INSUFFICIENT_EVIDENCE
+
+
+def test_scoped_absence_is_not_certified_from_the_mathematics_tree_as_global():
+    evidence = _same_name_units_with_outcomes()
+    qa = CurriculumQAState.initial(
+        question="What does the Class 4 Mathematics syllabus say about astronomy?"
+    )
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.evidence = evidence
+    qa.draft_answer = "Astronomy is absent from the entire MBSSE curriculum."
+    qa.metadata["verification_evidence_ids"] = [item.entity_id for item in evidence]
+    qa.verification = VerificationResult(
+        passed=True,
+        recommendation=VerificationRecommendation.ACCEPT,
+        missing_evidence=[],
+    )
+    assert _route(qa) == "fallback"

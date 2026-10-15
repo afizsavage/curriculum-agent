@@ -6,7 +6,11 @@ import json
 import time
 from typing import Any, Optional
 
-from app.agent.answer_generator import format_evidence_for_prompt
+from app.agent.absence_evidence import (
+    needs_absence_verification_context,
+    select_records_for_absence_verification,
+)
+from app.agent.answer_generator import format_evidence_for_prompt, select_evidence_for_prompt
 from app.agent.coverage_validator import assess_coverage, classify_verifier_payload
 from app.agent.state import CurriculumQAState
 from app.agent.verification_checks import run_deterministic_checks
@@ -25,6 +29,29 @@ from app.schemas.verification import (
 )
 
 logger = get_logger(__name__)
+
+
+def _verification_evidence(
+    state: CurriculumQAState, answer: str
+) -> tuple[str, list[str]]:
+    """Evidence text the verifier checks, and the ids included in it.
+
+    Absence claims see every in-scope unit and learning-outcome description.
+    Ordinary questions keep the existing deduplicated window.
+    """
+    if needs_absence_verification_context(state.question, answer):
+        ranked = select_records_for_absence_verification(
+            list(state.evidence),
+            grade=state.grade,
+            subject=state.subject,
+        )
+        block = format_evidence_for_prompt(
+            ranked, question=state.question, prepared=ranked
+        )
+        return block, [item.entity_id for item in ranked if item.entity_id]
+    block = format_evidence_for_prompt(state.evidence, question=state.question)
+    _ranked, ids = select_evidence_for_prompt(state.evidence, question=state.question)
+    return block, ids
 
 VERIFIER_SYSTEM_PROMPT = """You are the MBSSE Curriculum Q&A Agent verifier.
 
@@ -134,12 +161,14 @@ class AnswerVerifier:
         }
         answer = state.final_answer or state.draft_answer or ""
         refs = [r.model_dump() for r in state.answer_evidence]
+        evidence_block, checked_ids = _verification_evidence(state, answer)
+        state.metadata["verification_evidence_ids"] = checked_ids
         user = (
             f"ORIGINAL QUESTION\n{state.question}\n\n"
             f"STRUCTURED INTENT\n{json.dumps({k: v for k, v in filters.items() if v}, indent=2)}\n\n"
             f"GENERATED ANSWER\n{answer}\n\n"
             f"ANSWER EVIDENCE REFS\n{json.dumps(refs, indent=2)}\n\n"
-            f"CURRICULUM EVIDENCE\n{format_evidence_for_prompt(state.evidence, question=state.question)}\n\n"
+            f"CURRICULUM EVIDENCE\n{evidence_block}\n\n"
             "Verify every curriculum-specific claim against the evidence only.\n"
             "Respond with a single JSON object matching this schema:\n"
             f"{json.dumps(VERIFICATION_RESULT_JSON_SCHEMA, indent=2)}"

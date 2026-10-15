@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from typing import Literal
 
+from app.agent.absence_evidence import absence_finish_blocked
 from app.agent.graph_state import ALLOWED_ROUTES, GraphState
 from app.agent.context_boundary import (
     context_boundary_experiment_enabled,
@@ -48,6 +49,11 @@ def route_after_verification(
     if result is None:
         route = "fallback"
         reason = "missing_verification_result"
+    elif _absence_claim_is_unchecked(qa):
+        route = "fallback"
+        reason = "absence_records_unchecked"
+        qa.metadata["fallback_reason"] = reason
+        qa.metadata["termination_reason"] = reason
     elif result.passed or result.recommendation == VerificationRecommendation.ACCEPT:
         route = "finish"
         reason = "verification_passed"
@@ -167,6 +173,10 @@ def route_after_verification(
 
         emit_v24_route_event(qa, route=route, reason=reason, result=result)
     return route
+
+
+def _absence_claim_is_unchecked(qa) -> bool:
+    return absence_finish_blocked(qa)
 
 
 def _should_regenerate_with_boundary(qa, settings: Settings) -> bool:

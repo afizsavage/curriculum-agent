@@ -2213,11 +2213,15 @@ def format_evidence_for_prompt(
     *,
     question: str | None = None,
     max_records: int = 24,
+    prepared: list[CurriculumEvidence] | None = None,
 ) -> str:
     """Render retrieved evidence with hierarchy for the LLM prompt."""
-    ranked, _ids = select_evidence_for_prompt(
-        evidence, question=question, max_records=max_records
-    )
+    if prepared is not None:
+        ranked = list(prepared)
+    else:
+        ranked, _ids = select_evidence_for_prompt(
+            evidence, question=question, max_records=max_records
+        )
     if not ranked:
         return "(no curriculum evidence retrieved)"
 

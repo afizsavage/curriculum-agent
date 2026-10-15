@@ -554,6 +554,13 @@ def apply_fallback(
     }
     if keep_grounded_gap and draft:
         state.final_answer = draft
+    elif draft and reason == "absence_records_unchecked":
+        state.final_answer = (
+            draft
+            + "\n\nNote: This absence statement is not certified. Retrieved "
+            "records relevant to the claim were not all checked, or the claim "
+            "goes beyond the retrieved subject, grade, and curriculum version."
+        )
     elif draft and (reason.startswith("no_retrieval_progress") or limit_exhausted):
         # Keep the fuller draft. A five-name hint must not replace a list
         # that already names the retrieved records.
