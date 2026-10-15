@@ -162,6 +162,22 @@ def test_wrong_subject_unit_is_an_unsupported_claim():
     assert "generation_misstated_evidence" in metrics["failure_categories"]
 
 
+def test_thousands_separator_misses_the_frozen_outcome_while_the_sentence_remains():
+    """Gold recall is an exact normalized substring. A comma is not dropped.
+
+    The Class 4 outcome text is "Count up to 5000 using a number line."
+    An answer that writes 5,000 still contains the outcome and can finish
+    completed. That miss is scoring, not a lost evidence row.
+    """
+    from app.assistant.curriculum_gold import _fact_recalled
+
+    fact = {"match_any": ["Count up to 5000 using a number line."]}
+    comma_form = "Count up to 5,000 using a number line."
+    assert _fact_recalled(fact, comma_form) is False
+    assert _fact_recalled(fact, "Count up to 5000 using a number line.") is True
+    assert "5,000" in comma_form
+
+
 def test_insufficient_french_abstains_and_does_not_borrow_appreciation():
     case = _case("gold-c4-french-subject-absent")
     abstained = score_observation(

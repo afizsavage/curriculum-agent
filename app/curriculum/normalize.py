@@ -65,6 +65,11 @@ def match_query(node: dict[str, Any], query: str) -> bool:
 def evidence_from_hit(
     hit: SearchHit, *, source_reference: str = "syllabus.content.tree"
 ) -> CurriculumEvidence:
+    metadata = dict(hit.metadata or {})
+    # The tree walk already knows the published parent. Keep that id on the
+    # evidence record; do not invent a parent from a shared display name.
+    if hit.parent_id and "parent_id" not in metadata:
+        metadata["parent_id"] = hit.parent_id
     return CurriculumEvidence(
         entity_type=hit.type,
         entity_id=hit.id,
@@ -74,7 +79,7 @@ def evidence_from_hit(
         subject=hit.subject,
         topic=hit.name if hit.type in {"topic", "subtopic", "unit"} else None,
         content=hit.name,
-        metadata=hit.metadata,
+        metadata=metadata,
         source_reference=source_reference,
     )
 
