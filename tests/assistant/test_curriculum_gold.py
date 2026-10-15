@@ -263,6 +263,29 @@ def test_retrieved_evidence_that_is_left_out_of_the_answer_is_generation_omissio
     assert "generation_omitted_evidence" in metrics["failure_categories"]
 
 
+def test_technical_failure_is_excluded_from_factual_denominators():
+    from app.assistant.curriculum_gold import _technical_failure_row, aggregate
+
+    case = _case("gold-c4-science-not-integrated")
+    row = _technical_failure_row(
+        case,
+        TimeoutError("provider timed out"),
+        latency_ms=1200,
+        request_id="gold-c4-science-not-integrated",
+    )
+    assert row["scored"] is False
+    assert row["technical_failure"] is True
+    assert row["factual_recall"] is None
+    assert row["failure_categories"] == ["provider_or_infrastructure_failure"]
+    scored = score_observation(
+        case,
+        {"answer": _answer_all(case), "status": "completed", "evidence_status": "found"},
+    )
+    metrics = aggregate([row, scored])
+    assert metrics["factual_recall"]["applicable"] == 1
+    assert metrics["factual_recall"]["value"] == 1
+
+
 def test_audit_does_not_score_model_answers_and_omits_fixture_text():
     report = run_audit()
     summary = format_summary(report)

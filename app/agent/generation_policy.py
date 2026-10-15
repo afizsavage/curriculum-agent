@@ -193,6 +193,7 @@ _IDENTIFIER_REQUEST_RE = re.compile(
     r"objective\s+codes?|"
     r"\blo\s+codes?\b|"
     r"unit\s+codes?|"
+    r"content\s+codes?|"
     r"topic\s+codes?|"
     r"entity[_\s-]?ids?|"
     r"database\s+ids?|"

@@ -29,6 +29,27 @@ from app.tools.registry import build_default_registry
 from tests.tools.test_curriculum_tools import _router
 
 
+def test_passed_result_with_missing_evidence_does_not_accept(settings):
+    verifier = AnswerVerifier(llm=StubLLMProvider(), settings=settings)
+    state = CurriculumQAState.initial(
+        question="Is astronomy part of Class 4 Mathematics?"
+    )
+    result = VerificationResult(
+        passed=True,
+        score=0.9,
+        recommendation=VerificationRecommendation.ACCEPT,
+        missing_evidence=[
+            MissingEvidenceRequest(
+                type="unit",
+                detail="Nine retrieved records were omitted, so absence is not confirmed.",
+            )
+        ],
+    )
+    normalized = verifier._normalize_recommendation(state, result)
+    assert normalized.passed is False
+    assert normalized.recommendation == VerificationRecommendation.RETRIEVE_MORE
+
+
 @pytest.fixture
 def settings() -> Settings:
     return Settings(

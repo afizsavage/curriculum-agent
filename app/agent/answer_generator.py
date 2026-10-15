@@ -1842,7 +1842,10 @@ def _render_identifier_answer(
     lines = _heading_lines(grade_label, subject_label, focus=None)
     lines.append("")
     if kind == "unit":
-        matches = _best_content_matches(question, topics) or topics[:3]
+        if _question_needs_each_coded_record(question):
+            matches = list(topics)
+        else:
+            matches = _best_content_matches(question, topics) or topics[:3]
         if not matches:
             lines.append(
                 "The supplied curriculum evidence does not include a unit code "
@@ -1951,7 +1954,7 @@ def _is_catalogue_question(question: str) -> bool:
 
 def _identifier_kind(question: str) -> str:
     lowered = question.lower()
-    if "unit code" in lowered:
+    if "unit code" in lowered or "content code" in lowered:
         return "unit"
     if "entity" in lowered or "database id" in lowered or "retrieval id" in lowered:
         return "entity"
@@ -2283,13 +2286,29 @@ def _unit_generation_key(name: str) -> str:
     return " ".join(tokens)
 
 
+def _question_needs_each_coded_record(question: str | None) -> bool:
+    """True when collapsing same-name units would drop distinct content codes."""
+    lowered = (question or "").lower()
+    if question_requests_identifiers(question):
+        return True
+    return any(
+        phrase in lowered
+        for phrase in ("every published", "list every", "all published")
+    )
+
+
 def dedupe_units_for_generation(
     evidence: list[CurriculumEvidence],
+    *,
+    question: str | None = None,
 ) -> list[CurriculumEvidence]:
     """Keep the first unit for each normalized name. Other records stay.
 
-    Returns a new list. The caller's evidence bag is not modified.
+    A question that asks for each published code keeps units that share a
+    display name when their content codes differ. The caller's evidence bag
+    is not modified.
     """
+    keep_codes = _question_needs_each_coded_record(question)
     seen: set[str] = set()
     kept: list[CurriculumEvidence] = []
     for item in evidence:
@@ -2297,6 +2316,10 @@ def dedupe_units_for_generation(
             kept.append(item)
             continue
         key = _unit_generation_key(item.name or "")
+        if keep_codes:
+            code = str((item.metadata or {}).get("code") or "").strip()
+            if code:
+                key = f"{key}|{code.casefold()}"
         if key and key in seen:
             continue
         if key:
@@ -2314,8 +2337,12 @@ def select_evidence_for_prompt(
     """Return ranked evidence rows supplied to the generator (and their ids)."""
     if not evidence:
         return [], []
-    prepared = dedupe_units_for_generation(evidence)
-    ranked = _rank_evidence(prepared, question=question)[:max_records]
+    prepared = dedupe_units_for_generation(evidence, question=question)
+    ranked = _rank_evidence(prepared, question=question)
+    limit = max_records
+    if _question_needs_each_coded_record(question):
+        limit = max(max_records, min(len(ranked), 48))
+    ranked = ranked[:limit]
     ids = [item.entity_id for item in ranked if item.entity_id]
     return ranked, ids
 

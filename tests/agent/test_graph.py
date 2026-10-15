@@ -7,7 +7,8 @@ import pytest
 
 from app.agent.context import ConversationStore
 from app.agent.graph import build_curriculum_qa_graph, graph_ascii, graph_mermaid
-from app.agent.graph_nodes import GraphNodes
+from app.agent.graph_nodes import FALLBACK_ANSWER, GraphNodes, apply_fallback
+from app.curriculum.evidence import CurriculumEvidence
 from app.agent.graph_routing import (
     route_after_prepare,
     route_after_verification,
@@ -136,6 +137,62 @@ def test_route_after_verification_no_progress_stops(settings):
     )
     assert route_after_verification({"qa": qa}, settings=settings) == "fallback"
     assert qa.metadata.get("fallback_reason") == "no_retrieval_progress"
+
+
+def test_limit_fallback_keeps_named_draft_and_codes():
+    state = CurriculumQAState.initial(
+        question=(
+            "List every published Class 4 Science unit and theme, "
+            "with its content code."
+        )
+    )
+    state.draft_answer = (
+        "Living and Non – living Things —\nPlants in the Environment —"
+    )
+    state.evidence = [
+        CurriculumEvidence(
+            entity_type="unit",
+            entity_id="c4-u01",
+            name="Living and Non – living Things",
+            metadata={"code": "C4-U01"},
+        ),
+        CurriculumEvidence(
+            entity_type="theme",
+            entity_id="c4-t02",
+            name="Plants in the Environment",
+            metadata={"code": "C4-T02"},
+        ),
+        CurriculumEvidence(
+            entity_type="unit",
+            entity_id="c4-u99",
+            name="Unmentioned Unit",
+            metadata={"code": "C4-U99"},
+        ),
+    ]
+    out = apply_fallback(state, reason="max_retrieval_rounds")
+    assert "Living and Non – living Things" in (out.final_answer or "")
+    assert "Plants in the Environment" in (out.final_answer or "")
+    assert "C4-U01" in (out.final_answer or "")
+    assert "C4-T02" in (out.final_answer or "")
+    assert "C4-U99" not in (out.final_answer or "")
+    assert FALLBACK_ANSWER not in (out.final_answer or "")
+    assert out.status == AgentStatus.INSUFFICIENT_EVIDENCE
+
+
+def test_empty_draft_still_uses_generic_fallback():
+    state = CurriculumQAState.initial(question="Where is this topic taught?")
+    state.evidence = [
+        CurriculumEvidence(
+            entity_type="unit",
+            entity_id="c4-u01",
+            name="Living and Non – living Things",
+            metadata={"code": "C4-U01"},
+        )
+    ]
+    out = apply_fallback(state, reason="max_retrieval_rounds")
+    assert out.final_answer is not None
+    assert out.final_answer.startswith(FALLBACK_ANSWER)
+    assert "C4-U01" not in out.final_answer
 
 
 def test_route_after_verification_retrieve_more_hits_limit(settings):

@@ -499,6 +499,17 @@ class AnswerVerifier:
         state: CurriculumQAState,
         result: VerificationResult,
     ) -> VerificationResult:
+        if result.missing_evidence and (
+            result.passed
+            or result.recommendation == VerificationRecommendation.ACCEPT
+        ):
+            # A passed flag must not close an answer that still names a gap.
+            return result.model_copy(
+                update={
+                    "passed": False,
+                    "recommendation": VerificationRecommendation.RETRIEVE_MORE,
+                }
+            )
         if result.passed:
             return result.model_copy(
                 update={"recommendation": VerificationRecommendation.ACCEPT}

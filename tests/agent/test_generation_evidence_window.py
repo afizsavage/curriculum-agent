@@ -118,6 +118,19 @@ def test_full_audit_evidence_is_not_replaced():
     assert len(selected) == 9
 
 
+def test_complete_code_list_keeps_same_name_units():
+    evidence = _p3_evidence()
+    question = (
+        "Give the content code and name of every published Class 3 Mathematics unit."
+    )
+    prepared = dedupe_units_for_generation(evidence, question=question)
+    assert len(prepared) == 39
+    selected, _ids = select_evidence_for_prompt(evidence, question=question)
+    assert len(selected) == 39
+    assert "C3-U01" in format_evidence_for_prompt(evidence, question=question)
+    assert "C3-U02" in format_evidence_for_prompt(evidence, question=question)
+
+
 def test_generation_cap_stays_at_24_distinct_records():
     assert select_evidence_for_prompt.__kwdefaults__["max_records"] == 24
     distinct = [

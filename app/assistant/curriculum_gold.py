@@ -15,6 +15,8 @@ import hashlib
 import json
 import os
 import re
+import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -274,40 +276,92 @@ def assert_live_allowed(settings: Settings) -> None:
 
 
 def run_live(settings: Settings, *, include_answers: bool = False) -> dict[str, Any]:
-    """Call the current QA agent in process. Experiment flags are not forwarded."""
+    """Call the current QA agent in process. Experiment flags are not forwarded.
+
+    A provider or infrastructure exception is recorded as a technical failure.
+    It is not given a factual recall of zero.
+    """
     assert_live_allowed(settings)
     from app.assistant.contract import AssistantTurnRequest
     from app.assistant.qa_adapter import CurriculumQAAdapter
     from app.deps import get_agent
 
     dataset = load_dataset()
+    before_hash = file_sha256()
     agent = get_agent()
     adapter = CurriculumQAAdapter(agent)
     results = []
     for case in dataset["cases"]:
-        outcome = adapter(
-            AssistantTurnRequest(question=case["question"], conversation_id=None)
-        )
+        request_id = f"gold-{case['id']}"
+        print(f"gold case {case['id']} start", file=sys.stderr, flush=True)
+        started = time.perf_counter()
+        try:
+            outcome = adapter(
+                AssistantTurnRequest(
+                    question=case["question"],
+                    conversation_id=None,
+                    request_id=request_id,
+                )
+            )
+        except Exception as exc:
+            row = _technical_failure_row(
+                case,
+                exc,
+                latency_ms=(time.perf_counter() - started) * 1000,
+                request_id=request_id,
+            )
+            results.append(row)
+            print(
+                f"gold case {case['id']} technical {row['technical_failure_class']}",
+                file=sys.stderr,
+                flush=True,
+            )
+            continue
+        latency_ms = (time.perf_counter() - started) * 1000
         observation = _observation_from_outcome(outcome)
         metrics = score_observation(case, observation)
+        metrics.update(_live_diagnostics(case, observation, latency_ms, request_id))
+        print(
+            f"gold case {case['id']} done status={metrics.get('status')} "
+            f"latency_ms={metrics.get('latency_ms')}",
+            file=sys.stderr,
+            flush=True,
+        )
         if include_answers:
             metrics["answer"] = observation.get("answer")
         results.append(metrics)
     report = run_audit()
+    if file_sha256() != before_hash:
+        raise RuntimeError("The gold dataset changed during the live run.")
+    factual_rows = [row for row in results if not row.get("technical_failure")]
     report["mode"] = "live"
     report["live_executed"] = True
     report["include_answers"] = include_answers
-    report["metrics"] = aggregate(results)
+    report["dataset_unchanged"] = True
+    report["assistant_enabled"] = settings.assistant_enabled
+    report["metrics"] = aggregate(factual_rows)
+    technical_count = sum(1 for row in results if row.get("technical_failure"))
+    report["metrics"]["technical_failure_rate"] = {
+        "measured": True,
+        "failed": technical_count,
+        "denominator": len(results),
+        "value": (technical_count / len(results)) if results else None,
+    }
+    latencies = [
+        float(row["latency_ms"]) for row in results if row.get("latency_ms") is not None
+    ]
+    report["metrics"]["latency_ms"] = _latency(latencies)
     report["cases"] = results
     report["failures"] = [
         {
             "id": row["case_id"],
             "subject_code": row.get("subject_code"),
             "grade_code": row.get("grade_code"),
-            "failure_categories": row["failure_categories"],
+            "failure_categories": row.get("failure_categories") or [],
+            "technical_failure": bool(row.get("technical_failure")),
         }
         for row in results
-        if row.get("failure_categories")
+        if row.get("failure_categories") or row.get("technical_failure")
     ]
     report["semantic_review"] = [
         row["case_id"] for row in results if row.get("semantic_review_required")
@@ -345,6 +399,20 @@ def format_summary(report: dict[str, Any]) -> str:
             lines.append(
                 f"{name}: {metric['value']} ({metric['applicable']}/{metric.get('denominator', metric['applicable'])} applicable)"
             )
+    technical = metrics.get("technical_failure_rate")
+    if technical is not None:
+        lines.append(
+            "Technical failures: "
+            f"{technical['failed']}/{technical['denominator']}"
+        )
+    latency = metrics.get("latency_ms")
+    if isinstance(latency, dict) and latency.get("n"):
+        lines.append(
+            "Latency ms: "
+            f"n={latency['n']} median={latency['median']:.1f} "
+            f"max={latency.get('max')} "
+            f"p95={latency['p95'] if latency['p95'] is not None else 'not reported'}"
+        )
     if report.get("failures"):
         lines.append("Failures:")
         for failure in report["failures"]:
@@ -511,6 +579,115 @@ def _wrong_scope(case: dict[str, Any], evidence: list[dict[str, Any]]) -> bool:
         if subject and subject not in subjects:
             return True
     return False
+
+
+def _technical_failure_row(
+    case: dict[str, Any],
+    exc: Exception,
+    *,
+    latency_ms: float,
+    request_id: str,
+) -> dict[str, Any]:
+    """Record an infrastructure failure without a factual score."""
+    return {
+        "case_id": case["id"],
+        "subject_code": case.get("subject_code"),
+        "grade_code": case.get("grade_code"),
+        "curriculum_code": case.get("curriculum_code"),
+        "curriculum_version": case.get("curriculum_version"),
+        "support": case["support"],
+        "must_be_complete": case.get("must_be_complete"),
+        "scored": False,
+        "technical_failure": True,
+        "technical_failure_class": type(exc).__name__,
+        "technical_failure_code": getattr(exc, "code", None),
+        "latency_ms": round(latency_ms, 1),
+        "request_id": request_id,
+        "trace": _trace_reference(request_id),
+        "failure_categories": ["provider_or_infrastructure_failure"],
+        "factual_recall": None,
+        "factual_precision": None,
+        "unsupported_claim_rate": None,
+        "completeness": None,
+        "subject_grade_accuracy": None,
+        "evidence_abstention": None,
+        "channel_integrity": None,
+        "semantic_review_required": False,
+        "missing_answer": True,
+    }
+
+
+def _live_diagnostics(
+    case: dict[str, Any],
+    observation: dict[str, Any],
+    latency_ms: float,
+    request_id: str,
+) -> dict[str, Any]:
+    evidence = list(observation.get("evidence") or [])
+    return {
+        "curriculum_code": case.get("curriculum_code"),
+        "curriculum_version": case.get("curriculum_version"),
+        "must_be_complete": case.get("must_be_complete"),
+        "technical_failure": False,
+        "status": observation.get("status"),
+        "evidence_status": observation.get("evidence_status"),
+        "verification_passed": observation.get("verification_passed"),
+        "coverage_decision": observation.get("coverage_decision"),
+        "termination_reason": observation.get("termination_reason"),
+        "latency_ms": round(latency_ms, 1),
+        "request_id": request_id,
+        "evidence_refs": [
+            {
+                "entity_id": item.get("entity_id"),
+                "entity_type": item.get("entity_type"),
+                "name": item.get("name"),
+                "grade": item.get("grade"),
+                "subject": item.get("subject"),
+            }
+            for item in evidence
+        ],
+        "trace": _trace_reference(request_id),
+    }
+
+
+def _trace_reference(request_id: str) -> dict[str, Any] | None:
+    from app.agent.trace import get_trace_store
+
+    store = get_trace_store()
+    for run_id in reversed(store.list_ids()):
+        trace = store.get(run_id)
+        if trace is None or trace.request_id != request_id:
+            continue
+        path = Path(__file__).resolve().parents[2] / "data" / "traces" / f"{trace.agent_run_id}.json"
+        final = trace.final or {}
+        return {
+            "agent_run_id": trace.agent_run_id,
+            "trace_path": str(path),
+            "trace_latency_ms": final.get("latency_ms"),
+            "trace_status": final.get("status"),
+            "evidence_count": final.get("evidence_count"),
+        }
+    return None
+
+
+def _latency(values: list[float]) -> dict[str, Any]:
+    if not values:
+        return {"n": 0, "median": None, "p95": None, "max": None}
+    ordered = sorted(values)
+    mid = ordered[len(ordered) // 2]
+    if len(ordered) % 2 == 0:
+        mid = (ordered[len(ordered) // 2 - 1] + ordered[len(ordered) // 2]) / 2
+    p95 = None
+    if len(ordered) >= 20:
+        import statistics
+
+        p95 = statistics.quantiles(ordered, n=20, method="inclusive")[18]
+    return {
+        "n": len(ordered),
+        "median": round(mid, 1),
+        "p95": None if p95 is None else round(p95, 1),
+        "max": round(ordered[-1], 1),
+    }
 
 
 def _observation_from_outcome(outcome: Any) -> dict[str, Any]:

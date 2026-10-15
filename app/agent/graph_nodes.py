@@ -10,6 +10,7 @@ import time
 from typing import Any
 
 from app.agent.answer import AnswerGenerationNode
+from app.agent.generation_policy import question_requests_identifiers
 from app.agent.context import ConversationContext
 from app.agent.graph_state import GraphState, mark_visited
 from app.agent.retrieve import RetrievalNode
@@ -480,6 +481,36 @@ def apply_clarification(state: CurriculumQAState) -> CurriculumQAState:
     return state
 
 
+def _with_requested_codes(state: CurriculumQAState, draft: str) -> str:
+    """Append content codes for records the draft already names."""
+    if not question_requests_identifiers(state.question):
+        return draft
+    haystack = draft.casefold()
+    lines: list[str] = []
+    seen: set[str] = set()
+    for item in state.evidence:
+        if (item.entity_type or "").lower() not in {
+            "unit",
+            "theme",
+            "topic",
+            "subtopic",
+            "learning_outcome",
+        }:
+            continue
+        code = str((item.metadata or {}).get("code") or "").strip()
+        name = (item.name or "").strip()
+        if not code or len(name) < 4 or name.casefold() not in haystack:
+            continue
+        if code.casefold() in haystack or code.casefold() in seen:
+            continue
+        seen.add(code.casefold())
+        lines.append(f"{code} — {name}")
+    if not lines:
+        return draft
+    rendered = "\n".join(f"* {line}" for line in lines)
+    return f"{draft}\n\nContent codes from the retrieved records:\n{rendered}"
+
+
 def apply_fallback(
     state: CurriculumQAState,
     *,
@@ -515,16 +546,29 @@ def apply_fallback(
         "ambiguous_subject",
         "grade_content_missing",
     }
+    limit_exhausted = reason in {
+        "max_iterations",
+        "max_retrieval_rounds",
+        "max_tool_calls",
+        "retrieve_more_limits_exhausted",
+    }
     if keep_grounded_gap and draft:
         state.final_answer = draft
-    elif reason.startswith("no_retrieval_progress") and draft:
-        # Evidence-aware finalize: keep grounded draft + limitations.
-        limitation_note = (
-            "\n\nNote: Some curriculum source records appear incomplete or "
-            "truncated in the available evidence, so parts of this answer may "
-            "be limited to what those records explicitly contain."
-        )
-        state.final_answer = draft + limitation_note
+    elif draft and (reason.startswith("no_retrieval_progress") or limit_exhausted):
+        # Keep the fuller draft. A five-name hint must not replace a list
+        # that already names the retrieved records.
+        if reason.startswith("no_retrieval_progress"):
+            limitation_note = (
+                "\n\nNote: Some curriculum source records appear incomplete or "
+                "truncated in the available evidence, so parts of this answer may "
+                "be limited to what those records explicitly contain."
+            )
+        else:
+            limitation_note = (
+                "\n\nNote: Retrieval stopped before this list could be verified. "
+                "The names below are limited to curriculum records already retrieved."
+            )
+        state.final_answer = _with_requested_codes(state, draft) + limitation_note
     else:
         found_hint = ""
         names = [e.name for e in state.evidence if e.name][:5]
