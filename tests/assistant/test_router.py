@@ -48,6 +48,36 @@ def test_short_or_deictic_questions_clarify_even_with_working_context():
     assert heuristic_route("help")[0] is AssistantRoute.CLARIFY
 
 
+def test_curriculum_linked_teaching_reaches_qa_without_a_keyword_only_rule():
+    cases = [
+        ("How should I teach fractions to Class 4?", AssistantRoute.MIXED),
+        (
+            "What should Class 3 pupils learn about multiplication?",
+            AssistantRoute.CURRICULUM,
+        ),
+        ("How do I teach this topic according to the syllabus?", AssistantRoute.MIXED),
+        (
+            "Give me a teaching activity for a Primary 4 curriculum objective.",
+            AssistantRoute.MIXED,
+        ),
+    ]
+    for question, route in cases:
+        assert heuristic_route(question)[0] is route
+
+
+def test_general_teaching_without_curriculum_context_stays_general():
+    questions = [
+        "How should I settle a noisy class before the lesson starts?",
+        "What teaching strategy helps mixed-ability pupils during group work?",
+        "Explain place value using objects a Primary 3 pupil already knows.",
+        "How should I teach fractions?",
+        "Give me a teaching activity for settling a noisy class.",
+    ]
+    for question in questions:
+        route, _reason = heuristic_route(question)
+        assert route is AssistantRoute.GENERAL
+
+
 def test_curriculum_marker_is_not_treated_as_clarify():
     resolved = resolve_route(
         _request("Tell me more about the Class 4 Mathematics syllabus")

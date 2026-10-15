@@ -87,6 +87,30 @@ def test_invalid_classification_calls_nothing():
     assert calls.general == 0
 
 
+def test_completed_partial_evidence_does_not_call_general_generation():
+    for evidence_status, reason in (
+        ("partial", "partial_evidence"),
+        ("not_found", "evidence_not_found"),
+    ):
+        outcome = completed_with_evidence()
+        outcome.response.metadata.evidence_status = evidence_status
+        calls = _Calls()
+        qa, general = _handlers(outcome, calls)
+        composed = dispatch_turn(
+            AssistantTurnRequest(question="unused"),
+            qa=qa,
+            general=general,
+            classifier=lambda _request: "mixed",
+        )
+        assert calls.qa == 1
+        assert calls.general == 0
+        assert composed.general is None
+        assert composed.general_suppressed_reason == reason
+        assert composed.curriculum.response.status == "completed"
+        assert composed.curriculum.response.metadata.evidence_status == evidence_status
+        assert composed.official_curriculum_answer == outcome.response.answer
+
+
 def test_mixed_gap_and_technical_results_do_not_call_general_generation():
     for outcome in (
         insufficient_evidence(),

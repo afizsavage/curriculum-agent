@@ -76,6 +76,13 @@ class Settings(BaseSettings):
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite
     agent_checkpoint_sqlite_path: str = "data/checkpoints.sqlite"
 
+    # Assistant HTTP is off until a verified identity gate is registered.
+    # Local stub identity is a development-only switch and is refused in production.
+    assistant_enabled: bool = False
+    assistant_local_stub_identity: bool = False
+    assistant_local_stub_teacher_id: str = "local-stub-teacher"
+    assistant_thread_sqlite_path: str = "data/assistant_threads.sqlite"
+
     # Prefer CURRICULUM_API_URL; CURRICULUM_API_BASE_URL kept for Phase 1 compatibility.
     curriculum_api_url: str = ""
     curriculum_api_base_url: str = "http://127.0.0.1:8000"

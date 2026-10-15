@@ -43,8 +43,14 @@ def blocks_general_advice(outcome: CurriculumOutcome | None) -> str | None:
         return "needs_clarification"
     if outcome.coverage_decision in _INCOMPLETE_COVERAGE:
         return "incomplete_coverage"
+    if evidence_status == "partial":
+        return "partial_evidence"
+    if evidence_status == "not_found":
+        return "evidence_not_found"
     if response.status != AgentStatus.COMPLETED.value:
         return f"curriculum_status:{response.status}"
+    if evidence_status != "found":
+        return "evidence_not_complete"
     return None
 
 

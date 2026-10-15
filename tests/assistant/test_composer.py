@@ -61,6 +61,51 @@ def test_insufficient_evidence_drops_general_advice():
     assert _ADVICE not in (composed.official_curriculum_answer or "")
 
 
+def test_completed_partial_evidence_does_not_receive_general_advice():
+    qa = completed_with_evidence()
+    qa.response.metadata.evidence_status = "partial"
+    qa.coverage_decision = "accept"
+    assert blocks_general_advice(qa) == "partial_evidence"
+    composed = compose_turn(
+        routing=_routing(AssistantRoute.MIXED),
+        qa=qa,
+        general_text=_ADVICE,
+    )
+
+    assert composed.curriculum.response.status == "completed"
+    assert composed.curriculum.response.metadata.evidence_status == "partial"
+    assert composed.curriculum.coverage_decision == "accept"
+    assert composed.general is None
+    assert composed.general_suppressed_reason == "partial_evidence"
+    assert composed.official_curriculum_answer == qa.response.answer
+    assert _ADVICE not in composed.official_curriculum_answer
+
+
+def test_adjacent_evidence_statuses_keep_the_general_channel_closed():
+    missing = completed_with_evidence()
+    missing.response.metadata.evidence_status = "not_found"
+    missing.coverage_decision = None
+    assert blocks_general_advice(missing) == "evidence_not_found"
+
+    partial_without_coverage = completed_with_evidence()
+    partial_without_coverage.response.metadata.evidence_status = "partial"
+    partial_without_coverage.coverage_decision = None
+    assert blocks_general_advice(partial_without_coverage) == "partial_evidence"
+
+    found_without_coverage = completed_with_evidence()
+    found_without_coverage.coverage_decision = None
+    assert blocks_general_advice(found_without_coverage) is None
+    composed = compose_turn(
+        routing=_routing(AssistantRoute.MIXED),
+        qa=found_without_coverage,
+        general_text=_ADVICE,
+    )
+    assert composed.general is not None
+    assert composed.general.label == "General AI assistance"
+    assert composed.official_curriculum_answer == found_without_coverage.response.answer
+    assert _ADVICE not in composed.official_curriculum_answer
+
+
 def test_incomplete_coverage_is_not_filled_by_general_advice():
     qa = partial_incomplete_coverage()
     assert blocks_general_advice(qa) == "insufficient_evidence"

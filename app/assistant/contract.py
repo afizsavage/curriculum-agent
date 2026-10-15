@@ -49,7 +49,11 @@ class InvalidAssistantRoute(ValueError):
 
 
 class AssistantTurnRequest(BaseModel):
-    """One teacher turn. Persistence and identity are intentionally absent."""
+    """One teacher turn.
+
+    This request does not accept a teacher id. Ownership lives on the thread
+    store and requires a principal issued after real authentication.
+    """
 
     question: str = Field(..., min_length=1, max_length=4000)
     conversation_id: Optional[str] = None
