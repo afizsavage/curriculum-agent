@@ -7,8 +7,11 @@ import time
 from typing import Any, Optional
 
 from app.agent.absence_evidence import (
+    absence_evidence_audit,
+    format_absence_prompt,
     needs_absence_verification_context,
     select_records_for_absence_verification,
+    serialized_entity_ids,
 )
 from app.agent.answer_generator import format_evidence_for_prompt, select_evidence_for_prompt
 from app.agent.coverage_validator import assess_coverage, classify_verifier_payload
@@ -45,10 +48,9 @@ def _verification_evidence(
             grade=state.grade,
             subject=state.subject,
         )
-        block = format_evidence_for_prompt(
-            ranked, question=state.question, prepared=ranked
-        )
-        return block, [item.entity_id for item in ranked if item.entity_id]
+        return format_absence_prompt(ranked), [
+            item.entity_id for item in ranked if item.entity_id
+        ]
     block = format_evidence_for_prompt(state.evidence, question=state.question)
     _ranked, ids = select_evidence_for_prompt(state.evidence, question=state.question)
     return block, ids
@@ -161,8 +163,8 @@ class AnswerVerifier:
         }
         answer = state.final_answer or state.draft_answer or ""
         refs = [r.model_dump() for r in state.answer_evidence]
-        evidence_block, checked_ids = _verification_evidence(state, answer)
-        state.metadata["verification_evidence_ids"] = checked_ids
+        evidence_block, selected_ids = _verification_evidence(state, answer)
+        state.metadata["verification_evidence_ids"] = selected_ids
         user = (
             f"ORIGINAL QUESTION\n{state.question}\n\n"
             f"STRUCTURED INTENT\n{json.dumps({k: v for k, v in filters.items() if v}, indent=2)}\n\n"
@@ -173,6 +175,12 @@ class AnswerVerifier:
             "Respond with a single JSON object matching this schema:\n"
             f"{json.dumps(VERIFICATION_RESULT_JSON_SCHEMA, indent=2)}"
         )
+        if needs_absence_verification_context(state.question, answer):
+            prompt_ids = serialized_entity_ids(user)
+            state.metadata["verification_prompt_ids"] = prompt_ids
+            state.metadata["absence_evidence"] = absence_evidence_audit(
+                state, selected_ids=selected_ids, prompt_ids=prompt_ids
+            )
         return [
             LLMMessage(
                 role="system",

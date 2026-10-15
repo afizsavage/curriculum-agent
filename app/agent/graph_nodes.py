@@ -331,8 +331,17 @@ class GraphNodes:
                 ],
                 "duration_ms": round(duration_ms, 2),
             }
+            audit = (qa.metadata or {}).get("absence_evidence")
+            if isinstance(audit, dict):
+                ver["absence_evidence"] = audit
             it["verification"] = ver
             trace.emit("agent.verification.end", iteration=qa.iteration, **ver)
+            if isinstance(audit, dict):
+                trace.emit(
+                    "agent.verification.evidence",
+                    iteration=qa.iteration,
+                    **audit,
+                )
             trace.emit(
                 "agent.node.end",
                 node="verify_answer",

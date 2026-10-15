@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
-from app.agent.absence_evidence import select_records_for_absence_verification
+from app.agent.absence_evidence import (
+    format_absence_prompt,
+    select_records_for_absence_verification,
+    serialized_entity_ids,
+)
 from app.agent.answer_generator import format_evidence_for_prompt, select_evidence_for_prompt
 from app.agent.graph_nodes import GraphNodes, apply_fallback
 from app.agent.graph_routing import route_after_verification
@@ -473,7 +477,10 @@ def test_same_name_dedupe_can_still_be_accepted_when_missing_evidence_is_empty()
     qa.subject = "MATHEMATICS"
     qa.evidence = evidence
     qa.draft_answer = "Astronomy is not among the topics shown in this evidence."
-    qa.metadata["verification_evidence_ids"] = [selected[0].entity_id]
+    partial_prompt = format_absence_prompt(selected)
+    qa.metadata["verification_evidence_ids"] = [item.entity_id for item in evidence]
+    qa.metadata["verification_prompt_ids"] = serialized_entity_ids(partial_prompt)
+    assert "c4-u05" not in qa.metadata["verification_prompt_ids"]
     qa.verification = VerificationResult(
         passed=True,
         score=0.7,
@@ -1017,9 +1024,11 @@ def test_checked_absence_records_can_finish_when_the_claim_is_scoped():
         "outcome-1",
         "outcome-7",
     }
-    prompt = format_evidence_for_prompt(checked, question=question, prepared=checked)
+    prompt = format_absence_prompt(checked)
     assert "Count up to 5000 using a number line." in prompt
     assert "Describe how sailors used the stars to navigate." in prompt
+    prompt_ids = serialized_entity_ids(prompt)
+    assert {"unit-1", "unit-7", "outcome-1", "outcome-7"} <= set(prompt_ids)
     qa = CurriculumQAState.initial(question=question)
     qa.grade = "CLASS_4"
     qa.subject = "MATHEMATICS"
@@ -1028,6 +1037,7 @@ def test_checked_absence_records_can_finish_when_the_claim_is_scoped():
         "Astronomy is not among the Class 4 Mathematics records that were checked."
     )
     qa.metadata["verification_evidence_ids"] = [item.entity_id for item in checked]
+    qa.metadata["verification_prompt_ids"] = prompt_ids
     qa.verification = VerificationResult(
         passed=True,
         score=0.9,
@@ -1072,7 +1082,12 @@ def test_different_outcome_text_is_unchecked_when_the_unit_is_deduped():
     qa.subject = "MATHEMATICS"
     qa.evidence = evidence
     qa.draft_answer = "Astronomy is not among the records shown in this evidence."
-    qa.metadata["verification_evidence_ids"] = ["unit-1", "outcome-1"]
+    partial = [item for item in evidence if item.entity_id in {"unit-1", "outcome-1"}]
+    prompt = format_absence_prompt(partial)
+    assert "Describe how sailors used the stars to navigate." not in prompt
+    qa.metadata["verification_evidence_ids"] = [item.entity_id for item in evidence]
+    qa.metadata["verification_prompt_ids"] = serialized_entity_ids(prompt)
+    assert "outcome-7" not in qa.metadata["verification_prompt_ids"]
     qa.verification = VerificationResult(
         passed=True,
         recommendation=VerificationRecommendation.ACCEPT,
@@ -1109,10 +1124,177 @@ def test_scoped_absence_is_not_certified_from_the_mathematics_tree_as_global():
     qa.subject = "MATHEMATICS"
     qa.evidence = evidence
     qa.draft_answer = "Astronomy is absent from the entire MBSSE curriculum."
+    prompt = format_absence_prompt(evidence)
     qa.metadata["verification_evidence_ids"] = [item.entity_id for item in evidence]
+    qa.metadata["verification_prompt_ids"] = serialized_entity_ids(prompt)
     qa.verification = VerificationResult(
         passed=True,
         recommendation=VerificationRecommendation.ACCEPT,
         missing_evidence=[],
     )
     assert _route(qa) == "fallback"
+
+
+def test_failed_topic_lookup_does_not_establish_a_scoped_absence():
+    qa = CurriculumQAState.initial(
+        question="What does the Class 4 Mathematics syllabus say about astronomy?"
+    )
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.evidence = []
+    qa.draft_answer = "Astronomy is not among the Class 4 Mathematics records."
+    qa.metadata["verification_prompt_ids"] = serialized_entity_ids(format_absence_prompt([]))
+    qa.verification = VerificationResult(
+        passed=True,
+        recommendation=VerificationRecommendation.ACCEPT,
+        missing_evidence=[],
+    )
+    assert _route(qa) == "fallback"
+    assert qa.metadata["fallback_reason"] == "absence_records_unchecked"
+
+
+def test_embedded_outcomes_in_the_verifier_prompt_can_support_a_scoped_claim():
+    unit = CurriculumEvidence(
+        entity_type="unit",
+        entity_id="unit-1",
+        name="Number and Numeration",
+        grade="CLASS_4",
+        subject="MATHEMATICS",
+        metadata={
+            "code": "C4-U01",
+            "structure_exhaustive": True,
+            "curriculum_version": "2020",
+            "learning_outcomes": [
+                {
+                    "id": "lo-1",
+                    "code": "C4U01-LO01",
+                    "description": "Count up to 5000 using a number line.",
+                },
+                {
+                    "id": "lo-stars",
+                    "code": "C4U01-LO09",
+                    "description": "Name the stars used in navigation.",
+                },
+            ],
+        },
+    )
+    qa = CurriculumQAState.initial(
+        question="What does the Class 4 Mathematics syllabus say about astronomy?"
+    )
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.evidence = [unit]
+    qa.draft_answer = (
+        "Astronomy is not among the Class 4 Mathematics records that were checked."
+    )
+    messages = AnswerVerifier(StubLLMProvider(), settings=_settings()).build_messages(qa)
+    user = messages[-1].content
+    assert "Name the stars used in navigation." in user
+    assert qa.metadata["verification_prompt_ids"] == serialized_entity_ids(user)
+    assert {"unit-1", "lo-1", "lo-stars"} <= set(qa.metadata["verification_prompt_ids"])
+    audit = qa.metadata["absence_evidence"]
+    assert audit["omitted"] == []
+    assert audit["claim_scope"] == "curriculum_content"
+    assert audit["source_exhaustive"] is True
+    assert audit["in_scope_outcome_ids"] == ["lo-1", "lo-stars"]
+    qa.verification = VerificationResult(
+        passed=True,
+        recommendation=VerificationRecommendation.ACCEPT,
+        missing_evidence=[],
+    )
+    assert _route(qa) == "finish"
+
+
+def test_outcome_text_left_out_of_the_prompt_cannot_certify_content_absence():
+    unit = CurriculumEvidence(
+        entity_type="unit",
+        entity_id="unit-1",
+        name="Number and Numeration",
+        grade="CLASS_4",
+        subject="MATHEMATICS",
+        metadata={
+            "code": "C4-U01",
+            "learning_outcomes": [
+                {
+                    "id": "lo-stars",
+                    "code": "C4U01-LO09",
+                    "description": "Name the stars used in navigation.",
+                }
+            ],
+        },
+    )
+    titles_only = CurriculumEvidence(
+        entity_type="unit",
+        entity_id="unit-1",
+        name="Number and Numeration",
+        grade="CLASS_4",
+        subject="MATHEMATICS",
+        metadata={"code": "C4-U01"},
+    )
+    prompt = format_absence_prompt([titles_only])
+    assert "lo-stars" not in prompt
+    assert "Name the stars used in navigation." not in prompt
+    qa = CurriculumQAState.initial(
+        question="What does the Class 4 Mathematics syllabus say about astronomy?"
+    )
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.evidence = [unit]
+    qa.draft_answer = (
+        "The evidence does not include a curriculum statement about astronomy."
+    )
+    qa.metadata["verification_evidence_ids"] = ["unit-1", "lo-stars"]
+    qa.metadata["verification_prompt_ids"] = serialized_entity_ids(prompt)
+    qa.verification = VerificationResult(
+        passed=True,
+        recommendation=VerificationRecommendation.ACCEPT,
+        missing_evidence=[],
+    )
+    assert "lo-stars" not in qa.metadata["verification_prompt_ids"]
+    assert _route(qa) == "fallback"
+    assert qa.metadata["fallback_reason"] == "absence_records_unchecked"
+
+
+def test_title_level_claim_can_finish_when_outcome_text_is_unavailable():
+    evidence = _exhaustive_tree(
+        "MATHEMATICS", "CLASS_4", "2020", [("C4-U01", "Number and Numeration")]
+    )
+    prompt = format_absence_prompt(evidence)
+    qa = CurriculumQAState.initial(
+        question="What does the Class 4 Mathematics syllabus say about astronomy?"
+    )
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.evidence = evidence
+    qa.draft_answer = "No unit title matches astronomy."
+    qa.metadata["verification_prompt_ids"] = serialized_entity_ids(prompt)
+    qa.verification = VerificationResult(
+        passed=True,
+        recommendation=VerificationRecommendation.ACCEPT,
+        missing_evidence=[],
+    )
+    assert _route(qa) == "finish"
+
+
+def test_content_claim_abstains_when_outcome_text_is_unavailable():
+    evidence = _exhaustive_tree(
+        "MATHEMATICS", "CLASS_4", "2020", [("C4-U01", "Number and Numeration")]
+    )
+    prompt = format_absence_prompt(evidence)
+    qa = CurriculumQAState.initial(
+        question="What does the Class 4 Mathematics syllabus say about astronomy?"
+    )
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.evidence = evidence
+    qa.draft_answer = (
+        "The evidence does not include a curriculum statement about astronomy."
+    )
+    qa.metadata["verification_prompt_ids"] = serialized_entity_ids(prompt)
+    qa.verification = VerificationResult(
+        passed=True,
+        recommendation=VerificationRecommendation.ACCEPT,
+        missing_evidence=[],
+    )
+    assert _route(qa) == "fallback"
+    assert qa.metadata["fallback_reason"] == "absence_records_unchecked"

@@ -133,6 +133,35 @@ def evidence_from_outcome(
     )
 
 
+def learning_outcome_summaries(node: dict[str, Any]) -> list[dict[str, Any]]:
+    """Outcome id, code, and description already present on a content node.
+
+    These fields are copied. No text is invented, and knowledge or skills
+    blobs are left off the evidence row.
+    """
+    rows: list[dict[str, Any]] = []
+    for outcome in node.get("learning_outcomes") or []:
+        if not isinstance(outcome, dict):
+            continue
+        text = (
+            outcome.get("description")
+            or outcome.get("text")
+            or outcome.get("statement")
+            or ""
+        )
+        outcome_id = outcome.get("id")
+        if not outcome_id and not str(text).strip():
+            continue
+        rows.append(
+            {
+                "id": str(outcome_id) if outcome_id else None,
+                "code": outcome.get("code"),
+                "description": str(text),
+            }
+        )
+    return rows
+
+
 def evidence_from_structure_node(
     node: dict[str, Any],
     *,

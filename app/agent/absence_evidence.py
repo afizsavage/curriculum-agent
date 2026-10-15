@@ -59,6 +59,102 @@ def claims_global_absence(answer: str | None) -> bool:
     return False
 
 
+_TITLE_SCOPE = re.compile(
+    r"\b(?:unit titles?|matching unit title|title-level|titles only)\b",
+    re.IGNORECASE,
+)
+_CONTENT_SCOPE = re.compile(
+    r"\b(?:curriculum statement|learning outcomes?|outcome descriptions?|"
+    r"curriculum content|syllabus|records|this evidence|topics?)\b",
+    re.IGNORECASE,
+)
+_SERIALIZED_ID = re.compile(
+    r"^(?:Entity ID|Learning outcome ID): (\S+)\s*$",
+    re.MULTILINE,
+)
+
+
+def absence_claim_scope(answer: str | None) -> str | None:
+    """How wide an absence sentence is.
+
+    ``unit_titles`` is the only scope a title search can support.
+    ``curriculum_content`` also covers learning-outcome descriptions.
+    ``global`` reaches beyond the retrieved grade-curriculum tree.
+    """
+    if not answer_makes_absence_claim(answer):
+        return None
+    if claims_global_absence(answer):
+        return "global"
+    text = answer or ""
+    if _TITLE_SCOPE.search(text) and not _CONTENT_SCOPE.search(text):
+        return "unit_titles"
+    return "curriculum_content"
+
+
+def serialized_entity_ids(prompt: str | None) -> list[str]:
+    """Ids written into a verifier prompt. Selection lists are not used."""
+    found: list[str] = []
+    for match in _SERIALIZED_ID.finditer(prompt or ""):
+        value = match.group(1)
+        if value and value != "unknown" and value not in found:
+            found.append(value)
+    return found
+
+
+def format_absence_prompt(records: list[CurriculumEvidence]) -> str:
+    """Serialize absence evidence, including outcome descriptions on each unit.
+
+    Outcome text is not truncated. A word past a cutoff would not have been checked.
+    """
+    if not records:
+        return "(no curriculum evidence retrieved)"
+    blocks: list[str] = []
+    for index, item in enumerate(records, start=1):
+        lines = [
+            f"--- Record {index} ---",
+            f"Entity ID: {item.entity_id or 'unknown'}",
+            f"Entity Type: {item.entity_type}",
+        ]
+        if item.name:
+            lines.append(f"Name: {item.name}")
+        if item.content and item.content != item.name:
+            lines.append(f"Content: {item.content}")
+        code = (item.metadata or {}).get("code")
+        if code and (item.entity_type or "").lower() != "subject":
+            lines.append(f"Code: {code}")
+        for outcome in (item.metadata or {}).get("learning_outcomes") or []:
+            if not isinstance(outcome, dict):
+                continue
+            lines.append(f"Learning outcome ID: {outcome.get('id') or 'unknown'}")
+            if outcome.get("code"):
+                lines.append(f"Learning outcome code: {outcome['code']}")
+            lines.append(
+                f"Learning outcome description: {outcome.get('description') or ''}"
+            )
+        blocks.append("\n".join(lines))
+    return "\n\n".join(blocks)
+
+
+def embedded_outcome_ids(
+    evidence: list[CurriculumEvidence],
+    *,
+    grade: str | None,
+    subject: str | None,
+) -> list[str]:
+    """Outcome ids carried on in-scope unit records from the content tree."""
+    found: list[str] = []
+    for item in evidence:
+        if (item.entity_type or "").lower() != "unit" or not _in_scope(item, grade, subject):
+            continue
+        for outcome in (item.metadata or {}).get("learning_outcomes") or []:
+            if not isinstance(outcome, dict) or not outcome.get("id"):
+                continue
+            outcome_id = str(outcome["id"])
+            if outcome_id not in found:
+                found.append(outcome_id)
+    return found
+
+
 def select_records_for_absence_verification(
     evidence: list[CurriculumEvidence],
     *,
@@ -88,20 +184,19 @@ def select_records_for_absence_verification(
 def absence_finish_blocked(state: CurriculumQAState) -> bool:
     """True when an absence claim would finish without the records it depends on.
 
-    An explicit ``verification_evidence_ids`` list is what the verifier was
-    given. When that list is missing, the check is the full in-scope set,
-    which is what absence verification selects. A global absence claim is
-    never certified from this scope.
+    ``verification_prompt_ids`` is parsed from the verifier prompt. When that
+    list is missing, this check does not invent coverage. A global absence
+    claim is never certified from this scope. A curriculum-content claim also
+    needs every in-scope outcome description in that prompt.
     """
     answer = state.final_answer or state.draft_answer or ""
     if not answer_makes_absence_claim(answer):
         return False
     if claims_global_absence(answer):
         return True
-    recorded = (state.metadata or {}).get("verification_evidence_ids")
-    # No explicit check list means absence verification still owes the full
-    # in-scope set. Do not treat that as a failed certification here; the
-    # verifier records the ids when it builds its prompt.
+    # Only ids parsed from the verifier prompt count. A selection list recorded
+    # earlier does not prove those records were serialized.
+    recorded = (state.metadata or {}).get("verification_prompt_ids")
     if recorded is None:
         return False
     relevant = select_records_for_absence_verification(
@@ -112,7 +207,75 @@ def absence_finish_blocked(state: CurriculumQAState) -> bool:
     if not relevant:
         return True
     checked = {str(item_id) for item_id in recorded if item_id}
-    return any(item.entity_id and item.entity_id not in checked for item in relevant)
+    if any(item.entity_id and item.entity_id not in checked for item in relevant):
+        return True
+    scope = absence_claim_scope(answer)
+    outcome_ids = _outcome_ids_for_scope(state)
+    if scope == "unit_titles":
+        return False
+    if not outcome_ids or any(item_id not in checked for item_id in outcome_ids):
+        return True
+    return False
+
+
+def _outcome_ids_for_scope(state: CurriculumQAState) -> list[str]:
+    evidence = list(state.evidence)
+    found = embedded_outcome_ids(evidence, grade=state.grade, subject=state.subject)
+    for item in select_records_for_absence_verification(
+        evidence, grade=state.grade, subject=state.subject
+    ):
+        if (item.entity_type or "").lower() != "learning_outcome" or not item.entity_id:
+            continue
+        if item.entity_id not in found:
+            found.append(item.entity_id)
+    return found
+
+
+def absence_evidence_audit(
+    state: CurriculumQAState,
+    *,
+    selected_ids: list[str],
+    prompt_ids: list[str],
+) -> dict:
+    """Ids and omission reasons. No record text."""
+    evidence = list(state.evidence)
+    units = [
+        item
+        for item in select_records_for_absence_verification(
+            evidence, grade=state.grade, subject=state.subject
+        )
+        if (item.entity_type or "").lower() == "unit" and item.entity_id
+    ]
+    outcome_ids = _outcome_ids_for_scope(state)
+    selected = set(selected_ids)
+    prompted = set(prompt_ids)
+    omitted: list[dict[str, str]] = []
+    for item in units:
+        if item.entity_id not in selected:
+            omitted.append({"id": item.entity_id, "reason": "not_selected"})
+        elif item.entity_id not in prompted:
+            omitted.append({"id": item.entity_id, "reason": "not_serialized"})
+    for outcome_id in outcome_ids:
+        if outcome_id not in prompted:
+            omitted.append({"id": outcome_id, "reason": "not_serialized"})
+    versions = {
+        str((item.metadata or {}).get("curriculum_version"))
+        for item in units
+        if (item.metadata or {}).get("structure_exhaustive") is True
+        and (item.metadata or {}).get("curriculum_version")
+    }
+    exhaustive = bool(units) and len(versions) == 1 and all(
+        (item.metadata or {}).get("structure_exhaustive") is True for item in units
+    )
+    return {
+        "in_scope_unit_ids": [item.entity_id for item in units],
+        "in_scope_outcome_ids": outcome_ids,
+        "selected_ids": list(selected_ids),
+        "prompt_ids": list(prompt_ids),
+        "omitted": omitted,
+        "claim_scope": absence_claim_scope(state.final_answer or state.draft_answer),
+        "source_exhaustive": exhaustive,
+    }
 
 
 def _in_scope(item: CurriculumEvidence, grade: str | None, subject: str | None) -> bool:

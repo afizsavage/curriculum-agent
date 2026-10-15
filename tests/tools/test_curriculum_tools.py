@@ -425,6 +425,12 @@ def test_get_curriculum_structure_topics(client):
     names = [n["name"] for n in result.data["nodes"]]
     assert any("FRACTION" in name.upper() for name in names)
     assert result.data["grade_curriculum_id"] == GRADE_CURRICULUM_ID
+    fraction = next(
+        row for row in result.data["evidence"] if row["entity_id"] == TOPIC_ID
+    )
+    assert fraction["metadata"]["learning_outcomes"] == [
+        {"id": "lo-1", "code": "LO1", "description": "Identify fractions"}
+    ]
 
 
 def test_get_curriculum_structure_subjects_only(client):

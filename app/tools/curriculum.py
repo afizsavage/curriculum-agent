@@ -37,6 +37,7 @@ from app.curriculum.normalize import (
     evidence_from_structure_node,
     evidence_from_subject,
     iter_content_nodes,
+    learning_outcome_summaries,
     match_query,
     node_to_search_hit,
 )
@@ -576,9 +577,11 @@ class GetCurriculumStructureTool(CurriculumTool):
                     level=level,
                 )
                 flat.append(hit.model_dump())
-                evidence.append(
-                    evidence_from_hit(hit, source_reference=source_ref)
-                )
+                item = evidence_from_hit(hit, source_reference=source_ref)
+                outcomes = learning_outcome_summaries(node)
+                if outcomes:
+                    item.metadata["learning_outcomes"] = outcomes
+                evidence.append(item)
             if should_stamp_grade_curriculum_content(source, evidence):
                 stamp_exhaustive_grade_curriculum(
                     evidence,
