@@ -94,6 +94,10 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
     application.include_router(api_router, prefix="/api/v1")
+    from app.assistant.auth_startup import install_configured_identity_gate
+    from app.config import get_settings
+
+    install_configured_identity_gate(get_settings())
     return application
 
 

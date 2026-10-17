@@ -31,6 +31,9 @@ _SUBJECT_ALIASES: dict[str, str] = {
     "ict": "ICT",
     "fundamentals of mathematics": "FUNDAMENTALS_MATHEMATICS",
     "fundamentals mathematics": "FUNDAMENTALS_MATHEMATICS",
+    "french": "FRENCH",
+    "french appreciation": "FRENCH_APPRECIATION",
+    "french as a foreign language": "FRENCH_FOREIGN_LANGUAGE",
 }
 
 

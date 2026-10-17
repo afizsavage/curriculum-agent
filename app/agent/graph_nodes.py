@@ -18,7 +18,17 @@ from app.agent.state import CurriculumQAState
 from app.agent.trace import get_current_trace, timed_ms
 from app.agent.verify import VerificationNode
 from app.config import Settings
-from app.curriculum.codes import extract_filters_from_question, normalize_grade_code
+from app.curriculum.structure_scope import codes_absent_from_checked_catalogue
+from app.agent.absence_evidence import (
+    bind_unresolved_requested_subject,
+    checked_missing_syllabus_catalogue,
+)
+from app.agent.question_purpose import classify_question_purpose
+from app.curriculum.codes import (
+    extract_filters_from_question,
+    normalize_grade_code,
+    normalize_subject_code,
+)
 from app.curriculum.sss_stream_intent import detect_sss_stream_subjects
 from app.enums import AgentStatus
 from app.logging_utils import get_logger, log_agent_event
@@ -102,6 +112,7 @@ class GraphNodes:
             qa.metadata["retrieval_plan_source"] = "heuristic"
         else:
             qa.intent = qa.intent or "retrieve_curriculum"
+        qa.metadata["question_purpose"] = classify_question_purpose(qa.question)
         duration_ms = timed_ms(started)
         intent_payload = {
             "intent": qa.intent,
@@ -110,6 +121,7 @@ class GraphNodes:
             "subject": qa.subject,
             "topic": qa.topic,
             "classification": qa.classification,
+            "question_purpose": qa.metadata["question_purpose"],
             "stream_name": qa.metadata.get("stream_name"),
             "requested_information": filters,
             "raw_filters": filters,
@@ -520,6 +532,53 @@ def _with_requested_codes(state: CurriculumQAState, draft: str) -> str:
     return f"{draft}\n\nContent codes from the retrieved records:\n{rendered}"
 
 
+def _catalogue_code_absence_answer(state: CurriculumQAState) -> str:
+    """Scoped absence. This is not a claim about any other subject or curriculum."""
+    codes = list(state.metadata.get("absent_catalogue_codes") or [])
+    if not codes:
+        codes = codes_absent_from_checked_catalogue(
+            question=state.question,
+            evidence=list(state.evidence),
+            grade=state.grade,
+            subject=state.subject,
+            curriculum_version=(state.metadata or {}).get("curriculum_version"),
+        )
+    grade = state.grade or "the requested grade"
+    subject = state.subject or "the requested subject"
+    if len(codes) == 1:
+        named = codes[0]
+        verb = "is"
+    else:
+        named = ", ".join(codes) or "The requested code"
+        verb = "are"
+    return (
+        f"{named} {verb} not present in the checked {grade} {subject} catalogue. "
+        f"This check covers that grade and subject only. It does not establish "
+        f"whether {named} {verb} published in another subject or curriculum."
+    )
+
+
+def _subject_mismatch_answer(state: CurriculumQAState) -> str:
+    """Grounded rejection. The generator draft is not reused."""
+    bind_unresolved_requested_subject(state)
+    requested = normalize_subject_code(state.subject) or state.subject or "the requested subject"
+    grade = state.grade or "the requested grade"
+    listed: list[str] = []
+    for item in checked_missing_syllabus_catalogue(state):
+        code = str((item.metadata or {}).get("code") or item.subject or "").strip()
+        if not code or code == requested:
+            continue
+        listed.append(f"{(item.name or code).strip()} ({code})")
+    catalogue = "; ".join(listed) if listed else "other subject codes"
+    return (
+        f"The checked {grade} subject catalogue does not include a row coded "
+        f"{requested}. It includes {catalogue}. These are subject-catalogue "
+        f"rows, so they do not establish the units or learning outcomes of "
+        f"{requested}. A {requested} syllabus was not found, and the units "
+        f"covered by {requested} cannot be stated from this evidence."
+    )
+
+
 def apply_fallback(
     state: CurriculumQAState,
     *,
@@ -534,7 +593,9 @@ def apply_fallback(
                 limitations.append(item)
             elif item.detail:
                 limitations.append(item.detail)
-    if reason in (
+    if reason == "catalogue_code_absent":
+        pass
+    elif reason in (
         "no_retrieval_progress",
         "no_retrieval_progress_incomplete_source",
     ):
@@ -563,6 +624,10 @@ def apply_fallback(
     }
     if keep_grounded_gap and draft:
         state.final_answer = draft
+    elif reason == "catalogue_code_absent":
+        state.final_answer = _catalogue_code_absence_answer(state)
+    elif reason == "subject_mismatch":
+        state.final_answer = _subject_mismatch_answer(state)
     elif draft and reason == "absence_records_unchecked":
         state.final_answer = (
             draft

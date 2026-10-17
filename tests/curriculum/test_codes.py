@@ -46,6 +46,60 @@ def test_extract_filters_from_question():
     assert filters["classification"] is None
 
 
+def test_gold_french_question_extracts_french():
+    filters = extract_filters_from_question(
+        "What units does the Class 4 French subject cover?"
+    )
+    assert filters["grade"] == "CLASS_4"
+    assert filters["subject"] == "FRENCH"
+
+
+def test_french_appreciation_is_not_shortened_to_french():
+    filters = extract_filters_from_question(
+        "What units does Class 4 French Appreciation cover?"
+    )
+    assert filters["grade"] == "CLASS_4"
+    assert filters["subject"] == "FRENCH_APPRECIATION"
+
+
+def test_sss_french_as_a_foreign_language_is_not_shortened_to_french():
+    filters = extract_filters_from_question(
+        "What topics are in SSS 1 French as a Foreign Language?"
+    )
+    assert filters["grade"] == "SSS_1"
+    assert filters["subject"] == "FRENCH_FOREIGN_LANGUAGE"
+
+
+def test_french_subject_names_normalize_to_published_codes():
+    assert normalize_subject_code("French") == "FRENCH"
+    assert normalize_subject_code("French Appreciation") == "FRENCH_APPRECIATION"
+    assert (
+        normalize_subject_code("French as a Foreign Language")
+        == "FRENCH_FOREIGN_LANGUAGE"
+    )
+    assert normalize_subject_code("FRENCH_APPRECIATION") == "FRENCH_APPRECIATION"
+
+
+def test_existing_subject_distinctions_are_unchanged():
+    cases = {
+        "What units does Class 4 Science cover?": ("CLASS_4", "SCIENCE"),
+        "What is the first unit of JSS 1 Integrated Science?": (
+            "JSS_1",
+            "INTEGRATED_SCIENCE",
+        ),
+        "What units does Class 4 Agricultural Science cover?": (
+            "CLASS_4",
+            "AGRICULTURAL_SCIENCE",
+        ),
+        "What units are in Class 4 English Language?": ("CLASS_4", "ENGLISH_LANGUAGE"),
+        "List the JSS 2 Mathematics units.": ("JSS_2", "MATHEMATICS"),
+        "What topics are in SSS 1 Biology?": ("SSS_1", None),
+    }
+    for question, (grade, subject) in cases.items():
+        filters = extract_filters_from_question(question)
+        assert (filters["grade"], filters["subject"]) == (grade, subject), question
+
+
 def test_extract_core_classification_filter():
     filters = extract_filters_from_question(
         "What are the core subjects in Primary 3?"

@@ -1,11 +1,13 @@
 """Teacher principal boundary for assistant threads.
 
-This service does not authenticate teachers. Outbound Authorization headers
-authenticate this process to an LLM or the curriculum API.
+This module does not check passwords or read a teacher id from a request.
+Outbound Authorization headers authenticate this process to an LLM or the
+curriculum API.
 
 The only production integration point is ``register_identity_gate``. A gate
 must verify a credential and return ``VerifiedTeacherClaims``. An issuer name,
 a request body, or a header is not a gate and cannot mint a ``TrustedTeacher``.
+When authentication is enabled, startup registers the session gate.
 
 When no gate is registered, HTTP authentication fails closed. Local stub
 identity is a separate, explicit development switch and is rejected when
@@ -38,7 +40,7 @@ class VerifiedTeacherClaims:
 
 
 class IdentityGate(Protocol):
-    """Upstream verifier. This repository does not ship an implementation."""
+    """Upstream verifier. The session gate is registered when authentication is enabled."""
 
     def verify(self, request: object) -> VerifiedTeacherClaims | None:
         """Return verified claims, or None to reject the request."""

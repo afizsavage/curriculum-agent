@@ -1,0 +1,3406 @@
+{
+  "version": "marcus-evaluation-v1",
+  "description": "Teacher-assistant evaluation separate from curriculum gold and from assistant behaviour. Facts are copied from the frozen gold set. Cases without an enumerated contract are not factually scoreable.",
+  "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+  "secondary_scoring_versions": [
+    "curriculum-qa-gold-scoring-v2",
+    "curriculum-qa-gold-scoring-v3"
+  ],
+  "gold_dataset": "curriculum-qa-gold-v1",
+  "gold_dataset_sha256": "f16fc259720bfd9ff19550f9c6e8ac6c4303003a2502aa39f3745f35c5549cf5",
+  "behaviour_dataset_sha256": "c805d51e8cd963d53cefbf98740a6cba5a2dc2d75b8c5ef28373fb0c14f14ae8",
+  "live_executed": false,
+  "cases": [
+    {
+      "id": "marcus-c4-science-first",
+      "group": "curriculum_lookup",
+      "evaluation_type": "factual_list",
+      "question": "What is the first published unit of Class 4 Science?",
+      "grade_code": "CLASS_4",
+      "subject_code": "SCIENCE",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Science",
+        "SCIENCE"
+      ],
+      "support": "answerable",
+      "must_be_complete": false,
+      "uncertainty": "not_applicable",
+      "required_facts": [
+        {
+          "fact_id": "c4-sci-first-c4-u01",
+          "kind": "content_record",
+          "text": "C4-U01",
+          "match_any": [
+            "C4-U01",
+            "Living and Non \u2013 living Things"
+          ],
+          "source_ids": [
+            "c29a01f8-4009-4f27-a455-165e46b01a52"
+          ],
+          "source_code": "C4-U01",
+          "record_name": "Living and Non \u2013 living Things",
+          "content_type": "UNIT"
+        }
+      ],
+      "forbidden_substitutions": [
+        {
+          "text": "Meaning, branches and Importance of Science",
+          "match_any": [
+            "Meaning, branches and Importance of Science",
+            "J1-U01"
+          ],
+          "reason": "That is the first unit of JSS 1 Integrated Science, subject code INTEGRATED_SCIENCE, not Class 4 Science."
+        }
+      ],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "question_match": "exact",
+      "historical_case_id": "gold-c4-science-not-integrated",
+      "historical_question": "What is the first published unit of Class 4 Science?",
+      "question_difference": null,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": []
+    },
+    {
+      "id": "marcus-jss1-is-first",
+      "group": "curriculum_lookup",
+      "evaluation_type": "factual_list",
+      "question": "What is the first published unit of JSS 1 Integrated Science?",
+      "grade_code": "JSS_1",
+      "subject_code": "INTEGRATED_SCIENCE",
+      "grade_labels": [
+        "JSS 1",
+        "JSS1",
+        "JSS_1"
+      ],
+      "subject_labels": [
+        "Integrated Science",
+        "INTEGRATED_SCIENCE"
+      ],
+      "support": "answerable",
+      "must_be_complete": false,
+      "uncertainty": "not_applicable",
+      "required_facts": [
+        {
+          "fact_id": "jss1-is-first-j1-u01",
+          "kind": "content_record",
+          "text": "J1-U01",
+          "match_any": [
+            "J1-U01",
+            "Meaning, branches and Importance of Science"
+          ],
+          "source_ids": [
+            "83b85707-2bfc-429e-bbff-9c2be76dd28a"
+          ],
+          "source_code": "J1-U01",
+          "record_name": "Meaning, branches and Importance of Science",
+          "content_type": "UNIT"
+        }
+      ],
+      "forbidden_substitutions": [
+        {
+          "text": "Living and Non \u2013 living Things",
+          "match_any": [
+            "Living and Non \u2013 living Things",
+            "Living and Non-living Things",
+            "C4-U01"
+          ],
+          "reason": "C4-U01 is the first Class 4 Science unit, not the first JSS 1 Integrated Science unit."
+        }
+      ],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "question_match": "exact",
+      "historical_case_id": "gold-jss1-integrated-science-first-unit",
+      "historical_question": "What is the first published unit of JSS 1 Integrated Science?",
+      "question_difference": null,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": []
+    },
+    {
+      "id": "marcus-bio-intro-topics",
+      "group": "curriculum_lookup",
+      "evaluation_type": "factual_list",
+      "question": "What topics are listed under the SSS 1 Biology theme Introduction to Biology?",
+      "grade_code": "SSS_1",
+      "subject_code": "BIOLOGY",
+      "grade_labels": [
+        "SSS 1",
+        "SSS1",
+        "SSS_1"
+      ],
+      "subject_labels": [
+        "Biology",
+        "BIOLOGY"
+      ],
+      "support": "answerable",
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "required_facts": [
+        {
+          "fact_id": "sss1-bio-intro-s1-t1-01-01",
+          "kind": "content_record",
+          "text": "S1-T1-01-01",
+          "match_any": [
+            "S1-T1-01-01",
+            "Living and non-living things"
+          ],
+          "source_ids": [
+            "ed17c858-fca0-405e-b108-1684ff241c0e"
+          ],
+          "source_code": "S1-T1-01-01",
+          "record_name": "Living and non-living things",
+          "content_type": "TOPIC"
+        },
+        {
+          "fact_id": "sss1-bio-intro-s1-t1-01-02",
+          "kind": "content_record",
+          "text": "S1-T1-01-02",
+          "match_any": [
+            "S1-T1-01-02",
+            "Diversity of living things"
+          ],
+          "source_ids": [
+            "2561f622-b44d-437f-8b90-109d88cf9b13"
+          ],
+          "source_code": "S1-T1-01-02",
+          "record_name": "Diversity of living things",
+          "content_type": "TOPIC"
+        },
+        {
+          "fact_id": "sss1-bio-intro-s1-t1-01-03",
+          "kind": "content_record",
+          "text": "S1-T1-01-03",
+          "match_any": [
+            "S1-T1-01-03",
+            "Classification"
+          ],
+          "source_ids": [
+            "52e52f37-c983-4667-bc9c-fb3a130991cb"
+          ],
+          "source_code": "S1-T1-01-03",
+          "record_name": "Classification",
+          "content_type": "TOPIC"
+        }
+      ],
+      "forbidden_substitutions": [
+        {
+          "text": "Cell theory",
+          "match_any": [
+            "Cell theory",
+            "S1-T1-02"
+          ],
+          "reason": "Cell theory is theme S1-T1-02, a sibling of Introduction to Biology, not one of its topics."
+        }
+      ],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "question_match": "exact",
+      "historical_case_id": "gold-sss1-bio-intro-topics-complete",
+      "historical_question": "What topics are listed under the SSS 1 Biology theme Introduction to Biology?",
+      "question_difference": null,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": []
+    },
+    {
+      "id": "marcus-c4-math-u01-identity",
+      "group": "curriculum_lookup",
+      "evaluation_type": "identity_lookup",
+      "question": "What is the content code and name of the Class 4 Mathematics unit Number and Numeration?",
+      "grade_code": "CLASS_4",
+      "subject_code": "MATHEMATICS",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "support": "answerable",
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "required_facts": [
+        {
+          "fact_id": "c4-math-c4-u01",
+          "kind": "content_record",
+          "text": "C4-U01",
+          "match_any": [
+            "C4-U01"
+          ],
+          "source_ids": [
+            "f293e00a-bae7-44db-ad55-3c1263e20387"
+          ],
+          "source_code": "C4-U01",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u07",
+          "kind": "content_record",
+          "text": "C4-U07",
+          "match_any": [
+            "C4-U07"
+          ],
+          "source_ids": [
+            "6b0d1465-d397-4b27-ba73-2696eeb5d3c5"
+          ],
+          "source_code": "C4-U07",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u08",
+          "kind": "content_record",
+          "text": "C4-U08",
+          "match_any": [
+            "C4-U08"
+          ],
+          "source_ids": [
+            "c148074c-fac8-4771-94de-01de1805f585"
+          ],
+          "source_code": "C4-U08",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u09",
+          "kind": "content_record",
+          "text": "C4-U09",
+          "match_any": [
+            "C4-U09"
+          ],
+          "source_ids": [
+            "4e356892-e6e8-46e2-ae4f-f0a141649a09"
+          ],
+          "source_code": "C4-U09",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u10",
+          "kind": "content_record",
+          "text": "C4-U10",
+          "match_any": [
+            "C4-U10"
+          ],
+          "source_ids": [
+            "6031fbb0-19cd-48c6-9cd8-901a40eb8590"
+          ],
+          "source_code": "C4-U10",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-number-and-numeration-name",
+          "kind": "content_record",
+          "text": "Number and Numeration",
+          "match_any": [
+            "Number and Numeration"
+          ],
+          "source_ids": [
+            "f293e00a-bae7-44db-ad55-3c1263e20387",
+            "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+            "c148074c-fac8-4771-94de-01de1805f585",
+            "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+            "6031fbb0-19cd-48c6-9cd8-901a40eb8590"
+          ],
+          "source_code": "C4-U01",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "question_match": "not_comparable",
+      "historical_case_id": "gold-c4-math-units-complete",
+      "historical_question": "Give the content code and name of every published Class 4 Mathematics unit.",
+      "question_difference": "The historical question asks for every Class 4 Mathematics unit. This lookup asks only for units whose stored name is exactly Number and Numeration. The saved 27-unit answer is not scored here.",
+      "comparability": "Identity pairs copied from the frozen unit list. Answer not transferable.",
+      "scoring_scope": "Identity of the five frozen units whose record name is exactly Number and Numeration: codes C4-U01, C4-U07, C4-U08, C4-U09, and C4-U10, plus that shared name. This is not the 27-unit Class 4 Mathematics list. The question is singular, and the catalogue uses that exact name five times; the contract follows the records rather than picking one code.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": [
+        {
+          "source_id": "f293e00a-bae7-44db-ad55-3c1263e20387",
+          "source_code": "C4-U01",
+          "record_name": "Number and Numeration",
+          "fact_id": "c4-math-c4-u01"
+        },
+        {
+          "source_id": "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+          "source_code": "C4-U07",
+          "record_name": "Number and Numeration",
+          "fact_id": "c4-math-c4-u07"
+        },
+        {
+          "source_id": "c148074c-fac8-4771-94de-01de1805f585",
+          "source_code": "C4-U08",
+          "record_name": "Number and Numeration",
+          "fact_id": "c4-math-c4-u08"
+        },
+        {
+          "source_id": "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+          "source_code": "C4-U09",
+          "record_name": "Number and Numeration",
+          "fact_id": "c4-math-c4-u09"
+        },
+        {
+          "source_id": "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+          "source_code": "C4-U10",
+          "record_name": "Number and Numeration",
+          "fact_id": "c4-math-c4-u10"
+        }
+      ]
+    },
+    {
+      "support": "insufficient",
+      "must_be_complete": false,
+      "uncertainty": "abstain",
+      "required_facts": [],
+      "unsupported_patterns": [],
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "question_match": "none",
+      "evaluation_type": "catalogue_abstention",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": [
+        {
+          "source_id": "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+          "source_code": "ENGLISH_LANGUAGE",
+          "record_name": "English Language",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "source_code": "MATHEMATICS",
+          "record_name": "Mathematics",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "be2bec7d-db04-4307-8300-466dc896466f",
+          "source_code": "CIVIC_EDUCATION",
+          "record_name": "Civic Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "13bc18c0-c518-47ef-911c-8c7174d05555",
+          "source_code": "SOCIAL_STUDIES",
+          "record_name": "Social Studies",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+          "source_code": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+          "record_name": "Physical Health Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "c049057b-ea42-4baf-a902-d3e6c63dc320",
+          "source_code": "MUSIC_EXPRESSIVE_ARTS",
+          "record_name": "Music and Other Expressive Arts",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "44c8b694-3fdd-473c-a256-bc22fd926da1",
+          "source_code": "FRENCH_APPRECIATION",
+          "record_name": "French Appreciation",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+          "source_code": "SCIENCE",
+          "record_name": "Science",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1",
+          "source_code": "ICT_LITERACY",
+          "record_name": "ICT Literacy",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736",
+          "source_code": "HOME_ECONOMICS",
+          "record_name": "Home Economics",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "04b05a43-1208-4fd9-b6c3-31eed3d40063",
+          "source_code": "PRACTICAL_ARTS",
+          "record_name": "Practical Arts",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "236bd50f-63f3-44bb-8c16-c2aa5e3441ea",
+          "source_code": "RELIGIOUS_MORAL_EDUCATION",
+          "record_name": "Religious and Moral Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "5b7bcdd9-4984-49d5-9b99-c1653a1470bf",
+          "source_code": "SIERRA_LEONE_NATIONAL_LANGUAGES",
+          "record_name": "Sierra Leone National Languages",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "c09f3006-e982-4696-b0c5-47b9c4eb4dab",
+          "source_code": "AGRICULTURAL_SCIENCE",
+          "record_name": "Agricultural Science",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "role": "published_mathematics_codes",
+          "source": "curriculum-qa-gold-v1",
+          "historical_case_id": "gold-c4-math-units-complete",
+          "codes": [
+            "C4-U01",
+            "C4-U02",
+            "C4-U03",
+            "C4-U04",
+            "C4-U05",
+            "C4-U06",
+            "C4-U07",
+            "C4-U08",
+            "C4-U09",
+            "C4-U10",
+            "C4-U11",
+            "C4-U13",
+            "C4-U14",
+            "C4-U15",
+            "C4-U16",
+            "C4-U17",
+            "C4-U18",
+            "C4-U19",
+            "C4-U20",
+            "C4-U21",
+            "C4-U22",
+            "C4-U23",
+            "C4-U24",
+            "C4-U25",
+            "C4-U26",
+            "C4-U27",
+            "C4-U28"
+          ]
+        },
+        {
+          "role": "same_code_other_subject",
+          "source_id": "b20312ef-d7de-48c8-a885-d9b0bf169816",
+          "source_code": "C4-U12",
+          "record_name": "Feeding in Humans",
+          "subject_code": "SCIENCE"
+        }
+      ],
+      "scoring_note": "Official v1 accepts this absence only when the observation status is insufficient_evidence or needs_clarification and the answer states the absence. A blank answer does not pass. A completed answer does not pass, even when its sentence is negative.",
+      "id": "marcus-c4-u12-absent",
+      "group": "curriculum_lookup",
+      "question": "Is C4-U12 a published Class 4 Mathematics unit?",
+      "grade_code": "CLASS_4",
+      "subject_code": "MATHEMATICS",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "forbidden_substitutions": [
+        {
+          "text": "Feeding in Humans",
+          "match_any": [
+            "Feeding in Humans"
+          ],
+          "reason": "Feeding in Humans is the Class 4 Science unit C4-U12, not a Mathematics unit.",
+          "source_ids": [
+            "b20312ef-d7de-48c8-a885-d9b0bf169816"
+          ],
+          "source_code": "C4-U12"
+        }
+      ],
+      "absence": {
+        "claim": "C4-U12 is a published Class 4 Mathematics unit.",
+        "searched": "The 27 published Class 4 Mathematics unit rows in the frozen gold list.",
+        "found_instead": "Those codes skip C4-U12. The same code is Class 4 Science unit Feeding in Humans.",
+        "why_insufficient": "No Class 4 Mathematics row uses the code C4-U12."
+      },
+      "behavior_expectation": "Say C4-U12 is not a published Class 4 Mathematics unit. Do not invent a Mathematics title for that code."
+    },
+    {
+      "support": "insufficient",
+      "must_be_complete": false,
+      "uncertainty": "abstain",
+      "required_facts": [],
+      "unsupported_patterns": [],
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "question_match": "none",
+      "evaluation_type": "catalogue_abstention",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": [
+        {
+          "source_id": "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+          "source_code": "ENGLISH_LANGUAGE",
+          "record_name": "English Language",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "source_code": "MATHEMATICS",
+          "record_name": "Mathematics",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "be2bec7d-db04-4307-8300-466dc896466f",
+          "source_code": "CIVIC_EDUCATION",
+          "record_name": "Civic Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "13bc18c0-c518-47ef-911c-8c7174d05555",
+          "source_code": "SOCIAL_STUDIES",
+          "record_name": "Social Studies",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+          "source_code": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+          "record_name": "Physical Health Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "c049057b-ea42-4baf-a902-d3e6c63dc320",
+          "source_code": "MUSIC_EXPRESSIVE_ARTS",
+          "record_name": "Music and Other Expressive Arts",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "44c8b694-3fdd-473c-a256-bc22fd926da1",
+          "source_code": "FRENCH_APPRECIATION",
+          "record_name": "French Appreciation",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+          "source_code": "SCIENCE",
+          "record_name": "Science",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1",
+          "source_code": "ICT_LITERACY",
+          "record_name": "ICT Literacy",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736",
+          "source_code": "HOME_ECONOMICS",
+          "record_name": "Home Economics",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "04b05a43-1208-4fd9-b6c3-31eed3d40063",
+          "source_code": "PRACTICAL_ARTS",
+          "record_name": "Practical Arts",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "236bd50f-63f3-44bb-8c16-c2aa5e3441ea",
+          "source_code": "RELIGIOUS_MORAL_EDUCATION",
+          "record_name": "Religious and Moral Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "5b7bcdd9-4984-49d5-9b99-c1653a1470bf",
+          "source_code": "SIERRA_LEONE_NATIONAL_LANGUAGES",
+          "record_name": "Sierra Leone National Languages",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "c09f3006-e982-4696-b0c5-47b9c4eb4dab",
+          "source_code": "AGRICULTURAL_SCIENCE",
+          "record_name": "Agricultural Science",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        }
+      ],
+      "scoring_note": "Official v1 accepts this absence only when the observation status is insufficient_evidence or needs_clarification and the answer states the absence. A blank answer does not pass. A completed answer does not pass, even when its sentence is negative.",
+      "id": "marcus-c4-english-subject",
+      "group": "curriculum_lookup",
+      "question": "What units does the Class 4 English subject cover?",
+      "grade_code": "CLASS_4",
+      "subject_code": "ENGLISH",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "English",
+        "ENGLISH"
+      ],
+      "forbidden_substitutions": [
+        {
+          "text": "My family",
+          "match_any": [
+            "My family"
+          ],
+          "reason": "This unit belongs to Class 4 English Language, subject code ENGLISH_LANGUAGE, not ENGLISH.",
+          "source_ids": [
+            "f583efc3-228b-44ff-a096-792f5ec85788"
+          ],
+          "source_code": "C4-U01"
+        },
+        {
+          "text": "Fun with Maths and Science",
+          "match_any": [
+            "Fun with Maths and Science"
+          ],
+          "reason": "This unit belongs to Class 4 English Language, subject code ENGLISH_LANGUAGE, not ENGLISH.",
+          "source_ids": [
+            "1b80e24a-36f3-44ac-b10c-9c41f8b98af4"
+          ],
+          "source_code": "C4-U02"
+        },
+        {
+          "text": "The seasons in Sierra Leone",
+          "match_any": [
+            "The seasons in Sierra Leone"
+          ],
+          "reason": "This unit belongs to Class 4 English Language, subject code ENGLISH_LANGUAGE, not ENGLISH.",
+          "source_ids": [
+            "8e463e73-cb89-4703-9108-cfe7e52997b1"
+          ],
+          "source_code": "C4-U03"
+        },
+        {
+          "text": "Flying",
+          "match_any": [
+            "Flying"
+          ],
+          "reason": "This unit belongs to Class 4 English Language, subject code ENGLISH_LANGUAGE, not ENGLISH.",
+          "source_ids": [
+            "3b79e89d-6113-4e62-9ac0-e8052c9b1074"
+          ],
+          "source_code": "C4-U04"
+        },
+        {
+          "text": "Crops",
+          "match_any": [
+            "Crops"
+          ],
+          "reason": "This unit belongs to Class 4 English Language, subject code ENGLISH_LANGUAGE, not ENGLISH.",
+          "source_ids": [
+            "adfdc60b-d380-4348-8268-d9b9022bf07d"
+          ],
+          "source_code": "C4-U05"
+        },
+        {
+          "text": "Seeds",
+          "match_any": [
+            "Seeds"
+          ],
+          "reason": "This unit belongs to Class 4 English Language, subject code ENGLISH_LANGUAGE, not ENGLISH.",
+          "source_ids": [
+            "1c031ed1-d524-4664-b089-0e3caf102a5f"
+          ],
+          "source_code": "C4-U06"
+        },
+        {
+          "text": "The River Sewa",
+          "match_any": [
+            "The River Sewa"
+          ],
+          "reason": "This unit belongs to Class 4 English Language, subject code ENGLISH_LANGUAGE, not ENGLISH.",
+          "source_ids": [
+            "7574b891-99ff-4f24-a917-c013245e2931"
+          ],
+          "source_code": "C4-U07"
+        },
+        {
+          "text": "Travelling to Freetown",
+          "match_any": [
+            "Travelling to Freetown"
+          ],
+          "reason": "This unit belongs to Class 4 English Language, subject code ENGLISH_LANGUAGE, not ENGLISH.",
+          "source_ids": [
+            "ce770023-d448-42e5-81ff-644acb9d6f97"
+          ],
+          "source_code": "C4-U08"
+        },
+        {
+          "text": "Men on the moon",
+          "match_any": [
+            "Men on the moon"
+          ],
+          "reason": "This unit belongs to Class 4 English Language, subject code ENGLISH_LANGUAGE, not ENGLISH.",
+          "source_ids": [
+            "7619175c-5402-46ae-ae71-252bd58db056"
+          ],
+          "source_code": "C4-U09"
+        },
+        {
+          "text": "Looking after the classroom",
+          "match_any": [
+            "Looking after the classroom"
+          ],
+          "reason": "This unit belongs to Class 4 English Language, subject code ENGLISH_LANGUAGE, not ENGLISH.",
+          "source_ids": [
+            "7544d1d6-7128-4b0f-91fa-7274010be3d7"
+          ],
+          "source_code": "C4-U10"
+        }
+      ],
+      "absence": {
+        "claim": "Class 4 publishes a subject named English, code ENGLISH.",
+        "searched": "The 14 stored Class 4 subject rows.",
+        "found_instead": "The catalogue publishes English Language, code ENGLISH_LANGUAGE, subject id 9da3f7f7-60c2-49c6-8950-fd20a1913661. It does not publish ENGLISH.",
+        "why_insufficient": "Units of English Language are a different subject and are not the Class 4 English syllabus."
+      },
+      "behavior_expectation": "Abstain for subject ENGLISH. Do not present English Language units as English."
+    },
+    {
+      "id": "marcus-c4-science-all",
+      "group": "complete_list",
+      "evaluation_type": "factual_list",
+      "question": "List every published Class 4 Science unit and theme, with its content code.",
+      "grade_code": "CLASS_4",
+      "subject_code": "SCIENCE",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Science",
+        "SCIENCE"
+      ],
+      "support": "answerable",
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "required_facts": [
+        {
+          "fact_id": "c4-sci-c4-u01",
+          "kind": "content_record",
+          "text": "C4-U01",
+          "match_any": [
+            "C4-U01",
+            "Living and Non \u2013 living Things"
+          ],
+          "source_ids": [
+            "c29a01f8-4009-4f27-a455-165e46b01a52"
+          ],
+          "source_code": "C4-U01",
+          "record_name": "Living and Non \u2013 living Things",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u02",
+          "kind": "content_record",
+          "text": "C4-U02",
+          "match_any": [
+            "C4-U02",
+            "Plants in the Environment"
+          ],
+          "source_ids": [
+            "f3b2b68c-4031-462a-8538-f2cac358dc59"
+          ],
+          "source_code": "C4-U02",
+          "record_name": "Plants in the Environment",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u03",
+          "kind": "content_record",
+          "text": "C4-U03",
+          "match_any": [
+            "C4-U03",
+            "Animals in the Environment"
+          ],
+          "source_ids": [
+            "275f8b84-34c0-4e3b-a04c-c21907ad888f"
+          ],
+          "source_code": "C4-U03",
+          "record_name": "Animals in the Environment",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u04",
+          "kind": "content_record",
+          "text": "C4-U04",
+          "match_any": [
+            "C4-U04",
+            "Life cycles of Some Plants and Animals"
+          ],
+          "source_ids": [
+            "7c152419-5b53-4465-95ee-d33302a5b804"
+          ],
+          "source_code": "C4-U04",
+          "record_name": "Life cycles of Some Plants and Animals",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u05",
+          "kind": "content_record",
+          "text": "C4-U05",
+          "match_any": [
+            "C4-U05",
+            "Identification of Common Substances in the Environment"
+          ],
+          "source_ids": [
+            "a0e53faf-7340-4936-95d6-1d4f7dcab860"
+          ],
+          "source_code": "C4-U05",
+          "record_name": "Identification of Common Substances in the Environment",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u06",
+          "kind": "content_record",
+          "text": "C4-U06",
+          "match_any": [
+            "C4-U06",
+            "Grouping Materials"
+          ],
+          "source_ids": [
+            "162fa692-3ee5-4b7d-8745-042c73cdc8b0"
+          ],
+          "source_code": "C4-U06",
+          "record_name": "Grouping Materials",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u07",
+          "kind": "content_record",
+          "text": "C4-U07",
+          "match_any": [
+            "C4-U07",
+            "Changes in Materials (Effect of Water on Paper)"
+          ],
+          "source_ids": [
+            "abd93422-53eb-429c-a419-bc00103cece7"
+          ],
+          "source_code": "C4-U07",
+          "record_name": "Changes in Materials (Effect of Water on Paper)",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u08",
+          "kind": "content_record",
+          "text": "C4-U08",
+          "match_any": [
+            "C4-U08",
+            "Properties of Materials Before and after Heating"
+          ],
+          "source_ids": [
+            "5d010416-8e0a-4a04-87a2-c4a7e7b3fb7a"
+          ],
+          "source_code": "C4-U08",
+          "record_name": "Properties of Materials Before and after Heating",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u09",
+          "kind": "content_record",
+          "text": "C4-U09",
+          "match_any": [
+            "C4-U09",
+            "Processes that Result in the Formation of New Materials"
+          ],
+          "source_ids": [
+            "8d424b11-5a40-4435-bfa3-905b80da7ac7"
+          ],
+          "source_code": "C4-U09",
+          "record_name": "Processes that Result in the Formation of New Materials",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u10",
+          "kind": "content_record",
+          "text": "C4-U10",
+          "match_any": [
+            "C4-U10",
+            "Separating Mixtures of Materials"
+          ],
+          "source_ids": [
+            "93afc2bd-91b2-438d-b806-cecde44f9be9"
+          ],
+          "source_code": "C4-U10",
+          "record_name": "Separating Mixtures of Materials",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-t11",
+          "kind": "content_record",
+          "text": "C4-T11",
+          "match_any": [
+            "C4-T11",
+            "Balancing and Weighing"
+          ],
+          "source_ids": [
+            "d33d9d5c-51c9-4d76-89a9-6a0b7178eac4"
+          ],
+          "source_code": "C4-T11",
+          "record_name": "Balancing and Weighing",
+          "content_type": "THEME"
+        },
+        {
+          "fact_id": "c4-sci-c4-u12",
+          "kind": "content_record",
+          "text": "C4-U12",
+          "match_any": [
+            "C4-U12",
+            "Feeding in Humans"
+          ],
+          "source_ids": [
+            "b20312ef-d7de-48c8-a885-d9b0bf169816"
+          ],
+          "source_code": "C4-U12",
+          "record_name": "Feeding in Humans",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u13",
+          "kind": "content_record",
+          "text": "C4-U13",
+          "match_any": [
+            "C4-U13",
+            "Excretion ( Getting Rid of Waste Products) in Humans"
+          ],
+          "source_ids": [
+            "0cce96c6-bb05-47ff-8d68-f5b3b908d352"
+          ],
+          "source_code": "C4-U13",
+          "record_name": "Excretion ( Getting Rid of Waste Products) in Humans",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-t14",
+          "kind": "content_record",
+          "text": "C4-T14",
+          "match_any": [
+            "C4-T14",
+            "The Earth, The Solar System and the Moon"
+          ],
+          "source_ids": [
+            "fabc7c01-ed57-4ad9-ac2f-fe4c01f9b1a9"
+          ],
+          "source_code": "C4-T14",
+          "record_name": "The Earth, The Solar System and the Moon",
+          "content_type": "THEME"
+        },
+        {
+          "fact_id": "c4-sci-c4-u15",
+          "kind": "content_record",
+          "text": "C4-U15",
+          "match_any": [
+            "C4-U15",
+            "Light"
+          ],
+          "source_ids": [
+            "8b80ce48-bc4c-4b32-b833-7401e187ae15"
+          ],
+          "source_code": "C4-U15",
+          "record_name": "Light",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u16",
+          "kind": "content_record",
+          "text": "C4-U16",
+          "match_any": [
+            "C4-U16",
+            "Sound"
+          ],
+          "source_ids": [
+            "77c4e43b-49c1-42ff-90a8-3e92168b1b6b"
+          ],
+          "source_code": "C4-U16",
+          "record_name": "Sound",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-t17",
+          "kind": "content_record",
+          "text": "C4-T17",
+          "match_any": [
+            "C4-T17",
+            "Electricity"
+          ],
+          "source_ids": [
+            "f41d3072-3fc9-483c-b066-9a5d573541cf"
+          ],
+          "source_code": "C4-T17",
+          "record_name": "Electricity",
+          "content_type": "THEME"
+        },
+        {
+          "fact_id": "c4-sci-c4-t18",
+          "kind": "content_record",
+          "text": "C4-T18",
+          "match_any": [
+            "C4-T18",
+            "Local Industries in our Community"
+          ],
+          "source_ids": [
+            "7767e2f0-da92-4a78-8ab9-811f6e2931b0"
+          ],
+          "source_code": "C4-T18",
+          "record_name": "Local Industries in our Community",
+          "content_type": "THEME"
+        },
+        {
+          "fact_id": "c4-sci-c4-u19",
+          "kind": "content_record",
+          "text": "C4-U19",
+          "match_any": [
+            "C4-U19",
+            "Body Odour"
+          ],
+          "source_ids": [
+            "ca963ea1-b3a1-4e83-8247-417503928649"
+          ],
+          "source_code": "C4-U19",
+          "record_name": "Body Odour",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-sci-c4-u20",
+          "kind": "content_record",
+          "text": "C4-U20",
+          "match_any": [
+            "C4-U20",
+            "Care of the Skin"
+          ],
+          "source_ids": [
+            "b76ada7e-c869-412e-b9bd-a22dad6c54ab"
+          ],
+          "source_code": "C4-U20",
+          "record_name": "Care of the Skin",
+          "content_type": "UNIT"
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "question_match": "exact",
+      "historical_case_id": "gold-c4-science-content-complete",
+      "historical_question": "List every published Class 4 Science unit and theme, with its content code.",
+      "question_difference": null,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": []
+    },
+    {
+      "id": "marcus-c4-math-units",
+      "group": "complete_list",
+      "evaluation_type": "factual_list",
+      "question": "Give the content code and name of every published Class 4 Mathematics unit.",
+      "grade_code": "CLASS_4",
+      "subject_code": "MATHEMATICS",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "support": "answerable",
+      "must_be_complete": true,
+      "uncertainty": "state_limits",
+      "required_facts": [
+        {
+          "fact_id": "c4-math-c4-u01",
+          "kind": "content_record",
+          "text": "C4-U01",
+          "match_any": [
+            "C4-U01",
+            "Number and Numeration"
+          ],
+          "source_ids": [
+            "f293e00a-bae7-44db-ad55-3c1263e20387"
+          ],
+          "source_code": "C4-U01",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u02",
+          "kind": "content_record",
+          "text": "C4-U02",
+          "match_any": [
+            "C4-U02",
+            "Number and Numeration Reading And Writing"
+          ],
+          "source_ids": [
+            "a66a8931-bd82-48eb-82f8-c004e95a2e62"
+          ],
+          "source_code": "C4-U02",
+          "record_name": "Number and Numeration Reading And Writing",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u03",
+          "kind": "content_record",
+          "text": "C4-U03",
+          "match_any": [
+            "C4-U03",
+            "Number and Numeration. Approximation."
+          ],
+          "source_ids": [
+            "20b6fae8-05d2-4c27-9b2b-2d04f91e7422"
+          ],
+          "source_code": "C4-U03",
+          "record_name": "Number and Numeration. Approximation.",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u04",
+          "kind": "content_record",
+          "text": "C4-U04",
+          "match_any": [
+            "C4-U04",
+            "Number and Numeration FRACTION"
+          ],
+          "source_ids": [
+            "0f90b316-6be5-4b60-a2b1-2ac91a603d49"
+          ],
+          "source_code": "C4-U04",
+          "record_name": "Number and Numeration FRACTION",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u05",
+          "kind": "content_record",
+          "text": "C4-U05",
+          "match_any": [
+            "C4-U05",
+            "Number and Numeration OPERATION ON FRACTIONS."
+          ],
+          "source_ids": [
+            "d2c1777c-7ed5-4a43-97c5-1efa895114d8"
+          ],
+          "source_code": "C4-U05",
+          "record_name": "Number and Numeration OPERATION ON FRACTIONS.",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u06",
+          "kind": "content_record",
+          "text": "C4-U06",
+          "match_any": [
+            "C4-U06",
+            "Number and Numeration Operation on Fraction. (Multiplication)"
+          ],
+          "source_ids": [
+            "4c8ac511-4785-4576-8d30-f364ffa74bd9"
+          ],
+          "source_code": "C4-U06",
+          "record_name": "Number and Numeration Operation on Fraction. (Multiplication)",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u07",
+          "kind": "content_record",
+          "text": "C4-U07",
+          "match_any": [
+            "C4-U07",
+            "Number and Numeration"
+          ],
+          "source_ids": [
+            "6b0d1465-d397-4b27-ba73-2696eeb5d3c5"
+          ],
+          "source_code": "C4-U07",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u08",
+          "kind": "content_record",
+          "text": "C4-U08",
+          "match_any": [
+            "C4-U08",
+            "Number and Numeration"
+          ],
+          "source_ids": [
+            "c148074c-fac8-4771-94de-01de1805f585"
+          ],
+          "source_code": "C4-U08",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u09",
+          "kind": "content_record",
+          "text": "C4-U09",
+          "match_any": [
+            "C4-U09",
+            "Number and Numeration"
+          ],
+          "source_ids": [
+            "4e356892-e6e8-46e2-ae4f-f0a141649a09"
+          ],
+          "source_code": "C4-U09",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u10",
+          "kind": "content_record",
+          "text": "C4-U10",
+          "match_any": [
+            "C4-U10",
+            "Number and Numeration"
+          ],
+          "source_ids": [
+            "6031fbb0-19cd-48c6-9cd8-901a40eb8590"
+          ],
+          "source_code": "C4-U10",
+          "record_name": "Number and Numeration",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u11",
+          "kind": "content_record",
+          "text": "C4-U11",
+          "match_any": [
+            "C4-U11",
+            "Everyday Arithmetic Addition and Subtraction"
+          ],
+          "source_ids": [
+            "a06e3216-dd97-4d5f-af49-f1afec6def85"
+          ],
+          "source_code": "C4-U11",
+          "record_name": "Everyday Arithmetic Addition and Subtraction",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u13",
+          "kind": "content_record",
+          "text": "C4-U13",
+          "match_any": [
+            "C4-U13",
+            "Everyday Arithmetic Multiplication"
+          ],
+          "source_ids": [
+            "d0d5d322-9a0d-4f49-823d-0f80049e9b5b"
+          ],
+          "source_code": "C4-U13",
+          "record_name": "Everyday Arithmetic Multiplication",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u14",
+          "kind": "content_record",
+          "text": "C4-U14",
+          "match_any": [
+            "C4-U14",
+            "Everyday Arithmetic DIVISION"
+          ],
+          "source_ids": [
+            "152b4a5a-c080-403c-a780-9940c818bc4b"
+          ],
+          "source_code": "C4-U14",
+          "record_name": "Everyday Arithmetic DIVISION",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u15",
+          "kind": "content_record",
+          "text": "C4-U15",
+          "match_any": [
+            "C4-U15",
+            "Everyday Arithmetic"
+          ],
+          "source_ids": [
+            "eae26572-dc3f-4b85-a924-3d139e5de9ca"
+          ],
+          "source_code": "C4-U15",
+          "record_name": "Everyday Arithmetic",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u16",
+          "kind": "content_record",
+          "text": "C4-U16",
+          "match_any": [
+            "C4-U16",
+            "Everyday Arithmetic Addition and Subtraction."
+          ],
+          "source_ids": [
+            "13202e14-75a9-455e-9f58-baad27d672b4"
+          ],
+          "source_code": "C4-U16",
+          "record_name": "Everyday Arithmetic Addition and Subtraction.",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u17",
+          "kind": "content_record",
+          "text": "C4-U17",
+          "match_any": [
+            "C4-U17",
+            "Everyday Arithmetic"
+          ],
+          "source_ids": [
+            "684ebd01-8dc0-459b-a610-9d8dfea454ff"
+          ],
+          "source_code": "C4-U17",
+          "record_name": "Everyday Arithmetic",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u18",
+          "kind": "content_record",
+          "text": "C4-U18",
+          "match_any": [
+            "C4-U18",
+            "Everyday Arithmetic Money"
+          ],
+          "source_ids": [
+            "1997d3c8-5ec2-43d7-9dac-9afcf97c1734"
+          ],
+          "source_code": "C4-U18",
+          "record_name": "Everyday Arithmetic Money",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u19",
+          "kind": "content_record",
+          "text": "C4-U19",
+          "match_any": [
+            "C4-U19",
+            "Everyday Arithmetic Multiplication and Decimal."
+          ],
+          "source_ids": [
+            "29558081-a6cf-4721-b52c-f6f3e59b12a7"
+          ],
+          "source_code": "C4-U19",
+          "record_name": "Everyday Arithmetic Multiplication and Decimal.",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u20",
+          "kind": "content_record",
+          "text": "C4-U20",
+          "match_any": [
+            "C4-U20",
+            "Measurement And Estimation LENGTH"
+          ],
+          "source_ids": [
+            "6252f434-14ed-42cc-8415-ea870de24273"
+          ],
+          "source_code": "C4-U20",
+          "record_name": "Measurement And Estimation LENGTH",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u21",
+          "kind": "content_record",
+          "text": "C4-U21",
+          "match_any": [
+            "C4-U21",
+            "Measurement And Estimation LENGTH"
+          ],
+          "source_ids": [
+            "6ec53325-5983-421a-8b3e-9690e6da159f"
+          ],
+          "source_code": "C4-U21",
+          "record_name": "Measurement And Estimation LENGTH",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u22",
+          "kind": "content_record",
+          "text": "C4-U22",
+          "match_any": [
+            "C4-U22",
+            "Measurement and Estimation."
+          ],
+          "source_ids": [
+            "82bbb7f0-58fe-4d25-bcba-74973cc373e9"
+          ],
+          "source_code": "C4-U22",
+          "record_name": "Measurement and Estimation.",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u23",
+          "kind": "content_record",
+          "text": "C4-U23",
+          "match_any": [
+            "C4-U23",
+            "Measurement and Estimation"
+          ],
+          "source_ids": [
+            "c0a9dc68-e3f3-424e-8873-d2642e7cc71b"
+          ],
+          "source_code": "C4-U23",
+          "record_name": "Measurement and Estimation",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u24",
+          "kind": "content_record",
+          "text": "C4-U24",
+          "match_any": [
+            "C4-U24",
+            "Measurement and Estimation"
+          ],
+          "source_ids": [
+            "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90"
+          ],
+          "source_code": "C4-U24",
+          "record_name": "Measurement and Estimation",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u25",
+          "kind": "content_record",
+          "text": "C4-U25",
+          "match_any": [
+            "C4-U25",
+            "Measurement and Estimation GEOMETRY Lines and Angles"
+          ],
+          "source_ids": [
+            "e5a83dd4-d400-49f9-903a-c5e2e15471e4"
+          ],
+          "source_code": "C4-U25",
+          "record_name": "Measurement and Estimation GEOMETRY Lines and Angles",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u26",
+          "kind": "content_record",
+          "text": "C4-U26",
+          "match_any": [
+            "C4-U26",
+            "Measurement and Estimation Time"
+          ],
+          "source_ids": [
+            "36924334-8856-4c53-8f48-d4e6eed8cf12"
+          ],
+          "source_code": "C4-U26",
+          "record_name": "Measurement and Estimation Time",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u27",
+          "kind": "content_record",
+          "text": "C4-U27",
+          "match_any": [
+            "C4-U27",
+            "STATISTICS Data Collection Plan"
+          ],
+          "source_ids": [
+            "00d27bae-413d-4841-9a1b-23020b50567d"
+          ],
+          "source_code": "C4-U27",
+          "record_name": "STATISTICS Data Collection Plan",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-math-c4-u28",
+          "kind": "content_record",
+          "text": "C4-U28",
+          "match_any": [
+            "C4-U28",
+            "Unit 28"
+          ],
+          "source_ids": [
+            "b1587bd8-a2da-493e-8872-4b404108c235"
+          ],
+          "source_code": "C4-U28",
+          "record_name": "Unit 28",
+          "content_type": "UNIT"
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "question_match": "exact",
+      "historical_case_id": "gold-c4-math-units-complete",
+      "historical_question": "Give the content code and name of every published Class 4 Mathematics unit.",
+      "question_difference": null,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": []
+    },
+    {
+      "id": "marcus-c4-u01-outcomes",
+      "group": "complete_list",
+      "evaluation_type": "factual_list",
+      "question": "What are all the learning outcomes for Class 4 Mathematics unit C4-U01?",
+      "grade_code": "CLASS_4",
+      "subject_code": "MATHEMATICS",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "support": "answerable",
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "required_facts": [
+        {
+          "fact_id": "c4-u01-c4u01-lo01",
+          "kind": "learning_outcome",
+          "text": "Count up to 5000 using a number line.",
+          "match_any": [
+            "Count up to 5000 using a number line."
+          ],
+          "source_ids": [
+            "e3e82bfc-285f-4ef7-992d-534afcb8b63e"
+          ],
+          "source_code": "C4U01-LO01",
+          "record_name": "Count up to 5000 using a number line."
+        },
+        {
+          "fact_id": "c4-u01-c4u01-lo02",
+          "kind": "learning_outcome",
+          "text": "Count up to 10,000 using a number line.",
+          "match_any": [
+            "Count up to 10,000 using a number line."
+          ],
+          "source_ids": [
+            "1f924af2-802d-4f13-af41-528cc9fc44f1"
+          ],
+          "source_code": "C4U01-LO02",
+          "record_name": "Count up to 10,000 using a number line."
+        },
+        {
+          "fact_id": "c4-u01-c4u01-lo03",
+          "kind": "learning_outcome",
+          "text": "Compare numbers up to 10,000 using number line.",
+          "match_any": [
+            "Compare numbers up to 10,000 using number line."
+          ],
+          "source_ids": [
+            "057877f7-cc6f-4a9b-bdac-33c47f307262"
+          ],
+          "source_code": "C4U01-LO03",
+          "record_name": "Compare numbers up to 10,000 using number line."
+        },
+        {
+          "fact_id": "c4-u01-c4u01-lo04",
+          "kind": "learning_outcome",
+          "text": "Read and write numbers in numerals up to 10,000 using place value.",
+          "match_any": [
+            "Read and write numbers in numerals up to 10,000 using place value."
+          ],
+          "source_ids": [
+            "d801249e-6f42-4ce7-a578-1e3f9bdc9642"
+          ],
+          "source_code": "C4U01-LO04",
+          "record_name": "Read and write numbers in numerals up to 10,000 using place value."
+        },
+        {
+          "fact_id": "c4-u01-c4u01-lo05",
+          "kind": "learning_outcome",
+          "text": "Use place value system up to 10,000,000.",
+          "match_any": [
+            "Use place value system up to 10,000,000."
+          ],
+          "source_ids": [
+            "e05ee042-e278-4003-a0e7-44e8dc986b65"
+          ],
+          "source_code": "C4U01-LO05",
+          "record_name": "Use place value system up to 10,000,000."
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": true,
+      "question_match": "approximate",
+      "historical_case_id": "gold-c4-math-u01-outcomes-complete",
+      "historical_question": "What are all the learning outcomes for Class 4 Mathematics unit C4-U01, Number and Numeration?",
+      "question_difference": "Proposed wording drops ', Number and Numeration' from the historical question. The grade, subject, and five outcome facts are the same. The saved answer was produced for the longer question, so it is an approximate rescore, not an exact one.",
+      "comparability": "Proposed wording drops ', Number and Numeration' from the historical question. The grade, subject, and five outcome facts are the same. The saved answer was produced for the longer question, so it is an approximate rescore, not an exact one.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": []
+    },
+    {
+      "id": "marcus-c3-u15-outcomes",
+      "group": "complete_list",
+      "evaluation_type": "factual_list",
+      "question": "What are all the learning outcomes for Class 3 Mathematics unit C3-U15?",
+      "grade_code": "CLASS_3",
+      "subject_code": "MATHEMATICS",
+      "grade_labels": [
+        "Class 3",
+        "Primary 3",
+        "CLASS_3"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "support": "answerable",
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "required_facts": [
+        {
+          "fact_id": "c3-u15-c3u15-lo01",
+          "kind": "learning_outcome",
+          "text": "Multiply by 8, up to 40, using a multiplication table.",
+          "match_any": [
+            "Multiply by 8, up to 40, using a multiplication table."
+          ],
+          "source_ids": [
+            "6199963b-c852-4264-adfd-afa9b95ad405"
+          ],
+          "source_code": "C3U15-LO01",
+          "record_name": "Multiply by 8, up to 40, using a multiplication table."
+        },
+        {
+          "fact_id": "c3-u15-c3u15-lo02",
+          "kind": "learning_outcome",
+          "text": "Multiply by 8, up to 80, using a multiplication table.",
+          "match_any": [
+            "Multiply by 8, up to 80, using a multiplication table."
+          ],
+          "source_ids": [
+            "a6934eb2-c9cc-4541-8179-863d99fd44a6"
+          ],
+          "source_code": "C3U15-LO02",
+          "record_name": "Multiply by 8, up to 80, using a multiplication table."
+        },
+        {
+          "fact_id": "c3-u15-c3u15-lo03",
+          "kind": "learning_outcome",
+          "text": "Multiply by 3 and 6 using counters",
+          "match_any": [
+            "Multiply by 3 and 6 using counters"
+          ],
+          "source_ids": [
+            "523b777f-1623-4411-ba0b-1501aa947061"
+          ],
+          "source_code": "C3U15-LO03",
+          "record_name": "Multiply by 3 and 6 using counters"
+        },
+        {
+          "fact_id": "c3-u15-c3u15-lo04",
+          "kind": "learning_outcome",
+          "text": "Write Multiplication table of 3 and 6",
+          "match_any": [
+            "Write Multiplication table of 3 and 6"
+          ],
+          "source_ids": [
+            "ed3e486d-2f0e-4686-9f7a-2be0ef0357d7"
+          ],
+          "source_code": "C3U15-LO04",
+          "record_name": "Write Multiplication table of 3 and 6"
+        },
+        {
+          "fact_id": "c3-u15-c3u15-lo05",
+          "kind": "learning_outcome",
+          "text": "Write Division table of 3 and 6",
+          "match_any": [
+            "Write Division table of 3 and 6"
+          ],
+          "source_ids": [
+            "255f999d-b51e-4bfb-8cde-dbc63c36125a"
+          ],
+          "source_code": "C3U15-LO05",
+          "record_name": "Write Division table of 3 and 6"
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "question_match": "exact",
+      "historical_case_id": "gold-c3-math-u15-outcomes-complete",
+      "historical_question": "What are all the learning outcomes for Class 3 Mathematics unit C3-U15?",
+      "question_difference": null,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": []
+    },
+    {
+      "id": "marcus-c4-solar-outcomes",
+      "group": "complete_list",
+      "evaluation_type": "factual_list",
+      "question": "What learning outcomes are published for the Class 4 Science theme The Earth, The Solar System and the Moon?",
+      "grade_code": "CLASS_4",
+      "subject_code": "SCIENCE",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Science",
+        "SCIENCE"
+      ],
+      "support": "answerable",
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "required_facts": [
+        {
+          "fact_id": "c4-solar-c4t14-lo01",
+          "kind": "learning_outcome",
+          "text": "Identify the components of the solar system.",
+          "match_any": [
+            "Identify the components of the solar system."
+          ],
+          "source_ids": [
+            "26475bc6-5606-4502-b730-1c158b2b91f0"
+          ],
+          "source_code": "C4T14-LO01",
+          "record_name": "Identify the components of the solar system."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo02",
+          "kind": "learning_outcome",
+          "text": "Explain that the sun, moon and the earth form part of the solar system.",
+          "match_any": [
+            "Explain that the sun, moon and the earth form part of the solar system."
+          ],
+          "source_ids": [
+            "d6b5dec8-e8d6-4067-a49b-ebc4b3d8cc77"
+          ],
+          "source_code": "C4T14-LO02",
+          "record_name": "Explain that the sun, moon and the earth form part of the solar system."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo03",
+          "kind": "learning_outcome",
+          "text": "Describe movement of the moon round the earth.",
+          "match_any": [
+            "Describe movement of the moon round the earth."
+          ],
+          "source_ids": [
+            "4c1d01b0-9b99-4d57-9fad-e3b5175cd0e6"
+          ],
+          "source_code": "C4T14-LO03",
+          "record_name": "Describe movement of the moon round the earth."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo04",
+          "kind": "learning_outcome",
+          "text": "State and describe members of the solar system.",
+          "match_any": [
+            "State and describe members of the solar system."
+          ],
+          "source_ids": [
+            "85674a38-cbc7-49bf-8159-31b1f69214a7"
+          ],
+          "source_code": "C4T14-LO04",
+          "record_name": "State and describe members of the solar system."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo05",
+          "kind": "learning_outcome",
+          "text": "Explain whether the moon is a planet or star.",
+          "match_any": [
+            "Explain whether the moon is a planet or star."
+          ],
+          "source_ids": [
+            "dc0a0bea-1946-475a-a40b-9dfb8d23f49e"
+          ],
+          "source_code": "C4T14-LO05",
+          "record_name": "Explain whether the moon is a planet or star."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo06",
+          "kind": "learning_outcome",
+          "text": "Discuss the phases of the moon.",
+          "match_any": [
+            "Discuss the phases of the moon."
+          ],
+          "source_ids": [
+            "c9193c29-1107-4166-9bd2-234f72ffec70"
+          ],
+          "source_code": "C4T14-LO06",
+          "record_name": "Discuss the phases of the moon."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo07",
+          "kind": "learning_outcome",
+          "text": "State the uses of the moon.",
+          "match_any": [
+            "State the uses of the moon."
+          ],
+          "source_ids": [
+            "44b51e14-9cd4-420f-8506-f04c0d39744d"
+          ],
+          "source_code": "C4T14-LO07",
+          "record_name": "State the uses of the moon."
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "question_match": "exact",
+      "historical_case_id": "gold-c4-science-solar-outcomes-complete",
+      "historical_question": "What learning outcomes are published for the Class 4 Science theme The Earth, The Solar System and the Moon?",
+      "question_difference": null,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": []
+    },
+    {
+      "id": "marcus-c4-ela-term1",
+      "group": "complete_list",
+      "evaluation_type": "factual_list",
+      "question": "What units are published for the Class 4 English Language first term?",
+      "grade_code": "CLASS_4",
+      "subject_code": "ENGLISH_LANGUAGE",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "English Language",
+        "ENGLISH_LANGUAGE"
+      ],
+      "support": "answerable",
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "required_facts": [
+        {
+          "fact_id": "c4-ela-t1-c4-u01",
+          "kind": "content_record",
+          "text": "C4-U01",
+          "match_any": [
+            "C4-U01",
+            "My family"
+          ],
+          "source_ids": [
+            "f583efc3-228b-44ff-a096-792f5ec85788"
+          ],
+          "source_code": "C4-U01",
+          "record_name": "My family",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u02",
+          "kind": "content_record",
+          "text": "C4-U02",
+          "match_any": [
+            "C4-U02",
+            "Fun with Maths and Science"
+          ],
+          "source_ids": [
+            "1b80e24a-36f3-44ac-b10c-9c41f8b98af4"
+          ],
+          "source_code": "C4-U02",
+          "record_name": "Fun with Maths and Science",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u03",
+          "kind": "content_record",
+          "text": "C4-U03",
+          "match_any": [
+            "C4-U03",
+            "The seasons in Sierra Leone"
+          ],
+          "source_ids": [
+            "8e463e73-cb89-4703-9108-cfe7e52997b1"
+          ],
+          "source_code": "C4-U03",
+          "record_name": "The seasons in Sierra Leone",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u04",
+          "kind": "content_record",
+          "text": "C4-U04",
+          "match_any": [
+            "C4-U04",
+            "Flying"
+          ],
+          "source_ids": [
+            "3b79e89d-6113-4e62-9ac0-e8052c9b1074"
+          ],
+          "source_code": "C4-U04",
+          "record_name": "Flying",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u05",
+          "kind": "content_record",
+          "text": "C4-U05",
+          "match_any": [
+            "C4-U05",
+            "Crops"
+          ],
+          "source_ids": [
+            "adfdc60b-d380-4348-8268-d9b9022bf07d"
+          ],
+          "source_code": "C4-U05",
+          "record_name": "Crops",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u06",
+          "kind": "content_record",
+          "text": "C4-U06",
+          "match_any": [
+            "C4-U06",
+            "Seeds"
+          ],
+          "source_ids": [
+            "1c031ed1-d524-4664-b089-0e3caf102a5f"
+          ],
+          "source_code": "C4-U06",
+          "record_name": "Seeds",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u07",
+          "kind": "content_record",
+          "text": "C4-U07",
+          "match_any": [
+            "C4-U07",
+            "The River Sewa"
+          ],
+          "source_ids": [
+            "7574b891-99ff-4f24-a917-c013245e2931"
+          ],
+          "source_code": "C4-U07",
+          "record_name": "The River Sewa",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u08",
+          "kind": "content_record",
+          "text": "C4-U08",
+          "match_any": [
+            "C4-U08",
+            "Travelling to Freetown"
+          ],
+          "source_ids": [
+            "ce770023-d448-42e5-81ff-644acb9d6f97"
+          ],
+          "source_code": "C4-U08",
+          "record_name": "Travelling to Freetown",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u09",
+          "kind": "content_record",
+          "text": "C4-U09",
+          "match_any": [
+            "C4-U09",
+            "Men on the moon"
+          ],
+          "source_ids": [
+            "7619175c-5402-46ae-ae71-252bd58db056"
+          ],
+          "source_code": "C4-U09",
+          "record_name": "Men on the moon",
+          "content_type": "UNIT"
+        },
+        {
+          "fact_id": "c4-ela-t1-c4-u10",
+          "kind": "content_record",
+          "text": "C4-U10",
+          "match_any": [
+            "C4-U10",
+            "Looking after the classroom"
+          ],
+          "source_ids": [
+            "7544d1d6-7128-4b0f-91fa-7274010be3d7"
+          ],
+          "source_code": "C4-U10",
+          "record_name": "Looking after the classroom",
+          "content_type": "UNIT"
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "question_match": "exact",
+      "historical_case_id": "gold-c4-ela-term1-units-complete",
+      "historical_question": "What units are published for the Class 4 English Language first term?",
+      "question_difference": null,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": []
+    },
+    {
+      "id": "marcus-lesson-opener",
+      "group": "lesson_preparation",
+      "evaluation_type": "not_applicable",
+      "question": "Give me a lesson idea for introducing a new idea before I open the textbook.",
+      "grade_code": null,
+      "subject_code": null,
+      "ready_to_score": false,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "question_match": "not_applicable",
+      "required_facts": null,
+      "factual_scoring": false,
+      "fact_status": "not_applicable",
+      "behaviour_case_id": "gen-lesson-idea",
+      "not_scoreable_reason": "This is a general-channel question. It has no curriculum facts to score.",
+      "behavior_expectation": "General AI assistance only. Do not state a syllabus fact."
+    },
+    {
+      "id": "marcus-plan-unspecified",
+      "group": "lesson_preparation",
+      "evaluation_type": "not_applicable",
+      "question": "Plan tomorrow's lesson.",
+      "grade_code": null,
+      "subject_code": null,
+      "ready_to_score": false,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "question_match": "not_applicable",
+      "required_facts": null,
+      "factual_scoring": false,
+      "fact_status": "not_applicable",
+      "not_scoreable_reason": "No grade or subject is given, and no curriculum facts apply.",
+      "behavior_expectation": "Ask for the grade and subject. Do not invent a unit or outcomes."
+    },
+    {
+      "id": "marcus-teach-c4-u01",
+      "group": "lesson_preparation",
+      "evaluation_type": "lesson_plan",
+      "question": "Plan a lesson from the published Class 4 Mathematics C4-U01 outcomes, and suggest how to introduce them.",
+      "grade_code": "CLASS_4",
+      "subject_code": "MATHEMATICS",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "support": "answerable",
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "required_facts": null,
+      "curriculum_scope_facts": [
+        {
+          "fact_id": "c4-u01-c4u01-lo01",
+          "kind": "learning_outcome",
+          "text": "Count up to 5000 using a number line.",
+          "match_any": [
+            "Count up to 5000 using a number line."
+          ],
+          "source_ids": [
+            "e3e82bfc-285f-4ef7-992d-534afcb8b63e"
+          ],
+          "source_code": "C4U01-LO01",
+          "record_name": "Count up to 5000 using a number line."
+        },
+        {
+          "fact_id": "c4-u01-c4u01-lo02",
+          "kind": "learning_outcome",
+          "text": "Count up to 10,000 using a number line.",
+          "match_any": [
+            "Count up to 10,000 using a number line."
+          ],
+          "source_ids": [
+            "1f924af2-802d-4f13-af41-528cc9fc44f1"
+          ],
+          "source_code": "C4U01-LO02",
+          "record_name": "Count up to 10,000 using a number line."
+        },
+        {
+          "fact_id": "c4-u01-c4u01-lo03",
+          "kind": "learning_outcome",
+          "text": "Compare numbers up to 10,000 using number line.",
+          "match_any": [
+            "Compare numbers up to 10,000 using number line."
+          ],
+          "source_ids": [
+            "057877f7-cc6f-4a9b-bdac-33c47f307262"
+          ],
+          "source_code": "C4U01-LO03",
+          "record_name": "Compare numbers up to 10,000 using number line."
+        },
+        {
+          "fact_id": "c4-u01-c4u01-lo04",
+          "kind": "learning_outcome",
+          "text": "Read and write numbers in numerals up to 10,000 using place value.",
+          "match_any": [
+            "Read and write numbers in numerals up to 10,000 using place value."
+          ],
+          "source_ids": [
+            "d801249e-6f42-4ce7-a578-1e3f9bdc9642"
+          ],
+          "source_code": "C4U01-LO04",
+          "record_name": "Read and write numbers in numerals up to 10,000 using place value."
+        },
+        {
+          "fact_id": "c4-u01-c4u01-lo05",
+          "kind": "learning_outcome",
+          "text": "Use place value system up to 10,000,000.",
+          "match_any": [
+            "Use place value system up to 10,000,000."
+          ],
+          "source_ids": [
+            "e05ee042-e278-4003-a0e7-44e8dc986b65"
+          ],
+          "source_code": "C4U01-LO05",
+          "record_name": "Use place value system up to 10,000,000."
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": false,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "question_match": "not_comparable",
+      "historical_case_id": "gold-c4-math-u01-outcomes-complete",
+      "historical_question": "What are all the learning outcomes for Class 4 Mathematics unit C4-U01, Number and Numeration?",
+      "question_difference": "The historical question asks for the published list. This question also asks for lesson preparation. The saved list answer is not a lesson answer and is not scored here.",
+      "comparability": "Curriculum scope copied. No lesson answer is transferable.",
+      "channel_expectation": "Curriculum channel must contain the five frozen outcomes. Teaching suggestions stay off that channel. No period count.",
+      "lesson_rubric": {
+        "curriculum_scope_field": "curriculum_scope_facts",
+        "scope_source": "curriculum-qa-gold-v1 C4-U01 outcomes",
+        "required_lesson_elements_not_in_source": [
+          "A lesson introduction or teaching step that is not a published outcome sentence."
+        ],
+        "must_not_score_as": "A generic complete-list rubric. A bare list of the five outcomes is not a lesson."
+      },
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": false,
+      "not_scoreable_reason": "The frozen records fix the curriculum scope, but they do not state lesson steps or how teaching advice must be separated from the curriculum channel. Scoring the copied fact list would accept a bare list as a completed lesson."
+    },
+    {
+      "id": "marcus-teach-solar",
+      "group": "lesson_preparation",
+      "evaluation_type": "lesson_plan",
+      "question": "Draft lesson objectives from the Class 4 Science solar-system outcomes only.",
+      "grade_code": "CLASS_4",
+      "subject_code": "SCIENCE",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Science",
+        "SCIENCE"
+      ],
+      "support": "answerable",
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "required_facts": null,
+      "curriculum_scope_facts": [
+        {
+          "fact_id": "c4-solar-c4t14-lo01",
+          "kind": "learning_outcome",
+          "text": "Identify the components of the solar system.",
+          "match_any": [
+            "Identify the components of the solar system."
+          ],
+          "source_ids": [
+            "26475bc6-5606-4502-b730-1c158b2b91f0"
+          ],
+          "source_code": "C4T14-LO01",
+          "record_name": "Identify the components of the solar system."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo02",
+          "kind": "learning_outcome",
+          "text": "Explain that the sun, moon and the earth form part of the solar system.",
+          "match_any": [
+            "Explain that the sun, moon and the earth form part of the solar system."
+          ],
+          "source_ids": [
+            "d6b5dec8-e8d6-4067-a49b-ebc4b3d8cc77"
+          ],
+          "source_code": "C4T14-LO02",
+          "record_name": "Explain that the sun, moon and the earth form part of the solar system."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo03",
+          "kind": "learning_outcome",
+          "text": "Describe movement of the moon round the earth.",
+          "match_any": [
+            "Describe movement of the moon round the earth."
+          ],
+          "source_ids": [
+            "4c1d01b0-9b99-4d57-9fad-e3b5175cd0e6"
+          ],
+          "source_code": "C4T14-LO03",
+          "record_name": "Describe movement of the moon round the earth."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo04",
+          "kind": "learning_outcome",
+          "text": "State and describe members of the solar system.",
+          "match_any": [
+            "State and describe members of the solar system."
+          ],
+          "source_ids": [
+            "85674a38-cbc7-49bf-8159-31b1f69214a7"
+          ],
+          "source_code": "C4T14-LO04",
+          "record_name": "State and describe members of the solar system."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo05",
+          "kind": "learning_outcome",
+          "text": "Explain whether the moon is a planet or star.",
+          "match_any": [
+            "Explain whether the moon is a planet or star."
+          ],
+          "source_ids": [
+            "dc0a0bea-1946-475a-a40b-9dfb8d23f49e"
+          ],
+          "source_code": "C4T14-LO05",
+          "record_name": "Explain whether the moon is a planet or star."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo06",
+          "kind": "learning_outcome",
+          "text": "Discuss the phases of the moon.",
+          "match_any": [
+            "Discuss the phases of the moon."
+          ],
+          "source_ids": [
+            "c9193c29-1107-4166-9bd2-234f72ffec70"
+          ],
+          "source_code": "C4T14-LO06",
+          "record_name": "Discuss the phases of the moon."
+        },
+        {
+          "fact_id": "c4-solar-c4t14-lo07",
+          "kind": "learning_outcome",
+          "text": "State the uses of the moon.",
+          "match_any": [
+            "State the uses of the moon."
+          ],
+          "source_ids": [
+            "44b51e14-9cd4-420f-8506-f04c0d39744d"
+          ],
+          "source_code": "C4T14-LO07",
+          "record_name": "State the uses of the moon."
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": false,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "question_match": "not_comparable",
+      "historical_case_id": "gold-c4-science-solar-outcomes-complete",
+      "historical_question": "What learning outcomes are published for the Class 4 Science theme The Earth, The Solar System and the Moon?",
+      "question_difference": "The historical question asks for the published list. This question also asks for lesson preparation. The saved list answer is not a lesson answer and is not scored here.",
+      "comparability": "Curriculum scope copied. No lesson answer is transferable.",
+      "channel_expectation": "Curriculum channel must contain the seven frozen outcomes and no further outcome.",
+      "lesson_rubric": {
+        "curriculum_scope_field": "curriculum_scope_facts",
+        "scope_source": "curriculum-qa-gold-v1 C4-T14 outcomes",
+        "required_lesson_elements_not_in_source": [
+          "Lesson objectives written as a lesson, beyond copying the seven outcome sentences."
+        ],
+        "must_not_score_as": "A generic complete-list rubric. A bare list of the seven outcomes is not a lesson."
+      },
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": false,
+      "not_scoreable_reason": "The frozen records fix the curriculum scope, but they do not state lesson steps or how teaching advice must be separated from the curriculum channel. Scoring the copied fact list would accept a bare list as a completed lesson."
+    },
+    {
+      "id": "marcus-teach-bio-topics",
+      "group": "lesson_preparation",
+      "evaluation_type": "lesson_plan",
+      "question": "Prepare a lesson using only the topics under SSS 1 Biology, Introduction to Biology.",
+      "grade_code": "SSS_1",
+      "subject_code": "BIOLOGY",
+      "grade_labels": [
+        "SSS 1",
+        "SSS1",
+        "SSS_1"
+      ],
+      "subject_labels": [
+        "Biology",
+        "BIOLOGY"
+      ],
+      "support": "answerable",
+      "must_be_complete": true,
+      "uncertainty": "not_applicable",
+      "required_facts": null,
+      "curriculum_scope_facts": [
+        {
+          "fact_id": "sss1-bio-intro-s1-t1-01-01",
+          "kind": "content_record",
+          "text": "S1-T1-01-01",
+          "match_any": [
+            "S1-T1-01-01",
+            "Living and non-living things"
+          ],
+          "source_ids": [
+            "ed17c858-fca0-405e-b108-1684ff241c0e"
+          ],
+          "source_code": "S1-T1-01-01",
+          "record_name": "Living and non-living things",
+          "content_type": "TOPIC"
+        },
+        {
+          "fact_id": "sss1-bio-intro-s1-t1-01-02",
+          "kind": "content_record",
+          "text": "S1-T1-01-02",
+          "match_any": [
+            "S1-T1-01-02",
+            "Diversity of living things"
+          ],
+          "source_ids": [
+            "2561f622-b44d-437f-8b90-109d88cf9b13"
+          ],
+          "source_code": "S1-T1-01-02",
+          "record_name": "Diversity of living things",
+          "content_type": "TOPIC"
+        },
+        {
+          "fact_id": "sss1-bio-intro-s1-t1-01-03",
+          "kind": "content_record",
+          "text": "S1-T1-01-03",
+          "match_any": [
+            "S1-T1-01-03",
+            "Classification"
+          ],
+          "source_ids": [
+            "52e52f37-c983-4667-bc9c-fb3a130991cb"
+          ],
+          "source_code": "S1-T1-01-03",
+          "record_name": "Classification",
+          "content_type": "TOPIC"
+        }
+      ],
+      "forbidden_substitutions": [
+        {
+          "text": "Cell theory",
+          "match_any": [
+            "Cell theory",
+            "S1-T1-02"
+          ],
+          "reason": "Cell theory is theme S1-T1-02, a sibling of Introduction to Biology, not one of its topics."
+        }
+      ],
+      "unsupported_patterns": [],
+      "absence": null,
+      "ready_to_score": false,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "question_match": "not_comparable",
+      "historical_case_id": "gold-sss1-bio-intro-topics-complete",
+      "historical_question": "What topics are listed under the SSS 1 Biology theme Introduction to Biology?",
+      "question_difference": "The historical question asks for the published list. This question also asks for lesson preparation. The saved list answer is not a lesson answer and is not scored here.",
+      "comparability": "Curriculum scope copied. No lesson answer is transferable.",
+      "channel_expectation": "Curriculum channel must contain the three frozen topics. LO04 is not required.",
+      "lesson_rubric": {
+        "curriculum_scope_field": "curriculum_scope_facts",
+        "scope_source": "curriculum-qa-gold-v1 Introduction to Biology topics",
+        "required_lesson_elements_not_in_source": [
+          "A lesson activity or sequence. LO04 is outside this topic-list scope."
+        ],
+        "must_not_score_as": "A generic topic-list rubric. A bare list of the three topics is not a lesson."
+      },
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": false,
+      "not_scoreable_reason": "The frozen records fix the curriculum scope, but they do not state lesson steps or how teaching advice must be separated from the curriculum channel. Scoring the copied fact list would accept a bare list as a completed lesson."
+    },
+    {
+      "id": "marcus-teach-fractions",
+      "group": "lesson_preparation",
+      "evaluation_type": "blocked_enumeration",
+      "question": "How should I teach fractions to Class 4?",
+      "grade_code": "CLASS_4",
+      "subject_code": "MATHEMATICS",
+      "ready_to_score": false,
+      "requires_fact_enumeration": true,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "question_match": "none",
+      "required_facts": null,
+      "factual_scoring": false,
+      "fact_status": "outcomes_not_in_repository",
+      "related_records": [
+        {
+          "source_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "source_code": "C4-U04",
+          "record_name": "Number and Numeration FRACTION",
+          "fact_id": "c4-math-c4-u04"
+        },
+        {
+          "source_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "source_code": "C4-U05",
+          "record_name": "Number and Numeration OPERATION ON FRACTIONS.",
+          "fact_id": "c4-math-c4-u05"
+        },
+        {
+          "source_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "source_code": "C4-U06",
+          "record_name": "Number and Numeration Operation on Fraction. (Multiplication)",
+          "fact_id": "c4-math-c4-u06"
+        }
+      ],
+      "source_limitation": "The frozen Class 4 Mathematics unit list names C4-U04, C4-U05, and C4-U06 with fraction in the title. It does not include their learning outcomes, and no repository record states how those units should be taught. The three titles are not a lesson rubric.",
+      "not_scoreable_reason": "Fraction outcomes and teaching steps are not in the repository, so this lesson question cannot be scored.",
+      "behavior_expectation": "Do not invent fraction outcomes."
+    },
+    {
+      "id": "marcus-c4-french",
+      "group": "unavailable_source",
+      "evaluation_type": "catalogue_abstention",
+      "question": "What units does the Class 4 French subject cover?",
+      "grade_code": "CLASS_4",
+      "subject_code": "FRENCH",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "French",
+        "FRENCH"
+      ],
+      "support": "insufficient",
+      "must_be_complete": false,
+      "uncertainty": "abstain",
+      "required_facts": [],
+      "forbidden_substitutions": [
+        {
+          "text": "Ordinal Numbers (premier, deuxi\u00e8me etc.)",
+          "match_any": [
+            "Ordinal Numbers (premier, deuxi\u00e8me etc.)",
+            "Quelle heure est-il?"
+          ],
+          "reason": "Those rows belong to Class 4 French Appreciation, subject code FRENCH_APPRECIATION, not to a Class 4 French subject."
+        }
+      ],
+      "unsupported_patterns": [],
+      "absence": {
+        "claim": "Class 4 has a published French subject syllabus.",
+        "searched": "All MBSSE-BEC grade curricula whose grade code is CLASS_4.",
+        "found_instead": "Class 4 publishes FRENCH_APPRECIATION. Subject code FRENCH is not among the 14 Class 4 subject rows. JSS 1 does publish FRENCH.",
+        "why_insufficient": "No Class 4 grade curriculum supports a unit list for subject code FRENCH. French Appreciation records cannot be substituted for that claim."
+      },
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "question_match": "exact",
+      "historical_case_id": "gold-c4-french-subject-absent",
+      "historical_question": "What units does the Class 4 French subject cover?",
+      "question_difference": null,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": [
+        {
+          "source_id": "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+          "source_code": "ENGLISH_LANGUAGE",
+          "record_name": "English Language",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "source_code": "MATHEMATICS",
+          "record_name": "Mathematics",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "be2bec7d-db04-4307-8300-466dc896466f",
+          "source_code": "CIVIC_EDUCATION",
+          "record_name": "Civic Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "13bc18c0-c518-47ef-911c-8c7174d05555",
+          "source_code": "SOCIAL_STUDIES",
+          "record_name": "Social Studies",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+          "source_code": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+          "record_name": "Physical Health Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "c049057b-ea42-4baf-a902-d3e6c63dc320",
+          "source_code": "MUSIC_EXPRESSIVE_ARTS",
+          "record_name": "Music and Other Expressive Arts",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "44c8b694-3fdd-473c-a256-bc22fd926da1",
+          "source_code": "FRENCH_APPRECIATION",
+          "record_name": "French Appreciation",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+          "source_code": "SCIENCE",
+          "record_name": "Science",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1",
+          "source_code": "ICT_LITERACY",
+          "record_name": "ICT Literacy",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736",
+          "source_code": "HOME_ECONOMICS",
+          "record_name": "Home Economics",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "04b05a43-1208-4fd9-b6c3-31eed3d40063",
+          "source_code": "PRACTICAL_ARTS",
+          "record_name": "Practical Arts",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "236bd50f-63f3-44bb-8c16-c2aa5e3441ea",
+          "source_code": "RELIGIOUS_MORAL_EDUCATION",
+          "record_name": "Religious and Moral Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "5b7bcdd9-4984-49d5-9b99-c1653a1470bf",
+          "source_code": "SIERRA_LEONE_NATIONAL_LANGUAGES",
+          "record_name": "Sierra Leone National Languages",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "c09f3006-e982-4696-b0c5-47b9c4eb4dab",
+          "source_code": "AGRICULTURAL_SCIENCE",
+          "record_name": "Agricultural Science",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        }
+      ]
+    },
+    {
+      "id": "marcus-c4-astronomy",
+      "group": "unavailable_source",
+      "evaluation_type": "catalogue_abstention",
+      "question": "What does the Class 4 Mathematics syllabus say about astronomy?",
+      "grade_code": "CLASS_4",
+      "subject_code": "MATHEMATICS",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "support": "insufficient",
+      "must_be_complete": false,
+      "uncertainty": "abstain",
+      "required_facts": [],
+      "forbidden_substitutions": [
+        {
+          "text": "The Earth, The Solar System and the Moon",
+          "match_any": [
+            "The Earth, The Solar System and the Moon",
+            "C4-T14"
+          ],
+          "reason": "That theme is Class 4 Science, not Class 4 Mathematics. The Mathematics content that was enumerated does not contain the word astronomy."
+        }
+      ],
+      "unsupported_patterns": [],
+      "absence": {
+        "claim": "Class 4 Mathematics publishes astronomy content.",
+        "searched": "Unit names and learning-outcome descriptions on grade curriculum b1bcff00-3d07-4e92-b426-97e3bfee12ec.",
+        "found_instead": "Class 4 Science theme C4-T14 covers the Earth, the solar system and the Moon. That theme was not used as a Mathematics fact.",
+        "why_insufficient": "The requested claim is not supported by the Class 4 Mathematics records. A Science theme about the solar system does not establish a Mathematics astronomy statement."
+      },
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "question_match": "exact",
+      "historical_case_id": "gold-c4-math-astronomy-absent",
+      "historical_question": "What does the Class 4 Mathematics syllabus say about astronomy?",
+      "question_difference": null,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": [
+        {
+          "source_id": "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+          "source_code": "ENGLISH_LANGUAGE",
+          "record_name": "English Language",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "source_code": "MATHEMATICS",
+          "record_name": "Mathematics",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "be2bec7d-db04-4307-8300-466dc896466f",
+          "source_code": "CIVIC_EDUCATION",
+          "record_name": "Civic Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "13bc18c0-c518-47ef-911c-8c7174d05555",
+          "source_code": "SOCIAL_STUDIES",
+          "record_name": "Social Studies",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+          "source_code": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+          "record_name": "Physical Health Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "c049057b-ea42-4baf-a902-d3e6c63dc320",
+          "source_code": "MUSIC_EXPRESSIVE_ARTS",
+          "record_name": "Music and Other Expressive Arts",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "44c8b694-3fdd-473c-a256-bc22fd926da1",
+          "source_code": "FRENCH_APPRECIATION",
+          "record_name": "French Appreciation",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+          "source_code": "SCIENCE",
+          "record_name": "Science",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1",
+          "source_code": "ICT_LITERACY",
+          "record_name": "ICT Literacy",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736",
+          "source_code": "HOME_ECONOMICS",
+          "record_name": "Home Economics",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "04b05a43-1208-4fd9-b6c3-31eed3d40063",
+          "source_code": "PRACTICAL_ARTS",
+          "record_name": "Practical Arts",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "236bd50f-63f3-44bb-8c16-c2aa5e3441ea",
+          "source_code": "RELIGIOUS_MORAL_EDUCATION",
+          "record_name": "Religious and Moral Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "5b7bcdd9-4984-49d5-9b99-c1653a1470bf",
+          "source_code": "SIERRA_LEONE_NATIONAL_LANGUAGES",
+          "record_name": "Sierra Leone National Languages",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "c09f3006-e982-4696-b0c5-47b9c4eb4dab",
+          "source_code": "AGRICULTURAL_SCIENCE",
+          "record_name": "Agricultural Science",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        }
+      ]
+    },
+    {
+      "id": "marcus-c4-u01-periods",
+      "group": "unavailable_source",
+      "evaluation_type": "partial_fact_list",
+      "question": "What are the C4-U01 outcomes, and how many recommended periods does that unit assign?",
+      "grade_code": "CLASS_4",
+      "subject_code": "MATHEMATICS",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Mathematics",
+        "MATHEMATICS"
+      ],
+      "support": "partially_answerable",
+      "must_be_complete": true,
+      "uncertainty": "state_missing_part",
+      "required_facts": [
+        {
+          "fact_id": "c4-u01-partial-c4u01-lo01",
+          "kind": "learning_outcome",
+          "text": "Count up to 5000 using a number line.",
+          "match_any": [
+            "Count up to 5000 using a number line."
+          ],
+          "source_ids": [
+            "e3e82bfc-285f-4ef7-992d-534afcb8b63e"
+          ],
+          "source_code": "C4U01-LO01",
+          "record_name": "Count up to 5000 using a number line."
+        },
+        {
+          "fact_id": "c4-u01-partial-c4u01-lo02",
+          "kind": "learning_outcome",
+          "text": "Count up to 10,000 using a number line.",
+          "match_any": [
+            "Count up to 10,000 using a number line."
+          ],
+          "source_ids": [
+            "1f924af2-802d-4f13-af41-528cc9fc44f1"
+          ],
+          "source_code": "C4U01-LO02",
+          "record_name": "Count up to 10,000 using a number line."
+        },
+        {
+          "fact_id": "c4-u01-partial-c4u01-lo03",
+          "kind": "learning_outcome",
+          "text": "Compare numbers up to 10,000 using number line.",
+          "match_any": [
+            "Compare numbers up to 10,000 using number line."
+          ],
+          "source_ids": [
+            "057877f7-cc6f-4a9b-bdac-33c47f307262"
+          ],
+          "source_code": "C4U01-LO03",
+          "record_name": "Compare numbers up to 10,000 using number line."
+        },
+        {
+          "fact_id": "c4-u01-partial-c4u01-lo04",
+          "kind": "learning_outcome",
+          "text": "Read and write numbers in numerals up to 10,000 using place value.",
+          "match_any": [
+            "Read and write numbers in numerals up to 10,000 using place value."
+          ],
+          "source_ids": [
+            "d801249e-6f42-4ce7-a578-1e3f9bdc9642"
+          ],
+          "source_code": "C4U01-LO04",
+          "record_name": "Read and write numbers in numerals up to 10,000 using place value."
+        },
+        {
+          "fact_id": "c4-u01-partial-c4u01-lo05",
+          "kind": "learning_outcome",
+          "text": "Use place value system up to 10,000,000.",
+          "match_any": [
+            "Use place value system up to 10,000,000."
+          ],
+          "source_ids": [
+            "e05ee042-e278-4003-a0e7-44e8dc986b65"
+          ],
+          "source_code": "C4U01-LO05",
+          "record_name": "Use place value system up to 10,000,000."
+        }
+      ],
+      "forbidden_substitutions": [],
+      "unsupported_patterns": [
+        "\\b\\d+\\s+recommended periods\\b",
+        "\\b\\d+\\s+periods\\b"
+      ],
+      "absence": {
+        "claim": "Unit C4-U01 assigns a recommended period count.",
+        "searched": "recommended_periods on content id f293e00a-bae7-44db-ad55-3c1263e20387.",
+        "found_instead": "The field is null. The five learning outcomes are present.",
+        "why_insufficient": "The period-count part of the question cannot be supported. The outcome part can."
+      },
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": true,
+      "question_match": "approximate",
+      "historical_case_id": "gold-c4-math-u01-periods-partial",
+      "historical_question": "What are the learning outcomes for Class 4 Mathematics unit C4-U01, and how many recommended periods does that unit assign?",
+      "question_difference": "Proposed wording is shorter than the historical question. Both ask for the C4-U01 outcomes and the recommended period count. The saved answer was produced for the longer question, so it is an approximate rescore, not an exact one.",
+      "comparability": "Proposed wording is shorter than the historical question. Both ask for the C4-U01 outcomes and the recommended period count. The saved answer was produced for the longer question, so it is an approximate rescore, not an exact one.",
+      "fact_source": "curriculum-qa-gold-v1",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": []
+    },
+    {
+      "support": "insufficient",
+      "must_be_complete": false,
+      "uncertainty": "abstain",
+      "required_facts": [],
+      "unsupported_patterns": [],
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "question_match": "none",
+      "evaluation_type": "catalogue_abstention",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": [
+        {
+          "source_id": "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+          "source_code": "ENGLISH_LANGUAGE",
+          "record_name": "English Language",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "source_code": "MATHEMATICS",
+          "record_name": "Mathematics",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "be2bec7d-db04-4307-8300-466dc896466f",
+          "source_code": "CIVIC_EDUCATION",
+          "record_name": "Civic Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "13bc18c0-c518-47ef-911c-8c7174d05555",
+          "source_code": "SOCIAL_STUDIES",
+          "record_name": "Social Studies",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+          "source_code": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+          "record_name": "Physical Health Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "c049057b-ea42-4baf-a902-d3e6c63dc320",
+          "source_code": "MUSIC_EXPRESSIVE_ARTS",
+          "record_name": "Music and Other Expressive Arts",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "44c8b694-3fdd-473c-a256-bc22fd926da1",
+          "source_code": "FRENCH_APPRECIATION",
+          "record_name": "French Appreciation",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+          "source_code": "SCIENCE",
+          "record_name": "Science",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1",
+          "source_code": "ICT_LITERACY",
+          "record_name": "ICT Literacy",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736",
+          "source_code": "HOME_ECONOMICS",
+          "record_name": "Home Economics",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "04b05a43-1208-4fd9-b6c3-31eed3d40063",
+          "source_code": "PRACTICAL_ARTS",
+          "record_name": "Practical Arts",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "236bd50f-63f3-44bb-8c16-c2aa5e3441ea",
+          "source_code": "RELIGIOUS_MORAL_EDUCATION",
+          "record_name": "Religious and Moral Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "5b7bcdd9-4984-49d5-9b99-c1653a1470bf",
+          "source_code": "SIERRA_LEONE_NATIONAL_LANGUAGES",
+          "record_name": "Sierra Leone National Languages",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "c09f3006-e982-4696-b0c5-47b9c4eb4dab",
+          "source_code": "AGRICULTURAL_SCIENCE",
+          "record_name": "Agricultural Science",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        }
+      ],
+      "scoring_note": "Official v1 accepts this absence only when the observation status is insufficient_evidence or needs_clarification and the answer states the absence. A blank answer does not pass. A completed answer does not pass, even when its sentence is negative.",
+      "id": "marcus-c4-integrated-science",
+      "group": "unavailable_source",
+      "question": "What is the first published unit of Class 4 Integrated Science?",
+      "grade_code": "CLASS_4",
+      "subject_code": "INTEGRATED_SCIENCE",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Integrated Science",
+        "INTEGRATED_SCIENCE"
+      ],
+      "forbidden_substitutions": [
+        {
+          "text": "Meaning, branches and Importance of Science",
+          "match_any": [
+            "Meaning, branches and Importance of Science"
+          ],
+          "reason": "That unit is JSS 1 Integrated Science, not Class 4.",
+          "source_ids": [
+            "83b85707-2bfc-429e-bbff-9c2be76dd28a"
+          ],
+          "source_code": "J1-U01"
+        },
+        {
+          "text": "Living and Non \u2013 living Things",
+          "match_any": [
+            "Living and Non \u2013 living Things"
+          ],
+          "reason": "That unit is Class 4 Science, not Class 4 Integrated Science.",
+          "source_ids": [
+            "c29a01f8-4009-4f27-a455-165e46b01a52"
+          ],
+          "source_code": "C4-U01"
+        }
+      ],
+      "absence": {
+        "claim": "Class 4 publishes an Integrated Science grade curriculum.",
+        "searched": "The 14 stored Class 4 subject rows and the frozen gold source notes.",
+        "found_instead": "INTEGRATED_SCIENCE is not among those rows. Class 4 publishes Science. JSS 1 publishes Integrated Science.",
+        "why_insufficient": "No Class 4 Integrated Science unit can be named from these records."
+      },
+      "behavior_expectation": "Abstain. Do not return the JSS 1 unit or Class 4 Science C4-U01."
+    },
+    {
+      "support": "insufficient",
+      "must_be_complete": false,
+      "uncertainty": "abstain",
+      "required_facts": [],
+      "unsupported_patterns": [],
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "question_match": "none",
+      "evaluation_type": "catalogue_abstention",
+      "factual_scoring": true,
+      "not_scoreable_reason": null,
+      "source_records": [
+        {
+          "source_id": "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+          "source_code": "ENGLISH_LANGUAGE",
+          "record_name": "English Language",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "source_code": "MATHEMATICS",
+          "record_name": "Mathematics",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "be2bec7d-db04-4307-8300-466dc896466f",
+          "source_code": "CIVIC_EDUCATION",
+          "record_name": "Civic Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "13bc18c0-c518-47ef-911c-8c7174d05555",
+          "source_code": "SOCIAL_STUDIES",
+          "record_name": "Social Studies",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+          "source_code": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+          "record_name": "Physical Health Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "c049057b-ea42-4baf-a902-d3e6c63dc320",
+          "source_code": "MUSIC_EXPRESSIVE_ARTS",
+          "record_name": "Music and Other Expressive Arts",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "44c8b694-3fdd-473c-a256-bc22fd926da1",
+          "source_code": "FRENCH_APPRECIATION",
+          "record_name": "French Appreciation",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+          "source_code": "SCIENCE",
+          "record_name": "Science",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1",
+          "source_code": "ICT_LITERACY",
+          "record_name": "ICT Literacy",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736",
+          "source_code": "HOME_ECONOMICS",
+          "record_name": "Home Economics",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "04b05a43-1208-4fd9-b6c3-31eed3d40063",
+          "source_code": "PRACTICAL_ARTS",
+          "record_name": "Practical Arts",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "236bd50f-63f3-44bb-8c16-c2aa5e3441ea",
+          "source_code": "RELIGIOUS_MORAL_EDUCATION",
+          "record_name": "Religious and Moral Education",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "5b7bcdd9-4984-49d5-9b99-c1653a1470bf",
+          "source_code": "SIERRA_LEONE_NATIONAL_LANGUAGES",
+          "record_name": "Sierra Leone National Languages",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        },
+        {
+          "source_id": "c09f3006-e982-4696-b0c5-47b9c4eb4dab",
+          "source_code": "AGRICULTURAL_SCIENCE",
+          "record_name": "Agricultural Science",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        }
+      ],
+      "scoring_note": "Official v1 accepts this absence only when the observation status is insufficient_evidence or needs_clarification and the answer states the absence. A blank answer does not pass. A completed answer does not pass, even when its sentence is negative.",
+      "id": "marcus-p4-astronomy-subject",
+      "group": "unavailable_source",
+      "question": "What topics are taught in Primary 4 Astronomy?",
+      "grade_code": "CLASS_4",
+      "subject_code": "ASTRONOMY",
+      "grade_labels": [
+        "Class 4",
+        "Primary 4",
+        "CLASS_4"
+      ],
+      "subject_labels": [
+        "Astronomy",
+        "ASTRONOMY"
+      ],
+      "forbidden_substitutions": [
+        {
+          "text": "The Earth, The Solar System and the Moon",
+          "match_any": [
+            "The Earth, The Solar System and the Moon"
+          ],
+          "reason": "C4-T14 is a Class 4 Science theme, not a Primary 4 Astronomy subject.",
+          "source_ids": [
+            "fabc7c01-ed57-4ad9-ac2f-fe4c01f9b1a9"
+          ],
+          "source_code": "C4-T14"
+        }
+      ],
+      "absence": {
+        "claim": "Primary 4 publishes an Astronomy subject.",
+        "searched": "The 14 stored Class 4 subject rows.",
+        "found_instead": "No row is named Astronomy or coded ASTRONOMY.",
+        "why_insufficient": "Astronomy topics cannot be listed from this catalogue."
+      },
+      "behavior_expectation": "Abstain. Do not invent Astronomy topics and do not substitute the Class 4 Science solar-system theme."
+    },
+    {
+      "id": "marcus-c4-french-appreciation",
+      "group": "unavailable_source",
+      "evaluation_type": "blocked_enumeration",
+      "question": "What units does Class 4 French Appreciation cover?",
+      "grade_code": "CLASS_4",
+      "subject_code": "FRENCH_APPRECIATION",
+      "ready_to_score": false,
+      "requires_fact_enumeration": true,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "question_match": "none",
+      "required_facts": null,
+      "factual_scoring": false,
+      "fact_status": "unit_rows_not_in_repository",
+      "source_records": [
+        {
+          "source_id": "44c8b694-3fdd-473c-a256-bc22fd926da1",
+          "source_code": "FRENCH_APPRECIATION",
+          "record_name": "French Appreciation",
+          "grade_code": "CLASS_4",
+          "content_type": "SUBJECT",
+          "provenance": "stored Class 4 subject catalogue retrieval"
+        }
+      ],
+      "unusable_strings": [
+        {
+          "text": "Ordinal Numbers (premier, deuxi\u00e8me etc.)",
+          "reason": "The Class 4 French gold case says this string belongs to French Appreciation, but it gives no source id and it is not a unit list."
+        },
+        {
+          "text": "Quelle heure est-il?",
+          "reason": "The Class 4 French gold case says this string belongs to French Appreciation, but it gives no source id and it is not a unit list."
+        }
+      ],
+      "source_limitation": "The stored Class 4 catalogue has subject French Appreciation, id 44c8b694-3fdd-473c-a256-bc22fd926da1, code FRENCH_APPRECIATION. No unit, topic, or learning-outcome rows for that subject are in the repository. Another French subject must not be substituted.",
+      "not_scoreable_reason": "French Appreciation unit rows have not been found, so a unit list cannot be scored.",
+      "behavior_expectation": "Do not answer with Class 4 French units and do not invent French Appreciation units."
+    }
+  ]
+}

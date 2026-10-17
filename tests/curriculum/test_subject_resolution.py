@@ -91,6 +91,20 @@ def test_structure_call_keeps_grade_and_replaces_short_subject():
     assert jss_args["subject"] == "INTEGRATED_SCIENCE"
 
 
+def test_sss_french_structure_call_keeps_the_published_sss_code():
+    question = "What topics are in SSS 1 French as a Foreign Language?"
+    filters = extract_filters_from_question(question)
+    state = CurriculumQAState.initial(question=question)
+    state.grade = filters["grade"]
+    state.subject = filters["subject"]
+    args = _arguments_for_call(
+        state,
+        "get_curriculum_structure",
+        {"grade": "SSS_1", "subject": "FRENCH_FOREIGN_LANGUAGE"},
+    )
+    assert args["subject"] == "FRENCH_FOREIGN_LANGUAGE"
+
+
 def test_unresolved_subject_is_not_replaced_on_structure_call():
     state = CurriculumQAState.initial(question="What is basket weaving in Class 4?")
     state.grade = "CLASS_4"

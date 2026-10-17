@@ -131,9 +131,37 @@ class ThreadSummary(BaseModel):
     updated_at: str
 
 
+class ThreadPreview(BaseModel):
+    """Owned thread fields for a sidebar list. No message body and no teacher id."""
+
+    thread_id: str
+    grade: Optional[str] = None
+    subject: Optional[str] = None
+    task: Optional[str] = None
+    created_at: str
+    updated_at: str
+    first_user_message: Optional[str] = None
+
+
 class ThreadRecord(ThreadSummary):
     messages: list[ThreadMessage] = Field(default_factory=list)
     qa_outcome: Optional[QaOutcomeSummary] = None
+
+
+_TITLE_LIMIT = 80
+_EMPTY_THREAD_TITLE = "New chat"
+
+
+def thread_title(first_user_message: str | None) -> str:
+    """Sidebar label from the first user message. No stored title column."""
+    if not isinstance(first_user_message, str):
+        return _EMPTY_THREAD_TITLE
+    compact = " ".join(first_user_message.split())
+    if not compact:
+        return _EMPTY_THREAD_TITLE
+    if len(compact) <= _TITLE_LIMIT:
+        return compact
+    return compact[: _TITLE_LIMIT - 1].rstrip() + "…"
 
 
 def qa_context_hint(record: ThreadSummary) -> WorkingContext:
@@ -238,6 +266,44 @@ class AssistantThreadStore:
                 (teacher.teacher_id,),
             ).fetchall()
         return [_summary(row) for row in rows]
+
+    def list_previews(self, principal: TrustedTeacher) -> list[ThreadPreview]:
+        """Owned threads in the same order as ``list_threads``.
+
+        ``first_user_message`` is the earliest user row, or None when the
+        thread has no user message. Titles are not stored.
+        """
+        teacher = require_trusted_teacher(principal)
+        with self._transaction() as conn:
+            rows = conn.execute(
+                """
+                SELECT t.thread_id, t.grade, t.subject, t.task,
+                       t.created_at, t.updated_at,
+                       (
+                           SELECT m.content
+                           FROM messages m
+                           WHERE m.thread_id = t.thread_id AND m.role = 'user'
+                           ORDER BY m.message_id ASC
+                           LIMIT 1
+                       ) AS first_user_message
+                FROM threads t
+                WHERE t.teacher_id = ?
+                ORDER BY t.updated_at DESC, t.thread_id ASC
+                """,
+                (teacher.teacher_id,),
+            ).fetchall()
+        return [
+            ThreadPreview(
+                thread_id=row["thread_id"],
+                grade=row["grade"],
+                subject=row["subject"],
+                task=row["task"],
+                created_at=row["created_at"],
+                updated_at=row["updated_at"],
+                first_user_message=row["first_user_message"],
+            )
+            for row in rows
+        ]
 
     def append_message(
         self,

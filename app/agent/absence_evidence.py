@@ -119,8 +119,20 @@ def format_absence_prompt(records: list[CurriculumEvidence]) -> str:
             lines.append(f"Name: {item.name}")
         if item.content and item.content != item.name:
             lines.append(f"Content: {item.content}")
-        code = (item.metadata or {}).get("code")
-        if code and (item.entity_type or "").lower() != "subject":
+        meta = item.metadata or {}
+        code = meta.get("code")
+        if (
+            (item.entity_type or "").lower() == "subject"
+            and meta.get("requested_subject_syllabus") == "not_found"
+        ):
+            if code:
+                lines.append(f"Subject code: {code}")
+            lines.append(
+                "Record role: grade subject catalogue. This row names a subject "
+                "published for the grade. It does not establish that subject's "
+                "units or learning outcomes."
+            )
+        elif code and (item.entity_type or "").lower() != "subject":
             lines.append(f"Code: {code}")
         for outcome in (item.metadata or {}).get("learning_outcomes") or []:
             if not isinstance(outcome, dict):
@@ -178,6 +190,13 @@ def select_records_for_absence_verification(
             continue
         if _outcome_in_scope(item, grade, subject, unit_ids):
             selected.append(item)
+    # A grade catalogue retrieved after "no syllabus found" is not coded under
+    # the requested subject. It is still the evidence for which subjects exist.
+    # It is not a substitute for that subject's units.
+    if not units:
+        selected.extend(
+            item for item in evidence if _missing_syllabus_catalogue(item, grade)
+        )
     return selected
 
 
@@ -276,6 +295,82 @@ def absence_evidence_audit(
         "claim_scope": absence_claim_scope(state.final_answer or state.draft_answer),
         "source_exhaustive": exhaustive,
     }
+
+
+def checked_missing_syllabus_catalogue(
+    state: CurriculumQAState,
+) -> list[CurriculumEvidence]:
+    """Grade-catalogue rows that were actually written into the verifier prompt."""
+    recorded = (state.metadata or {}).get("verification_prompt_ids")
+    if recorded is None:
+        # A heading that does not state absence still shows the catalogue in
+        # the ordinary verifier window. An explicit empty prompt list does not.
+        recorded = (state.metadata or {}).get("verification_evidence_ids")
+    prompt_ids = {str(item_id) for item_id in recorded or [] if item_id}
+    if not prompt_ids:
+        return []
+    return [
+        item
+        for item in state.evidence
+        if item.entity_id
+        and item.entity_id in prompt_ids
+        and _missing_syllabus_catalogue(item, state.grade)
+    ]
+
+
+def bind_unresolved_requested_subject(state: CurriculumQAState) -> str | None:
+    """Keep a syllabus the lookup marked not found, without copying a catalogue row.
+
+    ``state.subject`` stays empty when understanding did not recognize the
+    subject. The grade-catalogue rows name other subjects. Their
+    ``requested_subject`` stamp is the code that was looked up. That stamp is
+    not the first retrieved row, and an empty search without the stamp does
+    not bind a subject.
+    """
+    if state.subject:
+        return normalize_subject_code(state.subject)
+    requested: set[str] = set()
+    for item in state.evidence:
+        if not _missing_syllabus_catalogue(item, state.grade):
+            continue
+        code = normalize_subject_code(str((item.metadata or {}).get("requested_subject") or ""))
+        if code:
+            requested.add(code)
+    if len(requested) != 1:
+        return None
+    code = next(iter(requested))
+    state.subject = code
+    state.metadata["requested_subject"] = code
+    return code
+
+
+def subject_catalogue_contradicts_request(state: CurriculumQAState) -> bool:
+    """True when a checked grade catalogue contradicts the requested subject.
+
+    The signal is the deterministic ``Subject mismatch for {code}.`` claim,
+    not the wording of the draft.
+    """
+    bind_unresolved_requested_subject(state)
+    requested = normalize_subject_code(state.subject)
+    result = state.verification
+    if not state.grade or not requested or result is None:
+        return False
+    if f"Subject mismatch for {requested}." not in (result.incorrect_claims or []):
+        return False
+    return bool(checked_missing_syllabus_catalogue(state))
+
+
+def _missing_syllabus_catalogue(
+    item: CurriculumEvidence, grade: str | None
+) -> bool:
+    """Grade-subject row kept when the requested syllabus lookup found nothing."""
+    if (item.entity_type or "").lower() != "subject":
+        return False
+    if item.source_reference != "grade_subjects":
+        return False
+    if (item.metadata or {}).get("requested_subject_syllabus") != "not_found":
+        return False
+    return _in_scope(item, grade, None)
 
 
 def _in_scope(item: CurriculumEvidence, grade: str | None, subject: str | None) -> bool:

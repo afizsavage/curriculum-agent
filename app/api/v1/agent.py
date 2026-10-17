@@ -37,10 +37,22 @@ def ask(
     request: Request,
     agent: CurriculumQAAgent = Depends(get_agent),
 ) -> AskResponse:
+    """Run one QA turn.
+
+    Production, staging, and any environment other than development or test
+    resolve the teacher from the identity gate and check the conversation-owner
+    ledger before the graph or the in-memory conversation store runs.
+    Development and test keep anonymous behavior only while authentication is
+    disabled. A client-supplied teacher id is not read.
+    """
+    from app.agent.conversation_owners import resolve_ask_conversation
+    from app.config import get_settings
+
     request_id = getattr(request.state, "request_id", None) or new_request_id()
-    conversation_id = (
+    supplied = (
         str(payload.conversation_id) if payload.conversation_id is not None else None
     )
+    conversation_id = resolve_ask_conversation(request, get_settings(), supplied)
 
     with timed_request(
         logger,

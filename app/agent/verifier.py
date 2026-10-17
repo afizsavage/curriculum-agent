@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import time
 from typing import Any, Optional
 
@@ -14,6 +15,7 @@ from app.agent.absence_evidence import (
     serialized_entity_ids,
 )
 from app.agent.answer_generator import format_evidence_for_prompt, select_evidence_for_prompt
+from app.agent.question_purpose import coerce_question_purpose
 from app.agent.trace import get_current_trace
 from app.agent.verifier_diagnostics import (
     claim_item_ok,
@@ -61,11 +63,44 @@ def _verification_evidence(
         return format_absence_prompt(ranked), [
             item.entity_id for item in ranked if item.entity_id
         ]
-    block = format_evidence_for_prompt(state.evidence, question=state.question)
-    _ranked, ids = select_evidence_for_prompt(state.evidence, question=state.question)
+    question_purpose = coerce_question_purpose(
+        (state.metadata or {}).get("question_purpose")
+    )
+    block = format_evidence_for_prompt(
+        state.evidence,
+        question=state.question,
+        question_purpose=question_purpose,
+    )
+    _ranked, ids = select_evidence_for_prompt(
+        state.evidence,
+        question=state.question,
+        question_purpose=question_purpose,
+    )
     return block, ids
 
 _MISSING_EVIDENCE_KEYS = ("type", "grade", "subject", "topic", "query", "detail")
+
+
+_SCHEMA_TYPE_NAMES = frozenset(
+    {"array", "boolean", "integer", "null", "number", "object", "string"}
+)
+_SCHEMA_NODE_KEYS = frozenset(
+    {"$ref", "allOf", "anyOf", "const", "enum", "oneOf", "properties"}
+)
+
+
+def _is_json_schema_node(value: Any) -> bool:
+    """A JSON Schema field definition, not a verdict value or evidence item."""
+    if not isinstance(value, dict) or "claim" in value:
+        return False
+    if any(key in value for key in _SCHEMA_NODE_KEYS):
+        return True
+    type_name = value.get("type")
+    if isinstance(type_name, str) and type_name in _SCHEMA_TYPE_NAMES:
+        return True
+    return isinstance(type_name, list) and any(
+        isinstance(item, str) and item in _SCHEMA_TYPE_NAMES for item in type_name
+    )
 
 
 def _uninterpretable_verifier_result(fields: list[str]) -> VerificationResult:
@@ -201,6 +236,139 @@ Rules:
 9. Be conservative. When unsure, do not pass.
 10. Do not invent curriculum facts while verifying.
 """
+
+_OUTCOME_CODE_RE = re.compile(
+    r"\b("
+    r"S\d+-T\d+-\d+-LO\d+"
+    r"|[A-Z]\d+U\d+-LO\d+"
+    r"|[A-Z]\d+-U\d+-LO\d+"
+    r")\b",
+    re.IGNORECASE,
+)
+_ABSENCE_WORDS = ("not present", "not in", "does not include", "but not", "no evidence")
+
+
+def question_requires_outcome_list(question: str | None) -> bool:
+    """True when the question asks for learning outcomes, not only topics."""
+    text = (question or "").lower()
+    if "learning objective" in text:
+        return True
+    return re.search(r"\boutcomes?\b", text) is not None
+
+
+def suppress_shown_outcome_absence(
+    state: CurriculumQAState,
+    result: VerificationResult,
+) -> VerificationResult:
+    """Drop a claim that evidence lacks an outcome the verifier was shown.
+
+    A topic-list question does not become an outcome-list requirement.
+    An outcome question can still fail when the answer omits a shown outcome.
+    Subject-mismatch and other incorrect claims stay in place.
+    """
+    if (result.metadata or {}).get("verifier_result_invalid"):
+        return result
+    if result.incorrect_claims:
+        return result
+    shown = _shown_outcome_records(state)
+    if not shown:
+        return result
+    answer = state.final_answer or state.draft_answer or ""
+    kept_missing = []
+    suppressed: list[str] = []
+    omitted: list[str] = []
+    for item in result.missing_evidence:
+        codes = _outcome_codes(item)
+        matched = [shown[code] for code in codes if code in shown]
+        if not matched:
+            kept_missing.append(item)
+            continue
+        for record in matched:
+            code = _outcome_code(record)
+            suppressed.append(code)
+            if question_requires_outcome_list(state.question) and not _answer_includes_outcome(
+                answer, record
+            ):
+                omitted.append(code)
+    if not suppressed:
+        return result
+    issues = [
+        issue
+        for issue in result.issues
+        if not _issue_alleges_absent_shown_outcome(issue, suppressed)
+    ]
+    for code in dict.fromkeys(omitted):
+        issues.append(
+            f"Learning outcome {code} is in the retrieved evidence but omitted from the answer."
+        )
+    metadata = dict(result.metadata or {})
+    metadata["shown_outcome_absence_suppressed"] = list(dict.fromkeys(suppressed))
+    passed = result.passed
+    recommendation = result.recommendation
+    if omitted:
+        passed = False
+    elif not kept_missing and not result.unsupported_claims:
+        passed = True
+        recommendation = VerificationRecommendation.ACCEPT
+    return result.model_copy(
+        update={
+            "passed": passed,
+            "recommendation": recommendation,
+            "issues": issues,
+            "missing_evidence": kept_missing,
+            "metadata": metadata,
+        }
+    )
+
+
+def _shown_outcome_records(state: CurriculumQAState) -> dict[str, Any]:
+    """Outcomes listed in the verifier prompt, not the wider retrieved bag."""
+    ids = list((state.metadata or {}).get("verification_evidence_ids") or [])
+    if not ids:
+        return {}
+    wanted = set(ids)
+    records = [item for item in state.evidence if item.entity_id in wanted]
+    found: dict[str, Any] = {}
+    for item in records:
+        if (item.entity_type or "").lower() != "learning_outcome":
+            continue
+        code = _outcome_code(item)
+        if code:
+            found[code.upper()] = item
+        if item.entity_id:
+            found[item.entity_id.lower()] = item
+    return found
+
+
+def _outcome_code(item: Any) -> str:
+    return str((item.metadata or {}).get("code") or item.name or "").strip()
+
+
+def _outcome_codes(item: MissingEvidenceRequest | str) -> list[str]:
+    if isinstance(item, str):
+        text = item
+    else:
+        text = " ".join(
+            str(part or "")
+            for part in (item.type, item.topic, item.query, item.detail)
+        )
+    return [match.group(1).upper() for match in _OUTCOME_CODE_RE.finditer(text)]
+
+
+def _answer_includes_outcome(answer: str, item: Any) -> bool:
+    text = (answer or "").casefold()
+    code = _outcome_code(item)
+    if code and code.casefold() in text:
+        return True
+    content = " ".join(str(item.content or "").casefold().split()).strip(" .")
+    return bool(content) and len(content) >= 12 and content in text
+
+
+def _issue_alleges_absent_shown_outcome(issue: str, codes: list[str]) -> bool:
+    lowered = issue.casefold()
+    if not any(code.casefold() in lowered for code in codes):
+        return False
+    return any(phrase in lowered for phrase in _ABSENCE_WORDS)
 
 
 class AnswerVerifier:
@@ -355,9 +523,10 @@ class AnswerVerifier:
         except Exception as exc:
             self._diagnose(self._record_verifier_failure, exc)
             raise LLMProviderError(f"Verification failed: {exc}") from exc
+        raw, unwrapped = self._unwrap_complete_nested_verdict(raw)
         self._diagnose(self._record_parsed_payload, raw)
         result = self._parse(raw)
-        shape = classify_verifier_payload(raw)
+        shape = "nested_verdict" if unwrapped else classify_verifier_payload(raw)
         result.metadata = {
             **(result.metadata or {}),
             "verifier_payload_shape": shape,
@@ -566,6 +735,28 @@ class AnswerVerifier:
             notes="Stub verifier accepted grounded evidence-backed answer.",
             metadata={"source": "stub"},
         )
+
+    def _unwrap_complete_nested_verdict(self, raw: Any) -> tuple[Any, bool]:
+        """Use a nested verdict only when it is not a JSON Schema definition.
+
+        A schema envelope whose ``properties`` values are type definitions stays
+        rejected. An incomplete nested object stays rejected. A top-level
+        verdict is returned unchanged.
+        """
+        if (
+            not isinstance(raw, dict)
+            or classify_verifier_payload(raw) != "schema_envelope"
+        ):
+            return raw, False
+        properties = raw.get("properties")
+        if not isinstance(properties, dict) or any(
+            _is_json_schema_node(value) for value in properties.values()
+        ):
+            return raw, False
+        parsed = self._parse(properties)
+        if (parsed.metadata or {}).get("verifier_result_invalid"):
+            return raw, False
+        return properties, True
 
     def _parse(self, raw: dict[str, Any]) -> VerificationResult:
         if not isinstance(raw, dict):
@@ -794,6 +985,7 @@ class AnswerVerifier:
             result = result.model_copy(
                 update={"missing_evidence": kept, "metadata": metadata}
             )
+        result = suppress_shown_outcome_absence(state, result)
         if (result.metadata or {}).get("verifier_result_invalid"):
             return result.model_copy(
                 update={

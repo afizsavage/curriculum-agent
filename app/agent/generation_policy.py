@@ -209,11 +209,40 @@ _INTERNAL_IDENTIFIER_RE = re.compile(
     r"\bC\d+-U\d+\b|\bC\d+U\d+-LO\d+\b|grade_curriculum_id",
     re.I,
 )
+_CODE_WITH_FOLLOWING_TITLE_RE = re.compile(
+    r"\b(C\d+-U\d+|C\d+U\d+-LO\d+)\b(\s*\(([^)]*)\))?",
+    re.I,
+)
 
 
 def question_requests_identifiers(question: str | None) -> bool:
     """True when the user explicitly asks for a curriculum code or id."""
     return bool(_IDENTIFIER_REQUEST_RE.search(question or ""))
+
+
+def _drop_unflanked_through(text: str) -> str:
+    """Remove a 'through' left behind when both neighbouring codes were redacted."""
+
+    def repl(match: re.Match[str]) -> str:
+        before = text[max(0, match.start() - 24) : match.start()]
+        after = text[match.end() : match.end() + 24]
+        flanked = re.search(r"C\d+-U\d+\s*$", before, re.I) and re.search(
+            r"^\s*C\d+-U\d+", after, re.I
+        )
+        return match.group(0) if flanked else ""
+
+    return re.sub(r"\bthrough\b", repl, text, flags=re.I)
+
+
+def _identifiers_named_in_question(question: str | None) -> set[str]:
+    """Unit and outcome codes written in the question. Not a general id request."""
+    named: set[str] = set()
+    for match in _INTERNAL_IDENTIFIER_RE.finditer(question or ""):
+        token = match.group(0)
+        if token.casefold() == "grade_curriculum_id":
+            continue
+        named.add(token.upper())
+    return named
 
 
 def _code_in_public_name(code_text: str, names: list[str]) -> bool:
@@ -227,9 +256,15 @@ def _code_in_public_name(code_text: str, names: list[str]) -> bool:
 def redact_internal_identifiers(
     answer: str,
     evidence: list[CurriculumEvidence] | None = None,
+    question: str | None = None,
 ) -> str:
-    """Remove internal ids from user-facing prose. Evidence objects are unchanged."""
+    """Remove internal ids from user-facing prose. Evidence objects are unchanged.
+
+    A code that already appears in the question is part of the request. Other
+    unit codes, outcome codes, and internal ids are still removed.
+    """
     text = answer or ""
+    preserved = _identifiers_named_in_question(question)
     needles: list[str] = []
     exact_needles: list[str] = []
     public_names = [str(item.name) for item in (evidence or []) if item.name]
@@ -239,6 +274,8 @@ def redact_internal_identifiers(
         code = (item.metadata or {}).get("code")
         if code:
             code_text = str(code)
+            if code_text.upper() in preserved:
+                continue
             # Subject codes such as ENGLISH match the display name "English"
             # when matching ignores case. Remove only the raw code.
             # Keep a code that is already part of an official public name,
@@ -246,6 +283,10 @@ def redact_internal_identifiers(
             if re.fullmatch(r"[A-Z][A-Z0-9_]{1,40}", code_text):
                 if not _code_in_public_name(code_text, public_names):
                     exact_needles.append(code_text)
+            elif re.fullmatch(r"C\d+-U\d+|C\d+U\d+-LO\d+", code_text, flags=re.I):
+                # Kept for the title-aware pass so "C4-U01 (Title)" does not
+                # become "(Title)".
+                continue
             else:
                 needles.append(code_text)
         if item.name and _INTERNAL_IDENTIFIER_RE.search(str(item.name)):
@@ -267,7 +308,21 @@ def redact_internal_identifiers(
             text,
             flags=re.I,
         )
-    text = _INTERNAL_IDENTIFIER_RE.sub("", text)
+    def _drop_unrequested(match: re.Match[str]) -> str:
+        token = match.group(1)
+        title = (match.group(3) or "").strip()
+        if token.upper() in preserved:
+            return match.group(0)
+        if title and not _INTERNAL_IDENTIFIER_RE.search(title):
+            return title
+        return ""
+
+    text = _CODE_WITH_FOLLOWING_TITLE_RE.sub(_drop_unrequested, text)
+    text = _INTERNAL_IDENTIFIER_RE.sub(
+        lambda match: match.group(0) if match.group(0).upper() in preserved else "",
+        text,
+    )
+    text = _drop_unflanked_through(text)
     text = re.sub(r"\(\s*\)", "", text)
     text = re.sub(r"\*\*\s*\*\*", "", text)
     text = re.sub(r"(?m)^[ \t]*[-*][ \t]*[—–-][ \t]*", "- ", text)

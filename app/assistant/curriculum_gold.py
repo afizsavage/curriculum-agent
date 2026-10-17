@@ -24,6 +24,27 @@ from app.config import Settings
 
 DATASET_VERSION = "curriculum-qa-gold-v1"
 SCORING_VERSION = "curriculum-qa-gold-scoring-v1"
+SCORING_VERSION_V2 = "curriculum-qa-gold-scoring-v2"
+SCORING_VERSION_V3 = "curriculum-qa-gold-scoring-v3"
+_SCORING_VERSIONS = frozenset({SCORING_VERSION, SCORING_VERSION_V2, SCORING_VERSION_V3})
+# The only dash rewrite v3 applies: "Non – living" (en dash, spaces) and
+# "Non-living" (ASCII hyphen, no spaces) name the same Class 4 Science unit.
+_APPROVED_TITLE_DASH = re.compile(r"non\s+\u2013\s+living", re.IGNORECASE)
+_ARTICLE_TOKENS = frozenset({"a", "an", "the"})
+_NEGATION_TOKENS = frozenset(
+    {
+        "not",
+        "no",
+        "never",
+        "cannot",
+        "can't",
+        "isn't",
+        "doesn't",
+        "don't",
+        "won't",
+        "without",
+    }
+)
 _DATASET_PATH = (
     Path(__file__).resolve().parents[2]
     / "data"
@@ -124,11 +145,26 @@ def run_audit(*, path: Path | None = None) -> dict[str, Any]:
     }
 
 
-def score_observation(case: dict[str, Any], observation: dict[str, Any]) -> dict[str, Any]:
-    """Score one answer. ``observation`` is not written back into the dataset."""
+def score_observation(
+    case: dict[str, Any],
+    observation: dict[str, Any],
+    *,
+    scoring_version: str = SCORING_VERSION,
+) -> dict[str, Any]:
+    """Score one answer. ``observation`` is not written back into the dataset.
+
+    The default scorer is ``curriculum-qa-gold-scoring-v1``. Passing
+    ``SCORING_VERSION_V2`` keeps that exact check and then allows a fact
+    whose only difference is the standalone articles ``a``, ``an``, and ``the``.
+    ``SCORING_VERSION_V3`` keeps both of those checks, then allows a final
+    sentence mark and the one approved ``Non – living`` / ``Non-living`` title.
+    """
+    if scoring_version not in _SCORING_VERSIONS:
+        raise ValueError(f"scoring version must be one of {sorted(_SCORING_VERSIONS)}")
     if not case.get("factual_scoring", True):
         return {
             "case_id": case["id"],
+            "scoring_version": scoring_version,
             "scored": False,
             "excluded_reason": "Authoritative records for this case could not be enumerated.",
             "failure_categories": ["source_data_missing_or_inconsistent"],
@@ -138,7 +174,7 @@ def score_observation(case: dict[str, Any], observation: dict[str, Any]) -> dict
     recalled = []
     missed = []
     for fact in case["required_facts"]:
-        if _fact_recalled(fact, answer):
+        if _fact_recalled_for(fact, answer, scoring_version):
             recalled.append(fact["fact_id"])
         else:
             missed.append(fact["fact_id"])
@@ -168,6 +204,7 @@ def score_observation(case: dict[str, Any], observation: dict[str, Any]) -> dict
     )
     metrics = {
         "case_id": case["id"],
+        "scoring_version": scoring_version,
         "subject_code": case.get("subject_code"),
         "grade_code": case.get("grade_code"),
         "support": case["support"],
@@ -186,7 +223,10 @@ def score_observation(case: dict[str, Any], observation: dict[str, Any]) -> dict
         "missing_answer": missing_answer,
     }
     metrics["deterministic_pass"] = _passed(metrics)
-    metrics["failure_categories"] = diagnose(case, observation, metrics)
+    categories = diagnose(case, observation, metrics)
+    metrics["failure_categories"] = categories
+    metrics["termination_reason"] = observation.get("termination_reason")
+    metrics["diagnostic_notes"] = _diagnostic_notes(case, observation, metrics, categories)
     return metrics
 
 
@@ -195,12 +235,20 @@ def diagnose(
     observation: dict[str, Any],
     metrics: dict[str, Any],
 ) -> list[str]:
-    """Classify a failed observation. This does not change the QA pipeline."""
+    """Classify a failed observation. This does not change the QA pipeline.
+
+    A factual pass with ``verification_passed`` false is a disagreement.
+    It is not, by itself, evidence that the verifier was wrong.
+    A verifier acceptance is an incorrect acceptance only when the answer
+    breaks a contract the selected scorer is not merely wording-strict about:
+    an incomplete required list, a failed abstention, or an unsupported claim.
+    """
     if metrics.get("deterministic_pass") and not metrics.get("semantic_review_required"):
         if observation.get("verification_passed") is False:
-            return ["verification_incorrectly_rejected"]
+            return ["factual_pass_verifier_disagreement"]
         return []
     categories: list[str] = []
+    wording_only = _misses_are_published_scoring_variants(case, observation, metrics)
     if metrics.get("semantic_review_required"):
         categories.append("semantic_review_required")
     status = observation.get("status")
@@ -220,7 +268,7 @@ def diagnose(
             source_id in evidence_ids for source_id in fact["source_ids"]
         ):
             omitted = True
-    if omitted:
+    if omitted and not wording_only:
         categories.append("generation_omitted_evidence")
     if metrics.get("unsupported_claims") and evidence:
         categories.append("generation_misstated_evidence")
@@ -228,21 +276,124 @@ def diagnose(
         case.get("must_be_complete")
         and metrics.get("completeness") is False
         and observation.get("coverage_decision") == "accept"
+        and not wording_only
     ):
         categories.append("coverage_validation_missed_incomplete_answer")
-    failed_answer = (
-        metrics.get("completeness") is False
-        or metrics.get("unsupported_claims")
-        or metrics.get("evidence_abstention") is False
-        or metrics.get("factual_recall") not in {None, 1}
+    recall_gap = metrics.get("factual_recall") not in {None, 1}
+    demonstrated_failure = bool(metrics.get("unsupported_claims")) or (
+        metrics.get("evidence_abstention") is False
+    ) or (
+        (metrics.get("completeness") is False or recall_gap) and not wording_only
     )
-    if observation.get("verification_passed") is True and failed_answer:
+    if observation.get("verification_passed") is True and demonstrated_failure:
         categories.append("verification_incorrectly_accepted")
+    if observation.get("verification_passed") is True and wording_only:
+        categories.append("scorer_dependent_wording_mismatch")
     if "truncat" in (observation.get("termination_reason") or "").lower():
         categories.append("answer_rendering_or_truncation")
     if case["support"] == "insufficient" and metrics.get("evidence_abstention") is False:
         categories.append("insufficient_evidence_behaviour_failed")
     return categories
+
+
+def _diagnostic_notes(
+    case: dict[str, Any],
+    observation: dict[str, Any],
+    metrics: dict[str, Any],
+    categories: list[str],
+) -> list[str]:
+    """Context for a disagreement. A note does not decide pass or fail."""
+    if "factual_pass_verifier_disagreement" not in categories:
+        return []
+    notes: list[str] = []
+    abstained = metrics.get("evidence_abstention") is True
+    if observation.get("termination_reason") == "subject_mismatch" and abstained:
+        notes.append(
+            "Subject-mismatch stop with a passing abstention. Not an incorrect rejection."
+        )
+    if (
+        case.get("uncertainty") == "state_missing_part"
+        and abstained
+        and _source_field_recorded_null(case)
+    ):
+        notes.append(
+            "Missing-part abstention for a source field recorded as null. "
+            "Not an incorrect rejection."
+        )
+    if _gold_topic_list(case):
+        requested = _extra_outcome_requests(case, observation)
+        if requested:
+            notes.append(
+                "Gold topic-list facts passed. Verification requested "
+                + ", ".join(requested)
+                + ", which the topic-list contract does not require. "
+                "This does not establish that those topic sentences were rejected "
+                "or that the requested outcome was retrieved."
+            )
+        else:
+            notes.append(
+                "Gold topic-list facts passed and verification did not accept the turn. "
+                "This does not establish that the verifier rejected those topic sentences."
+            )
+    return notes
+
+
+def _source_field_recorded_null(case: dict[str, Any]) -> bool:
+    absence = case.get("absence") or {}
+    parts = [
+        str(absence.get(key) or "")
+        for key in ("found_instead", "why_insufficient", "searched", "claim")
+    ]
+    parts.extend(str(item) for item in case.get("source_limitations") or [])
+    return "null" in " ".join(parts).casefold()
+
+
+def _gold_topic_list(case: dict[str, Any]) -> bool:
+    facts = list(case.get("required_facts") or [])
+    return bool(facts) and all(fact.get("content_type") == "TOPIC" for fact in facts)
+
+
+def _extra_outcome_requests(case: dict[str, Any], observation: dict[str, Any]) -> list[str]:
+    required = {
+        fact.get("source_code")
+        for fact in case.get("required_facts") or []
+        if fact.get("source_code")
+    }
+    extras: list[str] = []
+    for item in observation.get("verifier_requested_records") or []:
+        if isinstance(item, str):
+            code, kind = item, "learning_outcome"
+        else:
+            code = item.get("query") or item.get("code")
+            kind = item.get("type") or "learning_outcome"
+        if kind != "learning_outcome" or not code or code in required or code in extras:
+            continue
+        extras.append(str(code))
+    return extras
+
+
+def _misses_are_published_scoring_variants(
+    case: dict[str, Any],
+    observation: dict[str, Any],
+    metrics: dict[str, Any],
+) -> bool:
+    """True when every miss is accepted by the published v3 wording tolerances.
+
+    This does not change recall for the selected scoring version. It only
+    stops a v1 or v2 wording miss from being reported as a verifier defect.
+    """
+    missed = list(metrics.get("missed_fact_ids") or [])
+    if not missed:
+        return False
+    answer = observation.get("answer") or ""
+    by_id = {fact["fact_id"]: fact for fact in case.get("required_facts") or []}
+    for fact_id in missed:
+        fact = by_id.get(fact_id)
+        if fact is None:
+            return False
+        if not any(_v3_match(answer, text) for text in fact.get("match_any") or []):
+            return False
+    return True
 
 
 def aggregate(results: list[dict[str, Any]]) -> dict[str, Any]:
@@ -353,13 +504,7 @@ def run_live(settings: Settings, *, include_answers: bool = False) -> dict[str, 
     report["metrics"]["latency_ms"] = _latency(latencies)
     report["cases"] = results
     report["failures"] = [
-        {
-            "id": row["case_id"],
-            "subject_code": row.get("subject_code"),
-            "grade_code": row.get("grade_code"),
-            "failure_categories": row.get("failure_categories") or [],
-            "technical_failure": bool(row.get("technical_failure")),
-        }
+        _failure_entry(row)
         for row in results
         if row.get("failure_categories") or row.get("technical_failure")
     ]
@@ -416,9 +561,10 @@ def format_summary(report: dict[str, Any]) -> str:
     if report.get("failures"):
         lines.append("Failures:")
         for failure in report["failures"]:
-            categories = ", ".join(failure["failure_categories"])
             lines.append(
-                f"  {failure['id']} {failure.get('grade_code')} {failure.get('subject_code')}: {categories}"
+                "  "
+                f"{failure['id']} {failure.get('grade_code')} {failure.get('subject_code')}: "
+                f"{_failure_summary(failure)}"
             )
     else:
         lines.append("Case-level failures: none in this mode.")
@@ -431,9 +577,84 @@ def format_summary(report: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _failure_summary(failure: dict[str, Any]) -> str:
+    """Categories plus termination context. The reason is not a verdict."""
+    parts = [", ".join(failure.get("failure_categories") or [])]
+    reason = failure.get("termination_reason")
+    if reason:
+        parts.append(f"termination_reason={reason}")
+    notes = failure.get("diagnostic_notes") or []
+    parts.extend(str(note) for note in notes)
+    return "; ".join(part for part in parts if part)
+
+
+def _failure_entry(row: dict[str, Any]) -> dict[str, Any]:
+    entry: dict[str, Any] = {
+        "id": row["case_id"],
+        "subject_code": row.get("subject_code"),
+        "grade_code": row.get("grade_code"),
+        "failure_categories": row.get("failure_categories") or [],
+        "technical_failure": bool(row.get("technical_failure")),
+    }
+    if row.get("termination_reason"):
+        entry["termination_reason"] = row["termination_reason"]
+    if row.get("diagnostic_notes"):
+        entry["diagnostic_notes"] = list(row["diagnostic_notes"])
+    return entry
+
+
 def write_report(report: dict[str, Any], path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+
+
+def rescore_saved_report(
+    report: dict[str, Any],
+    *,
+    scoring_version: str,
+) -> dict[str, Any]:
+    """Score answers already stored in a report. This does not call a model."""
+    if scoring_version not in _SCORING_VERSIONS:
+        raise ValueError(f"scoring version must be one of {sorted(_SCORING_VERSIONS)}")
+    dataset = load_dataset()
+    by_id = {case["id"]: case for case in dataset["cases"]}
+    results = []
+    for row in report["cases"]:
+        case = by_id[row["case_id"]]
+        observation = {
+            "answer": row.get("answer") or "",
+            "status": row.get("status"),
+            "evidence_status": row.get("evidence_status"),
+            "coverage_decision": row.get("coverage_decision"),
+            "verification_passed": row.get("verification_passed"),
+            "termination_reason": row.get("termination_reason"),
+            "evidence": list(row.get("evidence") or row.get("evidence_refs") or []),
+        }
+        metrics = score_observation(case, observation, scoring_version=scoring_version)
+        metrics["status"] = row.get("status")
+        metrics["evidence_status"] = row.get("evidence_status")
+        metrics["verification_passed"] = row.get("verification_passed")
+        metrics["coverage_decision"] = row.get("coverage_decision")
+        metrics["termination_reason"] = row.get("termination_reason")
+        metrics["answer"] = row.get("answer")
+        results.append(metrics)
+    rescored = run_audit()
+    rescored["scoring_version"] = scoring_version
+    rescored["mode"] = "rescore"
+    rescored["live_executed"] = False
+    factual_rows = [row for row in results if not row.get("technical_failure")]
+    rescored["metrics"] = aggregate(factual_rows)
+    rescored["metrics"]["required_facts_recalled"] = _fact_totals(factual_rows)
+    rescored["cases"] = results
+    rescored["failures"] = [
+        _failure_entry(row)
+        for row in results
+        if row.get("failure_categories") or row.get("technical_failure")
+    ]
+    rescored["semantic_review"] = [
+        row["case_id"] for row in results if row.get("semantic_review_required")
+    ]
+    return rescored
 
 
 def _validate_case(case: dict[str, Any]) -> None:
@@ -456,6 +677,157 @@ def _validate_case(case: dict[str, Any]) -> None:
 
 def _fact_recalled(fact: dict[str, Any], answer: str) -> bool:
     return any(_contains(answer, text) for text in fact["match_any"])
+
+
+def _fact_recalled_for(
+    fact: dict[str, Any],
+    answer: str,
+    scoring_version: str,
+) -> bool:
+    if scoring_version == SCORING_VERSION_V2:
+        return any(_v2_match(answer, text) for text in fact["match_any"])
+    if scoring_version == SCORING_VERSION_V3:
+        return any(_v3_match(answer, text) for text in fact["match_any"])
+    return _fact_recalled(fact, answer)
+
+
+def _v2_match(haystack: str | None, needle: str) -> bool:
+    if _exact_match_outside_negation(haystack, needle):
+        return True
+    return _article_normalized_match(haystack, needle)
+
+
+def _v3_match(haystack: str | None, needle: str) -> bool:
+    """v1, then v2, then a final sentence mark or the approved title dash."""
+    if _v2_match(haystack, needle):
+        return True
+    folded_hay = _approved_title_dash(haystack)
+    folded_needle = _approved_title_dash(needle)
+    if _v2_match(folded_hay, folded_needle):
+        return True
+    return _terminal_article_match(folded_hay, folded_needle)
+
+
+def _approved_title_dash(value: str | None) -> str | None:
+    if not value:
+        return value
+    return _APPROVED_TITLE_DASH.sub("non-living", value)
+
+
+def _terminal_article_match(haystack: str | None, needle: str) -> bool:
+    """v2's article window, with a trailing . ? or ! allowed on the last token.
+
+    Punctuation in every earlier token stays attached. A comma inside
+    ``10,000`` is not a sentence mark and is not removed.
+    """
+    if not haystack or not needle:
+        return False
+    fact = _without_articles(_tokens(needle))
+    if not fact:
+        return False
+    answer = _tokens(haystack)
+    stripped = _without_articles(answer)
+    fact_tokens = [token for _, token in fact]
+    width = len(fact_tokens)
+    if width > len(stripped):
+        return False
+    for start in range(len(stripped) - width + 1):
+        window = stripped[start : start + width]
+        got = [token for _, token in window]
+        if got[:-1] != fact_tokens[:-1]:
+            continue
+        if _without_final_mark(got[-1]) != _without_final_mark(fact_tokens[-1]):
+            continue
+        if _negation_before(answer, window[0][0]):
+            continue
+        return True
+    return False
+
+
+def _without_final_mark(token: str) -> str:
+    if len(token) > 1 and token[-1] in ".?!":
+        return token[:-1]
+    return token
+
+
+def _exact_match_outside_negation(haystack: str | None, needle: str) -> bool:
+    if not haystack or not needle:
+        return False
+    normalized = _norm(haystack)
+    expected = _norm(needle)
+    if not expected:
+        return False
+    start = 0
+    while True:
+        at = normalized.find(expected, start)
+        if at < 0:
+            return False
+        if not _prefix_negated(normalized[:at]):
+            return True
+        start = at + 1
+
+
+def _article_normalized_match(haystack: str | None, needle: str) -> bool:
+    """Match after dropping only the standalone tokens a, an, and the.
+
+    The remaining tokens must occur contiguously, in the same order. A match
+    is rejected when a negation token appears earlier in the same sentence.
+    """
+    if not haystack or not needle:
+        return False
+    fact = _without_articles(_tokens(needle))
+    if not fact:
+        return False
+    answer = _tokens(haystack)
+    stripped = _without_articles(answer)
+    fact_tokens = [token for _, token in fact]
+    width = len(fact_tokens)
+    if width > len(stripped):
+        return False
+    for start in range(len(stripped) - width + 1):
+        window = stripped[start : start + width]
+        if [token for _, token in window] != fact_tokens:
+            continue
+        if _negation_before(answer, window[0][0]):
+            continue
+        return True
+    return False
+
+
+def _tokens(value: str) -> list[str]:
+    return value.casefold().split()
+
+
+def _without_articles(tokens: list[str]) -> list[tuple[int, str]]:
+    return [
+        (index, token)
+        for index, token in enumerate(tokens)
+        if token not in _ARTICLE_TOKENS
+    ]
+
+
+def _prefix_negated(prefix: str) -> bool:
+    cut = max(prefix.rfind(mark) for mark in ".?!")
+    sentence = prefix[cut + 1 :] if cut >= 0 else prefix
+    return any(token in _NEGATION_TOKENS for token in sentence.split())
+
+
+def _negation_before(tokens: list[str], start: int) -> bool:
+    index = start - 1
+    while index >= 0:
+        token = tokens[index]
+        if token.endswith((".", "?", "!")):
+            return False
+        if token in _NEGATION_TOKENS:
+            return True
+        index -= 1
+    return False
+
+
+def _fact_totals(rows: list[dict[str, Any]]) -> dict[str, int]:
+    recalled = sum(len(row.get("recalled_fact_ids") or []) for row in rows)
+    missed = sum(len(row.get("missed_fact_ids") or []) for row in rows)
+    return {"recalled": recalled, "required": recalled + missed}
 
 
 def _forbidden_present(item: dict[str, Any], answer: str) -> bool:

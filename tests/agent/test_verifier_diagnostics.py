@@ -831,6 +831,85 @@ def test_trace_write_failure_keeps_the_verdict_and_route(monkeypatch):
     assert invalid_route == "fallback"
 
 
+def _envelope(properties: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "title": "VerificationResult",
+        "type": "object",
+        "properties": properties,
+    }
+
+
+def test_complete_nested_verdict_is_read_and_a_schema_definition_is_not():
+    nested = _envelope(
+        _complete(
+            claims=[{"claim": "Living and Non – living Things — C4-U01", "evidence_ids": ["unit-1"]}]
+        )
+    )
+    result, decision, event = _verdict(nested)
+    assert result.passed is True
+    assert result.recommendation == VerificationRecommendation.ACCEPT
+    assert decision == "finish"
+    assert event["verifier_result_invalid"] is not True
+    assert result.metadata["verifier_payload_shape"] == "nested_verdict"
+    assert event["parsed_recommendation"] == "accept"
+
+    schema = _envelope(
+        {
+            "passed": {"type": "boolean"},
+            "score": {"type": "number"},
+            "recommendation": {"type": "string", "enum": ["accept", "fallback"]},
+            "issues": {"type": "array", "items": {"type": "string"}},
+            "unsupported_claims": {"type": "array"},
+            "missing_evidence": {"type": "array"},
+            "incorrect_claims": {"type": "array"},
+        }
+    )
+    rejected, rejected_route, rejected_event = _verdict(schema)
+    assert rejected.passed is False
+    assert rejected.recommendation == VerificationRecommendation.FALLBACK
+    assert rejected_route == "fallback"
+    assert rejected_event["verifier_invalid_reason"] == "schema_envelope"
+
+    incomplete = _envelope(
+        {
+            "passed": True,
+            "score": 1.0,
+            "recommendation": "accept",
+            "issues": [],
+        }
+    )
+    incomplete_result, incomplete_route, incomplete_event = _verdict(incomplete)
+    assert incomplete_result.recommendation == VerificationRecommendation.FALLBACK
+    assert incomplete_route == "fallback"
+    assert incomplete_event["verifier_invalid_reason"] == "schema_envelope"
+
+    mixed = _envelope(_complete(score={"type": "number"}))
+    mixed_result, mixed_route, mixed_event = _verdict(mixed)
+    assert mixed_result.recommendation == VerificationRecommendation.FALLBACK
+    assert mixed_route == "fallback"
+    assert mixed_event["verifier_invalid_reason"] == "schema_envelope"
+
+
+def test_nested_accept_cannot_override_a_deterministic_subject_mismatch():
+    qa = _state()
+    qa.subject = "FRENCH"
+    payload = _envelope(_complete())
+    result, decision, _event = _verdict_from(_ScriptedLLM(payload), qa)
+    assert result.passed is False
+    assert "Subject mismatch for FRENCH." in result.incorrect_claims
+    assert decision != "finish"
+
+
+def test_top_level_verdict_is_not_replaced_by_a_nested_schema():
+    payload = _complete(title="VerificationResult", type="object")
+    payload["properties"] = {"passed": {"type": "boolean"}}
+    result, decision, event = _verdict(payload)
+    assert result.passed is True
+    assert result.recommendation == VerificationRecommendation.ACCEPT
+    assert decision == "finish"
+    assert result.metadata["verifier_payload_shape"] == "verdict"
+
+
 def test_missing_diagnostic_event_does_not_change_the_route():
     qa = _state()
     qa.verification = VerificationResult(

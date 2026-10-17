@@ -165,3 +165,40 @@ def _code_in_rows(rows: list[CurriculumEvidence], code: str) -> bool:
     return any(
         str((item.metadata or {}).get("code") or "").upper() == code for item in rows
     )
+
+
+_NAMED_CONTENT_CODE = re.compile(r"\b[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)+\b")
+
+
+def codes_absent_from_checked_catalogue(
+    *,
+    question: str | None,
+    evidence: list[CurriculumEvidence],
+    grade: str | None,
+    subject: str | None,
+    curriculum_version: str | None,
+) -> list[str]:
+    """Codes the question names that one exhaustive grade tree does not contain.
+
+    A search miss, a partial list, or a tree for another subject returns
+    nothing. A code that is in the checked tree is not reported.
+    """
+    named: list[str] = []
+    seen: set[str] = set()
+    for match in _NAMED_CONTENT_CODE.finditer((question or "").upper()):
+        code = match.group(0)
+        if code in seen or not _CONTENT_CODE.fullmatch(code):
+            continue
+        seen.add(code)
+        named.append(code)
+    if not named:
+        return []
+    rows = _exhaustive_rows(
+        evidence,
+        grade=normalize_grade_code(grade),
+        subject=normalize_subject_code(subject),
+        curriculum_version=str(curriculum_version) if curriculum_version else None,
+    )
+    if not rows:
+        return []
+    return [code for code in named if not _code_in_rows(rows, code)]

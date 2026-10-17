@@ -223,6 +223,61 @@ class CurriculumTool(Tool):
             items = filtered
         return self._subjects_from_grade_subject_items(items)
 
+    def _subject_list_after_missing_syllabus(
+        self,
+        *,
+        curriculum_id: str,
+        curriculum_code: str,
+        version: str,
+        grade_code: str,
+        level: str | None,
+        classification: str | None,
+        requested_subject: str,
+    ) -> ToolResult | None:
+        """Grade catalogue after a subject syllabus lookup finds nothing.
+
+        An empty or failed catalogue is not evidence that the subject is
+        absent, so the caller keeps the original not-found result.
+        """
+        try:
+            subjects = self._list_grade_subjects_for_grade(
+                curriculum_id=curriculum_id,
+                grade_code=grade_code,
+                classification=classification,
+            )
+        except CurriculumAPIError:
+            return None
+        if not subjects:
+            return None
+        evidence: list[CurriculumEvidence] = []
+        for subject in subjects:
+            item = evidence_from_subject(subject, grade=grade_code)
+            item.source_reference = "grade_subjects"
+            item.metadata = {
+                **(item.metadata or {}),
+                "grade_subject_id": subject.get("grade_subject_id"),
+                "requested_subject": requested_subject,
+                "requested_subject_syllabus": "not_found",
+            }
+            evidence.append(item)
+        return ToolResult(
+            success=True,
+            data={
+                "curriculum": {
+                    "id": curriculum_id,
+                    "code": curriculum_code,
+                    "version": version,
+                },
+                "grade": grade_code,
+                "level": level,
+                "classification": classification,
+                "subject": requested_subject,
+                "requested_subject_syllabus": "not_found",
+                "subjects": subjects,
+                "evidence": [item.model_dump() for item in evidence],
+            },
+        )
+
     def _find_syllabus(
         self,
         *,
@@ -558,11 +613,25 @@ class GetCurriculumStructureTool(CurriculumTool):
                     },
                 )
 
-            tree, source = self._load_content_tree(
-                curriculum_id=curriculum_id,
-                subject_code=subject_code,
-                grade_code=grade_code,
-            )
+            try:
+                tree, source = self._load_content_tree(
+                    curriculum_id=curriculum_id,
+                    subject_code=subject_code,
+                    grade_code=grade_code,
+                )
+            except CurriculumNotFoundError:
+                listed = self._subject_list_after_missing_syllabus(
+                    curriculum_id=curriculum_id,
+                    curriculum_code=curr_code,
+                    version=version,
+                    grade_code=grade_code,
+                    level=level,
+                    classification=classification,
+                    requested_subject=subject_code,
+                )
+                if listed is not None:
+                    return listed
+                raise
             evidence = []
             flat = []
             source_ref = str(

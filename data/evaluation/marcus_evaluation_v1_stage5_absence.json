@@ -1,0 +1,796 @@
+{
+  "report": "marcus-evaluation-stage5-absence",
+  "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+  "live_executed": true,
+  "assistant_enabled": false,
+  "assistant_auth_enabled": false,
+  "environment": "development",
+  "provider": "deepseek",
+  "model": "deepseek-v4-flash",
+  "request_path": "Next.js POST /api/agent/ask proxied to the agent POST /api/v1/agent/ask",
+  "identity_case": {
+    "id": "marcus-c4-math-u01-identity",
+    "included": false,
+    "reason": "Held out. This batch repeats only the four Stage 2 absence cases."
+  },
+  "gold_sha256": "f16fc259720bfd9ff19550f9c6e8ac6c4303003a2502aa39f3745f35c5549cf5",
+  "stage2_report": "data/evaluation/marcus_evaluation_v1_stage2_absence.json",
+  "u12_infrastructure_attempts": [
+    {
+      "attempt": 1,
+      "http_status": 502,
+      "latency_ms": 20345.3,
+      "request_id": "dbe7d089-f2ad-4de6-960a-52a566c32140",
+      "agent_run_id": "run-8b5454cb03674e98",
+      "error": "LLM request failed: [Errno -3] Temporary failure in name resolution",
+      "code": "LLM_PROVIDER_FAILURE",
+      "scored": false,
+      "note": "Failed during the first retrieval model call, before a curriculum answer existed."
+    },
+    {
+      "attempt": 2,
+      "http_status": 502,
+      "latency_ms": 20335.1,
+      "request_id": "3eb88c7b-2059-448f-a0ea-c91dc059cbfd",
+      "agent_run_id": "run-5fe1c6b6755c4124",
+      "error": "LLM request failed: [Errno -3] Temporary failure in name resolution",
+      "code": "LLM_PROVIDER_FAILURE",
+      "scored": false,
+      "note": "Same DNS failure. Not scored."
+    }
+  ],
+  "cases": [
+    {
+      "id": "marcus-c4-u12-absent",
+      "prompt": "Is C4-U12 a published Class 4 Mathematics unit?",
+      "http_status": 200,
+      "latency_ms": 16532.6,
+      "request_path": "POST http://127.0.0.1:3000/api/agent/ask -> POST http://127.0.0.1:8001/api/v1/agent/ask",
+      "status": "completed",
+      "answer": "The supplied Class 4 Mathematics evidence does not include a unit with the code C4-U12. The units listed for this grade and subject include codes such as (Everyday Arithmetic Addition and Subtraction) and (Everyday Arithmetic Multiplication), but no C4-U12 record appears among the evidence provided. Because the evidence block notes that some additional records were omitted, this answer cannot confirm whether such a unit exists elsewhere in the curriculum.",
+      "blank_answer": false,
+      "evidence_status": "found",
+      "termination_reason": "verification_passed",
+      "verification_passed": true,
+      "verification_score": 0.9,
+      "verification_recommendation": "accept",
+      "verification_issues": [
+        "The answer's hedge about 'additional records omitted' is not reflected in the provided evidence block, but this is a meta-statement rather than a curriculum fact and does not introduce a false curriculum claim.",
+        "The answer does not explicitly note that the evidence shows C4-U11 and C4-U13 (skipping C4-U12), which would strengthen the negative finding, but its core conclusion is consistent with the evidence."
+      ],
+      "limitations": [
+        "The evidence block states that 9 additional records were omitted, so the absence of a C4-U12 record in the supplied evidence cannot establish that no such unit exists.",
+        "No record with code C4-U12 was supplied in the evidence."
+      ],
+      "agent_run_id": "run-70a99853998b4e37",
+      "graph_run_id": "7f03f29e-1cd9-49a9-8d86-1f3f98a90dc5",
+      "trace_path": "data/traces/run-70a99853998b4e37.json",
+      "tools_used": [
+        "resolve_curriculum_context",
+        "get_curriculum_structure",
+        "get_topic"
+      ],
+      "evidence_count": 27,
+      "evidence_subjects": [
+        "MATHEMATICS"
+      ],
+      "evidence": [
+        {
+          "entity_id": "f293e00a-bae7-44db-ad55-3c1263e20387",
+          "entity_type": "unit",
+          "name": "Number and Numeration",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "a66a8931-bd82-48eb-82f8-c004e95a2e62",
+          "entity_type": "unit",
+          "name": "Number and Numeration Reading And Writing",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "20b6fae8-05d2-4c27-9b2b-2d04f91e7422",
+          "entity_type": "unit",
+          "name": "Number and Numeration. Approximation.",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "0f90b316-6be5-4b60-a2b1-2ac91a603d49",
+          "entity_type": "unit",
+          "name": "Number and Numeration FRACTION",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "d2c1777c-7ed5-4a43-97c5-1efa895114d8",
+          "entity_type": "unit",
+          "name": "Number and Numeration OPERATION ON FRACTIONS.",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "4c8ac511-4785-4576-8d30-f364ffa74bd9",
+          "entity_type": "unit",
+          "name": "Number and Numeration Operation on Fraction. (Multiplication)",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "6b0d1465-d397-4b27-ba73-2696eeb5d3c5",
+          "entity_type": "unit",
+          "name": "Number and Numeration",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "c148074c-fac8-4771-94de-01de1805f585",
+          "entity_type": "unit",
+          "name": "Number and Numeration",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "4e356892-e6e8-46e2-ae4f-f0a141649a09",
+          "entity_type": "unit",
+          "name": "Number and Numeration",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "6031fbb0-19cd-48c6-9cd8-901a40eb8590",
+          "entity_type": "unit",
+          "name": "Number and Numeration",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "a06e3216-dd97-4d5f-af49-f1afec6def85",
+          "entity_type": "unit",
+          "name": "Everyday Arithmetic Addition and Subtraction",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "d0d5d322-9a0d-4f49-823d-0f80049e9b5b",
+          "entity_type": "unit",
+          "name": "Everyday Arithmetic Multiplication",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "152b4a5a-c080-403c-a780-9940c818bc4b",
+          "entity_type": "unit",
+          "name": "Everyday Arithmetic DIVISION",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "eae26572-dc3f-4b85-a924-3d139e5de9ca",
+          "entity_type": "unit",
+          "name": "Everyday Arithmetic",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "13202e14-75a9-455e-9f58-baad27d672b4",
+          "entity_type": "unit",
+          "name": "Everyday Arithmetic Addition and Subtraction.",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "684ebd01-8dc0-459b-a610-9d8dfea454ff",
+          "entity_type": "unit",
+          "name": "Everyday Arithmetic",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "1997d3c8-5ec2-43d7-9dac-9afcf97c1734",
+          "entity_type": "unit",
+          "name": "Everyday Arithmetic Money",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "29558081-a6cf-4721-b52c-f6f3e59b12a7",
+          "entity_type": "unit",
+          "name": "Everyday Arithmetic Multiplication and Decimal.",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "6252f434-14ed-42cc-8415-ea870de24273",
+          "entity_type": "unit",
+          "name": "Measurement And Estimation LENGTH",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "6ec53325-5983-421a-8b3e-9690e6da159f",
+          "entity_type": "unit",
+          "name": "Measurement And Estimation LENGTH",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "82bbb7f0-58fe-4d25-bcba-74973cc373e9",
+          "entity_type": "unit",
+          "name": "Measurement and Estimation.",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "c0a9dc68-e3f3-424e-8873-d2642e7cc71b",
+          "entity_type": "unit",
+          "name": "Measurement and Estimation",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "f40b0f4e-0ade-40f3-bc8e-53fd4cf1ba90",
+          "entity_type": "unit",
+          "name": "Measurement and Estimation",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "e5a83dd4-d400-49f9-903a-c5e2e15471e4",
+          "entity_type": "unit",
+          "name": "Measurement and Estimation GEOMETRY Lines and Angles",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "36924334-8856-4c53-8f48-d4e6eed8cf12",
+          "entity_type": "unit",
+          "name": "Measurement and Estimation Time",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "00d27bae-413d-4841-9a1b-23020b50567d",
+          "entity_type": "unit",
+          "name": "STATISTICS Data Collection Plan",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "b1587bd8-a2da-493e-8872-4b404108c235",
+          "entity_type": "unit",
+          "name": "Unit 28",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        }
+      ],
+      "official_v1": {
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "deterministic_pass": false,
+        "factual_recall": null,
+        "completeness": null,
+        "unsupported_claims": 0,
+        "evidence_abstention": false,
+        "subject_grade_accuracy": true,
+        "failure_categories": [
+          "verification_incorrectly_accepted",
+          "insufficient_evidence_behaviour_failed"
+        ]
+      },
+      "human_assessment": "Human assessment: the redaction defect is corrected. C4-U12 remains in the answer, the 27 evidence rows are Class 4 Mathematics units, and Feeding in Humans is not named. Other unit codes were removed, leaving titles in empty parentheses. The sentence says the supplied evidence does not include C4-U12, then says omitted records prevent confirming whether the unit exists elsewhere. It does not state that C4-U12 is unpublished. Status is completed, so official v1 fails. The verifier accepted the hedged sentence."
+    },
+    {
+      "id": "marcus-c4-english-subject",
+      "prompt": "What units does the Class 4 English subject cover?",
+      "http_status": 200,
+      "latency_ms": 38170.5,
+      "request_path": "POST http://127.0.0.1:3000/api/agent/ask -> POST http://127.0.0.1:8001/api/v1/agent/ask",
+      "status": "insufficient_evidence",
+      "answer": "The checked CLASS_4 subject catalogue does not include a row coded ENGLISH. It includes English Language (ENGLISH_LANGUAGE); Mathematics (MATHEMATICS); Civic Education (CIVIC_EDUCATION); Social Studies (SOCIAL_STUDIES); Physical Health Education (PRACTICAL_HEALTH_PHYSICAL_EDUCATION); Music and Other Expressive Arts (MUSIC_EXPRESSIVE_ARTS); French Appreciation (FRENCH_APPRECIATION); Science (SCIENCE); ICT Literacy (ICT_LITERACY); Home Economics (HOME_ECONOMICS); Practical Arts (PRACTICAL_ARTS); Religious and Moral Education (RELIGIOUS_MORAL_EDUCATION); Sierra Leone National Languages (SIERRA_LEONE_NATIONAL_LANGUAGES); Agricultural Science (AGRICULTURAL_SCIENCE). These are subject-catalogue rows, so they do not establish the units or learning outcomes of ENGLISH. A ENGLISH syllabus was not found, and the units covered by ENGLISH cannot be stated from this evidence.",
+      "blank_answer": false,
+      "evidence_status": "found",
+      "termination_reason": "subject_mismatch",
+      "verification_passed": false,
+      "verification_score": 0.1,
+      "verification_recommendation": "retrieve_more",
+      "verification_issues": [
+        "Requested subject ENGLISH is not reflected in retrieved evidence.",
+        "The generated answer is essentially empty \u2014 it only contains a heading 'Subjects Listed for Primary 4' with no actual content addressing the question about Class 4 English units.",
+        "The question asks about units within the Class 4 English subject, but the evidence only contains subject-level records (grade_subjects), not unit/topic-level records for English.",
+        "The answer does not list any units, so it fails to answer the question.",
+        "The answer's heading references 'Subjects' rather than 'units', indicating a topic mismatch with the question."
+      ],
+      "limitations": [
+        "The evidence contains only subject-level records for Primary 4 and no unit or topic records for English Language, so the units it covers cannot be stated.",
+        "Requested subject ENGLISH is not reflected in retrieved evidence.",
+        "The generated answer is essentially empty \u2014 it only contains a heading 'Subjects Listed for Primary 4' with no actual content addressing the question about Class 4 English units.",
+        "The question asks about units within the Class 4 English subject, but the evidence only contains subject-level records (grade_subjects), not unit/topic-level records for English.",
+        "The answer does not list any units, so it fails to answer the question.",
+        "The answer's heading references 'Subjects' rather than 'units', indicating a topic mismatch with the question.",
+        "Need evidence for subject ENGLISH.",
+        "Evidence only contains subject-level records for Primary 4; no unit-level records for English Language were retrieved to answer what units the subject covers.",
+        "Available MBSSE curriculum records were insufficient for a reliable answer."
+      ],
+      "agent_run_id": "run-f5f181f7e6b349e8",
+      "graph_run_id": "7a4a55ab-0795-4f78-9dcb-db710927b227",
+      "trace_path": "data/traces/run-f5f181f7e6b349e8.json",
+      "tools_used": [
+        "get_curriculum_structure",
+        "resolve_curriculum_context",
+        "get_subject",
+        "search_curriculum"
+      ],
+      "evidence_count": 14,
+      "evidence_subjects": [
+        "AGRICULTURAL_SCIENCE",
+        "CIVIC_EDUCATION",
+        "ENGLISH_LANGUAGE",
+        "FRENCH_APPRECIATION",
+        "HOME_ECONOMICS",
+        "ICT_LITERACY",
+        "MATHEMATICS",
+        "MUSIC_EXPRESSIVE_ARTS",
+        "PRACTICAL_ARTS",
+        "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+        "RELIGIOUS_MORAL_EDUCATION",
+        "SCIENCE",
+        "SIERRA_LEONE_NATIONAL_LANGUAGES",
+        "SOCIAL_STUDIES"
+      ],
+      "evidence": [
+        {
+          "entity_id": "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+          "entity_type": "subject",
+          "name": "English Language",
+          "grade": "CLASS_4",
+          "subject": "ENGLISH_LANGUAGE"
+        },
+        {
+          "entity_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "entity_type": "subject",
+          "name": "Mathematics",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "be2bec7d-db04-4307-8300-466dc896466f",
+          "entity_type": "subject",
+          "name": "Civic Education",
+          "grade": "CLASS_4",
+          "subject": "CIVIC_EDUCATION"
+        },
+        {
+          "entity_id": "13bc18c0-c518-47ef-911c-8c7174d05555",
+          "entity_type": "subject",
+          "name": "Social Studies",
+          "grade": "CLASS_4",
+          "subject": "SOCIAL_STUDIES"
+        },
+        {
+          "entity_id": "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+          "entity_type": "subject",
+          "name": "Physical Health Education",
+          "grade": "CLASS_4",
+          "subject": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION"
+        },
+        {
+          "entity_id": "c049057b-ea42-4baf-a902-d3e6c63dc320",
+          "entity_type": "subject",
+          "name": "Music and Other Expressive Arts",
+          "grade": "CLASS_4",
+          "subject": "MUSIC_EXPRESSIVE_ARTS"
+        },
+        {
+          "entity_id": "44c8b694-3fdd-473c-a256-bc22fd926da1",
+          "entity_type": "subject",
+          "name": "French Appreciation",
+          "grade": "CLASS_4",
+          "subject": "FRENCH_APPRECIATION"
+        },
+        {
+          "entity_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+          "entity_type": "subject",
+          "name": "Science",
+          "grade": "CLASS_4",
+          "subject": "SCIENCE"
+        },
+        {
+          "entity_id": "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1",
+          "entity_type": "subject",
+          "name": "ICT Literacy",
+          "grade": "CLASS_4",
+          "subject": "ICT_LITERACY"
+        },
+        {
+          "entity_id": "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736",
+          "entity_type": "subject",
+          "name": "Home Economics",
+          "grade": "CLASS_4",
+          "subject": "HOME_ECONOMICS"
+        },
+        {
+          "entity_id": "04b05a43-1208-4fd9-b6c3-31eed3d40063",
+          "entity_type": "subject",
+          "name": "Practical Arts",
+          "grade": "CLASS_4",
+          "subject": "PRACTICAL_ARTS"
+        },
+        {
+          "entity_id": "236bd50f-63f3-44bb-8c16-c2aa5e3441ea",
+          "entity_type": "subject",
+          "name": "Religious and Moral Education",
+          "grade": "CLASS_4",
+          "subject": "RELIGIOUS_MORAL_EDUCATION"
+        },
+        {
+          "entity_id": "5b7bcdd9-4984-49d5-9b99-c1653a1470bf",
+          "entity_type": "subject",
+          "name": "Sierra Leone National Languages",
+          "grade": "CLASS_4",
+          "subject": "SIERRA_LEONE_NATIONAL_LANGUAGES"
+        },
+        {
+          "entity_id": "c09f3006-e982-4696-b0c5-47b9c4eb4dab",
+          "entity_type": "subject",
+          "name": "Agricultural Science",
+          "grade": "CLASS_4",
+          "subject": "AGRICULTURAL_SCIENCE"
+        }
+      ],
+      "official_v1": {
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "deterministic_pass": true,
+        "factual_recall": null,
+        "completeness": null,
+        "unsupported_claims": 0,
+        "evidence_abstention": true,
+        "subject_grade_accuracy": true,
+        "failure_categories": [
+          "factual_pass_verifier_disagreement"
+        ]
+      },
+      "human_assessment": "Human assessment: correct abstention, unchanged from Stage 2. The answer says the CLASS_4 catalogue has no ENGLISH row and names English Language (ENGLISH_LANGUAGE) as a different subject. It does not list English Language units. Official v1 passes. The verifier still recommended retrieve_more; routing replaced the draft with subject_mismatch."
+    },
+    {
+      "id": "marcus-c4-integrated-science",
+      "prompt": "What is the first published unit of Class 4 Integrated Science?",
+      "http_status": 200,
+      "latency_ms": 58875.5,
+      "request_path": "POST http://127.0.0.1:3000/api/agent/ask -> POST http://127.0.0.1:8001/api/v1/agent/ask",
+      "status": "insufficient_evidence",
+      "answer": "The checked CLASS_4 subject catalogue does not include a row coded INTEGRATED_SCIENCE. It includes English Language (ENGLISH_LANGUAGE); Mathematics (MATHEMATICS); Civic Education (CIVIC_EDUCATION); Social Studies (SOCIAL_STUDIES); Physical Health Education (PRACTICAL_HEALTH_PHYSICAL_EDUCATION); Music and Other Expressive Arts (MUSIC_EXPRESSIVE_ARTS); French Appreciation (FRENCH_APPRECIATION); Science (SCIENCE); ICT Literacy (ICT_LITERACY); Home Economics (HOME_ECONOMICS); Practical Arts (PRACTICAL_ARTS); Religious and Moral Education (RELIGIOUS_MORAL_EDUCATION); Sierra Leone National Languages (SIERRA_LEONE_NATIONAL_LANGUAGES); Agricultural Science (AGRICULTURAL_SCIENCE). These are subject-catalogue rows, so they do not establish the units or learning outcomes of INTEGRATED_SCIENCE. A INTEGRATED_SCIENCE syllabus was not found, and the units covered by INTEGRATED_SCIENCE cannot be stated from this evidence.",
+      "blank_answer": false,
+      "evidence_status": "found",
+      "termination_reason": "subject_mismatch",
+      "verification_passed": false,
+      "verification_score": 0.45000000000000007,
+      "verification_recommendation": "retrieve_more",
+      "verification_issues": [
+        "Requested subject INTEGRATED_SCIENCE is not reflected in retrieved evidence.",
+        "The question asks specifically about 'Integrated Science', but the evidence only contains a subject named 'Science' (SCIENCE) for CLASS_4; no 'Integrated Science' subject record exists in the evidence.",
+        "The evidence contains only grade subject catalogue rows and explicitly states they do not establish units or learning outcomes, so no first published unit can be identified."
+      ],
+      "limitations": [
+        "The evidence contains only Primary 4 subject records and no unit or topic records, so the first published unit of Class 4 Integrated Science cannot be identified.",
+        "The evidence does not include a subject named Integrated Science; it lists Science among the Primary 4 subjects.",
+        "Requested subject INTEGRATED_SCIENCE is not reflected in retrieved evidence.",
+        "The question asks specifically about 'Integrated Science', but the evidence only contains a subject named 'Science' (SCIENCE) for CLASS_4; no 'Integrated Science' subject record exists in the evidence.",
+        "The evidence contains only grade subject catalogue rows and explicitly states they do not establish units or learning outcomes, so no first published unit can be identified.",
+        "Need evidence for subject INTEGRATED_SCIENCE.",
+        "No unit records for Integrated Science (or Science) at Class 4 are present; only subject catalogue rows exist.",
+        "Available MBSSE curriculum records were insufficient for a reliable answer."
+      ],
+      "agent_run_id": "run-31af4866a9b945d0",
+      "graph_run_id": "dbb78b94-0113-479f-91c6-5ee312080350",
+      "trace_path": "data/traces/run-31af4866a9b945d0.json",
+      "tools_used": [
+        "get_curriculum_structure",
+        "resolve_curriculum_context",
+        "search_curriculum"
+      ],
+      "evidence_count": 14,
+      "evidence_subjects": [
+        "AGRICULTURAL_SCIENCE",
+        "CIVIC_EDUCATION",
+        "ENGLISH_LANGUAGE",
+        "FRENCH_APPRECIATION",
+        "HOME_ECONOMICS",
+        "ICT_LITERACY",
+        "MATHEMATICS",
+        "MUSIC_EXPRESSIVE_ARTS",
+        "PRACTICAL_ARTS",
+        "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+        "RELIGIOUS_MORAL_EDUCATION",
+        "SCIENCE",
+        "SIERRA_LEONE_NATIONAL_LANGUAGES",
+        "SOCIAL_STUDIES"
+      ],
+      "evidence": [
+        {
+          "entity_id": "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+          "entity_type": "subject",
+          "name": "English Language",
+          "grade": "CLASS_4",
+          "subject": "ENGLISH_LANGUAGE"
+        },
+        {
+          "entity_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "entity_type": "subject",
+          "name": "Mathematics",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "be2bec7d-db04-4307-8300-466dc896466f",
+          "entity_type": "subject",
+          "name": "Civic Education",
+          "grade": "CLASS_4",
+          "subject": "CIVIC_EDUCATION"
+        },
+        {
+          "entity_id": "13bc18c0-c518-47ef-911c-8c7174d05555",
+          "entity_type": "subject",
+          "name": "Social Studies",
+          "grade": "CLASS_4",
+          "subject": "SOCIAL_STUDIES"
+        },
+        {
+          "entity_id": "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+          "entity_type": "subject",
+          "name": "Physical Health Education",
+          "grade": "CLASS_4",
+          "subject": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION"
+        },
+        {
+          "entity_id": "c049057b-ea42-4baf-a902-d3e6c63dc320",
+          "entity_type": "subject",
+          "name": "Music and Other Expressive Arts",
+          "grade": "CLASS_4",
+          "subject": "MUSIC_EXPRESSIVE_ARTS"
+        },
+        {
+          "entity_id": "44c8b694-3fdd-473c-a256-bc22fd926da1",
+          "entity_type": "subject",
+          "name": "French Appreciation",
+          "grade": "CLASS_4",
+          "subject": "FRENCH_APPRECIATION"
+        },
+        {
+          "entity_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+          "entity_type": "subject",
+          "name": "Science",
+          "grade": "CLASS_4",
+          "subject": "SCIENCE"
+        },
+        {
+          "entity_id": "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1",
+          "entity_type": "subject",
+          "name": "ICT Literacy",
+          "grade": "CLASS_4",
+          "subject": "ICT_LITERACY"
+        },
+        {
+          "entity_id": "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736",
+          "entity_type": "subject",
+          "name": "Home Economics",
+          "grade": "CLASS_4",
+          "subject": "HOME_ECONOMICS"
+        },
+        {
+          "entity_id": "04b05a43-1208-4fd9-b6c3-31eed3d40063",
+          "entity_type": "subject",
+          "name": "Practical Arts",
+          "grade": "CLASS_4",
+          "subject": "PRACTICAL_ARTS"
+        },
+        {
+          "entity_id": "236bd50f-63f3-44bb-8c16-c2aa5e3441ea",
+          "entity_type": "subject",
+          "name": "Religious and Moral Education",
+          "grade": "CLASS_4",
+          "subject": "RELIGIOUS_MORAL_EDUCATION"
+        },
+        {
+          "entity_id": "5b7bcdd9-4984-49d5-9b99-c1653a1470bf",
+          "entity_type": "subject",
+          "name": "Sierra Leone National Languages",
+          "grade": "CLASS_4",
+          "subject": "SIERRA_LEONE_NATIONAL_LANGUAGES"
+        },
+        {
+          "entity_id": "c09f3006-e982-4696-b0c5-47b9c4eb4dab",
+          "entity_type": "subject",
+          "name": "Agricultural Science",
+          "grade": "CLASS_4",
+          "subject": "AGRICULTURAL_SCIENCE"
+        }
+      ],
+      "official_v1": {
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "deterministic_pass": true,
+        "factual_recall": null,
+        "completeness": null,
+        "unsupported_claims": 0,
+        "evidence_abstention": true,
+        "subject_grade_accuracy": true,
+        "failure_categories": [
+          "factual_pass_verifier_disagreement"
+        ]
+      },
+      "human_assessment": "Human assessment: correct abstention, unchanged from Stage 2. The answer says the CLASS_4 catalogue has no INTEGRATED_SCIENCE row. It names Science as another catalogue subject and does not name the JSS 1 unit or Class 4 Science C4-U01. Official v1 passes. The verifier still recommended retrieve_more."
+    },
+    {
+      "id": "marcus-p4-astronomy-subject",
+      "prompt": "What topics are taught in Primary 4 Astronomy?",
+      "http_status": 200,
+      "latency_ms": 48117.2,
+      "request_path": "POST http://127.0.0.1:3000/api/agent/ask -> POST http://127.0.0.1:8001/api/v1/agent/ask",
+      "status": "insufficient_evidence",
+      "answer": "The checked CLASS_4 subject catalogue does not include a row coded ASTRONOMY. It includes English Language (ENGLISH_LANGUAGE); Mathematics (MATHEMATICS); Civic Education (CIVIC_EDUCATION); Social Studies (SOCIAL_STUDIES); Physical Health Education (PRACTICAL_HEALTH_PHYSICAL_EDUCATION); Music and Other Expressive Arts (MUSIC_EXPRESSIVE_ARTS); French Appreciation (FRENCH_APPRECIATION); Science (SCIENCE); ICT Literacy (ICT_LITERACY); Home Economics (HOME_ECONOMICS); Practical Arts (PRACTICAL_ARTS); Religious and Moral Education (RELIGIOUS_MORAL_EDUCATION); Sierra Leone National Languages (SIERRA_LEONE_NATIONAL_LANGUAGES); Agricultural Science (AGRICULTURAL_SCIENCE). These are subject-catalogue rows, so they do not establish the units or learning outcomes of ASTRONOMY. A ASTRONOMY syllabus was not found, and the units covered by ASTRONOMY cannot be stated from this evidence.",
+      "blank_answer": false,
+      "evidence_status": "found",
+      "termination_reason": "subject_mismatch",
+      "verification_passed": false,
+      "verification_score": 0.05,
+      "verification_recommendation": "retrieve_more",
+      "verification_issues": [
+        "Requested subject ASTRONOMY is not reflected in retrieved evidence.",
+        "The question asks specifically about topics taught in Primary 4 Astronomy, but the answer only provides a heading 'Subjects Listed for Primary 4' with no content.",
+        "No Astronomy subject exists in the retrieved evidence; the evidence lists only general Primary 4 subjects (English, Mathematics, Science, etc.), none of which is Astronomy.",
+        "The answer does not address the requested subject (Astronomy) or provide any topics.",
+        "The answer is effectively empty and does not answer the question."
+      ],
+      "limitations": [
+        "The supplied evidence contains only Primary 4 subject records; no Astronomy subject, topic, unit, or learning-objective records were provided.",
+        "The absence of Astronomy topics in the evidence does not establish that Astronomy is not taught; it only means the resolved evidence does not include it.",
+        "Requested subject ASTRONOMY is not reflected in retrieved evidence.",
+        "The question asks specifically about topics taught in Primary 4 Astronomy, but the answer only provides a heading 'Subjects Listed for Primary 4' with no content.",
+        "No Astronomy subject exists in the retrieved evidence; the evidence lists only general Primary 4 subjects (English, Mathematics, Science, etc.), none of which is Astronomy.",
+        "The answer does not address the requested subject (Astronomy) or provide any topics.",
+        "The answer is effectively empty and does not answer the question.",
+        "Need evidence for subject ASTRONOMY.",
+        "No Astronomy subject or topic records were retrieved for Primary 4; evidence contains only general subjects.",
+        "No topic-level records for Astronomy at Primary 4 were provided.",
+        "Available MBSSE curriculum records were insufficient for a reliable answer."
+      ],
+      "agent_run_id": "run-7cff1f341a71492c",
+      "graph_run_id": "de5e5570-d7b3-4b65-9d8a-0b517cf3c6f8",
+      "trace_path": "data/traces/run-7cff1f341a71492c.json",
+      "tools_used": [
+        "get_curriculum_structure",
+        "search_curriculum"
+      ],
+      "evidence_count": 14,
+      "evidence_subjects": [
+        "AGRICULTURAL_SCIENCE",
+        "CIVIC_EDUCATION",
+        "ENGLISH_LANGUAGE",
+        "FRENCH_APPRECIATION",
+        "HOME_ECONOMICS",
+        "ICT_LITERACY",
+        "MATHEMATICS",
+        "MUSIC_EXPRESSIVE_ARTS",
+        "PRACTICAL_ARTS",
+        "PRACTICAL_HEALTH_PHYSICAL_EDUCATION",
+        "RELIGIOUS_MORAL_EDUCATION",
+        "SCIENCE",
+        "SIERRA_LEONE_NATIONAL_LANGUAGES",
+        "SOCIAL_STUDIES"
+      ],
+      "evidence": [
+        {
+          "entity_id": "9da3f7f7-60c2-49c6-8950-fd20a1913661",
+          "entity_type": "subject",
+          "name": "English Language",
+          "grade": "CLASS_4",
+          "subject": "ENGLISH_LANGUAGE"
+        },
+        {
+          "entity_id": "0e04674a-43e0-4145-84a3-5e656f0a91d0",
+          "entity_type": "subject",
+          "name": "Mathematics",
+          "grade": "CLASS_4",
+          "subject": "MATHEMATICS"
+        },
+        {
+          "entity_id": "be2bec7d-db04-4307-8300-466dc896466f",
+          "entity_type": "subject",
+          "name": "Civic Education",
+          "grade": "CLASS_4",
+          "subject": "CIVIC_EDUCATION"
+        },
+        {
+          "entity_id": "13bc18c0-c518-47ef-911c-8c7174d05555",
+          "entity_type": "subject",
+          "name": "Social Studies",
+          "grade": "CLASS_4",
+          "subject": "SOCIAL_STUDIES"
+        },
+        {
+          "entity_id": "1dac62a2-d187-4e7f-9d59-3a2eb1e25b24",
+          "entity_type": "subject",
+          "name": "Physical Health Education",
+          "grade": "CLASS_4",
+          "subject": "PRACTICAL_HEALTH_PHYSICAL_EDUCATION"
+        },
+        {
+          "entity_id": "c049057b-ea42-4baf-a902-d3e6c63dc320",
+          "entity_type": "subject",
+          "name": "Music and Other Expressive Arts",
+          "grade": "CLASS_4",
+          "subject": "MUSIC_EXPRESSIVE_ARTS"
+        },
+        {
+          "entity_id": "44c8b694-3fdd-473c-a256-bc22fd926da1",
+          "entity_type": "subject",
+          "name": "French Appreciation",
+          "grade": "CLASS_4",
+          "subject": "FRENCH_APPRECIATION"
+        },
+        {
+          "entity_id": "d0f1291c-baa3-4651-a922-6d8590ace82e",
+          "entity_type": "subject",
+          "name": "Science",
+          "grade": "CLASS_4",
+          "subject": "SCIENCE"
+        },
+        {
+          "entity_id": "63f1ac54-f7c8-4d1f-a912-7e26389dc2a1",
+          "entity_type": "subject",
+          "name": "ICT Literacy",
+          "grade": "CLASS_4",
+          "subject": "ICT_LITERACY"
+        },
+        {
+          "entity_id": "03f8ec23-9fdc-44d0-aead-b2b1ffdb3736",
+          "entity_type": "subject",
+          "name": "Home Economics",
+          "grade": "CLASS_4",
+          "subject": "HOME_ECONOMICS"
+        },
+        {
+          "entity_id": "04b05a43-1208-4fd9-b6c3-31eed3d40063",
+          "entity_type": "subject",
+          "name": "Practical Arts",
+          "grade": "CLASS_4",
+          "subject": "PRACTICAL_ARTS"
+        },
+        {
+          "entity_id": "236bd50f-63f3-44bb-8c16-c2aa5e3441ea",
+          "entity_type": "subject",
+          "name": "Religious and Moral Education",
+          "grade": "CLASS_4",
+          "subject": "RELIGIOUS_MORAL_EDUCATION"
+        },
+        {
+          "entity_id": "5b7bcdd9-4984-49d5-9b99-c1653a1470bf",
+          "entity_type": "subject",
+          "name": "Sierra Leone National Languages",
+          "grade": "CLASS_4",
+          "subject": "SIERRA_LEONE_NATIONAL_LANGUAGES"
+        },
+        {
+          "entity_id": "c09f3006-e982-4696-b0c5-47b9c4eb4dab",
+          "entity_type": "subject",
+          "name": "Agricultural Science",
+          "grade": "CLASS_4",
+          "subject": "AGRICULTURAL_SCIENCE"
+        }
+      ],
+      "official_v1": {
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "deterministic_pass": true,
+        "factual_recall": null,
+        "completeness": null,
+        "unsupported_claims": 0,
+        "evidence_abstention": true,
+        "subject_grade_accuracy": true,
+        "failure_categories": [
+          "factual_pass_verifier_disagreement"
+        ]
+      },
+      "human_assessment": "Human assessment: correct abstention. The heading-only Stage 2 answer is gone. The answer names ASTRONOMY, says the checked CLASS_4 catalogue has no such row, and says an ASTRONOMY syllabus was not found. It does not list topics and does not use the Class 4 Science solar-system theme. Official v1 passes. The verifier recommended retrieve_more; routing used subject_mismatch."
+    }
+  ]
+}

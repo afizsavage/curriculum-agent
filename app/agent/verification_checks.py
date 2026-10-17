@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from app.agent.absence_evidence import bind_unresolved_requested_subject
 from app.agent.state import CurriculumQAState
 from app.curriculum.codes import normalize_grade_code, normalize_subject_code
 from app.curriculum.evidence import EvidenceStatus
@@ -37,6 +38,7 @@ def run_deterministic_checks(state: CurriculumQAState) -> VerificationResult:
     evidence_subjects.discard(None)
 
     requested_grade = normalize_grade_code(state.grade)
+    bind_unresolved_requested_subject(state)
     requested_subject = normalize_subject_code(state.subject)
 
     if not answer:

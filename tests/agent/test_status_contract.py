@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import logging
+import re
+
 from app.agent.absence_evidence import (
     format_absence_prompt,
     select_records_for_absence_verification,
@@ -1419,3 +1422,102 @@ def test_content_claim_abstains_when_outcome_text_is_unavailable():
     )
     assert _route(qa) == "fallback"
     assert qa.metadata["fallback_reason"] == "absence_records_unchecked"
+
+
+def _route_with_failing_trace(qa: CurriculumQAState, monkeypatch, caplog) -> str:
+    from app.agent.trace import AgentRunTrace, start_agent_run
+
+    def failing_emit(self, event, **fields):
+        raise RuntimeError("trace emit failed")
+
+    with start_agent_run(question=qa.question, request_id="req-trace", persist=False):
+        with monkeypatch.context() as patched:
+            patched.setattr(AgentRunTrace, "emit", failing_emit)
+            with caplog.at_level(logging.INFO):
+                route = _route(qa)
+    assert "agent.route.trace_failed" in caplog.text
+    return route
+
+
+def _logged_reason(caplog) -> str:
+    lines = [line for line in caplog.text.splitlines() if "event='agent.route'" in line]
+    assert lines
+    match = re.search(r"reason='([^']+)'", lines[-1])
+    assert match
+    return match.group(1)
+
+
+def test_trace_emit_failure_keeps_a_valid_accept_finishing(monkeypatch, caplog):
+    qa = CurriculumQAState.initial(question="List the Class 4 Mathematics units.")
+    qa.draft_answer = "C4-U01 Number and Numeration."
+    qa.verification = VerificationResult(
+        passed=True, score=1.0, recommendation=VerificationRecommendation.ACCEPT
+    )
+    assert _route_with_failing_trace(qa, monkeypatch, caplog) == "finish"
+    assert _logged_reason(caplog) == "verification_passed"
+
+
+def test_trace_emit_failure_keeps_a_valid_fallback(monkeypatch, caplog):
+    qa = CurriculumQAState.initial(question="List the Class 4 Mathematics units.")
+    qa.draft_answer = "C4-U01 Number and Numeration."
+    qa.verification = VerificationResult(
+        passed=False, score=0.0, recommendation=VerificationRecommendation.FALLBACK
+    )
+    assert _route_with_failing_trace(qa, monkeypatch, caplog) == "fallback"
+    assert _logged_reason(caplog) == "verification_fallback"
+
+
+def test_trace_emit_failure_does_not_promote_an_invalid_verdict(monkeypatch, caplog):
+    qa = CurriculumQAState.initial(question="List the Class 4 Mathematics units.")
+    qa.draft_answer = "C4-U01 Number and Numeration."
+    qa.verification = VerificationResult(
+        passed=True,
+        score=1.0,
+        recommendation=VerificationRecommendation.ACCEPT,
+        metadata={"verifier_result_invalid": True, "verifier_invalid_reason": "uninterpretable:passed"},
+    )
+    assert _route_with_failing_trace(qa, monkeypatch, caplog) == "fallback"
+    assert _logged_reason(caplog) == "verification_fallback"
+
+
+def test_trace_emit_failure_keeps_a_retrieve_more_route(monkeypatch, caplog):
+    qa = CurriculumQAState.initial(question="What are the C4U09 learning objectives?")
+    qa.grade = "CLASS_4"
+    qa.topic = "fractions"
+    missing = [
+        MissingEvidenceRequest(
+            type="learning_outcome", topic="C4U09", query="C4U09 learning objectives"
+        )
+    ]
+    qa.pending_missing_evidence = list(missing)
+    qa.verification = VerificationResult(
+        passed=False,
+        score=0.2,
+        recommendation=VerificationRecommendation.RETRIEVE_MORE,
+        missing_evidence=missing,
+    )
+    assert _route_with_failing_trace(qa, monkeypatch, caplog) == "retrieve_more"
+    assert _logged_reason(caplog) == "missing_evidence"
+
+
+def test_trace_emit_failure_keeps_the_absence_guard_ahead_of_the_invalid_backstop(
+    monkeypatch, caplog
+):
+    qa = CurriculumQAState.initial(
+        question="What does the Class 4 Mathematics syllabus say about astronomy?"
+    )
+    qa.grade = "CLASS_4"
+    qa.subject = "MATHEMATICS"
+    qa.evidence = []
+    qa.draft_answer = "Astronomy is not among the Class 4 Mathematics records."
+    qa.metadata["verification_prompt_ids"] = serialized_entity_ids(format_absence_prompt([]))
+    qa.verification = VerificationResult(
+        passed=True,
+        score=1.0,
+        recommendation=VerificationRecommendation.ACCEPT,
+        metadata={"verifier_result_invalid": True},
+    )
+    assert _route_with_failing_trace(qa, monkeypatch, caplog) == "fallback"
+    assert qa.metadata["fallback_reason"] == "absence_records_unchecked"
+    assert qa.metadata["termination_reason"] == "absence_records_unchecked"
+    assert _logged_reason(caplog) == "absence_records_unchecked"

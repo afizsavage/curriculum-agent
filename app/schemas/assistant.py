@@ -43,3 +43,32 @@ class AssistantChatResponse(BaseModel):
     general_label: Optional[str] = None
     clarification: Optional[str] = None
     persistence_warning: Optional[str] = None
+
+
+class AssistantThreadSummary(BaseModel):
+    """Sidebar row. Identity and message bodies are not included."""
+
+    thread_id: str
+    title: str
+    created_at: str
+    updated_at: str
+    grade: Optional[str] = None
+    subject: Optional[str] = None
+    task: Optional[str] = None
+
+
+class AssistantThreadListResponse(BaseModel):
+    threads: list[AssistantThreadSummary]
+
+
+class AssistantThreadMessage(BaseModel):
+    message_id: int
+    role: str
+    content: str
+    created_at: str
+
+
+class AssistantThreadDetail(AssistantThreadSummary):
+    """Owned transcript. QA provenance is not a message."""
+
+    messages: list[AssistantThreadMessage]

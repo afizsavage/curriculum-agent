@@ -7,7 +7,10 @@ from __future__ import annotations
 
 from typing import Literal
 
-from app.agent.absence_evidence import absence_finish_blocked
+from app.agent.absence_evidence import (
+    absence_finish_blocked,
+    subject_catalogue_contradicts_request,
+)
 from app.agent.graph_state import ALLOWED_ROUTES, GraphState
 from app.agent.context_boundary import (
     context_boundary_experiment_enabled,
@@ -19,6 +22,7 @@ from app.agent.retrieval_state import (
     is_incomplete_source_gap,
 )
 from app.config import Settings
+from app.curriculum.structure_scope import codes_absent_from_checked_catalogue
 from app.logging_utils import get_logger, log_agent_event
 from app.schemas.verification import VerificationRecommendation
 
@@ -49,6 +53,21 @@ def route_after_verification(
     if result is None:
         route = "fallback"
         reason = "missing_verification_result"
+    elif subject_catalogue_contradicts_request(qa):
+        # A checked grade catalogue that names a different subject must not
+        # keep the generator draft, including a heading that states no absence.
+        route = "fallback"
+        reason = "subject_mismatch"
+        qa.metadata["fallback_reason"] = reason
+        qa.metadata["termination_reason"] = reason
+    elif absent := _requested_codes_absent_from_catalogue(qa):
+        # A complete grade-curriculum tree can answer a named code directly.
+        # A partial list or another subject's tree cannot.
+        route = "fallback"
+        reason = "catalogue_code_absent"
+        qa.metadata["fallback_reason"] = reason
+        qa.metadata["termination_reason"] = reason
+        qa.metadata["absent_catalogue_codes"] = absent
     elif _absence_claim_is_unchecked(qa):
         route = "fallback"
         reason = "absence_records_unchecked"
@@ -133,32 +152,15 @@ def route_after_verification(
 
     trace = get_current_trace()
     if trace is not None:
-        it = trace.ensure_iteration(qa.iteration)
-        route_row = {
-            "from_node": "verify_answer",
-            "decision": route,
-            "next_node": next_node,
-            "iteration": qa.iteration,
-            "reason": reason,
-            "missing_evidence": [
-                m.model_dump() if hasattr(m, "model_dump") else m
-                for m in ((result.missing_evidence if result else []) or [])
-            ][:10],
-            "retrieval_metrics": qa.retrieval_state.metrics_snapshot(),
-        }
-        it["route"] = route_row
-        trace.routes.append(route_row)
-        trace.emit(
-            "agent.route",
-            **route_row,
-            retrieval_rounds=qa.retrieval_rounds,
-            verification_attempts=qa.verification_attempts,
-            tool_calls=qa.tool_calls,
-        )
-        payload = trace.latest_event("agent.verification.payload")
-        if payload is not None:
-            payload["final_route"] = route
-            payload["fallback_reason"] = reason if route == "fallback" else None
+        try:
+            _record_route_trace(
+                trace, qa, result, route=route, reason=reason, next_node=next_node
+            )
+        except Exception as exc:  # noqa: BLE001
+            # The route is already decided. A trace failure must not change it.
+            logger.warning(
+                "agent.route.trace_failed exception_category=%s", type(exc).__name__
+            )
 
     log_agent_event(
         logger,
@@ -182,8 +184,47 @@ def route_after_verification(
     return route
 
 
+def _record_route_trace(trace, qa, result, *, route: str, reason: str | None, next_node: str) -> None:
+    it = trace.ensure_iteration(qa.iteration)
+    route_row = {
+        "from_node": "verify_answer",
+        "decision": route,
+        "next_node": next_node,
+        "iteration": qa.iteration,
+        "reason": reason,
+        "missing_evidence": [
+            m.model_dump() if hasattr(m, "model_dump") else m
+            for m in ((result.missing_evidence if result else []) or [])
+        ][:10],
+        "retrieval_metrics": qa.retrieval_state.metrics_snapshot(),
+    }
+    it["route"] = route_row
+    trace.routes.append(route_row)
+    trace.emit(
+        "agent.route",
+        **route_row,
+        retrieval_rounds=qa.retrieval_rounds,
+        verification_attempts=qa.verification_attempts,
+        tool_calls=qa.tool_calls,
+    )
+    payload = trace.latest_event("agent.verification.payload")
+    if payload is not None:
+        payload["final_route"] = route
+        payload["fallback_reason"] = reason if route == "fallback" else None
+
+
 def _absence_claim_is_unchecked(qa) -> bool:
     return absence_finish_blocked(qa)
+
+
+def _requested_codes_absent_from_catalogue(qa) -> list[str]:
+    return codes_absent_from_checked_catalogue(
+        question=qa.question,
+        evidence=list(qa.evidence),
+        grade=qa.grade,
+        subject=qa.subject,
+        curriculum_version=(qa.metadata or {}).get("curriculum_version"),
+    )
 
 
 def _should_regenerate_with_boundary(qa, settings: Settings) -> bool:

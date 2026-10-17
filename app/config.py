@@ -75,6 +75,9 @@ class Settings(BaseSettings):
     agent_checkpointing_enabled: bool = True
     agent_checkpoint_backend: str = "sqlite"  # memory | sqlite
     agent_checkpoint_sqlite_path: str = "data/checkpoints.sqlite"
+    # Who may resume a legacy QA conversation_id. Not the LangGraph checkpoint
+    # file and not the assistant thread file.
+    qa_conversation_owner_sqlite_path: str = "data/qa_conversation_owners.sqlite"
 
     # Assistant HTTP is off until a verified identity gate is registered.
     # Local stub identity is a development-only switch and is refused in production.
@@ -82,6 +85,17 @@ class Settings(BaseSettings):
     assistant_local_stub_identity: bool = False
     assistant_local_stub_teacher_id: str = "local-stub-teacher"
     assistant_thread_sqlite_path: str = "data/assistant_threads.sqlite"
+
+    # Session authentication is off by default and does not enable the assistant
+    # route. When it is on, startup registers the session identity gate. The
+    # local stub remains a separate development switch and is refused together
+    # with authentication, including in production.
+    assistant_auth_enabled: bool = False
+    assistant_auth_sqlite_path: str = "data/assistant_auth.sqlite"
+    assistant_session_cookie_name: str = "marcus_session"
+    assistant_auth_allowed_origins: str = (
+        "http://localhost:3000,http://127.0.0.1:3000"
+    )
 
     # Prefer CURRICULUM_API_URL; CURRICULUM_API_BASE_URL kept for Phase 1 compatibility.
     curriculum_api_url: str = ""

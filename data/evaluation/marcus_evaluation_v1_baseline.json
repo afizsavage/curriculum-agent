@@ -1,0 +1,1566 @@
+{
+  "dataset": "marcus-evaluation-v1",
+  "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+  "secondary_scoring_versions": [
+    "curriculum-qa-gold-scoring-v2",
+    "curriculum-qa-gold-scoring-v3"
+  ],
+  "mode": "rescore_saved_answers",
+  "live_executed": false,
+  "assistant_enabled": false,
+  "gold_dataset_sha256": "f16fc259720bfd9ff19550f9c6e8ac6c4303003a2502aa39f3745f35c5549cf5",
+  "behaviour_dataset_sha256": "c805d51e8cd963d53cefbf98740a6cba5a2dc2d75b8c5ef28373fb0c14f14ae8",
+  "source_report": "/home/afiz/Projects/curriculumz/curriculum-agent/data/traces/curriculum_qa_gold_v1_batch17.json",
+  "source_report_sha256": "fd57f750ecbd5ee094f6ca7b427c94445d59b27e7377a5dcdb1692782beef572",
+  "case_count": 24,
+  "exact_saved_answer_overlaps": 10,
+  "approximate_saved_answer_overlaps": 2,
+  "official_metrics_exact_v1": {
+    "factual_precision": {
+      "measured": true,
+      "value": 1.0,
+      "applicable": 7,
+      "denominator": 10,
+      "reason": null
+    },
+    "factual_recall": {
+      "measured": true,
+      "value": 0.7714285714285714,
+      "applicable": 8,
+      "denominator": 10,
+      "reason": null
+    },
+    "unsupported_claim_rate": {
+      "measured": true,
+      "value": 0.0,
+      "applicable": 7,
+      "denominator": 10,
+      "reason": null
+    },
+    "completeness": {
+      "measured": true,
+      "value": 0.6666666666666666,
+      "applicable": 6,
+      "denominator": 10,
+      "reason": null
+    },
+    "subject_grade_accuracy": {
+      "measured": true,
+      "value": 1.0,
+      "applicable": 10,
+      "denominator": 10,
+      "reason": null
+    },
+    "evidence_abstention": {
+      "measured": true,
+      "value": 0.5,
+      "applicable": 2,
+      "denominator": 10,
+      "reason": null
+    },
+    "channel_integrity": {
+      "measured": false,
+      "value": null,
+      "applicable": 0,
+      "reason": "No applicable cases."
+    }
+  },
+  "secondary_metrics_exact": {
+    "curriculum-qa-gold-scoring-v2": {
+      "factual_precision": {
+        "measured": true,
+        "value": 1.0,
+        "applicable": 7,
+        "denominator": 10,
+        "reason": null
+      },
+      "factual_recall": {
+        "measured": true,
+        "value": 0.825,
+        "applicable": 8,
+        "denominator": 10,
+        "reason": null
+      },
+      "unsupported_claim_rate": {
+        "measured": true,
+        "value": 0.0,
+        "applicable": 7,
+        "denominator": 10,
+        "reason": null
+      },
+      "completeness": {
+        "measured": true,
+        "value": 0.8333333333333334,
+        "applicable": 6,
+        "denominator": 10,
+        "reason": null
+      },
+      "subject_grade_accuracy": {
+        "measured": true,
+        "value": 1.0,
+        "applicable": 10,
+        "denominator": 10,
+        "reason": null
+      },
+      "evidence_abstention": {
+        "measured": true,
+        "value": 0.5,
+        "applicable": 2,
+        "denominator": 10,
+        "reason": null
+      },
+      "channel_integrity": {
+        "measured": false,
+        "value": null,
+        "applicable": 0,
+        "reason": "No applicable cases."
+      }
+    },
+    "curriculum-qa-gold-scoring-v3": {
+      "factual_precision": {
+        "measured": true,
+        "value": 1.0,
+        "applicable": 8,
+        "denominator": 10,
+        "reason": null
+      },
+      "factual_recall": {
+        "measured": true,
+        "value": 1.0,
+        "applicable": 8,
+        "denominator": 10,
+        "reason": null
+      },
+      "unsupported_claim_rate": {
+        "measured": true,
+        "value": 0.0,
+        "applicable": 8,
+        "denominator": 10,
+        "reason": null
+      },
+      "completeness": {
+        "measured": true,
+        "value": 1.0,
+        "applicable": 6,
+        "denominator": 10,
+        "reason": null
+      },
+      "subject_grade_accuracy": {
+        "measured": true,
+        "value": 1.0,
+        "applicable": 10,
+        "denominator": 10,
+        "reason": null
+      },
+      "evidence_abstention": {
+        "measured": true,
+        "value": 0.5,
+        "applicable": 2,
+        "denominator": 10,
+        "reason": null
+      },
+      "channel_integrity": {
+        "measured": false,
+        "value": null,
+        "applicable": 0,
+        "reason": "No applicable cases."
+      }
+    }
+  },
+  "approximate_metrics_v1": {
+    "factual_precision": {
+      "measured": true,
+      "value": 1.0,
+      "applicable": 2,
+      "denominator": 2,
+      "reason": null
+    },
+    "factual_recall": {
+      "measured": true,
+      "value": 0.6,
+      "applicable": 2,
+      "denominator": 2,
+      "reason": null
+    },
+    "unsupported_claim_rate": {
+      "measured": true,
+      "value": 0.0,
+      "applicable": 2,
+      "denominator": 2,
+      "reason": null
+    },
+    "completeness": {
+      "measured": true,
+      "value": 0.0,
+      "applicable": 2,
+      "denominator": 2,
+      "reason": null
+    },
+    "subject_grade_accuracy": {
+      "measured": true,
+      "value": 1.0,
+      "applicable": 2,
+      "denominator": 2,
+      "reason": null
+    },
+    "evidence_abstention": {
+      "measured": true,
+      "value": 1.0,
+      "applicable": 1,
+      "denominator": 2,
+      "reason": null
+    },
+    "channel_integrity": {
+      "measured": false,
+      "value": null,
+      "applicable": 0,
+      "reason": "No applicable cases."
+    }
+  },
+  "selector_difference_count": 0,
+  "cases": [
+    {
+      "id": "marcus-c4-science-first",
+      "group": "curriculum_lookup",
+      "question_match": "exact",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "execution": "rescored_historical",
+      "scoreability": "rescored_exact_historical_answer",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c4-science-not-integrated",
+        "agent_run_id": "run-19c5761f3a484b40",
+        "trace_question_matches_gold": true,
+        "source": "batch17"
+      },
+      "trace_question_matches": true,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "question_difference": null,
+      "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+      "official_v1": {
+        "case_id": "marcus-c4-science-first",
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "factual_recall": 0.0,
+        "factual_precision": null,
+        "completeness": null,
+        "evidence_abstention": null,
+        "subject_grade_accuracy": true,
+        "unsupported_claims": 0,
+        "unsupported_claim_rate": null,
+        "deterministic_pass": false,
+        "failure_categories": [
+          "semantic_review_required",
+          "scorer_dependent_wording_mismatch"
+        ],
+        "diagnostic_notes": [],
+        "termination_reason": "verification_passed",
+        "scored": true
+      },
+      "secondary": {
+        "curriculum-qa-gold-scoring-v2": {
+          "case_id": "marcus-c4-science-first",
+          "scoring_version": "curriculum-qa-gold-scoring-v2",
+          "factual_recall": 0.0,
+          "factual_precision": null,
+          "completeness": null,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": null,
+          "deterministic_pass": false,
+          "failure_categories": [
+            "semantic_review_required",
+            "scorer_dependent_wording_mismatch"
+          ],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        },
+        "curriculum-qa-gold-scoring-v3": {
+          "case_id": "marcus-c4-science-first",
+          "scoring_version": "curriculum-qa-gold-scoring-v3",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": null,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        }
+      },
+      "selector_result": "no selector difference"
+    },
+    {
+      "id": "marcus-jss1-is-first",
+      "group": "curriculum_lookup",
+      "question_match": "exact",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "execution": "rescored_historical",
+      "scoreability": "rescored_exact_historical_answer",
+      "evidence_provenance": {
+        "historical_case_id": "gold-jss1-integrated-science-first-unit",
+        "agent_run_id": "run-85f1bfcdeb5c4a45",
+        "trace_question_matches_gold": true,
+        "source": "batch17"
+      },
+      "trace_question_matches": true,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "question_difference": null,
+      "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+      "official_v1": {
+        "case_id": "marcus-jss1-is-first",
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "factual_recall": 1.0,
+        "factual_precision": 1.0,
+        "completeness": null,
+        "evidence_abstention": null,
+        "subject_grade_accuracy": true,
+        "unsupported_claims": 0,
+        "unsupported_claim_rate": 0.0,
+        "deterministic_pass": true,
+        "failure_categories": [],
+        "diagnostic_notes": [],
+        "termination_reason": "verification_passed",
+        "scored": true
+      },
+      "secondary": {
+        "curriculum-qa-gold-scoring-v2": {
+          "case_id": "marcus-jss1-is-first",
+          "scoring_version": "curriculum-qa-gold-scoring-v2",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": null,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        },
+        "curriculum-qa-gold-scoring-v3": {
+          "case_id": "marcus-jss1-is-first",
+          "scoring_version": "curriculum-qa-gold-scoring-v3",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": null,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        }
+      },
+      "selector_result": "no selector difference"
+    },
+    {
+      "id": "marcus-bio-intro-topics",
+      "group": "curriculum_lookup",
+      "question_match": "exact",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "execution": "rescored_historical",
+      "scoreability": "rescored_exact_historical_answer",
+      "evidence_provenance": {
+        "historical_case_id": "gold-sss1-bio-intro-topics-complete",
+        "agent_run_id": "run-fa1598b1495744b3",
+        "trace_question_matches_gold": true,
+        "source": "batch17"
+      },
+      "trace_question_matches": true,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "question_difference": null,
+      "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+      "official_v1": {
+        "case_id": "marcus-bio-intro-topics",
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "factual_recall": 1.0,
+        "factual_precision": 1.0,
+        "completeness": true,
+        "evidence_abstention": null,
+        "subject_grade_accuracy": true,
+        "unsupported_claims": 0,
+        "unsupported_claim_rate": 0.0,
+        "deterministic_pass": true,
+        "failure_categories": [
+          "factual_pass_verifier_disagreement"
+        ],
+        "diagnostic_notes": [
+          "Gold topic-list facts passed and verification did not accept the turn. This does not establish that the verifier rejected those topic sentences."
+        ],
+        "termination_reason": "no_retrieval_progress",
+        "scored": true
+      },
+      "secondary": {
+        "curriculum-qa-gold-scoring-v2": {
+          "case_id": "marcus-bio-intro-topics",
+          "scoring_version": "curriculum-qa-gold-scoring-v2",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [
+            "factual_pass_verifier_disagreement"
+          ],
+          "diagnostic_notes": [
+            "Gold topic-list facts passed and verification did not accept the turn. This does not establish that the verifier rejected those topic sentences."
+          ],
+          "termination_reason": "no_retrieval_progress",
+          "scored": true
+        },
+        "curriculum-qa-gold-scoring-v3": {
+          "case_id": "marcus-bio-intro-topics",
+          "scoring_version": "curriculum-qa-gold-scoring-v3",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [
+            "factual_pass_verifier_disagreement"
+          ],
+          "diagnostic_notes": [
+            "Gold topic-list facts passed and verification did not accept the turn. This does not establish that the verifier rejected those topic sentences."
+          ],
+          "termination_reason": "no_retrieval_progress",
+          "scored": true
+        }
+      },
+      "selector_result": "no selector difference"
+    },
+    {
+      "id": "marcus-c4-math-u01-identity",
+      "group": "curriculum_lookup",
+      "question_match": "not_comparable",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "execution": "not_executed",
+      "scoreability": "scoreable_when_a_live_answer_exists",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c4-math-units-complete",
+        "agent_run_id": "run-e47c52abf5bc413b",
+        "trace_question_matches_gold": true,
+        "source": null
+      },
+      "trace_question_matches": false,
+      "comparability": "Identity pairs copied from the frozen unit list. Answer not transferable.",
+      "question_difference": "The historical question asks for every Class 4 Mathematics unit. This lookup asks only for units whose stored name is exactly Number and Numeration. The saved 27-unit answer is not scored here.",
+      "official_scoring_version": null,
+      "official_v1": null,
+      "secondary": null,
+      "selector_result": "no selector difference"
+    },
+    {
+      "id": "marcus-c4-u12-absent",
+      "group": "curriculum_lookup",
+      "question_match": "none",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "execution": "not_executed",
+      "scoreability": "scoreable_when_a_live_answer_exists",
+      "evidence_provenance": {
+        "historical_case_id": null,
+        "agent_run_id": null,
+        "trace_question_matches_gold": false,
+        "source": null
+      },
+      "trace_question_matches": false,
+      "comparability": null,
+      "question_difference": null,
+      "official_scoring_version": null,
+      "official_v1": null,
+      "secondary": null,
+      "selector_result": "no saved evidence bag"
+    },
+    {
+      "id": "marcus-c4-english-subject",
+      "group": "curriculum_lookup",
+      "question_match": "none",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "execution": "not_executed",
+      "scoreability": "scoreable_when_a_live_answer_exists",
+      "evidence_provenance": {
+        "historical_case_id": null,
+        "agent_run_id": null,
+        "trace_question_matches_gold": false,
+        "source": null
+      },
+      "trace_question_matches": false,
+      "comparability": null,
+      "question_difference": null,
+      "official_scoring_version": null,
+      "official_v1": null,
+      "secondary": null,
+      "selector_result": "no saved evidence bag"
+    },
+    {
+      "id": "marcus-c4-science-all",
+      "group": "complete_list",
+      "question_match": "exact",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "execution": "rescored_historical",
+      "scoreability": "rescored_exact_historical_answer",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c4-science-content-complete",
+        "agent_run_id": "run-4d1b31b287a2493c",
+        "trace_question_matches_gold": true,
+        "source": "batch17"
+      },
+      "trace_question_matches": true,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "question_difference": null,
+      "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+      "official_v1": {
+        "case_id": "marcus-c4-science-all",
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "factual_recall": 1.0,
+        "factual_precision": 1.0,
+        "completeness": true,
+        "evidence_abstention": null,
+        "subject_grade_accuracy": true,
+        "unsupported_claims": 0,
+        "unsupported_claim_rate": 0.0,
+        "deterministic_pass": true,
+        "failure_categories": [],
+        "diagnostic_notes": [],
+        "termination_reason": "verification_passed",
+        "scored": true
+      },
+      "secondary": {
+        "curriculum-qa-gold-scoring-v2": {
+          "case_id": "marcus-c4-science-all",
+          "scoring_version": "curriculum-qa-gold-scoring-v2",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        },
+        "curriculum-qa-gold-scoring-v3": {
+          "case_id": "marcus-c4-science-all",
+          "scoring_version": "curriculum-qa-gold-scoring-v3",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        }
+      },
+      "selector_result": "no selector difference"
+    },
+    {
+      "id": "marcus-c4-math-units",
+      "group": "complete_list",
+      "question_match": "exact",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "execution": "rescored_historical",
+      "scoreability": "rescored_exact_historical_answer",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c4-math-units-complete",
+        "agent_run_id": "run-e47c52abf5bc413b",
+        "trace_question_matches_gold": true,
+        "source": "batch17"
+      },
+      "trace_question_matches": true,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "question_difference": null,
+      "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+      "official_v1": {
+        "case_id": "marcus-c4-math-units",
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "factual_recall": 1.0,
+        "factual_precision": 1.0,
+        "completeness": true,
+        "evidence_abstention": null,
+        "subject_grade_accuracy": true,
+        "unsupported_claims": 0,
+        "unsupported_claim_rate": 0.0,
+        "deterministic_pass": true,
+        "failure_categories": [],
+        "diagnostic_notes": [],
+        "termination_reason": "verification_passed",
+        "scored": true
+      },
+      "secondary": {
+        "curriculum-qa-gold-scoring-v2": {
+          "case_id": "marcus-c4-math-units",
+          "scoring_version": "curriculum-qa-gold-scoring-v2",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        },
+        "curriculum-qa-gold-scoring-v3": {
+          "case_id": "marcus-c4-math-units",
+          "scoring_version": "curriculum-qa-gold-scoring-v3",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        }
+      },
+      "selector_result": "no saved evidence bag"
+    },
+    {
+      "id": "marcus-c4-u01-outcomes",
+      "group": "complete_list",
+      "question_match": "approximate",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": true,
+      "execution": "approximate_rescore",
+      "scoreability": "rescored_approximate_historical_answer",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c4-math-u01-outcomes-complete",
+        "agent_run_id": "run-ac7eae04ed904356",
+        "trace_question_matches_gold": true,
+        "source": "batch17"
+      },
+      "trace_question_matches": false,
+      "comparability": "Proposed wording drops ', Number and Numeration' from the historical question. The grade, subject, and five outcome facts are the same. The saved answer was produced for the longer question, so it is an approximate rescore, not an exact one.",
+      "question_difference": "Proposed wording drops ', Number and Numeration' from the historical question. The grade, subject, and five outcome facts are the same. The saved answer was produced for the longer question, so it is an approximate rescore, not an exact one.",
+      "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+      "official_v1": {
+        "case_id": "marcus-c4-u01-outcomes",
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "factual_recall": 0.6,
+        "factual_precision": 1.0,
+        "completeness": false,
+        "evidence_abstention": null,
+        "subject_grade_accuracy": true,
+        "unsupported_claims": 0,
+        "unsupported_claim_rate": 0.0,
+        "deterministic_pass": false,
+        "failure_categories": [
+          "scorer_dependent_wording_mismatch"
+        ],
+        "diagnostic_notes": [],
+        "termination_reason": "verification_passed",
+        "scored": true
+      },
+      "secondary": {
+        "curriculum-qa-gold-scoring-v2": {
+          "case_id": "marcus-c4-u01-outcomes",
+          "scoring_version": "curriculum-qa-gold-scoring-v2",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        },
+        "curriculum-qa-gold-scoring-v3": {
+          "case_id": "marcus-c4-u01-outcomes",
+          "scoring_version": "curriculum-qa-gold-scoring-v3",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        }
+      },
+      "selector_result": "no selector difference"
+    },
+    {
+      "id": "marcus-c3-u15-outcomes",
+      "group": "complete_list",
+      "question_match": "exact",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "execution": "rescored_historical",
+      "scoreability": "rescored_exact_historical_answer",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c3-math-u15-outcomes-complete",
+        "agent_run_id": "run-596133be02f5490c",
+        "trace_question_matches_gold": true,
+        "source": "batch17"
+      },
+      "trace_question_matches": true,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "question_difference": null,
+      "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+      "official_v1": {
+        "case_id": "marcus-c3-u15-outcomes",
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "factual_recall": 0.6,
+        "factual_precision": 1.0,
+        "completeness": false,
+        "evidence_abstention": null,
+        "subject_grade_accuracy": true,
+        "unsupported_claims": 0,
+        "unsupported_claim_rate": 0.0,
+        "deterministic_pass": false,
+        "failure_categories": [
+          "scorer_dependent_wording_mismatch"
+        ],
+        "diagnostic_notes": [],
+        "termination_reason": "verification_passed",
+        "scored": true
+      },
+      "secondary": {
+        "curriculum-qa-gold-scoring-v2": {
+          "case_id": "marcus-c3-u15-outcomes",
+          "scoring_version": "curriculum-qa-gold-scoring-v2",
+          "factual_recall": 0.6,
+          "factual_precision": 1.0,
+          "completeness": false,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": false,
+          "failure_categories": [
+            "scorer_dependent_wording_mismatch"
+          ],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        },
+        "curriculum-qa-gold-scoring-v3": {
+          "case_id": "marcus-c3-u15-outcomes",
+          "scoring_version": "curriculum-qa-gold-scoring-v3",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        }
+      },
+      "selector_result": "no selector difference"
+    },
+    {
+      "id": "marcus-c4-solar-outcomes",
+      "group": "complete_list",
+      "question_match": "exact",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "execution": "rescored_historical",
+      "scoreability": "rescored_exact_historical_answer",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c4-science-solar-outcomes-complete",
+        "agent_run_id": "run-8db0b8cdd24643fc",
+        "trace_question_matches_gold": true,
+        "source": "batch17"
+      },
+      "trace_question_matches": true,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "question_difference": null,
+      "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+      "official_v1": {
+        "case_id": "marcus-c4-solar-outcomes",
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "factual_recall": 0.5714285714285714,
+        "factual_precision": 1.0,
+        "completeness": false,
+        "evidence_abstention": null,
+        "subject_grade_accuracy": true,
+        "unsupported_claims": 0,
+        "unsupported_claim_rate": 0.0,
+        "deterministic_pass": false,
+        "failure_categories": [
+          "scorer_dependent_wording_mismatch"
+        ],
+        "diagnostic_notes": [],
+        "termination_reason": "verification_passed",
+        "scored": true
+      },
+      "secondary": {
+        "curriculum-qa-gold-scoring-v2": {
+          "case_id": "marcus-c4-solar-outcomes",
+          "scoring_version": "curriculum-qa-gold-scoring-v2",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        },
+        "curriculum-qa-gold-scoring-v3": {
+          "case_id": "marcus-c4-solar-outcomes",
+          "scoring_version": "curriculum-qa-gold-scoring-v3",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        }
+      },
+      "selector_result": "no selector difference"
+    },
+    {
+      "id": "marcus-c4-ela-term1",
+      "group": "complete_list",
+      "question_match": "exact",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "execution": "rescored_historical",
+      "scoreability": "rescored_exact_historical_answer",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c4-ela-term1-units-complete",
+        "agent_run_id": "run-72f38e6d68a7472f",
+        "trace_question_matches_gold": true,
+        "source": "batch17"
+      },
+      "trace_question_matches": true,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "question_difference": null,
+      "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+      "official_v1": {
+        "case_id": "marcus-c4-ela-term1",
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "factual_recall": 1.0,
+        "factual_precision": 1.0,
+        "completeness": true,
+        "evidence_abstention": null,
+        "subject_grade_accuracy": true,
+        "unsupported_claims": 0,
+        "unsupported_claim_rate": 0.0,
+        "deterministic_pass": true,
+        "failure_categories": [],
+        "diagnostic_notes": [],
+        "termination_reason": "verification_passed",
+        "scored": true
+      },
+      "secondary": {
+        "curriculum-qa-gold-scoring-v2": {
+          "case_id": "marcus-c4-ela-term1",
+          "scoring_version": "curriculum-qa-gold-scoring-v2",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        },
+        "curriculum-qa-gold-scoring-v3": {
+          "case_id": "marcus-c4-ela-term1",
+          "scoring_version": "curriculum-qa-gold-scoring-v3",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": null,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        }
+      },
+      "selector_result": "no selector difference"
+    },
+    {
+      "id": "marcus-lesson-opener",
+      "group": "lesson_preparation",
+      "question_match": "not_applicable",
+      "ready_to_score": false,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "execution": "not_executed",
+      "scoreability": "not_factually_scoreable",
+      "evidence_provenance": {
+        "historical_case_id": null,
+        "agent_run_id": null,
+        "trace_question_matches_gold": false,
+        "source": null
+      },
+      "trace_question_matches": false,
+      "comparability": null,
+      "question_difference": null,
+      "official_scoring_version": null,
+      "official_v1": null,
+      "secondary": null,
+      "selector_result": "no saved evidence bag"
+    },
+    {
+      "id": "marcus-plan-unspecified",
+      "group": "lesson_preparation",
+      "question_match": "not_applicable",
+      "ready_to_score": false,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "execution": "not_executed",
+      "scoreability": "not_factually_scoreable",
+      "evidence_provenance": {
+        "historical_case_id": null,
+        "agent_run_id": null,
+        "trace_question_matches_gold": false,
+        "source": null
+      },
+      "trace_question_matches": false,
+      "comparability": null,
+      "question_difference": null,
+      "official_scoring_version": null,
+      "official_v1": null,
+      "secondary": null,
+      "selector_result": "no saved evidence bag"
+    },
+    {
+      "id": "marcus-teach-c4-u01",
+      "group": "lesson_preparation",
+      "question_match": "not_comparable",
+      "ready_to_score": false,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "execution": "not_executed",
+      "scoreability": "not_factually_scoreable",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c4-math-u01-outcomes-complete",
+        "agent_run_id": "run-ac7eae04ed904356",
+        "trace_question_matches_gold": true,
+        "source": null
+      },
+      "trace_question_matches": false,
+      "comparability": "Curriculum scope copied. No lesson answer is transferable.",
+      "question_difference": "The historical question asks for the published list. This question also asks for lesson preparation. The saved list answer is not a lesson answer and is not scored here.",
+      "official_scoring_version": null,
+      "official_v1": null,
+      "secondary": null,
+      "selector_result": "no saved evidence bag"
+    },
+    {
+      "id": "marcus-teach-solar",
+      "group": "lesson_preparation",
+      "question_match": "not_comparable",
+      "ready_to_score": false,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "execution": "not_executed",
+      "scoreability": "not_factually_scoreable",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c4-science-solar-outcomes-complete",
+        "agent_run_id": "run-8db0b8cdd24643fc",
+        "trace_question_matches_gold": true,
+        "source": null
+      },
+      "trace_question_matches": false,
+      "comparability": "Curriculum scope copied. No lesson answer is transferable.",
+      "question_difference": "The historical question asks for the published list. This question also asks for lesson preparation. The saved list answer is not a lesson answer and is not scored here.",
+      "official_scoring_version": null,
+      "official_v1": null,
+      "secondary": null,
+      "selector_result": "no saved evidence bag"
+    },
+    {
+      "id": "marcus-teach-bio-topics",
+      "group": "lesson_preparation",
+      "question_match": "not_comparable",
+      "ready_to_score": false,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "execution": "not_executed",
+      "scoreability": "not_factually_scoreable",
+      "evidence_provenance": {
+        "historical_case_id": "gold-sss1-bio-intro-topics-complete",
+        "agent_run_id": "run-fa1598b1495744b3",
+        "trace_question_matches_gold": true,
+        "source": null
+      },
+      "trace_question_matches": false,
+      "comparability": "Curriculum scope copied. No lesson answer is transferable.",
+      "question_difference": "The historical question asks for the published list. This question also asks for lesson preparation. The saved list answer is not a lesson answer and is not scored here.",
+      "official_scoring_version": null,
+      "official_v1": null,
+      "secondary": null,
+      "selector_result": "no saved evidence bag"
+    },
+    {
+      "id": "marcus-teach-fractions",
+      "group": "lesson_preparation",
+      "question_match": "none",
+      "ready_to_score": false,
+      "requires_fact_enumeration": true,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "execution": "not_executed",
+      "scoreability": "not_scoreable_until_facts_are_enumerated",
+      "evidence_provenance": {
+        "historical_case_id": null,
+        "agent_run_id": null,
+        "trace_question_matches_gold": false,
+        "source": null
+      },
+      "trace_question_matches": false,
+      "comparability": null,
+      "question_difference": null,
+      "official_scoring_version": null,
+      "official_v1": null,
+      "secondary": null,
+      "selector_result": "no saved evidence bag"
+    },
+    {
+      "id": "marcus-c4-french",
+      "group": "unavailable_source",
+      "question_match": "exact",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "execution": "rescored_historical",
+      "scoreability": "rescored_exact_historical_answer",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c4-french-subject-absent",
+        "agent_run_id": "run-3d2440bffe3c4615",
+        "trace_question_matches_gold": true,
+        "source": "batch17"
+      },
+      "trace_question_matches": true,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "question_difference": null,
+      "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+      "official_v1": {
+        "case_id": "marcus-c4-french",
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "factual_recall": null,
+        "factual_precision": null,
+        "completeness": null,
+        "evidence_abstention": true,
+        "subject_grade_accuracy": true,
+        "unsupported_claims": 0,
+        "unsupported_claim_rate": null,
+        "deterministic_pass": true,
+        "failure_categories": [
+          "factual_pass_verifier_disagreement"
+        ],
+        "diagnostic_notes": [
+          "Subject-mismatch stop with a passing abstention. Not an incorrect rejection."
+        ],
+        "termination_reason": "subject_mismatch",
+        "scored": true
+      },
+      "secondary": {
+        "curriculum-qa-gold-scoring-v2": {
+          "case_id": "marcus-c4-french",
+          "scoring_version": "curriculum-qa-gold-scoring-v2",
+          "factual_recall": null,
+          "factual_precision": null,
+          "completeness": null,
+          "evidence_abstention": true,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": null,
+          "deterministic_pass": true,
+          "failure_categories": [
+            "factual_pass_verifier_disagreement"
+          ],
+          "diagnostic_notes": [
+            "Subject-mismatch stop with a passing abstention. Not an incorrect rejection."
+          ],
+          "termination_reason": "subject_mismatch",
+          "scored": true
+        },
+        "curriculum-qa-gold-scoring-v3": {
+          "case_id": "marcus-c4-french",
+          "scoring_version": "curriculum-qa-gold-scoring-v3",
+          "factual_recall": null,
+          "factual_precision": null,
+          "completeness": null,
+          "evidence_abstention": true,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": null,
+          "deterministic_pass": true,
+          "failure_categories": [
+            "factual_pass_verifier_disagreement"
+          ],
+          "diagnostic_notes": [
+            "Subject-mismatch stop with a passing abstention. Not an incorrect rejection."
+          ],
+          "termination_reason": "subject_mismatch",
+          "scored": true
+        }
+      },
+      "selector_result": "no selector difference"
+    },
+    {
+      "id": "marcus-c4-astronomy",
+      "group": "unavailable_source",
+      "question_match": "exact",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": false,
+      "execution": "rescored_historical",
+      "scoreability": "rescored_exact_historical_answer",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c4-math-astronomy-absent",
+        "agent_run_id": "run-db00afc9ba6b4e61",
+        "trace_question_matches_gold": true,
+        "source": "batch17"
+      },
+      "trace_question_matches": true,
+      "comparability": "Exact question, grade, subject, and fact contract.",
+      "question_difference": null,
+      "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+      "official_v1": {
+        "case_id": "marcus-c4-astronomy",
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "factual_recall": null,
+        "factual_precision": null,
+        "completeness": null,
+        "evidence_abstention": false,
+        "subject_grade_accuracy": true,
+        "unsupported_claims": 0,
+        "unsupported_claim_rate": null,
+        "deterministic_pass": false,
+        "failure_categories": [
+          "verification_incorrectly_accepted",
+          "insufficient_evidence_behaviour_failed"
+        ],
+        "diagnostic_notes": [],
+        "termination_reason": "verification_passed",
+        "scored": true
+      },
+      "secondary": {
+        "curriculum-qa-gold-scoring-v2": {
+          "case_id": "marcus-c4-astronomy",
+          "scoring_version": "curriculum-qa-gold-scoring-v2",
+          "factual_recall": null,
+          "factual_precision": null,
+          "completeness": null,
+          "evidence_abstention": false,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": null,
+          "deterministic_pass": false,
+          "failure_categories": [
+            "verification_incorrectly_accepted",
+            "insufficient_evidence_behaviour_failed"
+          ],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        },
+        "curriculum-qa-gold-scoring-v3": {
+          "case_id": "marcus-c4-astronomy",
+          "scoring_version": "curriculum-qa-gold-scoring-v3",
+          "factual_recall": null,
+          "factual_precision": null,
+          "completeness": null,
+          "evidence_abstention": false,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": null,
+          "deterministic_pass": false,
+          "failure_categories": [
+            "verification_incorrectly_accepted",
+            "insufficient_evidence_behaviour_failed"
+          ],
+          "diagnostic_notes": [],
+          "termination_reason": "verification_passed",
+          "scored": true
+        }
+      },
+      "selector_result": "no selector difference"
+    },
+    {
+      "id": "marcus-c4-u01-periods",
+      "group": "unavailable_source",
+      "question_match": "approximate",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": true,
+      "requires_live_run": true,
+      "execution": "approximate_rescore",
+      "scoreability": "rescored_approximate_historical_answer",
+      "evidence_provenance": {
+        "historical_case_id": "gold-c4-math-u01-periods-partial",
+        "agent_run_id": "run-d0956adf417f4511",
+        "trace_question_matches_gold": true,
+        "source": "batch17"
+      },
+      "trace_question_matches": false,
+      "comparability": "Proposed wording is shorter than the historical question. Both ask for the C4-U01 outcomes and the recommended period count. The saved answer was produced for the longer question, so it is an approximate rescore, not an exact one.",
+      "question_difference": "Proposed wording is shorter than the historical question. Both ask for the C4-U01 outcomes and the recommended period count. The saved answer was produced for the longer question, so it is an approximate rescore, not an exact one.",
+      "official_scoring_version": "curriculum-qa-gold-scoring-v1",
+      "official_v1": {
+        "case_id": "marcus-c4-u01-periods",
+        "scoring_version": "curriculum-qa-gold-scoring-v1",
+        "factual_recall": 0.6,
+        "factual_precision": 1.0,
+        "completeness": false,
+        "evidence_abstention": true,
+        "subject_grade_accuracy": true,
+        "unsupported_claims": 0,
+        "unsupported_claim_rate": 0.0,
+        "deterministic_pass": false,
+        "failure_categories": [
+          "retrieval_missed_relevant_records"
+        ],
+        "diagnostic_notes": [],
+        "termination_reason": "no_retrieval_progress",
+        "scored": true
+      },
+      "secondary": {
+        "curriculum-qa-gold-scoring-v2": {
+          "case_id": "marcus-c4-u01-periods",
+          "scoring_version": "curriculum-qa-gold-scoring-v2",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": true,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [
+            "factual_pass_verifier_disagreement"
+          ],
+          "diagnostic_notes": [
+            "Missing-part abstention for a source field recorded as null. Not an incorrect rejection."
+          ],
+          "termination_reason": "no_retrieval_progress",
+          "scored": true
+        },
+        "curriculum-qa-gold-scoring-v3": {
+          "case_id": "marcus-c4-u01-periods",
+          "scoring_version": "curriculum-qa-gold-scoring-v3",
+          "factual_recall": 1.0,
+          "factual_precision": 1.0,
+          "completeness": true,
+          "evidence_abstention": true,
+          "subject_grade_accuracy": true,
+          "unsupported_claims": 0,
+          "unsupported_claim_rate": 0.0,
+          "deterministic_pass": true,
+          "failure_categories": [
+            "factual_pass_verifier_disagreement"
+          ],
+          "diagnostic_notes": [
+            "Missing-part abstention for a source field recorded as null. Not an incorrect rejection."
+          ],
+          "termination_reason": "no_retrieval_progress",
+          "scored": true
+        }
+      },
+      "selector_result": "no selector difference"
+    },
+    {
+      "id": "marcus-c4-integrated-science",
+      "group": "unavailable_source",
+      "question_match": "none",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "execution": "not_executed",
+      "scoreability": "scoreable_when_a_live_answer_exists",
+      "evidence_provenance": {
+        "historical_case_id": null,
+        "agent_run_id": null,
+        "trace_question_matches_gold": false,
+        "source": null
+      },
+      "trace_question_matches": false,
+      "comparability": null,
+      "question_difference": null,
+      "official_scoring_version": null,
+      "official_v1": null,
+      "secondary": null,
+      "selector_result": "no saved evidence bag"
+    },
+    {
+      "id": "marcus-p4-astronomy-subject",
+      "group": "unavailable_source",
+      "question_match": "none",
+      "ready_to_score": true,
+      "requires_fact_enumeration": false,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "execution": "not_executed",
+      "scoreability": "scoreable_when_a_live_answer_exists",
+      "evidence_provenance": {
+        "historical_case_id": null,
+        "agent_run_id": null,
+        "trace_question_matches_gold": false,
+        "source": null
+      },
+      "trace_question_matches": false,
+      "comparability": null,
+      "question_difference": null,
+      "official_scoring_version": null,
+      "official_v1": null,
+      "secondary": null,
+      "selector_result": "no saved evidence bag"
+    },
+    {
+      "id": "marcus-c4-french-appreciation",
+      "group": "unavailable_source",
+      "question_match": "none",
+      "ready_to_score": false,
+      "requires_fact_enumeration": true,
+      "saved_answer_available": false,
+      "requires_live_run": true,
+      "execution": "not_executed",
+      "scoreability": "not_scoreable_until_facts_are_enumerated",
+      "evidence_provenance": {
+        "historical_case_id": null,
+        "agent_run_id": null,
+        "trace_question_matches_gold": false,
+        "source": null
+      },
+      "trace_question_matches": false,
+      "comparability": null,
+      "question_difference": null,
+      "official_scoring_version": null,
+      "official_v1": null,
+      "secondary": null,
+      "selector_result": "no saved evidence bag"
+    }
+  ],
+  "selector_audit": [
+    {
+      "historical_case_id": "gold-c4-science-not-integrated",
+      "agent_run_id": "run-19c5761f3a484b40",
+      "question_purpose": "unknown",
+      "evidence_records": 29,
+      "purpose_omitted_count": 24,
+      "purpose_aware_count": 24,
+      "ids_and_order_equal": true,
+      "result": "no selector difference",
+      "counted_as_improvement": false
+    },
+    {
+      "historical_case_id": "gold-jss1-integrated-science-first-unit",
+      "agent_run_id": "run-85f1bfcdeb5c4a45",
+      "question_purpose": "unknown",
+      "evidence_records": 42,
+      "purpose_omitted_count": 24,
+      "purpose_aware_count": 24,
+      "ids_and_order_equal": true,
+      "result": "no selector difference",
+      "counted_as_improvement": false
+    },
+    {
+      "historical_case_id": "gold-sss1-bio-intro-topics-complete",
+      "agent_run_id": "run-fa1598b1495744b3",
+      "question_purpose": "topic_list",
+      "evidence_records": 44,
+      "purpose_omitted_count": 24,
+      "purpose_aware_count": 24,
+      "ids_and_order_equal": true,
+      "result": "no selector difference",
+      "counted_as_improvement": false
+    },
+    {
+      "historical_case_id": "gold-c4-math-units-complete",
+      "agent_run_id": "run-e47c52abf5bc413b",
+      "question_purpose": "unknown",
+      "evidence_records": 27,
+      "purpose_omitted_count": 18,
+      "purpose_aware_count": 18,
+      "ids_and_order_equal": true,
+      "result": "no selector difference",
+      "counted_as_improvement": false
+    },
+    {
+      "historical_case_id": "gold-c4-science-content-complete",
+      "agent_run_id": "run-4d1b31b287a2493c",
+      "question_purpose": "unknown",
+      "evidence_records": 24,
+      "purpose_omitted_count": 24,
+      "purpose_aware_count": 24,
+      "ids_and_order_equal": true,
+      "result": "no selector difference",
+      "counted_as_improvement": false
+    },
+    {
+      "historical_case_id": "gold-c4-math-u01-outcomes-complete",
+      "agent_run_id": "run-ac7eae04ed904356",
+      "question_purpose": "learning_outcome_list",
+      "evidence_records": 6,
+      "purpose_omitted_count": 6,
+      "purpose_aware_count": 6,
+      "ids_and_order_equal": true,
+      "result": "no selector difference",
+      "counted_as_improvement": false
+    },
+    {
+      "historical_case_id": "gold-c3-math-u15-outcomes-complete",
+      "agent_run_id": "run-596133be02f5490c",
+      "question_purpose": "learning_outcome_list",
+      "evidence_records": 6,
+      "purpose_omitted_count": 6,
+      "purpose_aware_count": 6,
+      "ids_and_order_equal": true,
+      "result": "no selector difference",
+      "counted_as_improvement": false
+    },
+    {
+      "historical_case_id": "gold-c4-science-solar-outcomes-complete",
+      "agent_run_id": "run-8db0b8cdd24643fc",
+      "question_purpose": "learning_outcome_list",
+      "evidence_records": 8,
+      "purpose_omitted_count": 8,
+      "purpose_aware_count": 8,
+      "ids_and_order_equal": true,
+      "result": "no selector difference",
+      "counted_as_improvement": false
+    },
+    {
+      "historical_case_id": "gold-c4-ela-term1-units-complete",
+      "agent_run_id": "run-72f38e6d68a7472f",
+      "question_purpose": "unknown",
+      "evidence_records": 33,
+      "purpose_omitted_count": 24,
+      "purpose_aware_count": 24,
+      "ids_and_order_equal": true,
+      "result": "no selector difference",
+      "counted_as_improvement": false
+    },
+    {
+      "historical_case_id": "gold-c4-french-subject-absent",
+      "agent_run_id": "run-3d2440bffe3c4615",
+      "question_purpose": "unknown",
+      "evidence_records": 14,
+      "purpose_omitted_count": 14,
+      "purpose_aware_count": 14,
+      "ids_and_order_equal": true,
+      "result": "no selector difference",
+      "counted_as_improvement": false
+    },
+    {
+      "historical_case_id": "gold-c4-math-astronomy-absent",
+      "agent_run_id": "run-db00afc9ba6b4e61",
+      "question_purpose": "unknown",
+      "evidence_records": 27,
+      "purpose_omitted_count": 18,
+      "purpose_aware_count": 18,
+      "ids_and_order_equal": true,
+      "result": "no selector difference",
+      "counted_as_improvement": false
+    },
+    {
+      "historical_case_id": "gold-c4-math-u01-periods-partial",
+      "agent_run_id": "run-d0956adf417f4511",
+      "question_purpose": "learning_outcome_list",
+      "evidence_records": 32,
+      "purpose_omitted_count": 23,
+      "purpose_aware_count": 23,
+      "ids_and_order_equal": true,
+      "result": "no selector difference",
+      "counted_as_improvement": false
+    }
+  ]
+}

@@ -31,6 +31,10 @@ from app.agent.generation_policy import (
     question_requests_identifiers,
     redact_internal_identifiers,
 )
+from app.agent.question_purpose import (
+    PURPOSE_LEARNING_OUTCOME_LIST,
+    coerce_question_purpose,
+)
 
 logger = get_logger(__name__)
 
@@ -123,7 +127,11 @@ class AnswerGenerator:
 
         result = self._apply_evidence_constraints(state, result)
         if not question_requests_identifiers(state.question):
-            cleaned = redact_internal_identifiers(result.answer, state.evidence)
+            cleaned = redact_internal_identifiers(
+                result.answer,
+                state.evidence,
+                question=state.question,
+            )
             if cleaned != (result.answer or "").strip():
                 result = result.model_copy(
                     update={
@@ -203,11 +211,18 @@ class AnswerGenerator:
     ) -> list[LLMMessage]:
         history = self._format_conversation_history(conversation)
         filters = self._format_filters(state)
+        question_purpose = coerce_question_purpose(
+            (state.metadata or {}).get("question_purpose")
+        )
         ranked, generation_ids = select_evidence_for_prompt(
-            state.evidence, question=state.question
+            state.evidence,
+            question=state.question,
+            question_purpose=question_purpose,
         )
         evidence_block = format_evidence_for_prompt(
-            state.evidence, question=state.question
+            state.evidence,
+            question=state.question,
+            question_purpose=question_purpose,
         )
         state.metadata["retrieved_evidence_count"] = len(state.evidence)
         state.metadata["generation_evidence_count"] = len(ranked)
@@ -2214,13 +2229,17 @@ def format_evidence_for_prompt(
     question: str | None = None,
     max_records: int = 24,
     prepared: list[CurriculumEvidence] | None = None,
+    question_purpose: str | None = None,
 ) -> str:
     """Render retrieved evidence with hierarchy for the LLM prompt."""
     if prepared is not None:
         ranked = list(prepared)
     else:
         ranked, _ids = select_evidence_for_prompt(
-            evidence, question=question, max_records=max_records
+            evidence,
+            question=question,
+            max_records=max_records,
+            question_purpose=question_purpose,
         )
     if not ranked:
         return "(no curriculum evidence retrieved)"
@@ -2337,8 +2356,14 @@ def select_evidence_for_prompt(
     *,
     question: str | None = None,
     max_records: int = 24,
+    question_purpose: str | None = None,
 ) -> tuple[list[CurriculumEvidence], list[str]]:
-    """Return ranked evidence rows supplied to the generator (and their ids)."""
+    """Return ranked evidence rows supplied to the generator (and their ids).
+
+    ``question_purpose`` is optional. Only ``learning_outcome_list`` adds
+    children of the single best-matching parent. Every other value, including
+    a missing or invalid one, keeps the lexical window and sibling fill.
+    """
     if not evidence:
         return [], []
     prepared = dedupe_units_for_generation(evidence, question=question)
@@ -2346,9 +2371,169 @@ def select_evidence_for_prompt(
     limit = max_records
     if _question_needs_each_coded_record(question):
         limit = max(max_records, min(len(ranked), 48))
-    ranked = ranked[:limit]
+    purpose = coerce_question_purpose(question_purpose)
+    if purpose == PURPOSE_LEARNING_OUTCOME_LIST:
+        ranked = _keep_listed_outcome_family(ranked, question=question, limit=limit)
+    else:
+        ranked = _keep_outcome_siblings(ranked, limit=limit)
     ids = [item.entity_id for item in ranked if item.entity_id]
     return ranked, ids
+
+
+def _outcome_parent_ids(item: CurriculumEvidence) -> set[str]:
+    if (item.entity_type or "").lower() != "learning_outcome":
+        return set()
+    parents: set[str] = set()
+    if item.topic:
+        parents.add(str(item.topic))
+    meta_parent = (item.metadata or {}).get("parent_id")
+    if meta_parent:
+        parents.add(str(meta_parent))
+    return parents
+
+
+def _in_outcome_family(item: CurriculumEvidence, parents: set[str]) -> bool:
+    if item.entity_id and item.entity_id in parents:
+        return True
+    if item.topic and str(item.topic) in parents:
+        return True
+    meta_parent = (item.metadata or {}).get("parent_id")
+    return bool(meta_parent and str(meta_parent) in parents)
+
+
+def _keep_outcome_siblings(
+    ranked: list[CurriculumEvidence],
+    *,
+    limit: int,
+) -> list[CurriculumEvidence]:
+    """Keep retrieved siblings of an outcome the window already shows.
+
+    Lexical ranking can keep LO01 and LO05 and drop LO04. The verifier then
+    treats that numbering gap as missing evidence. Siblings replace
+    lower-ranked records from other parents. The window does not grow.
+    """
+    window = list(ranked[:limit])
+    parents: set[str] = set()
+    for item in window:
+        parents.update(_outcome_parent_ids(item))
+    if not parents:
+        return window
+    omitted = [
+        item
+        for item in ranked[limit:]
+        if _outcome_parent_ids(item) & parents
+    ]
+    if not omitted:
+        return window
+    omitted.sort(
+        key=lambda item: str((item.metadata or {}).get("code") or item.name or "")
+    )
+    displaceable = [item for item in window if not _in_outcome_family(item, parents)]
+    for sibling in omitted:
+        if not displaceable:
+            break
+        victim = displaceable.pop()
+        window[window.index(victim)] = sibling
+    return window
+
+
+def _keep_listed_outcome_family(
+    ranked: list[CurriculumEvidence],
+    *,
+    question: str | None,
+    limit: int,
+) -> list[CurriculumEvidence]:
+    """Admit children of the one parent that outranks every other parent.
+
+    A tie between parents keeps the ordinary sibling-fill window. Relationships
+    come only from an outcome's topic or parent id. The window does not grow.
+    """
+    window = _keep_outcome_siblings(ranked, limit=limit)
+    children_of: dict[str, list[CurriculumEvidence]] = {}
+    for item in ranked:
+        for parent_id in _outcome_parent_ids(item):
+            children_of.setdefault(parent_id, []).append(item)
+    parents = [
+        item
+        for item in ranked
+        if item.entity_id and item.entity_id in children_of
+    ]
+    if not parents:
+        return window
+    tokens = _rank_tokens(question)
+    scores = [_evidence_score(item, tokens) for item in parents]
+    best = max(scores)
+    leaders = [item for item, score in zip(parents, scores) if score == best]
+    if len(leaders) != 1:
+        return window
+    parent = leaders[0]
+    parent_ids = {str(parent.entity_id)}
+    window = list(window)
+    present = {item.entity_id for item in window if item.entity_id}
+    if parent.entity_id not in present:
+        if not _replace_last_outsider(window, parent, parent_ids):
+            return window
+        present.add(parent.entity_id)
+    omitted = [
+        item
+        for item in children_of[str(parent.entity_id)]
+        if item.entity_id not in present
+    ]
+    omitted.sort(
+        key=lambda item: str((item.metadata or {}).get("code") or item.name or "")
+    )
+    for child in omitted:
+        if child.entity_id and child.entity_id in present:
+            continue
+        if not _replace_last_outsider(window, child, parent_ids):
+            break
+        if child.entity_id:
+            present.add(child.entity_id)
+    return window
+
+
+def _replace_last_outsider(
+    window: list[CurriculumEvidence],
+    incoming: CurriculumEvidence,
+    parent_ids: set[str],
+) -> bool:
+    outsiders = [item for item in window if not _in_outcome_family(item, parent_ids)]
+    if not outsiders:
+        return False
+    victim = outsiders[-1]
+    window[window.index(victim)] = incoming
+    return True
+
+
+def _rank_tokens(question: str | None) -> set[str]:
+    return {
+        token
+        for token in re.findall(r"[a-z0-9]+", (question or "").lower())
+        if len(token) > 2 and token not in {"the", "and", "for", "what", "are"}
+    }
+
+
+def _evidence_score(
+    item: CurriculumEvidence, tokens: set[str]
+) -> tuple[int, int]:
+    hay = " ".join(
+        [
+            str(item.name or ""),
+            str(item.content or ""),
+            str(item.topic or ""),
+            str(item.entity_type or ""),
+            str((item.metadata or {}).get("code") or ""),
+        ]
+    ).lower()
+    hits = sum(1 for token in tokens if token in hay)
+    # Prefer learning outcomes / units when present.
+    type_bonus = 1 if (item.entity_type or "").lower() in {
+        "learning_outcome",
+        "unit",
+        "topic",
+        "subtopic",
+    } else 0
+    return (hits, type_bonus)
 
 
 def _rank_evidence(
@@ -2358,35 +2543,10 @@ def _rank_evidence(
 ) -> list[CurriculumEvidence]:
     if not question:
         return list(evidence)
-    tokens = {
-        token
-        for token in re.findall(r"[a-z0-9]+", question.lower())
-        if len(token) > 2 and token not in {"the", "and", "for", "what", "are"}
-    }
+    tokens = _rank_tokens(question)
     if not tokens:
         return list(evidence)
-
-    def score(item: CurriculumEvidence) -> tuple[int, int]:
-        hay = " ".join(
-            [
-                str(item.name or ""),
-                str(item.content or ""),
-                str(item.topic or ""),
-                str(item.entity_type or ""),
-                str((item.metadata or {}).get("code") or ""),
-            ]
-        ).lower()
-        hits = sum(1 for token in tokens if token in hay)
-        # Prefer learning outcomes / units when present.
-        type_bonus = 1 if (item.entity_type or "").lower() in {
-            "learning_outcome",
-            "unit",
-            "topic",
-            "subtopic",
-        } else 0
-        return (hits, type_bonus)
-
-    return sorted(evidence, key=score, reverse=True)
+    return sorted(evidence, key=lambda item: _evidence_score(item, tokens), reverse=True)
 
 
 def _extract_answer_text(raw: dict[str, Any]) -> str:
